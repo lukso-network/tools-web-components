@@ -3,9 +3,11 @@ import path from "path";
 export default {
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"),
-      name: "Lukso Components",
-      fileName: (format) => `lukso-components.${format}.js`,
+      entry: {
+        index: "./src/index.ts",
+        button: "./src/test/test.component.ts",
+        button2: "./src/test2/test2.component.ts",
+      },
     },
   },
 };

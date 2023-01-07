@@ -1,2 +1,3 @@
-export * from "./test/test.component";
-export * from "./test2/test2.component";
+// DO NOT MODIFY MANUALLY
+export * from "./components/test/index"
+export * from "./components/test2/index"

@@ -1,6 +1,6 @@
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { TailwindElement } from "../shared/tailwind.element";
+import { TailwindElement } from "../../shared/tailwind.element";
 import { animate, AnimateController, flyBelow, fade } from "@lit-labs/motion";
 import { classMap } from "lit/directives/class-map.js";
 

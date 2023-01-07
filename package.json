@@ -8,16 +8,16 @@
   "module": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     },
-    "./button": {
-      "import": "./dist/button.js",
-      "require": "./dist/button.cjs"
+    "./test": {
+      "require": "./dist/test.cjs",
+      "import": "./dist/test.js"
     },
-    "./button2": {
-      "import": "./dist/button2.js",
-      "require": "./dist/button2.cjs"
+    "./test2": {
+      "require": "./dist/test2.cjs",
+      "import": "./dist/test2.js"
     }
   },
   "version": "1.0.1",

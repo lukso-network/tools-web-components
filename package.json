@@ -1,5 +1,17 @@
 {
-  "name": "butopen-web-components-tailwind-starter-kit",
+  "name": "lukso-components",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/lukso-components.umd.cjs",
+  "module": "./dist/lukso-components.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/lukso-components.es.js",
+      "require": "./dist/lukso-components.umd.cjs"
+    }
+  },
   "version": "1.0.1",
   "scripts": {
     "start": "vite dev --host",

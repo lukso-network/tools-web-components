@@ -46,7 +46,11 @@ export class TestComponent extends TailwindElement(style) {
         <b>${this.name}</b>
         !
       </p>
-      <button @click=${this._onClick} class="${classMap(classes)}" ${animate()}>
+      <button
+        @click=${this._onClick}
+        class="hover:text-yellow-700 ${classMap(classes)}"
+        ${animate()}
+      >
         Hello world! 2
       </button>
     `;

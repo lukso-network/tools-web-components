@@ -97,7 +97,6 @@ export async function createLib() {
   const ents = {
     index: "./src/index.ts",
   };
-  console.log(list);
   for (const { name, entry } of list) {
     ents[name] = entry;
   }
@@ -105,7 +104,6 @@ export async function createLib() {
     entry: ents,
     name: "Lukso Components",
   };
-  console.log(lib);
   return lib;
 }
 

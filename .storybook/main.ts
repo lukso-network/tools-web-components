@@ -14,38 +14,6 @@ module.exports = {
   docs: {
     autodocs: "tag",
   },
-  typescript: {
-    check: false,
-    checkOptions: {},
-    reactDocgen: "react-docgen-typescript",
-    reactDocgenTypescriptOptions: {
-      shouldExtractLiteralValuesFromEnum: true,
-      propFilter: (prop) =>
-        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
-    },
-  },
-  webpackFinal: async (config, { configType }) => {
-    // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
-    // You can change the configuration based on that.
-    // 'PRODUCTION' is used when building the static version of storybook.
-
-    // Make whatever fine-grained changes you need
-    config.module.rules.push({
-      test: /\.css|\.s(c|a)ss$/,
-      use: [
-        // "to-string-loader",
-        // "extract-loader",
-        "css-loader",
-        "postcss-loader",
-        "sass-loader",
-      ],
-    });
-    //    config.module.rules.push({ test: /\?inline$/, use: "raw-loader" });
-
-    // Return the altered config
-    return config;
-  },
-
   async viteFinal(config) {
     // Merge custom configuration into the default config
     return mergeConfig(config, {

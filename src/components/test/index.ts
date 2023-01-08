@@ -9,7 +9,7 @@ import style from "./test.component.scss?inline";
 @customElement("test-component")
 export class TestComponent extends TailwindElement(style) {
   @property()
-  name?: string = "World";
+  name: string = "World";
 
   @property()
   private clicked = false;

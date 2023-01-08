@@ -1,5 +1,5 @@
 import { html } from "lit-html";
-import { within, userEvent } from "@storybook/testing-library";
+import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import "./index";
 

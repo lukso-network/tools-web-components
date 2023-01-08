@@ -4,3 +4,4 @@
 *.scss.map
 dist
 node_modules
+/storybook-static

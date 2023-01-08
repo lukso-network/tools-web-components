@@ -31,7 +31,7 @@ export async function readDeps(dir, prefix = []) {
       }
     } else if (/components\//.test(dir) && /\.ts$/.test(file)) {
       if (file !== "index.ts") {
-        return;
+        continue;
       }
       const entry = `./${path.join(dir, file)}`;
       output.push({
@@ -109,7 +109,7 @@ export async function createLib() {
   return lib;
 }
 
-export default defineConfig(async ({ command, mode }) => {
+export const Default = defineConfig(async ({ command, mode }) => {
   const lib = await createLib();
   return {
     build: {
@@ -117,3 +117,4 @@ export default defineConfig(async ({ command, mode }) => {
     },
   };
 });
+export default Default;

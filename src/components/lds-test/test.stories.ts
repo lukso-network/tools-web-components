@@ -7,7 +7,7 @@ export default {
   title: 'Test',
 }
 
-export function Primary({disabled}) {
+export function Primary({ disabled }) {
   return html`<lds-test ?disabled=${disabled}>Hello World</lds-test>`
 }
 

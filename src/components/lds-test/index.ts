@@ -14,7 +14,7 @@ export class TestComponent extends TailwindElement(style) {
   @property()
   private clicked = false
 
-  @property({type:Boolean})
+  @property({ type: Boolean })
   disabled = false
 
   duration = 1000
@@ -44,7 +44,7 @@ export class TestComponent extends TailwindElement(style) {
       'rounded-full': true,
       'text-2xl': true,
       'bg-blue-800': this.clicked && !this.disabled,
-      'bg-blue-200': !this.clicked&& !this.disabled,
+      'bg-blue-200': !this.clicked && !this.disabled,
     }
     return html`
       <p>

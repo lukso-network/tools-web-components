@@ -1,19 +1,23 @@
-const { mergeConfig } = require("vite");
-const path = require("path");
+const { mergeConfig } = require('vite')
+const path = require('path')
 
 module.exports = {
-  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
-  addons: ["@storybook/addon-links", "@storybook/addon-essentials", '@storybook/addon-interactions'],
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+  ],
   framework: {
-    name: "@storybook/web-components-vite",
+    name: '@storybook/web-components-vite',
     options: {},
   },
   core: {
-    builder: "@storybook/builder-vite",
+    builder: '@storybook/builder-vite',
   },
   base: process.env.STORYBOOK_BASE_URL || '/',
   docs: {
-    autodocs: "tag",
+    autodocs: 'tag',
   },
   features: {
     interactionsDebugger: true, // 👈 Enable playback controls
@@ -23,8 +27,8 @@ module.exports = {
     return mergeConfig(config, {
       // Add dependencies to pre-optimization
       optimizeDeps: {
-        include: ["storybook-dark-mode"],
+        include: ['storybook-dark-mode'],
       },
-    });
+    })
   },
-};
+}

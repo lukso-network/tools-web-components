@@ -1,13 +1,13 @@
-import { html } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import { TailwindElement } from "../../shared/tailwind.element";
+import { html } from 'lit'
+import { customElement, property } from 'lit/decorators.js'
 
-import style from "./test2.component.scss?inline";
+import { TailwindElement } from '../../shared/tailwind.element'
+import style from './test2.component.scss?inline'
 
-@customElement("lds-test2")
+@customElement('lds-test2')
 export class Test2Component extends TailwindElement(style) {
   @property()
-  name: string = "World";
+  name = 'World'
 
   render() {
     return html`
@@ -19,6 +19,6 @@ export class Test2Component extends TailwindElement(style) {
       <button class="bg-orange-200 text-violet-700 p-4 rounded-full text-2xl">
         Hello world!
       </button>
-    `;
+    `
   }
 }

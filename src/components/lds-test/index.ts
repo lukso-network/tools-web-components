@@ -1,45 +1,45 @@
-import { html } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import { TailwindElement } from "../../shared/tailwind.element";
-import { animate, AnimateController, flyBelow, fade } from "@lit-labs/motion";
-import { classMap } from "lit/directives/class-map.js";
+import { html } from 'lit'
+import { customElement, property } from 'lit/decorators.js'
+import { animate, AnimateController } from '@lit-labs/motion'
+import { classMap } from 'lit/directives/class-map.js'
 
-import style from "./test.component.scss?inline";
+import { TailwindElement } from '../../shared/tailwind.element'
+import style from './test.component.scss?inline'
 
-@customElement("lds-test")
+@customElement('lds-test')
 export class TestComponent extends TailwindElement(style) {
   @property()
-  name: string = "World";
+  name = 'World'
 
   @property()
-  private clicked = false;
+  private clicked = false
 
-  duration = 1000;
+  duration = 1000
   controller = new AnimateController(this, {
     defaultOptions: {
       keyframeOptions: {
         duration: this.duration,
-        fill: "backwards",
+        fill: 'backwards',
       },
     },
-  });
+  })
 
   _onClick() {
-    this.clicked = true;
+    this.clicked = true
     setTimeout(() => {
-      this.clicked = false;
-    }, 2000);
+      this.clicked = false
+    }, 2000)
   }
 
   render() {
     const classes = {
-      "text-yellow-200": true,
-      "p-2": true,
-      "rounded-full": true,
-      "text-2xl": true,
-      "bg-blue-800": this.clicked,
-      "bg-blue-200": !this.clicked,
-    };
+      'text-yellow-200': true,
+      'p-2': true,
+      'rounded-full': true,
+      'text-2xl': true,
+      'bg-blue-800': this.clicked,
+      'bg-blue-200': !this.clicked,
+    }
     return html`
       <p>
         Hello,
@@ -54,6 +54,6 @@ export class TestComponent extends TailwindElement(style) {
       >
         Hello world! 2
       </button>
-    `;
+    `
   }
 }

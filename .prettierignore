@@ -1,0 +1,19 @@
+# compiled output
+/dist/
+
+# dependencies
+/node_modules/
+/charts/
+
+# misc
+/coverage/
+!.*
+.eslintcache
+/src/translations/
+eslintrc
+.lintstagedrc.json
+tsconfig.json
+.eslintrc
+/dist/
+/storybook-static/
+/.yarn

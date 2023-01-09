@@ -21,7 +21,17 @@ jobs:
         if: github.event.action != 'closed'
         uses: actions/setup-node@v3
         with:
-          node-version: 16.16
+          node-version: 18.13.0
+      
+      - name: ⚙️ Install Yarn
+        if: github.event.action != 'closed'
+        run: npm install -g yarn
+
+      - name: 🎛 Setup Node
+        if: github.event.action != 'closed'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.13.0
           cache: 'yarn'
 
       - name: ⚙️ Install

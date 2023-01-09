@@ -14,12 +14,13 @@ No dependencies, based on [lit-element](https://lit.dev/docs/).
 Although the original form of the project suggests pnpm, storybook is not so happy
 using linked npms.
 
-Please run `npm install`
-And then use scripts as `npm run <SCRIPT>`
+Please run `yarn install`
+And then use scripts as `yarn <SCRIPT>`
 
 ## Storybook
 
-To use storybook do `npm run storybook`
+To use storybook do `yarn storybook` and `yarn build-storybook`.
+There is a `yarn test-storybook` but that's still having problems.
 
 ## How will you create a tailwind component?
 Here is a sample code:
@@ -63,9 +64,9 @@ A _TailwindElement_ extends a _LitElmement_ (see below) and adds the logic to in
 ## Get started
 
 To run the project:
-1) `npm install` (only the first time)
-2) `npm start` to run the server
-3) to develop the library, run `npm build` and copy the static assets where you need them.
+1) `yarn install` (only the first time)
+2) `yarn start` to run the server
+3) to develop the library, run `yarn build` and copy the static assets where you need them.
 
 You may clone this repo and start developing your components by looking at the _test.component_ as reference.
 

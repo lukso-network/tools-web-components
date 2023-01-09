@@ -14,6 +14,9 @@ export class TestComponent extends TailwindElement(style) {
   @property()
   private clicked = false
 
+  @property({type:Boolean})
+  disabled = false
+
   duration = 1000
   controller = new AnimateController(this, {
     defaultOptions: {
@@ -25,6 +28,9 @@ export class TestComponent extends TailwindElement(style) {
   })
 
   _onClick() {
+    if (this.disabled) {
+      return
+    }
     this.clicked = true
     setTimeout(() => {
       this.clicked = false
@@ -33,12 +39,12 @@ export class TestComponent extends TailwindElement(style) {
 
   render() {
     const classes = {
-      'text-yellow-200': true,
+      'text-yellow-200': !this.disabled,
       'p-2': true,
       'rounded-full': true,
       'text-2xl': true,
-      'bg-blue-800': this.clicked,
-      'bg-blue-200': !this.clicked,
+      'bg-blue-800': this.clicked && !this.disabled,
+      'bg-blue-200': !this.clicked&& !this.disabled,
     }
     return html`
       <p>
@@ -47,6 +53,7 @@ export class TestComponent extends TailwindElement(style) {
         !
       </p>
       <button
+        ?disabled=${this.disabled}
         data-testid="button"
         @click=${this._onClick}
         class="hover:text-yellow-700 ${classMap(classes)}"

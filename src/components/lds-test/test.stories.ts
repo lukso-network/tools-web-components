@@ -7,8 +7,12 @@ export default {
   title: 'Test',
 }
 
-export function Primary() {
-  return html`<lds-test>Hello World</lds-test>`
+export function Primary({disabled}) {
+  return html`<lds-test ?disabled=${disabled}>Hello World</lds-test>`
+}
+
+Primary.args = {
+  disabled: false,
 }
 
 Primary.play = async ({ canvasElement }) => {

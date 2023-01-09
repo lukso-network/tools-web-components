@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.13.0
-      
+
       - name: ⚙️ Install Yarn
         if: github.event.action != 'closed'
         run: npm install -g yarn

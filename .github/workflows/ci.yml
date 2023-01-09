@@ -49,9 +49,9 @@ jobs:
           npx playwright install-deps
           yarn test
 
-      - name: 🛠 Build (@/pr-preview/pr-${{ github.event.number }})
+      - name: 🛠 Build (@/lukso-components/pr-preview/pr-${{ github.event.number }})
         if: github.event.action != 'closed'
-        run: STORYBOOK_BASE_URL=/pr-preview/pr-${{ github.event.number }} yarn build-storybook
+        run: STORYBOOK_BASE_URL=/lukso-components/pr-preview/pr-${{ github.event.number }} yarn build-storybook
 
       - name: 🚢 Deploy preview
         uses: rossjrw/pr-preview-action@v1.2

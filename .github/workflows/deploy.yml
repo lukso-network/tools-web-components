@@ -38,6 +38,10 @@ jobs:
           yarn playwright install --with-deps
           yarn test
 
+      - name: 🛠 Build (@/lukso-components)
+        run: STORYBOOK_BASE_URL=/lukso-components yarn build-storybook
+
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:

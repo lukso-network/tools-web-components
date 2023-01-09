@@ -65,8 +65,8 @@ async function writeIndex() {
   await writeFile(
     path.join(__dirname, 'src/index.ts'),
     `// DO NOT MODIFY MANUALLY\n${list
-      .map(({ source }) => `export * from "${source}"`)
-      .join('\n')}`
+      .map(({ source }) => `export * from '${source}'`)
+      .join('\n')}\n`
   )
 }
 

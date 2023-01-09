@@ -1,6 +1,7 @@
 {
   "name": "@lukso/web-components",
   "type": "module",
+  "private": true,
   "files": [
     "dist"
   ],

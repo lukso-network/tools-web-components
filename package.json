@@ -1,5 +1,5 @@
 {
-  "name": "lukso-components",
+  "name": "@lukso/design-system",
   "type": "module",
   "files": [
     "dist"
@@ -11,13 +11,13 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
-    "./test": {
-      "require": "./dist/test.cjs",
-      "import": "./dist/test.js"
+    "./lds-test": {
+      "require": "./dist/lds-test.cjs",
+      "import": "./dist/lds-test.js"
     },
-    "./test2": {
-      "require": "./dist/test2.cjs",
-      "import": "./dist/test2.js"
+    "./lds-test2": {
+      "require": "./dist/lds-test2.cjs",
+      "import": "./dist/lds-test2.js"
     }
   },
   "version": "1.0.1",
@@ -28,7 +28,8 @@
     "lint": "eslint src --fix",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test-storybook": "test-storybook"
+    "test-storybook": "test-storybook",
+    "test": "yarn build-storybook && concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"http-server storybook-static --port 6006 --silent\" \"wait-on tcp:6006 && yarn test-storybook\""
   },
   "devDependencies": {
     "@lit-labs/motion": "^1.0.3",
@@ -42,6 +43,8 @@
     "@storybook/testing-library": "^0.0.13",
     "@storybook/web-components-vite": "^7.0.0-beta.21",
     "autoprefixer": "^10.4.13",
+    "concurrently": "^7.6.0",
+    "http-server": "^14.1.1",
     "lit": "^2.5.0",
     "lit-html": "^2.5.0",
     "postcss": "^8.4.21",
@@ -51,7 +54,8 @@
     "storybook": "^7.0.0-beta.21",
     "tailwindcss": "^3.2.4",
     "typescript": "^4.9.4",
-    "vite": "^4.0.4"
+    "vite": "^4.0.4",
+    "wait-on": "^7.0.1"
   },
   "packageManager": "yarn@3.3.1"
 }

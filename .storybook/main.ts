@@ -1,6 +1,6 @@
-import { mergeConfig } from "vite";
-
+const { mergeConfig } = require("vite");
 const path = require("path");
+
 module.exports = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: ["@storybook/addon-links", "@storybook/addon-essentials", '@storybook/addon-interactions'],
@@ -11,6 +11,7 @@ module.exports = {
   core: {
     builder: "@storybook/builder-vite",
   },
+  base: process.env.STORYBOOK_BASE_URL || '/',
   docs: {
     autodocs: "tag",
   },

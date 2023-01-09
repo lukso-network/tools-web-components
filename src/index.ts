@@ -1,3 +1,3 @@
 // DO NOT MODIFY MANUALLY
-export * from "./components/test/index"
-export * from "./components/test2/index"
+export * from "./components/lds-test/index"
+export * from "./components/lds-test2/index"

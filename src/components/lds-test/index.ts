@@ -6,7 +6,7 @@ import { classMap } from "lit/directives/class-map.js";
 
 import style from "./test.component.scss?inline";
 
-@customElement("test-component")
+@customElement("lds-test")
 export class TestComponent extends TailwindElement(style) {
   @property()
   name: string = "World";

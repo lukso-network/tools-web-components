@@ -5,4 +5,4 @@ export default {
   title: 'Test2',
 }
 
-export const Primary = () => html`<test2-component>Hello World</test2-component>`;
+export const Primary = () => html`<lds-test2>Hello World</lds-test2>`;

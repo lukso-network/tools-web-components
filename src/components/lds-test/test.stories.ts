@@ -8,7 +8,7 @@ export default {
 };
 
 export function Primary() {
-  return html`<test-component>Hello World</test-component>`;
+  return html`<lds-test>Hello World</lds-test>`;
 }
 
 Primary.play = async ({ canvasElement }) => {

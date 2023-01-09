@@ -9,6 +9,18 @@ We managed to find a way to make them work without hacks or weird tech: just com
 
 No dependencies, based on [lit-element](https://lit.dev/docs/).
 
+## Setup
+
+Although the original form of the project suggests pnpm, storybook is not so happy
+using linked npms.
+
+Please run `npm install`
+And then use scripts as `npm run <SCRIPT>`
+
+## Storybook
+
+To use storybook do `npm run storybook`
+
 ## How will you create a tailwind component?
 Here is a sample code:
 
@@ -51,9 +63,9 @@ A _TailwindElement_ extends a _LitElmement_ (see below) and adds the logic to in
 ## Get started
 
 To run the project:
-1) `pnpm install` (only the first time)
-2) `pnpm start` to run the server
-3) to develop the library, run `pnpm build` and copy the static assets where you need them.
+1) `npm install` (only the first time)
+2) `npm start` to run the server
+3) to develop the library, run `npm build` and copy the static assets where you need them.
 
 You may clone this repo and start developing your components by looking at the _test.component_ as reference.
 
@@ -68,7 +80,21 @@ As an alternative, and if you like to have control over every piece, do the foll
 
 That's all.
 
+## Folder structure
 
+Each folder in the src folder will become a published component.
+
+```text
+src
+  component1
+    index.ts
+  componrnt2
+    index.ts
+    styles.scss
+    test.stories.ts
+```
+
+The vite build script will automatically update package.json and the vite config to publish each of the components.
 
 
 ## Show me the pieces

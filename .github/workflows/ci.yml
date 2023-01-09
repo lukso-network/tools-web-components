@@ -46,6 +46,7 @@ jobs:
         if: github.event.action != 'closed'
         run: |
           yarn playwright install
+          npx playwright install-deps
           yarn test
 
       - name: 🛠 Build (@/pr-preview/pr-${{ github.event.number }})

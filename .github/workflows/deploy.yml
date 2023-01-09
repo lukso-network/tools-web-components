@@ -24,7 +24,9 @@ jobs:
         run: yarn lint
 
       - name: 🎨Test
-        run: yarn test
+        run: |
+          yarn playwright install
+          yarn test
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4

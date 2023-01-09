@@ -34,7 +34,9 @@ jobs:
 
       - name: 🎨Test
         if: github.event.action != 'closed'
-        run: yarn test
+        run: |
+          yarn playwright install
+          yarn test
 
       - name: 🛠 Build (@/pr-preview/pr-${{ github.event.number }})
         if: github.event.action != 'closed'

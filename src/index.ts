@@ -1,4 +1,3 @@
 // DO NOT MODIFY MANUALLY
-export * from './components/lds-button/index'
-export * from './components/lds-test/index'
-export * from './components/lds-test2/index'
+export * from './components/wc-button/index'
+export * from './components/wc-test/index'

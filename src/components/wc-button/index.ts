@@ -4,8 +4,8 @@ import { TailwindElement } from '../../shared/tailwind.element'
 import { AnimateController, flyBelow, fade } from '@lit-labs/motion'
 import { classMap } from 'lit/directives/class-map.js'
 
-@customElement('lds-button')
-export class LdsButtonComponent extends TailwindElement() {
+@customElement('wc-button')
+export class WcButton extends TailwindElement() {
   @property()
   variant: string = 'primary'
 

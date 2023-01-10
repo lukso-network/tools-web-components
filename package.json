@@ -12,17 +12,13 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
-    "./lds-button": {
-      "require": "./dist/lds-button.cjs",
-      "import": "./dist/lds-button.js"
+    "./wc-button": {
+      "require": "./dist/wc-button.cjs",
+      "import": "./dist/wc-button.js"
     },
-    "./lds-test": {
-      "require": "./dist/lds-test.cjs",
-      "import": "./dist/lds-test.js"
-    },
-    "./lds-test2": {
-      "require": "./dist/lds-test2.cjs",
-      "import": "./dist/lds-test2.js"
+    "./wc-test": {
+      "require": "./dist/wc-test.cjs",
+      "import": "./dist/wc-test.js"
     }
   },
   "version": "1.0.1",

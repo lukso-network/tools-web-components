@@ -6,11 +6,15 @@ import './index'
 
 export default {
   title: 'Test',
-  component: 'lds-test',
+  component: 'wc-test',
 }
 
 export function Primary({ disabled }) {
-  return html`<lds-test ?disabled=${disabled}>Hello World</lds-test>`
+  return html`<wc-test ?disabled=${disabled}>Hello World</wc-test>`
+}
+
+Primary.args = {
+  disabled: false,
 }
 
 Primary.play = async ({ canvasElement }) => {

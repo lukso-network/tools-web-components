@@ -6,7 +6,7 @@ import './index'
 
 export default {
   title: 'Test',
-  component: 'wc-test',
+  component: 'lukso-test',
 }
 
 export function Primary({ disabled }) {

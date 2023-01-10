@@ -5,18 +5,23 @@ import './index'
 
 export default {
   title: 'Design System/Button',
+  component: 'lukso-button',
 }
 
-export function Primary() {
-  return html`<lukso-button variant="primary" disabled="true"
+export function Primary({ variant, disabled }) {
+  return html`<lukso-button variant=${variant} ?disabled=${disabled}
     >Hello World</lukso-button
   >`
 }
-
-export function Secondary() {
-  return html`<lukso-button variant="secondary">Hello World</lukso-button>`
+Primary.args = {
+  variant: 'primary',
+  disabled: false,
 }
-
+Primary.argTypes = {
+  variant: {
+    options: ['primary', 'secondary'],
+  },
+}
 Primary.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 

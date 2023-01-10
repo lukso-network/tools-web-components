@@ -27,6 +27,106 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-button/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "string"
+              },
+              "default": "'primary'",
+              "attribute": "variant"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "'flex justify-center items-center w-[334px] relative gap-2 px-[81px] py-3 px-6 rounded-xl border border-solid cursor-pointer'"
+            },
+            {
+              "kind": "field",
+              "name": "secondaryStyles",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "'bg-neutral-100 border-neutral-90 text-neutral-20'"
+            },
+            {
+              "kind": "field",
+              "name": "primaryStyles",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "'bg-neutral-20 border-neutral-20 text-neutral-100 disabled:bg-neutral-90 disabled:border-neutral-90'"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "string"
+              },
+              "default": "'primary'",
+              "fieldName": "variant"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "module": "/src/shared/tailwind.element"
+          },
+          "tagName": "lukso-button",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoButton",
+          "declaration": {
+            "name": "LuksoButton",
+            "module": "src/components/lukso-button/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-button",
+          "declaration": {
+            "name": "LuksoButton",
+            "module": "src/components/lukso-button/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-test/index.ts",
       "declarations": [
         {
@@ -135,103 +235,6 @@
           "declaration": {
             "name": "LuksoTest",
             "module": "src/components/lukso-test/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-button/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoButton",
-          "members": [
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "string"
-              },
-              "default": "'primary'",
-              "attribute": "variant"
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "disabled"
-            },
-            {
-              "kind": "field",
-              "name": "defaultStyles",
-              "type": {
-                "text": "string"
-              },
-              "default": "'flex justify-center items-center w-[334px] relative gap-2 px-[81px] py-3 px-6 rounded-xl border border-solid cursor-pointer'"
-            },
-            {
-              "kind": "field",
-              "name": "secondaryStyles",
-              "type": {
-                "text": "string"
-              },
-              "default": "' bg-neutral-100 border-neutral-90 text-neutral-20'"
-            },
-            {
-              "kind": "field",
-              "name": "primaryStyles",
-              "type": {
-                "text": "string"
-              },
-              "default": "' bg-neutral-20 border-neutral-20 text-neutral-100 disabled:bg-neutral-90 disabled:border-neutral-90'"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "variant",
-              "type": {
-                "text": "string"
-              },
-              "default": "'primary'",
-              "fieldName": "variant"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "disabled"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "module": "/src/shared/tailwind.element"
-          },
-          "tagName": "lukso-button",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoButton",
-          "declaration": {
-            "name": "LuksoButton",
-            "module": "src/components/lukso-button/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-button",
-          "declaration": {
-            "name": "LuksoButton",
-            "module": "src/components/lukso-button/index.ts"
           }
         }
       ]

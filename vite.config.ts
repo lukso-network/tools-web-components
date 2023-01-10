@@ -92,7 +92,7 @@ async function writePackage() {
   }
   const pack = JSON.parse(await readFile('./package.json', 'utf-8'))
   pack.exports = exp
-  await writeFile('./package.json', JSON.stringify(pack, null, '  '))
+  await writeFile('./package.json', `${JSON.stringify(pack, null, '  ')}\n`)
   return exp
 }
 

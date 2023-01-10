@@ -4,7 +4,7 @@ import style from './tailwind.global.scss?inline'
 
 const tailwindElement = unsafeCSS(style)
 
-export const TailwindElement = style =>
+export const TailwindElement = (style?: any) =>
   class extends LitElement {
     static styles = [tailwindElement, unsafeCSS(style)]
   }

@@ -12,6 +12,10 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
+    "./lds-button": {
+      "require": "./dist/lds-button.cjs",
+      "import": "./dist/lds-button.js"
+    },
     "./lds-test": {
       "require": "./dist/lds-test.cjs",
       "import": "./dist/lds-test.js"

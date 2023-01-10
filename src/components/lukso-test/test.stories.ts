@@ -1,14 +1,16 @@
 import { html } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
+
 import './index'
 
 export default {
   title: 'Test',
+  component: 'wc-test',
 }
 
 export function Primary({ disabled }) {
-  return html`<lds-test ?disabled=${disabled}>Hello World</lds-test>`
+  return html`<wc-test ?disabled=${disabled}>Hello World</wc-test>`
 }
 
 Primary.args = {

@@ -47,3 +47,8 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: storybook-static # The folder the action should deploy.
           clean-exclude: pr-preview/
+
+      - name: Publish NPM
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}

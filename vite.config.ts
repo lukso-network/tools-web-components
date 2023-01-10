@@ -6,7 +6,13 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export async function readDeps(dir, prefix = []) {
-  let output = []
+  let output: {
+    entry: string
+    source: string
+    name: string
+    require: string
+    import: string
+  }[] = []
   const list = await readdir(dir)
   for (const file of list) {
     if (file === '.' || file === '..') {
@@ -107,7 +113,7 @@ export async function createLib() {
   return lib
 }
 
-export const Default = defineConfig(async ({ command, mode }) => {
+export const Default = defineConfig(async ({}) => {
   const lib = await createLib()
   return {
     build: {

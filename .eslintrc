@@ -10,11 +10,11 @@
     "import/resolver": {
       "typescript": {},
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".css", ".scss"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".css", ".scss", ".json"]
       }
     },
     "import/parser": {
-      "@typescript-eslint/parser": [".ts", ".tsx"],
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     }
   },
   "extends": [
@@ -28,9 +28,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/ban-ts-comment": "off",
@@ -42,16 +40,8 @@
       "error",
       {
         "groups": [
-          [
-            "builtin",
-            "external",
-            "index"
-          ],
-          [
-            "sibling",
-            "parent",
-            "internal"
-          ],
+          ["builtin", "external", "index"],
+          ["sibling", "parent", "internal"],
           "object",
           "type"
         ],
@@ -61,22 +51,17 @@
   },
   "overrides": [
     {
-      "files": [
-        "**/dist/**/*.js"
-      ],
+      "files": ["**/dist/**/*.js"],
       "rules": {
         "complexity": 0
       }
     },
     {
-      "files": [
-        "./*.(m|c)js",
-        "./*.js"
-      ],
+      "files": ["./*.(m|c)js", "./*.js", "./*.json", "./.eslintrc"],
       "parser": "espree",
       "parserOptions": {
         "ecmaVersion": 2020
-      },
+      }
     }
   ]
 }

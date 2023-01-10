@@ -8,10 +8,7 @@
 # misc
 /coverage/
 .eslintcache
-eslintrc
 .lintstagedrc.json
-tsconfig.json
-.eslintrc
 /dist/
 /storybook-static/
 /.yarn

@@ -10,7 +10,7 @@ export default {
 }
 
 export function Primary({ disabled }) {
-  return html`<wc-test ?disabled=${disabled}>Hello World</wc-test>`
+  return html`<lukso-test ?disabled=${disabled}>Hello World</lukso-test>`
 }
 
 Primary.args = {

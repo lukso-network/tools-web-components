@@ -1,4 +1,5 @@
 import { html } from 'lit'
+import { classMap } from 'lit/directives/class-map.js'
 import { customElement, property } from 'lit/decorators.js'
 
 import { TailwindElement } from '../../shared/tailwind.element'
@@ -22,12 +23,20 @@ export class LuksoButton extends TailwindElement {
       <button
         data-testid="button"
         ?disabled=${this.disabled}
-        class="${this.defaultStyles} ${
-      this.variant === 'primary' ? this.primaryStyles : ''
-    }  ${this.variant === 'secondary' ? this.secondaryStyles : ''}""
+        class=${classMap({
+          [this.defaultStyles]: true,
+          [this.primaryStyles]: this.variant === 'primary',
+          [this.secondaryStyles]: this.variant !== 'primary',
+        })}
       >
         <slot></slot>
       </button>
     `
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'lukso-button': LuksoButton
   }
 }

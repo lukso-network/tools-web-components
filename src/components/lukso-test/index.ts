@@ -67,6 +67,6 @@ export class LuksoTest extends TailwindStyledElement(style) {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lds-test': WcTest
+    'lukso-test': LuksoTest
   }
 }

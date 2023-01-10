@@ -3,10 +3,13 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
+    "declaration": true,
+    "declarationMap": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "esModuleInterop": true
   },
-  "include": ["src"]
+  "include": ["src", "vite.config.ts"]
 }

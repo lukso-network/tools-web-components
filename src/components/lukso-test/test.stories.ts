@@ -1,18 +1,16 @@
 import { html } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
+
 import './index'
 
 export default {
   title: 'Test',
+  component: 'lds-test',
 }
 
 export function Primary({ disabled }) {
   return html`<lds-test ?disabled=${disabled}>Hello World</lds-test>`
-}
-
-Primary.args = {
-  disabled: false,
 }
 
 Primary.play = async ({ canvasElement }) => {

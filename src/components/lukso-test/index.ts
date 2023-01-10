@@ -64,3 +64,9 @@ export class LuksoTest extends TailwindElement(style) {
     `
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'lds-test': WcTest
+  }
+}

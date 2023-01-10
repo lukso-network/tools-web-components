@@ -1,16 +1,15 @@
-import { html, css } from 'lit'
+import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+
 import { TailwindElement } from '../../shared/tailwind.element'
-import { AnimateController, flyBelow, fade } from '@lit-labs/motion'
-import { classMap } from 'lit/directives/class-map.js'
 
 @customElement('lukso-button')
-export class LuksoButton extends TailwindElement() {
+export class LuksoButton extends TailwindElement(null) {
   @property()
-  variant: string = 'primary'
+  variant = 'primary'
 
   @property()
-  disabled: boolean = false
+  disabled = false
 
   defaultStyles =
     'flex justify-center items-center w-[334px] relative gap-2 px-[81px] py-3 px-6 rounded-xl border border-solid cursor-pointer'
@@ -23,11 +22,11 @@ export class LuksoButton extends TailwindElement() {
       <button
         data-testid="button"
         ?disabled=${this.disabled}
-        class="${this.defaultStyles} ${
-      this.variant === 'primary' ? this.primaryStyles : ''
-    }  ${this.variant === 'secondary' ? this.secondaryStyles : ''}""
+        class="${this.defaultStyles} ${this.variant === 'primary'
+          ? this.primaryStyles
+          : ''}  ${this.variant === 'secondary' ? this.secondaryStyles : ''}"
       >
-        <slot />
+        <slot></slot>
       </button>
     `
   }

@@ -3,11 +3,11 @@ import { customElement, property } from 'lit/decorators.js'
 import { animate, AnimateController } from '@lit-labs/motion'
 import { classMap } from 'lit/directives/class-map.js'
 
-import { TailwindElement } from '../../shared/tailwind.element'
+import { TailwindStyledElement } from '../../shared/tailwind.element'
 import style from './test.component.scss?inline'
 
 @customElement('lukso-test')
-export class LuksoTest extends TailwindElement(style) {
+export class LuksoTest extends TailwindStyledElement(style) {
   @property()
   name = 'World'
 

@@ -27,8 +27,8 @@ export class LuksoButton extends TailwindElement {
         ?disabled=${this.disabled}
         class=${classMap({
           [this.defaultStyles]: true,
-          [this.primaryStyles]: this.variant === 'primary' && !this.disabled,
-          [this.secondaryStyles]: this.variant !== 'primary' && !this.disabled,
+          [this.primaryStyles]: this.variant === 'primary',
+          [this.secondaryStyles]: this.variant !== 'primary',
         })}
       >
         <slot></slot>

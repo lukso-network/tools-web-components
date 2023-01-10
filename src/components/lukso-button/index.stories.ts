@@ -8,13 +8,13 @@ export default {
 }
 
 export function Primary() {
-  return html`<wc-button variant="primary" disabled="true"
-    >Hello World</wc-button
+  return html`<lukso-button variant="primary" disabled="true"
+    >Hello World</lukso-button
   >`
 }
 
 export function Secondary() {
-  return html`<wc-button variant="secondary">Hello World</wc-button>`
+  return html`<lukso-button variant="secondary">Hello World</lukso-button>`
 }
 
 Primary.play = async ({ canvasElement }) => {

@@ -6,8 +6,8 @@ import { classMap } from 'lit/directives/class-map.js'
 import { TailwindElement } from '../../shared/tailwind.element'
 import style from './test.component.scss?inline'
 
-@customElement('wc-test')
-export class WcTest extends TailwindElement(style) {
+@customElement('lukso-test')
+export class LuksoTest extends TailwindElement(style) {
   @property()
   name = 'World'
 

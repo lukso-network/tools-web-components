@@ -1,3 +1,3 @@
 // DO NOT MODIFY MANUALLY
-export * from './components/wc-button/index'
-export * from './components/wc-test/index'
+export * from './components/lukso-button/index'
+export * from './components/lukso-test/index'

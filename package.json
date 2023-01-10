@@ -12,13 +12,13 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
-    "./wc-button": {
-      "require": "./dist/wc-button.cjs",
-      "import": "./dist/wc-button.js"
+    "./lukso-button": {
+      "require": "./dist/lukso-button.cjs",
+      "import": "./dist/lukso-button.js"
     },
-    "./wc-test": {
-      "require": "./dist/wc-test.cjs",
-      "import": "./dist/wc-test.js"
+    "./lukso-test": {
+      "require": "./dist/lukso-test.cjs",
+      "import": "./dist/lukso-test.js"
     }
   },
   "version": "1.0.1",

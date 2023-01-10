@@ -4,8 +4,8 @@ import { TailwindElement } from '../../shared/tailwind.element'
 import { AnimateController, flyBelow, fade } from '@lit-labs/motion'
 import { classMap } from 'lit/directives/class-map.js'
 
-@customElement('wc-button')
-export class WcButton extends TailwindElement() {
+@customElement('lukso-button')
+export class LuksoButton extends TailwindElement() {
   @property()
   variant: string = 'primary'
 

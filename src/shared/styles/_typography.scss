@@ -1,0 +1,205 @@
+/**
+  * @file Typography
+  *
+  * This file contains all typography classes used in designs.
+  * They should be used instead of individual font attributes.
+  *
+  * You can use them same as the normal Tailwind classes, e.g.: class="heading-1"
+  */
+
+@layer base {
+  .heading-1 {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 31px;
+  }
+
+  .heading-2 {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 26px;
+  }
+
+  .heading-3 {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+  }
+
+  .heading-4 {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .heading-5 {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  // Paragraph
+
+  .paragraph-16-semi-bold {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .paragraph-16-regular {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .paragraph-14-regular {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .paragraph-14-medium {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .paragraph-14-semi-bold {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .paragraph-12-regular {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .paragraph-12-medium {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .paragraph-12-semi-bold {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  // Currency
+
+  .currency-10-semi-bold {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  .currency-10-bold-uppercase {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 12px;
+    text-transform: uppercase;
+  }
+
+  .currency-14-semi-bold {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  // utility
+
+  .link {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 140.52%;
+  }
+
+  .button-text {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 17px;
+  }
+
+  .caption {
+    font-family: var(--font-family-default);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  // Monospaced
+
+  .monospace-16-regular {
+    font-family: var(--font-family-mono);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .monospace-16-bold {
+    font-family: var(--font-family-mono);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .monospace-12-bold {
+    font-family: var(--font-family-mono);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .monospace-10-bold {
+    font-family: var(--font-family-mono);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 14px;
+  }
+}

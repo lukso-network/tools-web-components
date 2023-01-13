@@ -47,9 +47,9 @@ export class LuksoTest extends TailwindStyledElement(style) {
       'bg-blue-200': !this.clicked && !this.disabled,
     }
     return html`
-      <p>
+      <p class="heading-1">
         Hello,
-        <b>${this.name}</b>
+        <b class="monospace-16-regular">${this.name}</b>
         !
       </p>
       <button

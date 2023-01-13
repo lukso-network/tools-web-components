@@ -13,7 +13,7 @@ export class LuksoButton extends TailwindElement {
   disabled = false
 
   private defaultStyles =
-    'flex justify-center items-center w-[334px] relative gap-2 px-[81px] py-3 px-6 rounded-xl border border-solid cursor-pointer'
+    'flex justify-center items-center relative gap-2 py-3 px-6 rounded-xl border border-solid cursor-pointer'
 
   private secondaryStyles =
     'bg-neutral-100 border-neutral-90 text-neutral-20 disabled:bg-neutral-90 disabled:border-neutral-90 disabled:text-neutral-100'

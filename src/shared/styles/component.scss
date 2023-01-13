@@ -1,0 +1,13 @@
+/**
+  * @file Component styles
+  *
+  * This file contain general styles that should be applied to any component.
+  * Since Web Components styles are encapsulated within the Shadow DOM, we need
+  * to pass all styles.
+  */
+
+@import './_typography';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

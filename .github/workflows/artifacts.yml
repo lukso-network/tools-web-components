@@ -32,10 +32,10 @@ jobs:
         with:
           ref: ${{ inputs.sha }}
       - name: Read .node-version
-          id: nodeversion
-          uses: juliangruber/read-file-action@v1.1.6
-          with:
-            path: ./.node-version
+        id: nodeversion
+        uses: juliangruber/read-file-action@v1.1.6
+        with:
+          path: ./.node-version
       - name: 🎛 Setup Node
         uses: actions/setup-node@v3
         with:
@@ -67,7 +67,7 @@ jobs:
       - name: 🏗️ Build (for publish)
         if: ${{ inputs.release_created == 'true' }}
         run: yarn build
-      
+
       - name: 📢 Publish NPM
         uses: JS-DevTools/npm-publish@v1.4.3
         if: ${{ inputs.release_created == 'true' }}
@@ -92,9 +92,9 @@ jobs:
           cache: 'yarn'
       - name: ⚙️ Install
         run: yarn
-      
+
       - name: ⚙️ Install Playwright
         run: yarn playwright install --with-deps
-      
+
       - name: 🧪 Testing
           yarn test

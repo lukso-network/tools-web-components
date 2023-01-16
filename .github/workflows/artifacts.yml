@@ -97,4 +97,4 @@ jobs:
         run: yarn playwright install --with-deps
 
       - name: 🧪 Testing
-          yarn test
+        run: yarn test

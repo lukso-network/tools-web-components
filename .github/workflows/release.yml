@@ -11,7 +11,9 @@ on:
 env:
   PACKAGE_TYPE: node
 
-concurrency: compile-${{ github.ref }}
+concurrency:
+  group: compile-${{ github.ref }}
+  cancel-in-progress: true
 
 name: github release
 jobs:

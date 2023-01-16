@@ -8,14 +8,18 @@ export default {
   component: 'lukso-button',
 }
 
-export function Primary({ variant, disabled }) {
-  return html`<lukso-button variant=${variant} ?disabled=${disabled}
+export function Primary({ variant, disabled, style }) {
+  return html`<lukso-button
+    style=${style}
+    variant=${variant}
+    ?disabled=${disabled}
     >Hello World</lukso-button
   >`
 }
 Primary.args = {
   variant: 'primary',
   disabled: false,
+  style: 'font-family: Roboto',
 }
 Primary.argTypes = {
   variant: {

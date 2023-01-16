@@ -62,7 +62,7 @@ jobs:
             TAG_NAME="${{ steps.release.outputs.tag_name }}"
           fi
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
-          echo "pr_number=${{ github.event.number }}"
+          echo "pr_number=${{ github.event.number }}" >> $GITHUB_OUTPUT
           echo "sha=$SHA" >> $GITHUB_OUTPUT
           echo "release_created=$RELEASE_CREATED" >> $GITHUB_OUTPUT
           echo "Tag: $TAG_NAME"

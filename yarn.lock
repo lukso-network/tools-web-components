@@ -2344,6 +2344,7 @@ __metadata:
     stylelint-config-standard-scss: ^6.1.0
     stylelint-prettier: ^2.0.0
     tailwindcss: ^3.2.4
+    tinycolor2: ^1.5.2
     typescript: ^4.9.4
     vite: ^4.0.4
     wait-on: ^7.0.1
@@ -15739,6 +15740,13 @@ __metadata:
     globalyzer: 0.1.0
     globrex: ^0.1.2
   checksum: aea5801eb6663ddf77ebb74900b8f8bd9dfcfc9b6a1cc8018cb7421590c00bf446109ff45e4b64a98e6c95ddb1255a337a5d488fb6311930e2a95334151ec9c6
+  languageName: node
+  linkType: hard
+
+"tinycolor2@npm:^1.5.2":
+  version: 1.5.2
+  resolution: "tinycolor2@npm:1.5.2"
+  checksum: 9df1ea9a986b03f1aebb1c1ac17fc561e358493f61b56d73ef2d7207fe7bd74eb71cf745b70487b2b5bb1ce33c9e8af7101088bb0b5fc532eaa1f9d1eda4ef31
   languageName: node
   linkType: hard
 

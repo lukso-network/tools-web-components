@@ -8,198 +8,115 @@
   */
 
 @layer base {
-  .heading-1 {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 26px;
-    line-height: 31px;
+  .heading-h1 {
+    @apply text-26 not-italic font-600 leading-31 font-inter;
   }
 
-  .heading-2 {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 21px;
-    line-height: 26px;
+  .heading-h2 {
+    @apply text-21 not-italic font-600 leading-26 font-inter;
   }
 
-  .heading-3 {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 22px;
+  .heading-h3 {
+    @apply text-17 not-italic font-600 leading-22 font-inter;
   }
 
-  .heading-4 {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 15px;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
+  .heading-h4 {
+    @apply text-12 not-italic font-700 leading-15 font-inter uppercase tracking-[.02em];
   }
 
-  .heading-5 {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 17px;
+  .heading-h5 {
+    @apply text-14 not-italic font-700 leading-17 font-inter;
+  }
+
+  .heading-h1-apax {
+    @apply text-24 not-italic font-500 leading-28 font-apax;
+  }
+
+  .heading-h4-apax {
+    @apply text-14 not-italic font-500 leading-20 font-apax;
+  }
+
+  .heading-h5-apax {
+    @apply text-8 not-italic font-500 leading-28 font-apax;
   }
 
   // Paragraph
 
-  .paragraph-16-semi-bold {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
+  .paragraph-16-regular {
+    @apply text-16 not-italic font-400 leading-24 font-inter;
   }
 
-  .paragraph-16-regular {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
+  .paragraph-16-semi-bold {
+    @apply text-16 not-italic font-600 leading-24 font-inter;
   }
 
   .paragraph-14-regular {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
+    @apply text-14 not-italic font-400 leading-22 font-inter;
   }
 
   .paragraph-14-medium {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 22px;
+    @apply text-14 not-italic font-500 leading-22 font-inter;
   }
 
   .paragraph-14-semi-bold {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 22px;
+    @apply text-14 not-italic font-600 leading-22 font-inter;
   }
 
   .paragraph-12-regular {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 20px;
+    @apply text-12 not-italic font-400 leading-20 font-inter;
   }
 
   .paragraph-12-medium {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 20px;
+    @apply text-12 not-italic font-500 leading-20 font-inter;
   }
 
   .paragraph-12-semi-bold {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 20px;
+    @apply text-12 not-italic font-600 leading-20 font-inter;
   }
 
   // Currency
 
   .currency-10-semi-bold {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 10px;
-    line-height: 12px;
+    @apply text-10 not-italic font-600 leading-12 font-inter;
   }
 
   .currency-10-bold-uppercase {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 700;
-    font-size: 10px;
-    line-height: 12px;
-    text-transform: uppercase;
+    @apply text-10 not-italic font-700 leading-12 font-inter uppercase;
   }
 
   .currency-14-semi-bold {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
+    @apply text-14 not-italic font-600 leading-17 font-inter;
   }
 
   // utility
 
   .link {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 140.52%;
+    @apply text-17 not-italic font-600 leading-22 font-inter;
   }
 
   .button-text {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 17px;
+    @apply text-17 not-italic font-600 leading-17 font-inter;
   }
 
   .caption {
-    font-family: var(--font-family-default);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 20px;
+    @apply text-13 not-italic font-400 leading-20 font-inter;
   }
 
   // Monospaced
 
   .monospace-16-regular {
-    font-family: var(--font-family-mono);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 22px;
+    @apply text-16 not-italic font-400 leading-22 font-mono;
   }
 
   .monospace-16-bold {
-    font-family: var(--font-family-mono);
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 22px;
+    @apply text-16 not-italic font-700 leading-22 font-mono;
   }
 
   .monospace-12-bold {
-    font-family: var(--font-family-mono);
-    font-style: normal;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 14px;
+    @apply text-12 not-italic font-700 leading-14 font-mono;
   }
 
   .monospace-10-bold {
-    font-family: var(--font-family-mono);
-    font-style: normal;
-    font-weight: 700;
-    font-size: 10px;
-    line-height: 14px;
+    @apply text-10 not-italic font-700 leading-14 font-mono;
   }
 }

@@ -1,0 +1,360 @@
+import { Canvas, Meta, Story, Source } from '@storybook/addon-docs'
+import { html } from 'lit-html'
+import dedent from 'ts-dedent'
+
+<Meta title="Design System/Typography" />
+
+export const Template = ({ name, font }) =>
+  html`<span class="${font}"
+    >The quick brown fox jumps over the lazy dog.</span
+  >`
+
+<h1 id="typography"> Typography</h1>
+
+In order to maintain a consistent look and feel woth design in terms of the typography,
+we have a set of CSS classes that we use. Using `font-family`,
+`font-weight` and `font-size` directly in your code should be avoided and instead use this set
+of classes.
+
+### **Font colors**
+
+Colors for the text should be added independently using proper color classes. See example below.
+
+<Source
+  language="html"
+  dark
+  format={false}
+  code={dedent`
+     <span class="heading-h1 text-neutral-20">The quick brown fox jumps over the lazy dog.</span>
+  `}
+/>
+
+### **Table of contents**
+
+- [Headings](#headings)
+- [Paragraph](#paragraph)
+- [Currency](#currency)
+- [Utility](#utility)
+- [Monospaced](#monospaced)
+
+<h3 id="headings">**Headings**</h3>
+
+<Canvas isColumn withSource="open">
+  #### `heading-h1`
+  <Story
+    name="heading-h1"
+    args={{
+      font: 'heading-h1',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `heading-h2`
+  <Story
+    name="heading-h2"
+    args={{
+      font: 'heading-h2',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `heading-h3`
+  <Story
+    name="heading-h3"
+    args={{
+      font: 'heading-h3',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `heading-h4`
+  <Story
+    name="heading-h4"
+    args={{
+      font: 'heading-h4',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `heading-h5`
+  <Story
+    name="heading-h5"
+    args={{
+      font: 'heading-h5',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `heading-h1-apax`
+  <Story
+    name="heading-h1-apax"
+    args={{
+      font: 'heading-h1-apax',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `heading-h4-apax`
+  <Story
+    name="heading-h4-apax"
+    args={{
+      font: 'heading-h4-apax',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `heading-h5-apax`
+  <Story
+    name="heading-h5-apax"
+    args={{
+      font: 'heading-h5-apax',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<h3 id="paragraph">**Paragraph** [↑](#typography)</h3>
+
+<Canvas isColumn withSource="open">
+  #### `paragraph-16-regular`
+  <Story
+    name="paragraph-16-regular"
+    args={{
+      font: 'paragraph-16-regular',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `paragraph-16-semi-bold`
+  <Story
+    name="paragraph-16-semi-bold"
+    args={{
+      font: 'paragraph-16-semi-bold',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `paragraph-14-regular`
+  <Story
+    name="paragraph-14-regular"
+    args={{
+      font: 'paragraph-14-regular',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `paragraph-14-medium`
+  <Story
+    name="paragraph-14-medium"
+    args={{
+      font: 'paragraph-14-medium',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `paragraph-14-semi-bold`
+  <Story
+    name="paragraph-14-semi-bold"
+    args={{
+      font: 'paragraph-14-semi-bold',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `paragraph-12-regular`
+  <Story
+    name="paragraph-12-regular"
+    args={{
+      font: 'paragraph-12-regular',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `paragraph-12-medium`
+  <Story
+    name="paragraph-12-medium"
+    args={{
+      font: 'paragraph-12-medium',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `paragraph-12-semi-bold`
+  <Story
+    name="paragraph-12-semi-bold"
+    args={{
+      font: 'paragraph-12-semi-bold',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<h3 id="currency">**Currency** [↑](#typography)</h3>
+
+<Canvas isColumn withSource="open">
+  #### `currency-10-semi-bold`
+  <Story
+    name="currency-10-semi-bold"
+    args={{
+      font: 'currency-10-semi-bold',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `currency-10-bold-uppercase`
+  <Story
+    name="currency-10-bold-uppercase"
+    args={{
+      font: 'currency-10-bold-uppercase',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `currency-14-semi-bold`
+  <Story
+    name="currency-14-semi-bold"
+    args={{
+      font: 'currency-14-semi-bold',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<h3 id="utility">**Utility** [↑](#typography)</h3>
+
+<Canvas isColumn withSource="open">
+  #### `link`
+  <Story
+    name="link"
+    args={{
+      font: 'link',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `button-text`
+  <Story
+    name="button-text"
+    args={{
+      font: 'button-text',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `caption`
+  <Story
+    name="caption"
+    args={{
+      font: 'caption',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<h3 id="monospaced">**Monospaced** [↑](#typography)</h3>
+
+<Canvas isColumn withSource="open">
+  #### `monospace-16-regular`
+  <Story
+    name="monospace-16-regular"
+    args={{
+      font: 'monospace-16-regular',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `monospace-16-bold`
+  <Story
+    name="monospace-16-bold"
+    args={{
+      font: 'monospace-16-bold',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `monospace-12-bold`
+  <Story
+    name="monospace-12-bold"
+    args={{
+      font: 'monospace-12-bold',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas isColumn withSource="open">
+  #### `monospace-10-bold`
+  <Story
+    name="monospace-10-bold"
+    args={{
+      font: 'monospace-10-bold',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

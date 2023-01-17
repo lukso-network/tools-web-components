@@ -1,4 +1,4 @@
-# Tailwind web components starter kit
+# @lukso/web-components &middot; [![npm version](https://img.shields.io/npm/v/@lukso/web-components.svg?style=flat)](https://www.npmjs.com/package/@lukso/web-components)
 
 This is a starter kit to develop web components using Tailwind CSS.
 

@@ -7,9 +7,9 @@
 
 $font-file-path: '../src/shared';
 
-@import '../src/shared/styles/_fonts';
-@import '../src/shared/styles/_variables';
-@import '../src/shared/styles/_typography';
+@import '../src/shared/styles/fonts';
+@import '../src/shared/styles/variables';
+@import '../src/shared/styles/typography';
 
 @tailwind base;
 @tailwind components;

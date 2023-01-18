@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/lukso-network/tools-web-components/compare/v1.0.1...v1.0.2) (2023-01-18)
+
+
+### Bug Fixes
+
+* Prettier for changelog and publish npm after test ([#5](https://github.com/lukso-network/tools-web-components/issues/5)) ([8cdd3c1](https://github.com/lukso-network/tools-web-components/commit/8cdd3c1236fcbd7775f220ecd87b224c7a03df12))
+
 ## [1.0.1](https://github.com/lukso-network/tools-web-components/compare/v1.0.0...v1.0.1) (2023-01-18)
 
 

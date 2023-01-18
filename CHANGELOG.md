@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/lukso-network/tools-web-components/compare/v1.0.0...v1.0.1) (2023-01-18)
+
+
+### Bug Fixes
+
+* Compile tailwind and postcss configs ([271610f](https://github.com/lukso-network/tools-web-components/commit/271610f9c7bb057d1b53c6abce8f96e3ad610664))
+
 ## 1.0.0 (2023-01-18)
 
 

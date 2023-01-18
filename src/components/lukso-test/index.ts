@@ -42,14 +42,14 @@ export class LuksoTest extends TailwindStyledElement(style) {
       'text-yellow-200': !this.disabled,
       'p-2': true,
       'rounded-full': true,
-      'text-2xl': true,
+      'text-24': true,
       'bg-blue-800': this.clicked && !this.disabled,
       'bg-blue-200': !this.clicked && !this.disabled,
     }
     return html`
-      <p>
+      <p class="heading-1">
         Hello,
-        <b>${this.name}</b>
+        <b class="heading-4">${this.name}</b>
         !
       </p>
       <button

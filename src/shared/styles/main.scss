@@ -1,0 +1,11 @@
+/**
+  * @file Main styles
+  *
+  * This file contain general styles that should be applied to host page.
+  */
+
+@import './typography';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

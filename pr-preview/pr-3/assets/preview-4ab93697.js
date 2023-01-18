@@ -6,4 +6,4 @@ var P=Object.defineProperty;var x=(l,e,t)=>e in l?P(l,e,{enumerable:!0,configura
       },
     },
   })`},{kind:"method",name:"_onClick"}],attributes:[{name:"name",type:{text:"string"},default:"'World'",fieldName:"name"},{name:"clicked",type:{text:"boolean"},default:"false",fieldName:"clicked"},{name:"disabled",type:{text:"boolean"},default:"false",fieldName:"disabled"}],mixins:[{name:"TailwindStyledElement",module:"/src/shared/tailwind.element"}],superclass:{name:"style",module:"/src/components/lukso-test/test.component.scss"},tagName:"lukso-test",customElement:!0}],exports:[{kind:"js",name:"LuksoTest",declaration:{name:"LuksoTest",module:"src/components/lukso-test/index.ts"}},{kind:"custom-element-definition",name:"lukso-test",declaration:{name:"LuksoTest",module:"src/components/lukso-test/index.ts"}}]}],B={schemaVersion:U,readme:z,modules:K};window.jest=L;F(B);const X={actions:{argTypesRegex:"^on[A-Z].*"},controls:{matchers:{color:/(background|color)$/i,date:/Date$/},expanded:!0}};export{X as parameters};
-//# sourceMappingURL=preview-7e569c24.js.map
+//# sourceMappingURL=preview-4ab93697.js.map

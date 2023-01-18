@@ -18,4 +18,4 @@ import{M as c,S as i}from"./chunk-MA2MUXQN-2c7d5649.js";import"./chunk-R4NKYYJA-
 `,t.jsx(i,{id:"design-system-atoms-button--primary"}),`
 `,t.jsx(e.h3,{children:"Secondary"}),`
 `,t.jsx(i,{id:"design-system-atoms-button--secondary"})]})}}const m=()=>{throw new Error("Docs-only story")};m.parameters={docsOnly:!0};const r={title:"Design System/Atoms/Button",tags:["stories-mdx"],includeStories:["__page"]};r.parameters=r.parameters||{};r.parameters.docs={...r.parameters.docs||{},page:p};const A=["__page"];export{A as __namedExportsOrder,m as __page,r as default};
-//# sourceMappingURL=button.stories-1d39735f.js.map
+//# sourceMappingURL=buttons.stories-1d39735f.js.map

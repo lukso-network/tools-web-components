@@ -1,23 +1,4 @@
-const tinycolor = require('tinycolor2')
-
-/**
- * Generates a color map for a given hue, saturation and lightness values
- *
- * @param {*} h - hue
- * @param {*} s - saturation
- * @param {*} l - lightness as an array
- * @returns object containing lightness as key and hex color as value e.g. { 10: '#000000', 20: '#111111' }
- */
-const hslColorMap = (h, s, l) => {
-  const colors = {}
-
-  for (let i = 0; i < l.length; i++) {
-    const lightness = l[i]
-    colors[lightness] = tinycolor({ h, s, l: lightness }).toHexString()
-  }
-
-  return colors
-}
+const colorPalette = require('./src/shared/styles/color-palette').colorPalette
 
 module.exports = {
   content: ['src/**/*.{ts,html,css,scss}'],
@@ -28,17 +9,7 @@ module.exports = {
       mono: ['"PT Mono"', 'sans-serif'],
     },
     extend: {
-      colors: {
-        neutral: hslColorMap(
-          206,
-          30,
-          [
-            10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90,
-            95, 97, 98, 100,
-          ]
-        ),
-        cloud: hslColorMap(200, 38, [43, 75, 88]),
-      },
+      colors: colorPalette,
       boxShadow: {
         'button-hover-primary': '0px 20px 16px -16px rgba(0, 0, 0, 0.4)',
         'button-hover-secondary': '0px 20px 16px -16px rgba(0, 0, 0, 0.12)',

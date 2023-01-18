@@ -68,7 +68,7 @@
                 "text": "string"
               },
               "privacy": "private",
-              "default": "'bg-neutral-100 border-neutral-90 text-neutral-20'"
+              "default": "'bg-neutral-100 border-neutral-90 text-neutral-20 disabled:bg-neutral-90 disabled:border-neutral-90 disabled:text-neutral-100'"
             },
             {
               "kind": "field",

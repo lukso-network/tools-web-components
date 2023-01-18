@@ -5,6 +5,7 @@
 dist
 node_modules
 /storybook-static
+/.work
 
 # Yarn
 .pnp.*

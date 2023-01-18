@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "module": "esnext",
     "moduleResolution": "node",
     "declaration": true,
@@ -12,11 +12,6 @@
     "esModuleInterop": true,
     "outDir": ".work"
   },
-  "include": [
-    "./src",
-    "./vite.config.ts",
-    "./tailwind.config.cjs",
-    "./postcss.config.cjs"
-  ],
+  "files": ["./src/shared/build-config.ts"],
   "exclude": ["./node_modules"]
 }

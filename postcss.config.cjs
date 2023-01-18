@@ -1,6 +1,2 @@
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
+const { postcss } = require('./.work/build-config.cjs')
+module.exports = postcss

@@ -1,7 +1,7 @@
 import { colorPalette } from './shared/styles/color-palette'
 
 export default {
-  content: ['src/**/*.{ts,html,css,scss}'],
+  content: ['**/*.{ts,html,css,scss}'],
   theme: {
     fontFamily: {
       inter: ['Inter', 'sans-serif'],

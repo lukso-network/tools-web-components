@@ -23,7 +23,7 @@
     }
   },
   "scripts": {
-    "config-prepare": "tsc-bundle ./tsconfig.work.json && renamer --force --chain find-replace --path-element ext --find '.js' --replace '.cjs' './.work/**/*.js'",
+    "config-prepare": "tsc-bundle ./tsconfig.work.json && renamer --force --chain find-replace --path-element ext --find '.js' --replace '.cjs' './dist/tools/**/*.js'",
     "start": "yarn config-prepare && vite dev --host",
     "dev": "yarn config-prepare && vite dev --host",
     "build": "yarn config-prepare && yarn analyze && vite build",

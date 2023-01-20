@@ -1,2 +1,2 @@
-const { postcss } = require('./.work/build-config.cjs')
+const { postcss } = require('./dist/tools/build-config.cjs')
 module.exports = postcss

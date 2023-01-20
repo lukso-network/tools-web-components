@@ -1,2 +1,2 @@
-const { tailwind } = require('./.work/build-config.cjs')
+const { tailwind } = require('./dist/tools/build-config.cjs')
 module.exports = tailwind

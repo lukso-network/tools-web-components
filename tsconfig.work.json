@@ -10,7 +10,7 @@
     "useDefineForClassFields": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "outDir": ".work"
+    "outDir": "./dist/tools"
   },
   "files": ["./src/shared/build-config.ts"],
   "exclude": ["./node_modules"]

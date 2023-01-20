@@ -86,6 +86,7 @@ async function writePackage() {
     './tailwind.config': {
       require: './tailwind.config.cjs',
     },
+    './src/*': './src/',
   }
   for (const { name } of list) {
     exp[`./${name}`] = {

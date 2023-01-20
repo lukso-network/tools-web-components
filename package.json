@@ -17,6 +17,7 @@
     "./tailwind.config": {
       "require": "./tailwind.config.cjs"
     },
+    "./src/*": "./src/",
     "./lukso-button": {
       "require": "./dist/lukso-button.cjs",
       "import": "./dist/lukso-button.js"
@@ -28,8 +29,8 @@
   },
   "scripts": {
     "config-prepare": "tsc-bundle ./tsconfig.work.json --exportAs commonjs && renamer --force --chain find-replace --path-element ext --find '.js' --replace '.cjs' './tools/**/*.js'",
-    "start": "yarn config-prepare && vite dev --host",
-    "dev": "yarn config-prepare && vite dev --host",
+    "start": "yarn config-prepare && concurrently 'vite build -w' 'yarn storybook'",
+    "dev": "yarn start",
     "build": "yarn config-prepare && yarn analyze && vite build",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt}'",
     "lint:eslint": "eslint src --fix",

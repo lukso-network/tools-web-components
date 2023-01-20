@@ -10,7 +10,8 @@
     "useDefineForClassFields": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "outDir": ".work"
+    "outDir": ".work",
+    "baseUrl": "src"
   },
   "include": [
     "./src",

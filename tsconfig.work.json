@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "declaration": true,
     "declarationMap": true,
@@ -10,8 +10,8 @@
     "useDefineForClassFields": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "outDir": "./dist/tools"
+    "outDir": "./tools"
   },
-  "files": ["./src/shared/build-config.ts"],
+  "files": ["./src/shared/styles/color-palette.ts"],
   "exclude": ["./node_modules"]
 }

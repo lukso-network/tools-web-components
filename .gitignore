@@ -2,8 +2,8 @@
 *.css.map
 *.sass.map
 *.scss.map
-dist
-node_modules
+/dist
+/node_modules
 /storybook-static
 /.work
 
@@ -16,3 +16,4 @@ node_modules
 !.yarn/sdks
 !.yarn/versions
 /.vscode
+/tools

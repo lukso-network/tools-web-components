@@ -13,6 +13,9 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
+    "./tailwind.config": {
+      "require": "./tailwind.config.cjs"
+    },
     "./lukso-button": {
       "require": "./dist/lukso-button.cjs",
       "import": "./dist/lukso-button.js"

@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.3](https://github.com/lukso-network/tools-web-components/compare/v1.0.2...v1.0.3) (2023-01-22)
+
+
+### Bug Fixes
+
+* Build using bundle of only color-palette ([e68753c](https://github.com/lukso-network/tools-web-components/commit/e68753c3d640ea3c2ce52920fe7a8859ee7a6d3c))
+* Exclude some prettier, for json ([bc0cba3](https://github.com/lukso-network/tools-web-components/commit/bc0cba31cc1167115e81ca2ec81eed7df11ab2cc))
+* Need to adjust font references ([bfba6c0](https://github.com/lukso-network/tools-web-components/commit/bfba6c07f81310fa6bbc9ae0c9df10f9c07baec6))
+* Rename fonts to never contains spaces ([1e77391](https://github.com/lukso-network/tools-web-components/commit/1e77391b20d6dba145785a4c87a973d304834821))
+* Rethink the way we do exports 'add shim files' ([a7dbbf6](https://github.com/lukso-network/tools-web-components/commit/a7dbbf63e1996db60ccf045af2409d51f6c6c719))
+
 ## [1.0.2](https://github.com/lukso-network/tools-web-components/compare/v1.0.1...v1.0.2) (2023-01-18)
 
 

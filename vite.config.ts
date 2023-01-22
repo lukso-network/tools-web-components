@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import path from 'path'
 import { readdir, readFile, stat, writeFile } from 'fs/promises'
 import { fileURLToPath } from 'url'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -82,16 +83,34 @@ async function writePackage() {
     '.': {
       require: './dist/index.cjs',
       import: './dist/index.js',
+      types: './dist/index.d.ts',
     },
-    './tailwind.config': {
-      require: './tailwind.config.cjs',
+    './tailwind.config': './tailwind.config.cjs',
+    './assets/fonts/': './dist/assets/fonts/',
+    './assets/fonts': {
+      require: './dist/assets/fonts/index.cjs',
+      import: './dist/assets/fonts/index.js',
+      types: './dist/assets/fonts/index.d.ts',
     },
-    './src/*': './src/',
+    './styles/': './dist/styles/',
+    './styles': {
+      require: './dist/styles/index.cjs',
+      import: './dist/styles/index.js',
+      types: './dist/styles/index.d.ts',
+    },
+    './sass/': './dist/sass/',
+    './sass': {
+      require: './dist/sass/index.cjs',
+      import: './dist/sass/index.js',
+      types: './dist/sass/index.d.ts',
+    },
+    './tools/color-palette': './tools/color-palette.cjs',
   }
   for (const { name } of list) {
     exp[`./${name}`] = {
-      require: `./dist/${name}.cjs`,
-      import: `./dist/${name}.js`,
+      require: [`./dist/${name}.cjs`],
+      import: [`./dist/${name}.js`],
+      types: [`./dist/${name}.d.ts`],
     }
   }
   const pack = JSON.parse(await readFile('./package.json', 'utf-8'))
@@ -106,6 +125,9 @@ export async function createLib() {
   const list = await readDeps('src')
   const ents = {
     index: './src/index.ts',
+    'styles/index': './src/shared/styles/index.ts',
+    'assets/fonts/index': './src/shared/assets/fonts/index.ts',
+    'sass/index': './src/shared/styles/index.ts',
   }
   for (const { name, entry } of list) {
     ents[name] = entry
@@ -123,6 +145,20 @@ export const Default = defineConfig(async ({}) => {
     build: {
       lib,
     },
+    plugins: [
+      viteStaticCopy({
+        targets: [
+          {
+            src: './src/shared/assets/fonts/*',
+            dest: 'assets/fonts',
+          },
+          {
+            src: './src/shared/styles/*',
+            dest: 'sass',
+          },
+        ],
+      }),
+    ],
   }
 })
 export default Default

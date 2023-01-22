@@ -11,13 +11,13 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "outDir": ".work",
-    "baseUrl": "src"
+    "baseUrl": "."
   },
   "include": [
     "./src",
-    "./vite.config.ts",
-    "./tailwind.config.cjs",
-    "./postcss.config.cjs"
+    "./vite.config.ts"
   ],
-  "exclude": ["./node_modules"]
+  "exclude": [
+    "./node_modules"
+  ]
 }

@@ -103,7 +103,6 @@ jobs:
   publish:
     needs:
       - test
-      - build
       - install
     runs-on: ubuntu-latest
     if: ${{ inputs.release_created == 'true' }}

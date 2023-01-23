@@ -1,152 +1,102 @@
 # @lukso/web-components &middot; [![npm version](https://img.shields.io/npm/v/@lukso/web-components.svg?style=flat)](https://www.npmjs.com/package/@lukso/web-components)
 
-This is a starter kit to develop web components using Tailwind CSS.
+Web Components library address issue of sharing same visual elements and basic style setup across different projects. It's based on following tools
 
-Tailwind and web components do not play well together.
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Lit](https://lit.dev/)
+- [Storybook](https://storybook.js.org/)
 
-We managed to find a way to make them work without hacks or weird tech: just common technologies combined in a elegant way.
+Please check the storybook [preview page](https://tools-web-components.pages.dev/) for full component list and basic styling.
 
-No dependencies, based on [lit-element](https://lit.dev/docs/).
+## Installation
 
-## Setup
+In order to use library you need to install this as npm package
 
-Although the original form of the project suggests pnpm, storybook is not so happy
-using linked npms.
+```sh
+yarn add @lukso/web-components
+```
 
-Please run `yarn install`
-And then use scripts as `yarn <SCRIPT>`
+## Using the library
 
-## Storybook
+Library is focused around projects build on top of [Tailwind CSS](https://tailwindcss.com/) framework. It ships with bunch of components, presets for styles, typography and colors.
 
-To use storybook do `yarn storybook` and `yarn build-storybook`.
-There is a `yarn test-storybook` but that's still having problems.
+#### Components
 
-## How will you create a tailwind component?
+For using components you need to first import them
 
-Here is a sample code:
+```js
+import('@lukso/web-components/lukso-button')
+```
 
-```typescript
-import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
-import { TailwindElement } from '../shared/tailwind.element'
+and use in the HTML
 
-import style from './test.component.scss?inline' // #1
+```html
+<lukso-button variant="primary">Click me!</lukso-button>
+```
 
-@customElement('test-component')
-export class TestComponent extends TailwindElement(style) {
-  // #2
+Under the hood you use Web Components which styles are encapsulated within own shadow DOM (host page doesn't have access to it styles and vice versa). The only thing that components share from are fonts, colors and variables, see more on [CSS inheritance](https://lit.dev/docs/components/styles/#inheritance).
 
-  @property()
-  name?: string = 'World'
+### Styles (Tailwind CSS projects)
 
-  render() {
-    return html`
-      <p>
-        Hello,
-        <b>${this.name}</b>
-        !
-      </p>
-      <button class="bg-blue-200 text-yellow-200 p-2 rounded-full text-2xl">
-        Hello world!
-      </button>
-    `
-  }
+Please add this preset in the config file
+
+```js
+// tailwind.config.js
+module.exports = {
+  presets: [require('@lukso/web-components/tailwind.config')],
+  // ...
 }
 ```
 
-It is based on the [lit element](https://lit.dev/docs/) technology: if you wrote a lit component before, you'll find it familiar.
+and include styles in your main file
 
-There are only two differences to a standard _LitElement_:
+```scss
+// main.scss
+$font-file-path: '/assets/fonts';
 
-1. You must import your styles from a separate file. And this is good for two reasons:
-   - it separates the CSS from the logic
-   - you can decide to use CSS or SCSS
-   - note the `?inline` at the end of the file path: if you don't add it, then vite will add the style to the head of the html. If you add it, the style is scoped into the component only
-2. the class extends a _TailwindElement_ rather than a LitElement
-
-A _TailwindElement_ extends a _LitElmement_ (see below) and adds the logic to integrate tailwind and your styles.
-
-## Get started
-
-To run the project:
-
-1. `yarn install` (only the first time)
-2. `yarn start` to run the server
-3. to develop the library, run `yarn build` and copy the static assets where you need them.
-
-You may clone this repo and start developing your components by looking at the _test.component_ as reference.
-
-As an alternative, and if you like to have control over every piece, do the following:
-
-1. copy the files in the shared folder:
-   - _tailwind.element.ts_ extends LitElement by adding the tailwind support
-   - _tailwind.global.css_ includes tha Tailwind base classes into each component
-   - _globals.d.ts_ is used to avoid TypeScript errors whe nimporting CSS/Scss files in typescript files (thanks [@emaant96](https://github.com/emaant96))
-2. copy the _package.json_ or the devDependencies inside into your own _package.json_ (**there are no dependencies**)
-3. copy _postcss.config.js_, _tailwind.config.js_ and _tsconfig.js_
-
-That's all.
-
-## Folder structure
-
-Each folder in the src folder will become a published component.
-
-```text
-src
-  component1
-    index.ts
-  componrnt2
-    index.ts
-    styles.scss
-    test.stories.ts
+@import '@lukso/web-components/sass/main.scss';
 ```
 
-The vite build script will automatically update package.json and the vite config to publish each of the components.
+### Styles (non Tailwind CSS projects)
 
-## Show me the pieces
+Atm the only thing that you can benefit from non Tailwind CSS projects is loading the fonts
 
-If you want to understand how it works, it's simple:
+```scss
+// main.scss
+$font-file-path: '/assets/fonts';
 
-- the **package.json** integrates these technolgies:
-
-```json
-"autoprefixer": "^10.4.12",
-"postcss": "^8.4.18",
-"lit": "^2.4.0",
-"tailwindcss": "^3.2.0",
-"typescript": "^4.8.4",
-"vite": "^3.1.8",
-"sass": "^1.55.0"
+@import '@lukso/web-components/sass/fonts.scss';
 ```
 
-- **vite** does almost all the work automatically
-- to integrate tailwind, the most important file is in _src/shared/tailwind.element.ts_
+## Development workflow
 
-```typescript
-import { LitElement, unsafeCSS } from 'lit'
+Start the watch mode and Storybook preview
 
-import style from './tailwind.global.css'
-
-const tailwindElement = unsafeCSS(style)
-
-export const TailwindElement = style =>
-  class extends LitElement {
-    static styles = [tailwindElement, unsafeCSS(style)]
-  }
+```sh
+yarn dev
 ```
 
-It extends a _LitElement_ class at runtime and adds the component tailwind classes.
+check for the issues after code changes
 
-The _style_ variable comes from your component, where it is imported from an external CSS (or SCSS) file.
+```sh
+yarn lint
+yarn test
+```
 
-Then it is combined with the default tailwind classes.
+## Linking the library
 
-If you add more components, the common parts are reused.
+For local development it's handy to link component library with the project you currently develop. This way you can work with components like in normal app. To make it work you need to first link the library:
 
-## Who uses it?
+```sh
+yarn link -p ../tools-web-components
+```
 
-We developed this starter kit to implement a web session player for our open source SaaS [browserbot](https://browserbot.io/).
+The only caveat with linking is that this will add resolution entry into `package.json` and package.lock` which shouldn't be committed. Make sure to revert this changes or run unlink command
 
-If you want to contribute or share soem thoughts, just get in touch with us.
+```sh
+yarn unlink ../tools-web-components
+```
 
-Enjoy.
+## How to build the components
+
+// TBA

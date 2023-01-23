@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/lukso-network/tools-web-components/compare/v1.0.3...v1.0.4) (2023-01-23)
+
+
+### Bug Fixes
+
+* publish cannot depend on build if build is optional. ([90d4797](https://github.com/lukso-network/tools-web-components/commit/90d479761c073a935e229fbeace355fd640669e7))
+
 ## [1.0.3](https://github.com/lukso-network/tools-web-components/compare/v1.0.2...v1.0.3) (2023-01-22)
 
 

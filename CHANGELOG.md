@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.5](https://github.com/lukso-network/tools-web-components/compare/v1.0.4...v1.0.5) (2023-01-23)
+
+
+### Bug Fixes
+
+* Missing cjs files at the root ([7031fbd](https://github.com/lukso-network/tools-web-components/commit/7031fbdd5d54e17f25c4a470098bac8966a870aa))
+* Remove old publish action (has an old node version) ([62ef12b](https://github.com/lukso-network/tools-web-components/commit/62ef12bae40b6be0c2580dc4a8570c02f9443844))
+* Use yarn npm publish but write token into .yarnrc.yml ([5bc595e](https://github.com/lukso-network/tools-web-components/commit/5bc595ea57cc0383868b4cf85148b5cc026ba458))
+
 ## [1.0.4](https://github.com/lukso-network/tools-web-components/compare/v1.0.3...v1.0.4) (2023-01-23)
 
 

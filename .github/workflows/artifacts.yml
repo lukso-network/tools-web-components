@@ -123,6 +123,9 @@ jobs:
         run: yarn build
 
       - name: 📢 Publish NPM
-        run: yarn npm publish
+        run: |
+          echo "npmAuthToken: $NODE_AUTH_TOKEN" >> ./.yarnrc.yml
+          yarn npm publish
+          git checkout -f ./.yarnrc.yml
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

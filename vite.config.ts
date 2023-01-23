@@ -86,6 +86,7 @@ async function writePackage() {
       types: './dist/index.d.ts',
     },
     './tailwind.config': './tailwind.config.cjs',
+    './postcss.config': './postcss.config.cjs',
     './assets/fonts/': './dist/assets/fonts/',
     './assets/fonts': {
       require: './dist/assets/fonts/index.cjs',

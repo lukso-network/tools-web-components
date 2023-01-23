@@ -6,7 +6,10 @@
     "dist/",
     "src/",
     "tools/",
-    "dist/assets/*"
+    "dist/assets/*",
+    "tailwind.config.cjs",
+    "postcss.config.cjs",
+    "README.md"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

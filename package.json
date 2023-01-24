@@ -40,6 +40,11 @@
       "types": "./dist/sass/index.d.ts"
     },
     "./tools/color-palette": "./tools/color-palette.cjs",
+    "./components": {
+      "require": "./dist/components/index.umd.cjs",
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts"
+    },
     "./components/lukso-button": {
       "require": "./dist/components/lukso-button/index.umd.cjs",
       "import": "./dist/components/lukso-button/index.js",

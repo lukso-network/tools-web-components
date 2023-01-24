@@ -16,7 +16,20 @@ export async function readDeps(dir, prefix = []) {
     imports: string
     fileName: string
     types: string
-  }[] = []
+  }[] =
+    prefix.length === 0
+      ? [
+          {
+            entry: './src/components/index.ts',
+            source: './components/index',
+            name: 'components',
+            requires: './dist/components/index.umd.cjs',
+            imports: './dist/components/index.js',
+            types: './dist/components/index.d.ts',
+            fileName: 'components/index',
+          },
+        ]
+      : []
   const list = await readdir(dir)
   for (const file of list) {
     if (file === '.' || file === '..') {
@@ -84,6 +97,7 @@ async function writeIndex() {
   await writeFile(
     path.join(__dirname, 'src/components/index.ts'),
     `// DO NOT MODIFY MANUALLY\n${list
+      .slice(1)
       .map(({ source }) => {
         const file = `./${path.relative('./components', source)}`
         return `export * from '${file}'`

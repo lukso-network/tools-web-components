@@ -51,13 +51,21 @@
   },
   "overrides": [
     {
-      "files": ["**/dist/**/*.js"],
+      "files": ["**/dist/**/*"],
       "rules": {
-        "complexity": 0
+        "complexity": 0,
+        "@typescript-eslint/no-unused-vars": 0,
+        "@typescript-eslint/no-empty-function": 0
       }
     },
     {
-      "files": ["./*.{mjs,cjs}", "./*.js", "./*.json", "./.eslintrc"],
+      "files": [
+        "./*.{mjs,cjs}",
+        "./*.js",
+        "./*.json",
+        "./.eslintrc",
+        "./dist/**/*.js"
+      ],
       "parser": "espree",
       "parserOptions": {
         "ecmaVersion": 2020

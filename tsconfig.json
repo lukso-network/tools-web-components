@@ -14,11 +14,12 @@
     "baseUrl": "."
   },
   "include": [
-    "./src",
-    "./vite.config.ts",
-    "./global.d.ts"
+    "src",
+    "dist",
+    "vite.config.ts",
+    "global.d.ts"
   ],
   "exclude": [
-    "./node_modules"
+    "node_modules"
   ]
 }

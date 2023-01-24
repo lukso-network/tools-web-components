@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.7](https://github.com/lukso-network/tools-web-components/compare/v1.0.6...v1.0.7) (2023-01-24)
+
+
+### Bug Fixes
+
+* Add shared tailwind.element so typedefs can be compiled. ([df68e8c](https://github.com/lukso-network/tools-web-components/commit/df68e8c367dd76da077979899eff4f8fa4eaa3d1))
+* Also export ./components ([5465e2e](https://github.com/lukso-network/tools-web-components/commit/5465e2e7cd32c4d512b8c99a69090eff58bd3e51))
+* Improve eslint a bit to check the whole dist folder for testing ([c17b335](https://github.com/lukso-network/tools-web-components/commit/c17b3358f055e5dcabb326c2a6949e762c9a5d5d))
+* Lint will fail if non of the generated files are checked in ([9f35c04](https://github.com/lukso-network/tools-web-components/commit/9f35c0454870bd7df5b2fe8ac018f22c889f977d))
+* Missing changes ([c1e8464](https://github.com/lukso-network/tools-web-components/commit/c1e8464047319f672a9df13c24629370776662a8))
+* Remove custom-elements.json and src/components/index.ts from git and add to .gitignore. ([f6fc836](https://github.com/lukso-network/tools-web-components/commit/f6fc836c086002114ab69ea3d2f7400626a8cf11))
+* Remove dist files before build ([e2c4bed](https://github.com/lukso-network/tools-web-components/commit/e2c4bed083521aeb13c592999b2a962dba30c407))
+* Split builds into separate calls ([8d0b9a8](https://github.com/lukso-network/tools-web-components/commit/8d0b9a89ae33c48e46f3d7ab182ebc9d54e0d538))
+
 ## [1.0.6](https://github.com/lukso-network/tools-web-components/compare/v1.0.5...v1.0.6) (2023-01-23)
 
 

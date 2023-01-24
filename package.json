@@ -54,6 +54,11 @@
       "require": "./dist/components/lukso-test/index.umd.cjs",
       "import": "./dist/components/lukso-test/index.js",
       "types": "./dist/components/lukso-test/index.d.ts"
+    },
+    "./shared/tailwind.element": {
+      "require": "./dist/shared/tailwind.element.umd.cjs",
+      "import": "./dist/shared/tailwind.element.js",
+      "types": "./dist/shared/tailwind.element.d.ts"
     }
   },
   "scripts": {

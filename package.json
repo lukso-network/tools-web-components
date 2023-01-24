@@ -65,7 +65,7 @@
     "config-prepare": "tsc-bundle ./tsconfig.work.json --exportAs commonjs && renamer --force --chain find-replace --path-element ext --find '.js' --replace '.cjs' './tools/**/*.js'",
     "start": "yarn config-prepare && concurrently 'vite build -w' 'yarn storybook'",
     "dev": "yarn start",
-    "build": "yarn config-prepare && yarn analyze && vite build && yarn sass --verbose ./src/shared/styles/main.scss ./dist/styles/main.css && yarn build:list-exports",
+    "build": "rm -rf dist && yarn config-prepare && yarn analyze && vite build && yarn sass --verbose ./src/shared/styles/main.scss ./dist/styles/main.css && yarn build:list-exports",
     "build:list-exports": "node ./listExports.cjs",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt}'",
     "lint:eslint": "eslint src --fix",

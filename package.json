@@ -41,12 +41,12 @@
       "types": "./dist/sass/index.d.ts"
     },
     "./tools/color-palette": "./tools/color-palette.cjs",
-    "./lukso-button": {
+    "./components/lukso-button": {
       "require": "./dist/components/lukso-button/index.umd.cjs",
       "import": "./dist/components/lukso-button/index.js",
       "types": "./dist/components/lukso-button/index.d.ts"
     },
-    "./lukso-test": {
+    "./components/lukso-test": {
       "require": "./dist/components/lukso-test/index.umd.cjs",
       "import": "./dist/components/lukso-test/index.js",
       "types": "./dist/components/lukso-test/index.d.ts"

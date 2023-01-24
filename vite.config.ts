@@ -75,6 +75,7 @@ export async function readDeps(dir, prefix = []) {
       })
     }
   }
+  console.log(output)
   return output
 }
 
@@ -118,8 +119,8 @@ async function writePackage() {
     },
     './tools/color-palette': './tools/color-palette.cjs',
   }
-  for (const { name, requires, imports, types } of list) {
-    exp[`./${name}`] = {
+  for (const { fileName, requires, imports, types } of list) {
+    exp[`./${fileName.replace(/\/index$/, '')}`] = {
       require: requires,
       import: imports,
       types,

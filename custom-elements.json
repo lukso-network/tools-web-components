@@ -1,0 +1,293 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./components"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./lukso-button/index"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./lukso-test/index"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./../shared/tailwind.element"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-button/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariants"
+              },
+              "default": "'primary'",
+              "attribute": "variant"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "privacy": "private",
+              "default": "`flex justify-center items-center relative gap-2 py-3 px-6 rounded-xl\n    border border-solid cursor-pointer paragraph-16-semi-bold`"
+            },
+            {
+              "kind": "field",
+              "name": "secondaryStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-100 border-neutral-90 text-neutral-20 disabled:bg-neutral-90\n    disabled:border-neutral-90 disabled:text-neutral-100 hover:shadow-button-hover-secondary`"
+            },
+            {
+              "kind": "field",
+              "name": "primaryStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:bg-neutral-90\n    disabled:border-neutral-90\n    hover:shadow-button-hover-primary\n  `"
+            },
+            {
+              "kind": "field",
+              "name": "landingStyles",
+              "privacy": "private",
+              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58`"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariants"
+              },
+              "default": "'primary'",
+              "fieldName": "variant"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "module": "/src/shared/tailwind.element"
+          },
+          "tagName": "lukso-button",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoButton",
+          "declaration": {
+            "name": "LuksoButton",
+            "module": "src/components/lukso-button/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-button",
+          "declaration": {
+            "name": "LuksoButton",
+            "module": "src/components/lukso-button/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-test/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoTest",
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "'World'",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "clicked",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "attribute": "clicked"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "duration",
+              "type": {
+                "text": "number"
+              },
+              "default": "1000"
+            },
+            {
+              "kind": "field",
+              "name": "controller",
+              "default": "new AnimateController(this, {\n    defaultOptions: {\n      keyframeOptions: {\n        duration: this.duration,\n        fill: 'backwards',\n      },\n    },\n  })"
+            },
+            {
+              "kind": "method",
+              "name": "_onClick"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "'World'",
+              "fieldName": "name"
+            },
+            {
+              "name": "clicked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "clicked"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "TailwindStyledElement",
+              "module": "/src/shared/tailwind.element"
+            }
+          ],
+          "superclass": {
+            "name": "style",
+            "module": "/src/components/lukso-test/test.component.scss"
+          },
+          "tagName": "lukso-test",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoTest",
+          "declaration": {
+            "name": "LuksoTest",
+            "module": "src/components/lukso-test/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-test",
+          "declaration": {
+            "name": "LuksoTest",
+            "module": "src/components/lukso-test/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/styles/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/styles/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/fonts/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/fonts/index.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -6,6 +6,8 @@
 /node_modules
 /storybook-static
 /.work
+/src/components/index.ts
+/custom-elements.json
 
 # Yarn
 .pnp.*

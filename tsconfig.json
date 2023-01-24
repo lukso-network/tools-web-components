@@ -15,7 +15,8 @@
   },
   "include": [
     "./src",
-    "./vite.config.ts"
+    "./vite.config.ts",
+    "./global.d.ts"
   ],
   "exclude": [
     "./node_modules"

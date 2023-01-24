@@ -82,9 +82,12 @@ export async function readDeps(dir, prefix = []) {
 async function writeIndex() {
   const list = await readDeps('src')
   await writeFile(
-    path.join(__dirname, 'src/index.ts'),
+    path.join(__dirname, 'src/components/index.ts'),
     `// DO NOT MODIFY MANUALLY\n${list
-      .map(({ source }) => `export * from '${source}'`)
+      .map(({ source }) => {
+        const file = `./${path.relative('./components', source)}`
+        return `export * from '${file}'`
+      })
       .join('\n')}\n`
   )
 }

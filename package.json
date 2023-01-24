@@ -3,10 +3,9 @@
   "version": "1.0.6",
   "type": "module",
   "files": [
-    "dist/",
-    "src/",
+    "dist/**/*.{cjs,js,ts,css,woff2,scss}",
+    "src/**/*.{cjs,js,ts,css,woff2,scss}",
     "tools/",
-    "dist/assets/*",
     "tailwind.config.cjs",
     "postcss.config.cjs",
     "README.md"

@@ -97,25 +97,27 @@ export async function readDeps(dir, prefix = []) {
       })
     }
   }
-  console.log(output)
   return output
 }
 
 async function writeIndex() {
   const list = await readDeps('src')
-  await writeFile(
-    path.join(__dirname, 'src/components/index.ts'),
-    `// DO NOT MODIFY MANUALLY\n${list
-      .slice(1)
-      .map(({ source }) => {
-        const file = `./${path.relative(
-          './components',
-          source.replace(/\.ts$/, '')
-        )}`
-        return `export * from '${file}'`
-      })
-      .join('\n')}\n`
-  )
+  const filePath = path.join(__dirname, 'src/components/index.ts')
+  const oldFile = await readFile(filePath, 'utf-8')
+  const newFile = `// DO NOT MODIFY MANUALLY\n${list
+    .slice(1)
+    .map(({ source }) => {
+      const file = `./${path.relative(
+        './components',
+        source.replace(/\.ts$/, '')
+      )}`
+      return `export * from '${file}'`
+    })
+    .join('\n')}\n`
+  if (oldFile !== newFile) {
+    console.log(`writing ${filePath}`)
+    await writeFile(filePath, newFile)
+  }
 }
 
 async function writePackage() {
@@ -147,6 +149,9 @@ async function writePackage() {
       types: './dist/sass/index.d.ts',
     },
     './tools/color-palette': './tools/color-palette.cjs',
+    './custom-elements': './custom-elements.json',
+    './custom-elements.json': './custom-elements.json',
+    './package.json': './package.json',
   }
   for (const { fileName, requires, imports, types } of list) {
     exp[`./${fileName.replace(/\/index$/, '')}`] = {
@@ -155,10 +160,19 @@ async function writePackage() {
       types,
     }
   }
-  const pack = JSON.parse(await readFile('./package.json', 'utf-8'))
+  const oldContent = await readFile('./package.json', 'utf-8')
+  const pack = JSON.parse(oldContent)
   pack.exports = exp
-  await writeFile('./package.json', `${JSON.stringify(pack, null, '  ')}\n`)
+  const newContent = `${JSON.stringify(pack, null, '  ')}\n`
+  if (newContent !== oldContent) {
+    console.log(`writing ./package.json`)
+    await writeFile('./package.json', newContent)
+  }
   return exp
+}
+
+const chokidar = {
+  ignored: ['node_modules/**', 'tools/**', 'dist/**'],
 }
 
 export default async ({ mode }) => {
@@ -196,25 +210,33 @@ export default async ({ mode }) => {
     })
   )
 
+  console.log(mode)
+
   if (mode === 'production') {
     for (const lib of libs.slice(1)) {
       await build({
         configFile: false,
         build: {
           lib,
-          emptyOutDir: lib.fileName === 'index',
+          emptyOutDir: false,
+          watch: {
+            clearScreen: false,
+            exclude: ['node_modules/**', 'tools/**', 'dist/**'],
+            chokidar,
+          },
+          rollupOptions: {},
         },
         plugins: [
           lib.fileName === 'index'
             ? viteStaticCopy({
                 targets: [
                   {
-                    src: './src/shared/assets/fonts/*',
-                    dest: 'assets/fonts',
+                    src: './src/shared/assets/fonts/*.woff2',
+                    dest: 'assets/fonts/',
                   },
                   {
-                    src: './src/shared/styles/*',
-                    dest: 'sass',
+                    src: './src/shared/styles/*.{css,scss}',
+                    dest: 'sass/',
                   },
                 ],
               })
@@ -233,6 +255,11 @@ export default async ({ mode }) => {
     build: {
       lib: libs[0],
       emptyOutDir: false,
+      watch: {
+        clearScreen: false,
+        chokidar,
+        exclude: ['node_modules/**', 'tools/**', 'dist/**'],
+      },
     },
     plugins: [
       viteStaticCopy({

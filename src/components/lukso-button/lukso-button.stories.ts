@@ -9,43 +9,36 @@ export default {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'landing'],
+      options: ['primary', 'secondary', 'landing', 'link'],
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: false,
+    },
+    text: {
+      control: { type: 'text' },
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium'],
     },
   },
-  parameters: {
-    controls: {
-      exclude: ['defaultStyles', 'secondaryStyles', 'primaryStyles'],
-    },
+  args: {
+    text: 'Hello World',
+    disabled: false,
+    size: 'medium',
   },
 }
 
-const Template = ({ variant, disabled }) =>
-  html`<lukso-button variant=${variant} ?disabled=${disabled}
-    >Hello World</lukso-button
+const Template = ({ variant, disabled, text, size }) =>
+  html`<lukso-button variant=${variant} ?disabled=${disabled} size=${size}
+    >${text}</lukso-button
   >`
 
-export const Primary = Template.bind({})
-Primary.args = {
-  variant: 'primary',
-}
+export const Button = Template.bind({})
 
-Primary.play = async ({ canvasElement }) => {
+Button.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   // 👇 Assert DOM structure
   expect(canvas.getByText('Hello World')).toBeInTheDocument()
-}
-
-export const Secondary = Template.bind({})
-Secondary.args = {
-  variant: 'secondary',
-}
-
-export const Landing = Template.bind({})
-Landing.args = {
-  variant: 'landing',
 }

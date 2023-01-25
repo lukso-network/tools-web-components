@@ -5,7 +5,7 @@
   * necessary styles that Web Components will inherit from like fonts and CSS variables.
   */
 
-$font-file-path: '../src/shared';
+$font-file-path: '/fonts';
 
 @import '../src/shared/styles/fonts';
 @import '../src/shared/styles/variables';

@@ -16,7 +16,7 @@
   "include": [
     "src",
     "dist",
-    "vite.config.ts",
+    "vite.full.config.ts",
     "global.d.ts"
   ],
   "exclude": [

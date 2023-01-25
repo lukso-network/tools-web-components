@@ -1,76 +1,76 @@
 module.exports = {
-  "root": true,
-  "env": {
-    "node": true,
-    "browser": true,
-    "es6": true,
-    "webextensions": true
+  root: true,
+  env: {
+    node: true,
+    browser: true,
+    es6: true,
+    webextensions: true,
   },
-  "settings": {
-    "import/resolver": {
-      "typescript": {},
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".css", ".scss", ".json"]
-      }
+  settings: {
+    'import/resolver': {
+      typescript: {},
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss', '.json'],
+      },
     },
-    "import/parser": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
-    }
+    'import/parser': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
   },
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/recommended",
-    "plugin:json/recommended",
-    "plugin:lit/recommended",
-    "prettier"
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:json/recommended',
+    'plugin:lit/recommended',
+    'prettier',
   ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
     tsconfigRootDir: __dirname,
-    "project": ["./tsconfig.json"]
+    project: ['./tsconfig.json'],
   },
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": "error",
-    "no-debugger": 2,
-    "no-unused-vars": "off", // Using the ts rule above instead.
-    "import/order": [
-      "error",
+  plugins: ['@typescript-eslint'],
+  rules: {
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
+    'no-debugger': 2,
+    'no-unused-vars': 'off', // Using the ts rule above instead.
+    'import/order': [
+      'error',
       {
-        "groups": [
-          ["builtin", "external", "index"],
-          ["sibling", "parent", "internal"],
-          "object",
-          "type"
+        groups: [
+          ['builtin', 'external', 'index'],
+          ['sibling', 'parent', 'internal'],
+          'object',
+          'type',
         ],
-        "newlines-between": "always"
-      }
-    ]
+        'newlines-between': 'always',
+      },
+    ],
   },
-  "overrides": [
+  overrides: [
     {
-      "files": ["**/dist/**/*"],
-      "rules": {
-        "complexity": 0,
-        "@typescript-eslint/no-unused-vars": 0,
-        "@typescript-eslint/no-empty-function": 0
-      }
+      files: ['**/dist/**/*'],
+      rules: {
+        complexity: 0,
+        '@typescript-eslint/no-unused-vars': 0,
+        '@typescript-eslint/no-empty-function': 0,
+      },
     },
     {
-      "files": [
-        "./*.{mjs,cjs}",
-        "./*.js",
-        "./*.json",
-        "./.eslintrc",
-        "./dist/**/*.js"
+      files: [
+        './*.{mjs,cjs}',
+        './*.js',
+        './*.json',
+        './.eslintrc.cjs',
+        './dist/**/*.js',
       ],
-      "parser": "espree",
-      "parserOptions": {
-        "ecmaVersion": 2020
-      }
-    }
-  ]
+      parser: 'espree',
+      parserOptions: {
+        ecmaVersion: 2020,
+      },
+    },
+  ],
 }

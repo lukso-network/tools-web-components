@@ -2,22 +2,20 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "declaration": true,
     "declarationMap": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
-    "skipLibCheck": true,
     "esModuleInterop": true,
-    "outDir": ".work",
-    "baseUrl": "."
+    "outDir": ".work"
   },
   "include": [
-    "src",
-    "dist",
-    "vite.full.config.ts",
-    "global.d.ts"
+    "src/**/*",
+    "src/**/index.*",
+    "dist/**/*",
+    "vite.full.config.ts"
   ],
   "exclude": [
     "node_modules"

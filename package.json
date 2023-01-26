@@ -66,9 +66,9 @@
   },
   "scripts": {
     "config-prepare": "tsc-bundle ./tsconfig.work.json --exportAs commonjs && renamer --force --chain find-replace --path-element ext --find '.js' --replace '.cjs' './tools/**/*.js'",
-    "start": "yarn config-prepare && concurrently 'vite build --config=./vite.full.config.ts --mode=develop' 'yarn storybook' 'yarn analyze:watch'",
+    "start": "yarn config-prepare && concurrently 'ts-node-esm ./vite.full.config.ts --mode=develop' 'yarn storybook' 'yarn analyze:watch'",
     "dev": "yarn start",
-    "build": "rm -rf dist && yarn config-prepare && yarn analyze && vite build --config=./vite.full.config.ts && yarn sass --verbose ./src/shared/styles/main.scss ./dist/styles/main.css && yarn build:list-exports",
+    "build": "rm -rf dist && yarn config-prepare && yarn analyze && ts-node-esm ./vite.full.config.ts --mode=production && yarn sass --verbose ./src/shared/styles/main.scss ./dist/styles/main.css && yarn build:list-exports",
     "build:list-exports": "node ./listExports.cjs",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt}'",
     "lint:eslint": "eslint src --fix",
@@ -143,12 +143,14 @@
     "stylelint-config-standard-scss": "^6.1.0",
     "stylelint-prettier": "^2.0.0",
     "tailwindcss": "^3.2.4",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
     "typescript-bundle": "^1.0.18",
     "vite": "^4.0.4",
     "vite-plugin-dts": "^1.7.1",
     "vite-plugin-static-copy": "^0.13.0",
-    "wait-on": "^7.0.1"
+    "wait-on": "^7.0.1",
+    "yargs": "^17.6.2"
   },
   "dependencies": {
     "tinycolor2": "^1.5.2"

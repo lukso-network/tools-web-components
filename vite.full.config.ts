@@ -171,10 +171,6 @@ async function writePackage() {
   return exp
 }
 
-const chokidar = {
-  ignored: ['node_modules/**', 'tools/**', 'dist/**'],
-}
-
 export default async args => {
   const { mode } = args
   console.log('args', args)
@@ -222,8 +218,6 @@ export default async args => {
           mode !== 'production'
             ? {
                 clearScreen: false,
-                chokidar,
-                exclude: ['node_modules/**', 'tools/**', 'dist/**'],
               }
             : null,
       },
@@ -259,8 +253,6 @@ export default async args => {
         mode !== 'production'
           ? {
               clearScreen: false,
-              chokidar,
-              exclude: ['node_modules/**', 'tools/**', 'dist/**'],
             }
           : null,
     },

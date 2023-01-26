@@ -45,21 +45,21 @@ module.exports = {
         'neutral-inner-shadow-3xl':
           'inset 0px 130px 52px rgba(63, 93, 116, 0.02), inset 0px 73px 44px rgba(63, 93, 116, 0.08), inset 0px 33px 33px rgba(63, 93, 116, 0.13), inset 0px 8px 18px rgba(63, 93, 116, 0.15)',
         'neutral-above-shadow':
-          '0px 0px 24px 7px rgba(63, 93, 116, 0.1), 0px 0px 10.4625px 7px rgba(63, 93, 116, 0.0675), 0px 0px 3.9px 7px rgba(63, 93, 116, 0.05), 0px 0px 1.3875px 7px rgba(63, 93, 116, 0.0325)',
+          '0px 0px 24px rgba(63, 93, 116, 0.1), 0px 0px 10.4625px rgba(63, 93, 116, 0.0675), 0px 0px 3.9px rgba(63, 93, 116, 0.05), 0px 0px 1.3875px rgba(63, 93, 116, 0.0325)',
         'neutral-above-shadow-1xl':
-          '0px 0px 32px 7px rgba(63, 93, 116, 0.1), 0px 0px 18.46px 7px rgba(63, 93, 116, 0.0675), 0px 0px 11.9px 7px rgba(63, 93, 116, 0.05), 0px 0px 9.39px 7px rgba(63, 93, 116, 0.0325)',
+          '0px 0px 32px rgba(63, 93, 116, 0.1), 0px 0px 18.46px rgba(63, 93, 116, 0.0675), 0px 0px 11.9px rgba(63, 93, 116, 0.05), 0px 0px 9.39px rgba(63, 93, 116, 0.0325)',
         'neutral-above-shadow-2xl':
-          '0px 0px 40px 7px rgba(63, 93, 116, 0.1), 0px 0px 26.46px 7px rgba(63, 93, 116, 0.0675), 0px 0px 19.9px 7px rgba(63, 93, 116, 0.05), 0px 0px 17.39px 7px rgba(63, 93, 116, 0.0325)',
+          '0px 0px 40px rgba(63, 93, 116, 0.1), 0px 0px 26.46px rgba(63, 93, 116, 0.0675), 0px 0px 19.9px rgba(63, 93, 116, 0.05), 0px 0px 17.39px rgba(63, 93, 116, 0.0325)',
         'neutral-above-shadow-3xl':
-          '0px 0px 48px 7px rgba(63, 93, 116, 0.1), 0px 0px 34.46px 7px rgba(63, 93, 116, 0.0675), 0px 0px 27.9px 7px rgba(63, 93, 116, 0.05), 0px 0px 25.39px 7px rgba(63, 93, 116, 0.0325)',
+          '0px 0px 48px rgba(63, 93, 116, 0.1), 0px 0px 34.46px rgba(63, 93, 116, 0.0675), 0px 0px 27.9px rgba(63, 93, 116, 0.05), 0px 0px 25.39px rgba(63, 93, 116, 0.0325)',
         'pink-above-shadow':
-          '0px 0px 24px 7px rgba(112, 96, 92, 0.1), 0px 0px 10.4625px 7px rgba(112, 96, 92, 0.0675), 0px 0px 3.9px 7px rgba(112, 96, 92, 0.05), 0px 0px 1.3875px 7px rgba(112, 96, 92, 0.0325)',
+          '0px 0px 24px rgba(112, 96, 92, 0.1), 0px 0px 10.4625px rgba(112, 96, 92, 0.0675), 0px 0px 3.9px rgba(112, 96, 92, 0.05), 0px 0px 1.3875px rgba(112, 96, 92, 0.0325)',
         'pink-above-shadow-1xl':
-          '0px 0px 32px 7px rgba(112, 96, 92, 0.1), 0px 0px 18.46px 7px rgba(112, 96, 92, 0.0675), 0px 0px 11.9px 7px rgba(112, 96, 92, 0.05), 0px 0px 9.39px 7px rgba(112, 96, 92, 0.0325)',
+          '0px 0px 32px rgba(112, 96, 92, 0.1), 0px 0px 18.46px rgba(112, 96, 92, 0.0675), 0px 0px 11.9px rgba(112, 96, 92, 0.05), 0px 0px 9.39px rgba(112, 96, 92, 0.0325)',
         'pink-above-shadow-2xl':
-          '0px 0px 40px 7px rgba(112, 96, 92, 0.1), 0px 0px 26.46px 7px rgba(112, 96, 92, 0.0675), 0px 0px 19.9px 7px rgba(112, 96, 92, 0.05), 0px 0px 17.39px 7px rgba(112, 96, 92, 0.0325)',
+          '0px 0px 40px rgba(112, 96, 92, 0.1), 0px 0px 26.46px rgba(112, 96, 92, 0.0675), 0px 0px 19.9px rgba(112, 96, 92, 0.05), 0px 0px 17.39px rgba(112, 96, 92, 0.0325)',
         'pink-above-shadow-3xl':
-          '0px 0px 48px 7px rgba(112, 96, 92, 0.1), 0px 0px 34.46px 7px rgba(112, 96, 92, 0.0675), 0px 0px 27.9px 7px rgba(112, 96, 92, 0.05), 0px 0px 25.39px 7px rgba(112, 96, 92, 0.0325)',
+          '0px 0px 48px rgba(112, 96, 92, 0.1), 0px 0px 34.46px rgba(112, 96, 92, 0.0675), 0px 0px 27.9px rgba(112, 96, 92, 0.05), 0px 0px 25.39px rgba(112, 96, 92, 0.0325)',
       },
       fontSize: {
         8: '8px',

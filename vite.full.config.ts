@@ -130,11 +130,23 @@ async function writePackage() {
     },
     './tailwind.config': './tailwind.config.cjs',
     './postcss.config': './postcss.config.cjs',
+    './assets/': './dist/assets/',
+    './assets': {
+      require: './dist/assets/index.umd.cjs',
+      import: './dist/assets/index.js',
+      types: './dist/assets/index.d.ts',
+    },
     './assets/fonts/': './dist/assets/fonts/',
     './assets/fonts': {
       require: './dist/assets/fonts/index.umd.cjs',
       import: './dist/assets/fonts/index.js',
       types: './dist/assets/fonts/index.d.ts',
+    },
+    './assets/images/': './dist/assets/images/',
+    './assets/images': {
+      require: './dist/assets/images/index.umd.cjs',
+      import: './dist/assets/images/index.js',
+      types: './dist/assets/images/index.d.ts',
     },
     './styles/': './dist/styles/',
     './styles': {
@@ -171,6 +183,10 @@ async function writePackage() {
   return exp
 }
 
+const chokidar = {
+  ignored: ['node_modules/**', 'tools/**', 'dist/**'],
+}
+
 export default async args => {
   const { mode } = args
   console.log('args', args)
@@ -189,9 +205,19 @@ export default async args => {
       entry: './src/shared/styles/index.ts',
     },
     {
+      fileName: 'assets/index',
+      name: 'web_components_assets',
+      entry: './src/shared/assets/index.ts',
+    },
+    {
       fileName: 'assets/fonts/index',
       name: 'web_components_fonts',
       entry: './src/shared/assets/fonts/index.ts',
+    },
+    {
+      fileName: 'assets/images/index',
+      name: 'web_components_images',
+      entry: './src/shared/assets/images/index.ts',
     },
     {
       fileName: 'sass/index',
@@ -218,6 +244,8 @@ export default async args => {
           mode !== 'production'
             ? {
                 clearScreen: false,
+                chokidar,
+                exclude: ['node_modules/**', 'tools/**', 'dist/**'],
               }
             : null,
       },
@@ -253,6 +281,8 @@ export default async args => {
         mode !== 'production'
           ? {
               clearScreen: false,
+              chokidar,
+              exclude: ['node_modules/**', 'tools/**', 'dist/**'],
             }
           : null,
     },
@@ -260,8 +290,8 @@ export default async args => {
       viteStaticCopy({
         targets: [
           {
-            src: './src/shared/assets/fonts/*',
-            dest: 'assets/fonts',
+            src: './src/shared/assets/*',
+            dest: 'assets',
           },
           {
             src: './src/shared/styles/*',

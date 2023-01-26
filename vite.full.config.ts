@@ -175,91 +175,94 @@ const chokidar = {
   ignored: ['node_modules/**', 'tools/**', 'dist/**'],
 }
 
-export default async ({ mode }) => {
+export default async args => {
+  const { mode } = args
+  console.log('args', args)
   await writeIndex()
   await writePackage()
   const list = await readDeps('src')
   const libs = [
     {
       fileName: 'index',
-      name: 'Lukso Components',
+      name: 'web_components',
       entry: './src/index.ts',
     },
     {
       fileName: 'styles/index',
-      name: 'Lukso Components: Styles',
+      name: 'web_components_styles',
       entry: './src/shared/styles/index.ts',
     },
     {
       fileName: 'assets/fonts/index',
-      name: 'Lukso Components: Fonts',
+      name: 'web_components_fonts',
       entry: './src/shared/assets/fonts/index.ts',
     },
     {
       fileName: 'sass/index',
-      name: 'Lukso Components: Sass',
+      name: 'web_components_sass',
       entry: './src/shared/styles/index.ts',
     },
   ].concat(
     list.map(({ entry, fileName, name }) => {
       return {
         fileName,
-        name: `LuksoComponents: ${name}`,
+        name: `web_components_${name.replace(/-/g, '_')}`,
         entry,
       }
     })
   )
 
-  console.log(mode)
-
-  if (mode === 'production') {
-    for (const lib of libs.slice(1)) {
-      await build({
-        configFile: false,
-        build: {
-          lib,
-          emptyOutDir: false,
-          watch: {
-            clearScreen: false,
-            exclude: ['node_modules/**', 'tools/**', 'dist/**'],
-            chokidar,
-          },
-          rollupOptions: {},
-        },
-        plugins: [
-          lib.fileName === 'index'
-            ? viteStaticCopy({
-                targets: [
-                  {
-                    src: './src/shared/assets/fonts/*.woff2',
-                    dest: 'assets/fonts/',
-                  },
-                  {
-                    src: './src/shared/styles/*.{css,scss}',
-                    dest: 'sass/',
-                  },
-                ],
-              })
+  for (const lib of libs.slice(1)) {
+    await build({
+      configFile: false,
+      build: {
+        lib,
+        emptyOutDir: false,
+        watch:
+          mode !== 'production'
+            ? {
+                clearScreen: false,
+                chokidar,
+                exclude: ['node_modules/**', 'tools/**', 'dist/**'],
+              }
             : null,
-          dts({
-            insertTypesEntry: true,
-            entryRoot: 'src',
-            // include: ['./src/index.ts', './src/components/*/index.ts', '*.scss'],
-            outputDir: './dist',
-          }),
-        ].filter(item => item),
-      })
-    }
+      },
+      plugins: [
+        lib.fileName === 'index'
+          ? viteStaticCopy({
+              targets: [
+                {
+                  src: './src/shared/assets/fonts/*.woff2',
+                  dest: 'assets/fonts/',
+                },
+                {
+                  src: './src/shared/styles/*.{css,scss}',
+                  dest: 'sass/',
+                },
+              ],
+            })
+          : null,
+        dts({
+          insertTypesEntry: true,
+          entryRoot: 'src',
+          // include: ['./src/index.ts', './src/components/*/index.ts', '*.scss'],
+          outputDir: './dist',
+        }),
+      ].filter(item => item),
+    })
   }
   return defineConfig({
     build: {
       lib: libs[0],
       emptyOutDir: false,
-      watch: {
-        clearScreen: false,
-        chokidar,
-        exclude: ['node_modules/**', 'tools/**', 'dist/**'],
-      },
+      watch:
+        mode !== 'production'
+          ? {
+              clearScreen: false,
+              chokidar,
+              exclude: ['node_modules/**', 'tools/**', 'dist/**'],
+            }
+          : null,
     },
     plugins: [
       viteStaticCopy({

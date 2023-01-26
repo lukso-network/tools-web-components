@@ -13,6 +13,11 @@ export default {
     title: `UNIVERSAL
 PROFILES`,
   },
+  parameters: {
+    controls: {
+      exclude: ['defaultStyles'],
+    },
+  },
 }
 
 const Template = ({ title }) =>

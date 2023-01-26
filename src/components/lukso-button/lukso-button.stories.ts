@@ -27,6 +27,19 @@ export default {
     disabled: false,
     size: 'medium',
   },
+  parameters: {
+    controls: {
+      exclude: [
+        'defaultStyles',
+        'secondaryStyles',
+        'primaryStyles',
+        'landingStyles',
+        'linkStyles',
+        'mediumSize',
+        'smallSize',
+      ],
+    },
+  },
 }
 
 const Template = ({ variant, disabled, text, size }) =>

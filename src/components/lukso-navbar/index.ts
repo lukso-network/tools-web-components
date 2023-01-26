@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { TailwindElement } from '../../shared/tailwind.element.js'
 import { customClassMap } from '../../shared/directives/custom-class-map.js'
-import logo from '../../shared/assets/images/lukso-logo.svg'
+// import logo from '../../shared/assets/images/lukso-logo.svg'
 
 @customElement('lukso-navbar')
 export class LuksoNavbar extends TailwindElement {
@@ -20,9 +20,9 @@ export class LuksoNavbar extends TailwindElement {
           [this.defaultStyles]: true,
         })}
       >
-        <div class="flex items-center px-10">
-          <img src="${logo}" />
-          <div class="text-purple-51 heading-h4-apax whitespace-pre-line">
+        <div class="flex items-center px-10 h-full">
+          <img src="images/lukso-logo.svg" class="mr-4" />
+          <div class="text-purple-51 heading-h4-apax whitespace-pre-line flex">
             ${this.title}
           </div>
         </div>

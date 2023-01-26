@@ -8,10 +8,14 @@ export default {
     title: {
       control: { type: 'text' },
     },
+    isCenter: {
+      control: { type: 'boolean' },
+    },
   },
   args: {
     title: `UNIVERSAL
 PROFILES`,
+    isCenter: false,
   },
   parameters: {
     controls: {
@@ -20,7 +24,7 @@ PROFILES`,
   },
 }
 
-const Template = ({ title }) =>
-  html`<lukso-navbar title=${title}></lukso-navbar>`
+const Template = ({ title, isCenter }) =>
+  html`<lukso-navbar title=${title} ?is-center="${isCenter}"></lukso-navbar>`
 
 export const Navbar = Template.bind({})

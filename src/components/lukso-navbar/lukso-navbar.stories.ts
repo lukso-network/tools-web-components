@@ -1,5 +1,5 @@
 import { html } from 'lit-html'
-import './lukso-navbar'
+import './index'
 
 export default {
   title: 'Design System/Atoms/Navbar',
@@ -10,7 +10,8 @@ export default {
     },
   },
   args: {
-    title: 'UNIVERSAL<br>PROFILES',
+    title: `UNIVERSAL
+PROFILES`,
   },
 }
 

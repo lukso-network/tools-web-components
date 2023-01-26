@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/lukso-network/tools-web-components/compare/v1.0.7...v1.1.0) (2023-01-26)
+
+
+### Features
+
+* drop shadows ([#16](https://github.com/lukso-network/tools-web-components/issues/16)) ([3736e91](https://github.com/lukso-network/tools-web-components/commit/3736e917545f7a8660d68cf4b0336ba2a9b76f4d))
+
+
+### Bug Fixes
+
+* Don't pass -w and setup watch ignored list. ([3d70acb](https://github.com/lukso-network/tools-web-components/commit/3d70acbe6e20654327444233a41ad639d42299d7))
+* Simplify eslint/vite/tsconfig to remove custom chokidar settings ([#18](https://github.com/lukso-network/tools-web-components/issues/18)) ([338bd5d](https://github.com/lukso-network/tools-web-components/commit/338bd5dd8a7862ca6fdf020e799928bc717383c5))
+* Vite and storybook build and config. ([#17](https://github.com/lukso-network/tools-web-components/issues/17)) ([da873f1](https://github.com/lukso-network/tools-web-components/commit/da873f10cd136e3640ba1d03fce2d7535d469dc9))
+
 ## [1.0.7](https://github.com/lukso-network/tools-web-components/compare/v1.0.6...v1.0.7) (2023-01-24)
 
 

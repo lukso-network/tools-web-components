@@ -43,7 +43,7 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./../shared/tailwind.element"
+            "package": "./../shared/tailwind-element/index"
           }
         }
       ]
@@ -155,7 +155,7 @@
           ],
           "superclass": {
             "name": "TailwindElement",
-            "module": "/src/shared/tailwind.element"
+            "package": "@/shared/tailwind-element"
           },
           "tagName": "lukso-button",
           "customElement": true
@@ -233,6 +233,15 @@
             {
               "kind": "method",
               "name": "_onClick"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "inheritedFrom": {
+                "name": "TailwindStyledElement",
+                "module": "src/shared/tailwind-element/index.ts"
+              }
             }
           ],
           "attributes": [
@@ -264,7 +273,7 @@
           "mixins": [
             {
               "name": "TailwindStyledElement",
-              "module": "/src/shared/tailwind.element"
+              "package": "@/shared/tailwind-element"
             }
           ],
           "superclass": {
@@ -296,6 +305,21 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./custom-class-map"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/styles/index.ts",
       "declarations": [],
       "exports": [
@@ -311,6 +335,61 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/tailwind-element/index.ts",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "description": "",
+          "name": "TailwindStyledElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            }
+          ],
+          "parameters": [
+            {
+              "name": "style",
+              "type": {
+                "text": "any"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TailwindElement",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TailwindStyledElement",
+          "declaration": {
+            "name": "TailwindStyledElement",
+            "module": "src/shared/tailwind-element/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TailwindElement",
+          "declaration": {
+            "name": "TailwindElement",
+            "module": "src/shared/tailwind-element/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/assets/fonts/index.ts",
       "declarations": [],
       "exports": [
@@ -320,6 +399,50 @@
           "declaration": {
             "name": "__dirname",
             "module": "src/shared/assets/fonts/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/directives/custom-class-map/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CustomClassMapDirective",
+          "members": [],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "customClassMap",
+          "description": "A directive that applies dynamic CSS classes.\nSince build in `classMap` directive can only apply one class name,\nthis directive is allowing to apply multiple class names.\n\nThis must be used in the `class` attribute and must be the only part used in\nthe attribute. It takes each property in the `classInfoList` argument and adds\nthe property names to the element's `classList` if the property value is\ntruthy; if the property value is falsey, the property name is removed from\nthe element's `class`.\n\nFor example `{'foo bar': baz}` applies the class `foo bar` if the value of `baz` is\ntruthy.",
+          "parameters": [
+            {
+              "name": "classInfoList"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CustomClassMapDirective",
+          "declaration": {
+            "name": "CustomClassMapDirective",
+            "module": "src/shared/directives/custom-class-map/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "customClassMap",
+          "declaration": {
+            "name": "customClassMap",
+            "module": "src/shared/directives/custom-class-map/index.ts"
           }
         }
       ]

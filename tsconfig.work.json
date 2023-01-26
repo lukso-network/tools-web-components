@@ -10,7 +10,12 @@
     "useDefineForClassFields": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "outDir": "./tools"
+    "outDir": "./tools",
+    "paths": {
+      "@": ["./src"],
+      "@/*": ["./src/*"],
+      "@/shared/directives": ["./src/shared/directives"],
+    }
   },
   "files": ["./src/shared/styles/color-palette.ts"],
   "exclude": ["./node_modules"]

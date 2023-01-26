@@ -32,13 +32,13 @@ export async function readDeps(dir, prefix = []) {
             fileName: 'components/index',
           },
           {
-            entry: './src/shared/tailwind.element.ts',
-            source: './shared/tailwind.element.ts',
-            name: 'tailwind.element',
-            requires: './dist/shared/tailwind.element.umd.cjs',
-            imports: './dist/shared/tailwind.element.js',
-            types: './dist/shared/tailwind.element.d.ts',
-            fileName: 'shared/tailwind.element',
+            entry: './src/shared/tailwind-element/index.ts',
+            source: './shared/tailwind-element/index.ts',
+            name: 'tailwind-element',
+            requires: './dist/shared/tailwind-element/index.umd.cjs',
+            imports: './dist/shared/tailwind-element/index.js',
+            types: './dist/shared/tailwind-element/index.d.ts',
+            fileName: 'shared/tailwind-element/index',
           },
         ]
       : []
@@ -178,6 +178,12 @@ const chokidar = {
   ignored: ['node_modules/**', 'tools/**', 'dist/**'],
 }
 
+const resolve = {
+  alias: {
+    '@': path.resolve(__dirname, './src'),
+  },
+}
+
 export async function run(argv: any) {
   const { mode } = argv
   await writeIndex()
@@ -205,9 +211,9 @@ export async function run(argv: any) {
       entry: './src/shared/styles/index.ts',
     },
     {
-      fileName: 'shared/tailwind.element',
+      fileName: 'shared/tailwind-element',
       name: 'web_components_tailwind',
-      entry: './src/shared/tailwind.element.ts',
+      entry: './src/shared/tailwind-element/index.ts',
     },
   ].concat(
     list.map(({ entry, fileName, name }) => {
@@ -226,6 +232,7 @@ export async function run(argv: any) {
       // dtsPromise,
       await build({
         configFile: false,
+        resolve,
         build: {
           lib,
           emptyOutDir: false,

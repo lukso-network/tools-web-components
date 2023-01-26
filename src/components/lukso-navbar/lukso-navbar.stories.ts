@@ -11,20 +11,34 @@ export default {
     isCenter: {
       control: { type: 'boolean' },
     },
+    isSticky: {
+      control: { type: 'boolean' },
+    },
   },
   args: {
     title: `UNIVERSAL
 PROFILES`,
     isCenter: false,
+    isSticky: false,
   },
   parameters: {
     controls: {
-      exclude: ['defaultStyles'],
+      exclude: [
+        'defaultStyles',
+        'centerStyles',
+        'stickyStyles',
+        'is-center',
+        'is-sticky',
+      ],
     },
   },
 }
 
-const Template = ({ title, isCenter }) =>
-  html`<lukso-navbar title=${title} ?is-center="${isCenter}"></lukso-navbar>`
+const Template = ({ title, isCenter, isSticky }) =>
+  html`<lukso-navbar
+    title=${title}
+    ?is-center="${isCenter}"
+    ?is-sticky="${isSticky}"
+  ></lukso-navbar>`
 
 export const Navbar = Template.bind({})

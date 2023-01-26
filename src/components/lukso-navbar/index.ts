@@ -9,12 +9,17 @@ export class LuksoNavbar extends TailwindElement {
   @property({ type: String })
   title = ''
 
-  @property({ type: Boolean })
-  'is-center' = false
+  @property({ type: Boolean, attribute: 'is-center' })
+  isCenter = false
+
+  @property({ type: Boolean, attribute: 'is-sticky' })
+  isSticky = false
 
   private defaultStyles = `bg-neutral-100 shadow-pink-drop-shadow h-78 flex`
 
   private centerStyles = `justify-center`
+
+  private stickyStyles = `sticky top-0 z-10`
 
   render() {
     return html`
@@ -22,7 +27,8 @@ export class LuksoNavbar extends TailwindElement {
         data-testid="navbar"
         class=${customClassMap({
           [this.defaultStyles]: true,
-          [this.centerStyles]: this['is-center'],
+          [this.centerStyles]: this.isCenter,
+          [this.stickyStyles]: this.isSticky,
         })}
       >
         <div class="flex items-center px-10 h-full">

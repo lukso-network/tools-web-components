@@ -12,8 +12,7 @@
     "outDir": ".work"
   },
   "include": [
-    "src",
-    "vite.full.config.ts"
+    "dist",
   ],
   "exclude": [
     "node_modules"

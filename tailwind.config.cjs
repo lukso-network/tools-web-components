@@ -60,6 +60,9 @@ module.exports = {
           '0px 0px 40px rgba(112, 96, 92, 0.1), 0px 0px 26.46px rgba(112, 96, 92, 0.0675), 0px 0px 19.9px rgba(112, 96, 92, 0.05), 0px 0px 17.39px rgba(112, 96, 92, 0.0325)',
         'pink-above-shadow-3xl':
           '0px 0px 48px rgba(112, 96, 92, 0.1), 0px 0px 34.46px rgba(112, 96, 92, 0.0675), 0px 0px 27.9px rgba(112, 96, 92, 0.05), 0px 0px 25.39px rgba(112, 96, 92, 0.0325)',
+        'wizard-step':
+          '1px 1px 8px #FFFFFF, inset 1px 1px 4px rgba(0, 0, 0, 0.16)',
+        'wizard-line': 'inset 0px 0px 2px rgba(0, 0, 0, 0.14)',
       },
       fontSize: {
         8: '8px',
@@ -85,6 +88,7 @@ module.exports = {
         900: '900',
       },
       lineHeight: {
+        10: '10px',
         12: '12px',
         14: '14px',
         15: '15px',

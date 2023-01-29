@@ -1,6 +1,7 @@
 import { html } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
+
 import '../lukso-button'
 
 export default {
@@ -26,6 +27,7 @@ export default {
     text: 'Hello World',
     disabled: false,
     size: 'medium',
+    variant: 'primary',
   },
 }
 

@@ -107,6 +107,9 @@ module.exports = {
       scale: {
         98: '.98',
       },
+      height: {
+        78: '78px',
+      },
     },
   },
   plugins: [],

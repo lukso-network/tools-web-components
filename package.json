@@ -53,6 +53,11 @@
       "import": "./dist/components/lukso-button/index.js",
       "types": "./dist/components/lukso-button/index.d.ts"
     },
+    "./components/lukso-navbar": {
+      "require": "./dist/components/lukso-navbar/index.umd.cjs",
+      "import": "./dist/components/lukso-navbar/index.js",
+      "types": "./dist/components/lukso-navbar/index.d.ts"
+    },
     "./components/lukso-test": {
       "require": "./dist/components/lukso-test/index.umd.cjs",
       "import": "./dist/components/lukso-test/index.js",

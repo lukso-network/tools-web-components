@@ -4,7 +4,7 @@ export interface ClassInfoList {
   readonly [classList: string]: boolean
 }
 
-class CustomClassMapDirective extends Directive {
+export class CustomClassMapDirective extends Directive {
   constructor(partInfo: PartInfo) {
     super(partInfo)
     if (
@@ -47,5 +47,3 @@ class CustomClassMapDirective extends Directive {
  * @param classInfoList
  */
 export const customClassMap = directive(CustomClassMapDirective)
-
-export type { CustomClassMapDirective }

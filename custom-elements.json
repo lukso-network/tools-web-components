@@ -58,108 +58,132 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-navbar/index.ts",
+      "path": "src/components/lukso-button/index.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "LuksoNavbar",
+          "name": "LuksoButton",
           "members": [
             {
               "kind": "field",
-              "name": "title",
+              "name": "variant",
               "type": {
-                "text": "string"
+                "text": "ButtonVariants"
               },
-              "default": "''",
-              "attribute": "title"
+              "default": "'primary'",
+              "attribute": "variant"
             },
             {
               "kind": "field",
-              "name": "isCenter",
+              "name": "size",
+              "type": {
+                "text": "ButtonSizes"
+              },
+              "default": "'medium'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "attribute": "is-center"
-            },
-            {
-              "kind": "field",
-              "name": "isSticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-sticky"
+              "attribute": "disabled"
             },
             {
               "kind": "field",
               "name": "defaultStyles",
               "privacy": "private",
-              "default": "`bg-neutral-100 shadow-pink-drop-shadow h-78 flex`"
+              "default": "`flex justify-center items-center relative\n    border border-solid cursor-pointer transition duration-0\n    hover:duration-250 active:scale-98 active:duration-25\n    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100`"
             },
             {
               "kind": "field",
-              "name": "centerStyles",
+              "name": "secondaryStyles",
               "privacy": "private",
-              "default": "`justify-center`"
+              "default": "`bg-neutral-100 border-neutral-90 text-neutral-20\n    disabled:bg-neutral-90 disabled:border-neutral-90 disabled:text-neutral-100\n    hover:shadow-button-hover-secondary active:shadow-button-press-secondary`"
             },
             {
               "kind": "field",
-              "name": "stickyStyles",
+              "name": "primaryStyles",
               "privacy": "private",
-              "default": "`sticky top-0 z-10`"
+              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25\n    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25`"
+            },
+            {
+              "kind": "field",
+              "name": "landingStyles",
+              "privacy": "private",
+              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary`"
+            },
+            {
+              "kind": "field",
+              "name": "linkStyles",
+              "privacy": "private",
+              "default": "`bg-transparent border-none text-neutral-20\n    hover:text-neutral-35\n    active:text-neutral-35 active:scale-100\n    disabled:text-neutral-90`"
+            },
+            {
+              "kind": "field",
+              "name": "mediumSize",
+              "privacy": "private",
+              "default": "`py-3 px-6 paragraph-16-semi-bold rounded-xl`"
+            },
+            {
+              "kind": "field",
+              "name": "smallSize",
+              "privacy": "private",
+              "default": "`py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`"
             }
           ],
           "attributes": [
             {
-              "name": "title",
+              "name": "variant",
               "type": {
-                "text": "string"
+                "text": "ButtonVariants"
               },
-              "default": "''",
-              "fieldName": "title"
+              "default": "'primary'",
+              "fieldName": "variant"
             },
             {
-              "name": "is-center",
+              "name": "size",
+              "type": {
+                "text": "ButtonSizes"
+              },
+              "default": "'medium'",
+              "fieldName": "size"
+            },
+            {
+              "name": "disabled",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "fieldName": "isCenter"
-            },
-            {
-              "name": "is-sticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isSticky"
+              "fieldName": "disabled"
             }
           ],
           "superclass": {
             "name": "TailwindElement",
-            "module": "/src/shared/tailwind.element.js"
+            "package": "@/shared/tailwind-element"
           },
-          "tagName": "lukso-navbar",
+          "tagName": "lukso-button",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "LuksoNavbar",
+          "name": "LuksoButton",
           "declaration": {
-            "name": "LuksoNavbar",
-            "module": "src/components/lukso-navbar/index.ts"
+            "name": "LuksoButton",
+            "module": "src/components/lukso-button/index.ts"
           }
         },
         {
           "kind": "custom-element-definition",
-          "name": "lukso-navbar",
+          "name": "lukso-button",
           "declaration": {
-            "name": "LuksoNavbar",
-            "module": "src/components/lukso-navbar/index.ts"
+            "name": "LuksoButton",
+            "module": "src/components/lukso-button/index.ts"
           }
         }
       ]
@@ -289,132 +313,108 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-button/index.ts",
+      "path": "src/components/lukso-navbar/index.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "LuksoButton",
+          "name": "LuksoNavbar",
           "members": [
             {
               "kind": "field",
-              "name": "variant",
+              "name": "title",
               "type": {
-                "text": "ButtonVariants"
+                "text": "string"
               },
-              "default": "'primary'",
-              "attribute": "variant"
+              "default": "''",
+              "attribute": "title"
             },
             {
               "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "ButtonSizes"
-              },
-              "default": "'medium'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
+              "name": "isCenter",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "attribute": "disabled"
+              "attribute": "is-center"
+            },
+            {
+              "kind": "field",
+              "name": "isSticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-sticky"
             },
             {
               "kind": "field",
               "name": "defaultStyles",
               "privacy": "private",
-              "default": "`flex justify-center items-center relative\n    border border-solid cursor-pointer transition duration-0\n    hover:duration-250 active:scale-98 active:duration-25\n    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100`"
+              "default": "`bg-neutral-100 shadow-pink-drop-shadow h-78 flex`"
             },
             {
               "kind": "field",
-              "name": "secondaryStyles",
+              "name": "centerStyles",
               "privacy": "private",
-              "default": "`bg-neutral-100 border-neutral-90 text-neutral-20\n    disabled:bg-neutral-90 disabled:border-neutral-90 disabled:text-neutral-100\n    hover:shadow-button-hover-secondary active:shadow-button-press-secondary`"
+              "default": "`justify-center`"
             },
             {
               "kind": "field",
-              "name": "primaryStyles",
+              "name": "stickyStyles",
               "privacy": "private",
-              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25\n    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25`"
-            },
-            {
-              "kind": "field",
-              "name": "landingStyles",
-              "privacy": "private",
-              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary`"
-            },
-            {
-              "kind": "field",
-              "name": "linkStyles",
-              "privacy": "private",
-              "default": "`bg-transparent border-none text-neutral-20\n    hover:text-neutral-35\n    active:text-neutral-35 active:scale-100\n    disabled:text-neutral-90`"
-            },
-            {
-              "kind": "field",
-              "name": "mediumSize",
-              "privacy": "private",
-              "default": "`py-3 px-6 paragraph-16-semi-bold rounded-xl`"
-            },
-            {
-              "kind": "field",
-              "name": "smallSize",
-              "privacy": "private",
-              "default": "`py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`"
+              "default": "`sticky top-0 z-10`"
             }
           ],
           "attributes": [
             {
-              "name": "variant",
+              "name": "title",
               "type": {
-                "text": "ButtonVariants"
+                "text": "string"
               },
-              "default": "'primary'",
-              "fieldName": "variant"
+              "default": "''",
+              "fieldName": "title"
             },
             {
-              "name": "size",
-              "type": {
-                "text": "ButtonSizes"
-              },
-              "default": "'medium'",
-              "fieldName": "size"
-            },
-            {
-              "name": "disabled",
+              "name": "is-center",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "fieldName": "disabled"
+              "fieldName": "isCenter"
+            },
+            {
+              "name": "is-sticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isSticky"
             }
           ],
           "superclass": {
             "name": "TailwindElement",
             "package": "@/shared/tailwind-element"
           },
-          "tagName": "lukso-button",
+          "tagName": "lukso-navbar",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "LuksoButton",
+          "name": "LuksoNavbar",
           "declaration": {
-            "name": "LuksoButton",
-            "module": "src/components/lukso-button/index.ts"
+            "name": "LuksoNavbar",
+            "module": "src/components/lukso-navbar/index.ts"
           }
         },
         {
           "kind": "custom-element-definition",
-          "name": "lukso-button",
+          "name": "lukso-navbar",
           "declaration": {
-            "name": "LuksoButton",
-            "module": "src/components/lukso-button/index.ts"
+            "name": "LuksoNavbar",
+            "module": "src/components/lukso-navbar/index.ts"
           }
         }
       ]

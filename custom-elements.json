@@ -51,139 +51,7 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./../shared/tailwind.element"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-button/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoButton",
-          "members": [
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "ButtonVariants"
-              },
-              "default": "'primary'",
-              "attribute": "variant"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "ButtonSizes"
-              },
-              "default": "'medium'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "disabled"
-            },
-            {
-              "kind": "field",
-              "name": "defaultStyles",
-              "privacy": "private",
-              "default": "`flex justify-center items-center relative\n    border border-solid cursor-pointer transition duration-0\n    hover:duration-250 active:scale-98 active:duration-25\n    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100`"
-            },
-            {
-              "kind": "field",
-              "name": "secondaryStyles",
-              "privacy": "private",
-              "default": "`bg-neutral-100 border-neutral-90 text-neutral-20\n    disabled:bg-neutral-90 disabled:border-neutral-90 disabled:text-neutral-100\n    hover:shadow-button-hover-secondary active:shadow-button-press-secondary`"
-            },
-            {
-              "kind": "field",
-              "name": "primaryStyles",
-              "privacy": "private",
-              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25\n    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25`"
-            },
-            {
-              "kind": "field",
-              "name": "landingStyles",
-              "privacy": "private",
-              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary`"
-            },
-            {
-              "kind": "field",
-              "name": "linkStyles",
-              "privacy": "private",
-              "default": "`bg-transparent border-none text-neutral-20\n    hover:text-neutral-35\n    active:text-neutral-35 active:scale-100\n    disabled:text-neutral-90`"
-            },
-            {
-              "kind": "field",
-              "name": "mediumSize",
-              "privacy": "private",
-              "default": "`py-3 px-6 paragraph-16-semi-bold rounded-xl`"
-            },
-            {
-              "kind": "field",
-              "name": "smallSize",
-              "privacy": "private",
-              "default": "`py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "variant",
-              "type": {
-                "text": "ButtonVariants"
-              },
-              "default": "'primary'",
-              "fieldName": "variant"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "ButtonSizes"
-              },
-              "default": "'medium'",
-              "fieldName": "size"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "disabled"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "module": "/src/shared/tailwind.element"
-          },
-          "tagName": "lukso-button",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoButton",
-          "declaration": {
-            "name": "LuksoButton",
-            "module": "src/components/lukso-button/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-button",
-          "declaration": {
-            "name": "LuksoButton",
-            "module": "src/components/lukso-button/index.ts"
+            "package": "./../shared/tailwind-element/index"
           }
         }
       ]
@@ -349,6 +217,15 @@
             {
               "kind": "method",
               "name": "_onClick"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "inheritedFrom": {
+                "name": "TailwindStyledElement",
+                "module": "src/shared/tailwind-element/index.ts"
+              }
             }
           ],
           "attributes": [
@@ -380,7 +257,7 @@
           "mixins": [
             {
               "name": "TailwindStyledElement",
-              "module": "/src/shared/tailwind.element"
+              "package": "@/shared/tailwind-element"
             }
           ],
           "superclass": {
@@ -412,6 +289,138 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-button/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariants"
+              },
+              "default": "'primary'",
+              "attribute": "variant"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "ButtonSizes"
+              },
+              "default": "'medium'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "privacy": "private",
+              "default": "`flex justify-center items-center relative\n    border border-solid cursor-pointer transition duration-0\n    hover:duration-250 active:scale-98 active:duration-25\n    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100`"
+            },
+            {
+              "kind": "field",
+              "name": "secondaryStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-100 border-neutral-90 text-neutral-20\n    disabled:bg-neutral-90 disabled:border-neutral-90 disabled:text-neutral-100\n    hover:shadow-button-hover-secondary active:shadow-button-press-secondary`"
+            },
+            {
+              "kind": "field",
+              "name": "primaryStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25\n    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25`"
+            },
+            {
+              "kind": "field",
+              "name": "landingStyles",
+              "privacy": "private",
+              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary`"
+            },
+            {
+              "kind": "field",
+              "name": "linkStyles",
+              "privacy": "private",
+              "default": "`bg-transparent border-none text-neutral-20\n    hover:text-neutral-35\n    active:text-neutral-35 active:scale-100\n    disabled:text-neutral-90`"
+            },
+            {
+              "kind": "field",
+              "name": "mediumSize",
+              "privacy": "private",
+              "default": "`py-3 px-6 paragraph-16-semi-bold rounded-xl`"
+            },
+            {
+              "kind": "field",
+              "name": "smallSize",
+              "privacy": "private",
+              "default": "`py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariants"
+              },
+              "default": "'primary'",
+              "fieldName": "variant"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ButtonSizes"
+              },
+              "default": "'medium'",
+              "fieldName": "size"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-button",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoButton",
+          "declaration": {
+            "name": "LuksoButton",
+            "module": "src/components/lukso-button/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-button",
+          "declaration": {
+            "name": "LuksoButton",
+            "module": "src/components/lukso-button/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/assets/index.ts",
       "declarations": [],
       "exports": [
@@ -421,6 +430,21 @@
           "declaration": {
             "name": "__dirname",
             "module": "src/shared/assets/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./custom-class-map"
           }
         }
       ]
@@ -442,15 +466,55 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/assets/fonts/index.ts",
-      "declarations": [],
+      "path": "src/shared/tailwind-element/index.ts",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "description": "",
+          "name": "TailwindStyledElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            }
+          ],
+          "parameters": [
+            {
+              "name": "style",
+              "type": {
+                "text": "any"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TailwindElement",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
       "exports": [
         {
           "kind": "js",
-          "name": "default",
+          "name": "TailwindStyledElement",
           "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/fonts/index.ts"
+            "name": "TailwindStyledElement",
+            "module": "src/shared/tailwind-element/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TailwindElement",
+          "declaration": {
+            "name": "TailwindElement",
+            "module": "src/shared/tailwind-element/index.ts"
           }
         }
       ]
@@ -466,6 +530,65 @@
           "declaration": {
             "name": "__dirname",
             "module": "src/shared/assets/images/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/fonts/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/fonts/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/directives/custom-class-map/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CustomClassMapDirective",
+          "members": [],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "customClassMap",
+          "description": "A directive that applies dynamic CSS classes.\nSince build in `classMap` directive can only apply one class name,\nthis directive is allowing to apply multiple class names.\n\nThis must be used in the `class` attribute and must be the only part used in\nthe attribute. It takes each property in the `classInfoList` argument and adds\nthe property names to the element's `classList` if the property value is\ntruthy; if the property value is falsey, the property name is removed from\nthe element's `class`.\n\nFor example `{'foo bar': baz}` applies the class `foo bar` if the value of `baz` is\ntruthy.",
+          "parameters": [
+            {
+              "name": "classInfoList"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CustomClassMapDirective",
+          "declaration": {
+            "name": "CustomClassMapDirective",
+            "module": "src/shared/directives/custom-class-map/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "customClassMap",
+          "declaration": {
+            "name": "customClassMap",
+            "module": "src/shared/directives/custom-class-map/index.ts"
           }
         }
       ]

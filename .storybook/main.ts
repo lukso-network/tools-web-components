@@ -1,6 +1,12 @@
 const { mergeConfig } = require('vite')
 const path = require('path')
 
+const resolve = {
+  alias: {
+    '@': path.resolve(__dirname, '../src'),
+  },
+}
+
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
   staticDirs: ['../src/shared'],
@@ -30,11 +36,7 @@ module.exports = {
     // Merge custom configuration into the default config
     return mergeConfig(config, {
       // Add dependencies to pre-optimization
-      server: {
-        watch: {
-          ignored: ['**/tools/**', '**/dist/**'],
-        },
-      },
+      resolve,
       optimizeDeps: {
         include: ['storybook-dark-mode'],
       },

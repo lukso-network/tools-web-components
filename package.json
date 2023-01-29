@@ -21,23 +21,11 @@
     },
     "./tailwind.config": "./tailwind.config.cjs",
     "./postcss.config": "./postcss.config.cjs",
-    "./assets/": "./dist/assets/",
-    "./assets": {
-      "require": "./dist/assets/index.umd.cjs",
-      "import": "./dist/assets/index.js",
-      "types": "./dist/assets/index.d.ts"
-    },
     "./assets/fonts/": "./dist/assets/fonts/",
     "./assets/fonts": {
       "require": "./dist/assets/fonts/index.umd.cjs",
       "import": "./dist/assets/fonts/index.js",
       "types": "./dist/assets/fonts/index.d.ts"
-    },
-    "./assets/images/": "./dist/assets/images/",
-    "./assets/images": {
-      "require": "./dist/assets/images/index.umd.cjs",
-      "import": "./dist/assets/images/index.js",
-      "types": "./dist/assets/images/index.d.ts"
     },
     "./styles/": "./dist/styles/",
     "./styles": {
@@ -75,17 +63,17 @@
       "import": "./dist/components/lukso-test/index.js",
       "types": "./dist/components/lukso-test/index.d.ts"
     },
-    "./shared/tailwind.element": {
-      "require": "./dist/shared/tailwind.element.umd.cjs",
-      "import": "./dist/shared/tailwind.element.js",
-      "types": "./dist/shared/tailwind.element.d.ts"
+    "./shared/tailwind-element": {
+      "require": "./dist/shared/tailwind-element/index.umd.cjs",
+      "import": "./dist/shared/tailwind-element/index.js",
+      "types": "./dist/shared/tailwind-element/index.d.ts"
     }
   },
   "scripts": {
     "config-prepare": "tsc-bundle ./tsconfig.work.json --exportAs commonjs && renamer --force --chain find-replace --path-element ext --find '.js' --replace '.cjs' './tools/**/*.js'",
-    "start": "yarn config-prepare && concurrently 'vite build --config=./vite.full.config.ts --mode=develop' 'yarn storybook' 'yarn analyze:watch'",
+    "start": "yarn config-prepare && concurrently 'ts-node-esm ./vite.full.config.ts --mode=develop' 'yarn storybook' 'yarn analyze:watch'",
     "dev": "yarn start",
-    "build": "rm -rf dist && yarn config-prepare && yarn analyze && vite build --config=./vite.full.config.ts && yarn sass --verbose ./src/shared/styles/main.scss ./dist/styles/main.css && yarn build:list-exports",
+    "build": "rm -rf dist && yarn config-prepare && yarn analyze && ts-node-esm ./vite.full.config.ts --mode=production && yarn sass --verbose ./src/shared/styles/main.scss ./dist/styles/main.css && yarn build:list-exports",
     "build:list-exports": "node ./listExports.cjs",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt}'",
     "lint:eslint": "eslint src --fix",
@@ -160,12 +148,14 @@
     "stylelint-config-standard-scss": "^6.1.0",
     "stylelint-prettier": "^2.0.0",
     "tailwindcss": "^3.2.4",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
     "typescript-bundle": "^1.0.18",
     "vite": "^4.0.4",
     "vite-plugin-dts": "^1.7.1",
     "vite-plugin-static-copy": "^0.13.0",
-    "wait-on": "^7.0.1"
+    "wait-on": "^7.0.1",
+    "yargs": "^17.6.2"
   },
   "dependencies": {
     "tinycolor2": "^1.5.2"

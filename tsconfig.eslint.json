@@ -9,7 +9,12 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "esModuleInterop": true,
-    "outDir": ".work"
+    "outDir": "./dist",
+    "paths": {
+      "@": ["./src"],
+      "@/*": ["./src/*"],
+      "@/shared/directives": ["./src/shared/directives"],
+    }
   },
   "include": [
     "dist",

@@ -1,9 +1,12 @@
-import { build, defineConfig } from 'vite'
+import { build } from 'vite'
 import path from 'path'
 import { readdir, readFile, stat, writeFile } from 'fs/promises'
 import { fileURLToPath } from 'url'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import dts from 'vite-plugin-dts'
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
+import * as url from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -29,13 +32,13 @@ export async function readDeps(dir, prefix = []) {
             fileName: 'components/index',
           },
           {
-            entry: './src/shared/tailwind.element.ts',
-            source: './shared/tailwind.element.ts',
-            name: 'tailwind.element',
-            requires: './dist/shared/tailwind.element.umd.cjs',
-            imports: './dist/shared/tailwind.element.js',
-            types: './dist/shared/tailwind.element.d.ts',
-            fileName: 'shared/tailwind.element',
+            entry: './src/shared/tailwind-element/index.ts',
+            source: './shared/tailwind-element/index.ts',
+            name: 'tailwind-element',
+            requires: './dist/shared/tailwind-element/index.umd.cjs',
+            imports: './dist/shared/tailwind-element/index.js',
+            types: './dist/shared/tailwind-element/index.d.ts',
+            fileName: 'shared/tailwind-element/index',
           },
         ]
       : []
@@ -171,9 +174,18 @@ async function writePackage() {
   return exp
 }
 
-export default async args => {
-  const { mode } = args
-  console.log('args', args)
+const chokidar = {
+  ignored: ['node_modules/**', 'tools/**', 'dist/**'],
+}
+
+const resolve = {
+  alias: {
+    '@': path.resolve(__dirname, './src'),
+  },
+}
+
+export async function run(argv: any) {
+  const { mode } = argv
   await writeIndex()
   await writePackage()
   const list = await readDeps('src')
@@ -198,8 +210,14 @@ export default async args => {
       name: 'web_components_sass',
       entry: './src/shared/styles/index.ts',
     },
+    {
+      fileName: 'shared/tailwind-element',
+      name: 'web_components_tailwind',
+      entry: './src/shared/tailwind-element/index.ts',
+    },
   ].concat(
     list.map(({ entry, fileName, name }) => {
+      console.log(`setting up ${entry}`)
       return {
         fileName,
         name: `web_components_${name.replace(/-/g, '_')}`,
@@ -208,73 +226,68 @@ export default async args => {
     })
   )
 
-  for (const lib of libs.slice(1)) {
-    await build({
-      configFile: false,
-      build: {
-        lib,
-        emptyOutDir: false,
-        watch:
-          mode !== 'production'
-            ? {
-                clearScreen: false,
-              }
+  try {
+    for (const lib of libs.slice(1).concat(libs.slice(0, 1))) {
+      console.log(`building ${lib.name}`)
+      // dtsPromise,
+      await build({
+        configFile: false,
+        resolve,
+        build: {
+          lib,
+          emptyOutDir: false,
+          watch:
+            mode !== 'production'
+              ? {
+                  clearScreen: false,
+                  chokidar,
+                  exclude: ['node_modules/**', 'tools/**', 'dist/**'],
+                }
+              : null,
+        },
+        plugins: [
+          lib.fileName === 'index'
+            ? viteStaticCopy({
+                targets: [
+                  {
+                    src: './src/shared/assets/*',
+                    dest: 'assets',
+                  },
+                  {
+                    src: './src/shared/styles/*',
+                    dest: 'sass',
+                  },
+                ],
+              })
             : null,
-      },
-      plugins: [
-        lib.fileName === 'index'
-          ? viteStaticCopy({
-              targets: [
-                {
-                  src: './src/shared/assets/fonts/*.woff2',
-                  dest: 'assets/fonts/',
-                },
-                {
-                  src: './src/shared/styles/*.{css,scss}',
-                  dest: 'sass/',
-                },
-              ],
-            })
-          : null,
-        dts({
-          insertTypesEntry: true,
-          entryRoot: 'src',
-          // include: ['./src/index.ts', './src/components/*/index.ts', '*.scss'],
-          outputDir: './dist',
-        }),
-      ].filter(item => item),
-    })
+          dts({
+            // insertTypesEntry: true,
+            entryRoot: 'src',
+            // include: ['./src/index.ts', './src/components/*/index.ts', '*.scss'],
+            outputDir: './dist',
+          }),
+        ].filter(item => item),
+      })
+    }
+  } catch (err) {
+    console.error(err)
   }
-  return defineConfig({
-    build: {
-      lib: libs[0],
-      emptyOutDir: false,
-      watch:
-        mode !== 'production'
-          ? {
-              clearScreen: false,
-            }
-          : null,
-    },
-    plugins: [
-      viteStaticCopy({
-        targets: [
-          {
-            src: './src/shared/assets/fonts/*',
-            dest: 'assets/fonts',
-          },
-          {
-            src: './src/shared/styles/*',
-            dest: 'sass',
-          },
-        ],
-      }),
-      dts({
-        insertTypesEntry: true,
-        entryRoot: 'src',
-        // include: ['./src/index.ts', './src/components/*/index.ts', '*.scss'],
-        outputDir: './dist',
-      }),
-    ],
-  })
+}
+
+if (import.meta.url.startsWith('file:')) {
+  // (A)
+  const modulePath = url.fileURLToPath(import.meta.url)
+  if (process.argv[1] === modulePath) {
+    // (B)
+    const { argv } = yargs(hideBin(process.argv))
+    run(argv)
+      .then(() => {
+        console.log('build finished')
+        process.exit(0)
+      })
+      .catch(err => {
+        console.error(err)
+        process.exit(1)
+      })
+  }
 }

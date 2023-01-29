@@ -2,8 +2,8 @@ import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { repeat } from 'lit/directives/repeat.js'
 
-import { TailwindElement } from '../../shared/tailwind.element'
-import { customClassMap } from '../../shared/directives/custom-class-map'
+import { TailwindElement } from '@/shared/tailwind-element'
+import { customClassMap } from '@/shared/directives/custom-class-map'
 
 export type WizardStep = {
   label: string

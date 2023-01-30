@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.0](https://github.com/lukso-network/tools-web-components/compare/v1.1.0...v1.2.0) (2023-01-30)
+
+
+### Features
+
+* navbar component ([#19](https://github.com/lukso-network/tools-web-components/issues/19)) ([0a918f5](https://github.com/lukso-network/tools-web-components/commit/0a918f51f4d8373a0d84663f8e7829519742d006))
+* wizard component ([#21](https://github.com/lukso-network/tools-web-components/issues/21)) ([d37ae22](https://github.com/lukso-network/tools-web-components/commit/d37ae2269b99d4b79de7ddf3d2a960829c0fa598))
+
+
+### Bug Fixes
+
+* Assets index file somehow got lost ([#24](https://github.com/lukso-network/tools-web-components/issues/24)) ([7181071](https://github.com/lukso-network/tools-web-components/commit/7181071fc51b82a19800489d92f7ed860ba8938e))
+* Build problems ([#20](https://github.com/lukso-network/tools-web-components/issues/20)) ([ddbf7ba](https://github.com/lukso-network/tools-web-components/commit/ddbf7baabf7b0f16268bf19a6685a41977e1c4da))
+* component adjustments ([#23](https://github.com/lukso-network/tools-web-components/issues/23)) ([517d2a0](https://github.com/lukso-network/tools-web-components/commit/517d2a04285e7ece6e50f4587dd673cf7b8a7ccc))
+
 ## [1.1.0](https://github.com/lukso-network/tools-web-components/compare/v1.0.7...v1.1.0) (2023-01-26)
 
 

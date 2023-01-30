@@ -1,3 +1,5 @@
+import tinycolor from 'tinycolor2'
+
 import { hslColorMap } from '../utils/hslColorMap'
 
 type ColorMap = {
@@ -37,6 +39,10 @@ export const colorPalette = {
   'gradient-2': {
     start: '#F8DAD3',
     end: '#CC99AE',
+  },
+  'gradient-3': {
+    start: tinycolor({ h: 230, s: 20, l: 28 }).toHexString(),
+    end: tinycolor({ h: 230, s: 24, l: 51 }).toHexString(),
   },
 }
 

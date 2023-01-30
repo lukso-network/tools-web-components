@@ -120,7 +120,7 @@
             },
             {
               "kind": "method",
-              "name": "_onClick"
+              "name": "_onBrandClick"
             }
           ],
           "attributes": [
@@ -301,6 +301,124 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-wizard/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoWizard",
+          "members": [
+            {
+              "kind": "field",
+              "name": "steps",
+              "type": {
+                "text": "WizardStep[]"
+              },
+              "default": "[]",
+              "attribute": "steps"
+            },
+            {
+              "kind": "field",
+              "name": "activeStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "attribute": "active-step"
+            },
+            {
+              "kind": "field",
+              "name": "activeStepStyles",
+              "privacy": "private",
+              "default": "`[&_.lukso-wizard-circle-inner]:border-2 [&_.lukso-wizard-circle-inner]:border-purple-51`"
+            },
+            {
+              "kind": "field",
+              "name": "completedStepStyles",
+              "privacy": "private",
+              "default": "`[&>.lukso-wizard-circle]:after:bg-purple-51\n    [&_.lukso-wizard-circle-inner]:bg-gradient-to-t\n    [&_.lukso-wizard-circle-inner]:from-gradient-3-start\n    [&_.lukso-wizard-circle-inner]:to-gradient-3-end`"
+            },
+            {
+              "kind": "method",
+              "name": "stepTemplate",
+              "parameters": [
+                {
+                  "name": "step",
+                  "type": {
+                    "text": "WizardStep"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "steps",
+              "type": {
+                "text": "WizardStep[]"
+              },
+              "default": "[]",
+              "fieldName": "steps"
+            },
+            {
+              "name": "active-step",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "fieldName": "activeStep"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-wizard",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoWizard",
+          "declaration": {
+            "name": "LuksoWizard",
+            "module": "src/components/lukso-wizard/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-wizard",
+          "declaration": {
+            "name": "LuksoWizard",
+            "module": "src/components/lukso-wizard/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-button/index.ts",
       "declarations": [
         {
@@ -433,36 +551,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./custom-class-map"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/shared/styles/index.ts",
       "declarations": [],
       "exports": [
@@ -472,109 +560,6 @@
           "declaration": {
             "name": "__dirname",
             "module": "src/shared/styles/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-wizard/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoWizard",
-          "members": [
-            {
-              "kind": "field",
-              "name": "steps",
-              "type": {
-                "text": "WizardStep[]"
-              },
-              "default": "[]",
-              "attribute": "steps"
-            },
-            {
-              "kind": "field",
-              "name": "activeStep",
-              "type": {
-                "text": "number"
-              },
-              "default": "1",
-              "attribute": "active-step"
-            },
-            {
-              "kind": "field",
-              "name": "activeStepStyles",
-              "privacy": "private",
-              "default": "`[&_.lukso-wizard-circle-inner]:border-2 [&_.lukso-wizard-circle-inner]:border-purple-51`"
-            },
-            {
-              "kind": "field",
-              "name": "completedStepStyles",
-              "privacy": "private",
-              "default": "`[&>.lukso-wizard-circle]:after:bg-purple-51\n    [&_.lukso-wizard-circle-inner]:bg-gradient-to-t\n    [&_.lukso-wizard-circle-inner]:from-gradient-3-start\n    [&_.lukso-wizard-circle-inner]:to-gradient-3-end`"
-            },
-            {
-              "kind": "method",
-              "name": "stepTemplate",
-              "parameters": [
-                {
-                  "name": "step",
-                  "type": {
-                    "text": "WizardStep"
-                  }
-                },
-                {
-                  "name": "index",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "steps",
-              "type": {
-                "text": "WizardStep[]"
-              },
-              "default": "[]",
-              "fieldName": "steps"
-            },
-            {
-              "name": "active-step",
-              "type": {
-                "text": "number"
-              },
-              "default": "1",
-              "fieldName": "activeStep"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-wizard",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoWizard",
-          "declaration": {
-            "name": "LuksoWizard",
-            "module": "src/components/lukso-wizard/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-wizard",
-          "declaration": {
-            "name": "LuksoWizard",
-            "module": "src/components/lukso-wizard/index.ts"
           }
         }
       ]
@@ -636,6 +621,51 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./custom-class-map"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/fonts/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/fonts/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/images/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/images/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/directives/custom-class-map/index.ts",
       "declarations": [
         {
@@ -674,36 +704,6 @@
           "declaration": {
             "name": "customClassMap",
             "module": "src/shared/directives/custom-class-map/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/fonts/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/fonts/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/images/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/images/index.ts"
           }
         }
       ]

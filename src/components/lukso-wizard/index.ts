@@ -21,8 +21,8 @@ export class LuksoWizard extends TailwindElement {
 
   private completedStepStyles = `[&>.lukso-wizard-circle]:after:bg-purple-51
     [&_.lukso-wizard-circle-inner]:bg-gradient-to-t
-    [&_.lukso-wizard-circle-inner]:from-[hsla(230,20%,28%,1)]
-    [&_.lukso-wizard-circle-inner]:to-[hsla(230,24%,51%,1)]`
+    [&_.lukso-wizard-circle-inner]:from-gradient-3-start
+    [&_.lukso-wizard-circle-inner]:to-gradient-3-end`
 
   stepTemplate(step: WizardStep, index: number) {
     return html`<li

@@ -27,6 +27,12 @@
       "import": "./dist/assets/fonts/index.js",
       "types": "./dist/assets/fonts/index.d.ts"
     },
+    "./assets/images/": "./dist/assets/images/",
+    "./assets/images": {
+      "require": "./dist/assets/images/index.umd.cjs",
+      "import": "./dist/assets/images/index.js",
+      "types": "./dist/assets/images/index.d.ts"
+    },
     "./assets/": "./dist/assets/",
     "./assets": {
       "require": "./dist/assets/index.umd.cjs",

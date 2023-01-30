@@ -139,6 +139,12 @@ async function writePackage() {
       import: './dist/assets/fonts/index.js',
       types: './dist/assets/fonts/index.d.ts',
     },
+    './assets/images/': './dist/assets/images/',
+    './assets/images': {
+      require: './dist/assets/images/index.umd.cjs',
+      import: './dist/assets/images/index.js',
+      types: './dist/assets/images/index.d.ts',
+    },
     './assets/': './dist/assets/',
     './assets': {
       require: './dist/assets/index.umd.cjs',
@@ -215,6 +221,11 @@ export async function run(argv: any) {
       fileName: 'assets/fonts/index',
       name: 'web_components_fonts',
       entry: './src/shared/assets/fonts/index.ts',
+    },
+    {
+      fileName: 'assets/images/index',
+      name: 'web_components_images',
+      entry: './src/shared/assets/images/index.ts',
     },
     {
       fileName: 'sass/index',

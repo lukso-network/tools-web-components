@@ -27,7 +27,7 @@ module.exports = {
   },
   base: process.env.STORYBOOK_BASE_URL || '/',
   docs: {
-    autodocs: 'tag',
+    autodocs: true,
   },
   features: {
     interactionsDebugger: true, // 👈 Enable playback controls

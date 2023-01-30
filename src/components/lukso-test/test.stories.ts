@@ -2,7 +2,7 @@ import { html } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 
-import './index'
+import '../lukso-test'
 
 export default {
   title: 'Test',

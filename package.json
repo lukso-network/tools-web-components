@@ -63,6 +63,11 @@
       "import": "./dist/components/lukso-test/index.js",
       "types": "./dist/components/lukso-test/index.d.ts"
     },
+    "./components/lukso-wizard": {
+      "require": "./dist/components/lukso-wizard/index.umd.cjs",
+      "import": "./dist/components/lukso-wizard/index.js",
+      "types": "./dist/components/lukso-wizard/index.d.ts"
+    },
     "./shared/tailwind-element": {
       "require": "./dist/shared/tailwind-element/index.umd.cjs",
       "import": "./dist/shared/tailwind-element/index.js",

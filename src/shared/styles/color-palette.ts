@@ -29,6 +29,7 @@ export const colorPalette = {
   blue: hslColorMap(216, 96, [50, 60, 75, 85]),
   red: hslColorMap(0, 75, [55, 65, 75, 85]),
   purple: hslColorMap(230, 24, [94, 82, 63, 58, 51, 41, 31, 15]),
+  pink: hslColorMap(11, 73, [97, 96, 95, 94, 93, 92, 91, 90]),
   'gradient-1': {
     start: '#D39B9D',
     end: '#9071D1',

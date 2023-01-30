@@ -49,6 +49,7 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
+    'lit/attribute-value-entities': 'off', // to allow using Tailwind selectors in arbitrary variants
   },
   overrides: [
     {

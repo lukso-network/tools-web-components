@@ -37,6 +37,9 @@ LYXe`,
 }
 
 const Template = ({ steps, activeStep }) =>
-  html`<lukso-wizard .steps=${steps} active-step=${activeStep}></lukso-wizard>`
+  html`<lukso-wizard
+    steps=${JSON.stringify(steps)}
+    active-step=${activeStep}
+  ></lukso-wizard>`
 
 export const Wizard = Template.bind({})

@@ -139,6 +139,12 @@ async function writePackage() {
       import: './dist/assets/fonts/index.js',
       types: './dist/assets/fonts/index.d.ts',
     },
+    './assets/': './dist/assets/',
+    './assets': {
+      require: './dist/assets/index.umd.cjs',
+      import: './dist/assets/index.js',
+      types: './dist/assets/index.d.ts',
+    },
     './styles/': './dist/styles/',
     './styles': {
       require: './dist/styles/index.umd.cjs',
@@ -199,6 +205,11 @@ export async function run(argv: any) {
       fileName: 'styles/index',
       name: 'web_components_styles',
       entry: './src/shared/styles/index.ts',
+    },
+    {
+      fileName: 'assets/index',
+      name: 'web_components_assets',
+      entry: './src/shared/assets/index.ts',
     },
     {
       fileName: 'assets/fonts/index',

@@ -4,8 +4,6 @@ import { customElement, property } from 'lit/decorators.js'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 
-export type ButtonSizes = 'small' | 'medium'
-
 @customElement('lukso-card')
 export class LuksoCard extends TailwindElement {
   @property({ type: Boolean, attribute: 'has-header' })

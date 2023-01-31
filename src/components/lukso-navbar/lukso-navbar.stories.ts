@@ -2,7 +2,7 @@ import { html } from 'lit-html'
 import './index'
 
 export default {
-  title: 'Design System/Atoms/Navbar',
+  title: 'Design System/Components/Navbar',
   component: 'lukso-navbar',
   argTypes: {
     title: {

@@ -3,7 +3,7 @@ import { html } from 'lit-html'
 import '../lukso-wizard'
 
 export default {
-  title: 'Design System/Atoms/Wizard',
+  title: 'Design System/Components/Wizard',
   component: 'lukso-wizard',
   argTypes: {
     steps: {

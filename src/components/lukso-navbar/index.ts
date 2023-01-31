@@ -44,7 +44,9 @@ export class LuksoNavbar extends TailwindElement {
           @click=${this._onBrandClick}
         >
           <img src="assets/images/lukso-logo.svg" class="mr-4" />
-          <div class="text-purple-51 heading-h4-apax whitespace-pre-line flex">
+          <div
+            class="text-purple-51 heading-h4-apax whitespace-pre-line flex leading-none"
+          >
             ${this.title}
           </div>
         </div>

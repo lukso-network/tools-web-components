@@ -5,7 +5,7 @@ import { expect } from '@storybook/jest'
 import '../lukso-button'
 
 export default {
-  title: 'Design System/Atoms/Button',
+  title: 'Design System/Components/Button',
   component: 'lukso-button',
   argTypes: {
     variant: {

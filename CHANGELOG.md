@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/lukso-network/tools-web-components/compare/v1.2.0...v1.2.1) (2023-01-30)
+
+
+### Bug Fixes
+
+* Put assets/images/index back in ([25dd4a9](https://github.com/lukso-network/tools-web-components/commit/25dd4a9ec039d7239630c4f9fba5ff94cf59d8d6))
+
 ## [1.2.0](https://github.com/lukso-network/tools-web-components/compare/v1.1.0...v1.2.0) (2023-01-30)
 
 

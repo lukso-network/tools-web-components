@@ -37,8 +37,8 @@ PROFILES`,
 const Template = ({ title, isCenter, isSticky }) =>
   html`<lukso-navbar
     title=${title}
-    ?is-center="${isCenter}"
-    ?is-sticky="${isSticky}"
+    ?is-center=${isCenter}
+    ?is-sticky=${isSticky}
   ></lukso-navbar>`
 
 export const Navbar = Template.bind({})

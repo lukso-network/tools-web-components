@@ -4,24 +4,91 @@ import { customElement, property } from 'lit/decorators.js'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 
+export type CardVariants = 'basic' | 'with-header' | 'profile'
+
 @customElement('lukso-card')
 export class LuksoCard extends TailwindElement {
-  @property({ type: Boolean, attribute: 'has-header' })
-  hasHeader = false
+  @property({ type: String })
+  variant: CardVariants = 'basic'
 
-  private defaultStyles = `bg-neutral-100 rounded-3xl w-[362px] min-h-[534px] shadow-pink-drop-shadow-2xl`
+  @property({ type: String, attribute: 'background-url' })
+  backgroundUrl = ''
 
-  render() {
+  @property({ type: String, attribute: 'profile-url' })
+  profileUrl = ''
+
+  @property({ type: String, attribute: 'profile-address' })
+  profileAddress = ''
+
+  private defaultStyles = `rounded-3xl w-[362px] min-h-[534px] shadow-pink-drop-shadow-2xl`
+
+  basicTemplate() {
     return html`
       <div
         data-testid="card"
-        class=${customClassMap({
+        class="bg-neutral-100 ${customClassMap({
           [this.defaultStyles]: true,
-        })}
+        })}"
       >
-        <slot></slot>
+        <slot name="content"></slot>
       </div>
     `
+  }
+
+  withHeaderTemplate() {
+    return html`
+      <div
+        data-testid="card"
+        class="bg-neutral-98 grid grid-rows-[auto,1fr] ${customClassMap({
+          [this.defaultStyles]: true,
+        })}"
+      >
+        <div>
+          <slot name="header"></slot>
+        </div>
+        <div class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-3xl">
+          <slot name="content"></slot>
+        </div>
+      </div>
+    `
+  }
+
+  profileTemplate(backgroundUrl: string) {
+    return html`
+      <div
+        data-testid="card"
+        class="bg-neutral-90 grid grid-rows-[auto,1fr] ${customClassMap({
+          [this.defaultStyles]: true,
+        })}"
+      >
+        <div
+          class="min-h-[129px] -mb-6 bg-center bg-cover bg-[url('${backgroundUrl}')] rounded-[24px_24px_0_0]"
+        ></div>
+        <div class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-3xl">
+          <div
+            class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center"
+          >
+            <div
+              class="bg-neutral-100 rounded-[103px_103px_0_0] w-[103px] h-[50px]
+              shadow-neutral-above-shadow-1xl"
+            ></div>
+          </div>
+          <slot name="content"></slot>
+        </div>
+      </div>
+    `
+  }
+
+  render() {
+    switch (this.variant) {
+      case 'with-header':
+        return this.withHeaderTemplate()
+      case 'profile':
+        return this.profileTemplate(this.backgroundUrl)
+
+      default:
+        return this.basicTemplate()
+    }
   }
 }
 

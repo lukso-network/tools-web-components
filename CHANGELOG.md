@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/lukso-network/tools-web-components/compare/v1.2.1...v1.2.2) (2023-02-01)
+
+
+### Bug Fixes
+
+* visual feedbacks ([#26](https://github.com/lukso-network/tools-web-components/issues/26)) ([304b7a2](https://github.com/lukso-network/tools-web-components/commit/304b7a2f6d4ef1f5c0fe448fa0a3dea34183ba88))
+
 ## [1.2.1](https://github.com/lukso-network/tools-web-components/compare/v1.2.0...v1.2.1) (2023-01-30)
 
 

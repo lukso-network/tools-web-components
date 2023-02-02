@@ -83,6 +83,10 @@ yarn lint
 yarn test
 ```
 
+## Releasing project
+
+This repo uses [Release Please](https://github.com/googleapis/release-please) to automate release process. It's important to follow [Conventional Commits](https://www.conventionalcommits.org/) spec for naming Pull Requests. Once PR is merged into `main` the release PR will be created. When release PR is merged new package is released in npm.
+
 ## Linking the library
 
 For local development it's handy to link component library with the project you currently develop. This way you can work with components like in normal app. To make it work you need to first link the library:

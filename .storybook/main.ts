@@ -9,7 +9,7 @@ const resolve = {
 
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
-  staticDirs: ['../src/shared'],
+  staticDirs: ['../src/shared', './assets'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -17,6 +17,7 @@ module.exports = {
     '@storybook/addon-controls',
     '@storybook/preset-scss',
     '@storybook/addon-postcss',
+    'storybook-addon-designs',
   ],
   framework: {
     name: '@storybook/web-components-vite',

@@ -3,7 +3,7 @@ import { html } from 'lit-html'
 import '../lukso-wizard'
 
 export default {
-  title: 'Design System/Atoms/Wizard',
+  title: 'Design System/Components/Wizard',
   component: 'lukso-wizard',
   argTypes: {
     steps: {
@@ -33,6 +33,10 @@ LYXe`,
     controls: {
       exclude: ['activeStepStyles', 'completedStepStyles', 'active-step'],
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1094%3A13512&t=AGmdbG8fXRENuU3o-4',
+    },
   },
 }
 
@@ -42,4 +46,4 @@ const Template = ({ steps, activeStep }) =>
     active-step=${activeStep}
   ></lukso-wizard>`
 
-export const Wizard = Template.bind({})
+export const BasicWizard = Template.bind({})

@@ -170,6 +170,7 @@
     "renamer": "^4.0.0",
     "sass": "^1.57.1",
     "storybook": "7.0.0-beta.32",
+    "storybook-addon-designs": "beta",
     "stylelint": "^14.16.1",
     "stylelint-config-prettier": "^9.0.4",
     "stylelint-config-standard-scss": "^6.1.0",

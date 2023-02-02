@@ -12,7 +12,7 @@ export default {
       control: {
         type: 'select',
       },
-      options: ['x-small', 'small', 'medium', 'large'],
+      options: ['x-small', 'small', 'medium', 'large', 'x-large'],
     },
     profileAddress: {
       control: { type: 'text' },
@@ -23,7 +23,7 @@ export default {
   },
   args: {
     profileUrl: 'images/sample-avatar.png',
-    size: 'large',
+    size: 'x-large',
     profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
     hasIdenticon: true,
   },
@@ -40,6 +40,10 @@ export default {
         'defaultProfileUrl',
       ],
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=378%3A3395&t=AGmdbG8fXRENuU3o-4',
+    },
   },
 }
 
@@ -50,6 +54,11 @@ const Template = ({ profileUrl, size, profileAddress, hasIdenticon }) =>
     profile-address=${profileAddress}
     ?has-identicon=${hasIdenticon}
   ></lukso-profile>`
+
+export const XLarge = Template.bind({})
+XLarge.args = {
+  size: 'x-large',
+}
 
 export const Large = Template.bind({})
 Large.args = {

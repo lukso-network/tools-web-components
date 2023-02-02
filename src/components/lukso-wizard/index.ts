@@ -26,7 +26,7 @@ export class LuksoWizard extends TailwindElement {
 
   stepTemplate(step: WizardStep, index: number) {
     return html`<li
-      class="inline-flex flex-col items-center justify-end w-24 first:-ml-12 last:-mr-12 relative
+      class="inline-flex flex-col items-center justify-end w-[108px] first:-ml-12 last:-mr-12 relative
       [&>.lukso-wizard-circle]:after:last:hidden ${customClassMap({
         [this.completedStepStyles]: index + 1 < this.activeStep,
         [this.activeStepStyles]: index + 1 === this.activeStep,

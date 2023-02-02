@@ -17,6 +17,7 @@ module.exports = {
     '@storybook/addon-controls',
     '@storybook/preset-scss',
     '@storybook/addon-postcss',
+    'storybook-addon-designs',
   ],
   framework: {
     name: '@storybook/web-components-vite',

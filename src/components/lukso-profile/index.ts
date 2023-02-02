@@ -5,7 +5,7 @@ import makeBlockie from 'ethereum-blockies-base64'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 
-export type ProfileSize = 'x-small' | 'small' | 'medium' | 'large'
+export type ProfileSize = 'x-small' | 'small' | 'medium' | 'large' | 'x-large'
 type SizeDef = { identiconSize?: number; profileImageSize: number }
 
 @customElement('lukso-profile')
@@ -38,6 +38,10 @@ export class LuksoProfile extends TailwindElement {
     large: {
       identiconSize: 24,
       profileImageSize: 88,
+    },
+    'x-large': {
+      identiconSize: 28,
+      profileImageSize: 96,
     },
   }
 

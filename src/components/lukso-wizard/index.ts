@@ -33,7 +33,7 @@ export class LuksoWizard extends TailwindElement {
       })}"
     >
       <div
-        class="text-purple-51 heading-h5-apax whitespace-pre-line flex text-center break-words"
+        class="text-purple-51 heading-h5-apax whitespace-pre-line flex text-center break-words uppercase"
       >
         ${step.label}
       </div>

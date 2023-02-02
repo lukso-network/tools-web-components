@@ -339,145 +339,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-profile/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoProfile",
-          "members": [
-            {
-              "kind": "field",
-              "name": "profileUrl",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "profile-url"
-            },
-            {
-              "kind": "field",
-              "name": "profileAddress",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "profile-address"
-            },
-            {
-              "kind": "field",
-              "name": "hasIdenticon",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "has-identicon"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "ProfileSize"
-              },
-              "default": "'large'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "sizes",
-              "type": {
-                "text": "Record<ProfileSize, SizeDef>"
-              },
-              "default": "{\n    'x-small': {\n      identiconSize: undefined,\n      profileImageSize: 24,\n    },\n    small: {\n      identiconSize: 16,\n      profileImageSize: 40,\n    },\n    medium: {\n      identiconSize: 20,\n      profileImageSize: 56,\n    },\n    large: {\n      identiconSize: 24,\n      profileImageSize: 88,\n    },\n  }"
-            },
-            {
-              "kind": "field",
-              "name": "profileImageSize",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "identiconSize",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "defaultProfileUrl",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "'assets/images/profile-default.png'"
-            },
-            {
-              "kind": "field",
-              "name": "identicon",
-              "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "profile-url",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "profileUrl"
-            },
-            {
-              "name": "profile-address",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "profileAddress"
-            },
-            {
-              "name": "has-identicon",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "hasIdenticon"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "ProfileSize"
-              },
-              "default": "'large'",
-              "fieldName": "size"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-profile",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoProfile",
-          "declaration": {
-            "name": "LuksoProfile",
-            "module": "src/components/lukso-profile/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-profile",
-          "declaration": {
-            "name": "LuksoProfile",
-            "module": "src/components/lukso-profile/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-navbar/index.ts",
       "declarations": [
         {
@@ -584,6 +445,145 @@
           "declaration": {
             "name": "LuksoNavbar",
             "module": "src/components/lukso-navbar/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-profile/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoProfile",
+          "members": [
+            {
+              "kind": "field",
+              "name": "profileUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "profile-url"
+            },
+            {
+              "kind": "field",
+              "name": "profileAddress",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "profile-address"
+            },
+            {
+              "kind": "field",
+              "name": "hasIdenticon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "has-identicon"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "ProfileSize"
+              },
+              "default": "'large'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "sizes",
+              "type": {
+                "text": "Record<ProfileSize, SizeDef>"
+              },
+              "default": "{\n    'x-small': {\n      identiconSize: undefined,\n      profileImageSize: 24,\n    },\n    small: {\n      identiconSize: 16,\n      profileImageSize: 40,\n    },\n    medium: {\n      identiconSize: 20,\n      profileImageSize: 56,\n    },\n    large: {\n      identiconSize: 24,\n      profileImageSize: 88,\n    },\n    'x-large': {\n      identiconSize: 28,\n      profileImageSize: 96,\n    },\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "profileImageSize",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "identiconSize",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "defaultProfileUrl",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "'assets/images/profile-default.png'"
+            },
+            {
+              "kind": "field",
+              "name": "identicon",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "profile-url",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "profileUrl"
+            },
+            {
+              "name": "profile-address",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "profileAddress"
+            },
+            {
+              "name": "has-identicon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasIdenticon"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ProfileSize"
+              },
+              "default": "'large'",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-profile",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoProfile",
+          "declaration": {
+            "name": "LuksoProfile",
+            "module": "src/components/lukso-profile/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-profile",
+          "declaration": {
+            "name": "LuksoProfile",
+            "module": "src/components/lukso-profile/index.ts"
           }
         }
       ]
@@ -916,21 +916,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/assets/fonts/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/fonts/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/shared/assets/images/index.ts",
       "declarations": [],
       "exports": [
@@ -940,6 +925,21 @@
           "declaration": {
             "name": "__dirname",
             "module": "src/shared/assets/images/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/fonts/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/fonts/index.ts"
           }
         }
       ]

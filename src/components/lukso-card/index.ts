@@ -59,7 +59,7 @@ export class LuksoCard extends TailwindElement {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-90 grid grid-rows-[auto,1fr] ${customClassMap({
+        class="bg-neutral-98 grid grid-rows-[auto,1fr] ${customClassMap({
           [this.defaultStyles]: true,
         })}"
       >
@@ -67,8 +67,12 @@ export class LuksoCard extends TailwindElement {
           style=${styleMap({
             backgroundImage: `url(${this.backgroundUrl})`,
           })}
-          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0]"
-        ></div>
+          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative"
+        >
+          <div
+            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10 absolute opacity-10"
+          ></div>
+        </div>
         <div
           class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-3xl relative"
         >

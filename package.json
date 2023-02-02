@@ -75,6 +75,11 @@
       "import": "./dist/components/lukso-navbar/index.js",
       "types": "./dist/components/lukso-navbar/index.d.ts"
     },
+    "./components/lukso-profile": {
+      "require": "./dist/components/lukso-profile/index.umd.cjs",
+      "import": "./dist/components/lukso-profile/index.js",
+      "types": "./dist/components/lukso-profile/index.d.ts"
+    },
     "./components/lukso-test": {
       "require": "./dist/components/lukso-test/index.umd.cjs",
       "import": "./dist/components/lukso-test/index.js",
@@ -180,6 +185,7 @@
     "yargs": "^17.6.2"
   },
   "dependencies": {
+    "ethereum-blockies-base64": "^1.0.2",
     "tinycolor2": "^1.5.2"
   },
   "packageManager": "yarn@3.3.1",

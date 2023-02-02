@@ -31,9 +31,9 @@ export default {
     variant: 'basic',
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     header: 'Dolor sit amet',
-    backgroundUrl: 'assets/images/sample-background.jpg',
-    profileUrl: 'assets/images/sample-avatar.png',
-    profileAddress: '0x1234567890',
+    backgroundUrl: 'images/sample-background.jpg',
+    profileUrl: 'images/sample-avatar.png',
+    profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
   },
   parameters: {
     controls: {
@@ -86,17 +86,17 @@ const ProfileTemplate = ({
     </lukso-card>
   `
 
-export const Basic = BasicTemplate.bind({})
+export const BasicCard = BasicTemplate.bind({})
 
-export const WithHeader = BasicTemplate.bind({})
-WithHeader.args = {
+export const CardWithHeader = BasicTemplate.bind({})
+CardWithHeader.args = {
   variant: 'with-header',
 }
 
-export const CustomHeaderBackground = CustomHeaderTemplate.bind({})
-CustomHeaderBackground.args = {
+export const CardWithCustomHeader = CustomHeaderTemplate.bind({})
+CardWithCustomHeader.args = {
   variant: 'with-header',
 }
 
-export const Profile = ProfileTemplate.bind({})
-Profile.args = { variant: 'profile' }
+export const ProfileCard = ProfileTemplate.bind({})
+ProfileCard.args = { variant: 'profile' }

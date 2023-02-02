@@ -9,7 +9,7 @@ const resolve = {
 
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
-  staticDirs: ['../src/shared'],
+  staticDirs: ['../src/shared', './assets'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',

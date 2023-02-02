@@ -51,6 +51,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./lukso-profile/index"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./lukso-test/index"
           }
         },
@@ -265,15 +273,7 @@
             },
             {
               "kind": "method",
-              "name": "profileTemplate",
-              "parameters": [
-                {
-                  "name": "backgroundUrl",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
+              "name": "profileTemplate"
             }
           ],
           "attributes": [
@@ -339,103 +339,251 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-wizard/index.ts",
+      "path": "src/components/lukso-navbar/index.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "LuksoWizard",
+          "name": "LuksoNavbar",
           "members": [
             {
               "kind": "field",
-              "name": "steps",
+              "name": "title",
               "type": {
-                "text": "WizardStep[]"
+                "text": "string"
               },
-              "default": "[]",
-              "attribute": "steps"
+              "default": "''",
+              "attribute": "title"
             },
             {
               "kind": "field",
-              "name": "activeStep",
+              "name": "isCenter",
               "type": {
-                "text": "number"
+                "text": "boolean"
               },
-              "default": "1",
-              "attribute": "active-step"
+              "default": "false",
+              "attribute": "is-center"
             },
             {
               "kind": "field",
-              "name": "activeStepStyles",
-              "privacy": "private",
-              "default": "`[&_.lukso-wizard-circle-inner]:border-2 [&_.lukso-wizard-circle-inner]:border-purple-51`"
+              "name": "isSticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-sticky"
             },
             {
               "kind": "field",
-              "name": "completedStepStyles",
+              "name": "defaultStyles",
               "privacy": "private",
-              "default": "`[&>.lukso-wizard-circle]:after:bg-purple-51\n    [&_.lukso-wizard-circle-inner]:bg-gradient-to-t\n    [&_.lukso-wizard-circle-inner]:from-gradient-3-start\n    [&_.lukso-wizard-circle-inner]:to-gradient-3-end`"
+              "default": "`bg-neutral-100 shadow-pink-drop-shadow h-78 flex`"
+            },
+            {
+              "kind": "field",
+              "name": "centerStyles",
+              "privacy": "private",
+              "default": "`justify-center`"
+            },
+            {
+              "kind": "field",
+              "name": "stickyStyles",
+              "privacy": "private",
+              "default": "`sticky top-0 z-10`"
             },
             {
               "kind": "method",
-              "name": "stepTemplate",
-              "parameters": [
-                {
-                  "name": "step",
-                  "type": {
-                    "text": "WizardStep"
-                  }
-                },
-                {
-                  "name": "index",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
+              "name": "_onBrandClick"
             }
           ],
           "attributes": [
             {
-              "name": "steps",
+              "name": "title",
               "type": {
-                "text": "WizardStep[]"
+                "text": "string"
               },
-              "default": "[]",
-              "fieldName": "steps"
+              "default": "''",
+              "fieldName": "title"
             },
             {
-              "name": "active-step",
+              "name": "is-center",
               "type": {
-                "text": "number"
+                "text": "boolean"
               },
-              "default": "1",
-              "fieldName": "activeStep"
+              "default": "false",
+              "fieldName": "isCenter"
+            },
+            {
+              "name": "is-sticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isSticky"
             }
           ],
           "superclass": {
             "name": "TailwindElement",
             "package": "@/shared/tailwind-element"
           },
-          "tagName": "lukso-wizard",
+          "tagName": "lukso-navbar",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "LuksoWizard",
+          "name": "LuksoNavbar",
           "declaration": {
-            "name": "LuksoWizard",
-            "module": "src/components/lukso-wizard/index.ts"
+            "name": "LuksoNavbar",
+            "module": "src/components/lukso-navbar/index.ts"
           }
         },
         {
           "kind": "custom-element-definition",
-          "name": "lukso-wizard",
+          "name": "lukso-navbar",
           "declaration": {
-            "name": "LuksoWizard",
-            "module": "src/components/lukso-wizard/index.ts"
+            "name": "LuksoNavbar",
+            "module": "src/components/lukso-navbar/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-profile/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoProfile",
+          "members": [
+            {
+              "kind": "field",
+              "name": "profileUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "profile-url"
+            },
+            {
+              "kind": "field",
+              "name": "profileAddress",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "profile-address"
+            },
+            {
+              "kind": "field",
+              "name": "hasIdenticon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "has-identicon"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "ProfileSize"
+              },
+              "default": "'large'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "sizes",
+              "type": {
+                "text": "Record<ProfileSize, SizeDef>"
+              },
+              "default": "{\n    'x-small': {\n      identiconSize: undefined,\n      profileImageSize: 24,\n    },\n    small: {\n      identiconSize: 16,\n      profileImageSize: 40,\n    },\n    medium: {\n      identiconSize: 20,\n      profileImageSize: 56,\n    },\n    large: {\n      identiconSize: 24,\n      profileImageSize: 88,\n    },\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "profileImageSize",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "identiconSize",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "defaultProfileUrl",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "'assets/images/profile-default.png'"
+            },
+            {
+              "kind": "field",
+              "name": "identicon",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "profile-url",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "profileUrl"
+            },
+            {
+              "name": "profile-address",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "profileAddress"
+            },
+            {
+              "name": "has-identicon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasIdenticon"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ProfileSize"
+              },
+              "default": "'large'",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-profile",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoProfile",
+          "declaration": {
+            "name": "LuksoProfile",
+            "module": "src/components/lukso-profile/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-profile",
+          "declaration": {
+            "name": "LuksoProfile",
+            "module": "src/components/lukso-profile/index.ts"
           }
         }
       ]
@@ -565,112 +713,103 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-navbar/index.ts",
+      "path": "src/components/lukso-wizard/index.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "LuksoNavbar",
+          "name": "LuksoWizard",
           "members": [
             {
               "kind": "field",
-              "name": "title",
+              "name": "steps",
               "type": {
-                "text": "string"
+                "text": "WizardStep[]"
               },
-              "default": "''",
-              "attribute": "title"
+              "default": "[]",
+              "attribute": "steps"
             },
             {
               "kind": "field",
-              "name": "isCenter",
+              "name": "activeStep",
               "type": {
-                "text": "boolean"
+                "text": "number"
               },
-              "default": "false",
-              "attribute": "is-center"
+              "default": "1",
+              "attribute": "active-step"
             },
             {
               "kind": "field",
-              "name": "isSticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-sticky"
-            },
-            {
-              "kind": "field",
-              "name": "defaultStyles",
+              "name": "activeStepStyles",
               "privacy": "private",
-              "default": "`bg-neutral-100 shadow-pink-drop-shadow h-78 flex`"
+              "default": "`[&_.lukso-wizard-circle-inner]:border-2 [&_.lukso-wizard-circle-inner]:border-purple-51`"
             },
             {
               "kind": "field",
-              "name": "centerStyles",
+              "name": "completedStepStyles",
               "privacy": "private",
-              "default": "`justify-center`"
-            },
-            {
-              "kind": "field",
-              "name": "stickyStyles",
-              "privacy": "private",
-              "default": "`sticky top-0 z-10`"
+              "default": "`[&>.lukso-wizard-circle]:after:bg-purple-51\n    [&_.lukso-wizard-circle-inner]:bg-gradient-to-t\n    [&_.lukso-wizard-circle-inner]:from-gradient-3-start\n    [&_.lukso-wizard-circle-inner]:to-gradient-3-end`"
             },
             {
               "kind": "method",
-              "name": "_onBrandClick"
+              "name": "stepTemplate",
+              "parameters": [
+                {
+                  "name": "step",
+                  "type": {
+                    "text": "WizardStep"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
             }
           ],
           "attributes": [
             {
-              "name": "title",
+              "name": "steps",
               "type": {
-                "text": "string"
+                "text": "WizardStep[]"
               },
-              "default": "''",
-              "fieldName": "title"
+              "default": "[]",
+              "fieldName": "steps"
             },
             {
-              "name": "is-center",
+              "name": "active-step",
               "type": {
-                "text": "boolean"
+                "text": "number"
               },
-              "default": "false",
-              "fieldName": "isCenter"
-            },
-            {
-              "name": "is-sticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isSticky"
+              "default": "1",
+              "fieldName": "activeStep"
             }
           ],
           "superclass": {
             "name": "TailwindElement",
             "package": "@/shared/tailwind-element"
           },
-          "tagName": "lukso-navbar",
+          "tagName": "lukso-wizard",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "LuksoNavbar",
+          "name": "LuksoWizard",
           "declaration": {
-            "name": "LuksoNavbar",
-            "module": "src/components/lukso-navbar/index.ts"
+            "name": "LuksoWizard",
+            "module": "src/components/lukso-wizard/index.ts"
           }
         },
         {
           "kind": "custom-element-definition",
-          "name": "lukso-navbar",
+          "name": "lukso-wizard",
           "declaration": {
-            "name": "LuksoNavbar",
-            "module": "src/components/lukso-navbar/index.ts"
+            "name": "LuksoWizard",
+            "module": "src/components/lukso-wizard/index.ts"
           }
         }
       ]

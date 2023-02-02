@@ -1,8 +1,10 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { styleMap } from 'lit/directives/style-map.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
+import '@/components/lukso-profile'
 
 export type CardVariants = 'basic' | 'with-header' | 'profile'
 
@@ -53,7 +55,7 @@ export class LuksoCard extends TailwindElement {
     `
   }
 
-  profileTemplate(backgroundUrl: string) {
+  profileTemplate() {
     return html`
       <div
         data-testid="card"
@@ -62,9 +64,21 @@ export class LuksoCard extends TailwindElement {
         })}"
       >
         <div
-          class="min-h-[129px] -mb-6 bg-center bg-cover bg-[url('${backgroundUrl}')] rounded-[24px_24px_0_0]"
+          style=${styleMap({
+            backgroundImage: `url(${this.backgroundUrl})`,
+          })}
+          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0]"
         ></div>
-        <div class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-3xl">
+        <div
+          class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-3xl relative"
+        >
+          <lukso-profile
+            profile-url=${this.profileUrl}
+            size="large"
+            profile-address=${this.profileAddress}
+            has-identicon
+            class="absolute -top-[43px] left-[calc(50%_-_44px)] z-10"
+          ></lukso-profile>
           <div
             class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center"
           >
@@ -73,6 +87,7 @@ export class LuksoCard extends TailwindElement {
               shadow-neutral-above-shadow-1xl"
             ></div>
           </div>
+
           <slot name="content"></slot>
         </div>
       </div>
@@ -84,7 +99,7 @@ export class LuksoCard extends TailwindElement {
       case 'with-header':
         return this.withHeaderTemplate()
       case 'profile':
-        return this.profileTemplate(this.backgroundUrl)
+        return this.profileTemplate()
 
       default:
         return this.basicTemplate()

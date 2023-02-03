@@ -26,8 +26,8 @@ export class LuksoUsername extends TailwindElement {
 
   nameTemplate = () => {
     return html`<span
-      class="whitespace-nowrap overflow-hidden text-ellipsis
-        text-gradient-to-r from-gradient-1-start to-gradient-1-end"
+      class="whitespace-nowrap overflow-hidden text-ellipsis text-transparent
+      bg-clip-text bg-gradient-to-r from-gradient-1-start to-gradient-1-end"
       >@${this.name}</span
     >`
   }

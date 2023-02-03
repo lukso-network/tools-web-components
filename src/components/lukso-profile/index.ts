@@ -37,7 +37,7 @@ export class LuksoProfile extends TailwindElement {
     },
     large: {
       identiconSize: 24,
-      profileImageSize: 88,
+      profileImageSize: 80,
     },
     'x-large': {
       identiconSize: 28,

@@ -80,6 +80,11 @@
       "import": "./dist/components/lukso-profile/index.js",
       "types": "./dist/components/lukso-profile/index.d.ts"
     },
+    "./components/lukso-sanitize": {
+      "require": "./dist/components/lukso-sanitize/index.umd.cjs",
+      "import": "./dist/components/lukso-sanitize/index.js",
+      "types": "./dist/components/lukso-sanitize/index.d.ts"
+    },
     "./components/lukso-tag": {
       "require": "./dist/components/lukso-tag/index.umd.cjs",
       "import": "./dist/components/lukso-tag/index.js",
@@ -191,6 +196,7 @@
     "yargs": "^17.6.2"
   },
   "dependencies": {
+    "dompurify": "^2.4.3",
     "ethereum-blockies-base64": "^1.0.2",
     "tinycolor2": "^1.5.2"
   },

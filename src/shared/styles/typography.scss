@@ -104,19 +104,19 @@
 
   // Monospaced
 
-  .monospace-16-regular {
+  .monospaced-16-regular {
     @apply text-16 not-italic font-400 leading-22 font-mono;
   }
 
-  .monospace-16-bold {
+  .monospaced-16-bold {
     @apply text-16 not-italic font-700 leading-22 font-mono;
   }
 
-  .monospace-12-bold {
+  .monospaced-12-bold {
     @apply text-12 not-italic font-700 leading-14 font-mono;
   }
 
-  .monospace-10-bold {
+  .monospaced-10-bold {
     @apply text-10 not-italic font-700 leading-14 font-mono;
   }
 }

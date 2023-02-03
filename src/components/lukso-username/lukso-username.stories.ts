@@ -34,4 +34,4 @@ const Template = ({ name, address, maxWidth }) =>
     max-width=${maxWidth}
   ></lukso-username>`
 
-export const Username = Template.bind({})
+export const DefaultUsername = Template.bind({})

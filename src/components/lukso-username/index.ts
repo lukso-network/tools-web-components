@@ -33,7 +33,7 @@ export class LuksoUsername extends TailwindElement {
   }
 
   render() {
-    return html`<span class=""
+    return html`<span class="monospaced-16-bold"
       >${this.nameTemplate()}${this.address && this.addressTemplate()}</span
     >`
   }

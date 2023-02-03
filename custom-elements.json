@@ -83,6 +83,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./lukso-username/index"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./lukso-wizard/index"
           }
         },
@@ -467,6 +475,66 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-sanitize/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoSanitize",
+          "members": [
+            {
+              "kind": "field",
+              "name": "htmlContent",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "html-content"
+            },
+            {
+              "kind": "field",
+              "name": "sanitize"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "html-content",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "htmlContent"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-sanitize",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoSanitize",
+          "declaration": {
+            "name": "LuksoSanitize",
+            "module": "src/components/lukso-sanitize/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-sanitize",
+          "declaration": {
+            "name": "LuksoSanitize",
+            "module": "src/components/lukso-sanitize/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-profile/index.ts",
       "declarations": [
         {
@@ -516,7 +584,7 @@
               "type": {
                 "text": "Record<ProfileSize, SizeDef>"
               },
-              "default": "{\n    'x-small': {\n      identiconSize: undefined,\n      profileImageSize: 24,\n    },\n    small: {\n      identiconSize: 16,\n      profileImageSize: 40,\n    },\n    medium: {\n      identiconSize: 20,\n      profileImageSize: 56,\n    },\n    large: {\n      identiconSize: 24,\n      profileImageSize: 88,\n    },\n    'x-large': {\n      identiconSize: 28,\n      profileImageSize: 96,\n    },\n  }"
+              "default": "{\n    'x-small': {\n      identiconSize: undefined,\n      profileImageSize: 24,\n    },\n    small: {\n      identiconSize: 16,\n      profileImageSize: 40,\n    },\n    medium: {\n      identiconSize: 20,\n      profileImageSize: 56,\n    },\n    large: {\n      identiconSize: 24,\n      profileImageSize: 80,\n    },\n    'x-large': {\n      identiconSize: 28,\n      profileImageSize: 96,\n    },\n  }"
             },
             {
               "kind": "field",
@@ -600,66 +668,6 @@
           "declaration": {
             "name": "LuksoProfile",
             "module": "src/components/lukso-profile/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-sanitize/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoSanitize",
-          "members": [
-            {
-              "kind": "field",
-              "name": "htmlContent",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "html-content"
-            },
-            {
-              "kind": "field",
-              "name": "sanitize"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "html-content",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "htmlContent"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-sanitize",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoSanitize",
-          "declaration": {
-            "name": "LuksoSanitize",
-            "module": "src/components/lukso-sanitize/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-sanitize",
-          "declaration": {
-            "name": "LuksoSanitize",
-            "module": "src/components/lukso-sanitize/index.ts"
           }
         }
       ]
@@ -920,6 +928,114 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-username/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoUsername",
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "address",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "address"
+            },
+            {
+              "kind": "field",
+              "name": "maxWidth",
+              "type": {
+                "text": "number"
+              },
+              "default": "200",
+              "attribute": "max-width"
+            },
+            {
+              "kind": "field",
+              "name": "bytesWidth",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "50",
+              "description": "Width of the first 4 bytes of the address"
+            },
+            {
+              "kind": "field",
+              "name": "addressTemplate"
+            },
+            {
+              "kind": "field",
+              "name": "nameTemplate"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "name"
+            },
+            {
+              "name": "address",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "address"
+            },
+            {
+              "name": "max-width",
+              "type": {
+                "text": "number"
+              },
+              "default": "200",
+              "fieldName": "maxWidth"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-username",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoUsername",
+          "declaration": {
+            "name": "LuksoUsername",
+            "module": "src/components/lukso-username/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-username",
+          "declaration": {
+            "name": "LuksoUsername",
+            "module": "src/components/lukso-username/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-wizard/index.ts",
       "declarations": [
         {
@@ -1123,21 +1239,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/assets/images/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/images/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/shared/assets/fonts/index.ts",
       "declarations": [],
       "exports": [
@@ -1147,6 +1248,21 @@
           "declaration": {
             "name": "__dirname",
             "module": "src/shared/assets/fonts/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/images/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/images/index.ts"
           }
         }
       ]

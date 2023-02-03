@@ -95,6 +95,11 @@
       "import": "./dist/components/lukso-test/index.js",
       "types": "./dist/components/lukso-test/index.d.ts"
     },
+    "./components/lukso-username": {
+      "require": "./dist/components/lukso-username/index.umd.cjs",
+      "import": "./dist/components/lukso-username/index.js",
+      "types": "./dist/components/lukso-username/index.d.ts"
+    },
     "./components/lukso-wizard": {
       "require": "./dist/components/lukso-wizard/index.umd.cjs",
       "import": "./dist/components/lukso-wizard/index.js",

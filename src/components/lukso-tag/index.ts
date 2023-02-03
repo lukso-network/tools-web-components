@@ -22,9 +22,21 @@ export class LuksoTag extends TailwindElement {
   textColor = ''
 
   private defaultStyles = `rounded-lg inline-flex items-center justify-center border border-neutral-20 text-neutral-20`
-  private smallStyles = `paragraph-12-medium h-[28px] px-2`
-  private largeStyles = `paragraph-14-medium h-[34px] px-4`
+  private smallStyles = `paragraph-12-medium h-[28px]`
+  private largeStyles = `paragraph-14-medium h-[34px]`
   private roundedStyles = `rounded-[56px]`
+
+  private padding = () => {
+    if (this.size === 'small' && this.isRounded) {
+      return 'px-3'
+    }
+
+    if (this.size === 'large') {
+      return 'px-4'
+    }
+
+    return 'px-2'
+  }
 
   render() {
     return html`
@@ -32,9 +44,10 @@ export class LuksoTag extends TailwindElement {
         data-testid="tag"
         class=${customClassMap({
           [this.defaultStyles]: true,
+          [this.padding()]: true,
+          [this.roundedStyles]: this.isRounded,
           [this.smallStyles]: this.size === 'small',
           [this.largeStyles]: this.size === 'large',
-          [this.roundedStyles]: this.isRounded,
         })}
         style=${styleMap({
           backgroundColor: this.backgroundColor,

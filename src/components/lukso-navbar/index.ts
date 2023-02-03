@@ -19,7 +19,7 @@ export class LuksoNavbar extends TailwindElement {
 
   private centerStyles = `justify-center`
 
-  private stickyStyles = `sticky top-0 z-10`
+  private stickyStyles = `sticky top-0 z-[1000]`
 
   _onBrandClick() {
     const event = new CustomEvent('click-brand', {

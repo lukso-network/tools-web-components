@@ -38,7 +38,7 @@ export default {
   },
   parameters: {
     controls: {
-      exclude: ['bytesWidth', 'max-width', 'slice-by'],
+      exclude: ['bytesWidth', 'max-width', 'slice-by', 'address-color'],
     },
     design: {
       type: 'figma',

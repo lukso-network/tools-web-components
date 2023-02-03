@@ -43,6 +43,7 @@ export default {
         'linkStyles',
         'mediumSize',
         'smallSize',
+        'is-full-width',
       ],
     },
   },

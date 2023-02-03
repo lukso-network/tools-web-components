@@ -22,12 +22,16 @@ export default {
       control: { type: 'select' },
       options: ['small', 'medium'],
     },
+    isFullWidth: {
+      control: { type: 'boolean' },
+    },
   },
   args: {
     text: 'Hello World',
     disabled: false,
     size: 'medium',
     variant: 'primary',
+    isFullWidth: false,
   },
   parameters: {
     controls: {
@@ -44,8 +48,12 @@ export default {
   },
 }
 
-const Template = ({ variant, disabled, text, size }) =>
-  html`<lukso-button variant=${variant} ?disabled=${disabled} size=${size}
+const Template = ({ variant, disabled, text, size, isFullWidth }) =>
+  html`<lukso-button
+    variant=${variant}
+    ?disabled=${disabled}
+    size=${size}
+    ?is-full-width=${isFullWidth}
     >${text}</lukso-button
   >`
 
@@ -94,5 +102,16 @@ Link.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9822&t=AGmdbG8fXRENuU3o-4',
+  },
+}
+
+export const FullWidth = Template.bind({})
+FullWidth.args = {
+  isFullWidth: true,
+}
+FullWidth.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9778&t=AGmdbG8fXRENuU3o-4',
   },
 }

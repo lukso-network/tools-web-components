@@ -18,6 +18,9 @@ export class LuksoButton extends TailwindElement {
   @property({ type: Boolean })
   disabled = false
 
+  @property({ type: Boolean, attribute: 'is-full-width' })
+  isFullWidth = false
+
   private defaultStyles = `flex justify-center items-center relative
     border border-solid cursor-pointer transition duration-0
     hover:duration-250 active:scale-98 active:duration-25
@@ -59,6 +62,7 @@ export class LuksoButton extends TailwindElement {
           [this.secondaryStyles]: this.variant === 'secondary',
           [this.landingStyles]: this.variant === 'landing',
           [this.linkStyles]: this.variant === 'link',
+          ['w-full']: this.isFullWidth,
         })}
       >
         <slot></slot>

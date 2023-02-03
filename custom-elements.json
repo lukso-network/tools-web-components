@@ -142,6 +142,15 @@
             },
             {
               "kind": "field",
+              "name": "isFullWidth",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-full-width"
+            },
+            {
+              "kind": "field",
               "name": "defaultStyles",
               "privacy": "private",
               "default": "`flex justify-center items-center relative\n    border border-solid cursor-pointer transition duration-0\n    hover:duration-250 active:scale-98 active:duration-25\n    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100`"
@@ -207,6 +216,14 @@
               },
               "default": "false",
               "fieldName": "disabled"
+            },
+            {
+              "name": "is-full-width",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isFullWidth"
             }
           ],
           "superclass": {

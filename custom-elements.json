@@ -502,6 +502,66 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-sanitize/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoSanitize",
+          "members": [
+            {
+              "kind": "field",
+              "name": "htmlContent",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "html-content"
+            },
+            {
+              "kind": "field",
+              "name": "sanitize"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "html-content",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "htmlContent"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-sanitize",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoSanitize",
+          "declaration": {
+            "name": "LuksoSanitize",
+            "module": "src/components/lukso-sanitize/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-sanitize",
+          "declaration": {
+            "name": "LuksoSanitize",
+            "module": "src/components/lukso-sanitize/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-navbar/index.ts",
       "declarations": [
         {
@@ -608,66 +668,6 @@
           "declaration": {
             "name": "LuksoNavbar",
             "module": "src/components/lukso-navbar/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-sanitize/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoSanitize",
-          "members": [
-            {
-              "kind": "field",
-              "name": "htmlContent",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "html-content"
-            },
-            {
-              "kind": "field",
-              "name": "sanitize"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "html-content",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "htmlContent"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-sanitize",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoSanitize",
-          "declaration": {
-            "name": "LuksoSanitize",
-            "module": "src/components/lukso-sanitize/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-sanitize",
-          "declaration": {
-            "name": "LuksoSanitize",
-            "module": "src/components/lukso-sanitize/index.ts"
           }
         }
       ]
@@ -969,21 +969,49 @@
             },
             {
               "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "UsernameSize"
+              },
+              "default": "'large'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "sliceBy",
+              "type": {
+                "text": "number"
+              },
+              "default": "8",
+              "attribute": "slice-by"
+            },
+            {
+              "kind": "field",
               "name": "bytesWidth",
               "type": {
                 "text": "number"
               },
               "privacy": "private",
-              "default": "50",
+              "default": "52",
               "description": "Width of the first 4 bytes of the address"
             },
             {
-              "kind": "field",
-              "name": "addressTemplate"
+              "kind": "method",
+              "name": "addressBytesTemplate",
+              "privacy": "private",
+              "description": "Template for 4byte address\ne.g: #1234"
             },
             {
-              "kind": "field",
-              "name": "nameTemplate"
+              "kind": "method",
+              "name": "nameTemplate",
+              "privacy": "private",
+              "description": "Template for name\ne.g: @John"
+            },
+            {
+              "kind": "method",
+              "name": "addressTemplate",
+              "privacy": "private",
+              "description": "Template for address\ne.g: 0x123...789"
             }
           ],
           "attributes": [
@@ -1010,6 +1038,22 @@
               },
               "default": "200",
               "fieldName": "maxWidth"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "UsernameSize"
+              },
+              "default": "'large'",
+              "fieldName": "size"
+            },
+            {
+              "name": "slice-by",
+              "type": {
+                "text": "number"
+              },
+              "default": "8",
+              "fieldName": "sliceBy"
             }
           ],
           "superclass": {

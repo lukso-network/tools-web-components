@@ -1,8 +1,12 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { unsafeHTML } from 'lit/directives/unsafe-html.js'
+import { sliceAddress } from '@/shared/utils/sliceAddress'
 
 import { TailwindElement } from '@/shared/tailwind-element'
+import { customClassMap } from '@/shared/directives/custom-class-map'
+import { styleMap } from 'lit-html/directives/style-map.js'
+
+export type UsernameSize = 'small' | 'large'
 
 @customElement('lukso-username')
 export class LuksoUsername extends TailwindElement {
@@ -15,27 +19,74 @@ export class LuksoUsername extends TailwindElement {
   @property({ type: Number, attribute: 'max-width' })
   maxWidth = 200
 
-  /** Width of the first 4 bytes of the address */
-  private bytesWidth = 50
+  @property({ type: 'string' })
+  size: UsernameSize = 'large'
 
-  addressTemplate = () => {
-    return html`<span class="text-neutral-60"
-      >#${this.address.slice(2, 6)}</span
-    >`
+  @property({ type: Number, attribute: 'slice-by' })
+  sliceBy = 8
+
+  /** Width of the first 4 bytes of the address */
+  private bytesWidth = 52
+
+  /**
+   * Template for 4byte address
+   * e.g: #1234
+   */
+  private addressBytesTemplate() {
+    return html`<div class="inline-block text-neutral-60">
+      #${this.address.slice(2, 6)}
+    </div>`
   }
 
-  nameTemplate = () => {
-    return html`<span
-      class="whitespace-nowrap overflow-hidden text-ellipsis text-transparent
+  /**
+   * Template for name
+   * e.g: @John
+   */
+  private nameTemplate() {
+    return html`<div
+      class="inline-block whitespace-nowrap overflow-hidden text-ellipsis text-transparent
       bg-clip-text bg-gradient-to-r from-gradient-1-start to-gradient-1-end"
-      >@${this.name}</span
-    >`
+      style=${styleMap({
+        maxWidth: `${this.maxWidth - this.bytesWidth}px`,
+      })}
+    >
+      @${this.name}
+    </div>`
+  }
+
+  /**
+   * Template for address
+   * e.g: 0x123...789
+   */
+  private addressTemplate() {
+    return html`<div class="inline-block text-neutral-20">
+      ${sliceAddress(this.address, this.sliceBy, this.sliceBy)}
+    </div>`
   }
 
   render() {
-    return html`<span class="monospaced-16-bold"
-      >${this.nameTemplate()}${this.address && this.addressTemplate()}</span
-    >`
+    const template = (() => {
+      if (this.name && this.address) {
+        return html`${this.nameTemplate()}${this.addressBytesTemplate()}`
+      }
+
+      if (this.name) {
+        return this.nameTemplate()
+      }
+
+      if (this.address) {
+        return this.addressTemplate()
+      }
+    })()
+
+    return html`<div
+      class="inline-flex ${customClassMap({
+        'monospaced-12-bold': this.size === 'small',
+        'monospaced-16-bold': this.size === 'large',
+      })}"
+    >
+      ${template}
+    </div>`
   }
 }
 

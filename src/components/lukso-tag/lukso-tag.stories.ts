@@ -47,6 +47,7 @@ export default {
         'is-rounded',
         'background-color',
         'text-color',
+        'padding',
       ],
     },
   },

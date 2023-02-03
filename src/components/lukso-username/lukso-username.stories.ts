@@ -13,6 +13,7 @@ export default {
     },
     maxWidth: {
       control: { type: 'number' },
+      if: { arg: 'name', neq: '' },
     },
     size: {
       control: { type: 'select' },
@@ -20,6 +21,11 @@ export default {
     },
     sliceBy: {
       control: { type: 'number' },
+      if: { arg: 'name', eq: '' },
+    },
+    addressColor: {
+      control: { type: 'text' },
+      if: { arg: 'name', eq: '' },
     },
   },
   args: {
@@ -28,6 +34,7 @@ export default {
     maxWidth: 200,
     size: 'large',
     sliceBy: 8,
+    addressColor: '',
   },
   parameters: {
     controls: {
@@ -40,13 +47,14 @@ export default {
   },
 }
 
-const Template = ({ name, address, maxWidth, size, sliceBy }) =>
+const Template = ({ name, address, maxWidth, size, sliceBy, addressColor }) =>
   html`<lukso-username
     name=${name}
     address=${address}
     max-width=${maxWidth}
     size=${size}
     slice-by=${sliceBy}
+    address-color=${addressColor}
   ></lukso-username>`
 
 export const DefaultUsername = Template.bind({})
@@ -75,5 +83,12 @@ SliceAddressBy4.args = {
 export const SmallAddress = Template.bind({})
 SmallAddress.args = {
   name: '',
+  size: 'small',
+}
+
+export const CustomAddressColor = Template.bind({})
+CustomAddressColor.args = {
+  name: '',
+  addressColor: 'neutral-60',
   size: 'small',
 }

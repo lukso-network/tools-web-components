@@ -25,6 +25,9 @@ export class LuksoUsername extends TailwindElement {
   @property({ type: Number, attribute: 'slice-by' })
   sliceBy = 8
 
+  @property({ type: String, attribute: 'address-color' })
+  addressColor = 'neutral-20'
+
   /** Width of the first 4 bytes of the address */
   private bytesWidth = 52
 
@@ -59,7 +62,11 @@ export class LuksoUsername extends TailwindElement {
    * e.g: 0x123...789
    */
   private addressTemplate() {
-    return html`<div class="inline-block text-neutral-20">
+    return html`<div
+      class="inline-block ${customClassMap({
+        ['text-' + this.addressColor]: this.addressColor !== 'neutral-20',
+      })}"
+    >
       ${sliceAddress(this.address, this.sliceBy, this.sliceBy)}
     </div>`
   }

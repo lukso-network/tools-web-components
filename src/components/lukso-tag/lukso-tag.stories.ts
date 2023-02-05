@@ -21,12 +21,12 @@ export default {
     },
     backgroundColor: {
       control: {
-        type: 'text',
+        type: 'color',
       },
     },
     textColor: {
       control: {
-        type: 'text',
+        type: 'color',
       },
     },
   },

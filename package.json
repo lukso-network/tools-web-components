@@ -95,6 +95,11 @@
       "import": "./dist/components/lukso-test/index.js",
       "types": "./dist/components/lukso-test/index.d.ts"
     },
+    "./components/lukso-username": {
+      "require": "./dist/components/lukso-username/index.umd.cjs",
+      "import": "./dist/components/lukso-username/index.js",
+      "types": "./dist/components/lukso-username/index.d.ts"
+    },
     "./components/lukso-wizard": {
       "require": "./dist/components/lukso-wizard/index.umd.cjs",
       "import": "./dist/components/lukso-wizard/index.js",
@@ -122,7 +127,7 @@
     "storybook": "yarn config-prepare && storybook dev -p 6006",
     "build-storybook": "yarn config-prepare && storybook build",
     "test-storybook": "yarn config-prepare && test-storybook",
-    "test": "yarn analyze && yarn config-prepare && yarn build-storybook && concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'http-server storybook-static --port 6006' 'wait-on -v tcp:127.0.0.1:6006 && yarn test-storybook --url http://127.0.0.1:6006'",
+    "test": "yarn analyze && yarn config-prepare && yarn build-storybook && concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'http-server storybook-static --port 6007' 'wait-on -v tcp:127.0.0.1:6007 && yarn test-storybook --url http://127.0.0.1:6007'",
     "prepare": "husky install"
   },
   "lint-staged": {

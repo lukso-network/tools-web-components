@@ -81,13 +81,13 @@ export class LuksoCard extends TailwindElement {
             size="large"
             profile-address=${this.profileAddress}
             has-identicon
-            class="absolute -top-[43px] left-[calc(50%_-_44px)] z-10"
+            class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
           ></lukso-profile>
           <div
             class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center"
           >
             <div
-              class="bg-neutral-100 rounded-[103px_103px_0_0] w-[103px] h-[50px]
+              class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]
               shadow-neutral-above-shadow-1xl"
             ></div>
           </div>

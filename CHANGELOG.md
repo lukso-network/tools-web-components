@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.0](https://github.com/lukso-network/tools-web-components/compare/v1.2.2...v1.3.0) (2023-02-05)
+
+
+### Features
+
+* profile and card component ([#28](https://github.com/lukso-network/tools-web-components/issues/28)) ([e78c6b5](https://github.com/lukso-network/tools-web-components/commit/e78c6b51a0f2d46e8908bfb6ab3869435323900d))
+* sanitize component ([#31](https://github.com/lukso-network/tools-web-components/issues/31)) ([aa0558c](https://github.com/lukso-network/tools-web-components/commit/aa0558c80b9f12082f00a05a727b651734b60d76))
+* tag component ([#30](https://github.com/lukso-network/tools-web-components/issues/30)) ([77f4fb5](https://github.com/lukso-network/tools-web-components/commit/77f4fb5dfd1b6dd4961d1928cb2a7994e4def0af))
+* username component ([#34](https://github.com/lukso-network/tools-web-components/issues/34)) ([d619356](https://github.com/lukso-network/tools-web-components/commit/d619356d31ba4fbe814bff1bbb8d29b13b67c0ff))
+
+
+### Bug Fixes
+
+* change size of large profile ([#32](https://github.com/lukso-network/tools-web-components/issues/32)) ([3b1a9b2](https://github.com/lukso-network/tools-web-components/commit/3b1a9b297d3514598345951361409eff20d55c41))
+
 ## [1.2.2](https://github.com/lukso-network/tools-web-components/compare/v1.2.1...v1.2.2) (2023-02-01)
 
 

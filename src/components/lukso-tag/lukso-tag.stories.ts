@@ -21,12 +21,12 @@ export default {
     },
     backgroundColor: {
       control: {
-        type: 'color',
+        type: 'text',
       },
     },
     textColor: {
       control: {
-        type: 'color',
+        type: 'text',
       },
     },
   },
@@ -96,8 +96,8 @@ RoundedTag.parameters = {
 export const CustomColorTag = Template.bind({})
 CustomColorTag.args = {
   content: 'Custom Color Tag',
-  backgroundColor: '#E96464',
-  textColor: '#FFFFFF',
+  backgroundColor: 'red-55',
+  textColor: 'neutral-100',
 }
 CustomColorTag.parameters = {
   design: {

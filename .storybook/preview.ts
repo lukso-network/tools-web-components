@@ -4,7 +4,9 @@ import * as jest from 'jest-mock'
 import { setCustomElementsManifest } from '@storybook/web-components'
 import customElements from '../custom-elements.json'
 import './styles.scss'
+import { generateCssVariables } from '@/shared/styles/color-palette'
 
+generateCssVariables()
 setCustomElementsManifest(customElements)
 
 export const parameters = {

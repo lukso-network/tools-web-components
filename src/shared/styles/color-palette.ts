@@ -74,3 +74,23 @@ export const neutral3 = splitColor(
   16,
   Object.keys(colorPalette.neutral).length
 )
+
+/**
+ * Generates CSS variables for the color palette
+ */
+export const generateCssVariables = () => {
+  const root = document.querySelector(':root')
+
+  const colors = Object.keys(colorPalette)
+
+  colors.forEach(color => {
+    const colorValues = colorPalette[color]
+    const colorKeys = Object.keys(colorValues)
+
+    colorKeys.forEach(key => {
+      const value = colorValues[key]
+
+      root.style.setProperty(`--${color}-${key}`, value)
+    })
+  })
+}

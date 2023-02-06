@@ -64,7 +64,8 @@ export class LuksoUsername extends TailwindElement {
   private addressTemplate() {
     return html`<div
       class="inline-block ${customClassMap({
-        ['text-' + this.addressColor]: this.addressColor !== 'neutral-20',
+        ['text-' + this.addressColor]: this.addressColor !== '',
+        ['text-neutral-20']: this.addressColor === '',
       })}"
     >
       ${sliceAddress(this.address, this.sliceBy, this.sliceBy)}

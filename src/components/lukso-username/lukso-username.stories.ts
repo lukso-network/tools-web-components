@@ -72,18 +72,14 @@ OnlyName.args = {
 export const OnlyAddress = Template.bind({})
 OnlyAddress.args = {
   name: '',
+  size: 'small',
 }
 
 export const SliceAddressBy4 = Template.bind({})
 SliceAddressBy4.args = {
   name: '',
-  sliceBy: 4,
-}
-
-export const SmallAddress = Template.bind({})
-SmallAddress.args = {
-  name: '',
   size: 'small',
+  sliceBy: 4,
 }
 
 export const CustomAddressColor = Template.bind({})

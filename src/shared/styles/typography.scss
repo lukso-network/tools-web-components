@@ -33,11 +33,11 @@
   }
 
   .heading-h4-apax {
-    @apply text-14 not-italic font-500 leading-20 font-apax;
+    @apply text-14 not-italic font-500 leading-20 font-apax uppercase tracking-[.08em];
   }
 
   .heading-h5-apax {
-    @apply text-8 not-italic font-500 leading-10 font-apax;
+    @apply text-8 not-italic font-500 leading-10 font-apax uppercase tracking-[.08em];
   }
 
   // Paragraph

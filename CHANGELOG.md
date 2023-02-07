@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/lukso-network/tools-web-components/compare/v1.3.0...v1.3.1) (2023-02-07)
+
+
+### Bug Fixes
+
+* change letter spacing in uppercase headers ([#36](https://github.com/lukso-network/tools-web-components/issues/36)) ([a691a1f](https://github.com/lukso-network/tools-web-components/commit/a691a1fd526560c4fb3ff81d45ce2973a31fed68))
+* username default color ([#35](https://github.com/lukso-network/tools-web-components/issues/35)) ([bf2b5df](https://github.com/lukso-network/tools-web-components/commit/bf2b5df1363d6456d6ac7c7ec0304190ba9a4710))
+
 ## [1.3.0](https://github.com/lukso-network/tools-web-components/compare/v1.2.2...v1.3.0) (2023-02-05)
 
 

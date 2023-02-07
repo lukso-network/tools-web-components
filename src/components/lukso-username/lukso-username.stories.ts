@@ -78,6 +78,7 @@ export const OnlyAddress = Template.bind({})
 OnlyAddress.args = {
   name: '',
   size: 'small',
+  sliceBy: 4,
 }
 
 /** You can specify amount of sliced characters in the address with `slice-by` property. */

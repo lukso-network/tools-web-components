@@ -1,8 +1,11 @@
 import { html } from 'lit-html'
 import './index'
 
+/**  Documentation and examples of `lukso-sanitize` component. It's used to show potentially dangerous content or HTML in safe way.
+ * One of the common use cases is using HTML tags in texts coming from translations.
+ */
 export default {
-  title: 'Design System/Components/Sanitize',
+  title: 'Design System/Components/lukso-sanitize',
   component: 'lukso-sanitize',
   argTypes: {
     htmlContent: {
@@ -23,4 +26,5 @@ export default {
 const Template = ({ htmlContent }) =>
   html`<lukso-sanitize html-content=${htmlContent}></lukso-sanitize>`
 
+/** This is example if text containing HTML tags. */
 export const Sanitize = Template.bind({})

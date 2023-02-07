@@ -6,7 +6,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 import './index'
 import '../lukso-icon'
 
-/**  Documentation and examples of button component. */
+/**  Documentation and examples of `lukso-button` component. */
 export default {
   title: 'Design System/Components/lukso-button',
   component: 'lukso-button',
@@ -61,7 +61,7 @@ const Template = ({ variant, disabled, text, size, isFullWidth }) =>
     >${text}</lukso-button
   >`
 
-/** By default button is displayed in `primary` style. You use different versions of the button by specifying `variant` property. */
+/** By default button is using `primary` variant. */
 export const Primary = Template.bind({})
 Primary.parameters = {
   design: {
@@ -77,6 +77,7 @@ Primary.play = async ({ canvasElement }) => {
   expect(canvas.getByText('Hello World')).toBeInTheDocument()
 }
 
+/** Example of `secondary` variant. */
 export const Secondary = Template.bind({})
 Secondary.args = {
   variant: 'secondary',
@@ -88,6 +89,7 @@ Secondary.parameters = {
   },
 }
 
+/** Example of `landing` variant.  */
 export const Landing = Template.bind({})
 Landing.args = {
   variant: 'landing',
@@ -99,6 +101,7 @@ Landing.parameters = {
   },
 }
 
+/** Example of `link` variant.  */
 export const Link = Template.bind({})
 Link.args = {
   variant: 'link',

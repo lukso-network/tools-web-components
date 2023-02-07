@@ -1,8 +1,9 @@
 import { html } from 'lit-html'
 import './index'
 
+/**  Documentation and examples of `lukso-icon` component. Icons comes in `small`, `medium`, `large` and `x-large` size that is set in `size` property. */
 export default {
-  title: 'Design System/Components/Icon',
+  title: 'Design System/Components/lukso-icon',
   component: 'lukso-icon',
   argTypes: {
     name: {
@@ -44,40 +45,34 @@ const Template = ({ name, size, color, secondaryColor }) =>
     secondary-color=${secondaryColor}
   ></lukso-icon>`
 
+/** By default icon comes in `medium` size of `24x24` pixels with `neutral-20` color.  */
 export const DefaultIcon = Template.bind({})
 DefaultIcon.args = {
   name: 'profile-recovery',
 }
 
-/** 16x16 px */
+/** Example of `small` size of `16x16` pixels. */
 export const SmallIcon = Template.bind({})
 SmallIcon.args = {
   name: 'profile-recovery',
   size: 'small',
 }
 
-/** 24x24 px */
-export const MediumIcon = Template.bind({})
-MediumIcon.args = {
-  name: 'profile-recovery',
-  size: 'medium',
-}
-
-/** 32x32 px */
+/** Example of `large` size of `32x32` pixels. */
 export const LargeIcon = Template.bind({})
 LargeIcon.args = {
   name: 'profile-recovery',
   size: 'large',
 }
 
-/** 40x40 px */
+/** Example of `x-large` size of `40x40` pixels. */
 export const XLargeIcon = Template.bind({})
 XLargeIcon.args = {
   name: 'profile-recovery',
   size: 'x-large',
 }
 
-/** By default icon has `neutral-20` color. You can change color to any from the palette with `color` property. */
+/** You can change color to any from the palette with `color` property. */
 export const ColoredIcon = Template.bind({})
 ColoredIcon.args = {
   name: 'profile-recovery',

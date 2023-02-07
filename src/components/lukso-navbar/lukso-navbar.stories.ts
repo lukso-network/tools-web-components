@@ -1,8 +1,9 @@
 import { html } from 'lit-html'
 import './index'
 
+/**  Documentation and examples of `lukso-navbar` component. */
 export default {
-  title: 'Design System/Components/Navbar',
+  title: 'Design System/Components/lukso-navbar',
   component: 'lukso-navbar',
   argTypes: {
     title: {
@@ -45,9 +46,17 @@ const Template = ({ title, isCenter, isSticky }) =>
     ?is-sticky=${isSticky}
   ></lukso-navbar>`
 
+/** Example of default navbar. */
 export const DefaultNavbar = Template.bind({})
 
+/** Example of navbar with logo and title in center. You set this by adding `is-center` property. */
 export const CenterNavbar = Template.bind({})
 CenterNavbar.args = {
   isCenter: true,
+}
+
+/** By default navbar stays at the top of the document. If you want it scroll with the content then ad  `is-sticky` property. */
+export const StickyNavbar = Template.bind({})
+StickyNavbar.args = {
+  isSticky: true,
 }

@@ -4,7 +4,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 import './index'
 import '../lukso-icon'
 
-/**  Documentation and examples of tag component. */
+/**  Documentation and examples of `lukso-tag` component. */
 export default {
   title: 'Design System/Components/lukso-tag',
   component: 'lukso-tag',

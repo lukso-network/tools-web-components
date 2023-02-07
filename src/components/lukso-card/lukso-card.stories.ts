@@ -1,8 +1,9 @@
 import { html } from 'lit-html'
 import './index'
 
+/**  Documentation and examples of `lukso-card` component. Cards are using `slots` to put content in different places like `header` or `content`.  */
 export default {
-  title: 'Design System/Components/Card',
+  title: 'Design System/Components/lukso-card',
   component: 'lukso-card',
   argTypes: {
     variant: {
@@ -86,6 +87,7 @@ const ProfileTemplate = ({
     </lukso-card>
   `
 
+/** By default card is using `basic` variant.  */
 export const DefaultCard = DefaultTemplate.bind({})
 DefaultCard.parameters = {
   design: {
@@ -94,6 +96,7 @@ DefaultCard.parameters = {
   },
 }
 
+/** Example of `with-header` variant. */
 export const CardWithHeader = DefaultTemplate.bind({})
 CardWithHeader.args = {
   variant: 'with-header',
@@ -105,6 +108,7 @@ CardWithHeader.parameters = {
   },
 }
 
+/** Example of `with-header` variant that has additional background element. */
 export const CardWithCustomHeader = CustomHeaderTemplate.bind({})
 CardWithCustomHeader.args = {
   variant: 'with-header',
@@ -116,6 +120,7 @@ CardWithCustomHeader.parameters = {
   },
 }
 
+/** Example of `profile` variant. This variant additionally uses `background-url`, `profile-url` and `profile-address` properties.  */
 export const ProfileCard = ProfileTemplate.bind({})
 ProfileCard.args = {
   variant: 'profile',
@@ -126,7 +131,6 @@ ProfileCard.args = {
     },
   },
 }
-
 ProfileCard.parameters = {
   design: {
     type: 'figma',

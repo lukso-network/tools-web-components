@@ -1,7 +1,9 @@
 import { html } from 'lit-html'
 import './index'
 
-/**  Documentation and examples of `lukso-icon` component. Icons comes in `small`, `medium`, `large` and `x-large` size that is set in `size` property. */
+/**  Documentation and examples of `lukso-icon` component. Icons comes in `small`, `medium`, `large` and `x-large` size that is set in `size` property.
+ *  Please check all available icons in Icons Showcase.
+ */
 export default {
   title: 'Design System/Components/lukso-icon',
   component: 'lukso-icon',

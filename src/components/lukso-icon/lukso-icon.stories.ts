@@ -8,29 +8,26 @@ export default {
     name: {
       control: { type: 'text' },
     },
-    width: {
-      control: { type: 'number' },
-    },
-    height: {
-      control: { type: 'number' },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium', 'large', 'x-large'],
     },
     color: {
       control: { type: 'text' },
     },
-    strokeWidth: {
-      control: { type: 'number' },
+    secondaryColor: {
+      control: { type: 'text' },
     },
   },
   args: {
     name: 'profile-recovery',
-    width: 24,
-    height: 24,
+    size: 'medium',
     color: 'neutral-20',
-    strokeWidth: 1.5,
+    secondaryColor: '',
   },
   parameters: {
     controls: {
-      exclude: [],
+      exclude: ['sizes', 'secondary-color'],
     },
     design: {
       type: 'figma',
@@ -39,13 +36,12 @@ export default {
   },
 }
 
-const Template = ({ name, width, height, color, strokeWidth }) =>
+const Template = ({ name, size, color, secondaryColor }) =>
   html`<lukso-icon
     name=${name}
-    width=${width}
-    height=${height}
+    size=${size}
     color=${color}
-    stroke-width=${strokeWidth}
+    secondary-color=${secondaryColor}
   ></lukso-icon>`
 
 export const DefaultIcon = Template.bind({})
@@ -53,30 +49,45 @@ DefaultIcon.args = {
   name: 'profile-recovery',
 }
 
+/** 16x16 px */
 export const SmallIcon = Template.bind({})
 SmallIcon.args = {
   name: 'profile-recovery',
-  width: 16,
-  height: 16,
+  size: 'small',
 }
 
+/** 24x24 px */
+export const MediumIcon = Template.bind({})
+MediumIcon.args = {
+  name: 'profile-recovery',
+  size: 'medium',
+}
+
+/** 32x32 px */
 export const LargeIcon = Template.bind({})
 LargeIcon.args = {
   name: 'profile-recovery',
-  width: 32,
-  height: 32,
+  size: 'large',
 }
 
+/** 40x40 px */
+export const XLargeIcon = Template.bind({})
+XLargeIcon.args = {
+  name: 'profile-recovery',
+  size: 'x-large',
+}
+
+/** By default icon has `neutral-20` color. You can change color to any from the palette with `color` property. */
 export const ColoredIcon = Template.bind({})
 ColoredIcon.args = {
   name: 'profile-recovery',
   color: 'coral-65',
 }
 
-export const BoldIcon = Template.bind({})
-BoldIcon.args = {
-  name: 'profile-recovery',
-  width: 16,
-  height: 16,
-  strokeWidth: 2,
+/** Some icons contain secondary color that is applied with `secondary-color` property. */
+export const SecondaryColorIcon = Template.bind({})
+SecondaryColorIcon.args = {
+  name: 'complete-filled',
+  color: 'coral-65',
+  secondaryColor: 'honey-72',
 }

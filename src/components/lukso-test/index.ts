@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { animate, AnimateController } from '@lit-labs/motion'
 import { classMap } from 'lit/directives/class-map.js'
 
-import { TailwindStyledElement } from '@/shared/tailwind-element/index.js'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './test.component.scss?inline'
 
 @customElement('lukso-test')

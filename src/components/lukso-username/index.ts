@@ -2,9 +2,9 @@ import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit-html/directives/style-map.js'
 
-import { sliceAddress } from '@/shared/utils/sliceAddress.js'
-import { TailwindElement } from '@/shared/tailwind-element/index.js'
-import { customClassMap } from '@/shared/directives/custom-class-map/index.js'
+import { sliceAddress } from '@/shared/utils/sliceAddress'
+import { TailwindElement } from '@/shared/tailwind-element'
+import { customClassMap } from '@/shared/directives/custom-class-map'
 
 export type UsernameSize = 'small' | 'large'
 

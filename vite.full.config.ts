@@ -114,7 +114,7 @@ async function writeIndex() {
         './components',
         source.replace(/\.ts$/, '')
       )}`
-      return `export * from '${file}.js'`
+      return `export * from '${file}'`
     })
     .join('\n')}\n`
   if (oldFile !== newFile) {

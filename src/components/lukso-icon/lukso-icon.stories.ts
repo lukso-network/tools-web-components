@@ -75,8 +75,8 @@ XLargeIcon.args = {
 }
 
 /** You can change color to any from the palette with `color` property. */
-export const ColoredIcon = Template.bind({})
-ColoredIcon.args = {
+export const CustomColorIcon = Template.bind({})
+CustomColorIcon.args = {
   name: 'profile-recovery',
   color: 'coral-65',
 }
@@ -87,4 +87,10 @@ SecondaryColorIcon.args = {
   name: 'complete-filled',
   color: 'coral-65',
   secondaryColor: 'honey-72',
+}
+
+/** Some icons contain multiple colors and they don't use `color` property. You can still use different sizes tho. */
+export const ColoredIcon = Template.bind({})
+ColoredIcon.args = {
+  name: 'google-color',
 }

@@ -104,6 +104,9 @@ import { unlocked } from './icons/unlocked.js'
 import { walletOutline } from './icons/wallet-outline.js'
 import { warningRound } from './icons/warning-round.js'
 import { warningTriangle } from './icons/warning-triangle.js'
+import { googleColor } from './icons/google-color.js'
+import { ethLogo } from './icons/eth-logo.js'
+import { lyxLogo } from './icons/lyx-logo.js'
 
 export type IconOptions = {
   width: number
@@ -224,6 +227,9 @@ const iconMap = {
   'wallet-outline': walletOutline,
   'warning-round': warningRound,
   'warning-triangle': warningTriangle,
+  'google-color': googleColor,
+  'eth-logo': ethLogo,
+  'lyx-logo': lyxLogo,
 }
 
 @customElement('lukso-icon')

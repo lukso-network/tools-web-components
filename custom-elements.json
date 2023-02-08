@@ -228,7 +228,7 @@
           ],
           "superclass": {
             "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "package": "@/shared/tailwind-element/index.js"
           },
           "tagName": "lukso-button",
           "customElement": true
@@ -353,7 +353,7 @@
           ],
           "superclass": {
             "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "package": "@/shared/tailwind-element/index.js"
           },
           "tagName": "lukso-card",
           "customElement": true
@@ -465,7 +465,7 @@
           ],
           "superclass": {
             "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "package": "@/shared/tailwind-element/index.js"
           },
           "tagName": "lukso-navbar",
           "customElement": true
@@ -604,7 +604,7 @@
           ],
           "superclass": {
             "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "package": "@/shared/tailwind-element/index.js"
           },
           "tagName": "lukso-profile",
           "customElement": true
@@ -664,7 +664,7 @@
           ],
           "superclass": {
             "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "package": "@/shared/tailwind-element/index.js"
           },
           "tagName": "lukso-sanitize",
           "customElement": true
@@ -800,7 +800,7 @@
           ],
           "superclass": {
             "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "package": "@/shared/tailwind-element/index.js"
           },
           "tagName": "lukso-tag",
           "customElement": true
@@ -969,7 +969,7 @@
           ],
           "superclass": {
             "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "package": "@/shared/tailwind-element/index.js"
           },
           "tagName": "lukso-username",
           "customElement": true
@@ -1087,7 +1087,7 @@
           "mixins": [
             {
               "name": "TailwindStyledElement",
-              "package": "@/shared/tailwind-element"
+              "package": "@/shared/tailwind-element/index.js"
             }
           ],
           "superclass": {
@@ -1195,7 +1195,7 @@
           ],
           "superclass": {
             "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "package": "@/shared/tailwind-element/index.js"
           },
           "tagName": "lukso-wizard",
           "customElement": true
@@ -1231,6 +1231,21 @@
           "declaration": {
             "name": "__dirname",
             "module": "src/shared/assets/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./custom-class-map/index.js"
           }
         }
       ]
@@ -1301,21 +1316,6 @@
           "declaration": {
             "name": "TailwindElement",
             "module": "src/shared/tailwind-element/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./custom-class-map"
           }
         }
       ]

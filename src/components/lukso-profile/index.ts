@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import makeBlockie from 'ethereum-blockies-base64'
 
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindElement } from '@/shared/tailwind-element/index.js'
 
 export type ProfileSize = 'x-small' | 'small' | 'medium' | 'large' | 'x-large'
 type SizeDef = { identiconSize?: number; profileImageSize: number }

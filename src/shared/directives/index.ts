@@ -1,1 +1,1 @@
-export * from './custom-class-map'
+export * from './custom-class-map/index.js'

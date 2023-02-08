@@ -122,6 +122,7 @@
     "lint:fmt": "prettier --check --loglevel=warn .",
     "lint:css": "stylelint \"**/*.{scss,css}\"",
     "lint:fmt:fix": "prettier --write .",
+    "lint:types": "tsc --noEmit --project tsconfig.json",
     "analyze": "cem analyze --litelement --globs 'src/**/index.ts' --exclude 'src/**/*.stories.ts'",
     "analyze:watch": "cem analyze --litelement --globs 'src/**/index.ts' --exclude 'src/**/*.stories.ts' --watch",
     "storybook": "yarn config-prepare && storybook dev -p 6006",

@@ -1,8 +1,8 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
-import { TailwindElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
+import { TailwindElement } from '@/shared/tailwind-element/index.js'
+import { customClassMap } from '@/shared/directives/custom-class-map/index.js'
 
 @customElement('lukso-navbar')
 export class LuksoNavbar extends TailwindElement {

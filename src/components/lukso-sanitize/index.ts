@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 import DOMPurify from 'dompurify'
 
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindElement } from '@/shared/tailwind-element/index.js'
 
 @customElement('lukso-sanitize')
 export class LuksoSanitize extends TailwindElement {

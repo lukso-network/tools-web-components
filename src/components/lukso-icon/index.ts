@@ -24,6 +24,7 @@ import { completeFilled } from './icons/complete-filled.js'
 import { completeOutline } from './icons/complete-outline.js'
 import { contractLock } from './icons/contract-lock.js'
 import { connect } from './icons/connect.js'
+import { connections } from './icons/connections.js'
 import { controller } from './icons/controller.js'
 import { copy } from './icons/copy.js'
 import { crossOutline } from './icons/cross-outline.js'
@@ -142,6 +143,7 @@ const iconMap = {
   'complete-filled': completeFilled,
   'complete-outline': completeOutline,
   connect,
+  connections,
   'contract-lock': contractLock,
   controller,
   copy,

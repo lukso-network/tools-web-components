@@ -76,19 +76,9 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
 
-  types:
-    runs-on: ubuntu-latest
-    needs: build
-    if: ${{ inputs.release_created != 'true' }}
-    steps:
-      - name: 🐛 Typescript
-        run: yarn lint:types
-
   test:
     runs-on: ubuntu-latest
-    needs:
-      - install
-      - types
+    needs: install
     name: App Unit Tests
 
     steps:

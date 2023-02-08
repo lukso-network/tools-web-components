@@ -69,9 +69,6 @@ jobs:
         if: ${{ inputs.release_created == 'true' }}
         run: yarn build
 
-      - name: 🐛 Lint TS
-        run: yarn lint:types
-
       - name: 📢 Publish NPM
         uses: JS-DevTools/npm-publish@v1.4.3
         if: ${{ inputs.release_created == 'true' }}
@@ -79,9 +76,19 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
 
+  types:
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ inputs.release_created != 'true' }}
+    steps:
+      - name: 🐛 Typescript
+        run: yarn lint:types
+
   test:
     runs-on: ubuntu-latest
-    needs: install
+    needs:
+      - install
+      - types
     name: App Unit Tests
 
     steps:

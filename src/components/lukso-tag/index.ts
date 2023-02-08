@@ -50,9 +50,9 @@ export class LuksoTag extends TailwindElement {
           [this.largeStyles]: this.size === 'large',
         })}
         style=${styleMap({
-          backgroundColor: this.backgroundColor,
-          borderColor: this.backgroundColor,
-          color: this.textColor,
+          backgroundColor: `var(--${this.backgroundColor})`,
+          borderColor: `var(--${this.backgroundColor})`,
+          color: `var(--${this.textColor})`,
         })}
       >
         <slot></slot>

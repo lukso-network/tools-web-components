@@ -8,6 +8,8 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import * as url from 'node:url'
 
+import { colorPalette } from './tools/color-palette.cjs'
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export async function readDeps(dir, prefix = []) {
@@ -123,6 +125,29 @@ async function writeIndex() {
   }
 }
 
+/**
+ * Write the color palette as CSS variables to a Sass file
+ */
+async function writeSass() {
+  const filePath = path.join(__dirname, 'src/shared/styles/colors.scss')
+  const oldFile = await readFile(filePath, 'utf-8')
+
+  const output = ['// DO NOT MODIFY MANUALLY', ':root {']
+  for (const [group, colorValues] of Object.entries(colorPalette)) {
+    for (const [color, value] of Object.entries(colorValues)) {
+      output.push(`  --${group}-${color}: ${value};`)
+    }
+  }
+  output.push('}', '')
+
+  const newFile = output.join('\n')
+
+  if (oldFile !== newFile) {
+    console.log(`writing ${filePath}`)
+    await writeFile(filePath, newFile)
+  }
+}
+
 async function writePackage() {
   const list = await readDeps('src')
   const exp = {
@@ -163,6 +188,12 @@ async function writePackage() {
       import: './dist/sass/index.js',
       types: './dist/sass/index.d.ts',
     },
+    './color-palette/': './dist/sass/',
+    './color-palette': {
+      require: './dist/color-palette/index.umd.cjs',
+      import: './dist/color-palette/index.js',
+      types: './dist/color-palette/index.d.ts',
+    },
     './tools/color-palette': './tools/color-palette.cjs',
     './custom-elements': './custom-elements.json',
     './custom-elements.json': './custom-elements.json',
@@ -200,6 +231,7 @@ export async function run(argv: any) {
   const { mode } = argv
   await writeIndex()
   await writePackage()
+  await writeSass()
   const list = await readDeps('src')
   const libs = [
     {
@@ -231,6 +263,11 @@ export async function run(argv: any) {
       fileName: 'sass/index',
       name: 'web_components_sass',
       entry: './src/shared/styles/index.ts',
+    },
+    {
+      fileName: 'color-palette/index',
+      name: 'web_component_color_palette',
+      entry: './src/shared/styles/color-palette.ts',
     },
     {
       fileName: 'shared/tailwind-element',

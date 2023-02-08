@@ -55,7 +55,7 @@ See example below:
 
 ### Styles (Tailwind CSS projects)
 
-Please add this preset in the config file
+1. Add this preset in the config file
 
 ```js
 // tailwind.config.js
@@ -65,13 +65,22 @@ module.exports = {
 }
 ```
 
-and include styles in your main file
+2. Include styles in your main file
 
 ```scss
 // main.scss
 $font-file-path: '/assets/fonts';
 
 @import '@lukso/web-components/sass/main.scss';
+```
+
+3. In your main js file load the CSS variables
+
+```javascript
+// app.vue
+import { generateCssVariables } from '@/shared/styles/color-palette'
+
+generateCssVariables()
 ```
 
 ### Styles (non Tailwind CSS projects)

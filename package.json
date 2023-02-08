@@ -51,6 +51,12 @@
       "import": "./dist/sass/index.js",
       "types": "./dist/sass/index.d.ts"
     },
+    "./color-palette/": "./dist/sass/",
+    "./color-palette": {
+      "require": "./dist/color-palette/index.umd.cjs",
+      "import": "./dist/color-palette/index.js",
+      "types": "./dist/color-palette/index.d.ts"
+    },
     "./tools/color-palette": "./tools/color-palette.cjs",
     "./custom-elements": "./custom-elements.json",
     "./custom-elements.json": "./custom-elements.json",
@@ -69,6 +75,11 @@
       "require": "./dist/components/lukso-card/index.umd.cjs",
       "import": "./dist/components/lukso-card/index.js",
       "types": "./dist/components/lukso-card/index.d.ts"
+    },
+    "./components/lukso-icon": {
+      "require": "./dist/components/lukso-icon/index.umd.cjs",
+      "import": "./dist/components/lukso-icon/index.js",
+      "types": "./dist/components/lukso-icon/index.d.ts"
     },
     "./components/lukso-navbar": {
       "require": "./dist/components/lukso-navbar/index.umd.cjs",

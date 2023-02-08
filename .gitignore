@@ -6,6 +6,7 @@
 /node_modules
 /storybook-static
 /.work
+tools-web-components.code-workspace
 
 # Yarn
 .pnp.*

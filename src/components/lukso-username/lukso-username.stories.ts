@@ -1,8 +1,9 @@
 import { html } from 'lit-html'
 import './index'
 
+/**  Documentation and examples of `lukso-username` component. It's used to display user name and address in standardized way. */
 export default {
-  title: 'Design System/Components/Username',
+  title: 'Design System/Components/lukso-username',
   component: 'lukso-username',
   argTypes: {
     name: {
@@ -57,31 +58,38 @@ const Template = ({ name, address, maxWidth, size, sliceBy, addressColor }) =>
     address-color=${addressColor}
   ></lukso-username>`
 
+/** By default user name is displayed as `name` prefixed with `@` character and 4 bytes of `address` */
 export const DefaultUsername = Template.bind({})
 
+/** Long names get truncated. You can control width of the component with `max-width` property. */
 export const LongName = Template.bind({})
 LongName.args = {
   name: 'ThisIsAReallyLongName',
 }
 
+/** Example of component that has only `name` property. */
 export const OnlyName = Template.bind({})
 OnlyName.args = {
   address: '',
 }
 
+/** Example of component that has only `address` property and `small` size. */
 export const OnlyAddress = Template.bind({})
 OnlyAddress.args = {
-  name: '',
-  size: 'small',
-}
-
-export const SliceAddressBy4 = Template.bind({})
-SliceAddressBy4.args = {
   name: '',
   size: 'small',
   sliceBy: 4,
 }
 
+/** You can specify amount of sliced characters in the address with `slice-by` property. */
+export const SliceAddressBy4 = Template.bind({})
+SliceAddressBy4.args = {
+  name: '',
+  sliceBy: 4,
+  size: 'small',
+}
+
+/** Address color can be customized with `address-color` property. */
 export const CustomAddressColor = Template.bind({})
 CustomAddressColor.args = {
   name: '',

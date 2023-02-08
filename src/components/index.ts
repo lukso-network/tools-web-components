@@ -1,6 +1,7 @@
 // DO NOT MODIFY MANUALLY
 export * from './lukso-button/index'
 export * from './lukso-card/index'
+export * from './lukso-icon/index'
 export * from './lukso-navbar/index'
 export * from './lukso-profile/index'
 export * from './lukso-sanitize/index'

@@ -2,8 +2,11 @@ import { html } from 'lit-html'
 
 import '../lukso-wizard'
 
+/** Documentation and examples of `lukso-wizard` component. Steps are passed in `step` property as object containing different labels.
+ *  To specify which step is active set `active-step` property.
+ */
 export default {
-  title: 'Design System/Components/Wizard',
+  title: 'Design System/Components/lukso-wizard',
   component: 'lukso-wizard',
   argTypes: {
     steps: {

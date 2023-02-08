@@ -1,11 +1,14 @@
 import { html } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
+import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
-import '../lukso-button'
+import './index'
+import '../lukso-icon'
 
+/**  Documentation and examples of `lukso-button` component. */
 export default {
-  title: 'Design System/Components/Button',
+  title: 'Design System/Components/lukso-button',
   component: 'lukso-button',
   argTypes: {
     variant: {
@@ -58,6 +61,7 @@ const Template = ({ variant, disabled, text, size, isFullWidth }) =>
     >${text}</lukso-button
   >`
 
+/** By default button is using `primary` variant. */
 export const Primary = Template.bind({})
 Primary.parameters = {
   design: {
@@ -73,6 +77,7 @@ Primary.play = async ({ canvasElement }) => {
   expect(canvas.getByText('Hello World')).toBeInTheDocument()
 }
 
+/** Example of `secondary` variant. */
 export const Secondary = Template.bind({})
 Secondary.args = {
   variant: 'secondary',
@@ -84,6 +89,7 @@ Secondary.parameters = {
   },
 }
 
+/** Example of `landing` variant.  */
 export const Landing = Template.bind({})
 Landing.args = {
   variant: 'landing',
@@ -95,6 +101,7 @@ Landing.parameters = {
   },
 }
 
+/** Example of `link` variant.  */
 export const Link = Template.bind({})
 Link.args = {
   variant: 'link',
@@ -106,6 +113,7 @@ Link.parameters = {
   },
 }
 
+/** If you need button to take full width of the parent element add `is-full-width` property. */
 export const FullWidth = Template.bind({})
 FullWidth.args = {
   isFullWidth: true,
@@ -114,5 +122,34 @@ FullWidth.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9778&t=AGmdbG8fXRENuU3o-4',
+  },
+}
+
+/** In order to have disabled button add `disabled` property. */
+export const DisabledButton = Template.bind({})
+DisabledButton.args = {
+  variant: 'primary',
+  text: 'Disabled Button',
+  disabled: true,
+}
+DisabledButton.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6%3A1324&t=mppskGJvpl3LbsWL-4',
+  },
+}
+
+/** Buttons can have icons inside. Please check `lukso-icon` component for more details about using icons. */
+export const IconButton = Template.bind({})
+IconButton.args = {
+  variant: 'primary',
+  text: unsafeHTML(
+    `<lukso-icon name="add-photo" size="medium" color="neutral-100" class="mr-2"></lukso-icon>Icon Button`
+  ),
+}
+IconButton.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6%3A1324&t=mppskGJvpl3LbsWL-4',
   },
 }

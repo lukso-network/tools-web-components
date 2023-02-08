@@ -1,10 +1,10 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { sliceAddress } from '@/shared/utils/sliceAddress'
+import { styleMap } from 'lit-html/directives/style-map.js'
 
+import { sliceAddress } from '@/shared/utils/sliceAddress'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives/custom-class-map'
-import { styleMap } from 'lit-html/directives/style-map.js'
 
 export type UsernameSize = 'small' | 'large'
 

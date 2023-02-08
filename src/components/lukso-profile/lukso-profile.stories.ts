@@ -1,8 +1,14 @@
 import { html } from 'lit-html'
 import './index'
 
+/**
+ *  Documentation and examples of `lukso-profile` component.
+ *  Profiles comes in `x-small`, `small`, `medium`, `large` and `x-large` size that is set in `size` property.
+ *  Identicon is generated using `ethereum-blockies-base64` library from `profile-Address` property.
+ *  To show profile picture pass valid url in `profile-url` property.
+ */
 export default {
-  title: 'Design System/Components/Profile',
+  title: 'Design System/Components/lukso-profile',
   component: 'lukso-profile',
   argTypes: {
     profileUrl: {
@@ -55,33 +61,44 @@ const Template = ({ profileUrl, size, profileAddress, hasIdenticon }) =>
     ?has-identicon=${hasIdenticon}
   ></lukso-profile>`
 
+/** Example of `x-large` profile in `96x96` pixel size.*/
 export const XLarge = Template.bind({})
 XLarge.args = {
   size: 'x-large',
 }
 
+/** Example of `large` profile in `80x80` pixel size.*/
 export const Large = Template.bind({})
 Large.args = {
   size: 'large',
 }
 
+/** Example of `medium` profile in `56x56` pixel size.*/
 export const Medium = Template.bind({})
 Medium.args = {
   size: 'medium',
 }
 
+/** Example of `small` profile in `40x40` pixel size.*/
 export const Small = Template.bind({})
 Small.args = {
   size: 'small',
 }
 
+/** Example of `x-small` profile in `24x24` pixel size.*/
 export const XSmall = Template.bind({})
 XSmall.args = {
   size: 'x-small',
 }
 
+/** When image can't be loaded or missing the placeholder is displayed. */
 export const Unknown = Template.bind({})
 Unknown.args = {
   profileUrl: '',
+}
+
+/** You can also control if identicon should be visible with `has-identicon` property. */
+export const NoIdenticon = Template.bind({})
+NoIdenticon.args = {
   hasIdenticon: false,
 }

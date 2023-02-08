@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives/custom-class-map'
+import { customClassMap } from '@/shared/directives'
 import '@/components/lukso-profile'
 
 export type CardVariants = 'basic' | 'with-header' | 'profile'

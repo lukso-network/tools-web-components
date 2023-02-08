@@ -1,5 +1,6 @@
 import { html } from 'lit'
 import { styleMap } from 'lit/directives/style-map.js'
+
 import { IconOptions } from '@/components/lukso-icon/index.js'
 
 export const flip = (options: IconOptions) => {

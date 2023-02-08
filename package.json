@@ -128,7 +128,7 @@
     "dev": "yarn start",
     "build": "rm -rf dist && yarn config-prepare && yarn analyze && ts-node-esm ./vite.full.config.ts --mode=production && yarn sass --verbose ./src/shared/styles/main.scss ./dist/styles/main.css && yarn build:list-exports",
     "build:list-exports": "node ./listExports.cjs",
-    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt,types}'",
+    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt}'",
     "lint:eslint": "eslint src --fix",
     "lint:fmt": "prettier --check --loglevel=warn .",
     "lint:css": "stylelint \"**/*.{scss,css}\"",

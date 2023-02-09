@@ -51,6 +51,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./lukso-input/index"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./lukso-navbar/index"
           }
         },
@@ -108,6 +116,106 @@
           "declaration": {
             "name": "*",
             "package": "./../shared/tailwind-element/index"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./custom-class-map"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/tailwind-element/index.ts",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "description": "",
+          "name": "TailwindStyledElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            }
+          ],
+          "parameters": [
+            {
+              "name": "style",
+              "type": {
+                "text": "any"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TailwindElement",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TailwindStyledElement",
+          "declaration": {
+            "name": "TailwindStyledElement",
+            "module": "src/shared/tailwind-element/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TailwindElement",
+          "declaration": {
+            "name": "TailwindElement",
+            "module": "src/shared/tailwind-element/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/styles/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/styles/index.ts"
           }
         }
       ]
@@ -215,7 +323,7 @@
               "kind": "field",
               "name": "landingStyles",
               "privacy": "private",
-              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary\n    before:bg-purple-41`"
+              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary\n    before:bg-purple-51`"
             },
             {
               "kind": "field",
@@ -254,12 +362,12 @@
               "default": "`py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`"
             },
             {
-              "kind": "field",
+              "kind": "method",
               "name": "handleMouseDown",
               "privacy": "private"
             },
             {
-              "kind": "field",
+              "kind": "method",
               "name": "handleMouseUp",
               "privacy": "private"
             }
@@ -460,118 +568,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-navbar/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoNavbar",
-          "members": [
-            {
-              "kind": "field",
-              "name": "title",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "title"
-            },
-            {
-              "kind": "field",
-              "name": "isCenter",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-center"
-            },
-            {
-              "kind": "field",
-              "name": "isSticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-sticky"
-            },
-            {
-              "kind": "field",
-              "name": "defaultStyles",
-              "privacy": "private",
-              "default": "`bg-neutral-100 shadow-pink-drop-shadow h-78 flex`"
-            },
-            {
-              "kind": "field",
-              "name": "centerStyles",
-              "privacy": "private",
-              "default": "`justify-center`"
-            },
-            {
-              "kind": "field",
-              "name": "stickyStyles",
-              "privacy": "private",
-              "default": "`sticky top-0 z-[1000]`"
-            },
-            {
-              "kind": "method",
-              "name": "_onBrandClick"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "title",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "title"
-            },
-            {
-              "name": "is-center",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isCenter"
-            },
-            {
-              "name": "is-sticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isSticky"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-navbar",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoNavbar",
-          "declaration": {
-            "name": "LuksoNavbar",
-            "module": "src/components/lukso-navbar/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-navbar",
-          "declaration": {
-            "name": "LuksoNavbar",
-            "module": "src/components/lukso-navbar/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-icon/index.ts",
       "declarations": [
         {
@@ -682,6 +678,380 @@
           "declaration": {
             "name": "LuksoIcon",
             "module": "src/components/lukso-icon/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-input/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoInput",
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "HTMLInputTypeAttribute"
+              },
+              "default": "'text'",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "description"
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "error"
+            },
+            {
+              "kind": "field",
+              "name": "unit",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "unit"
+            },
+            {
+              "kind": "field",
+              "name": "isFullWidth",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-full-width"
+            },
+            {
+              "kind": "field",
+              "name": "hasHocus",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-100 text-neutral-20 paragraph-16-regular px-4 py-3\n    border border-solid border-neutral-90 h-[48px] placeholder:neutral-70\n    outline-none transition transition-all duration-250`"
+            },
+            {
+              "kind": "field",
+              "name": "errorStyles",
+              "privacy": "private",
+              "default": "`border-red-85 text-red-65 focus:border-red-65`"
+            },
+            {
+              "kind": "field",
+              "name": "unitStyles",
+              "privacy": "private",
+              "default": "`paragraph-12-regular text-neutral-60 flex px-3.5 items-center relative\n    border border-solid border-neutral-90 h-[48px] transition transition-all duration-250\n    rounded-r-xl border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0\n    before:w-[1px] before:h-[24px]`"
+            },
+            {
+              "kind": "method",
+              "name": "inputTemplate"
+            },
+            {
+              "kind": "method",
+              "name": "labelTemplate"
+            },
+            {
+              "kind": "method",
+              "name": "descriptionTemplate"
+            },
+            {
+              "kind": "method",
+              "name": "errorTemplate"
+            },
+            {
+              "kind": "method",
+              "name": "unitTemplate"
+            },
+            {
+              "kind": "method",
+              "name": "handleFocus",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleBlur",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleKeyUp",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "value"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "name"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "HTMLInputTypeAttribute"
+              },
+              "default": "'text'",
+              "fieldName": "type"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "label"
+            },
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "description"
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "error"
+            },
+            {
+              "name": "unit",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "unit"
+            },
+            {
+              "name": "is-full-width",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isFullWidth"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-input",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoInput",
+          "declaration": {
+            "name": "LuksoInput",
+            "module": "src/components/lukso-input/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-input",
+          "declaration": {
+            "name": "LuksoInput",
+            "module": "src/components/lukso-input/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-navbar/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoNavbar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "isCenter",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-center"
+            },
+            {
+              "kind": "field",
+              "name": "isSticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-sticky"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-100 shadow-pink-drop-shadow h-78 flex`"
+            },
+            {
+              "kind": "field",
+              "name": "centerStyles",
+              "privacy": "private",
+              "default": "`justify-center`"
+            },
+            {
+              "kind": "field",
+              "name": "stickyStyles",
+              "privacy": "private",
+              "default": "`sticky top-0 z-[1000]`"
+            },
+            {
+              "kind": "method",
+              "name": "_onBrandClick"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "title"
+            },
+            {
+              "name": "is-center",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isCenter"
+            },
+            {
+              "name": "is-sticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isSticky"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-navbar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoNavbar",
+          "declaration": {
+            "name": "LuksoNavbar",
+            "module": "src/components/lukso-navbar/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-navbar",
+          "declaration": {
+            "name": "LuksoNavbar",
+            "module": "src/components/lukso-navbar/index.ts"
           }
         }
       ]
@@ -1412,106 +1782,6 @@
           "declaration": {
             "name": "LuksoWizard",
             "module": "src/components/lukso-wizard/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./custom-class-map"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/styles/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/styles/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/tailwind-element/index.ts",
-      "declarations": [
-        {
-          "kind": "mixin",
-          "description": "",
-          "name": "TailwindStyledElement",
-          "members": [
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            }
-          ],
-          "parameters": [
-            {
-              "name": "style",
-              "type": {
-                "text": "any"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "TailwindElement",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TailwindStyledElement",
-          "declaration": {
-            "name": "TailwindStyledElement",
-            "module": "src/shared/tailwind-element/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TailwindElement",
-          "declaration": {
-            "name": "TailwindElement",
-            "module": "src/shared/tailwind-element/index.ts"
           }
         }
       ]

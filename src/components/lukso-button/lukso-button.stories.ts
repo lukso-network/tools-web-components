@@ -28,6 +28,15 @@ export default {
     isFullWidth: {
       control: { type: 'boolean' },
     },
+    isLongPress: {
+      control: { type: 'boolean' },
+    },
+    onLongPressComplete: {
+      description: 'Emitted when long press is completed',
+      table: {
+        category: 'Events',
+      },
+    },
   },
   args: {
     text: 'Hello World',
@@ -35,6 +44,7 @@ export default {
     size: 'medium',
     variant: 'primary',
     isFullWidth: false,
+    isLongPress: false,
   },
   parameters: {
     controls: {
@@ -47,17 +57,52 @@ export default {
         'mediumSize',
         'smallSize',
         'is-full-width',
+        'is-long-press',
+        'longPressStyles',
+        'noTransition',
+        'isPressed',
+        'timer',
+        'pressedStyles',
+        'noTransitionStyles',
+        'handleMouseDown',
+        'handleMouseUp',
       ],
     },
   },
 }
 
-const Template = ({ variant, disabled, text, size, isFullWidth }) =>
+const Template = ({
+  variant,
+  disabled,
+  text,
+  size,
+  isFullWidth,
+  isLongPress,
+}) =>
   html`<lukso-button
     variant=${variant}
     ?disabled=${disabled}
     size=${size}
     ?is-full-width=${isFullWidth}
+    ?is-long-press=${isLongPress}
+    >${text}</lukso-button
+  >`
+
+const LongPressTemplate = ({
+  variant,
+  disabled,
+  text,
+  size,
+  isFullWidth,
+  isLongPress,
+}) =>
+  html`<lukso-button
+    variant=${variant}
+    ?disabled=${disabled}
+    size=${size}
+    ?is-full-width=${isFullWidth}
+    ?is-long-press=${isLongPress}
+    @on-long-press-complete="handleLongPressComplete"
     >${text}</lukso-button
   >`
 
@@ -151,5 +196,21 @@ IconButton.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6%3A1324&t=mppskGJvpl3LbsWL-4',
+  },
+}
+
+/** Long press button require to hold press state till animation fully completes. To turn on this effect add  `is-long-press` property.
+ * In order to handle long press complete add `@on-long-press-complete` event handler.
+ */
+export const LongPressButton = LongPressTemplate.bind({})
+LongPressButton.args = {
+  variant: 'primary',
+  text: 'Hold to submit',
+  isLongPress: true,
+}
+IconButton.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9905&t=JAexoWba0Re3ntDk-4',
   },
 }

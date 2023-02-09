@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "nodenext",
+    "moduleResolution": "node",
     "declaration": true,
     "declarationMap": true,
     "allowSyntheticDefaultImports": true,
@@ -14,12 +14,12 @@
       "@": ["./src"],
       "@/*": ["./src/*"],
       "@/shared/directives": ["./src/shared/directives"],
-    }
+    },
   },
   "include": [
     "dist",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
   ]
 }

@@ -1,4 +1,4 @@
-import { sliceAddress } from '../sliceAddress.js'
+import { sliceAddress } from '../sliceAddress'
 
 test('sliceAddress', () => {
   expect(sliceAddress()).toEqual('')

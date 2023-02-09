@@ -22,19 +22,36 @@ Library is focused around projects build on top of [Tailwind CSS](https://tailwi
 
 #### Components
 
-For using components you need to first import them
+For using components you need to first import them either as individual ones:
 
 ```js
-import('@lukso/web-components/lukso-button')
+import('@lukso/web-components/components/lukso-button')
+import('@lukso/web-components/components/lukso-card')
+import('@lukso/web-components/components/lukso-tag')
 ```
 
-and use in the HTML
+or all of them in single import:
+
+```js
+import('@lukso/web-components/components')
+```
+
+> Hint: you can make import in root level of your project (`app.vue`) instead of importing in every component.
+
+Use components in the HTML with following rules:
+
+- components are lowercase and with `-` in name i.e `lukso-button`
+- they need to have closing tag even if they don't use slot
+- properties are lowercase and with `-` in name i.e `primary-color="neutral-100"`
+- boolean properties are working with just a presence `is-checked`
+
+See example below:
 
 ```html
-<lukso-button variant="primary">Click me!</lukso-button>
+<lukso-example-component primary-color="neutral-100" is-checked></lukso-button>
 ```
 
-Under the hood you use Web Components which styles are encapsulated within own shadow DOM (host page doesn't have access to it styles and vice versa). The only thing that components share from are fonts, colors and variables, see more on [CSS inheritance](https://lit.dev/docs/components/styles/#inheritance).
+> Under the hood you use Web Components which styles are encapsulated within own shadow DOM (host page doesn't have access to it styles and vice versa). The only thing that components share from are fonts, colors and variables, see more on [CSS inheritance](https://lit.dev/docs/components/styles/#inheritance).
 
 ### Styles (Tailwind CSS projects)
 

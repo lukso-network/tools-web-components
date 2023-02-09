@@ -63,6 +63,8 @@ export class LuksoInput extends TailwindElement {
           ['rounded-l-xl border-r-0']: this.unit !== '',
           ['rounded-xl']: this.unit === '',
           ['w-full']: this.isFullWidth,
+          ['w-[350px]']: !this.isFullWidth && this.unit === '',
+          ['w-[300px]']: !this.isFullWidth && this.unit !== '',
         })}
         @focus=${this.handleFocus}
         @blur=${this.handleBlur}

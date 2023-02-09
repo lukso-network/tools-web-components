@@ -10,7 +10,7 @@ export class LuksoSanitize extends TailwindElement {
   @property({ type: String, attribute: 'html-content' })
   htmlContent = ''
 
-  sanitize = () => {
+  private sanitize() {
     return DOMPurify.sanitize(this.htmlContent)
   }
 

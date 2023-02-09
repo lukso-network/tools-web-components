@@ -45,11 +45,17 @@ export class LuksoProfile extends TailwindElement {
     },
   }
 
-  private profileImageSize = () => this.sizes[this.size].profileImageSize
-  private identiconSize = () => this.sizes[this.size].identiconSize
+  private profileImageSize() {
+    return this.sizes[this.size].profileImageSize
+  }
+
+  private identiconSize() {
+    return this.sizes[this.size].identiconSize
+  }
+
   private defaultProfileUrl = 'assets/images/profile-default.png'
 
-  private identicon = () => {
+  private identicon() {
     return this.hasIdenticon && this.profileAddress && this.identiconSize()
       ? makeBlockie(this.profileAddress)
       : ''

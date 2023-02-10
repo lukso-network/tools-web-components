@@ -122,21 +122,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/assets/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/shared/directives/index.ts",
       "declarations": [],
       "exports": [
@@ -216,6 +201,21 @@
           "declaration": {
             "name": "__dirname",
             "module": "src/shared/styles/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/index.ts"
           }
         }
       ]
@@ -783,19 +783,13 @@
             },
             {
               "kind": "field",
-              "name": "defaultStyles",
+              "name": "defaultInputStyles",
               "privacy": "private",
               "default": "`bg-neutral-100 text-neutral-20 paragraph-16-regular px-4 py-3\n    border border-solid border-neutral-90 h-[48px] placeholder:neutral-70\n    outline-none transition transition-all duration-250`"
             },
             {
               "kind": "field",
-              "name": "errorStyles",
-              "privacy": "private",
-              "default": "`border-red-85 text-red-65 focus:border-red-65`"
-            },
-            {
-              "kind": "field",
-              "name": "unitStyles",
+              "name": "defaultUnitStyles",
               "privacy": "private",
               "default": "`paragraph-12-regular text-neutral-60 flex px-3.5 items-center relative\n    border border-solid border-neutral-90 h-[48px] transition transition-all duration-250\n    rounded-r-xl border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0\n    before:w-[1px] before:h-[24px]`"
             },
@@ -1110,12 +1104,12 @@
               "default": "{\n    'x-small': {\n      identiconSize: undefined,\n      profileImageSize: 24,\n    },\n    small: {\n      identiconSize: 16,\n      profileImageSize: 40,\n    },\n    medium: {\n      identiconSize: 20,\n      profileImageSize: 56,\n    },\n    large: {\n      identiconSize: 24,\n      profileImageSize: 80,\n    },\n    'x-large': {\n      identiconSize: 28,\n      profileImageSize: 96,\n    },\n  }"
             },
             {
-              "kind": "field",
+              "kind": "method",
               "name": "profileImageSize",
               "privacy": "private"
             },
             {
-              "kind": "field",
+              "kind": "method",
               "name": "identiconSize",
               "privacy": "private"
             },
@@ -1129,7 +1123,7 @@
               "default": "'assets/images/profile-default.png'"
             },
             {
-              "kind": "field",
+              "kind": "method",
               "name": "identicon",
               "privacy": "private"
             }
@@ -1214,8 +1208,9 @@
               "attribute": "html-content"
             },
             {
-              "kind": "field",
-              "name": "sanitize"
+              "kind": "method",
+              "name": "sanitize",
+              "privacy": "private"
             }
           ],
           "attributes": [
@@ -1325,7 +1320,7 @@
               "default": "`rounded-[56px]`"
             },
             {
-              "kind": "field",
+              "kind": "method",
               "name": "padding",
               "privacy": "private"
             }
@@ -1788,36 +1783,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/assets/fonts/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/fonts/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/images/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/images/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/shared/directives/custom-class-map/index.ts",
       "declarations": [
         {
@@ -1856,6 +1821,36 @@
           "declaration": {
             "name": "customClassMap",
             "module": "src/shared/directives/custom-class-map/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/images/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/images/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/fonts/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/fonts/index.ts"
           }
         }
       ]

@@ -54,9 +54,8 @@ export default {
   parameters: {
     controls: {
       exclude: [
-        'defaultStyles',
-        'errorStyles',
-        'unitStyles',
+        'defaultInputStyles',
+        'defaultUnitStyles',
         'is-full-width',
         'hasHocus',
       ],

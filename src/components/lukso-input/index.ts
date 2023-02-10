@@ -37,13 +37,11 @@ export class LuksoInput extends TailwindElement {
   @state()
   private hasHocus = false
 
-  private defaultStyles = `bg-neutral-100 text-neutral-20 paragraph-16-regular px-4 py-3
+  private defaultInputStyles = `bg-neutral-100 text-neutral-20 paragraph-16-regular px-4 py-3
     border border-solid border-neutral-90 h-[48px] placeholder:neutral-70
     outline-none transition transition-all duration-250`
 
-  private errorStyles = `border-red-85 text-red-65 focus:border-red-65`
-
-  private unitStyles = `paragraph-12-regular text-neutral-60 flex px-3.5 items-center relative
+  private defaultUnitStyles = `paragraph-12-regular text-neutral-60 flex px-3.5 items-center relative
     border border-solid border-neutral-90 h-[48px] transition transition-all duration-250
     rounded-r-xl border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0
     before:w-[1px] before:h-[24px]`
@@ -57,8 +55,8 @@ export class LuksoInput extends TailwindElement {
         value=${this.value}
         placeholder=${this.placeholder}
         class=${customClassMap({
-          [this.defaultStyles]: true,
-          [this.errorStyles]: this.error !== '',
+          [this.defaultInputStyles]: true,
+          ['border-red-85 text-red-65 focus:border-red-65']: this.error !== '',
           ['border-neutral-35']: this.hasHocus,
           ['rounded-l-xl border-r-0']: this.unit !== '',
           ['rounded-xl']: this.unit === '',
@@ -98,8 +96,10 @@ export class LuksoInput extends TailwindElement {
   unitTemplate() {
     return html`<div
       class=${customClassMap({
-        [this.unitStyles]: true,
-        ['border-neutral-35']: this.hasHocus,
+        [this.defaultUnitStyles]: true,
+        ['border-red-85']: this.error !== '',
+        ['border-neutral-35']: this.hasHocus && this.error === '',
+        ['border-red-65']: this.hasHocus && this.error !== '',
       })}
     >
       ${this.unit}

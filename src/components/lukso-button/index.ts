@@ -74,7 +74,7 @@ export class LuksoButton extends TailwindElement {
   private smallSize = `py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`
 
   private handleMouseDown = () => {
-    // Additional check for using long on non-primary and non-landing variants
+    // Additional check for using long press on non-primary and non-landing variants
     if (this.variant !== 'primary' && this.variant !== 'landing') {
       return console.warn(
         'Long press is only available for primary and landing variants'

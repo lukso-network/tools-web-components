@@ -7,7 +7,7 @@ import { customClassMap } from '@/shared/directives'
 export type ButtonVariants = 'primary' | 'secondary' | 'landing' | 'link'
 export type ButtonSizes = 'small' | 'medium'
 
-const LONG_PRESS_ANIMATION_DURATION = 2000
+const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
 
 @customElement('lukso-button')
 export class LuksoButton extends TailwindElement {
@@ -74,7 +74,7 @@ export class LuksoButton extends TailwindElement {
   private smallSize = `py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`
 
   private handleMouseDown() {
-    // Additional check for using long on non-primary and non-landing variants
+    // Additional check for using long press on non-primary and non-landing variants
     if (this.variant !== 'primary' && this.variant !== 'landing') {
       return console.warn(
         'Long press is only available for primary and landing variants'
@@ -93,7 +93,7 @@ export class LuksoButton extends TailwindElement {
         composed: true,
       })
       this.dispatchEvent(event)
-    }, LONG_PRESS_ANIMATION_DURATION)
+    }, LONG_PRESS_ANIMATION_DURATION_IN_MS)
   }
 
   private handleMouseUp() {

@@ -1,7 +1,7 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
-import { TailwindElement } from '@/shared/tailwind-element/index.js'
+import { TailwindElement } from '@/shared/tailwind-element'
 import { addPhoto } from './icons/add-photo.js'
 import { arrowDownLg } from './icons/arrow-down-lg.js'
 import { arrowDownSm } from './icons/arrow-down-sm.js'

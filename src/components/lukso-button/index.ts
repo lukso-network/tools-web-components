@@ -1,11 +1,13 @@
 import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 
 export type ButtonVariants = 'primary' | 'secondary' | 'landing' | 'link'
 export type ButtonSizes = 'small' | 'medium'
+
+const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
 
 @customElement('lukso-button')
 export class LuksoButton extends TailwindElement {
@@ -21,6 +23,18 @@ export class LuksoButton extends TailwindElement {
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
 
+  @property({ type: Boolean, attribute: 'is-long-press' })
+  isLongPress = false
+
+  @state()
+  private isPressed = false
+
+  @state()
+  private noTransition = false
+
+  @state()
+  private timer = 0
+
   private defaultStyles = `flex justify-center items-center relative
     border border-solid cursor-pointer transition duration-0
     hover:duration-250 active:scale-98 active:duration-25
@@ -33,21 +47,68 @@ export class LuksoButton extends TailwindElement {
   private primaryStyles = `bg-neutral-20 border-neutral-20 text-neutral-100
     disabled:bg-neutral-90 disabled:border-neutral-90
     hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25
-    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25`
+    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25
+    before:bg-neutral-10`
 
   private landingStyles = `bg-purple-51 border-purple-51 text-neutral-100
     disabled:bg-neutral-90 disabled:border-neutral-90
     hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58
-    active:shadow-button-press-primary`
+    active:shadow-button-press-primary
+    before:bg-purple-51`
 
   private linkStyles = `bg-transparent border-none text-neutral-20
     hover:text-neutral-35
     active:text-neutral-35 active:scale-100
     disabled:text-neutral-90`
 
+  private longPressStyles = `relative overflow-hidden z-[1] active:outline-0
+    before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-[48px]
+    before:rounded-xl before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-none`
+
+  private pressedStyles = `before:w-full before:z-[-1]`
+
+  private noTransitionStyles = `before:transition-none`
+
   private mediumSize = `py-3 px-6 paragraph-16-semi-bold rounded-xl`
 
   private smallSize = `py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`
+
+  private handleMouseDown = () => {
+    // Additional check for using long press on non-primary and non-landing variants
+    if (this.variant !== 'primary' && this.variant !== 'landing') {
+      return console.warn(
+        'Long press is only available for primary and landing variants'
+      )
+    }
+
+    if (!this.isLongPress) {
+      return
+    }
+
+    this.isPressed = true
+
+    this.timer = window.setTimeout(() => {
+      const event = new CustomEvent('on-long-press-complete', {
+        bubbles: true,
+        composed: true,
+      })
+      this.dispatchEvent(event)
+    }, LONG_PRESS_ANIMATION_DURATION_IN_MS)
+  }
+
+  private handleMouseUp = () => {
+    if (!this.isLongPress) {
+      return
+    }
+
+    this.isPressed = false
+    this.noTransition = true
+
+    setTimeout(() => {
+      this.noTransition = false
+    }, 100)
+    this.timer && clearTimeout(this.timer)
+  }
 
   render() {
     return html`
@@ -63,7 +124,13 @@ export class LuksoButton extends TailwindElement {
           [this.landingStyles]: this.variant === 'landing',
           [this.linkStyles]: this.variant === 'link',
           ['w-full']: this.isFullWidth,
+          [this.longPressStyles]: this.isLongPress,
+          [this.pressedStyles]: this.isPressed,
+          [this.noTransitionStyles]: this.noTransition,
         })}
+        @mousedown=${this.handleMouseDown}
+        @mouseup=${this.handleMouseUp}
+        @mouseleave=${this.handleMouseUp}
       >
         <slot></slot>
       </button>

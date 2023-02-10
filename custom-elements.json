@@ -159,6 +159,42 @@
             },
             {
               "kind": "field",
+              "name": "isLongPress",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-long-press"
+            },
+            {
+              "kind": "field",
+              "name": "isPressed",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "noTransition",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "timer",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
               "name": "defaultStyles",
               "privacy": "private",
               "default": "`flex justify-center items-center relative\n    border border-solid cursor-pointer transition duration-0\n    hover:duration-250 active:scale-98 active:duration-25\n    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100`"
@@ -173,19 +209,37 @@
               "kind": "field",
               "name": "primaryStyles",
               "privacy": "private",
-              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25\n    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25`"
+              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25\n    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25\n    before:bg-neutral-10`"
             },
             {
               "kind": "field",
               "name": "landingStyles",
               "privacy": "private",
-              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary`"
+              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary\n    before:bg-purple-51`"
             },
             {
               "kind": "field",
               "name": "linkStyles",
               "privacy": "private",
               "default": "`bg-transparent border-none text-neutral-20\n    hover:text-neutral-35\n    active:text-neutral-35 active:scale-100\n    disabled:text-neutral-90`"
+            },
+            {
+              "kind": "field",
+              "name": "longPressStyles",
+              "privacy": "private",
+              "default": "`relative overflow-hidden z-[1] active:outline-0\n    before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-[48px]\n    before:rounded-xl before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-none`"
+            },
+            {
+              "kind": "field",
+              "name": "pressedStyles",
+              "privacy": "private",
+              "default": "`before:w-full before:z-[-1]`"
+            },
+            {
+              "kind": "field",
+              "name": "noTransitionStyles",
+              "privacy": "private",
+              "default": "`before:transition-none`"
             },
             {
               "kind": "field",
@@ -198,6 +252,16 @@
               "name": "smallSize",
               "privacy": "private",
               "default": "`py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`"
+            },
+            {
+              "kind": "field",
+              "name": "handleMouseDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleMouseUp",
+              "privacy": "private"
             }
           ],
           "attributes": [
@@ -232,6 +296,14 @@
               },
               "default": "false",
               "fieldName": "isFullWidth"
+            },
+            {
+              "name": "is-long-press",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isLongPress"
             }
           ],
           "superclass": {
@@ -477,7 +549,7 @@
           ],
           "superclass": {
             "name": "TailwindElement",
-            "package": "@/shared/tailwind-element/index.js"
+            "package": "@/shared/tailwind-element"
           },
           "tagName": "lukso-icon",
           "customElement": true
@@ -755,66 +827,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-sanitize/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoSanitize",
-          "members": [
-            {
-              "kind": "field",
-              "name": "htmlContent",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "html-content"
-            },
-            {
-              "kind": "field",
-              "name": "sanitize"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "html-content",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "htmlContent"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-sanitize",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoSanitize",
-          "declaration": {
-            "name": "LuksoSanitize",
-            "module": "src/components/lukso-sanitize/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-sanitize",
-          "declaration": {
-            "name": "LuksoSanitize",
-            "module": "src/components/lukso-sanitize/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-tag/index.ts",
       "declarations": [
         {
@@ -945,6 +957,66 @@
           "declaration": {
             "name": "LuksoTag",
             "module": "src/components/lukso-tag/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-sanitize/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoSanitize",
+          "members": [
+            {
+              "kind": "field",
+              "name": "htmlContent",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "html-content"
+            },
+            {
+              "kind": "field",
+              "name": "sanitize"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "html-content",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "htmlContent"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-sanitize",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoSanitize",
+          "declaration": {
+            "name": "LuksoSanitize",
+            "module": "src/components/lukso-sanitize/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-sanitize",
+          "declaration": {
+            "name": "LuksoSanitize",
+            "module": "src/components/lukso-sanitize/index.ts"
           }
         }
       ]

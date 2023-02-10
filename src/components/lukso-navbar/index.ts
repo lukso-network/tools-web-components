@@ -22,7 +22,7 @@ export class LuksoNavbar extends TailwindElement {
   private stickyStyles = `sticky top-0 z-[1000]`
 
   _onBrandClick() {
-    const event = new CustomEvent('click-brand', {
+    const event = new CustomEvent('on-brand-click', {
       bubbles: true,
       composed: true,
     })

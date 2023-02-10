@@ -827,66 +827,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-sanitize/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoSanitize",
-          "members": [
-            {
-              "kind": "field",
-              "name": "htmlContent",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "html-content"
-            },
-            {
-              "kind": "field",
-              "name": "sanitize"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "html-content",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "htmlContent"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-sanitize",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoSanitize",
-          "declaration": {
-            "name": "LuksoSanitize",
-            "module": "src/components/lukso-sanitize/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-sanitize",
-          "declaration": {
-            "name": "LuksoSanitize",
-            "module": "src/components/lukso-sanitize/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-tag/index.ts",
       "declarations": [
         {
@@ -1017,6 +957,66 @@
           "declaration": {
             "name": "LuksoTag",
             "module": "src/components/lukso-tag/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-sanitize/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoSanitize",
+          "members": [
+            {
+              "kind": "field",
+              "name": "htmlContent",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "html-content"
+            },
+            {
+              "kind": "field",
+              "name": "sanitize"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "html-content",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "htmlContent"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-sanitize",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoSanitize",
+          "declaration": {
+            "name": "LuksoSanitize",
+            "module": "src/components/lukso-sanitize/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-sanitize",
+          "declaration": {
+            "name": "LuksoSanitize",
+            "module": "src/components/lukso-sanitize/index.ts"
           }
         }
       ]

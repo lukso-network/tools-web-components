@@ -122,106 +122,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./custom-class-map"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/tailwind-element/index.ts",
-      "declarations": [
-        {
-          "kind": "mixin",
-          "description": "",
-          "name": "TailwindStyledElement",
-          "members": [
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            }
-          ],
-          "parameters": [
-            {
-              "name": "style",
-              "type": {
-                "text": "any"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "TailwindElement",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TailwindStyledElement",
-          "declaration": {
-            "name": "TailwindStyledElement",
-            "module": "src/shared/tailwind-element/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TailwindElement",
-          "declaration": {
-            "name": "TailwindElement",
-            "module": "src/shared/tailwind-element/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/styles/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/styles/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-button/index.ts",
       "declarations": [
         {
@@ -1783,6 +1683,121 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/assets/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./custom-class-map"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/styles/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/styles/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/tailwind-element/index.ts",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "description": "",
+          "name": "TailwindStyledElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            }
+          ],
+          "parameters": [
+            {
+              "name": "style",
+              "type": {
+                "text": "any"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TailwindElement",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TailwindStyledElement",
+          "declaration": {
+            "name": "TailwindStyledElement",
+            "module": "src/shared/tailwind-element/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TailwindElement",
+          "declaration": {
+            "name": "TailwindElement",
+            "module": "src/shared/tailwind-element/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/images/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/images/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/directives/custom-class-map/index.ts",
       "declarations": [
         {
@@ -1821,21 +1836,6 @@
           "declaration": {
             "name": "customClassMap",
             "module": "src/shared/directives/custom-class-map/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/images/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/images/index.ts"
           }
         }
       ]

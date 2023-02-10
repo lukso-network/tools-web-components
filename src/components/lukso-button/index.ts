@@ -7,7 +7,7 @@ import { customClassMap } from '@/shared/directives'
 export type ButtonVariants = 'primary' | 'secondary' | 'landing' | 'link'
 export type ButtonSizes = 'small' | 'medium'
 
-const LONG_PRESS_ANIMATION_DURATION = 2000
+const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
 
 @customElement('lukso-button')
 export class LuksoButton extends TailwindElement {
@@ -93,7 +93,7 @@ export class LuksoButton extends TailwindElement {
         composed: true,
       })
       this.dispatchEvent(event)
-    }, LONG_PRESS_ANIMATION_DURATION)
+    }, LONG_PRESS_ANIMATION_DURATION_IN_MS)
   }
 
   private handleMouseUp = () => {

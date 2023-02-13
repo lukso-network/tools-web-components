@@ -44,7 +44,7 @@ export class LuksoInput extends TailwindElement {
   private defaultUnitStyles = `paragraph-12-regular text-neutral-60 flex px-3.5 items-center relative
     border border-solid border-neutral-90 h-[48px] transition transition-all duration-250
     rounded-r-xl border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0
-    before:w-[1px] before:h-[24px]`
+    before:w-[1px] before:h-[24px] whitespace-nowrap`
 
   inputTemplate() {
     return html`

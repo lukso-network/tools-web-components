@@ -34,6 +34,9 @@ export class LuksoInput extends TailwindElement {
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
 
+  @property({ type: Boolean })
+  autofocus = false
+
   @state()
   private hasHocus = false
 
@@ -54,6 +57,7 @@ export class LuksoInput extends TailwindElement {
         type=${this.type}
         value=${this.value}
         placeholder=${this.placeholder}
+        ?autofocus=${this.autofocus}
         class=${customClassMap({
           [this.defaultInputStyles]: true,
           ['border-red-85 text-red-65 focus:border-red-65']: this.error !== '',

@@ -33,6 +33,9 @@ export default {
     isFullWidth: {
       control: { type: 'boolean' },
     },
+    autofocus: {
+      control: { type: 'boolean' },
+    },
     onKeyUp: {
       description: 'Emitted on key up event.',
       table: {
@@ -50,6 +53,7 @@ export default {
     placeholder: '',
     unit: '',
     isFullWidth: false,
+    autofocus: false,
   },
   parameters: {
     controls: {
@@ -77,6 +81,7 @@ const Template = ({
   error,
   unit,
   isFullWidth,
+  autofocus,
 }) =>
   html`<lukso-input
     value=${value}
@@ -88,6 +93,7 @@ const Template = ({
     error=${error}
     unit=${unit}
     ?is-full-width=${isFullWidth}
+    ?autofocus=${autofocus}
     @on-key-up="handleKeyUp"
   ></lukso-input>`
 
@@ -134,4 +140,10 @@ Unit.args = {
 export const FullWidth = Template.bind({})
 FullWidth.args = {
   isFullWidth: true,
+}
+
+/** If you need input to be focused add `autofocus` property. */
+export const Autofocus = Template.bind({})
+Autofocus.args = {
+  autofocus: true,
 }

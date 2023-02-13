@@ -36,6 +36,12 @@ export default {
     autofocus: {
       control: { type: 'boolean' },
     },
+    min: {
+      control: { type: 'number' },
+    },
+    max: {
+      control: { type: 'number' },
+    },
     onKeyUp: {
       description: 'Emitted on key up event.',
       table: {
@@ -54,6 +60,8 @@ export default {
     unit: '',
     isFullWidth: false,
     autofocus: false,
+    min: undefined,
+    max: undefined,
   },
   parameters: {
     controls: {
@@ -82,6 +90,8 @@ const Template = ({
   unit,
   isFullWidth,
   autofocus,
+  min,
+  max,
 }) =>
   html`<lukso-input
     value=${value}
@@ -94,6 +104,8 @@ const Template = ({
     unit=${unit}
     ?is-full-width=${isFullWidth}
     ?autofocus=${autofocus}
+    min=${min}
+    max=${max}
     @on-key-up="handleKeyUp"
   ></lukso-input>`
 
@@ -146,4 +158,12 @@ FullWidth.args = {
 export const Autofocus = Template.bind({})
 Autofocus.args = {
   autofocus: true,
+}
+
+/** With `min` and `max` property you can specify minimum or maximum value that can be entered. It works with `number`, `range`, `date`, `datetime-local`, `month`, `time` and `week` input types */
+export const MinMaxValue = Template.bind({})
+MinMaxValue.args = {
+  min: 1,
+  max: 10,
+  type: 'number',
 }

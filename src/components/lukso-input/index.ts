@@ -47,7 +47,7 @@ export class LuksoInput extends TailwindElement {
   private hasHocus = false
 
   private defaultInputStyles = `bg-neutral-100 text-neutral-20 paragraph-16-regular px-4 py-3
-    border border-solid border-neutral-90 h-[48px] placeholder:neutral-70
+    border border-solid border-neutral-90 h-[48px] placeholder:text-neutral-70
     outline-none transition transition-all duration-250 appearance-none`
 
   private defaultUnitStyles = `paragraph-12-regular text-neutral-60 flex px-3.5 items-center relative

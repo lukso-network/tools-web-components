@@ -48,6 +48,18 @@ export default {
         category: 'Events',
       },
     },
+    onKeyDown: {
+      description: 'Emitted on key up down.',
+      table: {
+        category: 'Events',
+      },
+    },
+    onKeyPress: {
+      description: 'Emitted on key press.',
+      table: {
+        category: 'Events',
+      },
+    },
   },
   args: {
     type: 'text',
@@ -107,6 +119,8 @@ const Template = ({
     min=${min}
     max=${max}
     @on-key-up="handleKeyUp"
+    @on-key-down="handleKeyDown"
+    @on-key-press="handleKeyPress"
   ></lukso-input>`
 
 /** Example of default input with `value`.  */

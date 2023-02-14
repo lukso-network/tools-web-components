@@ -79,6 +79,8 @@ export class LuksoInput extends TailwindElement {
         @focus=${this.handleFocus}
         @blur=${this.handleBlur}
         @keyup=${this.handleKeyUp}
+        @keydown=${this.handleKeyDown}
+        @keypress=${this.handleKeyPress}
       />
     `
   }
@@ -128,14 +130,41 @@ export class LuksoInput extends TailwindElement {
 
   private handleKeyUp(event: KeyboardEvent) {
     const target = event.target as HTMLInputElement
-    const keyUpEvent = new CustomEvent('on-key-up', {
+    const keyEvent = new CustomEvent('on-key-up', {
       detail: {
         value: target.value,
+        event,
       },
       bubbles: true,
       composed: true,
     })
-    this.dispatchEvent(keyUpEvent)
+    this.dispatchEvent(keyEvent)
+  }
+
+  private handleKeyDown(event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement
+    const keyEvent = new CustomEvent('on-key-down', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: true,
+      composed: true,
+    })
+    this.dispatchEvent(keyEvent)
+  }
+
+  private handleKeyPress(event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement
+    const keyEvent = new CustomEvent('on-key-press', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: true,
+      composed: true,
+    })
+    this.dispatchEvent(keyEvent)
   }
 
   render() {

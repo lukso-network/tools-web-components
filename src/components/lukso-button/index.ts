@@ -73,7 +73,7 @@ export class LuksoButton extends TailwindElement {
 
   private smallSize = `py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`
 
-  private handleMouseDown = () => {
+  private handleMouseDown() {
     // Additional check for using long press on non-primary and non-landing variants
     if (this.variant !== 'primary' && this.variant !== 'landing') {
       return console.warn(
@@ -96,7 +96,7 @@ export class LuksoButton extends TailwindElement {
     }, LONG_PRESS_ANIMATION_DURATION_IN_MS)
   }
 
-  private handleMouseUp = () => {
+  private handleMouseUp() {
     if (!this.isLongPress) {
       return
     }

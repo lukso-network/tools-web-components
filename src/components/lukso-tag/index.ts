@@ -26,7 +26,7 @@ export class LuksoTag extends TailwindElement {
   private largeStyles = `paragraph-14-medium h-[34px]`
   private roundedStyles = `rounded-[56px]`
 
-  private padding = () => {
+  private padding() {
     if (this.size === 'small' && this.isRounded) {
       return 'px-3'
     }

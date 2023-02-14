@@ -81,6 +81,11 @@
       "import": "./dist/components/lukso-icon/index.js",
       "types": "./dist/components/lukso-icon/index.d.ts"
     },
+    "./components/lukso-input": {
+      "require": "./dist/components/lukso-input/index.umd.cjs",
+      "import": "./dist/components/lukso-input/index.js",
+      "types": "./dist/components/lukso-input/index.d.ts"
+    },
     "./components/lukso-navbar": {
       "require": "./dist/components/lukso-navbar/index.umd.cjs",
       "import": "./dist/components/lukso-navbar/index.js",

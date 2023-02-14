@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.0](https://github.com/lukso-network/tools-web-components/compare/v1.3.1...v1.4.0) (2023-02-14)
+
+
+### Features
+
+* icon component ([#38](https://github.com/lukso-network/tools-web-components/issues/38)) ([61cb73e](https://github.com/lukso-network/tools-web-components/commit/61cb73e93f196764b36a1e9baa642f2275ada6f7))
+* input component ([#42](https://github.com/lukso-network/tools-web-components/issues/42)) ([7515b79](https://github.com/lukso-network/tools-web-components/commit/7515b79922e4143f0de3dd25f36dbc543d802234))
+* long press button ([#41](https://github.com/lukso-network/tools-web-components/issues/41)) ([f9aae98](https://github.com/lukso-network/tools-web-components/commit/f9aae98b641cb074c0b4c1827d7b69b6bc9d1d64))
+
+
+### Bug Fixes
+
+* ts errors ([#39](https://github.com/lukso-network/tools-web-components/issues/39)) ([78b9532](https://github.com/lukso-network/tools-web-components/commit/78b95322634767730ec3d69c2fe5301b384fbd0d))
+
 ## [1.3.1](https://github.com/lukso-network/tools-web-components/compare/v1.3.0...v1.3.1) (2023-02-07)
 
 

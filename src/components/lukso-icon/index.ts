@@ -1,7 +1,8 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
+import style from './style.scss?inline'
 import { addPhoto } from './icons/add-photo'
 import { arrowDownLg } from './icons/arrow-down-lg'
 import { arrowDownSm } from './icons/arrow-down-sm'
@@ -236,7 +237,7 @@ const iconMap = {
 }
 
 @customElement('lukso-icon')
-export class LuksoIcon extends TailwindElement {
+export class LuksoIcon extends TailwindStyledElement(style) {
   @property({ type: String })
   name = ''
 
@@ -290,7 +291,6 @@ export class LuksoIcon extends TailwindElement {
 
     return html`<div
       class=${customClassMap({
-        'inline-flex': true,
         'animate-spin': this.isSpinning,
       })}
     >

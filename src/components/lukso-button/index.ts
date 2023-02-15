@@ -63,7 +63,7 @@ export class LuksoButton extends TailwindElement {
 
   private longPressStyles = `relative overflow-hidden z-[1] active:outline-0
     before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-[48px]
-    before:rounded-xl before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-none`
+    before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-none`
 
   private pressedStyles = `before:w-full before:z-[-1]`
 

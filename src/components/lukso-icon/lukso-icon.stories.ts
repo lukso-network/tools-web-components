@@ -21,12 +21,16 @@ export default {
     secondaryColor: {
       control: { type: 'text' },
     },
+    isSpinning: {
+      control: { type: 'boolean' },
+    },
   },
   args: {
     name: 'profile-recovery',
     size: 'medium',
     color: 'neutral-20',
     secondaryColor: '',
+    isSpinning: false,
   },
   parameters: {
     controls: {
@@ -39,12 +43,13 @@ export default {
   },
 }
 
-const Template = ({ name, size, color, secondaryColor }) =>
+const Template = ({ name, size, color, secondaryColor, isSpinning }) =>
   html`<lukso-icon
     name=${name}
     size=${size}
     color=${color}
     secondary-color=${secondaryColor}
+    ?is-spinning=${isSpinning}
   ></lukso-icon>`
 
 /** By default icon comes in `medium` size of `24x24` pixels with `neutral-20` color.  */
@@ -93,4 +98,11 @@ SecondaryColorIcon.args = {
 export const ColoredIcon = Template.bind({})
 ColoredIcon.args = {
   name: 'google-color',
+}
+
+/** If you want to animate spin effect add `is-spinning` property. */
+export const SpinningIcon = Template.bind({})
+SpinningIcon.args = {
+  name: 'progress-indicator',
+  isSpinning: true,
 }

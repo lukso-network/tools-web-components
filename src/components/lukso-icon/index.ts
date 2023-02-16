@@ -109,7 +109,9 @@ import { googleColor } from './icons/google-color'
 import { ethLogo } from './icons/eth-logo'
 import { lyxLogo } from './icons/lyx-logo'
 import { progressIndicator } from './icons/progress-indicator'
-import { customClassMap } from '@/shared/directives'
+import { pulseDot } from './icons/pulse-dot'
+import { progressComplete } from './icons/progress-complete'
+import { completeFilledFadeIn } from './icons/complete-filled-fade-in'
 
 export type IconOptions = {
   width: number
@@ -234,6 +236,9 @@ const iconMap = {
   'eth-logo': ethLogo,
   'lyx-logo': lyxLogo,
   'progress-indicator': progressIndicator,
+  'pulse-dot': pulseDot,
+  'progress-complete': progressComplete,
+  'complete-filled-fade-in': completeFilledFadeIn,
 }
 
 @customElement('lukso-icon')
@@ -249,9 +254,6 @@ export class LuksoIcon extends TailwindStyledElement(style) {
 
   @property({ type: String, attribute: 'secondary-color' })
   secondaryColor = ''
-
-  @property({ type: Boolean, attribute: 'is-spinning' })
-  isSpinning = false
 
   private sizes: { [key in IconSize]: IconSizeDef } = {
     small: {
@@ -289,11 +291,7 @@ export class LuksoIcon extends TailwindStyledElement(style) {
       console.warn(`Size ${this.size} not found`)
     }
 
-    return html`<div
-      class=${customClassMap({
-        'animate-spin': this.isSpinning,
-      })}
-    >
+    return html`
       ${icon({
         width: size.width,
         height: size.height,
@@ -301,7 +299,7 @@ export class LuksoIcon extends TailwindStyledElement(style) {
         strokeWidth: size.strokeWidth,
         secondaryColor: this.secondaryColor,
       })}
-    </div>`
+    `
   }
 }
 

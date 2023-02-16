@@ -468,137 +468,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-icon/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoIcon",
-          "members": [
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "name"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "string"
-              },
-              "default": "'medium'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "color",
-              "type": {
-                "text": "string"
-              },
-              "default": "'neutral-20'",
-              "attribute": "color"
-            },
-            {
-              "kind": "field",
-              "name": "secondaryColor",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "secondary-color"
-            },
-            {
-              "kind": "field",
-              "name": "sizes",
-              "type": {
-                "text": "{ [key in IconSize]: IconSizeDef }"
-              },
-              "privacy": "private",
-              "default": "{\n    small: {\n      width: 16,\n      height: 16,\n      strokeWidth: 2,\n    },\n    medium: {\n      width: 24,\n      height: 24,\n      strokeWidth: 1.5,\n    },\n    large: {\n      width: 32,\n      height: 32,\n      strokeWidth: 1.5,\n    },\n    'x-large': {\n      width: 40,\n      height: 40,\n      strokeWidth: 1.5,\n    },\n  }"
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true,
-              "inheritedFrom": {
-                "name": "TailwindStyledElement",
-                "module": "src/shared/tailwind-element/index.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "name"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "string"
-              },
-              "default": "'medium'",
-              "fieldName": "size"
-            },
-            {
-              "name": "color",
-              "type": {
-                "text": "string"
-              },
-              "default": "'neutral-20'",
-              "fieldName": "color"
-            },
-            {
-              "name": "secondary-color",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "secondaryColor"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "TailwindStyledElement",
-              "package": "@/shared/tailwind-element"
-            }
-          ],
-          "superclass": {
-            "name": "style",
-            "module": "/src/components/lukso-icon/style.scss"
-          },
-          "tagName": "lukso-icon",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoIcon",
-          "declaration": {
-            "name": "LuksoIcon",
-            "module": "src/components/lukso-icon/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-icon",
-          "declaration": {
-            "name": "LuksoIcon",
-            "module": "src/components/lukso-icon/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-navbar/index.ts",
       "declarations": [
         {
@@ -1050,61 +919,131 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-sanitize/index.ts",
+      "path": "src/components/lukso-icon/index.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "LuksoSanitize",
+          "name": "LuksoIcon",
           "members": [
             {
               "kind": "field",
-              "name": "htmlContent",
+              "name": "name",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "attribute": "html-content"
+              "attribute": "name"
             },
             {
-              "kind": "method",
-              "name": "sanitize",
-              "privacy": "private"
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "string"
+              },
+              "default": "'medium'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "color",
+              "type": {
+                "text": "string"
+              },
+              "default": "'neutral-20'",
+              "attribute": "color"
+            },
+            {
+              "kind": "field",
+              "name": "secondaryColor",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "secondary-color"
+            },
+            {
+              "kind": "field",
+              "name": "sizes",
+              "type": {
+                "text": "{ [key in IconSize]: IconSizeDef }"
+              },
+              "privacy": "private",
+              "default": "{\n    small: {\n      width: 16,\n      height: 16,\n      strokeWidth: 2,\n    },\n    medium: {\n      width: 24,\n      height: 24,\n      strokeWidth: 1.5,\n    },\n    large: {\n      width: 32,\n      height: 32,\n      strokeWidth: 1.5,\n    },\n    'x-large': {\n      width: 40,\n      height: 40,\n      strokeWidth: 1.5,\n    },\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "inheritedFrom": {
+                "name": "TailwindStyledElement",
+                "module": "src/shared/tailwind-element/index.ts"
+              }
             }
           ],
           "attributes": [
             {
-              "name": "html-content",
+              "name": "name",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "fieldName": "htmlContent"
+              "fieldName": "name"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "string"
+              },
+              "default": "'medium'",
+              "fieldName": "size"
+            },
+            {
+              "name": "color",
+              "type": {
+                "text": "string"
+              },
+              "default": "'neutral-20'",
+              "fieldName": "color"
+            },
+            {
+              "name": "secondary-color",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "secondaryColor"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "TailwindStyledElement",
+              "package": "@/shared/tailwind-element"
             }
           ],
           "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "name": "style",
+            "module": "/src/components/lukso-icon/style.scss"
           },
-          "tagName": "lukso-sanitize",
+          "tagName": "lukso-icon",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "LuksoSanitize",
+          "name": "LuksoIcon",
           "declaration": {
-            "name": "LuksoSanitize",
-            "module": "src/components/lukso-sanitize/index.ts"
+            "name": "LuksoIcon",
+            "module": "src/components/lukso-icon/index.ts"
           }
         },
         {
           "kind": "custom-element-definition",
-          "name": "lukso-sanitize",
+          "name": "lukso-icon",
           "declaration": {
-            "name": "LuksoSanitize",
-            "module": "src/components/lukso-sanitize/index.ts"
+            "name": "LuksoIcon",
+            "module": "src/components/lukso-icon/index.ts"
           }
         }
       ]
@@ -1250,6 +1189,67 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-sanitize/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoSanitize",
+          "members": [
+            {
+              "kind": "field",
+              "name": "htmlContent",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "html-content"
+            },
+            {
+              "kind": "method",
+              "name": "sanitize",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "html-content",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "htmlContent"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-sanitize",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoSanitize",
+          "declaration": {
+            "name": "LuksoSanitize",
+            "module": "src/components/lukso-sanitize/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-sanitize",
+          "declaration": {
+            "name": "LuksoSanitize",
+            "module": "src/components/lukso-sanitize/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-tag/index.ts",
       "declarations": [
         {
@@ -1297,7 +1297,7 @@
               "kind": "field",
               "name": "defaultStyles",
               "privacy": "private",
-              "default": "`rounded-lg inline-flex items-center justify-center border border-neutral-20 text-neutral-20`"
+              "default": "`inline-flex items-center justify-center border border-neutral-20 text-neutral-20`"
             },
             {
               "kind": "field",
@@ -1310,12 +1310,6 @@
               "name": "largeStyles",
               "privacy": "private",
               "default": "`paragraph-14-medium h-[34px]`"
-            },
-            {
-              "kind": "field",
-              "name": "roundedStyles",
-              "privacy": "private",
-              "default": "`rounded-[56px]`"
             },
             {
               "kind": "method",
@@ -1509,6 +1503,109 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-wizard/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoWizard",
+          "members": [
+            {
+              "kind": "field",
+              "name": "steps",
+              "type": {
+                "text": "WizardStep[]"
+              },
+              "default": "[]",
+              "attribute": "steps"
+            },
+            {
+              "kind": "field",
+              "name": "activeStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "attribute": "active-step"
+            },
+            {
+              "kind": "field",
+              "name": "activeStepStyles",
+              "privacy": "private",
+              "default": "`[&_.lukso-wizard-circle-inner]:border-2 [&_.lukso-wizard-circle-inner]:border-purple-51`"
+            },
+            {
+              "kind": "field",
+              "name": "completedStepStyles",
+              "privacy": "private",
+              "default": "`[&>.lukso-wizard-circle]:after:bg-purple-51\n    [&_.lukso-wizard-circle-inner]:bg-gradient-to-t\n    [&_.lukso-wizard-circle-inner]:from-gradient-3-start\n    [&_.lukso-wizard-circle-inner]:to-gradient-3-end`"
+            },
+            {
+              "kind": "method",
+              "name": "stepTemplate",
+              "parameters": [
+                {
+                  "name": "step",
+                  "type": {
+                    "text": "WizardStep"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "steps",
+              "type": {
+                "text": "WizardStep[]"
+              },
+              "default": "[]",
+              "fieldName": "steps"
+            },
+            {
+              "name": "active-step",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "fieldName": "activeStep"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-wizard",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoWizard",
+          "declaration": {
+            "name": "LuksoWizard",
+            "module": "src/components/lukso-wizard/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-wizard",
+          "declaration": {
+            "name": "LuksoWizard",
+            "module": "src/components/lukso-wizard/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-username/index.ts",
       "declarations": [
         {
@@ -1678,109 +1775,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-wizard/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoWizard",
-          "members": [
-            {
-              "kind": "field",
-              "name": "steps",
-              "type": {
-                "text": "WizardStep[]"
-              },
-              "default": "[]",
-              "attribute": "steps"
-            },
-            {
-              "kind": "field",
-              "name": "activeStep",
-              "type": {
-                "text": "number"
-              },
-              "default": "1",
-              "attribute": "active-step"
-            },
-            {
-              "kind": "field",
-              "name": "activeStepStyles",
-              "privacy": "private",
-              "default": "`[&_.lukso-wizard-circle-inner]:border-2 [&_.lukso-wizard-circle-inner]:border-purple-51`"
-            },
-            {
-              "kind": "field",
-              "name": "completedStepStyles",
-              "privacy": "private",
-              "default": "`[&>.lukso-wizard-circle]:after:bg-purple-51\n    [&_.lukso-wizard-circle-inner]:bg-gradient-to-t\n    [&_.lukso-wizard-circle-inner]:from-gradient-3-start\n    [&_.lukso-wizard-circle-inner]:to-gradient-3-end`"
-            },
-            {
-              "kind": "method",
-              "name": "stepTemplate",
-              "parameters": [
-                {
-                  "name": "step",
-                  "type": {
-                    "text": "WizardStep"
-                  }
-                },
-                {
-                  "name": "index",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "steps",
-              "type": {
-                "text": "WizardStep[]"
-              },
-              "default": "[]",
-              "fieldName": "steps"
-            },
-            {
-              "name": "active-step",
-              "type": {
-                "text": "number"
-              },
-              "default": "1",
-              "fieldName": "activeStep"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-wizard",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoWizard",
-          "declaration": {
-            "name": "LuksoWizard",
-            "module": "src/components/lukso-wizard/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-wizard",
-          "declaration": {
-            "name": "LuksoWizard",
-            "module": "src/components/lukso-wizard/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/shared/assets/index.ts",
       "declarations": [],
       "exports": [
@@ -1896,6 +1890,21 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/assets/images/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "__dirname",
+            "module": "src/shared/assets/images/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/directives/custom-class-map/index.ts",
       "declarations": [
         {
@@ -1934,21 +1943,6 @@
           "declaration": {
             "name": "customClassMap",
             "module": "src/shared/directives/custom-class-map/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/images/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "__dirname",
-            "module": "src/shared/assets/images/index.ts"
           }
         }
       ]

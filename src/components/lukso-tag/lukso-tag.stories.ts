@@ -47,7 +47,6 @@ export default {
         'defaultStyles',
         'smallStyles',
         'largeStyles',
-        'roundedStyles',
         'is-rounded',
         'background-color',
         'text-color',

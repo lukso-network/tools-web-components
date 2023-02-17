@@ -21,16 +21,27 @@ export default {
     secondaryColor: {
       control: { type: 'text' },
     },
+    animation: {
+      control: { type: 'select' },
+      options: [
+        'animate-spin',
+        'animate-ping',
+        'animate-pulse',
+        'animate-bounce',
+        'animate-pulse-resize',
+      ],
+    },
   },
   args: {
     name: 'profile-recovery',
     size: 'medium',
     color: 'neutral-20',
     secondaryColor: '',
+    animation: undefined,
   },
   parameters: {
     controls: {
-      exclude: ['sizes', 'secondary-color'],
+      exclude: ['sizes', 'secondary-color', 'styles'],
     },
     design: {
       type: 'figma',
@@ -39,12 +50,13 @@ export default {
   },
 }
 
-const Template = ({ name, size, color, secondaryColor }) =>
+const Template = ({ name, size, color, secondaryColor, animation }) =>
   html`<lukso-icon
     name=${name}
     size=${size}
     color=${color}
     secondary-color=${secondaryColor}
+    class=${animation}
   ></lukso-icon>`
 
 /** By default icon comes in `medium` size of `24x24` pixels with `neutral-20` color.  */
@@ -93,4 +105,12 @@ SecondaryColorIcon.args = {
 export const ColoredIcon = Template.bind({})
 ColoredIcon.args = {
   name: 'google-color',
+}
+
+/** You can animate any icon by applying `animate-[name]` property. Some icons come with build in animation. Check more details in `Animations` and `Icons` section. */
+export const AnimatedIcon = Template.bind({})
+AnimatedIcon.args = {
+  name: 'step-progress',
+  secondaryColor: 'neutral-100',
+  animation: 'animate-spin',
 }

@@ -1,0 +1,83 @@
+import { Meta, IconGallery, IconItem } from '@storybook/addon-docs'
+import '../components/lukso-icon/index'
+
+<h1>Animations</h1>
+
+Animations can be applied to any element through special CSS classes. For animatingicons you pass animation name.
+
+<Meta title="Design System/Animations" />
+
+### **Example usage**
+
+```html
+<div class="w-[12px] h-[12px] bg-green-54 animate-spin"></div>
+```
+
+### **Animation list**
+
+<div class="p-5 my-6 shadow-neutral-above-shadow rounded sb-unstyled">
+  #### `animate-spin`
+  <div class="mt-6 w-[12px] h-[12px] bg-green-54 animate-spin"></div>
+</div>
+
+<div class="p-5 my-6 shadow-neutral-above-shadow rounded sb-unstyled">
+  #### `animate-ping`
+  <div class="mt-6 w-[12px] h-[12px] bg-green-54 rounded-full animate-ping"></div>
+</div>
+
+<div class="p-5 my-6 shadow-neutral-above-shadow rounded sb-unstyled">
+  #### `animate-pulse`
+  <div class="mt-6 w-[12px] h-[12px] bg-green-54 rounded-full animate-pulse"></div>
+</div>
+
+<div class="p-5 my-6 shadow-neutral-above-shadow rounded sb-unstyled">
+  #### `animate-bounce`
+  <div class="mt-6 w-[12px] h-[12px] bg-green-54 rounded-full animate-bounce"></div>
+</div>
+
+<div class="p-5 my-6 shadow-neutral-above-shadow rounded sb-unstyled">
+  #### `animate-pulse-resize`
+  <div class="mt-6 w-[12px] h-[12px] bg-green-54 rounded-full animate-pulse-resize"></div>
+</div>
+
+<div class="p-5 my-6 shadow-neutral-above-shadow rounded sb-unstyled">
+  #### `animate-resize-in`
+  <div class="mt-6 w-[12px] h-[12px] bg-green-54 rounded-full animate-resize-in animation-iteration-infinite animation-duration-1000"></div>
+</div>
+
+<div class="p-5 my-6 shadow-neutral-above-shadow rounded sb-unstyled">
+  #### `animate-fade-in`
+  <div class="mt-6 w-[12px] h-[12px] bg-green-54 rounded-full opacity-0 animate-fade-in animation-iteration-infinite animation-duration-1000"></div>
+</div>
+
+### **Delay animation**
+
+You can delay animation by adding `animation-delay-[value]` class.
+
+```html
+<div class="animate-spin animation-delay-100"></div>
+```
+
+### **Animation count**
+
+You can set animation count by adding `animation-iteration-[value]` class.
+
+```html
+<div class="animate-spin animation-iteration-infinite"></div>
+```
+
+### **Animation duration**
+
+You can set animation duration by adding `animation-duration-[value]` class.
+
+```html
+<div class="animate-spin animation-duration-1000"></div>
+```
+
+### **Animation fill mode**
+
+You can set animation fill mode by adding `animation-fill-[value]` class.
+
+```html
+<div class="animate-spin animation-fill-forwards"></div>
+```

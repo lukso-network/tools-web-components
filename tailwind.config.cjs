@@ -1,4 +1,64 @@
+const plugin = require('tailwindcss/plugin')
+
 const { colorPalette } = require('./tools/color-palette.cjs')
+
+/**
+ * Add animation delay utilities. Example: .animation-delay-1000
+ */
+const animationDelayPlugin = plugin(function ({ addUtilities, theme, e }) {
+  const values = theme('animationDelay')
+  var utilities = Object.entries(values).map(([key, value]) => {
+    return {
+      [`.${e(`animation-delay-${key}`)}`]: { animationDelay: `${value}` },
+    }
+  })
+  addUtilities(utilities)
+})
+
+/**
+ * Add animation iteration utilities. Example: .animation-iteration-infinite
+ */
+const animationIterationPlugin = plugin(function ({ addUtilities, theme, e }) {
+  const values = theme('animationIteration')
+  var utilities = Object.entries(values).map(([key, value]) => {
+    return {
+      [`.${e(`animation-iteration-${key}`)}`]: {
+        animationIterationCount: `${value}`,
+      },
+    }
+  })
+  addUtilities(utilities)
+})
+
+/**
+ * Add animation duration utilities. Example: .animation-duration-1000
+ */
+const animationDuration = plugin(function ({ addUtilities, theme, e }) {
+  const values = theme('animationDuration')
+  var utilities = Object.entries(values).map(([key, value]) => {
+    return {
+      [`.${e(`animation-duration-${key}`)}`]: {
+        animationDuration: `${value}`,
+      },
+    }
+  })
+  addUtilities(utilities)
+})
+
+/**
+ * Add animation fill mode  utilities. Example: .animation-fill-forwards
+ */
+const animationFill = plugin(function ({ addUtilities, theme, e }) {
+  const values = theme('animationFill')
+  var utilities = Object.entries(values).map(([key, value]) => {
+    return {
+      [`.${e(`animation-fill-${key}`)}`]: {
+        animationFillMode: `${value}`,
+      },
+    }
+  })
+  addUtilities(utilities)
+})
 
 module.exports = {
   content: ['**/*.{ts,html,css,scss,mdx}'],
@@ -110,7 +170,81 @@ module.exports = {
       height: {
         78: '78px',
       },
+      animation: {
+        'pulse-resize': 'pulse-resize 1s ease-in-out infinite',
+        'resize-in': 'resize-in 0.5s ease-in-out',
+        'fade-in': 'fade-in 0.5s ease-in-out',
+      },
+      keyframes: {
+        'pulse-resize': {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(0.7)' },
+        },
+        'resize-in': {
+          '0%': { transform: 'scale(0.5)' },
+          '100%': { transform: 'scale(1)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animationDelay: {
+        none: '0s',
+        75: '75ms',
+        100: '100ms',
+        150: '150ms',
+        200: '200ms',
+        300: '300ms',
+        400: '400ms',
+        500: '500ms',
+        600: '600ms',
+        700: '700ms',
+        800: '800ms',
+        900: '900ms',
+        1000: '1000ms',
+        1500: '1500ms',
+        2000: '2000ms',
+        3000: '3000ms',
+        5000: '5000ms',
+      },
+      animationIteration: {
+        infinite: 'infinite',
+        1: '1',
+        2: '2',
+        3: '3',
+      },
+      animationDuration: {
+        25: '25ms',
+        50: '50ms',
+        75: '75ms',
+        100: '100ms',
+        150: '150ms',
+        200: '200ms',
+        300: '300ms',
+        400: '400ms',
+        500: '500ms',
+        600: '600ms',
+        700: '700ms',
+        800: '800ms',
+        900: '900ms',
+        1000: '1000ms',
+        1500: '1500ms',
+        2000: '2000ms',
+        3000: '3000ms',
+      },
+      animationFill: {
+        none: 'none',
+        forwards: 'forwards',
+        backwards: 'backwards',
+        both: 'both',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    animationDelayPlugin,
+    animationIterationPlugin,
+    animationDuration,
+    animationFill,
+  ],
 }

@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.5.0](https://github.com/lukso-network/tools-web-components/compare/v1.4.0...v1.5.0) (2023-02-17)
+
+
+### Features
+
+* animations ([#47](https://github.com/lukso-network/tools-web-components/issues/47)) ([4a32814](https://github.com/lukso-network/tools-web-components/commit/4a32814d042eedeca4290df88460c5bc5a429d76))
+
+
+### Bug Fixes
+
+* border radius issue in long press state ([#45](https://github.com/lukso-network/tools-web-components/issues/45)) ([68d84a8](https://github.com/lukso-network/tools-web-components/commit/68d84a876d9645c421af0e9d7a9e5b6b06dbc921))
+* input placeholder color ([#43](https://github.com/lukso-network/tools-web-components/issues/43)) ([ff730eb](https://github.com/lukso-network/tools-web-components/commit/ff730eb10ed680da21c3d53d1a497da3b0880f74))
+* tag rounded style ([#46](https://github.com/lukso-network/tools-web-components/issues/46)) ([1653eda](https://github.com/lukso-network/tools-web-components/commit/1653eda69c0f2917f8f02c18b49965c551ef9ca7))
+
 ## [1.4.0](https://github.com/lukso-network/tools-web-components/compare/v1.3.1...v1.4.0) (2023-02-14)
 
 

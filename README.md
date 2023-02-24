@@ -55,7 +55,7 @@ See example below:
 
 ### Styles (Tailwind CSS projects)
 
-1. Add this preset in the config file
+##### 1. Add this preset in the config file
 
 ```js
 // tailwind.config.js
@@ -65,7 +65,7 @@ module.exports = {
 }
 ```
 
-2. Include styles in your main file
+##### 2. Include styles in your main file
 
 ```scss
 // main.scss
@@ -74,7 +74,7 @@ $font-file-path: '/assets/fonts';
 @import '@lukso/web-components/sass/main.scss';
 ```
 
-3. In your main js file load the CSS variables
+##### 3. In your main js file load the CSS variables
 
 ```javascript
 // app.vue
@@ -82,6 +82,19 @@ import { generateCssVariables } from '@/shared/styles/color-palette'
 
 generateCssVariables()
 ```
+
+##### 4. Add script to copy assets in your build config
+
+In order to use other files like fonts or images from library we need to manually copy them to your project. This is ESM limitation that allow to import only `js` files.
+
+```ts
+import { copyAssets } from '@lukso/web-components/tools/copy-assets'
+import assets from '@lukso/web-components/assets'
+
+copyAssets('./src/assets', assets)
+```
+
+> Place this in top of your build file ie. `vite.config.ts`
 
 ### Styles (non Tailwind CSS projects)
 

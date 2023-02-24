@@ -55,7 +55,7 @@ See example below:
 
 ### Styles (Tailwind CSS projects)
 
-1. Add this preset in the config file
+##### 1. Add this preset in the config file
 
 ```js
 // tailwind.config.js
@@ -65,7 +65,7 @@ module.exports = {
 }
 ```
 
-2. Include styles in your main file
+##### 2. Include styles in your main file
 
 ```scss
 // main.scss
@@ -74,13 +74,40 @@ $font-file-path: '/assets/fonts';
 @import '@lukso/web-components/sass/main.scss';
 ```
 
-3. In your main js file load the CSS variables
+##### 3. In your main js file load the CSS variables
 
 ```javascript
 // app.vue
 import { generateCssVariables } from '@/shared/styles/color-palette'
 
 generateCssVariables()
+```
+
+##### 4. Add script to copy assets in your build config
+
+In order to use other files like fonts or images from library we need to manually copy them to your project. This is ESM limitation that allow to import only `js` files.
+
+```ts
+import fsExtra from 'fs-extra'
+import fs from 'fs'
+
+const assetDir = './src/assets' // this is where you want to copy the assets to
+
+if (!fs.existsSync(assetDir)) {
+  fs.mkdirSync(assetDir, { recursive: true })
+}
+fsExtra.copySync(assets, assetDir, {
+  filter: (src: string) => {
+    if (fs.statSync(src).isDirectory()) {
+      return true
+    }
+    if (/\.(woff2|svg|img|jpg|jpeg|png)$/.test(src)) {
+      console.log(`copying ${src}`)
+      return true
+    }
+    return false
+  },
+})
 ```
 
 ### Styles (non Tailwind CSS projects)

@@ -61,6 +61,7 @@
     "./custom-elements": "./custom-elements.json",
     "./custom-elements.json": "./custom-elements.json",
     "./package.json": "./package.json",
+    "./tools/copy-assets": "./tools/copy-assets.cjs",
     "./components": {
       "require": "./dist/components/index.umd.cjs",
       "import": "./dist/components/index.js",

@@ -201,6 +201,7 @@ async function writePackage() {
     './custom-elements': './custom-elements.json',
     './custom-elements.json': './custom-elements.json',
     './package.json': './package.json',
+    './tools/copy-assets': './tools/copy-assets.cjs',
   }
   for (const { fileName, requires, imports, types } of list) {
     exp[`./${fileName.replace(/\/index$/, '')}`] = {
@@ -276,6 +277,11 @@ export async function run(argv: any) {
       fileName: 'shared/tailwind-element',
       name: 'web_components_tailwind',
       entry: './src/shared/tailwind-element/index.ts',
+    },
+    {
+      fileName: 'copy-assets/index',
+      name: 'web_component_copy_assets',
+      entry: './src/shared/utils/copy-assets.ts',
     },
   ].concat(
     list.map(({ entry, fileName, name }) => {

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/lukso-network/tools-web-components/compare/v1.5.1...v1.5.2) (2023-02-24)
+
+
+### Bug Fixes
+
+* Update index.ts's to real ESM instead of __dirname ([#50](https://github.com/lukso-network/tools-web-components/issues/50)) ([60f2949](https://github.com/lukso-network/tools-web-components/commit/60f29494f304dac4ab93fa92171f88ad266cc823))
+
 ## [1.5.1](https://github.com/lukso-network/tools-web-components/compare/v1.5.0...v1.5.1) (2023-02-17)
 
 

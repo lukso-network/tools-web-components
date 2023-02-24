@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3](https://github.com/lukso-network/tools-web-components/compare/v1.5.2...v1.5.3) (2023-02-24)
+
+
+### Bug Fixes
+
+* Redo regexp replacement ([#53](https://github.com/lukso-network/tools-web-components/issues/53)) ([456eb47](https://github.com/lukso-network/tools-web-components/commit/456eb4711f597f12cac63e168c23665f6fa89d73))
+
 ## [1.5.2](https://github.com/lukso-network/tools-web-components/compare/v1.5.1...v1.5.2) (2023-02-24)
 
 

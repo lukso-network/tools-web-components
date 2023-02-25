@@ -17,6 +17,6 @@
       "@/shared/directives": ["./src/shared/directives"],
     }
   },
-  "files": ["./src/shared/styles/color-palette.ts"],
+  "files": [ "./src/shared/utils/copy-assets.ts", "./src/shared/styles/color-palette.ts"],
   "exclude": ["./node_modules"]
 }

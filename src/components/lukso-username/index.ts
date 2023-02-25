@@ -2,7 +2,7 @@ import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit-html/directives/style-map.js'
 
-import { sliceAddress } from '@/shared/utils/sliceAddress'
+import { sliceAddress } from '@/shared/utils/slice-address'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 

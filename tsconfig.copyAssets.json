@@ -11,12 +11,13 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "outDir": "./tools",
+    "outFile": "./tools/copy-assets.cjs",
     "paths": {
       "@": ["./src"],
       "@/*": ["./src/*"],
       "@/shared/directives": ["./src/shared/directives"],
     }
   },
-  "files": [ "./src/shared/utils/copy-assets.ts", "./src/shared/styles/color-palette.ts"],
+  "files": ["./src/shared/utils/copy-assets.ts"],
   "exclude": ["./node_modules"]
 }

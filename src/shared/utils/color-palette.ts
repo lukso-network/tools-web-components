@@ -1,6 +1,6 @@
 import tinycolor from 'tinycolor2'
 
-import { hslColorMap } from './hslColorMap'
+import { hslColorMap } from './hsl-color-map'
 
 type ColorMap = {
   [key: string]: string

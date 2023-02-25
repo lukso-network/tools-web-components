@@ -94,7 +94,7 @@ import assets from '@lukso/web-components/assets'
 copyAssets('./src/assets', assets)
 ```
 
-> Place this in top of your build file ie. `vite.config.ts`
+> Place this at the top of your build file ie. `vite.config.ts`
 
 ### Styles (non Tailwind CSS projects)
 

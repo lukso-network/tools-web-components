@@ -2,14 +2,15 @@ import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
+import style from './style.scss?inline'
 import '@/components/lukso-profile'
 
 export type CardVariants = 'basic' | 'with-header' | 'profile'
 
 @customElement('lukso-card')
-export class LuksoCard extends TailwindElement {
+export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: String })
   variant: CardVariants = 'basic'
 
@@ -22,7 +23,10 @@ export class LuksoCard extends TailwindElement {
   @property({ type: String, attribute: 'profile-address' })
   profileAddress = ''
 
-  private defaultStyles = `rounded-3xl w-[362px] min-h-[534px] shadow-pink-drop-shadow-2xl`
+  @property({ type: Boolean, attribute: 'is-full-width' })
+  isFullWidth = false
+
+  private defaultStyles = `rounded-3xl  min-h-[534px] shadow-pink-drop-shadow-2xl`
 
   basicTemplate() {
     return html`
@@ -30,6 +34,8 @@ export class LuksoCard extends TailwindElement {
         data-testid="card"
         class="bg-neutral-100 ${customClassMap({
           [this.defaultStyles]: true,
+          ['w-full']: this.isFullWidth,
+          ['w-[362px]']: !this.isFullWidth,
         })}"
       >
         <slot name="content"></slot>
@@ -43,6 +49,8 @@ export class LuksoCard extends TailwindElement {
         data-testid="card"
         class="bg-neutral-98 grid grid-rows-[auto,1fr] ${customClassMap({
           [this.defaultStyles]: true,
+          ['w-full']: this.isFullWidth,
+          ['w-[362px]']: !this.isFullWidth,
         })}"
       >
         <div>
@@ -61,6 +69,8 @@ export class LuksoCard extends TailwindElement {
         data-testid="card"
         class="bg-neutral-98 grid grid-rows-[auto,1fr] ${customClassMap({
           [this.defaultStyles]: true,
+          ['w-full']: this.isFullWidth,
+          ['w-[362px]']: !this.isFullWidth,
         })}"
       >
         <div

@@ -27,7 +27,10 @@ export default {
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
     },
-    isFullWidth: {
+    isFixedWidth: {
+      control: { type: 'boolean' },
+    },
+    isFixedHeight: {
       control: { type: 'boolean' },
     },
   },
@@ -47,23 +50,44 @@ export default {
         'background-url',
         'profile-url',
         'profile-address',
-        'is-full-width',
+        'is-fixed-width',
+        'is-fixed-height',
       ],
     },
   },
 }
 
-const DefaultTemplate = ({ variant, content, header, isFullWidth }) =>
+const DefaultTemplate = ({
+  variant,
+  content,
+  header,
+  isFixedHeight,
+  isFixedWidth,
+}) =>
   html`
-    <lukso-card variant=${variant} ?is-full-width=${isFullWidth}>
+    <lukso-card
+      variant=${variant}
+      ?is-fixed-width=${isFixedWidth}
+      ?is-fixed-height=${isFixedHeight}
+    >
       <div slot="header" class="p-6">${header}</div>
       <div slot="content" class="p-6">${content}</div>
     </lukso-card>
   `
 
-const CustomHeaderTemplate = ({ variant, content, header }) =>
+const CustomHeaderTemplate = ({
+  variant,
+  content,
+  header,
+  isFixedHeight,
+  isFixedWidth,
+}) =>
   html`
-    <lukso-card variant=${variant}>
+    <lukso-card
+      variant=${variant}
+      ?is-fixed-width=${isFixedWidth}
+      ?is-fixed-height=${isFixedHeight}
+    >
       <div slot="header" class="p-6 relative overflow-hidden min-h-[200px]">
         <div
           class="w-[876px] h-[200px] -left-[257px] top-[72px] bg-neutral-95 rounded-[50%] absolute"
@@ -80,6 +104,8 @@ const ProfileTemplate = ({
   backgroundUrl,
   profileUrl,
   profileAddress,
+  isFixedHeight,
+  isFixedWidth,
 }) =>
   html`
     <lukso-card
@@ -87,6 +113,8 @@ const ProfileTemplate = ({
       background-url=${backgroundUrl}
       profile-url=${profileUrl}
       profile-address=${profileAddress}
+      ?is-fixed-width=${isFixedWidth}
+      ?is-fixed-height=${isFixedHeight}
     >
       <div slot="content" class="p-6">${content}</div>
     </lukso-card>
@@ -101,10 +129,25 @@ DefaultCard.parameters = {
   },
 }
 
+/** If you need card with fixed sizes you can add `is-fixed-width` or `is-fixed-height` property.  */
+export const FixedCard = DefaultTemplate.bind({})
+FixedCard.args = {
+  isFixedWidth: true,
+  isFixedHeight: true,
+}
+FixedCard.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
+  },
+}
+
 /** Example of `with-header` variant. */
 export const CardWithHeader = DefaultTemplate.bind({})
 CardWithHeader.args = {
   variant: 'with-header',
+  isFixedWidth: true,
+  isFixedHeight: true,
 }
 CardWithHeader.parameters = {
   design: {
@@ -117,6 +160,8 @@ CardWithHeader.parameters = {
 export const CardWithCustomHeader = CustomHeaderTemplate.bind({})
 CardWithCustomHeader.args = {
   variant: 'with-header',
+  isFixedWidth: true,
+  isFixedHeight: true,
 }
 CardWithCustomHeader.parameters = {
   design: {
@@ -129,6 +174,8 @@ CardWithCustomHeader.parameters = {
 export const ProfileCard = ProfileTemplate.bind({})
 ProfileCard.args = {
   variant: 'profile',
+  isFixedWidth: true,
+  isFixedHeight: true,
   parameters: {
     design: {
       type: 'figma',
@@ -140,17 +187,5 @@ ProfileCard.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18027&t=AGmdbG8fXRENuU3o-4',
-  },
-}
-
-/** If you need card to take full width of the parent element add `is-full-width` property.  */
-export const FullWidthCard = DefaultTemplate.bind({})
-FullWidthCard.args = {
-  isFullWidth: true,
-}
-FullWidthCard.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
   },
 }

@@ -3,8 +3,8 @@
   "version": "1.6.0",
   "type": "module",
   "files": [
-    "dist/**/*.{cjs,js,ts,css,woff2,scss,png,svg,jpg,jpeg}",
-    "src/**/*.{cjs,js,ts,css,woff2,scss,png,svg,jpg,jpeg}",
+    "dist/",
+    "src/",
     "tools/",
     "tailwind.config.cjs",
     "postcss.config.cjs",

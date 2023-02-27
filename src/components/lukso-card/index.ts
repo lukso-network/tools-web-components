@@ -23,10 +23,13 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'profile-address' })
   profileAddress = ''
 
-  @property({ type: Boolean, attribute: 'is-full-width' })
-  isFullWidth = false
+  @property({ type: Boolean, attribute: 'is-fixed-width' })
+  isFixedWidth = false
 
-  private defaultStyles = `rounded-3xl  min-h-[534px] shadow-pink-drop-shadow-2xl`
+  @property({ type: Boolean, attribute: 'is-fixed-height' })
+  isFixedHeight = false
+
+  private defaultStyles = `rounded-3xl  shadow-pink-drop-shadow-2xl`
 
   basicTemplate() {
     return html`
@@ -34,8 +37,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
         data-testid="card"
         class="bg-neutral-100 ${customClassMap({
           [this.defaultStyles]: true,
-          ['w-full']: this.isFullWidth,
-          ['w-[362px]']: !this.isFullWidth,
+          ['w-[362px]']: this.isFixedWidth,
+          ['min-h-[534px]']: this.isFixedHeight,
         })}"
       >
         <slot name="content"></slot>
@@ -49,8 +52,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
         data-testid="card"
         class="bg-neutral-98 grid grid-rows-[auto,1fr] ${customClassMap({
           [this.defaultStyles]: true,
-          ['w-full']: this.isFullWidth,
-          ['w-[362px]']: !this.isFullWidth,
+          ['w-[362px]']: this.isFixedWidth,
+          ['min-h-[534px]']: this.isFixedHeight,
         })}"
       >
         <div>
@@ -69,8 +72,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
         data-testid="card"
         class="bg-neutral-98 grid grid-rows-[auto,1fr] ${customClassMap({
           [this.defaultStyles]: true,
-          ['w-full']: this.isFullWidth,
-          ['w-[362px]']: !this.isFullWidth,
+          ['w-[362px]']: this.isFixedWidth,
+          ['min-h-[534px]']: this.isFixedHeight,
         })}"
       >
         <div

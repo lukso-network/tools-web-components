@@ -135,6 +135,7 @@ module.exports = {
         21: '21px',
         24: '24px',
         26: '26px',
+        44: '44px',
       },
       fontWeight: {
         100: '100',
@@ -159,6 +160,7 @@ module.exports = {
         26: '26px',
         28: '28px',
         31: '31px',
+        40: '40px',
       },
       transitionDuration: {
         25: '25ms',

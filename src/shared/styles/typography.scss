@@ -28,6 +28,14 @@
     @apply text-14 not-italic font-700 leading-17 font-inter;
   }
 
+  .heading-h1-medium-apax {
+    @apply text-44 not-italic font-500 leading-40 font-apax;
+  }
+
+  .heading-h1-regular-apax {
+    @apply text-44 not-italic font-400 leading-40 font-apax;
+  }
+
   .heading-h1-apax {
     @apply text-24 not-italic font-500 leading-28 font-apax;
   }

@@ -27,6 +27,9 @@ export default {
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
     },
+    isFullWidth: {
+      control: { type: 'boolean' },
+    },
   },
   args: {
     variant: 'basic',
@@ -35,6 +38,7 @@ export default {
     backgroundUrl: 'images/sample-background.jpg',
     profileUrl: 'images/sample-avatar.png',
     profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
+    isFullWidth: false,
   },
   parameters: {
     controls: {
@@ -43,14 +47,15 @@ export default {
         'background-url',
         'profile-url',
         'profile-address',
+        'is-full-width',
       ],
     },
   },
 }
 
-const DefaultTemplate = ({ variant, content, header }) =>
+const DefaultTemplate = ({ variant, content, header, isFullWidth }) =>
   html`
-    <lukso-card variant=${variant}>
+    <lukso-card variant=${variant} ?is-full-width=${isFullWidth}>
       <div slot="header" class="p-6">${header}</div>
       <div slot="content" class="p-6">${content}</div>
     </lukso-card>
@@ -135,5 +140,17 @@ ProfileCard.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18027&t=AGmdbG8fXRENuU3o-4',
+  },
+}
+
+/** If you need card to take full width of the parent element add `is-full-width` property.  */
+export const FullWidthCard = DefaultTemplate.bind({})
+FullWidthCard.args = {
+  isFullWidth: true,
+}
+FullWidthCard.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
   },
 }

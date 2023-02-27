@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.6.0](https://github.com/lukso-network/tools-web-components/compare/v1.5.4...v1.6.0) (2023-02-27)
+
+
+### Features
+
+* add property for full width cards ([#62](https://github.com/lukso-network/tools-web-components/issues/62)) ([a1c5b9d](https://github.com/lukso-network/tools-web-components/commit/a1c5b9dedb69eb09c82954fc39de1d1b15db9ea0))
+* allow to set cards with 100% width/height ([#66](https://github.com/lukso-network/tools-web-components/issues/66)) ([625a00b](https://github.com/lukso-network/tools-web-components/commit/625a00bc799057656aed278ef98e98f611bac2b9))
+* Apax large h1 typography ([#64](https://github.com/lukso-network/tools-web-components/issues/64)) ([2da030b](https://github.com/lukso-network/tools-web-components/commit/2da030b30d28da0449d8d9ddcaa596c406b3cf0a))
+
+
+### Bug Fixes
+
+* add missing ext filtering when copying assets ([#61](https://github.com/lukso-network/tools-web-components/issues/61)) ([3c9f5e8](https://github.com/lukso-network/tools-web-components/commit/3c9f5e80550aa0ee156b0531663cbd266ac3fd5e))
+* incorrect name in color preview ([#63](https://github.com/lukso-network/tools-web-components/issues/63)) ([b9cb3c0](https://github.com/lukso-network/tools-web-components/commit/b9cb3c041840a99d699e68e1ecd28cedae4bcc10))
+* input border color when focusing ([#65](https://github.com/lukso-network/tools-web-components/issues/65)) ([8a5f837](https://github.com/lukso-network/tools-web-components/commit/8a5f83794177cbe6d7df5f4ea7c40057fa2a3788))
+* rework tools build into separate configs ([#58](https://github.com/lukso-network/tools-web-components/issues/58)) ([06c9a70](https://github.com/lukso-network/tools-web-components/commit/06c9a70777a6718476d42c4f539ef89858ee1a2d))
+* use root path for assets ([#60](https://github.com/lukso-network/tools-web-components/issues/60)) ([d3f6e62](https://github.com/lukso-network/tools-web-components/commit/d3f6e62a87a718643bf2f407503c8dd491848e29))
+
 ## [1.5.4](https://github.com/lukso-network/tools-web-components/compare/v1.5.3...v1.5.4) (2023-02-25)
 
 

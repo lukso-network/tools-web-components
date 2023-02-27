@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "type": "module",
   "files": [
     "dist/**/*.{cjs,js,ts,css,woff2,scss}",

@@ -36,15 +36,27 @@
     @apply text-44 not-italic font-400 leading-40 font-apax;
   }
 
-  .heading-h1-apax {
+  .heading-h2-medium-apax {
     @apply text-24 not-italic font-500 leading-28 font-apax;
   }
 
-  .heading-h4-apax {
+  .heading-h3-medium-apax {
+    @apply text-16 not-italic font-500 leading-19 font-apax;
+  }
+
+  .heading-h4-medium-apax {
+    @apply text-14 not-italic font-500 leading-20 font-apax;
+  }
+
+  .heading-h4-medium-uppercase-apax {
     @apply text-14 not-italic font-500 leading-20 font-apax uppercase tracking-[.08em];
   }
 
-  .heading-h5-apax {
+  .heading-h5-medium-apax {
+    @apply text-8 not-italic font-500 leading-10 font-apax;
+  }
+
+  .heading-h5-medium-uppercase-apax {
     @apply text-8 not-italic font-500 leading-10 font-apax uppercase tracking-[.08em];
   }
 

@@ -1,6 +1,25 @@
 import fs from 'fs'
 import path from 'path'
 
+/**
+ * List of allowed file extensions
+ */
+const fileExtensionWhitelist = [
+  '.woff2',
+  '.svg',
+  '.img',
+  '.jpg',
+  '.jpeg',
+  '.png',
+]
+
+/**
+ * Copy file from source to destination
+ *
+ * @param source - Source path
+ * @param target - Destination path
+ * @returns
+ */
 function copyFileSync(source, target) {
   let targetFile = target
 
@@ -11,9 +30,19 @@ function copyFileSync(source, target) {
     }
   }
 
+  if (!fileExtensionWhitelist.includes(path.extname(source))) {
+    return
+  }
+
   fs.writeFileSync(targetFile, fs.readFileSync(source))
 }
 
+/**
+ * Recursively copy directory from source to destination
+ *
+ * @param source - source directory
+ * @param target - destination directory
+ */
 function copyFolderRecursiveSync(source, target) {
   let files = []
 
@@ -37,6 +66,12 @@ function copyFolderRecursiveSync(source, target) {
   }
 }
 
+/**
+ * Copy asset directory from source to destination
+ *
+ * @param assetDir - destination directory
+ * @param assets - source directory
+ */
 export const copyAssets = (assetDir: string, assets: any) => {
   if (!fs.existsSync(assetDir)) {
     fs.mkdirSync(assetDir, { recursive: true })

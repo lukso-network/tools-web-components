@@ -60,6 +60,7 @@ export class LuksoInput extends TailwindElement {
       <input
         data-testid="input"
         id=${this.name}
+        name=${this.name}
         type=${this.type}
         value=${this.value}
         placeholder=${this.placeholder}

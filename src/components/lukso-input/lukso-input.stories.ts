@@ -82,6 +82,7 @@ export default {
         'defaultUnitStyles',
         'is-full-width',
         'hasHocus',
+        'hasHighlight',
       ],
     },
     design: {

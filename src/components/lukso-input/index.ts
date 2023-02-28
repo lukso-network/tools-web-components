@@ -46,12 +46,15 @@ export class LuksoInput extends TailwindElement {
   @state()
   private hasHocus = false
 
+  @state()
+  private hasHighlight = false
+
   private defaultInputStyles = `bg-neutral-100 text-neutral-20 paragraph-16-regular px-4 py-3
     border border-solid h-[48px] placeholder:text-neutral-70
-    outline-none transition transition-all duration-250 appearance-none`
+    outline-none transition transition-all duration-150 appearance-none`
 
   private defaultUnitStyles = `paragraph-12-regular text-neutral-60 flex px-3.5 items-center relative
-    border border-solid h-[48px] transition transition-all duration-250
+    border border-solid h-[48px] transition transition-all duration-150
     rounded-r-xl border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0
     before:w-[1px] before:h-[24px] whitespace-nowrap`
 
@@ -69,9 +72,10 @@ export class LuksoInput extends TailwindElement {
         max=${this.max}
         class=${customClassMap({
           [this.defaultInputStyles]: true,
-          ['border-red-85 text-red-65 focus:border-red-65']: this.error !== '',
-          ['border-neutral-35']: this.hasHocus,
-          ['border-neutral-90']: !this.hasHocus,
+          [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
+            !this.hasHighlight,
+          [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
+            this.hasHighlight,
           ['rounded-l-xl border-r-0']: this.unit !== '',
           ['rounded-xl']: this.unit === '',
           ['w-full']: this.isFullWidth,
@@ -83,6 +87,8 @@ export class LuksoInput extends TailwindElement {
         @keyup=${this.handleKeyUp}
         @keydown=${this.handleKeyDown}
         @keypress=${this.handleKeyPress}
+        @mouseenter=${this.handleMouseOver}
+        @mouseleave=${this.handleMouseOut}
       />
     `
   }
@@ -113,10 +119,13 @@ export class LuksoInput extends TailwindElement {
     return html`<div
       class=${customClassMap({
         [this.defaultUnitStyles]: true,
-        ['border-red-85']: this.error !== '',
-        ['border-neutral-35']: this.hasHocus && this.error === '',
-        ['border-red-65']: this.hasHocus && this.error !== '',
+        [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
+          !this.hasHighlight,
+        [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
+          this.hasHighlight,
       })}
+      @mouseenter=${this.handleMouseOver}
+      @mouseleave=${this.handleMouseOut}
     >
       ${this.unit}
     </div>`
@@ -124,10 +133,12 @@ export class LuksoInput extends TailwindElement {
 
   private handleFocus() {
     this.hasHocus = true
+    this.hasHighlight = true
   }
 
   private handleBlur() {
     this.hasHocus = false
+    this.hasHighlight = false
   }
 
   private handleKeyUp(event: KeyboardEvent) {
@@ -167,6 +178,16 @@ export class LuksoInput extends TailwindElement {
       composed: true,
     })
     this.dispatchEvent(keyEvent)
+  }
+
+  private handleMouseOver() {
+    this.hasHighlight = true
+  }
+
+  private handleMouseOut() {
+    if (!this.hasHocus) {
+      this.hasHighlight = false
+    }
   }
 
   render() {

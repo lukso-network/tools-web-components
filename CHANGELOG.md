@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/lukso-network/tools-web-components/compare/v1.6.1...v1.6.2) (2023-02-28)
+
+
+### Bug Fixes
+
+* input hover state and `name` attribute ([#69](https://github.com/lukso-network/tools-web-components/issues/69)) ([73e8d47](https://github.com/lukso-network/tools-web-components/commit/73e8d47a4fbc5f12d2d22c67458f87ceaec60d2a))
+
 ## [1.6.1](https://github.com/lukso-network/tools-web-components/compare/v1.6.0...v1.6.1) (2023-02-27)
 
 

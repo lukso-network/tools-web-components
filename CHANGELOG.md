@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/lukso-network/tools-web-components/compare/v1.6.0...v1.6.1) (2023-02-27)
+
+
+### Bug Fixes
+
+* packing images ([#67](https://github.com/lukso-network/tools-web-components/issues/67)) ([7d6ae6f](https://github.com/lukso-network/tools-web-components/commit/7d6ae6f7d83c73f3c125e3183faa81d2f19a346f))
+
 ## [1.6.0](https://github.com/lukso-network/tools-web-components/compare/v1.5.4...v1.6.0) (2023-02-27)
 
 

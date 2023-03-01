@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.6.3](https://github.com/lukso-network/tools-web-components/compare/v1.6.2...v1.6.3) (2023-03-01)
+
+
+### Bug Fixes
+
+* issue with card wrapper in fixed width ([#74](https://github.com/lukso-network/tools-web-components/issues/74)) ([fabe477](https://github.com/lukso-network/tools-web-components/commit/fabe4774daa08f191d4e70daa9340450a4d0bca8))
+* update navbar title font ([#71](https://github.com/lukso-network/tools-web-components/issues/71)) ([68ca190](https://github.com/lukso-network/tools-web-components/commit/68ca19067ee292b0edd3ed68ec57bac57c324a61))
+* wizard font ([#73](https://github.com/lukso-network/tools-web-components/issues/73)) ([e451bf8](https://github.com/lukso-network/tools-web-components/commit/e451bf880a6e0c61f7971badfbdfb670e33481dd))
+
 ## [1.6.2](https://github.com/lukso-network/tools-web-components/compare/v1.6.1...v1.6.2) (2023-02-28)
 
 

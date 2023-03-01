@@ -1,3 +1,7 @@
 :host {
   @apply w-full;
 }
+
+:host([is-fixed-width]) {
+  width: inherit;
+}

@@ -28,7 +28,7 @@ export async function readDeps(dir, prefix = []) {
             entry: './src/components/index.ts',
             source: './components/index',
             name: 'components',
-            requires: './dist/components/index.umd.cjs',
+            requires: './dist/components/index.cjs',
             imports: './dist/components/index.js',
             types: './dist/components/index.d.ts',
             fileName: 'components/index',
@@ -37,7 +37,7 @@ export async function readDeps(dir, prefix = []) {
             entry: './src/shared/tailwind-element/index.ts',
             source: './shared/tailwind-element/index.ts',
             name: 'tailwind-element',
-            requires: './dist/shared/tailwind-element/index.umd.cjs',
+            requires: './dist/shared/tailwind-element/index.cjs',
             imports: './dist/shared/tailwind-element/index.js',
             types: './dist/shared/tailwind-element/index.d.ts',
             fileName: 'shared/tailwind-element/index',
@@ -79,7 +79,7 @@ export async function readDeps(dir, prefix = []) {
         name: path.basename(path.dirname(entry)),
         requires: `./${path
           .join('dist', path.relative(path.join(__dirname, 'src'), entry))
-          .replace(/.ts$/, '.umd.cjs')}`,
+          .replace(/.ts$/, '.cjs')}`,
         imports: `./${path
           .join('dist', path.relative(path.join(__dirname, 'src'), entry))
           .replace(/.ts$/, '.js')}`,
@@ -156,7 +156,7 @@ async function writePackage() {
   const list = await readDeps('src')
   const exp = {
     '.': {
-      require: './dist/index.umd.cjs',
+      require: './dist/index.cjs',
       import: './dist/index.js',
       types: './dist/index.d.ts',
     },
@@ -164,31 +164,31 @@ async function writePackage() {
     './postcss.config': './postcss.config.cjs',
     './assets/fonts/': './dist/assets/fonts/',
     './assets/fonts': {
-      require: './dist/assets/fonts/index.umd.cjs',
+      require: './dist/assets/fonts/index.cjs',
       import: './dist/assets/fonts/index.js',
       types: './dist/assets/fonts/index.d.ts',
     },
     './assets/images/': './dist/assets/images/',
     './assets/images': {
-      require: './dist/assets/images/index.umd.cjs',
+      require: './dist/assets/images/index.cjs',
       import: './dist/assets/images/index.js',
       types: './dist/assets/images/index.d.ts',
     },
     './assets/': './dist/assets/',
     './assets': {
-      require: './dist/assets/index.umd.cjs',
+      require: './dist/assets/index.cjs',
       import: './dist/assets/index.js',
       types: './dist/assets/index.d.ts',
     },
     './styles/': './dist/styles/',
     './styles': {
-      require: './dist/styles/index.umd.cjs',
+      require: './dist/styles/index.cjs',
       import: './dist/styles/index.js',
       types: './dist/styles/index.d.ts',
     },
     './sass/': './dist/sass/',
     './sass': {
-      require: './dist/sass/index.umd.cjs',
+      require: './dist/sass/index.cjs',
       import: './dist/sass/index.js',
       types: './dist/sass/index.d.ts',
     },
@@ -285,48 +285,51 @@ export async function run(argv: any) {
   )
 
   try {
-    for (const lib of libs.slice(1).concat(libs.slice(0, 1))) {
-      console.log(`building ${lib.name}`)
-      // dtsPromise,
-      await build({
-        configFile: false,
-        resolve,
-        build: {
-          lib,
-          emptyOutDir: false,
-          watch:
-            mode !== 'production'
-              ? {
-                  clearScreen: false,
-                  chokidar,
-                  exclude: ['node_modules/**', 'tools/**', 'dist/**'],
-                }
-              : null,
-        },
-        plugins: [
-          lib.fileName === 'index'
-            ? viteStaticCopy({
-                targets: [
-                  {
-                    src: './src/shared/assets/*',
-                    dest: 'assets',
-                  },
-                  {
-                    src: './src/shared/styles/*',
-                    dest: 'sass',
-                  },
-                ],
-              })
-            : null,
-          dts({
-            // insertTypesEntry: true,
-            entryRoot: 'src',
-            // include: ['./src/index.ts', './src/components/*/index.ts', '*.scss'],
-            outputDir: './dist',
-          }),
-        ].filter(item => item),
-      })
+    const entries = {}
+    for (const { fileName, entry } of libs) {
+      entries[fileName] = entry
     }
+    await build({
+      configFile: false,
+      resolve,
+      build: {
+        minify: false,
+        lib: {
+          entry: entries,
+          formats: ['es', 'cjs'],
+        },
+        target: 'esnext',
+        emptyOutDir: true,
+        watch:
+          mode !== 'production'
+            ? {
+                clearScreen: false,
+                chokidar,
+                exclude: ['node_modules/**', 'tools/**', 'dist/**'],
+              }
+            : null,
+      },
+      plugins: [
+        viteStaticCopy({
+          targets: [
+            {
+              src: './src/shared/assets/*',
+              dest: 'assets',
+            },
+            {
+              src: './src/shared/styles/*',
+              dest: 'sass',
+            },
+          ],
+        }),
+        dts({
+          // insertTypesEntry: true,
+          entryRoot: 'src',
+          // include: ['./src/index.ts', './src/components/*/index.ts', '*.scss'],
+          outputDir: './dist',
+        }),
+      ].filter(item => item),
+    })
   } catch (err) {
     console.error(err)
   }
@@ -340,8 +343,10 @@ if (import.meta.url.startsWith('file:')) {
     const { argv } = yargs(hideBin(process.argv))
     run(argv)
       .then(() => {
-        console.log('build finished')
-        process.exit(0)
+        if (argv['mode'] === 'production') {
+          console.log('build finished')
+          process.exit(0)
+        }
       })
       .catch(err => {
         console.error(err)

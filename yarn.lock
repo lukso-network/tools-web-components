@@ -2477,70 +2477,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lukso/web-components@workspace:.":
+"@lukso/web-components@workspace:package":
   version: 0.0.0-use.local
-  resolution: "@lukso/web-components@workspace:."
+  resolution: "@lukso/web-components@workspace:package"
   dependencies:
-    "@custom-elements-manifest/analyzer": ^0.6.8
-    "@lit-labs/motion": ^1.0.3
-    "@storybook/addon-controls": ^7.0.0-beta.62
-    "@storybook/addon-essentials": ^7.0.0-beta.62
-    "@storybook/addon-interactions": ^7.0.0-beta.62
-    "@storybook/addon-links": ^7.0.0-beta.62
-    "@storybook/addon-postcss": ^2.0.0
-    "@storybook/blocks": ^7.0.0-beta.62
-    "@storybook/builder-vite": ^7.0.0-beta.62
-    "@storybook/client-api": ^6.5.16
-    "@storybook/jest": ^0.0.10
-    "@storybook/preset-scss": ^1.0.3
-    "@storybook/test-runner": ^0.9.3
-    "@storybook/testing-library": ^0.0.13
-    "@storybook/web-components-vite": ^7.0.0-beta.62
-    "@typescript-eslint/eslint-plugin": ^5.48.2
-    "@typescript-eslint/parser": ^5.48.2
-    autoprefixer: ^10.4.13
-    concurrently: ^7.6.0
-    dompurify: ^2.4.3
-    eslint: ^8.32.0
-    eslint-config-prettier: ^8.6.0
-    eslint-import-resolver-typescript: ^3.5.3
-    eslint-plugin-import: ^2.27.5
-    eslint-plugin-json: ^3.1.0
-    eslint-plugin-lit: ^1.8.2
-    espree: ^9.4.1
     ethereum-blockies-base64: ^1.0.2
-    http-server: ^14.1.1
-    husky: ^8.0.3
-    lint-staged: ^13.1.0
-    list-exports: ^1.0.4
-    lit: ^2.6.1
-    lit-analyzer: ^1.2.1
-    lit-html: ^2.6.1
-    npm-run-all: ^4.1.5
-    playwright: ^1.29.2
-    postcss: ^8.4.21
-    prettier: ^2.8.3
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    renamer: ^4.0.0
-    sass: ^1.57.1
-    storybook: 7.0.0-beta.62
-    storybook-addon-designs: beta
-    stylelint: ^14.16.1
-    stylelint-config-prettier: ^9.0.4
-    stylelint-config-standard-scss: ^6.1.0
-    stylelint-prettier: ^2.0.0
-    tailwindcss: ^3.2.6
-    tinycolor2: ^1.5.2
-    ts-node: ^10.9.1
-    typescript: ^4.9.4
-    typescript-bundle: ^1.0.18
-    vite: ^4.0.4
-    vite-plugin-dts: ^1.7.1
-    vite-plugin-external: ^1.2.8
-    vite-plugin-static-copy: ^0.13.0
-    wait-on: ^7.0.1
-    yargs: ^17.6.2
   languageName: unknown
   linkType: soft
 
@@ -18228,6 +18169,73 @@ __metadata:
   checksum: 8071b348ffc8e40ff024fc63490e9c7a0d9b929aa88b44548ccb559110ba926cf2063cefe864a7060c73d515a35496f6d8990bed9a743a819e6b4b26e93a9042
   languageName: node
   linkType: hard
+
+"web-components-builder@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "web-components-builder@workspace:."
+  dependencies:
+    "@custom-elements-manifest/analyzer": ^0.6.8
+    "@lit-labs/motion": ^1.0.3
+    "@storybook/addon-controls": ^7.0.0-beta.62
+    "@storybook/addon-essentials": ^7.0.0-beta.62
+    "@storybook/addon-interactions": ^7.0.0-beta.62
+    "@storybook/addon-links": ^7.0.0-beta.62
+    "@storybook/addon-postcss": ^2.0.0
+    "@storybook/blocks": ^7.0.0-beta.62
+    "@storybook/builder-vite": ^7.0.0-beta.62
+    "@storybook/client-api": ^6.5.16
+    "@storybook/jest": ^0.0.10
+    "@storybook/preset-scss": ^1.0.3
+    "@storybook/test-runner": ^0.9.3
+    "@storybook/testing-library": ^0.0.13
+    "@storybook/web-components-vite": ^7.0.0-beta.62
+    "@typescript-eslint/eslint-plugin": ^5.48.2
+    "@typescript-eslint/parser": ^5.48.2
+    autoprefixer: ^10.4.13
+    concurrently: ^7.6.0
+    dompurify: ^2.4.3
+    eslint: ^8.32.0
+    eslint-config-prettier: ^8.6.0
+    eslint-import-resolver-typescript: ^3.5.3
+    eslint-plugin-import: ^2.27.5
+    eslint-plugin-json: ^3.1.0
+    eslint-plugin-lit: ^1.8.2
+    espree: ^9.4.1
+    ethereum-blockies-base64: ^1.0.2
+    http-server: ^14.1.1
+    husky: ^8.0.3
+    lint-staged: ^13.1.0
+    list-exports: ^1.0.4
+    lit: ^2.6.1
+    lit-analyzer: ^1.2.1
+    lit-html: ^2.6.1
+    npm-run-all: ^4.1.5
+    playwright: ^1.29.2
+    postcss: ^8.4.21
+    prettier: ^2.8.3
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    renamer: ^4.0.0
+    sass: ^1.57.1
+    storybook: 7.0.0-beta.62
+    storybook-addon-designs: beta
+    stylelint: ^14.16.1
+    stylelint-config-prettier: ^9.0.4
+    stylelint-config-standard-scss: ^6.1.0
+    stylelint-prettier: ^2.0.0
+    tailwindcss: ^3.2.6
+    tinycolor2: ^1.5.2
+    ts-node: ^10.9.1
+    typescript: ^4.9.4
+    typescript-bundle: ^1.0.18
+    vite: ^4.0.4
+    vite-plugin-dts: ^1.7.1
+    vite-plugin-external: ^1.2.8
+    vite-plugin-static-copy: ^0.13.0
+    wait-on: ^7.0.1
+    yargs: ^17.6.2
+  languageName: unknown
+  linkType: soft
 
 "web-namespaces@npm:^1.0.0":
   version: 1.1.4

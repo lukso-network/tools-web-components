@@ -8,7 +8,7 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import * as url from 'node:url'
 
-import { colorPalette } from './tools/color-palette.js'
+import { colorPalette } from './package/tools/color-palette.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -219,13 +219,23 @@ async function writePackage() {
       types,
     }
   }
-  const oldContent = await readFile('./package.json', 'utf-8')
+  const oldContent = await readFile('./package/package.json', 'utf-8')
   const pack = JSON.parse(oldContent)
   pack.exports = exp
+  const fullContent = await readFile('./package.json', 'utf-8')
+  const fullPack = JSON.parse(fullContent)
+  for (const key of Object.keys(pack.dependencies)) {
+    const newValue =
+      (fullPack.dependencies || {})[key] || fullPack.devDependencies[key]
+    if (newValue) {
+      // Update published dependencies to be the same version we have in the workspace
+      pack.dependencies[key] = newValue
+    }
+  }
   const newContent = `${JSON.stringify(pack, null, '  ')}\n`
   if (newContent !== oldContent) {
     console.log(`writing ./package.json`)
-    await writeFile('./package.json', newContent)
+    await writeFile('./package/package.json', newContent)
   }
   return exp
 }
@@ -309,6 +319,7 @@ export async function run(argv: any) {
         },
         target: 'esnext',
         emptyOutDir: true,
+        outDir: './package/dist',
         watch:
           mode !== 'production'
             ? {
@@ -333,6 +344,10 @@ export async function run(argv: any) {
               src: './src/shared/styles/**/*.scss',
               dest: 'sass',
             },
+            {
+              src: ['./custom-elements.json'],
+              dest: '..',
+            },
           ],
         }),
         dts({
@@ -342,23 +357,23 @@ export async function run(argv: any) {
             './src/shared/styles',
             './src/shared/directives',
           ],
-          outputDir: './dist',
+          outputDir: './package/dist',
         }),
         dts({
           include: ['./src/shared/assets'],
-          outputDir: './dist/assets',
+          outputDir: './package/dist/assets',
         }),
         dts({
           include: ['./src/shared/tools'],
-          outputDir: './dist',
+          outputDir: './package/dist',
         }),
         dts({
           include: ['./src/shared/styles'],
-          outputDir: './dist/styles',
+          outputDir: './package/dist/styles',
         }),
         dts({
           include: ['./src/shared/styles'],
-          outputDir: './dist/sass',
+          outputDir: './package/dist/sass',
         }),
       ].filter(item => item),
     })

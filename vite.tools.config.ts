@@ -54,7 +54,7 @@ export async function run(argv: any) {
           formats: ['es', 'cjs'],
         },
         target: 'esnext',
-        outDir: './tools',
+        outDir: './package/tools',
         emptyOutDir: true,
         watch:
           mode !== 'production'
@@ -75,7 +75,7 @@ export async function run(argv: any) {
         dts({
           // insertTypesEntry: true,
           entryRoot: 'src/shared/tools',
-          outputDir: './tools',
+          outputDir: './package/tools',
           include: ['./src/shared/tools'],
         }),
       ].filter(item => item),

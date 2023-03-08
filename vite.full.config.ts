@@ -8,7 +8,7 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import * as url from 'node:url'
 
-import { colorPalette } from './tools/color-palette.cjs'
+import { colorPalette } from './tools/color-palette.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -32,15 +32,6 @@ export async function readDeps(dir, prefix = []) {
             imports: './dist/components/index.js',
             types: './dist/components/index.d.ts',
             fileName: 'components/index',
-          },
-          {
-            entry: './src/shared/tailwind-element/index.ts',
-            source: './shared/tailwind-element/index.ts',
-            name: 'tailwind-element',
-            requires: './dist/shared/tailwind-element/index.cjs',
-            imports: './dist/shared/tailwind-element/index.js',
-            types: './dist/shared/tailwind-element/index.d.ts',
-            fileName: 'shared/tailwind-element/index',
           },
         ]
       : []
@@ -162,44 +153,58 @@ async function writePackage() {
     },
     './tailwind.config': './tailwind.config.cjs',
     './postcss.config': './postcss.config.cjs',
-    './assets/fonts/': './dist/assets/fonts/',
-    './assets/fonts': {
+    './dist/assets/fonts/': './dist/assets/fonts/',
+    './dist/assets/fonts': {
       require: './dist/assets/fonts/index.cjs',
       import: './dist/assets/fonts/index.js',
       types: './dist/assets/fonts/index.d.ts',
     },
-    './assets/images/': './dist/assets/images/',
-    './assets/images': {
+    './dist/assets/images/': './dist/assets/images/',
+    './dist/assets/images': {
       require: './dist/assets/images/index.cjs',
       import: './dist/assets/images/index.js',
       types: './dist/assets/images/index.d.ts',
     },
-    './assets/': './dist/assets/',
-    './assets': {
+    './dist/assets/': './dist/assets/',
+    './dist/assets': {
       require: './dist/assets/index.cjs',
       import: './dist/assets/index.js',
       types: './dist/assets/index.d.ts',
     },
-    './styles/': './dist/styles/',
-    './styles': {
+    './dist/styles/': './dist/styles/',
+    './dist/styles': {
       require: './dist/styles/index.cjs',
       import: './dist/styles/index.js',
       types: './dist/styles/index.d.ts',
     },
-    './sass/': './dist/sass/',
-    './sass': {
+    './dist/sass/': './dist/sass/',
+    './dist/sass': {
       require: './dist/sass/index.cjs',
       import: './dist/sass/index.js',
       types: './dist/sass/index.d.ts',
     },
-    './color-palette': './tools/color-palette.cjs',
-    './copy-assets': './tools/copy-assets.cjs',
+    './tools/color-palette': {
+      require: './tools/color-palette.cjs',
+      import: './tools/color-palette.js',
+      types: './tools/color-palette.d.ts',
+    },
+    './tools/copy-assets': {
+      require: './tools/copy-assets.cjs',
+      import: './tools/copy-assets.js',
+      types: './tools/copy-assets.d.ts',
+    },
+    './tools/': './tools/',
+    './tools': {
+      require: './tools/index.cjs',
+      import: './tools/index.js',
+      types: './tools/index.d.ts',
+    },
     './custom-elements': './custom-elements.json',
     './custom-elements.json': './custom-elements.json',
     './package.json': './package.json',
   }
   for (const { fileName, requires, imports, types } of list) {
-    exp[`./${fileName.replace(/\/index$/, '')}`] = {
+    exp[`./dist/${fileName.replace(/\/index$/, '')}`] = {
       require: requires,
       import: imports,
       types,
@@ -264,14 +269,9 @@ export async function run(argv: any) {
       entry: './src/shared/styles/index.ts',
     },
     {
-      fileName: 'color-palette/index',
+      fileName: 'color-palette',
       name: 'web_component_color_palette',
-      entry: './src/shared/utils/color-palette.ts',
-    },
-    {
-      fileName: 'shared/tailwind-element',
-      name: 'web_components_tailwind',
-      entry: './src/shared/tailwind-element/index.ts',
+      entry: './src/shared/tools/color-palette.ts',
     },
   ].concat(
     list.map(({ entry, fileName, name }) => {
@@ -313,20 +313,53 @@ export async function run(argv: any) {
         viteStaticCopy({
           targets: [
             {
-              src: './src/shared/assets/*',
-              dest: 'assets',
+              src: './src/shared/assets/fonts/*.woff2',
+              dest: 'assets/fonts',
             },
             {
-              src: './src/shared/styles/*',
+              src: './src/shared/assets/images/*.{png,svg,jpg,jpeg}',
+              dest: 'assets/images',
+            },
+            {
+              src: './src/shared/styles/**/*.scss',
               dest: 'sass',
             },
           ],
         }),
         dts({
           // insertTypesEntry: true,
-          entryRoot: 'src',
-          // include: ['./src/index.ts', './src/components/*/index.ts', '*.scss'],
+          exclude: [
+            './src/shared/tools',
+            './src/shared/assets',
+            './src/shared/styles',
+            './src/shared/tailwind-element',
+            './src/shared/directives',
+          ],
           outputDir: './dist',
+        }),
+        dts({
+          // insertTypesEntry: true,
+          // entryRoot: './src/shared/assets',
+          include: ['./src/shared/assets'],
+          outputDir: './dist/assets',
+        }),
+        dts({
+          // insertTypesEntry: true,
+          // entryRoot: './src/shared/tools',
+          include: ['./src/shared/tools'],
+          outputDir: './dist',
+        }),
+        dts({
+          // insertTypesEntry: true,
+          // entryRoot: './src/shared/tools',
+          include: ['./src/shared/styles'],
+          outputDir: './dist/styles',
+        }),
+        dts({
+          // insertTypesEntry: true,
+          // entryRoot: './src/shared/tools',
+          include: ['./src/shared/styles'],
+          outputDir: './dist/sass',
         }),
       ].filter(item => item),
     })

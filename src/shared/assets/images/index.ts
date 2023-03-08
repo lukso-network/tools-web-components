@@ -1,1 +1,4 @@
-export default import.meta.url.replace(/^file:\/\/|\/\w+\.?[jt]s$/g, '')
+export const images: string = import.meta.url.replace(
+  /^file:\/\/|\/\w+\.?[jt]s$/g,
+  ''
+)

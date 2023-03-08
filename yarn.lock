@@ -2537,6 +2537,7 @@ __metadata:
     typescript-bundle: ^1.0.18
     vite: ^4.0.4
     vite-plugin-dts: ^1.7.1
+    vite-plugin-external: ^1.2.8
     vite-plugin-static-copy: ^0.13.0
     wait-on: ^7.0.1
     yargs: ^17.6.2
@@ -9373,7 +9374,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^10.1.0":
+"fs-extra@npm:^10.0.0, fs-extra@npm:^10.1.0":
   version: 10.1.0
   resolution: "fs-extra@npm:10.1.0"
   dependencies:
@@ -17968,6 +17969,15 @@ __metadata:
   peerDependencies:
     vite: ">=2.9.0"
   checksum: e2714a9e1727860cb217308b000d7306f98ba626998893a72d8b0e5db577d989457827033c76125a87491ace453325726da3795f17c3fea3e8af0d5e81820e89
+  languageName: node
+  linkType: hard
+
+"vite-plugin-external@npm:^1.2.8":
+  version: 1.2.8
+  resolution: "vite-plugin-external@npm:1.2.8"
+  dependencies:
+    fs-extra: ^10.0.0
+  checksum: e7e2e22ce6a838bb7fe161cb838ab8ec3c06f79911478a265c1e1e9c34774b836c8b286e3c697473e9d2b7cb48d01b5f27098f4086df9a28519fb36ce3e48fa8
   languageName: node
   linkType: hard
 

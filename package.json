@@ -10,12 +10,12 @@
     "postcss.config.cjs",
     "README.md"
   ],
-  "main": "./dist/index.umd.cjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/index.umd.cjs",
+      "require": "./dist/index.cjs",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
@@ -23,31 +23,31 @@
     "./postcss.config": "./postcss.config.cjs",
     "./assets/fonts/": "./dist/assets/fonts/",
     "./assets/fonts": {
-      "require": "./dist/assets/fonts/index.umd.cjs",
+      "require": "./dist/assets/fonts/index.cjs",
       "import": "./dist/assets/fonts/index.js",
       "types": "./dist/assets/fonts/index.d.ts"
     },
     "./assets/images/": "./dist/assets/images/",
     "./assets/images": {
-      "require": "./dist/assets/images/index.umd.cjs",
+      "require": "./dist/assets/images/index.cjs",
       "import": "./dist/assets/images/index.js",
       "types": "./dist/assets/images/index.d.ts"
     },
     "./assets/": "./dist/assets/",
     "./assets": {
-      "require": "./dist/assets/index.umd.cjs",
+      "require": "./dist/assets/index.cjs",
       "import": "./dist/assets/index.js",
       "types": "./dist/assets/index.d.ts"
     },
     "./styles/": "./dist/styles/",
     "./styles": {
-      "require": "./dist/styles/index.umd.cjs",
+      "require": "./dist/styles/index.cjs",
       "import": "./dist/styles/index.js",
       "types": "./dist/styles/index.d.ts"
     },
     "./sass/": "./dist/sass/",
     "./sass": {
-      "require": "./dist/sass/index.umd.cjs",
+      "require": "./dist/sass/index.cjs",
       "import": "./dist/sass/index.js",
       "types": "./dist/sass/index.d.ts"
     },
@@ -57,27 +57,27 @@
     "./custom-elements.json": "./custom-elements.json",
     "./package.json": "./package.json",
     "./components": {
-      "require": "./dist/components/index.umd.cjs",
+      "require": "./dist/components/index.cjs",
       "import": "./dist/components/index.js",
       "types": "./dist/components/index.d.ts"
     },
     "./components/lukso-button": {
-      "require": "./dist/components/lukso-button/index.umd.cjs",
+      "require": "./dist/components/lukso-button/index.cjs",
       "import": "./dist/components/lukso-button/index.js",
       "types": "./dist/components/lukso-button/index.d.ts"
     },
     "./components/lukso-card": {
-      "require": "./dist/components/lukso-card/index.umd.cjs",
+      "require": "./dist/components/lukso-card/index.cjs",
       "import": "./dist/components/lukso-card/index.js",
       "types": "./dist/components/lukso-card/index.d.ts"
     },
     "./components/lukso-icon": {
-      "require": "./dist/components/lukso-icon/index.umd.cjs",
+      "require": "./dist/components/lukso-icon/index.cjs",
       "import": "./dist/components/lukso-icon/index.js",
       "types": "./dist/components/lukso-icon/index.d.ts"
     },
     "./components/lukso-input": {
-      "require": "./dist/components/lukso-input/index.umd.cjs",
+      "require": "./dist/components/lukso-input/index.cjs",
       "import": "./dist/components/lukso-input/index.js",
       "types": "./dist/components/lukso-input/index.d.ts"
     },
@@ -87,42 +87,42 @@
       "types": "./dist/components/lukso-modal/index.d.ts"
     },
     "./components/lukso-navbar": {
-      "require": "./dist/components/lukso-navbar/index.umd.cjs",
+      "require": "./dist/components/lukso-navbar/index.cjs",
       "import": "./dist/components/lukso-navbar/index.js",
       "types": "./dist/components/lukso-navbar/index.d.ts"
     },
     "./components/lukso-profile": {
-      "require": "./dist/components/lukso-profile/index.umd.cjs",
+      "require": "./dist/components/lukso-profile/index.cjs",
       "import": "./dist/components/lukso-profile/index.js",
       "types": "./dist/components/lukso-profile/index.d.ts"
     },
     "./components/lukso-sanitize": {
-      "require": "./dist/components/lukso-sanitize/index.umd.cjs",
+      "require": "./dist/components/lukso-sanitize/index.cjs",
       "import": "./dist/components/lukso-sanitize/index.js",
       "types": "./dist/components/lukso-sanitize/index.d.ts"
     },
     "./components/lukso-tag": {
-      "require": "./dist/components/lukso-tag/index.umd.cjs",
+      "require": "./dist/components/lukso-tag/index.cjs",
       "import": "./dist/components/lukso-tag/index.js",
       "types": "./dist/components/lukso-tag/index.d.ts"
     },
     "./components/lukso-test": {
-      "require": "./dist/components/lukso-test/index.umd.cjs",
+      "require": "./dist/components/lukso-test/index.cjs",
       "import": "./dist/components/lukso-test/index.js",
       "types": "./dist/components/lukso-test/index.d.ts"
     },
     "./components/lukso-username": {
-      "require": "./dist/components/lukso-username/index.umd.cjs",
+      "require": "./dist/components/lukso-username/index.cjs",
       "import": "./dist/components/lukso-username/index.js",
       "types": "./dist/components/lukso-username/index.d.ts"
     },
     "./components/lukso-wizard": {
-      "require": "./dist/components/lukso-wizard/index.umd.cjs",
+      "require": "./dist/components/lukso-wizard/index.cjs",
       "import": "./dist/components/lukso-wizard/index.js",
       "types": "./dist/components/lukso-wizard/index.d.ts"
     },
     "./shared/tailwind-element": {
-      "require": "./dist/shared/tailwind-element/index.umd.cjs",
+      "require": "./dist/shared/tailwind-element/index.cjs",
       "import": "./dist/shared/tailwind-element/index.js",
       "types": "./dist/shared/tailwind-element/index.d.ts"
     }

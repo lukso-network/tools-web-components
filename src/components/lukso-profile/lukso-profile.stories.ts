@@ -1,4 +1,6 @@
 import { html } from 'lit-html'
+import { Meta } from '@storybook/web-components'
+
 import './index'
 
 /**
@@ -7,7 +9,7 @@ import './index'
  *  Identicon is generated using `ethereum-blockies-base64` library from `profile-Address` property.
  *  To show profile picture pass valid url in `profile-url` property.
  */
-export default {
+const meta: Meta = {
   title: 'Design System/Components/lukso-profile',
   component: 'lukso-profile',
   argTypes: {
@@ -52,6 +54,8 @@ export default {
     },
   },
 }
+
+export default meta
 
 const Template = ({ profileUrl, size, profileAddress, hasIdenticon }) =>
   html`<lukso-profile

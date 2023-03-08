@@ -327,7 +327,6 @@ export async function run(argv: any) {
           ],
         }),
         dts({
-          // insertTypesEntry: true,
           exclude: [
             './src/shared/tools',
             './src/shared/assets',
@@ -338,26 +337,18 @@ export async function run(argv: any) {
           outputDir: './dist',
         }),
         dts({
-          // insertTypesEntry: true,
-          // entryRoot: './src/shared/assets',
           include: ['./src/shared/assets'],
           outputDir: './dist/assets',
         }),
         dts({
-          // insertTypesEntry: true,
-          // entryRoot: './src/shared/tools',
           include: ['./src/shared/tools'],
           outputDir: './dist',
         }),
         dts({
-          // insertTypesEntry: true,
-          // entryRoot: './src/shared/tools',
           include: ['./src/shared/styles'],
           outputDir: './dist/styles',
         }),
         dts({
-          // insertTypesEntry: true,
-          // entryRoot: './src/shared/tools',
           include: ['./src/shared/styles'],
           outputDir: './dist/sass',
         }),

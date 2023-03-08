@@ -1,11 +1,12 @@
 import { html } from 'lit-html'
+import { Meta } from '@storybook/web-components'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
 import './index'
 import '../lukso-icon'
 
 /**  Documentation and examples of `lukso-tag` component. */
-export default {
+const meta: Meta = {
   title: 'Design System/Components/lukso-tag',
   component: 'lukso-tag',
   argTypes: {
@@ -55,6 +56,8 @@ export default {
     },
   },
 }
+
+export default meta
 
 const Template = ({ content, size, isRounded, backgroundColor, textColor }) =>
   html`<lukso-tag

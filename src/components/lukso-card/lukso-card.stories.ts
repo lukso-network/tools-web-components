@@ -1,8 +1,10 @@
 import { html } from 'lit-html'
+import { Meta } from '@storybook/web-components'
+
 import './index'
 
 /**  Documentation and examples of `lukso-card` component. Cards are using `slots` to put content in different places like `header` or `content`.  */
-export default {
+const meta: Meta = {
   title: 'Design System/Components/lukso-card',
   component: 'lukso-card',
   argTypes: {
@@ -56,6 +58,8 @@ export default {
     },
   },
 }
+
+export default meta
 
 const DefaultTemplate = ({
   variant,

@@ -1,11 +1,12 @@
 import { html } from 'lit-html'
+import { Meta } from '@storybook/web-components'
 
-import '../lukso-wizard'
+import '../index'
 
 /** Documentation and examples of `lukso-wizard` component. Steps are passed in `step` property as object containing different labels.
  *  To specify which step is active set `active-step` property.
  */
-export default {
+const meta: Meta = {
   title: 'Design System/Components/lukso-wizard',
   component: 'lukso-wizard',
   argTypes: {
@@ -42,6 +43,8 @@ LYXe`,
     },
   },
 }
+
+export default meta
 
 const Template = ({ steps, activeStep }) =>
   html`<lukso-wizard

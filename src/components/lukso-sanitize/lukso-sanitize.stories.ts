@@ -1,10 +1,12 @@
 import { html } from 'lit-html'
+import { Meta } from '@storybook/web-components'
+
 import './index'
 
 /**  Documentation and examples of `lukso-sanitize` component. It's used to show potentially dangerous content or HTML in safe way.
  * One of the common use cases is using HTML tags in texts coming from translations.
  */
-export default {
+const meta: Meta = {
   title: 'Design System/Components/lukso-sanitize',
   component: 'lukso-sanitize',
   argTypes: {
@@ -22,6 +24,8 @@ export default {
     },
   },
 }
+
+export default meta
 
 const Template = ({ htmlContent }) =>
   html`<lukso-sanitize html-content=${htmlContent}></lukso-sanitize>`

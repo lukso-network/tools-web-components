@@ -3,9 +3,9 @@
   "version": "1.6.3",
   "type": "module",
   "files": [
-    "dist/",
-    "src/",
-    "tools/",
+    "dist",
+    "src",
+    "tools",
     "tailwind.config.cjs",
     "postcss.config.cjs",
     "README.md"

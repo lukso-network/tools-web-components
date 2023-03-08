@@ -224,6 +224,7 @@ async function writePackage() {
   pack.exports = exp
   const fullContent = await readFile('./package.json', 'utf-8')
   const fullPack = JSON.parse(fullContent)
+  pack.version = fullPack.version
   for (const key of Object.keys(pack.dependencies)) {
     const newValue =
       (fullPack.dependencies || {})[key] || fullPack.devDependencies[key]

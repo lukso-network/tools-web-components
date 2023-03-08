@@ -1,13 +1,16 @@
 import { html } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
+import { Meta } from '@storybook/web-components'
 
-import '../lukso-test'
+import '../index'
 
-export default {
+const meta: Meta = {
   title: 'Test',
   component: 'lukso-test',
 }
+
+export default meta
 
 export function Primary({ disabled }) {
   return html`<lukso-test ?disabled=${disabled}>Hello World</lukso-test>`

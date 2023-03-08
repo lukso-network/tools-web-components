@@ -2,12 +2,13 @@ import { html } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
+import { Meta } from '@storybook/web-components'
 
 import './index'
 import '../lukso-icon'
 
 /**  Documentation and examples of `lukso-button` component. */
-export default {
+const meta: Meta = {
   title: 'Design System/Components/lukso-button',
   component: 'lukso-button',
   argTypes: {
@@ -71,6 +72,8 @@ export default {
   },
 }
 
+export default meta
+
 const Template = ({
   variant,
   disabled,
@@ -95,6 +98,7 @@ const LongPressTemplate = ({
   size,
   isFullWidth,
   isLongPress,
+  onLongPressComplete,
 }) =>
   html`<lukso-button
     variant=${variant}
@@ -102,7 +106,7 @@ const LongPressTemplate = ({
     size=${size}
     ?is-full-width=${isFullWidth}
     ?is-long-press=${isLongPress}
-    @on-long-press-complete="handleLongPressComplete"
+    @on-long-press-complete=${onLongPressComplete}
     >${text}</lukso-button
   >`
 

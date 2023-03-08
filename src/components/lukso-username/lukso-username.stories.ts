@@ -1,8 +1,10 @@
 import { html } from 'lit-html'
+import { Meta } from '@storybook/web-components'
+
 import './index'
 
 /**  Documentation and examples of `lukso-username` component. It's used to display user name and address in standardized way. */
-export default {
+const meta: Meta = {
   title: 'Design System/Components/lukso-username',
   component: 'lukso-username',
   argTypes: {
@@ -47,6 +49,8 @@ export default {
     },
   },
 }
+
+export default meta
 
 const Template = ({ name, address, maxWidth, size, sliceBy, addressColor }) =>
   html`<lukso-username

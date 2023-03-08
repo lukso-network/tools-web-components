@@ -1,10 +1,12 @@
 import { html } from 'lit-html'
+import { Meta } from '@storybook/web-components'
+
 import './index'
 
 /**  Documentation and examples of `lukso-icon` component. Icons comes in `small`, `medium`, `large` and `x-large` size that is set in `size` property.
  *  Please check all available icons in Icons Showcase.
  */
-export default {
+const meta: Meta = {
   title: 'Design System/Components/lukso-icon',
   component: 'lukso-icon',
   argTypes: {
@@ -49,6 +51,8 @@ export default {
     },
   },
 }
+
+export default meta
 
 const Template = ({ name, size, color, secondaryColor, animation }) =>
   html`<lukso-icon

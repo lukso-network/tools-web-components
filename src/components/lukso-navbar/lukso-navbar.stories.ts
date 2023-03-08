@@ -1,8 +1,10 @@
 import { html } from 'lit-html'
+import { Meta } from '@storybook/web-components'
+
 import './index'
 
 /**  Documentation and examples of `lukso-navbar` component.  */
-export default {
+const meta: Meta = {
   title: 'Design System/Components/lukso-navbar',
   component: 'lukso-navbar',
   argTypes: {
@@ -46,12 +48,14 @@ PROFILES`,
   },
 }
 
-const Template = ({ title, isCenter, isSticky }) =>
+export default meta
+
+const Template = ({ title, isCenter, isSticky, onBrandClick }) =>
   html`<lukso-navbar
     title=${title}
     ?is-center=${isCenter}
     ?is-sticky=${isSticky}
-    @on-brand-click="handleBrandClick"
+    @on-brand-click=${onBrandClick}
   ></lukso-navbar>`
 
 /** Example of default navbar. It support `@on-brand-click` event that is fired when clicking on the logo/title. */

@@ -1,8 +1,10 @@
 import { html } from 'lit-html'
+import { Meta } from '@storybook/web-components'
+
 import './index'
 
 /**  Documentation and examples of `lukso-input` component.  */
-export default {
+const meta: Meta = {
   title: 'Design System/Forms/lukso-input',
   component: 'lukso-input',
   argTypes: {
@@ -92,6 +94,8 @@ export default {
   },
 }
 
+export default meta
+
 const Template = ({
   value,
   name,
@@ -105,6 +109,9 @@ const Template = ({
   autofocus,
   min,
   max,
+  onKeyUp,
+  onKeyDown,
+  onKeyPress,
 }) =>
   html`<lukso-input
     value=${value}
@@ -119,9 +126,9 @@ const Template = ({
     ?autofocus=${autofocus}
     min=${min}
     max=${max}
-    @on-key-up="handleKeyUp"
-    @on-key-down="handleKeyDown"
-    @on-key-press="handleKeyPress"
+    @on-key-up=${onKeyUp}
+    @on-key-down=${onKeyDown}
+    @on-key-press=${onKeyPress}
   ></lukso-input>`
 
 /** Example of default input with `value`.  */

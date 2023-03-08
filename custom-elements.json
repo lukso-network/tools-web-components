@@ -117,6 +117,14 @@
             "name": "*",
             "package": "./lukso-wizard/index"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./../shared/tailwind-element"
+          }
         }
       ]
     },
@@ -699,7 +707,7 @@
               "kind": "field",
               "name": "type",
               "type": {
-                "text": "HTMLInputTypeAttribute"
+                "text": "string"
               },
               "default": "'text'",
               "attribute": "type"
@@ -915,7 +923,7 @@
             {
               "name": "type",
               "type": {
-                "text": "HTMLInputTypeAttribute"
+                "text": "string"
               },
               "default": "'text'",
               "fieldName": "type"

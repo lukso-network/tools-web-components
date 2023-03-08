@@ -33,6 +33,15 @@ export async function readDeps(dir, prefix = []) {
             types: './dist/components/index.d.ts',
             fileName: 'components/index',
           },
+          {
+            entry: './src/shared/tailwind-element/index.ts',
+            source: './shared/tailwind-element/index.ts',
+            name: 'tailwind-element',
+            requires: './dist/shared/tailwind-element/index.cjs',
+            imports: './dist/shared/tailwind-element/index.js',
+            types: './dist/shared/tailwind-element/index.d.ts',
+            fileName: 'shared/tailwind-element/index',
+          },
         ]
       : []
   const list = await readdir(dir)
@@ -105,7 +114,7 @@ async function writeIndex() {
     .map(({ source }) => {
       const file = `./${path.relative(
         './components',
-        source.replace(/\.ts$/, '')
+        source.replace(/\/index\.ts$/, '')
       )}`
       return `export * from '${file}'`
     })
@@ -331,7 +340,6 @@ export async function run(argv: any) {
             './src/shared/tools',
             './src/shared/assets',
             './src/shared/styles',
-            './src/shared/tailwind-element',
             './src/shared/directives',
           ],
           outputDir: './dist',

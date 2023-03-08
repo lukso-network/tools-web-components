@@ -1,7 +1,7 @@
 import { html } from 'lit-html'
-import { StoryFn, Meta } from '@storybook/web-components'
+import { Meta } from '@storybook/web-components'
 import { useArgs } from '@storybook/client-api'
-import { ModalSizes } from './index'
+
 import './index'
 import '../lukso-button'
 
@@ -43,10 +43,7 @@ const meta: Meta = {
 
 export default meta
 
-const Template: StoryFn<{
-  size: ModalSizes
-  isOpen: boolean
-}> = ({ size }) => {
+const Template = ({ size }) => {
   const [{ isOpen }, updateArgs] = useArgs()
 
   const handleClose = () => {

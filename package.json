@@ -82,7 +82,7 @@
       "types": "./dist/components/lukso-input/index.d.ts"
     },
     "./components/lukso-modal": {
-      "require": "./dist/components/lukso-modal/index.umd.cjs",
+      "require": "./dist/components/lukso-modal/index.cjs",
       "import": "./dist/components/lukso-modal/index.js",
       "types": "./dist/components/lukso-modal/index.d.ts"
     },

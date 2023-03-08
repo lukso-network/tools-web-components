@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.0](https://github.com/lukso-network/tools-web-components/compare/v1.6.3...v1.7.0) (2023-03-08)
+
+
+### Features
+
+* modal component ([#79](https://github.com/lukso-network/tools-web-components/issues/79)) ([530ba83](https://github.com/lukso-network/tools-web-components/commit/530ba83d5ed3677a6eb24600816570010b40d08a))
+
+
+### Bug Fixes
+
+* Fix infinite reload during dev mode. Simplify to single build ([#75](https://github.com/lukso-network/tools-web-components/issues/75)) ([ae7b1a3](https://github.com/lukso-network/tools-web-components/commit/ae7b1a37f6ea6db8d38b0e3d5fee0260a45e8347))
+
 ## [1.6.3](https://github.com/lukso-network/tools-web-components/compare/v1.6.2...v1.6.3) (2023-03-01)
 
 

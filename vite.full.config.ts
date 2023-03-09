@@ -346,7 +346,7 @@ export async function run(argv: any) {
               dest: 'sass',
             },
             {
-              src: ['./custom-elements.json'],
+              src: ['./custom-elements.json', './LICENSE', './README.md'],
               dest: '..',
             },
           ],

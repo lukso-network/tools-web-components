@@ -1,14 +1,14 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.6.3",
+  "version": "1.7.0",
   "type": "module",
   "files": [
     "dist",
-    "src",
     "tools",
     "tailwind.config.cjs",
     "postcss.config.cjs",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

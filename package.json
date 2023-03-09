@@ -1,5 +1,6 @@
 {
   "name": "web-components-builder",
+  "private": true,
   "version": "1.7.0",
   "type": "module",
   "scripts": {

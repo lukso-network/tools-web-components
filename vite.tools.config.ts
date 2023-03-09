@@ -115,7 +115,6 @@ export async function run(argv: any) {
           },
         }),
         dts({
-          // insertTypesEntry: true,
           entryRoot: 'src/shared/tools',
           outputDir: './package/tools',
           include: ['./src/shared/tools'],

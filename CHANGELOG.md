@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.2](https://github.com/lukso-network/tools-web-components/compare/v1.7.1...v1.7.2) (2023-03-09)
+
+
+### Bug Fixes
+
+* npm publish needs the token in .npmrc similar to .yarnrc ([#83](https://github.com/lukso-network/tools-web-components/issues/83)) ([9fc3d05](https://github.com/lukso-network/tools-web-components/commit/9fc3d05abd80698ac71b2ffcc48008d8da069346))
+
 ## [1.7.1](https://github.com/lukso-network/tools-web-components/compare/v1.7.0...v1.7.1) (2023-03-09)
 
 

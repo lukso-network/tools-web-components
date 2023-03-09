@@ -1580,129 +1580,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-test/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoTest",
-          "members": [
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "'World'",
-              "attribute": "name"
-            },
-            {
-              "kind": "field",
-              "name": "clicked",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false",
-              "attribute": "clicked"
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "disabled"
-            },
-            {
-              "kind": "field",
-              "name": "duration",
-              "type": {
-                "text": "number"
-              },
-              "default": "1000"
-            },
-            {
-              "kind": "field",
-              "name": "controller",
-              "default": "new AnimateController(this, {\n    defaultOptions: {\n      keyframeOptions: {\n        duration: this.duration,\n        fill: 'backwards',\n      },\n    },\n  })"
-            },
-            {
-              "kind": "method",
-              "name": "_onClick"
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true,
-              "inheritedFrom": {
-                "name": "TailwindStyledElement",
-                "module": "src/shared/tailwind-element/index.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "'World'",
-              "fieldName": "name"
-            },
-            {
-              "name": "clicked",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "clicked"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "disabled"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "TailwindStyledElement",
-              "package": "@/shared/tailwind-element"
-            }
-          ],
-          "superclass": {
-            "name": "style",
-            "module": "/src/components/lukso-test/test.component.scss"
-          },
-          "tagName": "lukso-test",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoTest",
-          "declaration": {
-            "name": "LuksoTest",
-            "module": "src/components/lukso-test/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-test",
-          "declaration": {
-            "name": "LuksoTest",
-            "module": "src/components/lukso-test/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-username/index.ts",
       "declarations": [
         {
@@ -1866,6 +1743,129 @@
           "declaration": {
             "name": "LuksoUsername",
             "module": "src/components/lukso-username/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-test/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoTest",
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "'World'",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "clicked",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "attribute": "clicked"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "duration",
+              "type": {
+                "text": "number"
+              },
+              "default": "1000"
+            },
+            {
+              "kind": "field",
+              "name": "controller",
+              "default": "new AnimateController(this, {\n    defaultOptions: {\n      keyframeOptions: {\n        duration: this.duration,\n        fill: 'backwards',\n      },\n    },\n  })"
+            },
+            {
+              "kind": "method",
+              "name": "_onClick"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "inheritedFrom": {
+                "name": "TailwindStyledElement",
+                "module": "src/shared/tailwind-element/index.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "'World'",
+              "fieldName": "name"
+            },
+            {
+              "name": "clicked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "clicked"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "TailwindStyledElement",
+              "package": "@/shared/tailwind-element"
+            }
+          ],
+          "superclass": {
+            "name": "style",
+            "module": "/src/components/lukso-test/test.component.scss"
+          },
+          "tagName": "lukso-test",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoTest",
+          "declaration": {
+            "name": "LuksoTest",
+            "module": "src/components/lukso-test/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-test",
+          "declaration": {
+            "name": "LuksoTest",
+            "module": "src/components/lukso-test/index.ts"
           }
         }
       ]

@@ -5,6 +5,7 @@ import dts from 'vite-plugin-dts'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import createExternal from 'vite-plugin-external'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 import * as url from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -37,6 +38,31 @@ export async function run(argv: any) {
       name: 'tools_copy_assets',
       entry: './src/shared/tools/copy-assets.ts',
     },
+    {
+      fileName: 'assets/index',
+      name: 'tools_assets',
+      entry: './src/shared/assets/index.ts',
+    },
+    {
+      fileName: 'assets/fonts/index',
+      name: 'tools_assets_fonts',
+      entry: './src/shared/assets/fonts/index.ts',
+    },
+    {
+      fileName: 'assets/images/index',
+      name: 'tools_assets_images',
+      entry: './src/shared/assets/images/index.ts',
+    },
+    {
+      fileName: 'styles/index',
+      name: 'tools_styles',
+      entry: './src/shared/styles/index.ts',
+    },
+    {
+      fileName: 'sass/index',
+      name: 'tools_styles',
+      entry: './src/shared/styles/index.ts',
+    },
   ]
 
   try {
@@ -66,6 +92,22 @@ export async function run(argv: any) {
             : null,
       },
       plugins: [
+        viteStaticCopy({
+          targets: [
+            {
+              src: './src/shared/assets/fonts/*.woff2',
+              dest: 'assets/fonts',
+            },
+            {
+              src: './src/shared/assets/images/*.{png,svg,jpg,jpeg}',
+              dest: 'assets/images',
+            },
+            {
+              src: './src/shared/styles/**/*.scss',
+              dest: 'sass',
+            },
+          ],
+        }),
         createExternal({
           externals: {
             fs: 'fs',
@@ -77,6 +119,18 @@ export async function run(argv: any) {
           entryRoot: 'src/shared/tools',
           outputDir: './package/tools',
           include: ['./src/shared/tools'],
+        }),
+        dts({
+          include: ['./src/shared/assets'],
+          outputDir: './package/tools/assets',
+        }),
+        dts({
+          include: ['./src/shared/styles'],
+          outputDir: './package/tools/styles',
+        }),
+        dts({
+          include: ['./src/shared/styles'],
+          outputDir: './package/tools/sass',
         }),
       ].filter(item => item),
     })

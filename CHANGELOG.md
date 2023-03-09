@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.1](https://github.com/lukso-network/tools-web-components/compare/v1.7.0...v1.7.1) (2023-03-09)
+
+
+### Bug Fixes
+
+* Versioning, npm publish, README/LICENSE ([#81](https://github.com/lukso-network/tools-web-components/issues/81)) ([4e2d969](https://github.com/lukso-network/tools-web-components/commit/4e2d96957818b438e78fe2182ca7b7fd2ff62adb))
+
 ## [1.7.0](https://github.com/lukso-network/tools-web-components/compare/v1.6.3...v1.7.0) (2023-03-09)
 
 

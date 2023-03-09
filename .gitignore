@@ -2,11 +2,12 @@
 *.css.map
 *.sass.map
 *.scss.map
-/dist
+/package/dist
+/package/tools
 /node_modules
 /storybook-static
 /.work
-tools-web-components.code-workspace
+/custom-elements.json
 
 # Yarn
 .pnp.*
@@ -16,6 +17,6 @@ tools-web-components.code-workspace
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
 /.vscode
-/tools
 tools-web-components.code-workspace

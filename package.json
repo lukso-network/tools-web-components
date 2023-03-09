@@ -1,137 +1,12 @@
 {
-  "name": "@lukso/web-components",
+  "name": "web-components-builder",
   "version": "1.6.3",
   "type": "module",
-  "files": [
-    "dist/",
-    "src/",
-    "tools/",
-    "tailwind.config.cjs",
-    "postcss.config.cjs",
-    "README.md"
-  ],
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./tailwind.config": "./tailwind.config.cjs",
-    "./postcss.config": "./postcss.config.cjs",
-    "./assets/fonts/": "./dist/assets/fonts/",
-    "./assets/fonts": {
-      "require": "./dist/assets/fonts/index.cjs",
-      "import": "./dist/assets/fonts/index.js",
-      "types": "./dist/assets/fonts/index.d.ts"
-    },
-    "./assets/images/": "./dist/assets/images/",
-    "./assets/images": {
-      "require": "./dist/assets/images/index.cjs",
-      "import": "./dist/assets/images/index.js",
-      "types": "./dist/assets/images/index.d.ts"
-    },
-    "./assets/": "./dist/assets/",
-    "./assets": {
-      "require": "./dist/assets/index.cjs",
-      "import": "./dist/assets/index.js",
-      "types": "./dist/assets/index.d.ts"
-    },
-    "./styles/": "./dist/styles/",
-    "./styles": {
-      "require": "./dist/styles/index.cjs",
-      "import": "./dist/styles/index.js",
-      "types": "./dist/styles/index.d.ts"
-    },
-    "./sass/": "./dist/sass/",
-    "./sass": {
-      "require": "./dist/sass/index.cjs",
-      "import": "./dist/sass/index.js",
-      "types": "./dist/sass/index.d.ts"
-    },
-    "./color-palette": "./tools/color-palette.cjs",
-    "./copy-assets": "./tools/copy-assets.cjs",
-    "./custom-elements": "./custom-elements.json",
-    "./custom-elements.json": "./custom-elements.json",
-    "./package.json": "./package.json",
-    "./components": {
-      "require": "./dist/components/index.cjs",
-      "import": "./dist/components/index.js",
-      "types": "./dist/components/index.d.ts"
-    },
-    "./components/lukso-button": {
-      "require": "./dist/components/lukso-button/index.cjs",
-      "import": "./dist/components/lukso-button/index.js",
-      "types": "./dist/components/lukso-button/index.d.ts"
-    },
-    "./components/lukso-card": {
-      "require": "./dist/components/lukso-card/index.cjs",
-      "import": "./dist/components/lukso-card/index.js",
-      "types": "./dist/components/lukso-card/index.d.ts"
-    },
-    "./components/lukso-icon": {
-      "require": "./dist/components/lukso-icon/index.cjs",
-      "import": "./dist/components/lukso-icon/index.js",
-      "types": "./dist/components/lukso-icon/index.d.ts"
-    },
-    "./components/lukso-input": {
-      "require": "./dist/components/lukso-input/index.cjs",
-      "import": "./dist/components/lukso-input/index.js",
-      "types": "./dist/components/lukso-input/index.d.ts"
-    },
-    "./components/lukso-modal": {
-      "require": "./dist/components/lukso-modal/index.cjs",
-      "import": "./dist/components/lukso-modal/index.js",
-      "types": "./dist/components/lukso-modal/index.d.ts"
-    },
-    "./components/lukso-navbar": {
-      "require": "./dist/components/lukso-navbar/index.cjs",
-      "import": "./dist/components/lukso-navbar/index.js",
-      "types": "./dist/components/lukso-navbar/index.d.ts"
-    },
-    "./components/lukso-profile": {
-      "require": "./dist/components/lukso-profile/index.cjs",
-      "import": "./dist/components/lukso-profile/index.js",
-      "types": "./dist/components/lukso-profile/index.d.ts"
-    },
-    "./components/lukso-sanitize": {
-      "require": "./dist/components/lukso-sanitize/index.cjs",
-      "import": "./dist/components/lukso-sanitize/index.js",
-      "types": "./dist/components/lukso-sanitize/index.d.ts"
-    },
-    "./components/lukso-tag": {
-      "require": "./dist/components/lukso-tag/index.cjs",
-      "import": "./dist/components/lukso-tag/index.js",
-      "types": "./dist/components/lukso-tag/index.d.ts"
-    },
-    "./components/lukso-test": {
-      "require": "./dist/components/lukso-test/index.cjs",
-      "import": "./dist/components/lukso-test/index.js",
-      "types": "./dist/components/lukso-test/index.d.ts"
-    },
-    "./components/lukso-username": {
-      "require": "./dist/components/lukso-username/index.cjs",
-      "import": "./dist/components/lukso-username/index.js",
-      "types": "./dist/components/lukso-username/index.d.ts"
-    },
-    "./components/lukso-wizard": {
-      "require": "./dist/components/lukso-wizard/index.cjs",
-      "import": "./dist/components/lukso-wizard/index.js",
-      "types": "./dist/components/lukso-wizard/index.d.ts"
-    },
-    "./shared/tailwind-element": {
-      "require": "./dist/shared/tailwind-element/index.cjs",
-      "import": "./dist/shared/tailwind-element/index.js",
-      "types": "./dist/shared/tailwind-element/index.d.ts"
-    }
-  },
   "scripts": {
-    "config-prepare": "rm -fr ./tools && tsc-bundle ./tsconfig.colorPalette.json --exportAs commonjs && tsc-bundle ./tsconfig.copyAssets.json --exportAs commonjs",
+    "config-prepare": "ts-node-esm ./vite.tools.config.ts --mode=production",
     "start": "yarn config-prepare && concurrently 'ts-node-esm ./vite.full.config.ts --mode=develop' 'yarn storybook' 'yarn analyze:watch'",
     "dev": "yarn start",
-    "build": "rm -rf dist && yarn config-prepare && yarn analyze && ts-node-esm ./vite.full.config.ts --mode=production && yarn sass --verbose ./src/shared/styles/main.scss ./dist/styles/main.css && yarn build:list-exports",
+    "build": "rm -rf package/dist package/tools && yarn config-prepare && yarn analyze && ts-node-esm ./vite.full.config.ts --mode=production && yarn sass --verbose ./src/shared/styles/main.scss ./package/dist/styles/main.css && yarn build:list-exports",
     "build:list-exports": "node ./listExports.cjs",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt}'",
     "lint:eslint": "eslint src --fix",
@@ -179,6 +54,7 @@
     "@typescript-eslint/parser": "^5.48.2",
     "autoprefixer": "^10.4.13",
     "concurrently": "^7.6.0",
+    "dompurify": "^2.4.3",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-import-resolver-typescript": "^3.5.3",
@@ -186,6 +62,7 @@
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-lit": "^1.8.2",
     "espree": "^9.4.1",
+    "ethereum-blockies-base64": "^1.0.2",
     "http-server": "^14.1.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
@@ -208,20 +85,19 @@
     "stylelint-config-standard-scss": "^6.1.0",
     "stylelint-prettier": "^2.0.0",
     "tailwindcss": "^3.2.6",
+    "tinycolor2": "^1.5.2",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
     "typescript-bundle": "^1.0.18",
     "vite": "^4.0.4",
     "vite-plugin-dts": "^1.7.1",
+    "vite-plugin-external": "^1.2.8",
     "vite-plugin-static-copy": "^0.13.0",
     "wait-on": "^7.0.1",
     "yargs": "^17.6.2"
   },
-  "dependencies": {
-    "dompurify": "^2.4.3",
-    "ethereum-blockies-base64": "^1.0.2",
-    "tinycolor2": "^1.5.2"
-  },
   "packageManager": "yarn@3.3.1",
-  "customElements": "custom-elements.json"
+  "workspaces": [
+    "./package"
+  ]
 }

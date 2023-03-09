@@ -1,14 +1,8 @@
 {
+  "extends": "./tsconfig.options.json",
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
-    "declaration": true,
-    "declarationMap": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
-    "esModuleInterop": true,
     "outDir": "./dist",
     "paths": {
       "@": ["./src"],
@@ -20,7 +14,8 @@
   },
   "include": [
     "src",
-    "vite.full.config.ts"
+    "vite.full.config.ts",
+    "vite.tools.config.ts"
   ],
   "exclude": [
     "node_modules",

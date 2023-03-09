@@ -1,0 +1,160 @@
+{
+  "name": "@lukso/web-components",
+  "version": "1.6.3",
+  "type": "module",
+  "files": [
+    "dist",
+    "src",
+    "tools",
+    "tailwind.config.cjs",
+    "postcss.config.cjs",
+    "README.md"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./tailwind.config": "./tailwind.config.cjs",
+    "./postcss.config": "./postcss.config.cjs",
+    "./dist/assets/fonts/": "./dist/assets/fonts/",
+    "./dist/assets/fonts": {
+      "require": "./dist/assets/fonts/index.cjs",
+      "import": "./dist/assets/fonts/index.js",
+      "types": "./dist/assets/fonts/index.d.ts"
+    },
+    "./dist/assets/images/": "./dist/assets/images/",
+    "./dist/assets/images": {
+      "require": "./dist/assets/images/index.cjs",
+      "import": "./dist/assets/images/index.js",
+      "types": "./dist/assets/images/index.d.ts"
+    },
+    "./dist/assets/": "./dist/assets/",
+    "./dist/assets": {
+      "require": "./dist/assets/index.cjs",
+      "import": "./dist/assets/index.js",
+      "types": "./dist/assets/index.d.ts"
+    },
+    "./dist/styles/": "./dist/styles/",
+    "./dist/styles": {
+      "require": "./dist/styles/index.cjs",
+      "import": "./dist/styles/index.js",
+      "types": "./dist/styles/index.d.ts"
+    },
+    "./dist/sass/": "./dist/sass/",
+    "./dist/sass": {
+      "require": "./dist/sass/index.cjs",
+      "import": "./dist/sass/index.js",
+      "types": "./dist/sass/index.d.ts"
+    },
+    "./tools/color-palette": {
+      "require": "./tools/color-palette.cjs",
+      "import": "./tools/color-palette.js",
+      "types": "./tools/color-palette.d.ts"
+    },
+    "./tools/copy-assets": {
+      "require": "./tools/copy-assets.cjs",
+      "import": "./tools/copy-assets.js",
+      "types": "./tools/copy-assets.d.ts"
+    },
+    "./tools/": "./tools/",
+    "./tools": {
+      "require": "./tools/index.cjs",
+      "import": "./tools/index.js",
+      "types": "./tools/index.d.ts"
+    },
+    "./custom-elements": "./custom-elements.json",
+    "./custom-elements.json": "./custom-elements.json",
+    "./package.json": "./package.json",
+    "./dist/components": {
+      "require": "./dist/components/index.cjs",
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts"
+    },
+    "./dist/components/lukso-button": {
+      "require": "./dist/components/lukso-button/index.cjs",
+      "import": "./dist/components/lukso-button/index.js",
+      "types": "./dist/components/lukso-button/index.d.ts"
+    },
+    "./dist/components/lukso-card": {
+      "require": "./dist/components/lukso-card/index.cjs",
+      "import": "./dist/components/lukso-card/index.js",
+      "types": "./dist/components/lukso-card/index.d.ts"
+    },
+    "./dist/components/lukso-icon": {
+      "require": "./dist/components/lukso-icon/index.cjs",
+      "import": "./dist/components/lukso-icon/index.js",
+      "types": "./dist/components/lukso-icon/index.d.ts"
+    },
+    "./dist/components/lukso-input": {
+      "require": "./dist/components/lukso-input/index.cjs",
+      "import": "./dist/components/lukso-input/index.js",
+      "types": "./dist/components/lukso-input/index.d.ts"
+    },
+    "./dist/components/lukso-modal": {
+      "require": "./dist/components/lukso-modal/index.cjs",
+      "import": "./dist/components/lukso-modal/index.js",
+      "types": "./dist/components/lukso-modal/index.d.ts"
+    },
+    "./dist/components/lukso-navbar": {
+      "require": "./dist/components/lukso-navbar/index.cjs",
+      "import": "./dist/components/lukso-navbar/index.js",
+      "types": "./dist/components/lukso-navbar/index.d.ts"
+    },
+    "./dist/components/lukso-profile": {
+      "require": "./dist/components/lukso-profile/index.cjs",
+      "import": "./dist/components/lukso-profile/index.js",
+      "types": "./dist/components/lukso-profile/index.d.ts"
+    },
+    "./dist/components/lukso-sanitize": {
+      "require": "./dist/components/lukso-sanitize/index.cjs",
+      "import": "./dist/components/lukso-sanitize/index.js",
+      "types": "./dist/components/lukso-sanitize/index.d.ts"
+    },
+    "./dist/components/lukso-tag": {
+      "require": "./dist/components/lukso-tag/index.cjs",
+      "import": "./dist/components/lukso-tag/index.js",
+      "types": "./dist/components/lukso-tag/index.d.ts"
+    },
+    "./dist/components/lukso-test": {
+      "require": "./dist/components/lukso-test/index.cjs",
+      "import": "./dist/components/lukso-test/index.js",
+      "types": "./dist/components/lukso-test/index.d.ts"
+    },
+    "./dist/components/lukso-username": {
+      "require": "./dist/components/lukso-username/index.cjs",
+      "import": "./dist/components/lukso-username/index.js",
+      "types": "./dist/components/lukso-username/index.d.ts"
+    },
+    "./dist/components/lukso-wizard": {
+      "require": "./dist/components/lukso-wizard/index.cjs",
+      "import": "./dist/components/lukso-wizard/index.js",
+      "types": "./dist/components/lukso-wizard/index.d.ts"
+    },
+    "./dist/shared/tailwind-element": {
+      "require": "./dist/shared/tailwind-element/index.cjs",
+      "import": "./dist/shared/tailwind-element/index.js",
+      "types": "./dist/shared/tailwind-element/index.d.ts"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,vue}": [
+      "prettier --list-different",
+      "eslint"
+    ],
+    "*.json": "prettier --list-different",
+    "*.ya?ml": "prettier --list-different",
+    "*.{scss,css,vue}": [
+      "prettier --list-different",
+      "stylelint"
+    ]
+  },
+  "dependencies": {
+    "ethereum-blockies-base64": "^1.0.2"
+  },
+  "customElements": "custom-elements.json"
+}

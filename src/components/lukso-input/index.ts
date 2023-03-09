@@ -1,6 +1,5 @@
 import { html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
-import { HTMLInputTypeAttribute } from 'react'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
@@ -14,7 +13,7 @@ export class LuksoInput extends TailwindElement {
   name = ''
 
   @property({ type: String })
-  type: HTMLInputTypeAttribute = 'text'
+  type = 'text'
 
   @property({ type: String })
   placeholder = ''
@@ -64,7 +63,7 @@ export class LuksoInput extends TailwindElement {
         data-testid="input"
         id=${this.name}
         name=${this.name}
-        type=${this.type}
+        type=${this.type as any}
         value=${this.value}
         placeholder=${this.placeholder}
         ?autofocus=${this.autofocus}

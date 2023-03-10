@@ -117,5 +117,8 @@ jobs:
 
       - name: 📢 Publish NPM
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ./package/.npmrc
-          (cd package && npm publish)
+          echo "npmAuthToken: $NODE_AUTH_TOKEN" >> ./.yarnrc.yml
+          (cd package && yarn npm publish)
+          git checkout -f ./.yarnrc.yml
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

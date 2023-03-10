@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.3](https://github.com/lukso-network/tools-web-components/compare/v1.7.2...v1.7.3) (2023-03-10)
+
+
+### Bug Fixes
+
+* Attempt to work with npm auth again ([#85](https://github.com/lukso-network/tools-web-components/issues/85)) ([27bca8e](https://github.com/lukso-network/tools-web-components/commit/27bca8e41af875e3b9590ba493f6f2e6e8996c05))
+
 ## [1.7.2](https://github.com/lukso-network/tools-web-components/compare/v1.7.1...v1.7.2) (2023-03-09)
 
 

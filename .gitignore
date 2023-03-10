@@ -10,7 +10,7 @@
 /storybook-static
 /.work
 /custom-elements.json
-/package/.npmrc
+/.npmrc
 
 # Yarn
 .pnp.*

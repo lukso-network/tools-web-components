@@ -162,35 +162,35 @@ async function writePackage() {
     },
     './tailwind.config': './tailwind.config.cjs',
     './postcss.config': './postcss.config.cjs',
-    './dist/assets/fonts/': './dist/assets/fonts/',
-    './dist/assets/fonts': {
-      require: './dist/assets/fonts/index.cjs',
-      import: './dist/assets/fonts/index.js',
-      types: './dist/assets/fonts/index.d.ts',
+    './tools/assets/fonts/': './tools/assets/fonts/',
+    './tools/assets/fonts': {
+      require: './tools/assets/fonts/index.cjs',
+      import: './tools/assets/fonts/index.js',
+      types: './tools/assets/fonts/index.d.ts',
     },
-    './dist/assets/images/': './dist/assets/images/',
-    './dist/assets/images': {
-      require: './dist/assets/images/index.cjs',
-      import: './dist/assets/images/index.js',
-      types: './dist/assets/images/index.d.ts',
+    './tools/assets/images/': './tools/assets/images/',
+    './tools/assets/images': {
+      require: './tools/assets/images/index.cjs',
+      import: './tools/assets/images/index.js',
+      types: './tools/assets/images/index.d.ts',
     },
-    './dist/assets/': './dist/assets/',
-    './dist/assets': {
-      require: './dist/assets/index.cjs',
-      import: './dist/assets/index.js',
-      types: './dist/assets/index.d.ts',
+    './tools/assets/': './tools/assets/',
+    './tools/assets': {
+      require: './tools/assets/index.cjs',
+      import: './tools/assets/index.js',
+      types: './tools/assets/index.d.ts',
     },
-    './dist/styles/': './dist/styles/',
-    './dist/styles': {
-      require: './dist/styles/index.cjs',
-      import: './dist/styles/index.js',
-      types: './dist/styles/index.d.ts',
+    './tools/styles/': './tools/styles/',
+    './tools/styles': {
+      require: './tools/styles/index.cjs',
+      import: './tools/styles/index.js',
+      types: './tools/styles/index.d.ts',
     },
-    './dist/sass/': './dist/sass/',
-    './dist/sass': {
-      require: './dist/sass/index.cjs',
-      import: './dist/sass/index.js',
-      types: './dist/sass/index.d.ts',
+    './tools/sass/': './tools/sass/',
+    './tools/sass': {
+      require: './tools/sass/index.cjs',
+      import: './tools/sass/index.js',
+      types: './tools/sass/index.d.ts',
     },
     './tools/color-palette': {
       require: './tools/color-palette.cjs',
@@ -264,31 +264,6 @@ export async function run(argv: any) {
       entry: './src/index.ts',
     },
     {
-      fileName: 'styles/index',
-      name: 'web_components_styles',
-      entry: './src/shared/styles/index.ts',
-    },
-    {
-      fileName: 'assets/index',
-      name: 'web_components_assets',
-      entry: './src/shared/assets/index.ts',
-    },
-    {
-      fileName: 'assets/fonts/index',
-      name: 'web_components_fonts',
-      entry: './src/shared/assets/fonts/index.ts',
-    },
-    {
-      fileName: 'assets/images/index',
-      name: 'web_components_images',
-      entry: './src/shared/assets/images/index.ts',
-    },
-    {
-      fileName: 'sass/index',
-      name: 'web_components_sass',
-      entry: './src/shared/styles/index.ts',
-    },
-    {
       fileName: 'color-palette',
       name: 'web_component_color_palette',
       entry: './src/shared/tools/color-palette.ts',
@@ -334,18 +309,6 @@ export async function run(argv: any) {
         viteStaticCopy({
           targets: [
             {
-              src: './src/shared/assets/fonts/*.woff2',
-              dest: 'assets/fonts',
-            },
-            {
-              src: './src/shared/assets/images/*.{png,svg,jpg,jpeg}',
-              dest: 'assets/images',
-            },
-            {
-              src: './src/shared/styles/**/*.scss',
-              dest: 'sass',
-            },
-            {
               src: ['./custom-elements.json', './LICENSE', './README.md'],
               dest: '..',
             },
@@ -361,20 +324,8 @@ export async function run(argv: any) {
           outputDir: './package/dist',
         }),
         dts({
-          include: ['./src/shared/assets'],
-          outputDir: './package/dist/assets',
-        }),
-        dts({
-          include: ['./src/shared/tools'],
+          include: ['./src/shared/tools/color-palette.ts'],
           outputDir: './package/dist',
-        }),
-        dts({
-          include: ['./src/shared/styles'],
-          outputDir: './package/dist/styles',
-        }),
-        dts({
-          include: ['./src/shared/styles'],
-          outputDir: './package/dist/sass',
         }),
       ].filter(item => item),
     })

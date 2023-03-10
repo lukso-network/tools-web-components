@@ -4,6 +4,8 @@
 *.scss.map
 /package/dist
 /package/tools
+/package/README.md
+/package/LICENSE
 /node_modules
 /storybook-static
 /.work

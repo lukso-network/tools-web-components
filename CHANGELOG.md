@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.4](https://github.com/lukso-network/tools-web-components/compare/v1.7.3...v1.7.4) (2023-03-10)
+
+
+### Bug Fixes
+
+* hover state for navbar title ([#87](https://github.com/lukso-network/tools-web-components/issues/87)) ([e3c7c59](https://github.com/lukso-network/tools-web-components/commit/e3c7c595a4306c4445091d0c46a42cad8a0552b4))
+
 ## [1.7.3](https://github.com/lukso-network/tools-web-components/compare/v1.7.2...v1.7.3) (2023-03-10)
 
 

@@ -48,11 +48,11 @@ export class LuksoInput extends TailwindElement {
   @state()
   private hasHighlight = false
 
-  private defaultInputStyles = `bg-neutral-100 text-neutral-20 paragraph-16-regular px-4 py-3
+  private defaultInputStyles = `bg-neutral-100 text-neutral-20 paragraph-inter-16-regular px-4 py-3
     border border-solid h-[48px] placeholder:text-neutral-70
     outline-none transition transition-all duration-150 appearance-none`
 
-  private defaultUnitStyles = `paragraph-12-regular text-neutral-60 flex px-3.5 items-center relative
+  private defaultUnitStyles = `paragraph-inter-12-regular text-neutral-60 flex px-3.5 items-center relative
     border border-solid h-[48px] transition transition-all duration-150
     rounded-r-xl border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0
     before:w-[1px] before:h-[24px] whitespace-nowrap`
@@ -94,7 +94,9 @@ export class LuksoInput extends TailwindElement {
 
   labelTemplate() {
     return html`
-      <label for=${this.name} class="heading-h5 text-neutral-20 pb-2 block"
+      <label
+        for=${this.name}
+        class="heading-inter-14-bold text-neutral-20 pb-2 block"
         >${this.label}</label
       >
     `
@@ -102,14 +104,14 @@ export class LuksoInput extends TailwindElement {
 
   descriptionTemplate() {
     return html`
-      <div class="paragraph-12-regular text-neutral-20 pb-2">
+      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
         ${this.description ?? nothing}
       </div>
     `
   }
 
   errorTemplate() {
-    return html`<div class="paragraph-12-regular text-red-65 pt-2">
+    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
       ${this.error}
     </div>`
   }

@@ -4,139 +4,159 @@
   * This file contains all typography classes used in designs.
   * They should be used instead of individual font attributes.
   *
-  * You can use them same as the normal Tailwind classes, e.g.: class="heading-1"
+  * You can use them same as the normal Tailwind classes, e.g.: class="heading-inter-26-semi-bold"
   */
 
 @layer base {
-  .heading-h1 {
+  // Headers - Inter
+
+  .heading-inter-26-semi-bold {
     @apply text-26 not-italic font-600 leading-31 font-inter;
   }
 
-  .heading-h2 {
+  .heading-inter-21-semi-bold {
     @apply text-21 not-italic font-600 leading-26 font-inter;
   }
 
-  .heading-h3 {
+  .heading-inter-17-semi-bold {
     @apply text-17 not-italic font-600 leading-22 font-inter;
   }
 
-  .heading-h4 {
+  .heading-inter-12-bold-uppercase {
     @apply text-12 not-italic font-700 leading-15 font-inter uppercase tracking-[.02em];
   }
 
-  .heading-h5 {
+  .heading-inter-14-bold {
     @apply text-14 not-italic font-700 leading-17 font-inter;
   }
 
-  .heading-h1-medium-apax {
-    @apply text-44 not-italic font-500 leading-40 font-apax;
+  // Headers - Apax
+
+  .heading-apax-48-regular {
+    @apply text-48 not-italic font-400 leading-58 font-apax;
   }
 
-  .heading-h1-regular-apax {
+  .heading-apax-48-bold {
+    @apply text-48 not-italic font-500 leading-58 font-apax;
+  }
+
+  .heading-apax-44-regular {
     @apply text-44 not-italic font-400 leading-40 font-apax;
   }
 
-  .heading-h2-medium-apax {
+  .heading-apax-44-medium {
+    @apply text-44 not-italic font-500 leading-40 font-apax;
+  }
+
+  .heading-apax-40-regular {
+    @apply text-40 not-italic font-400 leading-48 font-apax;
+  }
+
+  .heading-apax-40-bold {
+    @apply text-40 not-italic font-500 leading-48 font-apax;
+  }
+
+  .heading-apax-32-regular {
+    @apply text-32 not-italic font-400 leading-38 font-apax;
+  }
+
+  .heading-apax-32-medium {
+    @apply text-32 not-italic font-500 leading-38 font-apax;
+  }
+
+  .heading-apax-24-medium {
     @apply text-24 not-italic font-500 leading-28 font-apax;
   }
 
-  .heading-h3-medium-apax {
-    @apply text-16 not-italic font-500 leading-19 font-apax;
+  // Navbar
+
+  .nav-apax-14-medium-uppercase {
+    @apply text-14 not-italic font-500 leading-17 font-apax uppercase tracking-[.08em];
   }
 
-  .heading-h4-medium-apax {
-    @apply text-14 not-italic font-500 leading-20 font-apax;
+  .nav-apax-12-medium-uppercase {
+    @apply text-12 not-italic font-500 leading-14 font-apax uppercase tracking-[.08em];
   }
 
-  .heading-h4-medium-uppercase-apax {
-    @apply text-14 not-italic font-500 leading-20 font-apax uppercase tracking-[.08em];
+  .nav-apax-10-regular {
+    @apply text-10 not-italic font-400 leading-12 font-apax;
   }
 
-  .heading-h5-medium-apax {
-    @apply text-8 not-italic font-500 leading-10 font-apax;
-  }
-
-  .heading-h5-medium-uppercase-apax {
+  .nav-apax-8-medium-uppercase {
     @apply text-8 not-italic font-500 leading-10 font-apax uppercase tracking-[.08em];
   }
 
   // Paragraph
 
-  .paragraph-16-regular {
+  .paragraph-inter-16-regular {
     @apply text-16 not-italic font-400 leading-24 font-inter;
   }
 
-  .paragraph-16-semi-bold {
+  .paragraph-inter-16-semi-bold {
     @apply text-16 not-italic font-600 leading-24 font-inter;
   }
 
-  .paragraph-14-regular {
+  .paragraph-inter-16-bold-underlined {
+    @apply text-16 not-italic font-600 leading-24 font-inter underline;
+  }
+
+  .paragraph-inter-14-regular {
     @apply text-14 not-italic font-400 leading-22 font-inter;
   }
 
-  .paragraph-14-medium {
+  .paragraph-inter-14-medium {
     @apply text-14 not-italic font-500 leading-22 font-inter;
   }
 
-  .paragraph-14-semi-bold {
+  .paragraph-inter-14-semi-bold {
     @apply text-14 not-italic font-600 leading-22 font-inter;
   }
 
-  .paragraph-12-regular {
-    @apply text-12 not-italic font-400 leading-20 font-inter;
-  }
-
-  .paragraph-12-medium {
-    @apply text-12 not-italic font-500 leading-20 font-inter;
-  }
-
-  .paragraph-12-semi-bold {
-    @apply text-12 not-italic font-600 leading-20 font-inter;
-  }
-
-  // Currency
-
-  .currency-10-semi-bold {
-    @apply text-10 not-italic font-600 leading-12 font-inter;
-  }
-
-  .currency-10-bold-uppercase {
-    @apply text-10 not-italic font-700 leading-12 font-inter uppercase;
-  }
-
-  .currency-14-semi-bold {
-    @apply text-14 not-italic font-600 leading-17 font-inter;
-  }
-
-  // utility
-
-  .link {
-    @apply text-17 not-italic font-600 leading-22 font-inter;
-  }
-
-  .button-text {
-    @apply text-17 not-italic font-600 leading-17 font-inter;
-  }
-
-  .caption {
+  .paragraph-inter-13-regular {
     @apply text-13 not-italic font-400 leading-20 font-inter;
   }
 
-  // Monospaced
+  .paragraph-inter-12-regular {
+    @apply text-12 not-italic font-400 leading-20 font-inter;
+  }
 
-  .monospaced-16-regular {
+  .paragraph-inter-12-medium {
+    @apply text-12 not-italic font-500 leading-20 font-inter;
+  }
+
+  .paragraph-inter-12-semi-bold {
+    @apply text-12 not-italic font-600 leading-20 font-inter;
+  }
+
+  .paragraph-inter-10-semi-bold {
+    @apply text-10 not-italic font-600 leading-12 font-inter;
+  }
+
+  .paragraph-inter-10-bold-uppercase {
+    @apply text-10 not-italic font-700 leading-12 font-inter uppercase;
+  }
+
+  .paragraph-ptmono-16-regular {
     @apply text-16 not-italic font-400 leading-22 font-mono;
   }
 
-  .monospaced-16-bold {
+  .paragraph-ptmono-16-bold {
     @apply text-16 not-italic font-700 leading-22 font-mono;
   }
 
-  .monospaced-12-bold {
+  .paragraph-ptmono-12-bold {
     @apply text-12 not-italic font-700 leading-14 font-mono;
   }
 
-  .monospaced-10-bold {
+  .paragraph-ptmono-12-regular {
+    @apply text-12 not-italic font-400 leading-14 font-mono;
+  }
+
+  .paragraph-ptmono-10-bold {
     @apply text-10 not-italic font-700 leading-14 font-mono;
+  }
+
+  .paragraph-ptmono-10-regular {
+    @apply text-10 not-italic font-400 leading-14 font-mono;
   }
 }

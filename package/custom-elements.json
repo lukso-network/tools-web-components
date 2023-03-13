@@ -283,13 +283,13 @@
               "kind": "field",
               "name": "mediumSize",
               "privacy": "private",
-              "default": "`py-3 px-6 paragraph-16-semi-bold rounded-xl`"
+              "default": "`py-3 px-6 paragraph-inter-16-semi-bold rounded-xl`"
             },
             {
               "kind": "field",
               "name": "smallSize",
               "privacy": "private",
-              "default": "`py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`"
+              "default": "`py-1 px-3 paragraph-inter-12-regular rounded-lg hover:shadow-none active:shadow-none`"
             },
             {
               "kind": "method",
@@ -815,13 +815,13 @@
               "kind": "field",
               "name": "defaultInputStyles",
               "privacy": "private",
-              "default": "`bg-neutral-100 text-neutral-20 paragraph-16-regular px-4 py-3\n    border border-solid h-[48px] placeholder:text-neutral-70\n    outline-none transition transition-all duration-150 appearance-none`"
+              "default": "`bg-neutral-100 text-neutral-20 paragraph-inter-16-regular px-4 py-3\n    border border-solid h-[48px] placeholder:text-neutral-70\n    outline-none transition transition-all duration-150 appearance-none`"
             },
             {
               "kind": "field",
               "name": "defaultUnitStyles",
               "privacy": "private",
-              "default": "`paragraph-12-regular text-neutral-60 flex px-3.5 items-center relative\n    border border-solid h-[48px] transition transition-all duration-150\n    rounded-r-xl border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0\n    before:w-[1px] before:h-[24px] whitespace-nowrap`"
+              "default": "`paragraph-inter-12-regular text-neutral-60 flex px-3.5 items-center relative\n    border border-solid h-[48px] transition transition-all duration-150\n    rounded-r-xl border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0\n    before:w-[1px] before:h-[24px] whitespace-nowrap`"
             },
             {
               "kind": "method",
@@ -1503,13 +1503,13 @@
               "kind": "field",
               "name": "smallStyles",
               "privacy": "private",
-              "default": "`paragraph-12-medium h-[28px]`"
+              "default": "`paragraph-inter-12-medium h-[28px]`"
             },
             {
               "kind": "field",
               "name": "largeStyles",
               "privacy": "private",
-              "default": "`paragraph-14-medium h-[34px]`"
+              "default": "`paragraph-inter-14-medium h-[34px]`"
             },
             {
               "kind": "method",
@@ -2145,6 +2145,29 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/assets/images/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "images",
+          "type": {
+            "text": "string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "images",
+          "declaration": {
+            "name": "images",
+            "module": "src/shared/assets/images/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/assets/fonts/index.ts",
       "declarations": [
         {
@@ -2206,29 +2229,6 @@
           "declaration": {
             "name": "customClassMap",
             "module": "src/shared/directives/custom-class-map/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/images/index.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "images",
-          "type": {
-            "text": "string"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "images",
-          "declaration": {
-            "name": "images",
-            "module": "src/shared/assets/images/index.ts"
           }
         }
       ]

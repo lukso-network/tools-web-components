@@ -69,9 +69,9 @@ export class LuksoButton extends TailwindElement {
 
   private noTransitionStyles = `before:transition-none`
 
-  private mediumSize = `py-3 px-6 paragraph-16-semi-bold rounded-xl`
+  private mediumSize = `py-3 px-6 paragraph-inter-16-semi-bold rounded-xl`
 
-  private smallSize = `py-1 px-3 paragraph-12-regular rounded-lg hover:shadow-none active:shadow-none`
+  private smallSize = `py-1 px-3 paragraph-inter-12-regular rounded-lg hover:shadow-none active:shadow-none`
 
   private handleMouseDown() {
     // Additional check for using long press on non-primary and non-landing variants

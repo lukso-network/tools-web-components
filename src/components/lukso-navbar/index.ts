@@ -40,7 +40,7 @@ export class LuksoNavbar extends TailwindElement {
         })}
       >
         <div
-          class="flex items-center px-10 h-full cursor-pointer"
+          class="flex items-center px-7 h-full cursor-pointer sm:px-10"
           @click=${this._onBrandClick}
         >
           <img src="/assets/images/lukso-logo.svg" class="mr-4" />

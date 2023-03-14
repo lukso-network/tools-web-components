@@ -3,5 +3,5 @@
 }
 
 :host([is-full-width]) {
-  @apply flex;
+  @apply flex w-full;
 }

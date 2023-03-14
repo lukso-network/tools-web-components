@@ -166,6 +166,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
           [this.landingStyles]: this.variant === 'landing',
           [this.textStyles]: this.variant === 'text',
           [this.linkStyles]: this.variant === 'text',
+          ['w-full']: this.isFullWidth,
         })}
         href=${this.href}
         target=${this.target}

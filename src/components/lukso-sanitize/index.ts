@@ -10,8 +10,12 @@ export class LuksoSanitize extends TailwindElement {
   @property({ type: String, attribute: 'html-content' })
   htmlContent = ''
 
-  private sanitize() {
-    return DOMPurify.sanitize(this.htmlContent)
+  private options = {
+    ADD_ATTR: ['target'], // allow target attribute on anchor tags
+  }
+
+  sanitize() {
+    return DOMPurify.sanitize(this.htmlContent, this.options)
   }
 
   render() {

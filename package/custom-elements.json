@@ -1503,9 +1503,17 @@
               "attribute": "html-content"
             },
             {
+              "kind": "field",
+              "name": "options",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    ADD_ATTR: ['target'],\n  }"
+            },
+            {
               "kind": "method",
-              "name": "sanitize",
-              "privacy": "private"
+              "name": "sanitize"
             }
           ],
           "attributes": [

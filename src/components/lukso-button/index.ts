@@ -1,16 +1,18 @@
 import { html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
+import style from './style.scss?inline'
 
-export type ButtonVariants = 'primary' | 'secondary' | 'landing' | 'link'
+export type ButtonVariants = 'primary' | 'secondary' | 'landing' | 'text'
 export type ButtonSizes = 'small' | 'medium'
+export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
 
 const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
 
 @customElement('lukso-button')
-export class LuksoButton extends TailwindElement {
+export class LuksoButton extends TailwindStyledElement(style) {
   @property({ type: String })
   variant: ButtonVariants = 'primary'
 
@@ -25,6 +27,18 @@ export class LuksoButton extends TailwindElement {
 
   @property({ type: Boolean, attribute: 'is-long-press' })
   isLongPress = false
+
+  @property({ type: Boolean, attribute: 'is-link' })
+  isLink = false
+
+  @property({ type: String })
+  href = ''
+
+  @property({ type: String })
+  target: LinkTarget = '_blank'
+
+  @property({ type: String })
+  rel = ''
 
   @state()
   private isPressed = false
@@ -56,10 +70,12 @@ export class LuksoButton extends TailwindElement {
     active:shadow-button-press-primary
     before:bg-purple-51`
 
-  private linkStyles = `bg-transparent border-none text-neutral-20
+  private textStyles = `bg-transparent border-none text-neutral-20
     hover:text-neutral-35
     active:text-neutral-35 active:scale-100
     disabled:text-neutral-90`
+
+  private linkStyles = `!p-0 active:!scale-100 underline text-purple-51 hover:text-purple-41`
 
   private longPressStyles = `relative overflow-hidden z-[1] active:outline-0
     before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-[48px]
@@ -110,7 +126,7 @@ export class LuksoButton extends TailwindElement {
     this.timer && clearTimeout(this.timer)
   }
 
-  render() {
+  buttonTemplate() {
     return html`
       <button
         data-testid="button"
@@ -122,7 +138,7 @@ export class LuksoButton extends TailwindElement {
           [this.primaryStyles]: this.variant === 'primary',
           [this.secondaryStyles]: this.variant === 'secondary',
           [this.landingStyles]: this.variant === 'landing',
-          [this.linkStyles]: this.variant === 'link',
+          [this.textStyles]: this.variant === 'text',
           ['w-full']: this.isFullWidth,
           [this.longPressStyles]: this.isLongPress,
           [this.pressedStyles]: this.isPressed,
@@ -135,6 +151,33 @@ export class LuksoButton extends TailwindElement {
         <slot></slot>
       </button>
     `
+  }
+
+  linkTemplate() {
+    return html`
+      <a
+        data-testid="link"
+        class=${customClassMap({
+          [this.defaultStyles]: true,
+          [this.mediumSize]: this.size === 'medium',
+          [this.smallSize]: this.size === 'small',
+          [this.primaryStyles]: this.variant === 'primary',
+          [this.secondaryStyles]: this.variant === 'secondary',
+          [this.landingStyles]: this.variant === 'landing',
+          [this.textStyles]: this.variant === 'text',
+          [this.linkStyles]: this.variant === 'text',
+        })}
+        href=${this.href}
+        target=${this.target}
+        rel=${this.rel}
+      >
+        <slot></slot>
+      </a>
+    `
+  }
+
+  render() {
+    return html` ${this.isLink ? this.linkTemplate() : this.buttonTemplate()} `
   }
 }
 

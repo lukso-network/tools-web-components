@@ -17,7 +17,7 @@ export class LuksoModal extends TailwindElement {
   private wrapperStyles = `opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6 animate-fade-in animation-duration-200`
   private openStyles = `flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh]`
   private overlayStyles = `bg-[rgba(36,53,66,0.8)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999]`
-  private dialogStyles = `bg-neutral-98 rounded-xl shadow-neutral-drop-shadow-3xl z-[1001]`
+  private dialogStyles = `bg-neutral-98 rounded-12 shadow-neutral-drop-shadow-3xl z-[1001]`
 
   private close() {
     this.isOpen = false

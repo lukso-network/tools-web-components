@@ -29,7 +29,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-fixed-height' })
   isFixedHeight = false
 
-  private defaultStyles = `rounded-3xl  shadow-pink-drop-shadow-2xl`
+  private defaultStyles = `rounded-24  shadow-pink-drop-shadow-2xl`
 
   basicTemplate() {
     return html`
@@ -59,7 +59,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
         <div>
           <slot name="header"></slot>
         </div>
-        <div class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-3xl">
+        <div class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-24">
           <slot name="content"></slot>
         </div>
       </div>
@@ -87,7 +87,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           ></div>
         </div>
         <div
-          class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-3xl relative"
+          class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-24 relative"
         >
           <lukso-profile
             profile-url=${this.profileUrl}

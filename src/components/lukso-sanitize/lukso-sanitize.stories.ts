@@ -20,7 +20,7 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['sanitize', 'html-content'],
+      exclude: ['sanitize', 'html-content', 'options'],
     },
   },
 }

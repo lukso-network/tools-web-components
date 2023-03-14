@@ -59,8 +59,8 @@ const Template = ({ size }) => {
     >
     <lukso-modal ?is-open=${isOpen} size=${size}>
       <div class="p-6">
-        <h1 class="heading-h1 pb-4">Lorem ipsum</h1>
-        <p class="paragraph-16-regular">
+        <h1 class="heading-inter-26-semi-bold pb-4">Lorem ipsum</h1>
+        <p class="paragraph-inter-16-regular">
           Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
           posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel,
           ullamcorper sit amet ligula. Proin eget tortor risus.

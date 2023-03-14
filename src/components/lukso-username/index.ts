@@ -89,8 +89,8 @@ export class LuksoUsername extends TailwindElement {
 
     return html`<div
       class="inline-flex ${customClassMap({
-        'monospaced-12-bold': this.size === 'small',
-        'monospaced-16-bold': this.size === 'large',
+        'paragraph-ptmono-12-bold': this.size === 'small',
+        'paragraph-ptmono-16-bold': this.size === 'large',
       })}"
     >
       ${template}

@@ -22,8 +22,8 @@ export class LuksoTag extends TailwindElement {
   textColor = ''
 
   private defaultStyles = `inline-flex items-center justify-center border border-neutral-20 text-neutral-20`
-  private smallStyles = `paragraph-12-medium h-[28px]`
-  private largeStyles = `paragraph-14-medium h-[34px]`
+  private smallStyles = `paragraph-inter-12-medium h-[28px]`
+  private largeStyles = `paragraph-inter-14-medium h-[34px]`
 
   private padding() {
     if (this.size === 'small' && this.isRounded) {

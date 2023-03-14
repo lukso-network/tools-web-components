@@ -14,10 +14,15 @@ const meta: Meta = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'landing', 'link'],
+      options: ['primary', 'secondary', 'landing', 'text'],
+    },
+    isLink: {
+      control: { type: 'boolean' },
+      description: 'If true, button will be rendered as a link',
     },
     disabled: {
       control: { type: 'boolean' },
+      if: { arg: 'isLink', truthy: false },
     },
     text: {
       control: { type: 'text' },
@@ -28,9 +33,24 @@ const meta: Meta = {
     },
     isFullWidth: {
       control: { type: 'boolean' },
+      if: { arg: 'isLink', truthy: false },
     },
     isLongPress: {
       control: { type: 'boolean' },
+      if: { arg: 'isLink', truthy: false },
+    },
+    href: {
+      control: { type: 'text' },
+      if: { arg: 'isLink' },
+    },
+    target: {
+      control: { type: 'select' },
+      options: ['_blank', '_self', '_parent', '_top'],
+      if: { arg: 'isLink' },
+    },
+    rel: {
+      control: { type: 'text' },
+      if: { arg: 'isLink' },
     },
     onLongPressComplete: {
       description: 'Emitted when long press is completed',
@@ -41,11 +61,15 @@ const meta: Meta = {
   },
   args: {
     text: 'Hello World',
+    isLink: false,
     disabled: false,
     size: 'medium',
     variant: 'primary',
     isFullWidth: false,
     isLongPress: false,
+    href: 'https://lukso.network',
+    target: '_blank',
+    rel: 'noopener noreferrer',
   },
   parameters: {
     controls: {
@@ -54,7 +78,9 @@ const meta: Meta = {
         'secondaryStyles',
         'primaryStyles',
         'landingStyles',
+        'textStyles',
         'linkStyles',
+        'buttonStyles',
         'mediumSize',
         'smallSize',
         'is-full-width',
@@ -67,6 +93,9 @@ const meta: Meta = {
         'noTransitionStyles',
         'handleMouseDown',
         'handleMouseUp',
+        'is-link',
+        'custom-class',
+        'styles',
       ],
     },
   },
@@ -81,6 +110,10 @@ const Template = ({
   size,
   isFullWidth,
   isLongPress,
+  isLink,
+  href,
+  target,
+  rel,
 }) =>
   html`<lukso-button
     variant=${variant}
@@ -88,6 +121,10 @@ const Template = ({
     size=${size}
     ?is-full-width=${isFullWidth}
     ?is-long-press=${isLongPress}
+    ?is-link=${isLink}
+    href=${href}
+    target=${target}
+    rel=${rel}
     >${text}</lukso-button
   >`
 
@@ -150,15 +187,15 @@ Landing.parameters = {
   },
 }
 
-/** Example of `link` variant.  */
-export const Link = Template.bind({})
-Link.args = {
-  variant: 'link',
+/** Example of `text` variant.  */
+export const Text = Template.bind({})
+Text.args = {
+  variant: 'text',
 }
-Link.parameters = {
+Text.parameters = {
   design: {
     type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9822&t=AGmdbG8fXRENuU3o-4',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9912&t=AGmdbG8fXRENuU3o-4',
   },
 }
 
@@ -216,5 +253,22 @@ IconButton.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9905&t=JAexoWba0Re3ntDk-4',
+  },
+}
+
+/** If you add `is-link` attribute it will use `<a>` tag instead of `<button>`.
+ * In that case you can also use link related attributes like `href`, `target` or `rel`.  */
+export const Link = Template.bind({})
+Link.args = {
+  variant: 'text',
+  isLink: true,
+  href: 'https://lukso.network',
+  target: '_blank',
+  rel: 'noopener noreferrer',
+}
+Link.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9822&t=AGmdbG8fXRENuU3o-4',
   },
 }

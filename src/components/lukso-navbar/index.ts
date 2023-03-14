@@ -45,8 +45,7 @@ export class LuksoNavbar extends TailwindElement {
         >
           <img src="/assets/images/lukso-logo.svg" class="mr-4" />
           <div
-            class="text-purple-51 nav-apax-14-medium-uppercase whitespace-pre-line flex leading-none
-              hover:text-purple-41"
+            class="text-purple-51 nav-apax-14-medium-uppercase whitespace-pre-line flex leading-none"
           >
             ${this.title}
           </div>

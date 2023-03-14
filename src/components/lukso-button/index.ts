@@ -79,15 +79,15 @@ export class LuksoButton extends TailwindStyledElement(style) {
 
   private longPressStyles = `relative overflow-hidden z-[1] active:outline-0
     before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-[48px]
-    before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-none`
+    before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-0`
 
   private pressedStyles = `before:w-full before:z-[-1]`
 
   private noTransitionStyles = `before:transition-none`
 
-  private mediumSize = `py-3 px-6 paragraph-inter-16-semi-bold rounded-xl`
+  private mediumSize = `py-3 px-6 paragraph-inter-16-semi-bold rounded-12`
 
-  private smallSize = `py-1 px-3 paragraph-inter-12-regular rounded-lg hover:shadow-none active:shadow-none`
+  private smallSize = `py-1 px-3 paragraph-inter-12-regular rounded-8 hover:shadow-none active:shadow-none`
 
   private handleMouseDown() {
     // Additional check for using long press on non-primary and non-landing variants

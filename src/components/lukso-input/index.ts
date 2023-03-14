@@ -54,7 +54,7 @@ export class LuksoInput extends TailwindElement {
 
   private defaultUnitStyles = `paragraph-inter-12-regular text-neutral-60 flex px-3.5 items-center relative
     border border-solid h-[48px] transition transition-all duration-150
-    rounded-r-xl border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0
+    rounded-r-12 border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0
     before:w-[1px] before:h-[24px] whitespace-nowrap`
 
   inputTemplate() {
@@ -75,8 +75,8 @@ export class LuksoInput extends TailwindElement {
             !this.hasHighlight,
           [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
             this.hasHighlight,
-          ['rounded-l-xl border-r-0']: this.unit !== '',
-          ['rounded-xl']: this.unit === '',
+          ['rounded-l-12 border-r-0']: this.unit !== '',
+          ['rounded-12']: this.unit === '',
           ['w-full']: this.isFullWidth,
           ['w-[350px]']: !this.isFullWidth && this.unit === '',
           ['w-[300px]']: !this.isFullWidth && this.unit !== '',

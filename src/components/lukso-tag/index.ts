@@ -45,7 +45,7 @@ export class LuksoTag extends TailwindElement {
           [this.defaultStyles]: true,
           [this.padding()]: true,
           ['rounded-[56px]']: this.isRounded,
-          ['rounded-lg']: !this.isRounded,
+          ['rounded-8']: !this.isRounded,
           [this.smallStyles]: this.size === 'small',
           [this.largeStyles]: this.size === 'large',
         })}

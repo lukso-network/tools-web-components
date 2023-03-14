@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.8.0](https://github.com/lukso-network/tools-web-components/compare/v1.7.4...v1.8.0) (2023-03-14)
+
+
+### Features
+
+* border radius extensions ([#93](https://github.com/lukso-network/tools-web-components/issues/93)) ([446795a](https://github.com/lukso-network/tools-web-components/commit/446795aa56746d1c9884dbd4a45423f9f102e5dc))
+* link component ([#92](https://github.com/lukso-network/tools-web-components/issues/92)) ([7360300](https://github.com/lukso-network/tools-web-components/commit/73603002676cfd5afa81e8675165ae3de5bc02c4))
+* rework typography ([#91](https://github.com/lukso-network/tools-web-components/issues/91)) ([410b1d5](https://github.com/lukso-network/tools-web-components/commit/410b1d578cf524216f6456baa7a3d702b92bd569))
+
+
+### Bug Fixes
+
+* navbar paddings in mobile ([#89](https://github.com/lukso-network/tools-web-components/issues/89)) ([889d815](https://github.com/lukso-network/tools-web-components/commit/889d815409b41dd82040b58bbd50242d71af4cf5))
+
 ## [1.7.4](https://github.com/lukso-network/tools-web-components/compare/v1.7.3...v1.7.4) (2023-03-10)
 
 

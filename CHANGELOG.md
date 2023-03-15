@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.1](https://github.com/lukso-network/tools-web-components/compare/v1.8.0...v1.8.1) (2023-03-15)
+
+
+### Bug Fixes
+
+* allow target attribute in links ([#94](https://github.com/lukso-network/tools-web-components/issues/94)) ([6e5ce6a](https://github.com/lukso-network/tools-web-components/commit/6e5ce6ae6ebb4302f99188daacc8f63dfcb35c45))
+* issue with button in full width mode ([#95](https://github.com/lukso-network/tools-web-components/issues/95)) ([802cd8c](https://github.com/lukso-network/tools-web-components/commit/802cd8cabc79e2559c414a2c9aab31395934a0c1))
+
 ## [1.8.0](https://github.com/lukso-network/tools-web-components/compare/v1.7.4...v1.8.0) (2023-03-14)
 
 

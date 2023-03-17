@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.9.0](https://github.com/lukso-network/tools-web-components/compare/v1.8.1...v1.9.0) (2023-03-17)
+
+
+### Features
+
+* add browser logos ([#100](https://github.com/lukso-network/tools-web-components/issues/100)) ([17d85d4](https://github.com/lukso-network/tools-web-components/commit/17d85d457d3cdff836b44806dfb6ad1af50f44a9))
+
+
+### Bug Fixes
+
+* center align text in buttons ([#97](https://github.com/lukso-network/tools-web-components/issues/97)) ([6cc2b91](https://github.com/lukso-network/tools-web-components/commit/6cc2b91f2fae59e855516b55c3f430da5149072e))
+
 ## [1.8.1](https://github.com/lukso-network/tools-web-components/compare/v1.8.0...v1.8.1) (2023-03-15)
 
 

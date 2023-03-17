@@ -56,6 +56,11 @@ import { login } from './icons/login'
 import { login2 } from './icons/login-2'
 import { login3 } from './icons/login-3'
 import { logoChrome } from './icons/logo-chrome'
+import { logoBrave } from './icons/logo-brave'
+import { logoEdge } from './icons/logo-edge'
+import { logoFirefox } from './icons/logo-firefox'
+import { logoOpera } from './icons/logo-opera'
+import { logoSafari } from './icons/logo-safari'
 import { mail } from './icons/mail'
 import { menu1 } from './icons/menu-1'
 import { menu2 } from './icons/menu-2'
@@ -112,6 +117,7 @@ import { progressIndicator } from './icons/progress-indicator'
 import { pulseDot } from './icons/pulse-dot'
 import { progressComplete } from './icons/progress-complete'
 import { completeFilledFadeIn } from './icons/complete-filled-fade-in'
+import { desktopSharp } from './icons/desktop-sharp'
 
 export type IconOptions = {
   width: number
@@ -183,6 +189,11 @@ const iconMap = {
   'login-2': login2,
   'login-3': login3,
   'logo-chrome': logoChrome,
+  'logo-brave': logoBrave,
+  'logo-edge': logoEdge,
+  'logo-firefox': logoFirefox,
+  'logo-opera': logoOpera,
+  'logo-safari': logoSafari,
   mail,
   'menu-1': menu1,
   'menu-2': menu2,
@@ -239,6 +250,7 @@ const iconMap = {
   'pulse-dot': pulseDot,
   'progress-complete': progressComplete,
   'complete-filled-fade-in': completeFilledFadeIn,
+  'desktop-sharp': desktopSharp,
 }
 
 @customElement('lukso-icon')

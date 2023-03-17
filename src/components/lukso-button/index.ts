@@ -5,8 +5,8 @@ import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 import style from './style.scss?inline'
 
-export type ButtonVariants = 'primary' | 'secondary' | 'landing' | 'text'
-export type ButtonSizes = 'small' | 'medium'
+export type ButtonVariant = 'primary' | 'secondary' | 'landing' | 'text'
+export type ButtonSize = 'small' | 'medium'
 export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
 
 const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
@@ -14,10 +14,10 @@ const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
 @customElement('lukso-button')
 export class LuksoButton extends TailwindStyledElement(style) {
   @property({ type: String })
-  variant: ButtonVariants = 'primary'
+  variant: ButtonVariant = 'primary'
 
   @property({ type: String })
-  size: ButtonSizes = 'medium'
+  size: ButtonSize = 'medium'
 
   @property({ type: Boolean })
   disabled = false
@@ -52,20 +52,19 @@ export class LuksoButton extends TailwindStyledElement(style) {
   private defaultStyles = `flex justify-center items-center relative
     border border-solid cursor-pointer transition duration-0
     hover:duration-250 active:scale-98 active:duration-25
-    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100`
+    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100 disabled:opacity-50`
 
   private secondaryStyles = `bg-neutral-100 border-neutral-90 text-neutral-20
-    disabled:bg-neutral-90 disabled:border-neutral-90 disabled:text-neutral-100
     hover:shadow-button-hover-secondary active:shadow-button-press-secondary`
 
   private primaryStyles = `bg-neutral-20 border-neutral-20 text-neutral-100
-    disabled:bg-neutral-90 disabled:border-neutral-90
+    disabled:hover:!bg-neutral-20 disabled:hover:!border-neutral-20
     hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25
     active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25
     before:bg-neutral-10`
 
   private landingStyles = `bg-purple-51 border-purple-51 text-neutral-100
-    disabled:bg-neutral-90 disabled:border-neutral-90
+    disabled:hover:!bg-purple-51 disabled:hover:!border-purple-51
     hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58
     active:shadow-button-press-primary
     before:bg-purple-51`

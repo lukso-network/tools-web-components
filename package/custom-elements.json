@@ -163,7 +163,7 @@
               "kind": "field",
               "name": "variant",
               "type": {
-                "text": "ButtonVariants"
+                "text": "ButtonVariant"
               },
               "default": "'primary'",
               "attribute": "variant"
@@ -172,7 +172,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "ButtonSizes"
+                "text": "ButtonSize"
               },
               "default": "'medium'",
               "attribute": "size"
@@ -271,25 +271,25 @@
               "kind": "field",
               "name": "defaultStyles",
               "privacy": "private",
-              "default": "`flex justify-center items-center relative text-center\n    border border-solid cursor-pointer transition duration-0\n    hover:duration-250 active:scale-98 active:duration-25\n    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100`"
+              "default": "`flex justify-center items-center relative text-center\n    border border-solid cursor-pointer transition duration-0\n    hover:duration-250 active:scale-98 active:duration-25\n    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100 disabled:opacity-50`"
             },
             {
               "kind": "field",
               "name": "secondaryStyles",
               "privacy": "private",
-              "default": "`bg-neutral-100 border-neutral-90 text-neutral-20\n    disabled:bg-neutral-90 disabled:border-neutral-90 disabled:text-neutral-100\n    hover:shadow-button-hover-secondary active:shadow-button-press-secondary`"
+              "default": "`bg-neutral-100 border-neutral-90 text-neutral-20\n    hover:shadow-button-hover-secondary active:shadow-button-press-secondary`"
             },
             {
               "kind": "field",
               "name": "primaryStyles",
               "privacy": "private",
-              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25\n    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25\n    before:bg-neutral-10`"
+              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:hover:!bg-neutral-20 disabled:hover:!border-neutral-20\n    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25\n    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25\n    before:bg-neutral-10`"
             },
             {
               "kind": "field",
               "name": "landingStyles",
               "privacy": "private",
-              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:bg-neutral-90 disabled:border-neutral-90\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary\n    before:bg-purple-51`"
+              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:hover:!bg-purple-51 disabled:hover:!border-purple-51\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary\n    before:bg-purple-51`"
             },
             {
               "kind": "field",
@@ -365,7 +365,7 @@
             {
               "name": "variant",
               "type": {
-                "text": "ButtonVariants"
+                "text": "ButtonVariant"
               },
               "default": "'primary'",
               "fieldName": "variant"
@@ -373,7 +373,7 @@
             {
               "name": "size",
               "type": {
-                "text": "ButtonSizes"
+                "text": "ButtonSize"
               },
               "default": "'medium'",
               "fieldName": "size"
@@ -2250,29 +2250,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/assets/fonts/index.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "fonts",
-          "type": {
-            "text": "string"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "fonts",
-          "declaration": {
-            "name": "fonts",
-            "module": "src/shared/assets/fonts/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/shared/assets/images/index.ts",
       "declarations": [
         {
@@ -2290,6 +2267,29 @@
           "declaration": {
             "name": "images",
             "module": "src/shared/assets/images/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/fonts/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "fonts",
+          "type": {
+            "text": "string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "fonts",
+          "declaration": {
+            "name": "fonts",
+            "module": "src/shared/assets/fonts/index.ts"
           }
         }
       ]

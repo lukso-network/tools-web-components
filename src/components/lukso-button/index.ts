@@ -90,7 +90,11 @@ export class LuksoButton extends TailwindStyledElement(style) {
 
   private handleMouseDown() {
     // Additional check for using long press on non-primary and non-landing variants
-    if (this.variant !== 'primary' && this.variant !== 'landing') {
+    if (
+      this.variant !== 'primary' &&
+      this.variant !== 'landing' &&
+      this.isLongPress
+    ) {
       return console.warn(
         'Long press is only available for primary and landing variants'
       )

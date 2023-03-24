@@ -17,7 +17,7 @@ export const progressIndicator = (options: IconOptions) => {
     >
       <g clip-path="url(#clip0_1744_19360)">
         <g filter="url(#filter0_ddd_1744_19360)">
-          <circle cx="20" cy="20" r="20" fill="#F8FAFB" />
+          <circle cx="20" cy="20" r="20" fill="transparent" />
         </g>
         <g filter="url(#filter1_ii_1744_19360)">
           <path

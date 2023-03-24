@@ -15,7 +15,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'large', 'x-large'],
+      options: ['small', 'medium', 'large', 'x-large', '2x-large'],
     },
     color: {
       control: { type: 'text' },
@@ -88,6 +88,13 @@ export const XLargeIcon = Template.bind({})
 XLargeIcon.args = {
   name: 'profile-recovery',
   size: 'x-large',
+}
+
+/** Example of `2x-large` size of `64x64` pixels. */
+export const XXLargeIcon = Template.bind({})
+XXLargeIcon.args = {
+  name: 'profile-recovery',
+  size: '2x-large',
 }
 
 /** You can change color to any from the palette with `color` property. */

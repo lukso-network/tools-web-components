@@ -127,7 +127,7 @@ export type IconOptions = {
   secondaryColor?: string
 }
 
-export type IconSize = 'small' | 'medium' | 'large' | 'x-large'
+export type IconSize = 'small' | 'medium' | 'large' | 'x-large' | '2x-large'
 
 type IconSizeDef = {
   width: number
@@ -286,6 +286,11 @@ export class LuksoIcon extends TailwindStyledElement(style) {
     'x-large': {
       width: 40,
       height: 40,
+      strokeWidth: 1.5,
+    },
+    '2x-large': {
+      width: 64,
+      height: 64,
       strokeWidth: 1.5,
     },
   }

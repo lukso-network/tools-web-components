@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.10.0](https://github.com/lukso-network/tools-web-components/compare/v1.9.0...v1.10.0) (2023-03-24)
+
+
+### Features
+
+* icon `2x-large` size ([#106](https://github.com/lukso-network/tools-web-components/issues/106)) ([a5add55](https://github.com/lukso-network/tools-web-components/commit/a5add55e41aaa33172a7aebb69e46de468870b56))
+
+
+### Bug Fixes
+
+* empty line issue in Firefox ([#103](https://github.com/lukso-network/tools-web-components/issues/103)) ([7bd89ed](https://github.com/lukso-network/tools-web-components/commit/7bd89eda174225d03f060971f89a1430257b36c2))
+* long press log ([#105](https://github.com/lukso-network/tools-web-components/issues/105)) ([6056305](https://github.com/lukso-network/tools-web-components/commit/6056305d6e456269e471b841bdee687e86660b8b))
+
 ## [1.9.0](https://github.com/lukso-network/tools-web-components/compare/v1.8.1...v1.9.0) (2023-03-17)
 
 

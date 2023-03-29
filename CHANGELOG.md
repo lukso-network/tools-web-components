@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.11.0](https://github.com/lukso-network/tools-web-components/compare/v1.10.0...v1.11.0) (2023-03-29)
+
+
+### Features
+
+* `scrollbar-none` utility  ([#109](https://github.com/lukso-network/tools-web-components/issues/109)) ([c6b2b29](https://github.com/lukso-network/tools-web-components/commit/c6b2b290030d85169ca6998124eea848dee09774))
+* new bounce animation ([#108](https://github.com/lukso-network/tools-web-components/issues/108)) ([3574ab0](https://github.com/lukso-network/tools-web-components/commit/3574ab0d0d38a1250717c0988beabb35813624de))
+* terms component ([#111](https://github.com/lukso-network/tools-web-components/issues/111)) ([758e72e](https://github.com/lukso-network/tools-web-components/commit/758e72e7913af82942b62883fa878804f7ea8102))
+
+
+### Bug Fixes
+
+* add flex to card container ([#107](https://github.com/lukso-network/tools-web-components/issues/107)) ([5d20cbe](https://github.com/lukso-network/tools-web-components/commit/5d20cbeb199bed9fc11dab41263a4eb56aa252c5))
+
 ## [1.10.0](https://github.com/lukso-network/tools-web-components/compare/v1.9.0...v1.10.0) (2023-03-24)
 
 

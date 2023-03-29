@@ -644,6 +644,359 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-navbar/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoNavbar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "isCenter",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-center"
+            },
+            {
+              "kind": "field",
+              "name": "isSticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-sticky"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-100 shadow-pink-drop-shadow h-78 flex`"
+            },
+            {
+              "kind": "field",
+              "name": "centerStyles",
+              "privacy": "private",
+              "default": "`justify-center`"
+            },
+            {
+              "kind": "field",
+              "name": "stickyStyles",
+              "privacy": "private",
+              "default": "`sticky top-0 z-[1000]`"
+            },
+            {
+              "kind": "method",
+              "name": "_onBrandClick"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "title"
+            },
+            {
+              "name": "is-center",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isCenter"
+            },
+            {
+              "name": "is-sticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isSticky"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-navbar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoNavbar",
+          "declaration": {
+            "name": "LuksoNavbar",
+            "module": "src/components/lukso-navbar/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-navbar",
+          "declaration": {
+            "name": "LuksoNavbar",
+            "module": "src/components/lukso-navbar/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-profile/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoProfile",
+          "members": [
+            {
+              "kind": "field",
+              "name": "profileUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "profile-url"
+            },
+            {
+              "kind": "field",
+              "name": "profileAddress",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "profile-address"
+            },
+            {
+              "kind": "field",
+              "name": "hasIdenticon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "has-identicon"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "ProfileSize"
+              },
+              "default": "'large'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "sizes",
+              "type": {
+                "text": "Record<ProfileSize, SizeDef>"
+              },
+              "default": "{\n    'x-small': {\n      identiconSize: undefined,\n      profileImageSize: 24,\n    },\n    small: {\n      identiconSize: 16,\n      profileImageSize: 40,\n    },\n    medium: {\n      identiconSize: 20,\n      profileImageSize: 56,\n    },\n    large: {\n      identiconSize: 24,\n      profileImageSize: 80,\n    },\n    'x-large': {\n      identiconSize: 28,\n      profileImageSize: 96,\n    },\n  }"
+            },
+            {
+              "kind": "method",
+              "name": "profileImageSize",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "identiconSize",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "defaultProfileUrl",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "'/assets/images/profile-default.png'"
+            },
+            {
+              "kind": "method",
+              "name": "identicon",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "profile-url",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "profileUrl"
+            },
+            {
+              "name": "profile-address",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "profileAddress"
+            },
+            {
+              "name": "has-identicon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasIdenticon"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ProfileSize"
+              },
+              "default": "'large'",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-profile",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoProfile",
+          "declaration": {
+            "name": "LuksoProfile",
+            "module": "src/components/lukso-profile/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-profile",
+          "declaration": {
+            "name": "LuksoProfile",
+            "module": "src/components/lukso-profile/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-modal/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoModal",
+          "members": [
+            {
+              "kind": "field",
+              "name": "isOpen",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-open"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "ModalSizes"
+              },
+              "default": "'small'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "wrapperStyles",
+              "privacy": "private",
+              "default": "`opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6 animate-fade-in animation-duration-200`"
+            },
+            {
+              "kind": "field",
+              "name": "openStyles",
+              "privacy": "private",
+              "default": "`flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh]`"
+            },
+            {
+              "kind": "field",
+              "name": "overlayStyles",
+              "privacy": "private",
+              "default": "`bg-[rgba(36,53,66,0.8)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999]`"
+            },
+            {
+              "kind": "field",
+              "name": "dialogStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-98 rounded-12 shadow-neutral-drop-shadow-3xl z-[1001]`"
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "is-open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isOpen"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ModalSizes"
+              },
+              "default": "'small'",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-modal",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoModal",
+          "declaration": {
+            "name": "LuksoModal",
+            "module": "src/components/lukso-modal/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-modal",
+          "declaration": {
+            "name": "LuksoModal",
+            "module": "src/components/lukso-modal/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-input/index.ts",
       "declarations": [
         {
@@ -1133,359 +1486,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-modal/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoModal",
-          "members": [
-            {
-              "kind": "field",
-              "name": "isOpen",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-open"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "ModalSizes"
-              },
-              "default": "'small'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "wrapperStyles",
-              "privacy": "private",
-              "default": "`opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6 animate-fade-in animation-duration-200`"
-            },
-            {
-              "kind": "field",
-              "name": "openStyles",
-              "privacy": "private",
-              "default": "`flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh]`"
-            },
-            {
-              "kind": "field",
-              "name": "overlayStyles",
-              "privacy": "private",
-              "default": "`bg-[rgba(36,53,66,0.8)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999]`"
-            },
-            {
-              "kind": "field",
-              "name": "dialogStyles",
-              "privacy": "private",
-              "default": "`bg-neutral-98 rounded-12 shadow-neutral-drop-shadow-3xl z-[1001]`"
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "is-open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isOpen"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "ModalSizes"
-              },
-              "default": "'small'",
-              "fieldName": "size"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-modal",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoModal",
-          "declaration": {
-            "name": "LuksoModal",
-            "module": "src/components/lukso-modal/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-modal",
-          "declaration": {
-            "name": "LuksoModal",
-            "module": "src/components/lukso-modal/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-navbar/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoNavbar",
-          "members": [
-            {
-              "kind": "field",
-              "name": "title",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "title"
-            },
-            {
-              "kind": "field",
-              "name": "isCenter",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-center"
-            },
-            {
-              "kind": "field",
-              "name": "isSticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-sticky"
-            },
-            {
-              "kind": "field",
-              "name": "defaultStyles",
-              "privacy": "private",
-              "default": "`bg-neutral-100 shadow-pink-drop-shadow h-78 flex`"
-            },
-            {
-              "kind": "field",
-              "name": "centerStyles",
-              "privacy": "private",
-              "default": "`justify-center`"
-            },
-            {
-              "kind": "field",
-              "name": "stickyStyles",
-              "privacy": "private",
-              "default": "`sticky top-0 z-[1000]`"
-            },
-            {
-              "kind": "method",
-              "name": "_onBrandClick"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "title",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "title"
-            },
-            {
-              "name": "is-center",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isCenter"
-            },
-            {
-              "name": "is-sticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isSticky"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-navbar",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoNavbar",
-          "declaration": {
-            "name": "LuksoNavbar",
-            "module": "src/components/lukso-navbar/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-navbar",
-          "declaration": {
-            "name": "LuksoNavbar",
-            "module": "src/components/lukso-navbar/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-profile/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoProfile",
-          "members": [
-            {
-              "kind": "field",
-              "name": "profileUrl",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "profile-url"
-            },
-            {
-              "kind": "field",
-              "name": "profileAddress",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "profile-address"
-            },
-            {
-              "kind": "field",
-              "name": "hasIdenticon",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "has-identicon"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "ProfileSize"
-              },
-              "default": "'large'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "sizes",
-              "type": {
-                "text": "Record<ProfileSize, SizeDef>"
-              },
-              "default": "{\n    'x-small': {\n      identiconSize: undefined,\n      profileImageSize: 24,\n    },\n    small: {\n      identiconSize: 16,\n      profileImageSize: 40,\n    },\n    medium: {\n      identiconSize: 20,\n      profileImageSize: 56,\n    },\n    large: {\n      identiconSize: 24,\n      profileImageSize: 80,\n    },\n    'x-large': {\n      identiconSize: 28,\n      profileImageSize: 96,\n    },\n  }"
-            },
-            {
-              "kind": "method",
-              "name": "profileImageSize",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "identiconSize",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "defaultProfileUrl",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "'/assets/images/profile-default.png'"
-            },
-            {
-              "kind": "method",
-              "name": "identicon",
-              "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "profile-url",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "profileUrl"
-            },
-            {
-              "name": "profile-address",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "profileAddress"
-            },
-            {
-              "name": "has-identicon",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "hasIdenticon"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "ProfileSize"
-              },
-              "default": "'large'",
-              "fieldName": "size"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-profile",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoProfile",
-          "declaration": {
-            "name": "LuksoProfile",
-            "module": "src/components/lukso-profile/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-profile",
-          "declaration": {
-            "name": "LuksoProfile",
-            "module": "src/components/lukso-profile/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-sanitize/index.ts",
       "declarations": [
         {
@@ -1549,136 +1549,6 @@
           "declaration": {
             "name": "LuksoSanitize",
             "module": "src/components/lukso-sanitize/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-tag/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoTag",
-          "members": [
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "TagSizes"
-              },
-              "default": "'small'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "isRounded",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-rounded"
-            },
-            {
-              "kind": "field",
-              "name": "backgroundColor",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "background-color"
-            },
-            {
-              "kind": "field",
-              "name": "textColor",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "text-color"
-            },
-            {
-              "kind": "field",
-              "name": "defaultStyles",
-              "privacy": "private",
-              "default": "`inline-flex items-center justify-center border border-neutral-20 text-neutral-20`"
-            },
-            {
-              "kind": "field",
-              "name": "smallStyles",
-              "privacy": "private",
-              "default": "`paragraph-inter-12-medium h-[28px]`"
-            },
-            {
-              "kind": "field",
-              "name": "largeStyles",
-              "privacy": "private",
-              "default": "`paragraph-inter-14-medium h-[34px]`"
-            },
-            {
-              "kind": "method",
-              "name": "padding",
-              "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "size",
-              "type": {
-                "text": "TagSizes"
-              },
-              "default": "'small'",
-              "fieldName": "size"
-            },
-            {
-              "name": "is-rounded",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isRounded"
-            },
-            {
-              "name": "background-color",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "backgroundColor"
-            },
-            {
-              "name": "text-color",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "textColor"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-tag",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoTag",
-          "declaration": {
-            "name": "LuksoTag",
-            "module": "src/components/lukso-tag/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-tag",
-          "declaration": {
-            "name": "LuksoTag",
-            "module": "src/components/lukso-tag/index.ts"
           }
         }
       ]
@@ -2113,6 +1983,136 @@
           "declaration": {
             "name": "images",
             "module": "./images"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-tag/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoTag",
+          "members": [
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "TagSizes"
+              },
+              "default": "'small'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "isRounded",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-rounded"
+            },
+            {
+              "kind": "field",
+              "name": "backgroundColor",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "background-color"
+            },
+            {
+              "kind": "field",
+              "name": "textColor",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "text-color"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "privacy": "private",
+              "default": "`inline-flex items-center justify-center border border-neutral-20 text-neutral-20`"
+            },
+            {
+              "kind": "field",
+              "name": "smallStyles",
+              "privacy": "private",
+              "default": "`paragraph-inter-12-medium h-[28px]`"
+            },
+            {
+              "kind": "field",
+              "name": "largeStyles",
+              "privacy": "private",
+              "default": "`paragraph-inter-14-medium h-[34px]`"
+            },
+            {
+              "kind": "method",
+              "name": "padding",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "TagSizes"
+              },
+              "default": "'small'",
+              "fieldName": "size"
+            },
+            {
+              "name": "is-rounded",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isRounded"
+            },
+            {
+              "name": "background-color",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "backgroundColor"
+            },
+            {
+              "name": "text-color",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "textColor"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-tag",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoTag",
+          "declaration": {
+            "name": "LuksoTag",
+            "module": "src/components/lukso-tag/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-tag",
+          "declaration": {
+            "name": "LuksoTag",
+            "module": "src/components/lukso-tag/index.ts"
           }
         }
       ]

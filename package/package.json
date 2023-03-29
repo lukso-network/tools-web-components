@@ -120,6 +120,11 @@
       "import": "./dist/components/lukso-tag/index.js",
       "types": "./dist/components/lukso-tag/index.d.ts"
     },
+    "./dist/components/lukso-terms": {
+      "require": "./dist/components/lukso-terms/index.cjs",
+      "import": "./dist/components/lukso-terms/index.js",
+      "types": "./dist/components/lukso-terms/index.d.ts"
+    },
     "./dist/components/lukso-test": {
       "require": "./dist/components/lukso-test/index.cjs",
       "import": "./dist/components/lukso-test/index.js",

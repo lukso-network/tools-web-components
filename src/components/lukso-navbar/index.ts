@@ -21,7 +21,7 @@ export class LuksoNavbar extends TailwindElement {
 
   private stickyStyles = `sticky top-0 z-[1000]`
 
-  _onBrandClick() {
+  private handleBrandClick() {
     const event = new CustomEvent('on-brand-click', {
       bubbles: true,
       composed: true,
@@ -41,7 +41,7 @@ export class LuksoNavbar extends TailwindElement {
       >
         <div
           class="flex items-center px-7 h-full cursor-pointer sm:px-10"
-          @click=${this._onBrandClick}
+          @click=${this.handleBrandClick}
         >
           <img src="/assets/images/lukso-logo.svg" class="mr-4" />
           <div

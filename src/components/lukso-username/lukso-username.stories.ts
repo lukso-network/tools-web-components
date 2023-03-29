@@ -15,6 +15,7 @@ const meta: Meta = {
       control: { type: 'text' },
     },
     maxWidth: {
+      name: 'max-width',
       control: { type: 'number' },
       if: { arg: 'name', neq: '' },
     },
@@ -23,12 +24,23 @@ const meta: Meta = {
       options: ['large', 'small'],
     },
     sliceBy: {
+      name: 'slice-by',
       control: { type: 'number' },
       if: { arg: 'name', eq: '' },
     },
     addressColor: {
+      name: 'address-color',
       control: { type: 'text' },
       if: { arg: 'name', eq: '' },
+    },
+    'max-width': {
+      name: 'maxWidth',
+    },
+    'slice-by': {
+      name: 'sliceBy',
+    },
+    'address-color': {
+      name: 'addressColor',
     },
   },
   args: {
@@ -41,7 +53,7 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['bytesWidth', 'max-width', 'slice-by', 'address-color'],
+      exclude: ['bytesWidth', 'maxWidth', 'sliceBy', 'addressColor'],
     },
     design: {
       type: 'figma',

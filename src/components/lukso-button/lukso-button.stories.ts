@@ -17,6 +17,7 @@ const meta: Meta = {
       options: ['primary', 'secondary', 'landing', 'text'],
     },
     isLink: {
+      name: 'is-link',
       control: { type: 'boolean' },
       description: 'If true, button will be rendered as a link',
     },
@@ -32,10 +33,12 @@ const meta: Meta = {
       options: ['small', 'medium'],
     },
     isFullWidth: {
+      name: 'is-full-width',
       control: { type: 'boolean' },
       if: { arg: 'isLink', truthy: false },
     },
     isLongPress: {
+      name: 'is-long-press',
       control: { type: 'boolean' },
       if: { arg: 'isLink', truthy: false },
     },
@@ -53,10 +56,20 @@ const meta: Meta = {
       if: { arg: 'isLink' },
     },
     onLongPressComplete: {
+      name: 'on-long-press-complete',
       description: 'Emitted when long press is completed',
       table: {
         category: 'Events',
       },
+    },
+    'is-full-width': {
+      name: 'isFullWidth',
+    },
+    'is-long-press': {
+      name: 'isLongPress',
+    },
+    'is-link': {
+      name: 'isLink',
     },
   },
   args: {
@@ -83,8 +96,6 @@ const meta: Meta = {
         'buttonStyles',
         'mediumSize',
         'smallSize',
-        'is-full-width',
-        'is-long-press',
         'longPressStyles',
         'noTransition',
         'isPressed',
@@ -93,9 +104,11 @@ const meta: Meta = {
         'noTransitionStyles',
         'handleMouseDown',
         'handleMouseUp',
-        'is-link',
         'custom-class',
         'styles',
+        'isFullWidth',
+        'isLongPress',
+        'isLink',
       ],
     },
   },
@@ -114,6 +127,7 @@ const Template = ({
   href,
   target,
   rel,
+  onLongPressComplete,
 }) =>
   html`<lukso-button
     variant=${variant}
@@ -125,6 +139,7 @@ const Template = ({
     href=${href}
     target=${target}
     rel=${rel}
+    @on-long-press-complete=${onLongPressComplete}
     >${text}</lukso-button
   >`
 

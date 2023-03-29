@@ -18,22 +18,42 @@ const meta: Meta = {
       if: { arg: 'variant', eq: 'with-header' },
     },
     backgroundUrl: {
+      name: 'background-url',
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
     },
     profileUrl: {
+      name: 'profile-url',
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
     },
     profileAddress: {
+      name: 'profile-address',
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
     },
     isFixedWidth: {
+      name: 'is-fixed-width',
       control: { type: 'boolean' },
     },
     isFixedHeight: {
+      name: 'is-fixed-height',
       control: { type: 'boolean' },
+    },
+    'background-url': {
+      name: 'backgroundUrl',
+    },
+    'profile-url': {
+      name: 'profileUrl',
+    },
+    'profile-address': {
+      name: 'profileAddress',
+    },
+    'is-fixed-width': {
+      name: 'isFixedWidth',
+    },
+    'is-fixed-height': {
+      name: 'isFixedHeight',
     },
   },
   args: {
@@ -44,16 +64,20 @@ const meta: Meta = {
     profileUrl: 'images/sample-avatar.png',
     profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
     isFullWidth: false,
+    isFixedWidth: false,
+    isFixedHeight: false,
   },
   parameters: {
     controls: {
       exclude: [
         'defaultStyles',
-        'background-url',
-        'profile-url',
-        'profile-address',
-        'is-fixed-width',
-        'is-fixed-height',
+        'backgroundUrl',
+        'profileUrl',
+        'profileAddress',
+        'isFixedWidth',
+        'isFixedHeight',
+        'isFullWidth',
+        'styles',
       ],
     },
   },

@@ -21,6 +21,7 @@ const meta: Meta = {
       control: { type: 'text' },
     },
     secondaryColor: {
+      name: 'secondary-color',
       control: { type: 'text' },
     },
     animation: {
@@ -33,6 +34,9 @@ const meta: Meta = {
         'animate-pulse-resize',
       ],
     },
+    'secondary-color': {
+      name: 'secondaryColor',
+    },
   },
   args: {
     name: 'profile-recovery',
@@ -43,7 +47,7 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['sizes', 'secondary-color', 'styles'],
+      exclude: ['sizes', 'secondaryColor', 'styles'],
     },
     design: {
       type: 'figma',

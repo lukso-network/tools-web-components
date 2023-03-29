@@ -14,6 +14,7 @@ const meta: Meta = {
   component: 'lukso-profile',
   argTypes: {
     profileUrl: {
+      name: 'profile-url',
       control: { type: 'text' },
     },
     size: {
@@ -23,10 +24,21 @@ const meta: Meta = {
       options: ['x-small', 'small', 'medium', 'large', 'x-large'],
     },
     profileAddress: {
+      name: 'profile-address',
       control: { type: 'text' },
     },
     hasIdenticon: {
+      name: 'has-identicon',
       control: { type: 'boolean' },
+    },
+    'profile-url': {
+      name: 'profileUrl',
+    },
+    'profile-address': {
+      name: 'profileAddress',
+    },
+    'has-identicon': {
+      name: 'hasIdenticon',
     },
   },
   args: {
@@ -39,12 +51,12 @@ const meta: Meta = {
     controls: {
       exclude: [
         'sizes',
-        'profile-url',
+        'profileUrl',
         'profileImageSize',
         'identiconSize',
         'identicon',
-        'profile-address',
-        'has-identicon',
+        'profileAddress',
+        'hasIdenticon',
         'defaultProfileUrl',
       ],
     },

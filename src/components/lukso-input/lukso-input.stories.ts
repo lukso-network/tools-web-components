@@ -33,6 +33,7 @@ const meta: Meta = {
       control: { type: 'text' },
     },
     isFullWidth: {
+      name: 'is-full-width',
       control: { type: 'boolean' },
     },
     autofocus: {
@@ -45,22 +46,28 @@ const meta: Meta = {
       control: { type: 'number' },
     },
     onKeyUp: {
+      name: 'on-key-up',
       description: 'Emitted on key up event.',
       table: {
         category: 'Events',
       },
     },
     onKeyDown: {
+      name: 'on-key-down',
       description: 'Emitted on key up down.',
       table: {
         category: 'Events',
       },
     },
     onKeyPress: {
+      name: 'on-key-press',
       description: 'Emitted on key press.',
       table: {
         category: 'Events',
       },
+    },
+    'is-full-width': {
+      name: 'isFullWidth',
     },
   },
   args: {
@@ -82,7 +89,7 @@ const meta: Meta = {
       exclude: [
         'defaultInputStyles',
         'defaultUnitStyles',
-        'is-full-width',
+        'isFullWidth',
         'hasHocus',
         'hasHighlight',
       ],

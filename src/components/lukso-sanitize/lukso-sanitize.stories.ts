@@ -11,7 +11,11 @@ const meta: Meta = {
   component: 'lukso-sanitize',
   argTypes: {
     htmlContent: {
+      name: 'html-content',
       control: { type: 'text' },
+    },
+    'html-content': {
+      name: 'htmlContent',
     },
   },
   args: {
@@ -20,7 +24,7 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['sanitize', 'html-content', 'options'],
+      exclude: ['sanitize', 'htmlContent', 'options'],
     },
   },
 }

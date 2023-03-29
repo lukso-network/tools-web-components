@@ -14,6 +14,7 @@ const meta: Meta = {
       control: { type: 'text' },
     },
     isRounded: {
+      name: 'is-rounded',
       control: {
         type: 'boolean',
       },
@@ -25,14 +26,25 @@ const meta: Meta = {
       options: ['small', 'large'],
     },
     backgroundColor: {
+      name: 'background-color',
       control: {
         type: 'text',
       },
     },
     textColor: {
+      name: 'text-color',
       control: {
         type: 'text',
       },
+    },
+    'is-rounded': {
+      name: 'isRounded',
+    },
+    'background-color': {
+      name: 'backgroundColor',
+    },
+    'text-color': {
+      name: 'textColor',
     },
   },
   args: {
@@ -48,9 +60,9 @@ const meta: Meta = {
         'defaultStyles',
         'smallStyles',
         'largeStyles',
-        'is-rounded',
-        'background-color',
-        'text-color',
+        'isRounded',
+        'backgroundColor',
+        'textColor',
         'padding',
       ],
     },

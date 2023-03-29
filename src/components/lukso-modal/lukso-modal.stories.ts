@@ -11,12 +11,16 @@ const meta: Meta = {
   component: 'lukso-modal',
   argTypes: {
     isOpen: {
+      name: 'is-open',
       control: { type: 'boolean' },
       description: 'Controls the visibility of the modal',
     },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'full'],
+    },
+    'is-open': {
+      name: 'isOpen',
     },
   },
   args: {
@@ -31,7 +35,7 @@ const meta: Meta = {
         'openStyles',
         'overlayStyles',
         'dialogStyles',
-        'is-open',
+        'isOpen',
       ],
     },
     design: {

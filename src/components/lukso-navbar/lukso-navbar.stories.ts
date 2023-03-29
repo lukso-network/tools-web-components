@@ -12,17 +12,26 @@ const meta: Meta = {
       control: { type: 'text' },
     },
     isCenter: {
+      name: 'is-center',
       control: { type: 'boolean' },
     },
     isSticky: {
+      name: 'is-sticky',
       control: { type: 'boolean' },
     },
     onBrandClick: {
+      name: 'on-brand-click',
       action: 'on-brand-click',
       description: 'Emitted when brand/logo is clicked',
       table: {
         category: 'Events',
       },
+    },
+    'is-center': {
+      name: 'isCenter',
+    },
+    'is-sticky': {
+      name: 'isSticky',
     },
   },
   args: {
@@ -37,8 +46,8 @@ PROFILES`,
         'defaultStyles',
         'centerStyles',
         'stickyStyles',
-        'is-center',
-        'is-sticky',
+        'isCenter',
+        'isSticky',
       ],
     },
     design: {

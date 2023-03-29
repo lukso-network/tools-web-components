@@ -13,7 +13,13 @@ const meta: Meta = {
     steps: {
       control: { type: 'object' },
     },
-    activeStep: { control: { type: 'number', min: 1, step: 1 } },
+    activeStep: {
+      name: 'active-step',
+      control: { type: 'number', min: 1, step: 1 },
+    },
+    'active-step': {
+      name: 'activeStep',
+    },
   },
   args: {
     steps: [
@@ -35,7 +41,7 @@ LYXe`,
   },
   parameters: {
     controls: {
-      exclude: ['activeStepStyles', 'completedStepStyles', 'active-step'],
+      exclude: ['activeStepStyles', 'completedStepStyles', 'activeStep'],
     },
     design: {
       type: 'figma',

@@ -19,6 +19,10 @@ const meta: Meta = {
       name: 'is-sticky',
       control: { type: 'boolean' },
     },
+    isTransparent: {
+      name: 'is-transparent',
+      control: { type: 'boolean' },
+    },
     onBrandClick: {
       name: 'on-brand-click',
       action: 'on-brand-click',
@@ -33,12 +37,16 @@ const meta: Meta = {
     'is-sticky': {
       name: 'isSticky',
     },
+    'is-transparent': {
+      name: 'isTransparent',
+    },
   },
   args: {
     title: `UNIVERSAL
 PROFILES`,
     isCenter: false,
     isSticky: false,
+    isTransparent: false,
   },
   parameters: {
     controls: {
@@ -48,6 +56,7 @@ PROFILES`,
         'stickyStyles',
         'isCenter',
         'isSticky',
+        'isTransparent',
       ],
     },
     design: {
@@ -59,11 +68,12 @@ PROFILES`,
 
 export default meta
 
-const Template = ({ title, isCenter, isSticky, onBrandClick }) =>
+const Template = ({ title, isCenter, isSticky, isTransparent, onBrandClick }) =>
   html`<lukso-navbar
     title=${title}
     ?is-center=${isCenter}
     ?is-sticky=${isSticky}
+    ?is-transparent=${isTransparent}
     @on-brand-click=${onBrandClick}
   ></lukso-navbar>`
 
@@ -74,6 +84,13 @@ export const DefaultNavbar = Template.bind({})
 export const CenterNavbar = Template.bind({})
 CenterNavbar.args = {
   isCenter: true,
+}
+
+/** Example of navbar with transparent background and no shadow. You set this by adding `is-transparent` property. */
+export const TransparentNavbar = Template.bind({})
+TransparentNavbar.args = {
+  isCenter: true,
+  isTransparent: true,
 }
 
 /** By default navbar stays at the top of the document. If you want it scroll with the content then ad  `is-sticky` property. */

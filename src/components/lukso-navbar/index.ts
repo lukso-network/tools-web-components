@@ -15,11 +15,16 @@ export class LuksoNavbar extends TailwindElement {
   @property({ type: Boolean, attribute: 'is-sticky' })
   isSticky = false
 
+  @property({ type: Boolean, attribute: 'is-transparent' })
+  isTransparent = false
+
   private defaultStyles = `bg-neutral-100 shadow-pink-drop-shadow h-78 flex`
 
   private centerStyles = `justify-center`
 
   private stickyStyles = `sticky top-0 z-[1000]`
+
+  private transparentStyles = `!bg-transparent !shadow-none`
 
   private handleBrandClick() {
     const event = new CustomEvent('on-brand-click', {
@@ -37,6 +42,7 @@ export class LuksoNavbar extends TailwindElement {
           [this.defaultStyles]: true,
           [this.centerStyles]: this.isCenter,
           [this.stickyStyles]: this.isSticky,
+          [this.transparentStyles]: this.isTransparent,
         })}
       >
         <div

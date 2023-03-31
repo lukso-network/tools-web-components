@@ -35,10 +35,14 @@ const meta: Meta = {
     isFullWidth: {
       name: 'is-full-width',
       control: { type: 'boolean' },
-      if: { arg: 'isLink', truthy: false },
     },
     isLongPress: {
       name: 'is-long-press',
+      control: { type: 'boolean' },
+      if: { arg: 'isLink', truthy: false },
+    },
+    isLoading: {
+      name: 'is-loading',
       control: { type: 'boolean' },
       if: { arg: 'isLink', truthy: false },
     },
@@ -71,6 +75,9 @@ const meta: Meta = {
     'is-link': {
       name: 'isLink',
     },
+    'is-loading': {
+      name: 'isLoading',
+    },
   },
   args: {
     text: 'Hello World',
@@ -83,6 +90,7 @@ const meta: Meta = {
     href: 'https://lukso.network',
     target: '_blank',
     rel: 'noopener noreferrer',
+    isLoading: false,
   },
   parameters: {
     controls: {
@@ -109,6 +117,7 @@ const meta: Meta = {
         'isFullWidth',
         'isLongPress',
         'isLink',
+        'isLoading',
       ],
     },
   },
@@ -128,6 +137,7 @@ const Template = ({
   target,
   rel,
   onLongPressComplete,
+  isLoading,
 }) =>
   html`<lukso-button
     variant=${variant}
@@ -136,6 +146,7 @@ const Template = ({
     ?is-full-width=${isFullWidth}
     ?is-long-press=${isLongPress}
     ?is-link=${isLink}
+    ?is-loading=${isLoading}
     href=${href}
     target=${target}
     rel=${rel}
@@ -285,5 +296,20 @@ Link.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9822&t=AGmdbG8fXRENuU3o-4',
+  },
+}
+
+/** Loading state button show spinner and puts button in disabled state. To turn on this effect add  `is-loading` property.
+ */
+export const LoadingButton = Template.bind({})
+LoadingButton.args = {
+  variant: 'primary',
+  text: 'Loading Button',
+  isLoading: true,
+}
+LoadingButton.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6-1324&t=skBgEdvtZt68G51p-4',
   },
 }

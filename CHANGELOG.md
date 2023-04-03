@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/lukso-network/tools-web-components/compare/v1.12.0...v1.13.0) (2023-04-03)
+
+
+### Features
+
+* contract-signed icon ([#117](https://github.com/lukso-network/tools-web-components/issues/117)) ([3c291d4](https://github.com/lukso-network/tools-web-components/commit/3c291d489f30f8b38f8a7c39b6d810a4920fa5a2))
+
 ## [1.12.0](https://github.com/lukso-network/tools-web-components/compare/v1.11.0...v1.12.0) (2023-04-03)
 
 

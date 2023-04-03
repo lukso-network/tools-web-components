@@ -2310,6 +2310,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/styles/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/shared/styles/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/tailwind-element/index.ts",
       "declarations": [
         {
@@ -2359,20 +2373,6 @@
           "declaration": {
             "name": "TailwindElement",
             "module": "src/shared/tailwind-element/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/styles/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/shared/styles/index.ts"
           }
         }
       ]

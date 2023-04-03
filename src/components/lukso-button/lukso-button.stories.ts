@@ -59,6 +59,11 @@ const meta: Meta = {
       control: { type: 'text' },
       if: { arg: 'isLink' },
     },
+    loadingText: {
+      name: 'loading-text',
+      control: { type: 'text' },
+      if: { arg: 'isLoading' },
+    },
     onLongPressComplete: {
       name: 'on-long-press-complete',
       description: 'Emitted when long press is completed',
@@ -78,6 +83,9 @@ const meta: Meta = {
     'is-loading': {
       name: 'isLoading',
     },
+    'loading-text': {
+      name: 'loadingText',
+    },
   },
   args: {
     text: 'Hello World',
@@ -91,6 +99,7 @@ const meta: Meta = {
     target: '_blank',
     rel: 'noopener noreferrer',
     isLoading: false,
+    loadingText: 'Loading...',
   },
   parameters: {
     controls: {
@@ -118,6 +127,7 @@ const meta: Meta = {
         'isLongPress',
         'isLink',
         'isLoading',
+        'loadingText',
       ],
     },
   },
@@ -138,6 +148,7 @@ const Template = ({
   rel,
   onLongPressComplete,
   isLoading,
+  loadingText,
 }) =>
   html`<lukso-button
     variant=${variant}
@@ -150,6 +161,7 @@ const Template = ({
     href=${href}
     target=${target}
     rel=${rel}
+    loading-text=${loadingText}
     @on-long-press-complete=${onLongPressComplete}
     >${text}</lukso-button
   >`
@@ -299,13 +311,14 @@ Link.parameters = {
   },
 }
 
-/** Loading state button show spinner and puts button in disabled state. To turn on this effect add  `is-loading` property.
+/** Loading state button show spinner along with custom text and puts button in disabled state. To turn on this effect add  `is-loading` property. Text can be modified in `loading-text` property.
  */
 export const LoadingButton = Template.bind({})
 LoadingButton.args = {
   variant: 'primary',
   text: 'Loading Button',
   isLoading: true,
+  loadingText: 'Loading...',
 }
 LoadingButton.parameters = {
   design: {

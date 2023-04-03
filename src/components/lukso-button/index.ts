@@ -43,6 +43,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
   @property({ type: String })
   rel = ''
 
+  @property({ type: String, attribute: 'loading-text' })
+  loadingText = ''
+
   @state()
   private isPressed = false
 
@@ -132,14 +135,18 @@ export class LuksoButton extends TailwindStyledElement(style) {
     this.timer && clearTimeout(this.timer)
   }
 
-  spinnerTemplate(): unknown {
+  loadingTemplate(): unknown {
     return html`<lukso-icon
-      name="spinner"
-      color=${this.variant === 'secondary' || this.variant === 'text'
-        ? 'neutral-20'
-        : 'neutral-100'}
-      class="animate-spin mr-2"
-    ></lukso-icon>`
+        name="spinner"
+        color=${this.variant === 'secondary' || this.variant === 'text'
+          ? 'neutral-20'
+          : 'neutral-100'}
+        class=${customClassMap({
+          'animate-spin': true,
+          'mr-2': !!this.loadingText,
+        })}
+      ></lukso-icon>
+      ${this.loadingText}`
   }
 
   buttonTemplate() {
@@ -164,8 +171,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
         @mouseup=${this.handleMouseUp}
         @mouseleave=${this.handleMouseUp}
       >
-        ${this.isLoading ? this.spinnerTemplate() : ''}
-        <slot></slot>
+        ${this.isLoading ? this.loadingTemplate() : html`<slot></slot>`}
       </button>
     `
   }

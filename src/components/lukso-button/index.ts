@@ -31,6 +31,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-link' })
   isLink = false
 
+  @property({ type: Boolean, attribute: 'is-loading' })
+  isLoading = false
+
   @property({ type: String })
   href = ''
 
@@ -39,6 +42,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
 
   @property({ type: String })
   rel = ''
+
+  @property({ type: String, attribute: 'loading-text' })
+  loadingText = ''
 
   @state()
   private isPressed = false
@@ -129,11 +135,25 @@ export class LuksoButton extends TailwindStyledElement(style) {
     this.timer && clearTimeout(this.timer)
   }
 
+  loadingTemplate(): unknown {
+    return html`<lukso-icon
+        name="spinner"
+        color=${this.variant === 'secondary' || this.variant === 'text'
+          ? 'neutral-20'
+          : 'neutral-100'}
+        class=${customClassMap({
+          'animate-spin': true,
+          'mr-2': !!this.loadingText,
+        })}
+      ></lukso-icon>
+      ${this.loadingText}`
+  }
+
   buttonTemplate() {
     return html`
       <button
         data-testid="button"
-        ?disabled=${this.disabled}
+        ?disabled=${this.disabled || this.isLoading}
         class=${customClassMap({
           [this.defaultStyles]: true,
           [this.mediumSize]: this.size === 'medium',
@@ -151,7 +171,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
         @mouseup=${this.handleMouseUp}
         @mouseleave=${this.handleMouseUp}
       >
-        <slot></slot>
+        ${this.isLoading ? this.loadingTemplate() : html`<slot></slot>`}
       </button>
     `
   }

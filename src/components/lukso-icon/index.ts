@@ -91,6 +91,7 @@ import { search } from './icons/search'
 import { settings } from './icons/settings'
 import { smartContractDoc } from './icons/smart-contract-doc'
 import { smartContract } from './icons/smart-contract'
+import { spinner } from './icons/spinner'
 import { starFilled } from './icons/star-filled'
 import { starOutline } from './icons/star-outline'
 import { stepDot } from './icons/step-dot'
@@ -224,6 +225,7 @@ const iconMap = {
   settings,
   'smart-contract-doc': smartContractDoc,
   'smart-contract': smartContract,
+  spinner: spinner,
   'star-filled': starFilled,
   'star-outline': starOutline,
   'step-dot': stepDot,

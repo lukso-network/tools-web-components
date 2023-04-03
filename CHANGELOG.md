@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.0](https://github.com/lukso-network/tools-web-components/compare/v1.11.0...v1.12.0) (2023-04-03)
+
+
+### Features
+
+* loading button ([#116](https://github.com/lukso-network/tools-web-components/issues/116)) ([c38a46d](https://github.com/lukso-network/tools-web-components/commit/c38a46ddff10d949881e0f6abf0790725df3e78d))
+* transparent header ([#114](https://github.com/lukso-network/tools-web-components/issues/114)) ([3ae6cae](https://github.com/lukso-network/tools-web-components/commit/3ae6caea0d02f5381c4595b94b215c1e1882b051))
+
 ## [1.11.0](https://github.com/lukso-network/tools-web-components/compare/v1.10.0...v1.11.0) (2023-03-29)
 
 

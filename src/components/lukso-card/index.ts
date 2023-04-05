@@ -85,6 +85,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
           <div
             class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10 absolute opacity-10"
           ></div>
+          <div>
+            <slot name="header"></slot>
+          </div>
         </div>
         <div
           class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-24 relative"
@@ -97,14 +100,13 @@ export class LuksoCard extends TailwindStyledElement(style) {
             class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
           ></lukso-profile>
           <div
-            class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center"
+            class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center -mb-2"
           >
             <div
               class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]
               shadow-neutral-above-shadow-1xl"
             ></div>
           </div>
-
           <slot name="content"></slot>
         </div>
       </div>

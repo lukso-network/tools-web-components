@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.1](https://github.com/lukso-network/tools-web-components/compare/v1.13.0...v1.13.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* card improvements ([#119](https://github.com/lukso-network/tools-web-components/issues/119)) ([2cb038b](https://github.com/lukso-network/tools-web-components/commit/2cb038bc181a227d52e1a032033ca00759c27bcf))
+
 ## [1.13.0](https://github.com/lukso-network/tools-web-components/compare/v1.12.0...v1.13.0) (2023-04-03)
 
 

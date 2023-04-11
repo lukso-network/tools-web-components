@@ -268,6 +268,15 @@
             },
             {
               "kind": "field",
+              "name": "customClass",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "custom-class"
+            },
+            {
+              "kind": "field",
               "name": "isPressed",
               "type": {
                 "text": "boolean"
@@ -484,6 +493,14 @@
               },
               "default": "''",
               "fieldName": "loadingText"
+            },
+            {
+              "name": "custom-class",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "customClass"
             }
           ],
           "mixins": [
@@ -689,137 +706,6 @@
           "declaration": {
             "name": "LuksoCard",
             "module": "src/components/lukso-card/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-icon/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoIcon",
-          "members": [
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "name"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "string"
-              },
-              "default": "'medium'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "color",
-              "type": {
-                "text": "string"
-              },
-              "default": "'neutral-20'",
-              "attribute": "color"
-            },
-            {
-              "kind": "field",
-              "name": "secondaryColor",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "secondary-color"
-            },
-            {
-              "kind": "field",
-              "name": "sizes",
-              "type": {
-                "text": "{ [key in IconSize]: IconSizeDef }"
-              },
-              "privacy": "private",
-              "default": "{\n    small: {\n      width: 16,\n      height: 16,\n      strokeWidth: 2,\n    },\n    medium: {\n      width: 24,\n      height: 24,\n      strokeWidth: 1.5,\n    },\n    large: {\n      width: 32,\n      height: 32,\n      strokeWidth: 1.5,\n    },\n    'x-large': {\n      width: 40,\n      height: 40,\n      strokeWidth: 1.5,\n    },\n    '2x-large': {\n      width: 64,\n      height: 64,\n      strokeWidth: 1.5,\n    },\n  }"
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true,
-              "inheritedFrom": {
-                "name": "TailwindStyledElement",
-                "module": "src/shared/tailwind-element/index.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "name"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "string"
-              },
-              "default": "'medium'",
-              "fieldName": "size"
-            },
-            {
-              "name": "color",
-              "type": {
-                "text": "string"
-              },
-              "default": "'neutral-20'",
-              "fieldName": "color"
-            },
-            {
-              "name": "secondary-color",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "secondaryColor"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "TailwindStyledElement",
-              "package": "@/shared/tailwind-element"
-            }
-          ],
-          "superclass": {
-            "name": "style",
-            "module": "/src/components/lukso-icon/style.scss"
-          },
-          "tagName": "lukso-icon",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoIcon",
-          "declaration": {
-            "name": "LuksoIcon",
-            "module": "src/components/lukso-icon/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-icon",
-          "declaration": {
-            "name": "LuksoIcon",
-            "module": "src/components/lukso-icon/index.ts"
           }
         }
       ]
@@ -1178,6 +1064,137 @@
           "declaration": {
             "name": "LuksoInput",
             "module": "src/components/lukso-input/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-icon/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoIcon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "string"
+              },
+              "default": "'medium'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "color",
+              "type": {
+                "text": "string"
+              },
+              "default": "'neutral-20'",
+              "attribute": "color"
+            },
+            {
+              "kind": "field",
+              "name": "secondaryColor",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "secondary-color"
+            },
+            {
+              "kind": "field",
+              "name": "sizes",
+              "type": {
+                "text": "{ [key in IconSize]: IconSizeDef }"
+              },
+              "privacy": "private",
+              "default": "{\n    small: {\n      width: 16,\n      height: 16,\n      strokeWidth: 2,\n    },\n    medium: {\n      width: 24,\n      height: 24,\n      strokeWidth: 1.5,\n    },\n    large: {\n      width: 32,\n      height: 32,\n      strokeWidth: 1.5,\n    },\n    'x-large': {\n      width: 40,\n      height: 40,\n      strokeWidth: 1.5,\n    },\n    '2x-large': {\n      width: 64,\n      height: 64,\n      strokeWidth: 1.5,\n    },\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "inheritedFrom": {
+                "name": "TailwindStyledElement",
+                "module": "src/shared/tailwind-element/index.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "name"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "string"
+              },
+              "default": "'medium'",
+              "fieldName": "size"
+            },
+            {
+              "name": "color",
+              "type": {
+                "text": "string"
+              },
+              "default": "'neutral-20'",
+              "fieldName": "color"
+            },
+            {
+              "name": "secondary-color",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "secondaryColor"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "TailwindStyledElement",
+              "package": "@/shared/tailwind-element"
+            }
+          ],
+          "superclass": {
+            "name": "style",
+            "module": "/src/components/lukso-icon/style.scss"
+          },
+          "tagName": "lukso-icon",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoIcon",
+          "declaration": {
+            "name": "LuksoIcon",
+            "module": "src/components/lukso-icon/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-icon",
+          "declaration": {
+            "name": "LuksoIcon",
+            "module": "src/components/lukso-icon/index.ts"
           }
         }
       ]
@@ -1760,6 +1777,175 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-username/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoUsername",
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "address",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "address"
+            },
+            {
+              "kind": "field",
+              "name": "maxWidth",
+              "type": {
+                "text": "number"
+              },
+              "default": "200",
+              "attribute": "max-width"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "UsernameSize"
+              },
+              "default": "'large'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "sliceBy",
+              "type": {
+                "text": "number"
+              },
+              "default": "8",
+              "attribute": "slice-by"
+            },
+            {
+              "kind": "field",
+              "name": "addressColor",
+              "type": {
+                "text": "string"
+              },
+              "default": "'neutral-20'",
+              "attribute": "address-color"
+            },
+            {
+              "kind": "field",
+              "name": "bytesWidth",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "52",
+              "description": "Width of the first 4 bytes of the address"
+            },
+            {
+              "kind": "method",
+              "name": "addressBytesTemplate",
+              "privacy": "private",
+              "description": "Template for 4byte address\ne.g: #1234"
+            },
+            {
+              "kind": "method",
+              "name": "nameTemplate",
+              "privacy": "private",
+              "description": "Template for name\ne.g: @John"
+            },
+            {
+              "kind": "method",
+              "name": "addressTemplate",
+              "privacy": "private",
+              "description": "Template for address\ne.g: 0x123...789"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "name"
+            },
+            {
+              "name": "address",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "address"
+            },
+            {
+              "name": "max-width",
+              "type": {
+                "text": "number"
+              },
+              "default": "200",
+              "fieldName": "maxWidth"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "UsernameSize"
+              },
+              "default": "'large'",
+              "fieldName": "size"
+            },
+            {
+              "name": "slice-by",
+              "type": {
+                "text": "number"
+              },
+              "default": "8",
+              "fieldName": "sliceBy"
+            },
+            {
+              "name": "address-color",
+              "type": {
+                "text": "string"
+              },
+              "default": "'neutral-20'",
+              "fieldName": "addressColor"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-username",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoUsername",
+          "declaration": {
+            "name": "LuksoUsername",
+            "module": "src/components/lukso-username/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-username",
+          "declaration": {
+            "name": "LuksoUsername",
+            "module": "src/components/lukso-username/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-terms/index.ts",
       "declarations": [
         {
@@ -1978,175 +2164,6 @@
           "declaration": {
             "name": "LuksoTest",
             "module": "src/components/lukso-test/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-username/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoUsername",
-          "members": [
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "name"
-            },
-            {
-              "kind": "field",
-              "name": "address",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "address"
-            },
-            {
-              "kind": "field",
-              "name": "maxWidth",
-              "type": {
-                "text": "number"
-              },
-              "default": "200",
-              "attribute": "max-width"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "UsernameSize"
-              },
-              "default": "'large'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "sliceBy",
-              "type": {
-                "text": "number"
-              },
-              "default": "8",
-              "attribute": "slice-by"
-            },
-            {
-              "kind": "field",
-              "name": "addressColor",
-              "type": {
-                "text": "string"
-              },
-              "default": "'neutral-20'",
-              "attribute": "address-color"
-            },
-            {
-              "kind": "field",
-              "name": "bytesWidth",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "52",
-              "description": "Width of the first 4 bytes of the address"
-            },
-            {
-              "kind": "method",
-              "name": "addressBytesTemplate",
-              "privacy": "private",
-              "description": "Template for 4byte address\ne.g: #1234"
-            },
-            {
-              "kind": "method",
-              "name": "nameTemplate",
-              "privacy": "private",
-              "description": "Template for name\ne.g: @John"
-            },
-            {
-              "kind": "method",
-              "name": "addressTemplate",
-              "privacy": "private",
-              "description": "Template for address\ne.g: 0x123...789"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "name"
-            },
-            {
-              "name": "address",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "address"
-            },
-            {
-              "name": "max-width",
-              "type": {
-                "text": "number"
-              },
-              "default": "200",
-              "fieldName": "maxWidth"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "UsernameSize"
-              },
-              "default": "'large'",
-              "fieldName": "size"
-            },
-            {
-              "name": "slice-by",
-              "type": {
-                "text": "number"
-              },
-              "default": "8",
-              "fieldName": "sliceBy"
-            },
-            {
-              "name": "address-color",
-              "type": {
-                "text": "string"
-              },
-              "default": "'neutral-20'",
-              "fieldName": "addressColor"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-username",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoUsername",
-          "declaration": {
-            "name": "LuksoUsername",
-            "module": "src/components/lukso-username/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-username",
-          "declaration": {
-            "name": "LuksoUsername",
-            "module": "src/components/lukso-username/index.ts"
           }
         }
       ]

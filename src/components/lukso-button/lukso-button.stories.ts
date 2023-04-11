@@ -71,6 +71,10 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    customClass: {
+      name: 'custom-class',
+      control: { type: 'text' },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -86,6 +90,9 @@ const meta: Meta = {
     'loading-text': {
       name: 'loadingText',
     },
+    'custom-class': {
+      name: 'customClass',
+    },
   },
   args: {
     text: 'Hello World',
@@ -100,6 +107,7 @@ const meta: Meta = {
     rel: 'noopener noreferrer',
     isLoading: false,
     loadingText: 'Loading...',
+    customClass: '',
   },
   parameters: {
     controls: {
@@ -128,6 +136,7 @@ const meta: Meta = {
         'isLink',
         'isLoading',
         'loadingText',
+        'customClass',
       ],
     },
   },
@@ -149,6 +158,7 @@ const Template = ({
   onLongPressComplete,
   isLoading,
   loadingText,
+  customClass,
 }) =>
   html`<lukso-button
     variant=${variant}
@@ -163,6 +173,7 @@ const Template = ({
     rel=${rel}
     loading-text=${loadingText}
     @on-long-press-complete=${onLongPressComplete}
+    custom-class=${customClass}
     >${text}</lukso-button
   >`
 
@@ -324,5 +335,19 @@ LoadingButton.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6-1324&t=skBgEdvtZt68G51p-4',
+  },
+}
+
+/** You can pass any custom CSS class using `custom-class` property. */
+export const CustomClassButton = Template.bind({})
+CustomClassButton.args = {
+  variant: 'secondary',
+  text: 'Custom Button',
+  customClass: 'text-red-55 border-red-55',
+}
+CustomClassButton.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6%3A1324&t=mppskGJvpl3LbsWL-4',
   },
 }

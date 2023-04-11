@@ -46,6 +46,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'loading-text' })
   loadingText = ''
 
+  @property({ type: String, attribute: 'custom-class' })
+  customClass = ''
+
   @state()
   private isPressed = false
 
@@ -166,6 +169,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
           [this.longPressStyles]: this.isLongPress,
           [this.pressedStyles]: this.isPressed,
           [this.noTransitionStyles]: this.noTransition,
+          [this.customClass]: !!this.customClass,
         })}
         @mousedown=${this.handleMouseDown}
         @mouseup=${this.handleMouseUp}
@@ -190,6 +194,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
           [this.textStyles]: this.variant === 'text',
           [this.linkStyles]: this.variant === 'text',
           ['w-full']: this.isFullWidth,
+          [this.customClass]: !!this.customClass,
         })}
         href=${this.href}
         target=${this.target}

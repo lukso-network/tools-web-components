@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.1](https://github.com/lukso-network/tools-web-components/compare/v1.14.0...v1.14.1) (2023-04-14)
+
+
+### Bug Fixes
+
+* adds type to lukso-button ([#124](https://github.com/lukso-network/tools-web-components/issues/124)) ([02b15c6](https://github.com/lukso-network/tools-web-components/commit/02b15c639657394ac79d66c50e20c955e219164a))
+
 ## [1.14.0](https://github.com/lukso-network/tools-web-components/compare/v1.13.1...v1.14.0) (2023-04-11)
 
 

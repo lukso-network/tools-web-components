@@ -32,6 +32,10 @@ const meta: Meta = {
       control: { type: 'select' },
       options: ['small', 'medium'],
     },
+    type: {
+      control: { type: 'select' },
+      options: ['button', 'submit', 'reset'],
+    },
     isFullWidth: {
       name: 'is-full-width',
       control: { type: 'boolean' },
@@ -100,6 +104,7 @@ const meta: Meta = {
     disabled: false,
     size: 'medium',
     variant: 'primary',
+    type: 'button',
     isFullWidth: false,
     isLongPress: false,
     href: 'https://lukso.network',
@@ -149,6 +154,7 @@ const Template = ({
   disabled,
   text,
   size,
+  type,
   isFullWidth,
   isLongPress,
   isLink,
@@ -169,6 +175,7 @@ const Template = ({
     ?is-link=${isLink}
     ?is-loading=${isLoading}
     href=${href}
+    type=${type}
     target=${target}
     rel=${rel}
     loading-text=${loadingText}

@@ -40,6 +40,10 @@ const meta: Meta = {
       name: 'is-fixed-height',
       control: { type: 'boolean' },
     },
+    isFullWidth: {
+      name: 'is-full-width',
+      control: { type: 'boolean' },
+    },
     'background-url': {
       name: 'backgroundUrl',
     },
@@ -54,6 +58,9 @@ const meta: Meta = {
     },
     'is-fixed-height': {
       name: 'isFixedHeight',
+    },
+    'is-full-width': {
+      name: 'isFullWidth',
     },
   },
   args: {
@@ -91,12 +98,14 @@ const DefaultTemplate = ({
   header,
   isFixedHeight,
   isFixedWidth,
+  isFullWidth,
 }) =>
   html`
     <lukso-card
       variant=${variant}
       ?is-fixed-width=${isFixedWidth}
       ?is-fixed-height=${isFixedHeight}
+      ?is-full-width=${isFullWidth}
     >
       <div slot="header" class="p-6">${header}</div>
       <div slot="content" class="p-6">${content}</div>
@@ -109,12 +118,14 @@ const CustomHeaderTemplate = ({
   header,
   isFixedHeight,
   isFixedWidth,
+  isFullWidth,
 }) =>
   html`
     <lukso-card
       variant=${variant}
       ?is-fixed-width=${isFixedWidth}
       ?is-fixed-height=${isFixedHeight}
+      ?is-full-width=${isFullWidth}
     >
       <div slot="header" class="p-6 relative overflow-hidden min-h-[200px]">
         <div
@@ -134,6 +145,7 @@ const ProfileTemplate = ({
   profileAddress,
   isFixedHeight,
   isFixedWidth,
+  isFullWidth,
 }) =>
   html`
     <lukso-card
@@ -143,6 +155,7 @@ const ProfileTemplate = ({
       profile-address=${profileAddress}
       ?is-fixed-width=${isFixedWidth}
       ?is-fixed-height=${isFixedHeight}
+      ?is-full-width=${isFullWidth}
     >
       <div slot="content" class="p-6">${content}</div>
     </lukso-card>
@@ -164,6 +177,18 @@ FixedCard.args = {
   isFixedHeight: true,
 }
 FixedCard.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
+  },
+}
+
+/** If you need card with full width of parent container you can add `is-full-width` property.  */
+export const FullWidthCard = DefaultTemplate.bind({})
+FullWidthCard.args = {
+  isFullWidth: true,
+}
+FullWidthCard.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',

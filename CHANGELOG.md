@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.14.1](https://github.com/lukso-network/tools-web-components/compare/v1.14.0...v1.14.1) (2023-04-14)
+
+
+### Bug Fixes
+
+* adds type to lukso-button ([#124](https://github.com/lukso-network/tools-web-components/issues/124)) ([02b15c6](https://github.com/lukso-network/tools-web-components/commit/02b15c639657394ac79d66c50e20c955e219164a))
+
+## [1.14.0](https://github.com/lukso-network/tools-web-components/compare/v1.13.1...v1.14.0) (2023-04-11)
+
+
+### Features
+
+* allow to pass custom class for button ([#121](https://github.com/lukso-network/tools-web-components/issues/121)) ([c63e252](https://github.com/lukso-network/tools-web-components/commit/c63e2527315442149c910bbf2886b3542f667bdf))
+
 ## [1.13.1](https://github.com/lukso-network/tools-web-components/compare/v1.13.0...v1.13.1) (2023-04-05)
 
 

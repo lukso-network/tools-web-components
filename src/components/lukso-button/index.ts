@@ -7,6 +7,7 @@ import style from './style.scss?inline'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'landing' | 'text'
 export type ButtonSize = 'small' | 'medium'
+export type ButtonType = 'submit' | 'reset' | 'button'
 export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
 
 const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
@@ -33,6 +34,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
 
   @property({ type: Boolean, attribute: 'is-loading' })
   isLoading = false
+
+  @property({ type: String })
+  type: ButtonType = 'button'
 
   @property({ type: String })
   href = ''
@@ -157,6 +161,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
       <button
         data-testid="button"
         ?disabled=${this.disabled || this.isLoading}
+        type=${this.type}
         class=${customClassMap({
           [this.defaultStyles]: true,
           [this.mediumSize]: this.size === 'medium',

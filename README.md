@@ -25,15 +25,15 @@ Library is focused around projects build on top of [Tailwind CSS](https://tailwi
 For using components you need to first import them either as individual ones:
 
 ```js
-import('@lukso/web-components/components/lukso-button')
-import('@lukso/web-components/components/lukso-card')
-import('@lukso/web-components/components/lukso-tag')
+import('@lukso/web-components/components/dist/lukso-button')
+import('@lukso/web-components/components/dist/lukso-card')
+import('@lukso/web-components/components/dist/lukso-tag')
 ```
 
 or all of them in single import:
 
 ```js
-import('@lukso/web-components/components')
+import('@lukso/web-components')
 ```
 
 > Hint: you can make import in root level of your project (`app.vue`) instead of importing in every component.

@@ -29,6 +29,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-fixed-height' })
   isFixedHeight = false
 
+  @property({ type: Boolean, attribute: 'is-full-width' })
+  isFullWidth = false
+
   private defaultStyles = `rounded-24  shadow-pink-drop-shadow-2xl`
 
   basicTemplate() {
@@ -39,6 +42,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [this.defaultStyles]: true,
           ['w-[362px]']: this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
+          ['w-full']: this.isFullWidth,
         })}"
       >
         <slot name="content"></slot>
@@ -54,6 +58,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [this.defaultStyles]: true,
           ['w-[362px]']: this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
+          ['w-full']: this.isFullWidth,
         })}"
       >
         <div>
@@ -74,6 +79,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [this.defaultStyles]: true,
           ['w-[362px]']: this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
+          ['w-full']: this.isFullWidth,
         })}"
       >
         <div

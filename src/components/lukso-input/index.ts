@@ -87,46 +87,7 @@ export class LuksoInput extends TailwindElement {
         id=${this.id || this.name}
         data-testid=${this.name ? `input-${this.name}` : 'input'}
         accept=${this.accept}
-        class=${customClassMap({
-          [this.defaultInputStyles]: true,
-          [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
-            !this.hasHighlight,
-          [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
-            this.hasHighlight,
-          ['rounded-l-12 border-r-0']: this.unit !== '',
-          ['rounded-12']: this.unit === '',
-          ['w-full']: this.isFullWidth,
-          ['w-[350px]']: !this.isFullWidth && this.unit === '',
-          ['w-[300px]']: !this.isFullWidth && this.unit !== '',
-        })}
-        @focus=${this.handleFocus}
-        @change=${this.handleChange}
-        @blur=${this.handleBlur}
-        @keyup=${this.handleKeyUp}
-        @keydown=${this.handleKeyDown}
-        @keypress=${this.handleKeyPress}
-        @mouseenter=${this.handleMouseOver}
-        @mouseleave=${this.handleMouseOut}
-      />
-    `
-  }
-
-  inputReadonlyTemplate() {
-    return html`
-      <input
-        name=${this.name}
-        type=${this.type as any}
-        value=${this.value}
-        placeholder=${this.placeholder}
-        ?autofocus=${this.autofocus}
-        min=${this.min}
-        max=${this.max}
-        readonly
-        autocomplete=${this.autocomplete}
-        ref=${this.ref}
-        id=${this.id || this.name}
-        data-testid=${this.name ? `input-${this.name}` : 'input'}
-        accept=${this.accept}
+        ?readonly=${this.isReadonly ? true : undefined}
         class=${customClassMap({
           [this.defaultInputStyles]: true,
           [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
@@ -279,10 +240,7 @@ export class LuksoInput extends TailwindElement {
         ${this.label ? this.labelTemplate() : nothing}
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class="flex">
-          ${this.isReadonly
-            ? this.inputReadonlyTemplate()
-            : this.inputTemplate()}
-          ${this.unit ? this.unitTemplate() : nothing}
+          ${this.inputTemplate()} ${this.unit ? this.unitTemplate() : nothing}
         </div>
         ${this.error ? this.errorTemplate() : nothing}
       </div>

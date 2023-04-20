@@ -876,10 +876,6 @@
             },
             {
               "kind": "method",
-              "name": "inputReadonlyTemplate"
-            },
-            {
-              "kind": "method",
               "name": "labelTemplate"
             },
             {

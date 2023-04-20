@@ -16034,6 +16034,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web-components-builder@workspace:."
   dependencies:
+    "@babel/preset-react": ^7.18.6
     "@custom-elements-manifest/analyzer": ^0.6.8
     "@lit-labs/motion": ^1.0.3
     "@storybook/addon-controls": ^7.0.6

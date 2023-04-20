@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.16.0](https://github.com/lukso-network/tools-web-components/compare/v1.15.0...v1.16.0) (2023-04-20)
+
+
+### Features
+
+* progress component ([#129](https://github.com/lukso-network/tools-web-components/issues/129)) ([362d1be](https://github.com/lukso-network/tools-web-components/commit/362d1be6b59820370e6aa1826579ddc767fd2694))
+
+
+### Bug Fixes
+
+* fixes input component ([#128](https://github.com/lukso-network/tools-web-components/issues/128)) ([22f8285](https://github.com/lukso-network/tools-web-components/commit/22f828588a9ec7e62b8b4cfe003d6d0378c09b54))
+
 ## [1.15.0](https://github.com/lukso-network/tools-web-components/compare/v1.14.1...v1.15.0) (2023-04-19)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/lukso-network/tools-web-components/compare/v1.14.1...v1.15.0) (2023-04-19)
+
+
+### Features
+
+* add `is-full-width` property to card component ([#126](https://github.com/lukso-network/tools-web-components/issues/126)) ([20bc4fd](https://github.com/lukso-network/tools-web-components/commit/20bc4fd728db277682d0a5df3216f4ecc536a74f))
+
 ## [1.14.1](https://github.com/lukso-network/tools-web-components/compare/v1.14.0...v1.14.1) (2023-04-14)
 
 

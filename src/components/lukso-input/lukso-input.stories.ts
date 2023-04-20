@@ -17,6 +17,16 @@ const meta: Meta = {
     type: {
       control: { type: 'text' },
     },
+
+    autocomplete: {
+      control: { type: 'text' },
+    },
+    ref: {
+      control: { type: 'text' },
+    },
+    id: {
+      control: { type: 'text' },
+    },
     placeholder: {
       control: { type: 'text' },
     },
@@ -32,6 +42,10 @@ const meta: Meta = {
     unit: {
       control: { type: 'text' },
     },
+    isReadonly: {
+      name: 'is-readonly',
+      control: { type: 'boolean' },
+    },
     isFullWidth: {
       name: 'is-full-width',
       control: { type: 'boolean' },
@@ -39,11 +53,28 @@ const meta: Meta = {
     autofocus: {
       control: { type: 'boolean' },
     },
+    accept: {
+      control: { type: 'text' },
+    },
     min: {
       control: { type: 'number' },
     },
     max: {
       control: { type: 'number' },
+    },
+    onBlur: {
+      name: 'on-blur',
+      description: 'Emitted on input blur event.',
+      table: {
+        category: 'Events',
+      },
+    },
+    onChange: {
+      name: 'on-change',
+      description: 'Emitted on input change event.',
+      table: {
+        category: 'Events',
+      },
     },
     onKeyUp: {
       name: 'on-key-up',
@@ -77,6 +108,8 @@ const meta: Meta = {
     label: '',
     description: '',
     error: '',
+    isReadonly: false,
+    accept: 'image',
     placeholder: '',
     unit: '',
     isFullWidth: false,
@@ -116,6 +149,10 @@ const Template = ({
   autofocus,
   min,
   max,
+  isReadonly,
+  accept,
+  onBlur,
+  onChange,
   onKeyUp,
   onKeyDown,
   onKeyPress,
@@ -133,7 +170,11 @@ const Template = ({
     ?autofocus=${autofocus}
     min=${min}
     max=${max}
+    ?is-readonly=${isReadonly}
+    accept=${accept}
     @on-key-up=${onKeyUp}
+    @on-blur=${onBlur}
+    @on-change=${onChange}
     @on-key-down=${onKeyDown}
     @on-key-press=${onKeyPress}
   ></lukso-input>`

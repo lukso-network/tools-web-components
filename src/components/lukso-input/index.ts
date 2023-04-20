@@ -22,6 +22,18 @@ export class LuksoInput extends TailwindElement {
   label = ''
 
   @property({ type: String })
+  autocomplete = 'on'
+
+  @property({ type: String })
+  id = ''
+
+  @property({ type: String })
+  ref = undefined
+
+  @property({ type: String })
+  accept = undefined
+
+  @property({ type: String })
   description = ''
 
   @property({ type: String })
@@ -32,6 +44,9 @@ export class LuksoInput extends TailwindElement {
 
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
+
+  @property({ type: Boolean, attribute: 'is-readonly' })
+  isReadonly = false
 
   @property({ type: Boolean })
   autofocus = false
@@ -48,7 +63,7 @@ export class LuksoInput extends TailwindElement {
   @state()
   private hasHighlight = false
 
-  private defaultInputStyles = `bg-neutral-100 text-neutral-20 paragraph-inter-16-regular px-4 py-3
+  private defaultInputStyles = `bg-neutral-100 text-neutral-20 paragraph-inter-14-regular px-4 py-3
     border border-solid h-[48px] placeholder:text-neutral-70
     outline-none transition transition-all duration-150 appearance-none`
 
@@ -60,8 +75,6 @@ export class LuksoInput extends TailwindElement {
   inputTemplate() {
     return html`
       <input
-        data-testid="input"
-        id=${this.name}
         name=${this.name}
         type=${this.type as any}
         value=${this.value}
@@ -69,6 +82,12 @@ export class LuksoInput extends TailwindElement {
         ?autofocus=${this.autofocus}
         min=${this.min}
         max=${this.max}
+        autocomplete=${this.autocomplete}
+        ref=${this.ref}
+        id=${this.id || this.name}
+        data-testid=${this.name ? `input-${this.name}` : 'input'}
+        accept=${this.accept}
+        ?readonly=${this.isReadonly ? true : undefined}
         class=${customClassMap({
           [this.defaultInputStyles]: true,
           [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
@@ -82,6 +101,7 @@ export class LuksoInput extends TailwindElement {
           ['w-[300px]']: !this.isFullWidth && this.unit !== '',
         })}
         @focus=${this.handleFocus}
+        @change=${this.handleChange}
         @blur=${this.handleBlur}
         @keyup=${this.handleKeyUp}
         @keydown=${this.handleKeyDown}
@@ -137,9 +157,32 @@ export class LuksoInput extends TailwindElement {
     this.hasHighlight = true
   }
 
-  private handleBlur() {
+  private handleBlur(event: FocusEvent) {
     this.hasHocus = false
     this.hasHighlight = false
+    const target = event.target as HTMLInputElement
+    const blurEvent = new CustomEvent('on-blur', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(blurEvent)
+  }
+
+  private handleChange(event: Event) {
+    const target = event.target as HTMLInputElement
+    const changeEvent = new CustomEvent('on-change', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(changeEvent)
   }
 
   private handleKeyUp(event: KeyboardEvent) {

@@ -21,6 +21,17 @@ export class LuksoProgress extends TailwindElement {
   @property({ type: String })
   variant: ProgressVariant = 'success'
 
+  private progressWidth() {
+    const width = (this.current / this.max) * 100
+
+    // minimum width is 1% to avoid the progress bar being too small
+    if (width <= 1) {
+      return 1
+    }
+
+    return width
+  }
+
   render() {
     return html`
       <div
@@ -35,7 +46,7 @@ export class LuksoProgress extends TailwindElement {
             'bg-red-85 border-red-65': this.variant === 'error',
           })}
           style=${styleMap({
-            width: `${(this.current / this.max) * 100}%`,
+            width: `${this.progressWidth()}%`,
           })}
         >
           </div>

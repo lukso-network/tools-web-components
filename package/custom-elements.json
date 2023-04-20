@@ -83,6 +83,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./lukso-progress/index"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./lukso-sanitize/index"
           }
         },
@@ -549,6 +557,197 @@
           "declaration": {
             "name": "LuksoButton",
             "module": "src/components/lukso-button/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-card/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoCard",
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "CardVariants"
+              },
+              "default": "'basic'",
+              "attribute": "variant"
+            },
+            {
+              "kind": "field",
+              "name": "backgroundUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "background-url"
+            },
+            {
+              "kind": "field",
+              "name": "profileUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "profile-url"
+            },
+            {
+              "kind": "field",
+              "name": "profileAddress",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "profile-address"
+            },
+            {
+              "kind": "field",
+              "name": "isFixedWidth",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-fixed-width"
+            },
+            {
+              "kind": "field",
+              "name": "isFixedHeight",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-fixed-height"
+            },
+            {
+              "kind": "field",
+              "name": "isFullWidth",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-full-width"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "privacy": "private",
+              "default": "`rounded-24  shadow-pink-drop-shadow-2xl`"
+            },
+            {
+              "kind": "method",
+              "name": "basicTemplate"
+            },
+            {
+              "kind": "method",
+              "name": "withHeaderTemplate"
+            },
+            {
+              "kind": "method",
+              "name": "profileTemplate"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "inheritedFrom": {
+                "name": "TailwindStyledElement",
+                "module": "src/shared/tailwind-element/index.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "CardVariants"
+              },
+              "default": "'basic'",
+              "fieldName": "variant"
+            },
+            {
+              "name": "background-url",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "backgroundUrl"
+            },
+            {
+              "name": "profile-url",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "profileUrl"
+            },
+            {
+              "name": "profile-address",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "profileAddress"
+            },
+            {
+              "name": "is-fixed-width",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isFixedWidth"
+            },
+            {
+              "name": "is-fixed-height",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isFixedHeight"
+            },
+            {
+              "name": "is-full-width",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isFullWidth"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "TailwindStyledElement",
+              "package": "@/shared/tailwind-element"
+            }
+          ],
+          "superclass": {
+            "name": "style",
+            "module": "/src/components/lukso-card/style.scss"
+          },
+          "tagName": "lukso-card",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoCard",
+          "declaration": {
+            "name": "LuksoCard",
+            "module": "src/components/lukso-card/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-card",
+          "declaration": {
+            "name": "LuksoCard",
+            "module": "src/components/lukso-card/index.ts"
           }
         }
       ]
@@ -1144,197 +1343,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-card/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoCard",
-          "members": [
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "CardVariants"
-              },
-              "default": "'basic'",
-              "attribute": "variant"
-            },
-            {
-              "kind": "field",
-              "name": "backgroundUrl",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "background-url"
-            },
-            {
-              "kind": "field",
-              "name": "profileUrl",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "profile-url"
-            },
-            {
-              "kind": "field",
-              "name": "profileAddress",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "profile-address"
-            },
-            {
-              "kind": "field",
-              "name": "isFixedWidth",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-fixed-width"
-            },
-            {
-              "kind": "field",
-              "name": "isFixedHeight",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-fixed-height"
-            },
-            {
-              "kind": "field",
-              "name": "isFullWidth",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-full-width"
-            },
-            {
-              "kind": "field",
-              "name": "defaultStyles",
-              "privacy": "private",
-              "default": "`rounded-24  shadow-pink-drop-shadow-2xl`"
-            },
-            {
-              "kind": "method",
-              "name": "basicTemplate"
-            },
-            {
-              "kind": "method",
-              "name": "withHeaderTemplate"
-            },
-            {
-              "kind": "method",
-              "name": "profileTemplate"
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true,
-              "inheritedFrom": {
-                "name": "TailwindStyledElement",
-                "module": "src/shared/tailwind-element/index.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "variant",
-              "type": {
-                "text": "CardVariants"
-              },
-              "default": "'basic'",
-              "fieldName": "variant"
-            },
-            {
-              "name": "background-url",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "backgroundUrl"
-            },
-            {
-              "name": "profile-url",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "profileUrl"
-            },
-            {
-              "name": "profile-address",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "profileAddress"
-            },
-            {
-              "name": "is-fixed-width",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isFixedWidth"
-            },
-            {
-              "name": "is-fixed-height",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isFixedHeight"
-            },
-            {
-              "name": "is-full-width",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isFullWidth"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "TailwindStyledElement",
-              "package": "@/shared/tailwind-element"
-            }
-          ],
-          "superclass": {
-            "name": "style",
-            "module": "/src/components/lukso-card/style.scss"
-          },
-          "tagName": "lukso-card",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoCard",
-          "declaration": {
-            "name": "LuksoCard",
-            "module": "src/components/lukso-card/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-card",
-          "declaration": {
-            "name": "LuksoCard",
-            "module": "src/components/lukso-card/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-modal/index.ts",
       "declarations": [
         {
@@ -1706,6 +1714,118 @@
           "declaration": {
             "name": "LuksoProfile",
             "module": "src/components/lukso-profile/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-progress/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoProgress",
+          "members": [
+            {
+              "kind": "field",
+              "name": "min",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "min"
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "type": {
+                "text": "number"
+              },
+              "default": "100",
+              "attribute": "max"
+            },
+            {
+              "kind": "field",
+              "name": "current",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "current"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "ProgressVariant"
+              },
+              "default": "'success'",
+              "attribute": "variant"
+            },
+            {
+              "kind": "method",
+              "name": "progressWidth",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "min",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "min"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "number"
+              },
+              "default": "100",
+              "fieldName": "max"
+            },
+            {
+              "name": "current",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "current"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "ProgressVariant"
+              },
+              "default": "'success'",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-progress",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoProgress",
+          "declaration": {
+            "name": "LuksoProgress",
+            "module": "src/components/lukso-progress/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-progress",
+          "declaration": {
+            "name": "LuksoProgress",
+            "module": "src/components/lukso-progress/index.ts"
           }
         }
       ]
@@ -2577,6 +2697,50 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/directives/custom-class-map/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CustomClassMapDirective",
+          "members": [],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "customClassMap",
+          "description": "A directive that applies dynamic CSS classes.\nSince build in `classMap` directive can only apply one class name,\nthis directive is allowing to apply multiple class names.\n\nThis must be used in the `class` attribute and must be the only part used in\nthe attribute. It takes each property in the `classInfoList` argument and adds\nthe property names to the element's `classList` if the property value is\ntruthy; if the property value is falsey, the property name is removed from\nthe element's `class`.\n\nFor example `{'foo bar': baz}` applies the class `foo bar` if the value of `baz` is\ntruthy.",
+          "parameters": [
+            {
+              "name": "classInfoList"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CustomClassMapDirective",
+          "declaration": {
+            "name": "CustomClassMapDirective",
+            "module": "src/shared/directives/custom-class-map/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "customClassMap",
+          "declaration": {
+            "name": "customClassMap",
+            "module": "src/shared/directives/custom-class-map/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/assets/fonts/index.ts",
       "declarations": [
         {
@@ -2617,50 +2781,6 @@
           "declaration": {
             "name": "images",
             "module": "src/shared/assets/images/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/directives/custom-class-map/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CustomClassMapDirective",
-          "members": [],
-          "superclass": {
-            "name": "Directive",
-            "package": "lit/directive.js"
-          }
-        },
-        {
-          "kind": "variable",
-          "name": "customClassMap",
-          "description": "A directive that applies dynamic CSS classes.\nSince build in `classMap` directive can only apply one class name,\nthis directive is allowing to apply multiple class names.\n\nThis must be used in the `class` attribute and must be the only part used in\nthe attribute. It takes each property in the `classInfoList` argument and adds\nthe property names to the element's `classList` if the property value is\ntruthy; if the property value is falsey, the property name is removed from\nthe element's `class`.\n\nFor example `{'foo bar': baz}` applies the class `foo bar` if the value of `baz` is\ntruthy.",
-          "parameters": [
-            {
-              "name": "classInfoList"
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CustomClassMapDirective",
-          "declaration": {
-            "name": "CustomClassMapDirective",
-            "module": "src/shared/directives/custom-class-map/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "customClassMap",
-          "declaration": {
-            "name": "customClassMap",
-            "module": "src/shared/directives/custom-class-map/index.ts"
           }
         }
       ]

@@ -19,15 +19,12 @@ const meta: Meta = {
     },
 
     autocomplete: {
-      control: { type: 'boolean' },
+      control: { type: 'text' },
     },
     ref: {
       control: { type: 'text' },
     },
     id: {
-      control: { type: 'text' },
-    },
-    testid: {
       control: { type: 'text' },
     },
     placeholder: {

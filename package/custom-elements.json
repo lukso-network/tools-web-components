@@ -369,13 +369,13 @@
               "kind": "field",
               "name": "mediumSize",
               "privacy": "private",
-              "default": "`py-3 px-6 paragraph-inter-16-semi-bold rounded-12`"
+              "default": "`h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12`"
             },
             {
               "kind": "field",
               "name": "smallSize",
               "privacy": "private",
-              "default": "`py-1 px-3 paragraph-inter-12-regular rounded-8 hover:shadow-none active:shadow-none`"
+              "default": "`h-[28px] px-3 paragraph-inter-12-regular rounded-8 hover:shadow-none active:shadow-none`"
             },
             {
               "kind": "method",
@@ -744,7 +744,7 @@
               "type": {
                 "text": "string"
               },
-              "default": "'text'",
+              "default": "'on'",
               "attribute": "autocomplete"
             },
             {
@@ -759,20 +759,8 @@
             {
               "kind": "field",
               "name": "ref",
-              "type": {
-                "text": "string"
-              },
-              "default": "'element'",
+              "default": "undefined",
               "attribute": "ref"
-            },
-            {
-              "kind": "field",
-              "name": "testid",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "testid"
             },
             {
               "kind": "field",
@@ -1033,7 +1021,7 @@
               "type": {
                 "text": "string"
               },
-              "default": "'text'",
+              "default": "'on'",
               "fieldName": "autocomplete"
             },
             {
@@ -1046,19 +1034,11 @@
             },
             {
               "name": "ref",
-              "type": {
-                "text": "string"
+              "default": "undefined",
+              "resolveInitializer": {
+                "module": "src/components/lukso-input/index.ts"
               },
-              "default": "'element'",
               "fieldName": "ref"
-            },
-            {
-              "name": "testid",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "testid"
             },
             {
               "name": "accept",

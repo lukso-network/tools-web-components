@@ -22,16 +22,13 @@ export class LuksoInput extends TailwindElement {
   label = ''
 
   @property({ type: String })
-  autocomplete = 'text'
+  autocomplete = 'on'
 
   @property({ type: String })
   id = ''
 
   @property({ type: String })
-  ref = 'element'
-
-  @property({ type: String })
-  testid = ''
+  ref = undefined
 
   @property({ type: String })
   accept = undefined
@@ -88,7 +85,7 @@ export class LuksoInput extends TailwindElement {
         autocomplete=${this.autocomplete}
         ref=${this.ref}
         id=${this.id || this.name}
-        data-testid=${this.testid || `input-${this.name}`}
+        data-testid=${this.name ? `input-${this.name}` : 'input'}
         accept=${this.accept}
         class=${customClassMap({
           [this.defaultInputStyles]: true,
@@ -128,7 +125,7 @@ export class LuksoInput extends TailwindElement {
         autocomplete=${this.autocomplete}
         ref=${this.ref}
         id=${this.id || this.name}
-        data-testid=${this.testid || `input-${this.name}`}
+        data-testid=${this.name ? `input-${this.name}` : 'input'}
         accept=${this.accept}
         class=${customClassMap({
           [this.defaultInputStyles]: true,

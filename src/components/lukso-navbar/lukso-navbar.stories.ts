@@ -2,6 +2,8 @@ import { html } from 'lit-html'
 import { Meta } from '@storybook/web-components'
 
 import './index'
+import '../lukso-button/index'
+import '../lukso-icon/index'
 
 /**  Documentation and examples of `lukso-navbar` component.  */
 const meta: Meta = {
@@ -57,6 +59,8 @@ PROFILES`,
         'isCenter',
         'isSticky',
         'isTransparent',
+        'isMenuOpen',
+        'transparentStyles',
       ],
     },
     design: {
@@ -76,6 +80,52 @@ const Template = ({ title, isCenter, isSticky, isTransparent, onBrandClick }) =>
     ?is-transparent=${isTransparent}
     @on-brand-click=${onBrandClick}
   ></lukso-navbar>`
+
+const MenuTemplate = ({
+  title,
+  isCenter,
+  isSticky,
+  isTransparent,
+  onBrandClick,
+}) =>
+  html`<lukso-navbar
+    title=${title}
+    ?is-center=${isCenter}
+    ?is-sticky=${isSticky}
+    ?is-transparent=${isTransparent}
+    @on-brand-click=${onBrandClick}
+  >
+    <div slot="desktop">
+      <lukso-button
+        variant="text"
+        custom-class="text-purple-51 text-12 hover:text-purple-41"
+      >
+        HOME
+      </lukso-button>
+      <lukso-button
+        variant="text"
+        custom-class="text-purple-51 text-12 hover:text-purple-41"
+      >
+        LOGIN
+      </lukso-button>
+    </div>
+    <div slot="mobile">
+      <div class="flex flex-col items-center justify-center h-screen pb-32">
+        <lukso-button
+          variant="text"
+          custom-class="text-purple-51 text-12 hover:text-purple-41"
+        >
+          HOME
+        </lukso-button>
+        <lukso-button
+          variant="text"
+          custom-class="text-purple-51 text-12 hover:text-purple-41"
+        >
+          LOGIN
+        </lukso-button>
+      </div>
+    </div>
+  </lukso-navbar>`
 
 /** Example of default navbar. It support `@on-brand-click` event that is fired when clicking on the logo/title. */
 export const DefaultNavbar = Template.bind({})
@@ -98,3 +148,6 @@ export const StickyNavbar = Template.bind({})
 StickyNavbar.args = {
   isSticky: true,
 }
+
+/** Navbar with menu. It uses `desktop` and `mobile` slots for menus for different devices.  */
+export const NavbarWithMenu = MenuTemplate.bind({})

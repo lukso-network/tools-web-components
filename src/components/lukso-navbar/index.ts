@@ -52,8 +52,8 @@ export class LuksoNavbar extends TailwindElement {
       class="w-full items-center justify-end pr-6 flex md:hidden"
     >
       <div
+        class="flex items-center justify-center w-8 h-8 cursor-pointer"
         @click=${this.handleMenuToggle}
-        class="flex items-center justify-center cursor-pointer w-8 h-8"
       >
         <div
           class="w-[18px] h-[2px] rounded-4 bg-neutral-20 transition-all
@@ -65,17 +65,17 @@ export class LuksoNavbar extends TailwindElement {
           })}
       "
         ></div>
-        <div
-          class="fixed top-[78px] left-0 w-full h-full bg-neutral-100 z-[1000] justify-center
-        items-center flex md:hidden
-      ${customClassMap({
-            'animate-fade-in animation-duration-150': this.isMenuOpen,
-            '!hidden': !this.isMenuOpen,
-          })}"
-          @click=${this.handleMenuToggle}
-        >
-          <slot name="mobile"></slot>
-        </div>
+      </div>
+      <div
+        class="fixed top-[78px] left-0 w-full h-full bg-neutral-100 z-[1000] justify-center
+      items-center flex md:hidden
+    ${customClassMap({
+          'animate-fade-in animation-duration-150': this.isMenuOpen,
+          '!hidden': !this.isMenuOpen,
+        })}"
+        @click=${this.handleMenuToggle}
+      >
+        <slot name="mobile"></slot>
       </div>
     </div>`
   }

@@ -22,14 +22,7 @@ export class LuksoProgress extends TailwindElement {
   variant: ProgressVariant = 'success'
 
   private progressWidth() {
-    const width = (this.current / this.max) * 100
-
-    // minimum width is 1% to avoid the progress bar being too small
-    if (width <= 1) {
-      return 1
-    }
-
-    return width
+    return (this.current / this.max) * 100
   }
 
   render() {
@@ -39,12 +32,13 @@ export class LuksoProgress extends TailwindElement {
         class='w-full h-[12px] shadow-neutral-inner-shadow rounded-24 bg-neutral-95'
       >
         <div
-          class=${customClassMap({
-            'h-[12px] rounded-s-24 rounded-e-16 border border-solid': true,
-            'bg-green-85 border-green-54':
-              !!this.variant || this.variant === 'success',
-            'bg-red-85 border-red-65': this.variant === 'error',
-          })}
+          class="h-[12px] rounded-s-24 rounded-e-16 border border-solid transition-all w-[1%] ${customClassMap(
+            {
+              'bg-green-85 border-green-54':
+                !!this.variant || this.variant === 'success',
+              'bg-red-85 border-red-65': this.variant === 'error',
+            }
+          )}"
           style=${styleMap({
             width: `${this.progressWidth()}%`,
           })}

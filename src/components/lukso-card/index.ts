@@ -32,7 +32,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
 
-  private defaultStyles = `rounded-24  shadow-pink-drop-shadow-2xl`
+  private defaultStyles = `rounded-24  shadow-neutral-drop-shadow-2xl`
 
   basicTemplate() {
     return html`

@@ -42,11 +42,17 @@ export class LuksoInput extends TailwindElement {
   @property({ type: String })
   unit = ''
 
+  @property({ type: String, attribute: 'font-style' })
+  fontStyle = 'paragraph-inter-14-regular'
+
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
 
   @property({ type: Boolean, attribute: 'is-readonly' })
   isReadonly = false
+
+  @property({ type: Boolean, attribute: 'is-disabled' })
+  isDisabled = false
 
   @property({ type: Boolean })
   autofocus = false
@@ -63,7 +69,7 @@ export class LuksoInput extends TailwindElement {
   @state()
   private hasHighlight = false
 
-  private defaultInputStyles = `bg-neutral-100 text-neutral-20 paragraph-inter-14-regular px-4 py-3
+  private defaultInputStyles = `bg-neutral-100 text-neutral-20 ${this.fontStyle} px-4 py-3
     border border-solid h-[48px] placeholder:text-neutral-70
     outline-none transition transition-all duration-150 appearance-none`
 
@@ -88,6 +94,7 @@ export class LuksoInput extends TailwindElement {
         data-testid=${this.name ? `input-${this.name}` : 'input'}
         accept=${this.accept}
         ?readonly=${this.isReadonly ? true : undefined}
+        ?disabled=${this.isDisabled ? true : undefined}
         class=${customClassMap({
           [this.defaultInputStyles]: true,
           [this.error === '' ? 'border-neutral-90' : 'border-red-85']:

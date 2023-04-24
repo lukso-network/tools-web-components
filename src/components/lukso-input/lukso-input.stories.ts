@@ -50,6 +50,14 @@ const meta: Meta = {
       name: 'is-full-width',
       control: { type: 'boolean' },
     },
+    isDisabled: {
+      name: 'is-disabled',
+      control: { type: 'boolean' },
+    },
+    fontStyle: {
+      name: 'font-style',
+      control: { type: 'text' },
+    },
     autofocus: {
       control: { type: 'boolean' },
     },
@@ -113,6 +121,7 @@ const meta: Meta = {
     placeholder: '',
     unit: '',
     isFullWidth: false,
+    isDisabled: false,
     autofocus: false,
     min: undefined,
     max: undefined,
@@ -150,6 +159,8 @@ const Template = ({
   min,
   max,
   isReadonly,
+  isDisabled,
+  fontStyle,
   accept,
   onBlur,
   onChange,
@@ -171,6 +182,8 @@ const Template = ({
     min=${min}
     max=${max}
     ?is-readonly=${isReadonly}
+    ?is-disabled=${isDisabled}
+    ?font-style=${fontStyle}
     accept=${accept}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}

@@ -996,12 +996,12 @@
             },
             {
               "kind": "field",
-              "name": "fontStyle",
+              "name": "customClass",
               "type": {
                 "text": "string"
               },
-              "default": "'paragraph-inter-14-regular'",
-              "attribute": "font-style"
+              "default": "''",
+              "attribute": "custom-class"
             },
             {
               "kind": "field",
@@ -1079,7 +1079,7 @@
               "kind": "field",
               "name": "defaultInputStyles",
               "privacy": "private",
-              "default": "`bg-neutral-100 text-neutral-20 ${this.fontStyle} px-4 py-3\n    border border-solid h-[48px] placeholder:text-neutral-70\n    outline-none transition transition-all duration-150 appearance-none`"
+              "default": "`bg-neutral-100 text-neutral-20 paragraph-inter-14-regular px-4 py-3\n    border border-solid h-[48px] placeholder:text-neutral-70\n    outline-none transition transition-all duration-150 appearance-none`"
             },
             {
               "kind": "field",
@@ -1286,12 +1286,12 @@
               "fieldName": "unit"
             },
             {
-              "name": "font-style",
+              "name": "custom-class",
               "type": {
                 "text": "string"
               },
-              "default": "'paragraph-inter-14-regular'",
-              "fieldName": "fontStyle"
+              "default": "''",
+              "fieldName": "customClass"
             },
             {
               "name": "is-full-width",

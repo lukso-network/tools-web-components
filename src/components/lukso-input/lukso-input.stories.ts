@@ -54,8 +54,8 @@ const meta: Meta = {
       name: 'is-disabled',
       control: { type: 'boolean' },
     },
-    fontStyle: {
-      name: 'font-style',
+    customClass: {
+      name: 'custom-class',
       control: { type: 'text' },
     },
     autofocus: {
@@ -118,6 +118,7 @@ const meta: Meta = {
     error: '',
     isReadonly: false,
     accept: 'image',
+    customClass: '',
     placeholder: '',
     unit: '',
     isFullWidth: false,
@@ -160,7 +161,7 @@ const Template = ({
   max,
   isReadonly,
   isDisabled,
-  fontStyle,
+  customClass,
   accept,
   onBlur,
   onChange,
@@ -183,7 +184,7 @@ const Template = ({
     max=${max}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
-    ?font-style=${fontStyle}
+    custom-class=${customClass}
     accept=${accept}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}

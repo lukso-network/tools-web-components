@@ -83,6 +83,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./lukso-progress/index"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./lukso-sanitize/index"
           }
         },
@@ -1516,9 +1524,12 @@
             },
             {
               "kind": "field",
-              "name": "defaultStyles",
+              "name": "isMenuOpen",
+              "type": {
+                "text": "boolean"
+              },
               "privacy": "private",
-              "default": "`bg-neutral-100 shadow-pink-drop-shadow h-78 flex`"
+              "default": "false"
             },
             {
               "kind": "field",
@@ -1542,6 +1553,19 @@
               "kind": "method",
               "name": "handleBrandClick",
               "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleMenuToggle",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "desktopMenuTemplate"
+            },
+            {
+              "kind": "method",
+              "name": "mobileMenuTemplate"
             }
           ],
           "attributes": [

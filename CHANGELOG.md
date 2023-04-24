@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.17.0](https://github.com/lukso-network/tools-web-components/compare/v1.16.0...v1.17.0) (2023-04-21)
+
+
+### Features
+
+* navbar improvements ([#131](https://github.com/lukso-network/tools-web-components/issues/131)) ([f9b597c](https://github.com/lukso-network/tools-web-components/commit/f9b597ca26577aeeebd282b88c7b46afe1f7ac4f))
+
+## [1.16.0](https://github.com/lukso-network/tools-web-components/compare/v1.15.0...v1.16.0) (2023-04-20)
+
+
+### Features
+
+* progress component ([#129](https://github.com/lukso-network/tools-web-components/issues/129)) ([362d1be](https://github.com/lukso-network/tools-web-components/commit/362d1be6b59820370e6aa1826579ddc767fd2694))
+
+
+### Bug Fixes
+
+* fixes input component ([#128](https://github.com/lukso-network/tools-web-components/issues/128)) ([22f8285](https://github.com/lukso-network/tools-web-components/commit/22f828588a9ec7e62b8b4cfe003d6d0378c09b54))
+
+## [1.15.0](https://github.com/lukso-network/tools-web-components/compare/v1.14.1...v1.15.0) (2023-04-19)
+
+
+### Features
+
+* add `is-full-width` property to card component ([#126](https://github.com/lukso-network/tools-web-components/issues/126)) ([20bc4fd](https://github.com/lukso-network/tools-web-components/commit/20bc4fd728db277682d0a5df3216f4ecc536a74f))
+
 ## [1.14.1](https://github.com/lukso-network/tools-web-components/compare/v1.14.0...v1.14.1) (2023-04-14)
 
 

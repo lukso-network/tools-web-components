@@ -2700,6 +2700,52 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/assets/fonts/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "fonts",
+          "type": {
+            "text": "string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "fonts",
+          "declaration": {
+            "name": "fonts",
+            "module": "src/shared/assets/fonts/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/images/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "images",
+          "type": {
+            "text": "string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "images",
+          "declaration": {
+            "name": "images",
+            "module": "src/shared/assets/images/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/tools/index.ts",
       "declarations": [],
       "exports": [
@@ -2741,52 +2787,6 @@
           "declaration": {
             "name": "*",
             "package": "../assets"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/fonts/index.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "fonts",
-          "type": {
-            "text": "string"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "fonts",
-          "declaration": {
-            "name": "fonts",
-            "module": "src/shared/assets/fonts/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/images/index.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "images",
-          "type": {
-            "text": "string"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "images",
-          "declaration": {
-            "name": "images",
-            "module": "src/shared/assets/images/index.ts"
           }
         }
       ]

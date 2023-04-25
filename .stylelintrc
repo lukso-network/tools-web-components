@@ -18,6 +18,7 @@
         "except": ["first-nested"],
         "ignore": ["after-comment"]
       }
-    ]
+    ],
+    "at-rule-empty-line-before": null
   }
 }

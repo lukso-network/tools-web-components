@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.1](https://github.com/lukso-network/tools-web-components/compare/v1.17.0...v1.17.1) (2023-04-25)
+
+
+### Bug Fixes
+
+* lukso input disabled ([#133](https://github.com/lukso-network/tools-web-components/issues/133)) ([528a5fa](https://github.com/lukso-network/tools-web-components/commit/528a5fade5a413bdf7c741fd00caacae32a8a73a))
+
 ## [1.17.0](https://github.com/lukso-network/tools-web-components/compare/v1.16.0...v1.17.0) (2023-04-21)
 
 

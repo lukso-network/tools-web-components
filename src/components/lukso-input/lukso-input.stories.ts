@@ -50,6 +50,14 @@ const meta: Meta = {
       name: 'is-full-width',
       control: { type: 'boolean' },
     },
+    isDisabled: {
+      name: 'is-disabled',
+      control: { type: 'boolean' },
+    },
+    customClass: {
+      name: 'custom-class',
+      control: { type: 'text' },
+    },
     autofocus: {
       control: { type: 'boolean' },
     },
@@ -110,9 +118,11 @@ const meta: Meta = {
     error: '',
     isReadonly: false,
     accept: 'image',
+    customClass: '',
     placeholder: '',
     unit: '',
     isFullWidth: false,
+    isDisabled: false,
     autofocus: false,
     min: undefined,
     max: undefined,
@@ -150,6 +160,8 @@ const Template = ({
   min,
   max,
   isReadonly,
+  isDisabled,
+  customClass,
   accept,
   onBlur,
   onChange,
@@ -170,7 +182,9 @@ const Template = ({
     ?autofocus=${autofocus}
     min=${min}
     max=${max}
-    ?is-readonly=${isReadonly}
+    is-readonly=${isReadonly}
+    is-disabled=${isDisabled}
+    custom-class=${customClass}
     accept=${accept}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}

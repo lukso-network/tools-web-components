@@ -163,7 +163,6 @@ export class LuksoButton extends TailwindStyledElement(style) {
         ?disabled=${this.disabled || this.isLoading}
         type=${this.type}
         class=${customClassMap({
-          [this.customClass]: !!this.customClass,
           [this.defaultStyles]: true,
           [this.mediumSize]: this.size === 'medium',
           [this.smallSize]: this.size === 'small',
@@ -175,6 +174,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
           [this.longPressStyles]: this.isLongPress,
           [this.pressedStyles]: this.isPressed,
           [this.noTransitionStyles]: this.noTransition,
+          [this.customClass]: !!this.customClass,
         })}
         @mousedown=${this.handleMouseDown}
         @mouseup=${this.handleMouseUp}

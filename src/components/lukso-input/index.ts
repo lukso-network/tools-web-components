@@ -96,7 +96,6 @@ export class LuksoInput extends TailwindElement {
         ?readonly=${this.isReadonly ? true : undefined}
         ?disabled=${this.isDisabled ? true : undefined}
         class=${customClassMap({
-          [this.customClass]: !!this.customClass,
           [this.defaultInputStyles]: true,
           [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
             !this.hasHighlight,
@@ -107,6 +106,7 @@ export class LuksoInput extends TailwindElement {
           ['w-full']: this.isFullWidth,
           ['w-[350px]']: !this.isFullWidth && this.unit === '',
           ['w-[300px]']: !this.isFullWidth && this.unit !== '',
+          [this.customClass]: !!this.customClass,
         })}
         @focus=${this.handleFocus}
         @change=${this.handleChange}

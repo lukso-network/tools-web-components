@@ -637,7 +637,7 @@
               "kind": "field",
               "name": "defaultStyles",
               "privacy": "private",
-              "default": "`rounded-24  shadow-pink-drop-shadow-2xl`"
+              "default": "`rounded-24  shadow-neutral-drop-shadow-2xl`"
             },
             {
               "kind": "method",

@@ -38,10 +38,10 @@ export class LuksoWizard extends TailwindElement {
         ${step.label}
       </div>
       <div
-        class="lukso-wizard-circle bg-pink-95 w-4 h-4 rounded-full shadow-wizard-step mt-2 flex items-center
+        class="lukso-wizard-circle bg-neutral-90 w-4 h-4 rounded-full shadow-wizard-step mt-2 flex items-center
           border-[1px] border-solid border-[rgba(255,255,255,0.8)]
           after:block after:absolute after:bottom-[7px] after:w-[calc(100%-16px)] after:ml-[15px] after:h-[2px]
-          after:content:'' after:bg-pink-95 after:shadow-wizard-line"
+          after:content:'' after:bg-neutral-90 after:shadow-wizard-line"
       >
         <div
           class="lukso-wizard-circle-inner rounded-full w-[10px] h-[10px] ml-[2px] ${customClassMap(

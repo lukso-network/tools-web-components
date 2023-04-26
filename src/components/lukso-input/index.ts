@@ -78,6 +78,7 @@ export class LuksoInput extends TailwindElement {
     rounded-r-12 border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0
     before:w-[1px] before:h-[24px] whitespace-nowrap`
 
+  // @input works better in vue
   inputTemplate() {
     return html`
       <input
@@ -109,7 +110,7 @@ export class LuksoInput extends TailwindElement {
           [this.customClass]: !!this.customClass,
         })}
         @focus=${this.handleFocus}
-        @change=${this.handleChange}
+        @input=${this.handleChange}
         @blur=${this.handleBlur}
         @keyup=${this.handleKeyUp}
         @keydown=${this.handleKeyDown}

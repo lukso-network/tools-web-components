@@ -110,7 +110,7 @@ export class LuksoInput extends TailwindElement {
           [this.customClass]: !!this.customClass,
         })}
         @focus=${this.handleFocus}
-        @input=${this.handleChange}
+        @input=${this.handleInput}
         @change=${this.handleChange}
         @blur=${this.handleBlur}
         @keyup=${this.handleKeyUp}
@@ -185,6 +185,19 @@ export class LuksoInput extends TailwindElement {
   private handleChange(event: Event) {
     const target = event.target as HTMLInputElement
     const changeEvent = new CustomEvent('on-change', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(changeEvent)
+  }
+
+  private handleInput(event: Event) {
+    const target = event.target as HTMLInputElement
+    const changeEvent = new CustomEvent('on-input', {
       detail: {
         value: target.value,
         event,

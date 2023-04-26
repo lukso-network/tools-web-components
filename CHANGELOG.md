@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.19.0](https://github.com/lukso-network/tools-web-components/compare/v1.18.0...v1.19.0) (2023-04-26)
+
+
+### Features
+
+* share links ([#138](https://github.com/lukso-network/tools-web-components/issues/138)) ([daa2652](https://github.com/lukso-network/tools-web-components/commit/daa2652a6645717b9985353ab0fafeb31716ef52))
+
+
+### Bug Fixes
+
+* input on change ([#139](https://github.com/lukso-network/tools-web-components/issues/139)) ([91dcfa1](https://github.com/lukso-network/tools-web-components/commit/91dcfa1466f18c42f86b3c21153e0e045854ac06))
+
 ## [1.18.0](https://github.com/lukso-network/tools-web-components/compare/v1.17.1...v1.18.0) (2023-04-25)
 
 

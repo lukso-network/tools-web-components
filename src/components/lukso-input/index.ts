@@ -111,6 +111,7 @@ export class LuksoInput extends TailwindElement {
         })}
         @focus=${this.handleFocus}
         @input=${this.handleChange}
+        @change=${this.handleChange}
         @blur=${this.handleBlur}
         @keyup=${this.handleKeyUp}
         @keydown=${this.handleKeyDown}

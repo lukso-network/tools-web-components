@@ -99,6 +99,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./lukso-share/index"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./lukso-tag/index"
           }
         },
@@ -1951,6 +1959,104 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-share/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoShare",
+          "members": [
+            {
+              "kind": "field",
+              "name": "customClass",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "custom-class"
+            },
+            {
+              "kind": "field",
+              "name": "urls",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    twitter: 'https://twitter.com/lukso_io',\n    instagram: 'https://www.instagram.com/lukso/',\n    linkedin: 'https://www.linkedin.com/company/18289660/',\n    telegram: 'https://t.me/lukso',\n    discord: 'footer_discord_url',\n    reddit: 'https://www.reddit.com/r/lukso/',\n    medium: 'https://medium.com/lukso',\n    github: 'https://github.com/lukso-network',\n  }"
+            },
+            {
+              "kind": "method",
+              "name": "linkTemplate",
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "url",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "inheritedFrom": {
+                "name": "TailwindStyledElement",
+                "module": "src/shared/tailwind-element/index.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "custom-class",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "customClass"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "TailwindStyledElement",
+              "package": "@/shared/tailwind-element"
+            }
+          ],
+          "superclass": {
+            "name": "style",
+            "module": "/src/components/lukso-share/style.scss"
+          },
+          "tagName": "lukso-share",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoShare",
+          "declaration": {
+            "name": "LuksoShare",
+            "module": "src/components/lukso-share/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-share",
+          "declaration": {
+            "name": "LuksoShare",
+            "module": "src/components/lukso-share/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-tag/index.ts",
       "declarations": [
         {
@@ -2700,52 +2806,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/assets/fonts/index.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "fonts",
-          "type": {
-            "text": "string"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "fonts",
-          "declaration": {
-            "name": "fonts",
-            "module": "src/shared/assets/fonts/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/images/index.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "images",
-          "type": {
-            "text": "string"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "images",
-          "declaration": {
-            "name": "images",
-            "module": "src/shared/assets/images/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/shared/tools/index.ts",
       "declarations": [],
       "exports": [
@@ -2787,6 +2847,52 @@
           "declaration": {
             "name": "*",
             "package": "../assets"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/fonts/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "fonts",
+          "type": {
+            "text": "string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "fonts",
+          "declaration": {
+            "name": "fonts",
+            "module": "src/shared/assets/fonts/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/images/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "images",
+          "type": {
+            "text": "string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "images",
+          "declaration": {
+            "name": "images",
+            "module": "src/shared/assets/images/index.ts"
           }
         }
       ]

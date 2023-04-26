@@ -99,6 +99,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./lukso-share/index"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./lukso-tag/index"
           }
         },

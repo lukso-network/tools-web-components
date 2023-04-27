@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.20.0](https://github.com/lukso-network/tools-web-components/compare/v1.19.1...v1.20.0) (2023-04-27)
+
+
+### Features
+
+* add `custom-class` property to `lukso-card` ([#145](https://github.com/lukso-network/tools-web-components/issues/145)) ([0ffde7f](https://github.com/lukso-network/tools-web-components/commit/0ffde7fb0a168d5941a59389a12be22c16a21406))
+
 ## [1.19.1](https://github.com/lukso-network/tools-web-components/compare/v1.19.0...v1.19.1) (2023-04-27)
 
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.19.1](https://github.com/lukso-network/tools-web-components/compare/v1.19.0...v1.19.1) (2023-04-27)
+
+
+### Bug Fixes
+
+* discord url ([#143](https://github.com/lukso-network/tools-web-components/issues/143)) ([016c99c](https://github.com/lukso-network/tools-web-components/commit/016c99c61ae5eac612f28ceddbb297a93b59243a))
+* hide menus when nav is center ([#144](https://github.com/lukso-network/tools-web-components/issues/144)) ([694c298](https://github.com/lukso-network/tools-web-components/commit/694c2987788025cb3298474d82f6e40801ca3478))
+* lukso input on change ([#141](https://github.com/lukso-network/tools-web-components/issues/141)) ([5ae7db1](https://github.com/lukso-network/tools-web-components/commit/5ae7db119200f8fe315f6cf0162f7ff95c173a88))
+
 ## [1.19.0](https://github.com/lukso-network/tools-web-components/compare/v1.18.0...v1.19.0) (2023-04-26)
 
 

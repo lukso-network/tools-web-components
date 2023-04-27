@@ -103,7 +103,9 @@ export class LuksoNavbar extends TailwindElement {
             <span>${this.title}</span>
           </div>
         </div>
-        ${this.desktopMenuTemplate()} ${this.mobileMenuTemplate()}
+        ${this.isCenter
+          ? html``
+          : html`${this.desktopMenuTemplate()} ${this.mobileMenuTemplate()}`}
       </nav>
     `
   }

@@ -44,6 +44,10 @@ const meta: Meta = {
       name: 'is-full-width',
       control: { type: 'boolean' },
     },
+    customClass: {
+      name: 'custom-class',
+      control: { type: 'text' },
+    },
     'background-url': {
       name: 'backgroundUrl',
     },
@@ -62,6 +66,9 @@ const meta: Meta = {
     'is-full-width': {
       name: 'isFullWidth',
     },
+    'custom-class': {
+      name: 'customClass',
+    },
   },
   args: {
     variant: 'basic',
@@ -73,6 +80,7 @@ const meta: Meta = {
     isFullWidth: false,
     isFixedWidth: false,
     isFixedHeight: false,
+    customClass: '',
   },
   parameters: {
     controls: {
@@ -85,6 +93,7 @@ const meta: Meta = {
         'isFixedHeight',
         'isFullWidth',
         'styles',
+        'customClass',
       ],
     },
   },
@@ -99,6 +108,7 @@ const DefaultTemplate = ({
   isFixedHeight,
   isFixedWidth,
   isFullWidth,
+  customClass,
 }) =>
   html`
     <lukso-card
@@ -106,6 +116,7 @@ const DefaultTemplate = ({
       ?is-fixed-width=${isFixedWidth}
       ?is-fixed-height=${isFixedHeight}
       ?is-full-width=${isFullWidth}
+      custom-class=${customClass}
     >
       <div slot="header" class="p-6">${header}</div>
       <div slot="content" class="p-6">${content}</div>
@@ -119,6 +130,7 @@ const CustomHeaderTemplate = ({
   isFixedHeight,
   isFixedWidth,
   isFullWidth,
+  customClass,
 }) =>
   html`
     <lukso-card
@@ -126,6 +138,7 @@ const CustomHeaderTemplate = ({
       ?is-fixed-width=${isFixedWidth}
       ?is-fixed-height=${isFixedHeight}
       ?is-full-width=${isFullWidth}
+      custom-class=${customClass}
     >
       <div slot="header" class="p-6 relative overflow-hidden min-h-[200px]">
         <div
@@ -146,6 +159,7 @@ const ProfileTemplate = ({
   isFixedHeight,
   isFixedWidth,
   isFullWidth,
+  customClass,
 }) =>
   html`
     <lukso-card
@@ -156,6 +170,7 @@ const ProfileTemplate = ({
       ?is-fixed-width=${isFixedWidth}
       ?is-fixed-height=${isFixedHeight}
       ?is-full-width=${isFullWidth}
+      custom-class=${customClass}
     >
       <div slot="content" class="p-6">${content}</div>
     </lukso-card>
@@ -240,5 +255,19 @@ ProfileCard.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18027&t=AGmdbG8fXRENuU3o-4',
+  },
+}
+
+/** You can customize card with `custom-class` property, it will be used instead of default styles.  */
+export const CustomCard = DefaultTemplate.bind({})
+CustomCard.args = {
+  isFixedWidth: true,
+  isFixedHeight: true,
+  customClass: 'rounded-12 bg-warm-97',
+}
+CustomCard.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
   },
 }

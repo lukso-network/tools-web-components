@@ -32,14 +32,18 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
 
-  private defaultStyles = `rounded-24  shadow-neutral-drop-shadow-2xl`
+  @property({ type: String, attribute: 'custom-class' })
+  customClass = ''
+
+  private defaultStyles = `rounded-24 shadow-neutral-drop-shadow-2xl`
 
   basicTemplate() {
     return html`
       <div
         data-testid="card"
         class="bg-neutral-100 ${customClassMap({
-          [this.defaultStyles]: true,
+          [this.defaultStyles]: !this.customClass,
+          [this.customClass]: !!this.customClass,
           ['w-[362px]']: this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
           ['w-full']: this.isFullWidth,
@@ -55,7 +59,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
       <div
         data-testid="card"
         class="bg-neutral-98 grid grid-rows-[auto,1fr] ${customClassMap({
-          [this.defaultStyles]: true,
+          [this.defaultStyles]: !this.customClass,
+          [this.customClass]: !!this.customClass,
           ['w-[362px]']: this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
           ['w-full']: this.isFullWidth,
@@ -76,7 +81,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
       <div
         data-testid="card"
         class="bg-neutral-98 grid grid-rows-[auto,1fr] ${customClassMap({
-          [this.defaultStyles]: true,
+          [this.defaultStyles]: !this.customClass,
+          [this.customClass]: !!this.customClass,
           ['w-[362px]']: this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
           ['w-full']: this.isFullWidth,

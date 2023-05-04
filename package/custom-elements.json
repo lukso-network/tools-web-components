@@ -2012,7 +2012,7 @@
                 "text": "object"
               },
               "privacy": "private",
-              "default": "{\n    twitter: 'https://twitter.com/lukso_io',\n    instagram: 'https://www.instagram.com/lukso/',\n    linkedin: 'https://www.linkedin.com/company/18289660/',\n    telegram: 'https://t.me/lukso',\n    discord: 'https://discord.com/invite/lukso',\n    reddit: 'https://www.reddit.com/r/lukso/',\n    medium: 'https://medium.com/lukso',\n    github: 'https://github.com/lukso-network',\n  }"
+              "default": "{\n    twitter: 'https://twitter.com/lukso_io',\n    instagram: 'https://www.instagram.com/lukso',\n    linkedin: 'https://linkedin.com/company/lukso',\n    telegram: 'https://t.me/lukso',\n    discord: 'https://discord.gg/lukso',\n    reddit: 'https://www.reddit.com/r/lukso',\n    medium: 'https://medium.com/lukso',\n    github: 'https://github.com/lukso-network',\n  }"
             },
             {
               "kind": "method",

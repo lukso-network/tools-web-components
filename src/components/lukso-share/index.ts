@@ -12,11 +12,11 @@ export class LuksoShare extends TailwindStyledElement(style) {
 
   private urls = {
     twitter: 'https://twitter.com/lukso_io',
-    instagram: 'https://www.instagram.com/lukso/',
-    linkedin: 'https://www.linkedin.com/company/18289660/',
+    instagram: 'https://www.instagram.com/lukso',
+    linkedin: 'https://linkedin.com/company/lukso',
     telegram: 'https://t.me/lukso',
-    discord: 'https://discord.com/invite/lukso',
-    reddit: 'https://www.reddit.com/r/lukso/',
+    discord: 'https://discord.gg/lukso',
+    reddit: 'https://www.reddit.com/r/lukso',
     medium: 'https://medium.com/lukso',
     github: 'https://github.com/lukso-network',
   }

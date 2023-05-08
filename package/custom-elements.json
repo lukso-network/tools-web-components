@@ -2610,6 +2610,45 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/assets/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "assets",
+          "type": {
+            "text": "string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "assets",
+          "declaration": {
+            "name": "assets",
+            "module": "src/shared/assets/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "fonts",
+          "declaration": {
+            "name": "fonts",
+            "module": "./fonts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "images",
+          "declaration": {
+            "name": "images",
+            "module": "./images"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-wizard/index.ts",
       "declarations": [
         {
@@ -2707,45 +2746,6 @@
           "declaration": {
             "name": "LuksoWizard",
             "module": "src/components/lukso-wizard/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/index.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "assets",
-          "type": {
-            "text": "string"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "assets",
-          "declaration": {
-            "name": "assets",
-            "module": "src/shared/assets/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "fonts",
-          "declaration": {
-            "name": "fonts",
-            "module": "./fonts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "images",
-          "declaration": {
-            "name": "images",
-            "module": "./images"
           }
         }
       ]

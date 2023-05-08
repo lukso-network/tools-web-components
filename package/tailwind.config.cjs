@@ -263,6 +263,9 @@ module.exports = {
         16: '16px',
         24: '24px',
       },
+      spacing: {
+        22: '5.5rem', // 88px
+      }
     },
   },
   plugins: [

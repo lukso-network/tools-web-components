@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.21.0](https://github.com/lukso-network/tools-web-components/compare/v1.20.1...v1.21.0) (2023-05-08)
+
+
+### Features
+
+* add new paragraph ([#149](https://github.com/lukso-network/tools-web-components/issues/149)) ([5115d63](https://github.com/lukso-network/tools-web-components/commit/5115d636f5329d4436fbc83e24053578d0888187))
+* add new paragraph ([#149](https://github.com/lukso-network/tools-web-components/issues/149)) ([8bc154d](https://github.com/lukso-network/tools-web-components/commit/8bc154d465d3cee998e876e550fc69fc1d6a2ca3))
+
 ## [1.20.1](https://github.com/lukso-network/tools-web-components/compare/v1.20.0...v1.20.1) (2023-05-04)
 
 

@@ -176,401 +176,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-button/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoButton",
-          "members": [
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "ButtonVariant"
-              },
-              "default": "'primary'",
-              "attribute": "variant"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'medium'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "disabled"
-            },
-            {
-              "kind": "field",
-              "name": "isFullWidth",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-full-width"
-            },
-            {
-              "kind": "field",
-              "name": "isLongPress",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-long-press"
-            },
-            {
-              "kind": "field",
-              "name": "isLink",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-link"
-            },
-            {
-              "kind": "field",
-              "name": "isLoading",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-loading"
-            },
-            {
-              "kind": "field",
-              "name": "type",
-              "type": {
-                "text": "ButtonType"
-              },
-              "default": "'button'",
-              "attribute": "type"
-            },
-            {
-              "kind": "field",
-              "name": "href",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "href"
-            },
-            {
-              "kind": "field",
-              "name": "target",
-              "type": {
-                "text": "LinkTarget"
-              },
-              "default": "'_blank'",
-              "attribute": "target"
-            },
-            {
-              "kind": "field",
-              "name": "rel",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "rel"
-            },
-            {
-              "kind": "field",
-              "name": "loadingText",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "loading-text"
-            },
-            {
-              "kind": "field",
-              "name": "customClass",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "custom-class"
-            },
-            {
-              "kind": "field",
-              "name": "isPressed",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "noTransition",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "timer",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "defaultStyles",
-              "privacy": "private",
-              "default": "`flex justify-center items-center relative text-center\n    border border-solid cursor-pointer transition duration-0\n    hover:duration-250 active:scale-98 active:duration-25\n    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100 disabled:opacity-50`"
-            },
-            {
-              "kind": "field",
-              "name": "secondaryStyles",
-              "privacy": "private",
-              "default": "`bg-neutral-100 border-neutral-90 text-neutral-20\n    hover:shadow-button-hover-secondary active:shadow-button-press-secondary`"
-            },
-            {
-              "kind": "field",
-              "name": "primaryStyles",
-              "privacy": "private",
-              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:hover:!bg-neutral-20 disabled:hover:!border-neutral-20\n    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25\n    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25\n    before:bg-neutral-10`"
-            },
-            {
-              "kind": "field",
-              "name": "landingStyles",
-              "privacy": "private",
-              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:hover:!bg-purple-51 disabled:hover:!border-purple-51\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary\n    before:bg-purple-51`"
-            },
-            {
-              "kind": "field",
-              "name": "textStyles",
-              "privacy": "private",
-              "default": "`bg-transparent border-none text-neutral-20\n    hover:text-neutral-35\n    active:text-neutral-35 active:scale-100\n    disabled:text-neutral-90`"
-            },
-            {
-              "kind": "field",
-              "name": "linkStyles",
-              "privacy": "private",
-              "default": "`!p-0 active:!scale-100 underline text-purple-51 hover:text-purple-41`"
-            },
-            {
-              "kind": "field",
-              "name": "longPressStyles",
-              "privacy": "private",
-              "default": "`relative overflow-hidden z-[1] active:outline-0\n    before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-[48px]\n    before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-0`"
-            },
-            {
-              "kind": "field",
-              "name": "pressedStyles",
-              "privacy": "private",
-              "default": "`before:w-full before:z-[-1]`"
-            },
-            {
-              "kind": "field",
-              "name": "noTransitionStyles",
-              "privacy": "private",
-              "default": "`before:transition-none`"
-            },
-            {
-              "kind": "field",
-              "name": "mediumSize",
-              "privacy": "private",
-              "default": "`h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12`"
-            },
-            {
-              "kind": "field",
-              "name": "smallSize",
-              "privacy": "private",
-              "default": "`h-[28px] px-3 paragraph-inter-12-regular rounded-8 hover:shadow-none active:shadow-none`"
-            },
-            {
-              "kind": "method",
-              "name": "handleMouseDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "handleMouseUp",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "loadingTemplate",
-              "return": {
-                "type": {
-                  "text": "unknown"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "buttonTemplate"
-            },
-            {
-              "kind": "method",
-              "name": "linkTemplate"
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true,
-              "inheritedFrom": {
-                "name": "TailwindStyledElement",
-                "module": "src/shared/tailwind-element/index.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "variant",
-              "type": {
-                "text": "ButtonVariant"
-              },
-              "default": "'primary'",
-              "fieldName": "variant"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'medium'",
-              "fieldName": "size"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "is-full-width",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isFullWidth"
-            },
-            {
-              "name": "is-long-press",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isLongPress"
-            },
-            {
-              "name": "is-link",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isLink"
-            },
-            {
-              "name": "is-loading",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isLoading"
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "ButtonType"
-              },
-              "default": "'button'",
-              "fieldName": "type"
-            },
-            {
-              "name": "href",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "href"
-            },
-            {
-              "name": "target",
-              "type": {
-                "text": "LinkTarget"
-              },
-              "default": "'_blank'",
-              "fieldName": "target"
-            },
-            {
-              "name": "rel",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "rel"
-            },
-            {
-              "name": "loading-text",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "loadingText"
-            },
-            {
-              "name": "custom-class",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "customClass"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "TailwindStyledElement",
-              "package": "@/shared/tailwind-element"
-            }
-          ],
-          "superclass": {
-            "name": "style",
-            "module": "/src/components/lukso-button/style.scss"
-          },
-          "tagName": "lukso-button",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoButton",
-          "declaration": {
-            "name": "LuksoButton",
-            "module": "src/components/lukso-button/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-button",
-          "declaration": {
-            "name": "LuksoButton",
-            "module": "src/components/lukso-button/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-card/index.ts",
       "declarations": [
         {
@@ -904,6 +509,108 @@
           "declaration": {
             "name": "LuksoIcon",
             "module": "src/components/lukso-icon/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-modal/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoModal",
+          "members": [
+            {
+              "kind": "field",
+              "name": "isOpen",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-open"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "ModalSizes"
+              },
+              "default": "'small'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "wrapperStyles",
+              "privacy": "private",
+              "default": "`opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6 animate-fade-in animation-duration-200`"
+            },
+            {
+              "kind": "field",
+              "name": "openStyles",
+              "privacy": "private",
+              "default": "`flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh]`"
+            },
+            {
+              "kind": "field",
+              "name": "overlayStyles",
+              "privacy": "private",
+              "default": "`bg-[rgba(36,53,66,0.8)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999]`"
+            },
+            {
+              "kind": "field",
+              "name": "dialogStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-98 rounded-12 shadow-neutral-drop-shadow-3xl z-[1001]`"
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "is-open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isOpen"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ModalSizes"
+              },
+              "default": "'small'",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-modal",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoModal",
+          "declaration": {
+            "name": "LuksoModal",
+            "module": "src/components/lukso-modal/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-modal",
+          "declaration": {
+            "name": "LuksoModal",
+            "module": "src/components/lukso-modal/index.ts"
           }
         }
       ]
@@ -1415,102 +1122,395 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-modal/index.ts",
+      "path": "src/components/lukso-button/index.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "LuksoModal",
+          "name": "LuksoButton",
           "members": [
             {
               "kind": "field",
-              "name": "isOpen",
+              "name": "variant",
               "type": {
-                "text": "boolean"
+                "text": "ButtonVariant"
               },
-              "default": "false",
-              "attribute": "is-open"
+              "default": "'primary'",
+              "attribute": "variant"
             },
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "ModalSizes"
+                "text": "ButtonSize"
               },
-              "default": "'small'",
+              "default": "'medium'",
               "attribute": "size"
             },
             {
               "kind": "field",
-              "name": "wrapperStyles",
-              "privacy": "private",
-              "default": "`opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6 animate-fade-in animation-duration-200`"
-            },
-            {
-              "kind": "field",
-              "name": "openStyles",
-              "privacy": "private",
-              "default": "`flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh]`"
-            },
-            {
-              "kind": "field",
-              "name": "overlayStyles",
-              "privacy": "private",
-              "default": "`bg-[rgba(36,53,66,0.8)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999]`"
-            },
-            {
-              "kind": "field",
-              "name": "dialogStyles",
-              "privacy": "private",
-              "default": "`bg-neutral-98 rounded-12 shadow-neutral-drop-shadow-3xl z-[1001]`"
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "is-open",
+              "name": "disabled",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "fieldName": "isOpen"
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "isFullWidth",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-full-width"
+            },
+            {
+              "kind": "field",
+              "name": "isLongPress",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-long-press"
+            },
+            {
+              "kind": "field",
+              "name": "isLink",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-link"
+            },
+            {
+              "kind": "field",
+              "name": "isLoading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-loading"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "ButtonType"
+              },
+              "default": "'button'",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "href",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "href"
+            },
+            {
+              "kind": "field",
+              "name": "target",
+              "type": {
+                "text": "LinkTarget"
+              },
+              "default": "'_blank'",
+              "attribute": "target"
+            },
+            {
+              "kind": "field",
+              "name": "rel",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "rel"
+            },
+            {
+              "kind": "field",
+              "name": "loadingText",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "loading-text"
+            },
+            {
+              "kind": "field",
+              "name": "customClass",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "custom-class"
+            },
+            {
+              "kind": "field",
+              "name": "isPressed",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "noTransition",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "timer",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "privacy": "private",
+              "default": "`flex justify-center items-center relative text-center\n    border border-solid cursor-pointer transition duration-0\n    hover:duration-250 active:scale-98 active:duration-25\n    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100 disabled:opacity-50`"
+            },
+            {
+              "kind": "field",
+              "name": "secondaryStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-100 border-neutral-90 text-neutral-20\n    hover:shadow-button-hover-secondary active:shadow-button-press-secondary`"
+            },
+            {
+              "kind": "field",
+              "name": "primaryStyles",
+              "privacy": "private",
+              "default": "`bg-neutral-20 border-neutral-20 text-neutral-100\n    disabled:hover:!bg-neutral-20 disabled:hover:!border-neutral-20\n    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25\n    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25\n    before:bg-neutral-10`"
+            },
+            {
+              "kind": "field",
+              "name": "landingStyles",
+              "privacy": "private",
+              "default": "`bg-purple-51 border-purple-51 text-neutral-100\n    disabled:hover:!bg-purple-51 disabled:hover:!border-purple-51\n    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58\n    active:shadow-button-press-primary\n    before:bg-purple-51`"
+            },
+            {
+              "kind": "field",
+              "name": "textStyles",
+              "privacy": "private",
+              "default": "`bg-transparent border-none text-neutral-20\n    hover:text-neutral-35\n    active:text-neutral-35 active:scale-100\n    disabled:text-neutral-90`"
+            },
+            {
+              "kind": "field",
+              "name": "linkStyles",
+              "privacy": "private",
+              "default": "`!p-0 active:!scale-100 underline text-purple-51 hover:text-purple-41`"
+            },
+            {
+              "kind": "field",
+              "name": "longPressStyles",
+              "privacy": "private",
+              "default": "`relative overflow-hidden z-[1] active:outline-0\n    before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-[48px]\n    before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-0`"
+            },
+            {
+              "kind": "field",
+              "name": "pressedStyles",
+              "privacy": "private",
+              "default": "`before:w-full before:z-[-1]`"
+            },
+            {
+              "kind": "field",
+              "name": "noTransitionStyles",
+              "privacy": "private",
+              "default": "`before:transition-none`"
+            },
+            {
+              "kind": "field",
+              "name": "mediumSize",
+              "privacy": "private",
+              "default": "`h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12`"
+            },
+            {
+              "kind": "field",
+              "name": "smallSize",
+              "privacy": "private",
+              "default": "`h-[28px] px-3 paragraph-inter-12-regular rounded-8 hover:shadow-none active:shadow-none`"
+            },
+            {
+              "kind": "method",
+              "name": "handleMouseDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleMouseUp",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "loadingTemplate",
+              "return": {
+                "type": {
+                  "text": "unknown"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "buttonTemplate"
+            },
+            {
+              "kind": "method",
+              "name": "linkTemplate"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "inheritedFrom": {
+                "name": "TailwindStyledElement",
+                "module": "src/shared/tailwind-element/index.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'primary'",
+              "fieldName": "variant"
             },
             {
               "name": "size",
               "type": {
-                "text": "ModalSizes"
+                "text": "ButtonSize"
               },
-              "default": "'small'",
+              "default": "'medium'",
               "fieldName": "size"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "is-full-width",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isFullWidth"
+            },
+            {
+              "name": "is-long-press",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isLongPress"
+            },
+            {
+              "name": "is-link",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isLink"
+            },
+            {
+              "name": "is-loading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isLoading"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "ButtonType"
+              },
+              "default": "'button'",
+              "fieldName": "type"
+            },
+            {
+              "name": "href",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "href"
+            },
+            {
+              "name": "target",
+              "type": {
+                "text": "LinkTarget"
+              },
+              "default": "'_blank'",
+              "fieldName": "target"
+            },
+            {
+              "name": "rel",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "rel"
+            },
+            {
+              "name": "loading-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "loadingText"
+            },
+            {
+              "name": "custom-class",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "customClass"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "TailwindStyledElement",
+              "package": "@/shared/tailwind-element"
             }
           ],
           "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "name": "style",
+            "module": "/src/components/lukso-button/style.scss"
           },
-          "tagName": "lukso-modal",
+          "tagName": "lukso-button",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "LuksoModal",
+          "name": "LuksoButton",
           "declaration": {
-            "name": "LuksoModal",
-            "module": "src/components/lukso-modal/index.ts"
+            "name": "LuksoButton",
+            "module": "src/components/lukso-button/index.ts"
           }
         },
         {
           "kind": "custom-element-definition",
-          "name": "lukso-modal",
+          "name": "lukso-button",
           "declaration": {
-            "name": "LuksoModal",
-            "module": "src/components/lukso-modal/index.ts"
+            "name": "LuksoButton",
+            "module": "src/components/lukso-button/index.ts"
           }
         }
       ]
@@ -2087,6 +2087,136 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-tag/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoTag",
+          "members": [
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "TagSizes"
+              },
+              "default": "'small'",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "isRounded",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-rounded"
+            },
+            {
+              "kind": "field",
+              "name": "backgroundColor",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "background-color"
+            },
+            {
+              "kind": "field",
+              "name": "textColor",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "text-color"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "privacy": "private",
+              "default": "`inline-flex items-center justify-center border border-neutral-20 text-neutral-20`"
+            },
+            {
+              "kind": "field",
+              "name": "smallStyles",
+              "privacy": "private",
+              "default": "`paragraph-inter-12-medium h-[28px]`"
+            },
+            {
+              "kind": "field",
+              "name": "largeStyles",
+              "privacy": "private",
+              "default": "`paragraph-inter-14-medium h-[34px]`"
+            },
+            {
+              "kind": "method",
+              "name": "padding",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "TagSizes"
+              },
+              "default": "'small'",
+              "fieldName": "size"
+            },
+            {
+              "name": "is-rounded",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isRounded"
+            },
+            {
+              "name": "background-color",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "backgroundColor"
+            },
+            {
+              "name": "text-color",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "textColor"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-tag",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoTag",
+          "declaration": {
+            "name": "LuksoTag",
+            "module": "src/components/lukso-tag/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-tag",
+          "declaration": {
+            "name": "LuksoTag",
+            "module": "src/components/lukso-tag/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-terms/index.ts",
       "declarations": [
         {
@@ -2305,136 +2435,6 @@
           "declaration": {
             "name": "LuksoTest",
             "module": "src/components/lukso-test/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-tag/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoTag",
-          "members": [
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "TagSizes"
-              },
-              "default": "'small'",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "isRounded",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "is-rounded"
-            },
-            {
-              "kind": "field",
-              "name": "backgroundColor",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "background-color"
-            },
-            {
-              "kind": "field",
-              "name": "textColor",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "text-color"
-            },
-            {
-              "kind": "field",
-              "name": "defaultStyles",
-              "privacy": "private",
-              "default": "`inline-flex items-center justify-center border border-neutral-20 text-neutral-20`"
-            },
-            {
-              "kind": "field",
-              "name": "smallStyles",
-              "privacy": "private",
-              "default": "`paragraph-inter-12-medium h-[28px]`"
-            },
-            {
-              "kind": "field",
-              "name": "largeStyles",
-              "privacy": "private",
-              "default": "`paragraph-inter-14-medium h-[34px]`"
-            },
-            {
-              "kind": "method",
-              "name": "padding",
-              "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "size",
-              "type": {
-                "text": "TagSizes"
-              },
-              "default": "'small'",
-              "fieldName": "size"
-            },
-            {
-              "name": "is-rounded",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isRounded"
-            },
-            {
-              "name": "background-color",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "backgroundColor"
-            },
-            {
-              "name": "text-color",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "textColor"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-tag",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoTag",
-          "declaration": {
-            "name": "LuksoTag",
-            "module": "src/components/lukso-tag/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-tag",
-          "declaration": {
-            "name": "LuksoTag",
-            "module": "src/components/lukso-tag/index.ts"
           }
         }
       ]

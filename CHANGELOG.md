@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.0](https://github.com/lukso-network/tools-web-components/compare/v1.21.0...v1.22.0) (2023-05-15)
+
+
+### Features
+
+* 14px mono font ([#151](https://github.com/lukso-network/tools-web-components/issues/151)) ([d280650](https://github.com/lukso-network/tools-web-components/commit/d280650636f46d4a3b766c8383333b840c3e273c))
+
 ## [1.21.0](https://github.com/lukso-network/tools-web-components/compare/v1.20.1...v1.21.0) (2023-05-08)
 
 

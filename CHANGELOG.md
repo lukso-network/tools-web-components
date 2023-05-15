@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.1](https://github.com/lukso-network/tools-web-components/compare/v1.22.0...v1.22.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* update Readme about SSR imports ([#154](https://github.com/lukso-network/tools-web-components/issues/154)) ([66878f7](https://github.com/lukso-network/tools-web-components/commit/66878f7076b50f311c9339b2fb20d418c2ef9630))
+
 ## [1.22.0](https://github.com/lukso-network/tools-web-components/compare/v1.21.0...v1.22.0) (2023-05-15)
 
 

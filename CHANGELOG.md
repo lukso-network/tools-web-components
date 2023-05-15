@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.2](https://github.com/lukso-network/tools-web-components/compare/v1.22.1...v1.22.2) (2023-05-15)
+
+
+### Bug Fixes
+
+* input types ([#156](https://github.com/lukso-network/tools-web-components/issues/156)) ([8b4755f](https://github.com/lukso-network/tools-web-components/commit/8b4755f1960133f32b3b2631b212099c17e9d6d0))
+
 ## [1.22.1](https://github.com/lukso-network/tools-web-components/compare/v1.22.0...v1.22.1) (2023-05-15)
 
 

@@ -38,6 +38,8 @@ import('@lukso/web-components')
 
 > Hint: you can make import in root level of your project (`app.vue`) instead of importing in every component.
 
+> Hint: In Frameworks that use SSR you need to import components only when window object is defined.
+
 Use components in the HTML with following rules:
 
 - components are lowercase and with `-` in name i.e `lukso-button`

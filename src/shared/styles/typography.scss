@@ -148,6 +148,14 @@
     @apply text-16 not-italic font-700 leading-22 font-mono;
   }
 
+  .paragraph-ptmono-14-regular {
+    @apply text-14 not-italic font-400 leading-20 font-mono;
+  }
+
+  .paragraph-ptmono-14-bold {
+    @apply text-14 not-italic font-700 leading-20 font-mono;
+  }
+
   .paragraph-ptmono-12-bold {
     @apply text-12 not-italic font-700 leading-14 font-mono;
   }

@@ -28,10 +28,10 @@ export class LuksoInput extends TailwindElement {
   id = ''
 
   @property({ type: String })
-  ref = undefined
+  ref: string | undefined = undefined
 
   @property({ type: String })
-  accept = undefined
+  accept: string | undefined = undefined
 
   @property({ type: String })
   description = ''

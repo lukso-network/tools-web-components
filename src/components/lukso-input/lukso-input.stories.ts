@@ -84,6 +84,13 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    onInput: {
+      name: 'on-input',
+      description: 'Emitted on input event.',
+      table: {
+        category: 'Events',
+      },
+    },
     onKeyUp: {
       name: 'on-key-up',
       description: 'Emitted on key up event.',

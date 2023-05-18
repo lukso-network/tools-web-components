@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.23.0](https://github.com/lukso-network/tools-web-components/compare/v1.22.2...v1.23.0) (2023-05-18)
+
+
+### Features
+
+* switch icon ([#160](https://github.com/lukso-network/tools-web-components/issues/160)) ([b78e8f9](https://github.com/lukso-network/tools-web-components/commit/b78e8f92db56fde43f8f05edaa2c30f4ea7725f1))
+
+
+### Bug Fixes
+
+* update card header bg's ([#158](https://github.com/lukso-network/tools-web-components/issues/158)) ([0480f25](https://github.com/lukso-network/tools-web-components/commit/0480f25291144fb1836d0f53167256529c3c596e))
+
 ## [1.22.2](https://github.com/lukso-network/tools-web-components/compare/v1.22.1...v1.22.2) (2023-05-15)
 
 

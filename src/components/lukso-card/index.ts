@@ -58,7 +58,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-98 grid grid-rows-[auto,1fr] ${customClassMap({
+        class="bg-neutral-100 grid grid-rows-[auto,1fr] ${customClassMap({
           [this.defaultStyles]: !this.customClass,
           [this.customClass]: !!this.customClass,
           ['w-[362px]']: this.isFixedWidth,
@@ -80,7 +80,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-98 grid grid-rows-[auto,1fr] ${customClassMap({
+        class="bg-neutral-100 grid grid-rows-[auto,1fr] ${customClassMap({
           [this.defaultStyles]: !this.customClass,
           [this.customClass]: !!this.customClass,
           ['w-[362px]']: this.isFixedWidth,

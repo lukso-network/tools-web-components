@@ -120,6 +120,7 @@ import { pulseDot } from './icons/pulse-dot'
 import { progressComplete } from './icons/progress-complete'
 import { completeFilledFadeIn } from './icons/complete-filled-fade-in'
 import { desktopSharp } from './icons/desktop-sharp'
+import { switched } from './icons/switched'
 
 export type IconOptions = {
   width: number
@@ -255,6 +256,7 @@ const iconMap = {
   'progress-complete': progressComplete,
   'complete-filled-fade-in': completeFilledFadeIn,
   'desktop-sharp': desktopSharp,
+  switched,
 }
 
 @customElement('lukso-icon')

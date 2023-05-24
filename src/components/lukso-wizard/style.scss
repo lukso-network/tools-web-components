@@ -1,0 +1,19 @@
+.lukso-wizard-circle {
+  &::after {
+    width: 0;
+  }
+
+  &.completed::after {
+    width: calc(100% - 16px);
+  }
+
+  &.current {
+    &::after {
+      width: 0;
+    }
+
+    &.animated-step::after {
+      width: calc(100% - 16px);
+    }
+  }
+}

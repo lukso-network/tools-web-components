@@ -17,8 +17,15 @@ const meta: Meta = {
       name: 'active-step',
       control: { type: 'number', min: 1, step: 1 },
     },
+    isFullWidth: {
+      name: 'is-full-width',
+      control: { type: 'boolean' },
+    },
     'active-step': {
       name: 'activeStep',
+    },
+    'is-full-width': {
+      name: 'isFullWidth',
     },
   },
   args: {
@@ -38,10 +45,16 @@ LYXe`,
       { label: 'Status' },
     ],
     activeStep: 3,
+    isFullWidth: false,
   },
   parameters: {
     controls: {
-      exclude: ['activeStepStyles', 'completedStepStyles', 'activeStep'],
+      exclude: [
+        'activeStepStyles',
+        'completedStepStyles',
+        'activeStep',
+        'isFullWidth',
+      ],
     },
     design: {
       type: 'figma',
@@ -52,10 +65,17 @@ LYXe`,
 
 export default meta
 
-const Template = ({ steps, activeStep }) =>
+const Template = ({ steps, activeStep, isFullWidth }) =>
   html`<lukso-wizard
     steps=${JSON.stringify(steps)}
     active-step=${activeStep}
+    ?is-full-width=${isFullWidth}
   ></lukso-wizard>`
 
 export const BasicWizard = Template.bind({})
+
+/** If you need button to take full width of the parent element add `is-full-width` property. */
+export const FullWidthWizard = Template.bind({})
+FullWidthWizard.args = {
+  isFullWidth: true,
+}

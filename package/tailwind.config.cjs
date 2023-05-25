@@ -175,6 +175,10 @@ module.exports = {
         25: '25ms',
         250: '250ms',
       },
+      transitionProperty: {
+        width: 'width',
+        height: 'height',
+      },
       scale: {
         98: '.98',
       },

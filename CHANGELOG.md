@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.24.0](https://github.com/lukso-network/tools-web-components/compare/v1.23.0...v1.24.0) (2023-05-25)
+
+
+### Features
+
+* wizard improvements ([#161](https://github.com/lukso-network/tools-web-components/issues/161)) ([e449d56](https://github.com/lukso-network/tools-web-components/commit/e449d56d6c772165ce008fdcc7fe379765f0c6cb))
+
+
+### Bug Fixes
+
+* shadow animation when hovering out button ([#162](https://github.com/lukso-network/tools-web-components/issues/162)) ([7e6bee5](https://github.com/lukso-network/tools-web-components/commit/7e6bee5a1facd3de2908da5c0f2b0f8c02037961))
+
 ## [1.23.0](https://github.com/lukso-network/tools-web-components/compare/v1.22.2...v1.23.0) (2023-05-18)
 
 

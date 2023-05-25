@@ -63,8 +63,8 @@ export class LuksoButton extends TailwindStyledElement(style) {
   private timer = 0
 
   private defaultStyles = `flex justify-center items-center relative text-center
-    border border-solid cursor-pointer transition duration-0
-    hover:duration-250 active:scale-98 active:duration-25
+    border border-solid cursor-pointer transition
+    duration-250 active:scale-98 active:duration-25
     disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100 disabled:opacity-50`
 
   private secondaryStyles = `bg-neutral-100 border-neutral-90 text-neutral-20

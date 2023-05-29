@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.25.0](https://github.com/lukso-network/tools-web-components/compare/v1.24.0...v1.25.0) (2023-05-29)
+
+
+### Features
+
+* alternate progress indicator ([#164](https://github.com/lukso-network/tools-web-components/issues/164)) ([78b8be1](https://github.com/lukso-network/tools-web-components/commit/78b8be128766b852f30468f615ffdb18ae8b624e))
+
 ## [1.24.0](https://github.com/lukso-network/tools-web-components/compare/v1.23.0...v1.24.0) (2023-05-25)
 
 

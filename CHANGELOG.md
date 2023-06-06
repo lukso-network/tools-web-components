@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.0](https://github.com/lukso-network/tools-web-components/compare/v1.25.0...v1.26.0) (2023-06-06)
+
+
+### Features
+
+* add pre attribute for sanitize and include in terms component ([#166](https://github.com/lukso-network/tools-web-components/issues/166)) ([50ee08b](https://github.com/lukso-network/tools-web-components/commit/50ee08b5efdc5e1167f72ab667d6fde66c2c0c47))
+
 ## [1.25.0](https://github.com/lukso-network/tools-web-components/compare/v1.24.0...v1.25.0) (2023-05-29)
 
 

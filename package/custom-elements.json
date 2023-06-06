@@ -1950,6 +1950,15 @@
             },
             {
               "kind": "field",
+              "name": "isPre",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-pre"
+            },
+            {
+              "kind": "field",
               "name": "options",
               "type": {
                 "text": "object"
@@ -1970,6 +1979,14 @@
               },
               "default": "''",
               "fieldName": "htmlContent"
+            },
+            {
+              "name": "is-pre",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isPre"
             }
           ],
           "superclass": {

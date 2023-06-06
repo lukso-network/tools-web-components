@@ -60,7 +60,7 @@ export class LuksoTerms extends TailwindStyledElement(style) {
       @scroll=${this.handleScroll}
     >
       <div class="paragraph-inter-12-regular px-4 pt-3">
-        <lukso-sanitize html-content=${this.text}></lukso-sanitize>
+        <lukso-sanitize html-content=${this.text} is-pre></lukso-sanitize>
         <br />
         <br />
         <div id="scroll-end"></div>

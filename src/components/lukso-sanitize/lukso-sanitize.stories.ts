@@ -14,8 +14,15 @@ const meta: Meta = {
       name: 'html-content',
       control: { type: 'text' },
     },
+    isPre: {
+      name: 'is-pre',
+      control: { type: 'boolean' },
+    },
     'html-content': {
       name: 'htmlContent',
+    },
+    'is-pre': {
+      name: 'isPre',
     },
   },
   args: {
@@ -24,15 +31,29 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['sanitize', 'htmlContent', 'options'],
+      exclude: ['sanitize', 'htmlContent', 'options', 'isPre'],
     },
   },
 }
 
 export default meta
 
-const Template = ({ htmlContent }) =>
-  html`<lukso-sanitize html-content=${htmlContent}></lukso-sanitize>`
+const Template = ({ htmlContent, isPre }) =>
+  html`<lukso-sanitize
+    html-content=${htmlContent}
+    ?is-pre=${isPre}
+  ></lukso-sanitize>`
 
 /** This is example if text containing HTML tags. */
 export const Sanitize = Template.bind({})
+
+/** You can show text with white characters using `is-pre` property. */
+export const PreText = Template.bind({})
+PreText.args = {
+  isPre: true,
+  htmlContent: `
+This is sample
+text that contains
+white characters
+`,
+}

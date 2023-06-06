@@ -10,6 +10,9 @@ export class LuksoSanitize extends TailwindElement {
   @property({ type: String, attribute: 'html-content' })
   htmlContent = ''
 
+  @property({ type: Boolean, attribute: 'is-pre' })
+  isPre = false
+
   private options = {
     ADD_ATTR: ['target'], // allow target attribute on anchor tags
   }
@@ -18,10 +21,14 @@ export class LuksoSanitize extends TailwindElement {
     return DOMPurify.sanitize(this.htmlContent, this.options)
   }
 
+  // in order to show HTML we  need to use unsafeHTML directive.
+  // This is safe since we already sanitized content
   render() {
-    // in order to show HTML we  need to use unsafeHTML directive.
-    // This is safe since we already sanitized content
-    return html`${unsafeHTML(this.sanitize())}`
+    return this.isPre
+      ? html`<!-- prettier-ignore -->
+          <div
+      class='whitespace-pre-wrap'>${unsafeHTML(this.sanitize())}</div>`
+      : html`${unsafeHTML(this.sanitize())}`
   }
 }
 

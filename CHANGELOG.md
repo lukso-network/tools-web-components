@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.1](https://github.com/lukso-network/tools-web-components/compare/v1.26.0...v1.26.1) (2023-06-13)
+
+
+### Bug Fixes
+
+* improve disabled and readonly states for input component ([#168](https://github.com/lukso-network/tools-web-components/issues/168)) ([8cf967f](https://github.com/lukso-network/tools-web-components/commit/8cf967ffc3b1df32b5207fdce780f4274d6792ab))
+
 ## [1.26.0](https://github.com/lukso-network/tools-web-components/compare/v1.25.0...v1.26.0) (2023-06-06)
 
 

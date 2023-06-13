@@ -69,7 +69,7 @@ export class LuksoInput extends TailwindElement {
   @state()
   private hasHighlight = false
 
-  private defaultInputStyles = `bg-neutral-100 text-neutral-20 paragraph-inter-14-regular px-4 py-3
+  private defaultInputStyles = `bg-neutral-100 paragraph-inter-14-regular px-4 py-3
     border border-solid h-[48px] placeholder:text-neutral-70
     outline-none transition transition-all duration-150 appearance-none`
 
@@ -107,6 +107,9 @@ export class LuksoInput extends TailwindElement {
           ['w-full']: this.isFullWidth,
           ['w-[350px]']: !this.isFullWidth && this.unit === '',
           ['w-[300px]']: !this.isFullWidth && this.unit !== '',
+          ['cursor-not-allowed text-neutral-60']: this.isDisabled,
+          ['text-neutral-20']: !this.isDisabled,
+          ['cursor-not-allowed']: this.isReadonly,
           [this.customClass]: !!this.customClass,
         })}
         @focus=${this.handleFocus}
@@ -163,8 +166,10 @@ export class LuksoInput extends TailwindElement {
   }
 
   private handleFocus() {
-    this.hasHocus = true
-    this.hasHighlight = true
+    if (!this.isReadonly && !this.isDisabled) {
+      this.hasHocus = true
+      this.hasHighlight = true
+    }
   }
 
   private handleBlur(event: FocusEvent) {
@@ -248,7 +253,9 @@ export class LuksoInput extends TailwindElement {
   }
 
   private handleMouseOver() {
-    this.hasHighlight = true
+    if (!this.isReadonly && !this.isDisabled) {
+      this.hasHighlight = true
+    }
   }
 
   private handleMouseOut() {

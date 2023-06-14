@@ -12,8 +12,8 @@ export type WizardStep = {
 
 @customElement('lukso-wizard')
 export class LuksoWizard extends TailwindStyledElement(style) {
-  @property({ type: Array })
-  steps: WizardStep[] = []
+  @property({ type: String })
+  steps = ''
 
   @property({ type: Number, attribute: 'active-step' })
   activeStep = 1
@@ -69,11 +69,13 @@ export class LuksoWizard extends TailwindStyledElement(style) {
   }
 
   render() {
+    const steps = JSON.parse(this.steps) as WizardStep[]
+
     return html`
       <ul class="flex justify-center" data-testid="wizard">
         ${repeat(
-          this.steps || [],
-          step => this.steps.indexOf(step),
+          steps || [],
+          step => steps.indexOf(step),
           (step, index) => this.stepTemplate(step, index)
         )}
       </ul>

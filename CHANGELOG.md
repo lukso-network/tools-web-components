@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.2](https://github.com/lukso-network/tools-web-components/compare/v1.26.1...v1.26.2) (2023-06-14)
+
+
+### Bug Fixes
+
+* issue when passing steps into component ([#170](https://github.com/lukso-network/tools-web-components/issues/170)) ([37b8c49](https://github.com/lukso-network/tools-web-components/commit/37b8c49060fb9b0bcca66c7eaa2cb31550328762))
+
 ## [1.26.1](https://github.com/lukso-network/tools-web-components/compare/v1.26.0...v1.26.1) (2023-06-13)
 
 

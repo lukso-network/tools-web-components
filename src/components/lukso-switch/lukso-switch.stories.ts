@@ -3,7 +3,7 @@ import { Meta } from '@storybook/web-components'
 
 import './index'
 
-/**  Documentation and examples of `lukso-input` component.  */
+/**  Documentation and examples of `lukso-switch` component.  */
 const meta: Meta = {
   title: 'Design System/Forms/lukso-switch',
   component: 'lukso-switch',
@@ -11,7 +11,7 @@ const meta: Meta = {
     color: {
       control: { type: 'text' },
     },
-    onLongPressComplete: {
+    onChange: {
       name: 'on-change',
       description: 'Emitted when checkbox is clicked',
       table: {
@@ -20,7 +20,7 @@ const meta: Meta = {
     },
   },
   args: {
-    color: 'neutral-35',
+    color: 'green-54',
   },
   parameters: {
     controls: {
@@ -35,8 +35,8 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ color }) =>
-  html`<lukso-switch color=${color}></lukso-switch>`
+const Template = ({ color, onChange }) =>
+  html`<lukso-switch @on-change=${onChange} color=${color}></lukso-switch>`
 
 /** Example of default switch.  */
 export const DefaultInput = Template.bind({})

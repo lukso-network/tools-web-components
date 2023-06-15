@@ -28,7 +28,7 @@ export class LuksoSwitch extends TailwindElement {
 
   private defaultLabelStyles = `transition duration-300 ease-in block h-6 overflow-hidden rounded-full cursor-pointer relative inline-block w-10`
 
-  private defaultInputStyles = `absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer checked:translate-x-4 transition duration-300 ease-in`
+  private defaultInputStyles = `absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer transition duration-300 ease-in`
 
   render() {
     return html`
@@ -46,7 +46,7 @@ export class LuksoSwitch extends TailwindElement {
           ?checked=${this.checked}
           class=${customClassMap({
             [this.defaultInputStyles]: true,
-            [`border-${this.color}`]: this.checked,
+            [`border-${this.color} translate-x-4`]: this.checked,
             ['border-neutral-90']: !this.checked,
           })}
           @change=${this.handleChange}

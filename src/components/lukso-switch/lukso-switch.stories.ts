@@ -11,6 +11,18 @@ const meta: Meta = {
     color: {
       control: { type: 'text' },
     },
+    isDisabled: {
+      control: {
+        name: 'is-disabled',
+        type: 'boolean',
+      },
+    },
+    isChecked: {
+      control: {
+        name: 'is-checked',
+        type: 'boolean',
+      },
+    },
     onChange: {
       name: 'on-change',
       description: 'Emitted when checkbox is clicked',
@@ -21,6 +33,8 @@ const meta: Meta = {
   },
   args: {
     color: 'green-54',
+    isDisabled: false,
+    isChecked: false,
   },
   parameters: {
     controls: {
@@ -35,11 +49,26 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ color, onChange }) =>
-  html`<lukso-switch @on-change=${onChange} color=${color}></lukso-switch>`
+const Template = ({ color, onChange, isDisabled, isChecked }) =>
+  html`<lukso-switch
+    @on-change=${onChange}
+    color=${color}
+    ?is-disabled=${isDisabled}
+    ?is-checked=${isChecked}
+  ></lukso-switch>`
 
 /** Example of default switch.  */
 export const DefaultInput = Template.bind({})
 DefaultInput.args = {
   color: 'green-54',
+  isChecked: true,
+  isDisabled: false,
+}
+
+/** Example of readonly switch.  */
+export const ReadonlyInput = Template.bind({})
+ReadonlyInput.args = {
+  color: 'red-65',
+  isChecked: true,
+  isDisabled: true,
 }

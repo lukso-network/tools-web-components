@@ -9,6 +9,12 @@ export class LuksoSwitch extends TailwindElement {
   @property({ type: String })
   color = 'green-54'
 
+  @property({ type: Boolean, attribute: 'is-checked' })
+  private isChecked = false
+
+  @property({ type: Boolean, attribute: 'is-disabled' })
+  private isDisabled = false
+
   @state()
   private checked = false
 
@@ -26,6 +32,11 @@ export class LuksoSwitch extends TailwindElement {
     this.dispatchEvent(blurEvent)
   }
 
+  connectedCallback() {
+    super.connectedCallback()
+    this.checked = this.isChecked
+  }
+
   private defaultLabelStyles = `transition duration-300 ease-in block h-6 overflow-hidden rounded-full cursor-pointer relative inline-block w-10`
 
   private defaultInputStyles = `absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer transition duration-300 ease-in`
@@ -36,17 +47,18 @@ export class LuksoSwitch extends TailwindElement {
         for="switch"
         class=${customClassMap({
           [this.defaultLabelStyles]: true,
-          [`bg-${this.color}`]: this.checked,
           ['bg-neutral-90']: !this.checked,
+          ['bg-' + this.color]: this.checked,
         })}
       >
         <input
           type="checkbox"
           id="switch"
           ?checked=${this.checked}
+          ?disabled=${this.isDisabled}
           class=${customClassMap({
             [this.defaultInputStyles]: true,
-            [`border-${this.color} translate-x-4`]: this.checked,
+            ['translate-x-4 border-' + this.color]: this.checked,
             ['border-neutral-90']: !this.checked,
           })}
           @change=${this.handleChange}

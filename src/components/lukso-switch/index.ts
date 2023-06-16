@@ -12,7 +12,10 @@ export class LuksoSwitch extends TailwindElement {
   @property({ type: Boolean, attribute: 'is-checked' })
   private isChecked = false
 
-  @property({ type: Boolean, attribute: 'is-disabled' })
+  @property({
+    type: Boolean,
+    attribute: 'is-disabled',
+  })
   private isDisabled = false
 
   @state()

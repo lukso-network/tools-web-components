@@ -11,18 +11,6 @@ const meta: Meta = {
     color: {
       control: { type: 'text' },
     },
-    isDisabled: {
-      control: {
-        name: 'is-disabled',
-        type: 'boolean',
-      },
-    },
-    isChecked: {
-      control: {
-        name: 'is-checked',
-        type: 'boolean',
-      },
-    },
     onChange: {
       name: 'on-change',
       description: 'Emitted when checkbox is clicked',
@@ -53,8 +41,8 @@ const Template = ({ color, onChange, isDisabled, isChecked }) =>
   html`<lukso-switch
     @on-change=${onChange}
     color=${color}
-    ?is-disabled=${isDisabled}
-    ?is-checked=${isChecked}
+    ?isDisabled=${isDisabled}
+    ?isChecked=${isChecked}
   ></lukso-switch>`
 
 /** Example of default switch.  */

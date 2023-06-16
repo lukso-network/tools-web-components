@@ -1,5 +1,6 @@
 import { html } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { customElement, property } from 'lit/decorators.js'
+import { styleMap } from 'lit/directives/style-map.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
@@ -9,20 +10,16 @@ export class LuksoSwitch extends TailwindElement {
   @property({ type: String })
   color = 'green-54'
 
-  @property({ type: Boolean, attribute: 'is-checked' })
+  @property({ type: Boolean })
   private isChecked = false
 
   @property({
     type: Boolean,
-    attribute: 'is-disabled',
   })
   private isDisabled = false
 
-  @state()
-  private checked = false
-
   private handleChange(event: Event) {
-    this.checked = !this.checked
+    this.isChecked = !this.isChecked
     const target = event.target as HTMLInputElement
     const blurEvent = new CustomEvent('on-change', {
       detail: {
@@ -35,11 +32,6 @@ export class LuksoSwitch extends TailwindElement {
     this.dispatchEvent(blurEvent)
   }
 
-  connectedCallback() {
-    super.connectedCallback()
-    this.checked = this.isChecked
-  }
-
   private defaultLabelStyles = `transition duration-300 ease-in block h-6 overflow-hidden rounded-full cursor-pointer relative inline-block w-10`
 
   private defaultInputStyles = `absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer transition duration-300 ease-in`
@@ -50,19 +42,25 @@ export class LuksoSwitch extends TailwindElement {
         for="switch"
         class=${customClassMap({
           [this.defaultLabelStyles]: true,
-          ['bg-neutral-90']: !this.checked,
-          ['bg-' + this.color]: this.checked,
+        })}
+        style=${styleMap({
+          backgroundColor: `var(--${
+            this.isChecked ? this.color : 'neutral-90'
+          })`,
+          opacity: this.isDisabled ? 0.7 : 1,
         })}
       >
         <input
           type="checkbox"
           id="switch"
-          ?checked=${this.checked}
+          ?checked=${this.isChecked}
           ?disabled=${this.isDisabled}
           class=${customClassMap({
             [this.defaultInputStyles]: true,
-            ['translate-x-4 border-' + this.color]: this.checked,
-            ['border-neutral-90']: !this.checked,
+            ['translate-x-4']: this.isChecked,
+          })}
+          style=${styleMap({
+            borderColor: `var(--${this.isChecked ? this.color : 'neutral-90'})`,
           })}
           @change=${this.handleChange}
         />

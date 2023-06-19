@@ -32,9 +32,9 @@ export class LuksoSwitch extends TailwindElement {
     this.dispatchEvent(blurEvent)
   }
 
-  private defaultLabelStyles = `transition duration-300 ease-in block h-6 overflow-hidden rounded-full cursor-pointer relative inline-block w-10`
+  private defaultLabelStyles = `transition duration-300 ease-in block h-6 overflow-hidden rounded-full relative inline-block w-10`
 
-  private defaultInputStyles = `absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer transition duration-300 ease-in`
+  private defaultInputStyles = `absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none transition duration-300 ease-in`
 
   render() {
     return html`
@@ -48,6 +48,7 @@ export class LuksoSwitch extends TailwindElement {
             this.isChecked ? this.color : 'neutral-90'
           })`,
           opacity: this.isDisabled ? 0.7 : 1,
+          cursor: this.isDisabled ? 'not-allowed' : 'pointer',
         })}
       >
         <input
@@ -61,6 +62,7 @@ export class LuksoSwitch extends TailwindElement {
           })}
           style=${styleMap({
             borderColor: `var(--${this.isChecked ? this.color : 'neutral-90'})`,
+            cursor: this.isDisabled ? 'not-allowed' : 'pointer',
           })}
           @change=${this.handleChange}
         />

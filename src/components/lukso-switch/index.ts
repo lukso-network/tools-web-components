@@ -10,11 +10,12 @@ export class LuksoSwitch extends TailwindElement {
   @property({ type: String })
   color = 'green-54'
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, attribute: 'is-checked' })
   private isChecked = false
 
   @property({
     type: Boolean,
+    attribute: 'is-disabled',
   })
   private isDisabled = false
 

@@ -9,7 +9,27 @@ const meta: Meta = {
   component: 'lukso-switch',
   argTypes: {
     color: {
-      control: { type: 'text' },
+      control: {
+        type: 'text',
+      },
+    },
+    isDisabled: {
+      control: {
+        type: 'boolean',
+      },
+      name: 'is-disabled',
+    },
+    isChecked: {
+      name: 'is-checked',
+      control: {
+        type: 'boolean',
+      },
+    },
+    'is-checked': {
+      name: 'isChecked',
+    },
+    'is-disabled': {
+      name: 'isDisabled',
     },
     onChange: {
       name: 'on-change',
@@ -26,7 +46,13 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['defaultLabelStyles', 'defaultInputStyles', 'checked'],
+      exclude: [
+        'defaultLabelStyles',
+        'defaultInputStyles',
+        'checked',
+        'isDisabled',
+        'isChecked',
+      ],
     },
     design: {
       type: 'figma',
@@ -41,8 +67,8 @@ const Template = ({ color, onChange, isDisabled, isChecked }) =>
   html`<lukso-switch
     @on-change=${onChange}
     color=${color}
-    ?isDisabled=${isDisabled}
-    ?isChecked=${isChecked}
+    ?is-disabled=${isDisabled}
+    ?is-checked=${isChecked}
   ></lukso-switch>`
 
 /** Example of default switch.  */
@@ -53,9 +79,9 @@ DefaultInput.args = {
   isDisabled: false,
 }
 
-/** Example of readonly switch.  */
-export const ReadonlyInput = Template.bind({})
-ReadonlyInput.args = {
+/** Example of disabled switch.  */
+export const DisabledInput = Template.bind({})
+DisabledInput.args = {
   color: 'red-65',
   isChecked: true,
   isDisabled: true,

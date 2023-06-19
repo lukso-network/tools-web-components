@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.26.1",
+  "version": "1.26.3",
   "type": "module",
   "files": [
     "dist",
@@ -124,6 +124,11 @@
       "require": "./dist/components/lukso-share/index.cjs",
       "import": "./dist/components/lukso-share/index.js",
       "types": "./dist/components/lukso-share/index.d.ts"
+    },
+    "./dist/components/lukso-switch": {
+      "require": "./dist/components/lukso-switch/index.cjs",
+      "import": "./dist/components/lukso-switch/index.js",
+      "types": "./dist/components/lukso-switch/index.d.ts"
     },
     "./dist/components/lukso-tag": {
       "require": "./dist/components/lukso-tag/index.cjs",

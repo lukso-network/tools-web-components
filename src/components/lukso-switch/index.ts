@@ -22,15 +22,15 @@ export class LuksoSwitch extends TailwindElement {
   private handleChange(event: Event) {
     this.isChecked = !this.isChecked
     const target = event.target as HTMLInputElement
-    const blurEvent = new CustomEvent('on-change', {
+    const changeEvent = new CustomEvent('on-change', {
       detail: {
-        value: target.value,
+        value: target.checked,
         event,
       },
       bubbles: false,
       composed: true,
     })
-    this.dispatchEvent(blurEvent)
+    this.dispatchEvent(changeEvent)
   }
 
   private defaultLabelStyles = `transition duration-300 ease-in block h-6 overflow-hidden rounded-full relative inline-block w-10`

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.27.0](https://github.com/lukso-network/tools-web-components/compare/v1.26.2...v1.27.0) (2023-06-19)
+
+
+### Features
+
+* adds switch ([#172](https://github.com/lukso-network/tools-web-components/issues/172)) ([e5bb392](https://github.com/lukso-network/tools-web-components/commit/e5bb392167dc6d891f6f2b5f835a01a2b8ba2e79))
+
 ## [1.26.2](https://github.com/lukso-network/tools-web-components/compare/v1.26.1...v1.26.2) (2023-06-14)
 
 

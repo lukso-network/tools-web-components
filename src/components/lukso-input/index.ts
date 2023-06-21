@@ -76,7 +76,7 @@ export class LuksoInput extends TailwindElement {
   private defaultUnitStyles = `paragraph-inter-12-regular text-neutral-60 flex px-3.5 items-center relative
     border border-solid h-[48px] transition transition-all duration-150
     rounded-r-12 border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0
-    before:w-[1px] before:h-[24px] whitespace-nowrap`
+    before:w-[1px] before:h-[24px] whitespace-nowrap cursor-pointer`
 
   // @input works better in vue
   inputTemplate() {
@@ -160,6 +160,7 @@ export class LuksoInput extends TailwindElement {
       })}
       @mouseenter=${this.handleMouseOver}
       @mouseleave=${this.handleMouseOut}
+      @click=${this.handleUnitClick}
     >
       ${this.unit}
     </div>`
@@ -262,6 +263,19 @@ export class LuksoInput extends TailwindElement {
     if (!this.hasHocus) {
       this.hasHighlight = false
     }
+  }
+
+  private handleUnitClick() {
+    const input = this.shadowRoot?.querySelector('input')
+    const clickEvent = new CustomEvent('on-unit-click', {
+      detail: {
+        input,
+      },
+      bubbles: true,
+      composed: true,
+    })
+    this.dispatchEvent(clickEvent)
+    input.focus()
   }
 
   render() {

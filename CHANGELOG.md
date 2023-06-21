@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.28.0](https://github.com/lukso-network/tools-web-components/compare/v1.27.0...v1.28.0) (2023-06-21)
+
+
+### Features
+
+* click event for input unit ([#176](https://github.com/lukso-network/tools-web-components/issues/176)) ([fd5589d](https://github.com/lukso-network/tools-web-components/commit/fd5589d6edd622e72fd98b6271492e16234a431e))
+
+
+### Bug Fixes
+
+* improves event ([#174](https://github.com/lukso-network/tools-web-components/issues/174)) ([864f204](https://github.com/lukso-network/tools-web-components/commit/864f204b8a1eda5afb8cf316f8dbbb32281546f8))
+
 ## [1.27.0](https://github.com/lukso-network/tools-web-components/compare/v1.26.2...v1.27.0) (2023-06-19)
 
 

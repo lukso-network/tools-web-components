@@ -16,20 +16,32 @@ const meta: Meta = {
     profileUrl: {
       name: 'profile-url',
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     size: {
       control: {
         type: 'select',
       },
       options: ['x-small', 'small', 'medium', 'large', 'x-large'],
+      table: {
+        category: 'Attributes',
+      },
     },
     profileAddress: {
       name: 'profile-address',
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     hasIdenticon: {
       name: 'has-identicon',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     'profile-url': {
       name: 'profileUrl',

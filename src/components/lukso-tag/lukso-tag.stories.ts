@@ -18,23 +18,35 @@ const meta: Meta = {
       control: {
         type: 'boolean',
       },
+      table: {
+        category: 'Attributes',
+      },
     },
     size: {
       control: {
         type: 'select',
       },
       options: ['small', 'large'],
+      table: {
+        category: 'Attributes',
+      },
     },
     backgroundColor: {
       name: 'background-color',
       control: {
         type: 'text',
       },
+      table: {
+        category: 'Attributes',
+      },
     },
     textColor: {
       name: 'text-color',
       control: {
         type: 'text',
+      },
+      table: {
+        category: 'Attributes',
       },
     },
     'is-rounded': {

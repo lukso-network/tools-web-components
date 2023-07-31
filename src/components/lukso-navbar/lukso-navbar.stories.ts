@@ -12,18 +12,30 @@ const meta: Meta = {
   argTypes: {
     title: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isCenter: {
       name: 'is-center',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isSticky: {
       name: 'is-sticky',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isTransparent: {
       name: 'is-transparent',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     onBrandClick: {
       name: 'on-brand-click',

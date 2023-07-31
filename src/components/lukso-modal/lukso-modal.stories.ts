@@ -14,10 +14,16 @@ const meta: Meta = {
       name: 'is-open',
       control: { type: 'boolean' },
       description: 'Controls the visibility of the modal',
+      table: {
+        category: 'Attributes',
+      },
     },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'full'],
+      table: {
+        category: 'Attributes',
+      },
     },
     'is-open': {
       name: 'isOpen',

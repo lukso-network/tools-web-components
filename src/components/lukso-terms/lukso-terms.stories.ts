@@ -10,6 +10,9 @@ const meta: Meta = {
   argTypes: {
     text: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     onBottomScroll: {
       name: 'on-bottom-scroll',

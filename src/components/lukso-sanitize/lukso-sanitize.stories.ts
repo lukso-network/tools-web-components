@@ -13,10 +13,16 @@ const meta: Meta = {
     htmlContent: {
       name: 'html-content',
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isPre: {
       name: 'is-pre',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     'html-content': {
       name: 'htmlContent',

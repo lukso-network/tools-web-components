@@ -10,28 +10,46 @@ const meta: Meta = {
   argTypes: {
     name: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     address: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     maxWidth: {
       name: 'max-width',
       control: { type: 'number' },
       if: { arg: 'name', neq: '' },
+      table: {
+        category: 'Attributes',
+      },
     },
     size: {
       control: { type: 'select' },
       options: ['large', 'small'],
+      table: {
+        category: 'Attributes',
+      },
     },
     sliceBy: {
       name: 'slice-by',
       control: { type: 'number' },
       if: { arg: 'name', eq: '' },
+      table: {
+        category: 'Attributes',
+      },
     },
     addressColor: {
       name: 'address-color',
       control: { type: 'text' },
       if: { arg: 'name', eq: '' },
+      table: {
+        category: 'Attributes',
+      },
     },
     'max-width': {
       name: 'maxWidth',

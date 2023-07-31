@@ -12,14 +12,23 @@ const meta: Meta = {
   argTypes: {
     steps: {
       control: { type: 'object' },
+      table: {
+        category: 'Attributes',
+      },
     },
     activeStep: {
       name: 'active-step',
       control: { type: 'number', min: 1, step: 1 },
+      table: {
+        category: 'Attributes',
+      },
     },
     isFullWidth: {
       name: 'is-full-width',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     'active-step': {
       name: 'activeStep',
@@ -54,6 +63,7 @@ LYXe`,
         'completedStepStyles',
         'activeStep',
         'isFullWidth',
+        'styles',
       ],
     },
     design: {

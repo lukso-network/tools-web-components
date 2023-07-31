@@ -15,58 +15,97 @@ const meta: Meta = {
     variant: {
       control: { type: 'select' },
       options: ['primary', 'secondary', 'landing', 'text'],
+      table: {
+        category: 'Attributes',
+      },
     },
     isLink: {
       name: 'is-link',
       control: { type: 'boolean' },
       description: 'If true, button will be rendered as a link',
+      table: {
+        category: 'Attributes',
+      },
     },
     disabled: {
       control: { type: 'boolean' },
       if: { arg: 'isLink', truthy: false },
+      table: {
+        category: 'Attributes',
+      },
     },
     text: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium'],
+      table: {
+        category: 'Attributes',
+      },
     },
     type: {
       control: { type: 'select' },
       options: ['button', 'submit', 'reset'],
+      table: {
+        category: 'Attributes',
+      },
     },
     isFullWidth: {
       name: 'is-full-width',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isLongPress: {
       name: 'is-long-press',
       control: { type: 'boolean' },
       if: { arg: 'isLink', truthy: false },
+      table: {
+        category: 'Attributes',
+      },
     },
     isLoading: {
       name: 'is-loading',
       control: { type: 'boolean' },
       if: { arg: 'isLink', truthy: false },
+      table: {
+        category: 'Attributes',
+      },
     },
     href: {
       control: { type: 'text' },
       if: { arg: 'isLink' },
+      table: {
+        category: 'Attributes',
+      },
     },
     target: {
       control: { type: 'select' },
       options: ['_blank', '_self', '_parent', '_top'],
       if: { arg: 'isLink' },
+      table: {
+        category: 'Attributes',
+      },
     },
     rel: {
       control: { type: 'text' },
       if: { arg: 'isLink' },
+      table: {
+        category: 'Attributes',
+      },
     },
     loadingText: {
       name: 'loading-text',
       control: { type: 'text' },
       if: { arg: 'isLoading' },
+      table: {
+        category: 'Attributes',
+      },
     },
     onLongPressComplete: {
       name: 'on-long-press-complete',
@@ -78,6 +117,9 @@ const meta: Meta = {
     customClass: {
       name: 'custom-class',
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     'is-full-width': {
       name: 'isFullWidth',

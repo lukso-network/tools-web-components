@@ -11,6 +11,9 @@ const meta: Meta = {
     variant: {
       control: { type: 'select' },
       options: ['basic', 'with-header', 'profile'],
+      table: {
+        category: 'Attributes',
+      },
     },
     content: { control: { type: 'text' } },
     header: {
@@ -21,32 +24,53 @@ const meta: Meta = {
       name: 'background-url',
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
+      table: {
+        category: 'Attributes',
+      },
     },
     profileUrl: {
       name: 'profile-url',
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
+      table: {
+        category: 'Attributes',
+      },
     },
     profileAddress: {
       name: 'profile-address',
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isFixedWidth: {
       name: 'is-fixed-width',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isFixedHeight: {
       name: 'is-fixed-height',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isFullWidth: {
       name: 'is-full-width',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     customClass: {
       name: 'custom-class',
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     'background-url': {
       name: 'backgroundUrl',

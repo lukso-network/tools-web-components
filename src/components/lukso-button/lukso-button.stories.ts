@@ -45,6 +45,10 @@ const meta: Meta = {
       control: { type: 'boolean' },
       if: { arg: 'isLink', truthy: false },
     },
+    isActive: {
+      name: 'is-active',
+      control: { type: 'boolean' },
+    },
     isLoading: {
       name: 'is-loading',
       control: { type: 'boolean' },
@@ -79,6 +83,10 @@ const meta: Meta = {
       name: 'custom-class',
       control: { type: 'text' },
     },
+    count: {
+      control: { type: 'number' },
+      if: { arg: 'isLink', truthy: false },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -97,6 +105,9 @@ const meta: Meta = {
     'custom-class': {
       name: 'customClass',
     },
+    'is-active': {
+      name: 'isActive',
+    },
   },
   args: {
     text: 'Hello World',
@@ -113,6 +124,8 @@ const meta: Meta = {
     isLoading: false,
     loadingText: 'Loading...',
     customClass: '',
+    isActive: false,
+    count: 0,
   },
   parameters: {
     controls: {
@@ -142,6 +155,7 @@ const meta: Meta = {
         'isLoading',
         'loadingText',
         'customClass',
+        'isActive',
       ],
     },
   },
@@ -165,6 +179,8 @@ const Template = ({
   isLoading,
   loadingText,
   customClass,
+  isActive,
+  count,
 }) =>
   html`<lukso-button
     variant=${variant}
@@ -174,6 +190,7 @@ const Template = ({
     ?is-long-press=${isLongPress}
     ?is-link=${isLink}
     ?is-loading=${isLoading}
+    ?is-active=${isActive}
     href=${href}
     type=${type}
     target=${target}
@@ -181,6 +198,7 @@ const Template = ({
     loading-text=${loadingText}
     @on-long-press-complete=${onLongPressComplete}
     custom-class=${customClass}
+    count=${count}
     >${text}</lukso-button
   >`
 
@@ -353,6 +371,20 @@ CustomClassButton.args = {
   customClass: 'text-red-55 border-red-55',
 }
 CustomClassButton.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6%3A1324&t=mppskGJvpl3LbsWL-4',
+  },
+}
+
+/** You can add counter with `count` property. */
+export const CounterButton = Template.bind({})
+CounterButton.args = {
+  variant: 'secondary',
+  text: 'Counter Button',
+  count: 8,
+}
+CounterButton.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6%3A1324&t=mppskGJvpl3LbsWL-4',

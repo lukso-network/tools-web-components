@@ -53,6 +53,12 @@ export class LuksoButton extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'custom-class' })
   customClass = ''
 
+  @property({ type: Boolean, attribute: 'is-active' })
+  isActive = false
+
+  @property({ type: Number })
+  count = ''
+
   @state()
   private isPressed = false
 
@@ -156,6 +162,20 @@ export class LuksoButton extends TailwindStyledElement(style) {
       ${this.loadingText}`
   }
 
+  counterTemplate() {
+    return html`
+      <span
+        class=${customClassMap({
+          'ml-2 border border-neutral-20 rounded-4 px-[2px] py-[1px] paragraph-inter-10-semi-bold':
+            true,
+          ['text-neutral-100 bg-neutral-20']: this.isActive,
+          ['text-neutral-20 bg-neutral-100']: !this.isActive,
+        })}
+        >${this.count}</span
+      >
+    `
+  }
+
   buttonTemplate() {
     return html`
       <button
@@ -174,6 +194,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
           [this.longPressStyles]: this.isLongPress,
           [this.pressedStyles]: this.isPressed,
           [this.noTransitionStyles]: this.noTransition,
+          ['!border-neutral-20']: this.isActive && this.variant === 'secondary',
           [this.customClass]: !!this.customClass,
         })}
         @mousedown=${this.handleMouseDown}
@@ -181,6 +202,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
         @mouseleave=${this.handleMouseUp}
       >
         ${this.isLoading ? this.loadingTemplate() : html`<slot></slot>`}
+        ${this.count ? this.counterTemplate() : ''}
       </button>
     `
   }
@@ -199,6 +221,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
           [this.textStyles]: this.variant === 'text',
           [this.linkStyles]: this.variant === 'text',
           ['w-full']: this.isFullWidth,
+          ['!border-neutral-20']: this.isActive && this.variant === 'secondary',
           [this.customClass]: !!this.customClass,
         })}
         href=${this.href}

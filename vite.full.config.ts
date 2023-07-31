@@ -321,11 +321,11 @@ export async function run(argv: any) {
             './src/shared/styles',
             './src/shared/directives',
           ],
-          outputDir: './package/dist',
+          outDir: './package/dist',
         }),
         dts({
           include: ['./src/shared/tools/color-palette.ts'],
-          outputDir: './package/dist',
+          outDir: './package/dist',
         }),
       ].filter(item => item),
     })

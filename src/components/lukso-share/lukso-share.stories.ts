@@ -11,6 +11,9 @@ const meta: Meta = {
     customClass: {
       name: 'custom-class',
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     'custom-class': {
       name: 'customClass',
@@ -21,7 +24,7 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['linkTemplate', 'urls', 'customClass'],
+      exclude: ['linkTemplate', 'urls', 'customClass', 'styles'],
     },
   },
 }

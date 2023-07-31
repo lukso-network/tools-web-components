@@ -10,6 +10,9 @@ const meta: Meta = {
   argTypes: {
     text: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     onBottomScroll: {
       name: 'on-bottom-scroll',
@@ -31,11 +34,10 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ text, onBottomScroll }) => html`<div
-  class="w-[300px] h-[300px]"
->
-  <lukso-terms text=${text} @on-bottom-scroll=${onBottomScroll}></lukso-terms>
-</div> `
+const Template = ({ text, onBottomScroll }) =>
+  html`<div class="w-[300px] h-[300px]">
+    <lukso-terms text=${text} @on-bottom-scroll=${onBottomScroll}></lukso-terms>
+  </div> `
 
 /** Component takes max height and width of parent element. */
 export const DefaultTerms = Template.bind({})

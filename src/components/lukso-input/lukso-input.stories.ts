@@ -10,65 +10,121 @@ const meta: Meta = {
   argTypes: {
     value: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     name: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     type: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
-
     autocomplete: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     ref: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     id: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     placeholder: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     label: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     description: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     error: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     unit: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isReadonly: {
       name: 'is-readonly',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isFullWidth: {
       name: 'is-full-width',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isDisabled: {
       name: 'is-disabled',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     customClass: {
       name: 'custom-class',
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     autofocus: {
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     accept: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     min: {
       control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
     },
     max: {
       control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
     },
     onBlur: {
       name: 'on-blur',
@@ -122,6 +178,15 @@ const meta: Meta = {
     'is-full-width': {
       name: 'isFullWidth',
     },
+    'custom-class': {
+      name: 'customClass',
+    },
+    'is-readonly': {
+      name: 'isReadonly',
+    },
+    'is-disabled': {
+      name: 'isDisabled',
+    },
   },
   args: {
     type: 'text',
@@ -149,6 +214,9 @@ const meta: Meta = {
         'isFullWidth',
         'hasHocus',
         'hasHighlight',
+        'customClass',
+        'isReadonly',
+        'isDisabled',
       ],
     },
     design: {

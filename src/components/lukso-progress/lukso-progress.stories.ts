@@ -10,16 +10,28 @@ const meta: Meta = {
   argTypes: {
     min: {
       control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
     },
     max: {
       control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
     },
     current: {
       control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
     },
     variant: {
       control: { type: 'select' },
       options: ['success', 'error'],
+      table: {
+        category: 'Attributes',
+      },
     },
   },
   args: {

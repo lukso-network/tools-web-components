@@ -12,21 +12,34 @@ const meta: Meta = {
   argTypes: {
     name: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'large', 'x-large', '2x-large'],
+      table: {
+        category: 'Attributes',
+      },
     },
     color: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     secondaryColor: {
       name: 'secondary-color',
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     animation: {
       control: { type: 'select' },
       options: [
+        'none',
         'animate-spin',
         'animate-ping',
         'animate-pulse',

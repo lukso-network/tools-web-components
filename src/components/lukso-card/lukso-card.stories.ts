@@ -11,6 +11,9 @@ const meta: Meta = {
     variant: {
       control: { type: 'select' },
       options: ['basic', 'with-header', 'profile'],
+      table: {
+        category: 'Attributes',
+      },
     },
     content: { control: { type: 'text' } },
     header: {
@@ -21,32 +24,53 @@ const meta: Meta = {
       name: 'background-url',
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
+      table: {
+        category: 'Attributes',
+      },
     },
     profileUrl: {
       name: 'profile-url',
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
+      table: {
+        category: 'Attributes',
+      },
     },
     profileAddress: {
       name: 'profile-address',
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'profile' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isFixedWidth: {
       name: 'is-fixed-width',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isFixedHeight: {
       name: 'is-fixed-height',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isFullWidth: {
       name: 'is-full-width',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     customClass: {
       name: 'custom-class',
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
     },
     'background-url': {
       name: 'backgroundUrl',
@@ -109,19 +133,18 @@ const DefaultTemplate = ({
   isFixedWidth,
   isFullWidth,
   customClass,
-}) =>
-  html`
-    <lukso-card
-      variant=${variant}
-      ?is-fixed-width=${isFixedWidth}
-      ?is-fixed-height=${isFixedHeight}
-      ?is-full-width=${isFullWidth}
-      custom-class=${customClass}
-    >
-      <div slot="header" class="p-6">${header}</div>
-      <div slot="content" class="p-6">${content}</div>
-    </lukso-card>
-  `
+}) => html`
+  <lukso-card
+    variant=${variant}
+    ?is-fixed-width=${isFixedWidth}
+    ?is-fixed-height=${isFixedHeight}
+    ?is-full-width=${isFullWidth}
+    custom-class=${customClass}
+  >
+    <div slot="header" class="p-6">${header}</div>
+    <div slot="content" class="p-6">${content}</div>
+  </lukso-card>
+`
 
 const CustomHeaderTemplate = ({
   variant,
@@ -131,24 +154,23 @@ const CustomHeaderTemplate = ({
   isFixedWidth,
   isFullWidth,
   customClass,
-}) =>
-  html`
-    <lukso-card
-      variant=${variant}
-      ?is-fixed-width=${isFixedWidth}
-      ?is-fixed-height=${isFixedHeight}
-      ?is-full-width=${isFullWidth}
-      custom-class=${customClass}
-    >
-      <div slot="header" class="p-6 relative overflow-hidden min-h-[200px]">
-        <div
-          class="w-[876px] h-[200px] -left-[257px] top-[72px] bg-neutral-95 rounded-[50%] absolute"
-        ></div>
-        ${header}
-      </div>
-      <div slot="content" class="p-6">${content}</div>
-    </lukso-card>
-  `
+}) => html`
+  <lukso-card
+    variant=${variant}
+    ?is-fixed-width=${isFixedWidth}
+    ?is-fixed-height=${isFixedHeight}
+    ?is-full-width=${isFullWidth}
+    custom-class=${customClass}
+  >
+    <div slot="header" class="p-6 relative overflow-hidden min-h-[200px]">
+      <div
+        class="w-[876px] h-[200px] -left-[257px] top-[72px] bg-neutral-95 rounded-[50%] absolute"
+      ></div>
+      ${header}
+    </div>
+    <div slot="content" class="p-6">${content}</div>
+  </lukso-card>
+`
 
 const ProfileTemplate = ({
   variant,
@@ -160,21 +182,20 @@ const ProfileTemplate = ({
   isFixedWidth,
   isFullWidth,
   customClass,
-}) =>
-  html`
-    <lukso-card
-      variant=${variant}
-      background-url=${backgroundUrl}
-      profile-url=${profileUrl}
-      profile-address=${profileAddress}
-      ?is-fixed-width=${isFixedWidth}
-      ?is-fixed-height=${isFixedHeight}
-      ?is-full-width=${isFullWidth}
-      custom-class=${customClass}
-    >
-      <div slot="content" class="p-6">${content}</div>
-    </lukso-card>
-  `
+}) => html`
+  <lukso-card
+    variant=${variant}
+    background-url=${backgroundUrl}
+    profile-url=${profileUrl}
+    profile-address=${profileAddress}
+    ?is-fixed-width=${isFixedWidth}
+    ?is-fixed-height=${isFixedHeight}
+    ?is-full-width=${isFullWidth}
+    custom-class=${customClass}
+  >
+    <div slot="content" class="p-6">${content}</div>
+  </lukso-card>
+`
 
 /** By default card is using `basic` variant.  */
 export const DefaultCard = DefaultTemplate.bind({})

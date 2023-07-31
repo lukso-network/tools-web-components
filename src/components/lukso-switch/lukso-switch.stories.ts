@@ -12,17 +12,26 @@ const meta: Meta = {
       control: {
         type: 'text',
       },
+      table: {
+        category: 'Attributes',
+      },
     },
     isDisabled: {
       control: {
         type: 'boolean',
       },
       name: 'is-disabled',
+      table: {
+        category: 'Attributes',
+      },
     },
     isChecked: {
       name: 'is-checked',
       control: {
         type: 'boolean',
+      },
+      table: {
+        category: 'Attributes',
       },
     },
     'is-checked': {

@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.29.0](https://github.com/lukso-network/tools-web-components/compare/v1.28.0...v1.29.0) (2023-07-31)
+
+
+### Features
+
+* add active and count attribute for button component ([#178](https://github.com/lukso-network/tools-web-components/issues/178)) ([dfdc708](https://github.com/lukso-network/tools-web-components/commit/dfdc7080d0c42031b17b46d8807d9e2ab31f0165))
+
+
+### Bug Fixes
+
+* copy assets issue when using in Nuxt config ([#180](https://github.com/lukso-network/tools-web-components/issues/180)) ([1dcb60f](https://github.com/lukso-network/tools-web-components/commit/1dcb60f2cf9d59824228340ff990745dedfcba08))
+
 ## [1.28.0](https://github.com/lukso-network/tools-web-components/compare/v1.27.0...v1.28.0) (2023-06-21)
 
 

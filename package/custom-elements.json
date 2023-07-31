@@ -310,6 +310,24 @@
             },
             {
               "kind": "field",
+              "name": "isActive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-active"
+            },
+            {
+              "kind": "field",
+              "name": "count",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "count"
+            },
+            {
+              "kind": "field",
               "name": "isPressed",
               "type": {
                 "text": "boolean"
@@ -419,6 +437,10 @@
                   "text": "unknown"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "counterTemplate"
             },
             {
               "kind": "method",
@@ -542,6 +564,22 @@
               },
               "default": "''",
               "fieldName": "customClass"
+            },
+            {
+              "name": "is-active",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isActive"
+            },
+            {
+              "name": "count",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "count"
             }
           ],
           "mixins": [
@@ -2129,123 +2167,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/lukso-switch/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoSwitch",
-          "members": [
-            {
-              "kind": "field",
-              "name": "color",
-              "type": {
-                "text": "string"
-              },
-              "default": "'green-54'",
-              "attribute": "color"
-            },
-            {
-              "kind": "field",
-              "name": "isChecked",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false",
-              "attribute": "is-checked"
-            },
-            {
-              "kind": "field",
-              "name": "isDisabled",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false",
-              "attribute": "is-disabled"
-            },
-            {
-              "kind": "method",
-              "name": "handleChange",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "defaultLabelStyles",
-              "privacy": "private",
-              "default": "`transition duration-300 ease-in block h-6 overflow-hidden rounded-full relative inline-block w-10`"
-            },
-            {
-              "kind": "field",
-              "name": "defaultInputStyles",
-              "privacy": "private",
-              "default": "`absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none transition duration-300 ease-in`"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "color",
-              "type": {
-                "text": "string"
-              },
-              "default": "'green-54'",
-              "fieldName": "color"
-            },
-            {
-              "name": "is-checked",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isChecked"
-            },
-            {
-              "name": "is-disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "isDisabled"
-            }
-          ],
-          "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
-          },
-          "tagName": "lukso-switch",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoSwitch",
-          "declaration": {
-            "name": "LuksoSwitch",
-            "module": "src/components/lukso-switch/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-switch",
-          "declaration": {
-            "name": "LuksoSwitch",
-            "module": "src/components/lukso-switch/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/lukso-tag/index.ts",
       "declarations": [
         {
@@ -2594,6 +2515,123 @@
           "declaration": {
             "name": "LuksoTest",
             "module": "src/components/lukso-test/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/lukso-switch/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoSwitch",
+          "members": [
+            {
+              "kind": "field",
+              "name": "color",
+              "type": {
+                "text": "string"
+              },
+              "default": "'green-54'",
+              "attribute": "color"
+            },
+            {
+              "kind": "field",
+              "name": "isChecked",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "attribute": "is-checked"
+            },
+            {
+              "kind": "field",
+              "name": "isDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "attribute": "is-disabled"
+            },
+            {
+              "kind": "method",
+              "name": "handleChange",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "defaultLabelStyles",
+              "privacy": "private",
+              "default": "`transition duration-300 ease-in block h-6 overflow-hidden rounded-full relative inline-block w-10`"
+            },
+            {
+              "kind": "field",
+              "name": "defaultInputStyles",
+              "privacy": "private",
+              "default": "`absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none transition duration-300 ease-in`"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "color",
+              "type": {
+                "text": "string"
+              },
+              "default": "'green-54'",
+              "fieldName": "color"
+            },
+            {
+              "name": "is-checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isChecked"
+            },
+            {
+              "name": "is-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isDisabled"
+            }
+          ],
+          "superclass": {
+            "name": "TailwindElement",
+            "package": "@/shared/tailwind-element"
+          },
+          "tagName": "lukso-switch",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoSwitch",
+          "declaration": {
+            "name": "LuksoSwitch",
+            "module": "src/components/lukso-switch/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-switch",
+          "declaration": {
+            "name": "LuksoSwitch",
+            "module": "src/components/lukso-switch/index.ts"
           }
         }
       ]
@@ -3027,6 +3065,29 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/shared/assets/fonts/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "fonts",
+          "type": {
+            "text": "string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "fonts",
+          "declaration": {
+            "name": "fonts",
+            "module": "src/shared/assets/fonts/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/shared/tools/index.ts",
       "declarations": [],
       "exports": [
@@ -3074,11 +3135,11 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/assets/fonts/index.ts",
+      "path": "src/shared/assets/images/index.ts",
       "declarations": [
         {
           "kind": "variable",
-          "name": "fonts",
+          "name": "images",
           "type": {
             "text": "string"
           }
@@ -3087,10 +3148,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "fonts",
+          "name": "images",
           "declaration": {
-            "name": "fonts",
-            "module": "src/shared/assets/fonts/index.ts"
+            "name": "images",
+            "module": "src/shared/assets/images/index.ts"
           }
         }
       ]
@@ -3135,29 +3196,6 @@
           "declaration": {
             "name": "customClassMap",
             "module": "src/shared/directives/custom-class-map/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/images/index.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "images",
-          "type": {
-            "text": "string"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "images",
-          "declaration": {
-            "name": "images",
-            "module": "src/shared/assets/images/index.ts"
           }
         }
       ]

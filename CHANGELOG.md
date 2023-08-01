@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.30.0](https://github.com/lukso-network/tools-web-components/compare/v1.29.0...v1.30.0) (2023-08-01)
+
+
+### Features
+
+* card `size` and `isHoverable` state ([#182](https://github.com/lukso-network/tools-web-components/issues/182)) ([455b103](https://github.com/lukso-network/tools-web-components/commit/455b10355d1846b960262893661d1a185ff856ed))
+* extra small tag ([#184](https://github.com/lukso-network/tools-web-components/issues/184)) ([11b75b6](https://github.com/lukso-network/tools-web-components/commit/11b75b671afa06988d6e1723d86bcbc60dce9832))
+* username improvements ([#185](https://github.com/lukso-network/tools-web-components/issues/185)) ([850b5e3](https://github.com/lukso-network/tools-web-components/commit/850b5e34535406586d0509e63d8d479fa27b8276))
+
 ## [1.29.0](https://github.com/lukso-network/tools-web-components/compare/v1.28.0...v1.29.0) (2023-07-31)
 
 

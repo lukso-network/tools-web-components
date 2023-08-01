@@ -30,7 +30,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['large', 'small'],
+      options: ['x-small', 'small', 'large'],
       table: {
         category: 'Attributes',
       },
@@ -46,7 +46,13 @@ const meta: Meta = {
     addressColor: {
       name: 'address-color',
       control: { type: 'text' },
-      if: { arg: 'name', eq: '' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    nameColor: {
+      name: 'name-color',
+      control: { type: 'text' },
       table: {
         category: 'Attributes',
       },
@@ -60,6 +66,9 @@ const meta: Meta = {
     'address-color': {
       name: 'addressColor',
     },
+    'name-color': {
+      name: 'nameColor',
+    },
   },
   args: {
     name: 'John',
@@ -68,10 +77,17 @@ const meta: Meta = {
     size: 'large',
     sliceBy: 8,
     addressColor: '',
+    nameColor: '',
   },
   parameters: {
     controls: {
-      exclude: ['bytesWidth', 'maxWidth', 'sliceBy', 'addressColor'],
+      exclude: [
+        'bytesWidth',
+        'maxWidth',
+        'sliceBy',
+        'addressColor',
+        'nameColor',
+      ],
     },
     design: {
       type: 'figma',
@@ -82,7 +98,15 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ name, address, maxWidth, size, sliceBy, addressColor }) =>
+const Template = ({
+  name,
+  address,
+  maxWidth,
+  size,
+  sliceBy,
+  addressColor,
+  nameColor,
+}) =>
   html`<lukso-username
     name=${name}
     address=${address}
@@ -90,6 +114,7 @@ const Template = ({ name, address, maxWidth, size, sliceBy, addressColor }) =>
     size=${size}
     slice-by=${sliceBy}
     address-color=${addressColor}
+    name-color=${nameColor}
   ></lukso-username>`
 
 /** By default user name is displayed as `name` prefixed with `@` character and 4 bytes of `address` */
@@ -123,10 +148,9 @@ SliceAddressBy4.args = {
   size: 'small',
 }
 
-/** Address color can be customized with `address-color` property. */
-export const CustomAddressColor = Template.bind({})
-CustomAddressColor.args = {
-  name: '',
-  addressColor: 'neutral-60',
-  size: 'small',
+/** Color of the address and name can be changed via `name-color` and `address-color` property. */
+export const CustomColor = Template.bind({})
+CustomColor.args = {
+  nameColor: 'red-55',
+  addressColor: 'green-54',
 }

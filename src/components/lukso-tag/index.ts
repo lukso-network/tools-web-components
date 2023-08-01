@@ -2,13 +2,14 @@ import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
+import style from './style.scss?inline'
 
 export type TagSizes = 'x-small' | 'small' | 'large'
 
 @customElement('lukso-tag')
-export class LuksoTag extends TailwindElement {
+export class LuksoTag extends TailwindStyledElement(style) {
   @property({ type: String })
   size: TagSizes = 'small'
 

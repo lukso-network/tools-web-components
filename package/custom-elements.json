@@ -2381,6 +2381,12 @@
             },
             {
               "kind": "field",
+              "name": "extraSmallStyles",
+              "privacy": "private",
+              "default": "`font-inter text-8 font-500 leading-20 h-[20px]`"
+            },
+            {
+              "kind": "field",
               "name": "smallStyles",
               "privacy": "private",
               "default": "`paragraph-inter-12-medium h-[28px]`"
@@ -2395,6 +2401,15 @@
               "kind": "method",
               "name": "padding",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "inheritedFrom": {
+                "name": "TailwindStyledElement",
+                "module": "src/shared/tailwind-element/index.ts"
+              }
             }
           ],
           "attributes": [
@@ -2431,9 +2446,15 @@
               "fieldName": "textColor"
             }
           ],
+          "mixins": [
+            {
+              "name": "TailwindStyledElement",
+              "package": "@/shared/tailwind-element"
+            }
+          ],
           "superclass": {
-            "name": "TailwindElement",
-            "package": "@/shared/tailwind-element"
+            "name": "style",
+            "module": "/src/components/lukso-tag/style.scss"
           },
           "tagName": "lukso-tag",
           "customElement": true
@@ -3158,52 +3179,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/shared/assets/fonts/index.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "fonts",
-          "type": {
-            "text": "string"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "fonts",
-          "declaration": {
-            "name": "fonts",
-            "module": "src/shared/assets/fonts/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/shared/assets/images/index.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "images",
-          "type": {
-            "text": "string"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "images",
-          "declaration": {
-            "name": "images",
-            "module": "src/shared/assets/images/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/shared/directives/custom-class-map/index.ts",
       "declarations": [
         {
@@ -3242,6 +3217,52 @@
           "declaration": {
             "name": "customClassMap",
             "module": "src/shared/directives/custom-class-map/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/images/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "images",
+          "type": {
+            "text": "string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "images",
+          "declaration": {
+            "name": "images",
+            "module": "src/shared/assets/images/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/shared/assets/fonts/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "fonts",
+          "type": {
+            "text": "string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "fonts",
+          "declaration": {
+            "name": "fonts",
+            "module": "src/shared/assets/fonts/index.ts"
           }
         }
       ]

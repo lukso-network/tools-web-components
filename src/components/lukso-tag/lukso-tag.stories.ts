@@ -26,7 +26,7 @@ const meta: Meta = {
       control: {
         type: 'select',
       },
-      options: ['small', 'large'],
+      options: ['x-small', 'small', 'large'],
       table: {
         category: 'Attributes',
       },
@@ -108,6 +108,19 @@ LargeTag.args = {
   content: 'Large Tag',
 }
 LargeTag.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=375%3A3234&t=AGmdbG8fXRENuU3o-4',
+  },
+}
+
+/**  This is example of `x-small` tag. */
+export const ExtraSmallTag = Template.bind({})
+ExtraSmallTag.args = {
+  size: 'x-small',
+  content: 'Extra Small Tag',
+}
+ExtraSmallTag.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=375%3A3234&t=AGmdbG8fXRENuU3o-4',

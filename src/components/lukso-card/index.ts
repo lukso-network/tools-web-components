@@ -9,6 +9,7 @@ import '@/components/lukso-profile'
 
 export type CardVariants = 'basic' | 'with-header' | 'profile'
 export type CardSizes = 'small' | 'medium'
+
 @customElement('lukso-card')
 export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: String })

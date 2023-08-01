@@ -72,6 +72,20 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium'],
+      table: {
+        category: 'Attributes',
+      },
+    },
+    isHoverable: {
+      name: 'is-hoverable',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'background-url': {
       name: 'backgroundUrl',
     },
@@ -93,6 +107,9 @@ const meta: Meta = {
     'custom-class': {
       name: 'customClass',
     },
+    'is-hoverable': {
+      name: 'isHoverable',
+    },
   },
   args: {
     variant: 'basic',
@@ -105,6 +122,8 @@ const meta: Meta = {
     isFixedWidth: false,
     isFixedHeight: false,
     customClass: '',
+    size: 'medium',
+    isHoverable: false,
   },
   parameters: {
     controls: {
@@ -118,6 +137,10 @@ const meta: Meta = {
         'isFullWidth',
         'styles',
         'customClass',
+        'isHoverable',
+        'mediumStyles',
+        'smallStyles',
+        'smallHoverStyles',
       ],
     },
   },
@@ -133,6 +156,8 @@ const DefaultTemplate = ({
   isFixedWidth,
   isFullWidth,
   customClass,
+  size,
+  isHoverable,
 }) => html`
   <lukso-card
     variant=${variant}
@@ -140,6 +165,8 @@ const DefaultTemplate = ({
     ?is-fixed-height=${isFixedHeight}
     ?is-full-width=${isFullWidth}
     custom-class=${customClass}
+    size=${size}
+    ?is-hoverable=${isHoverable}
   >
     <div slot="header" class="p-6">${header}</div>
     <div slot="content" class="p-6">${content}</div>
@@ -154,6 +181,8 @@ const CustomHeaderTemplate = ({
   isFixedWidth,
   isFullWidth,
   customClass,
+  size,
+  isHoverable,
 }) => html`
   <lukso-card
     variant=${variant}
@@ -161,6 +190,8 @@ const CustomHeaderTemplate = ({
     ?is-fixed-height=${isFixedHeight}
     ?is-full-width=${isFullWidth}
     custom-class=${customClass}
+    size=${size}
+    ?is-hoverable=${isHoverable}
   >
     <div slot="header" class="p-6 relative overflow-hidden min-h-[200px]">
       <div
@@ -182,6 +213,8 @@ const ProfileTemplate = ({
   isFixedWidth,
   isFullWidth,
   customClass,
+  size,
+  isHoverable,
 }) => html`
   <lukso-card
     variant=${variant}
@@ -192,6 +225,8 @@ const ProfileTemplate = ({
     ?is-fixed-height=${isFixedHeight}
     ?is-full-width=${isFullWidth}
     custom-class=${customClass}
+    size=${size}
+    ?is-hoverable=${isHoverable}
   >
     <div slot="content" class="p-6">${content}</div>
   </lukso-card>
@@ -291,4 +326,17 @@ CustomCard.parameters = {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
   },
+}
+
+/** You can select card size with `size` property.  */
+export const SmallCard = DefaultTemplate.bind({})
+SmallCard.args = {
+  size: 'small',
+}
+
+/** Card can be as hoverable element with `is-hoverable` property.  */
+export const HoverableCard = DefaultTemplate.bind({})
+HoverableCard.args = {
+  size: 'small',
+  isHoverable: true,
 }

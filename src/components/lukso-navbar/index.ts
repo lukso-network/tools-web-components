@@ -28,8 +28,13 @@ export class LuksoNavbar extends TailwindElement {
   @property({ type: Boolean, attribute: 'has-menu' })
   hasMenu = false
 
+  @property({ type: String, attribute: 'logo-url' })
+  logoUrl = ''
+
   @state()
   private isMenuOpen = false
+
+  private defaultLogoUrl = '/assets/images/up-logo.png'
 
   private centerStyles = `justify-center`
 
@@ -104,7 +109,10 @@ export class LuksoNavbar extends TailwindElement {
           class="flex items-center px-7 h-full cursor-pointer sm:px-10"
           @click=${this.handleBrandClick}
         >
-          <img src="/assets/images/up-logo.png" class="mr-2 h-[26px]" />
+          <img
+            src="${this.logoUrl || this.defaultLogoUrl}"
+            class="mr-2 h-[26px]"
+          />
           <div
             class="text-purple-51 nav-apax-14-medium-uppercase
               whitespace-pre-line flex leading-none hover:text-purple-41"

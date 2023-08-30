@@ -57,6 +57,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    logoUrl: {
+      name: 'logo-url',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onBrandClick: {
       name: 'on-brand-click',
       action: 'on-brand-click',
@@ -80,6 +87,9 @@ const meta: Meta = {
     'has-menu': {
       name: 'hasMenu',
     },
+    'logo-url': {
+      name: 'logoUrl',
+    },
   },
   args: {
     title: `UNIVERSAL
@@ -90,6 +100,7 @@ PROFILES`,
     isTestnet: false,
     icon: 'wallet-outline',
     hasMenu: false,
+    logoUrl: undefined,
   },
   parameters: {
     controls: {
@@ -104,6 +115,7 @@ PROFILES`,
         'transparentStyles',
         'isTestnet',
         'hasMenu',
+        'logoUrl',
       ],
     },
     design: {
@@ -124,6 +136,7 @@ const Template = ({
   isTestnet,
   icon,
   hasMenu,
+  logoUrl,
 }) =>
   html`<lukso-navbar
     title=${title}
@@ -133,6 +146,7 @@ const Template = ({
     ?is-testnet=${isTestnet}
     icon=${icon}
     ?has-menu=${hasMenu}
+    logo-url=${logoUrl}
     @on-brand-click=${onBrandClick}
   ></lukso-navbar>`
 
@@ -145,6 +159,7 @@ const MenuTemplate = ({
   isTestnet,
   icon,
   hasMenu,
+  logoUrl,
 }) =>
   html`<lukso-navbar
     title=${title}
@@ -154,6 +169,7 @@ const MenuTemplate = ({
     ?is-testnet=${isTestnet}
     icon=${icon}
     ?has-menu=${hasMenu}
+    logo-url=${logoUrl}
     @on-brand-click=${onBrandClick}
   >
     <div slot="desktop">
@@ -220,4 +236,11 @@ NavbarWithMenu.args = {
 export const TestnetNavbar = Template.bind({})
 TestnetNavbar.args = {
   isTestnet: true,
+}
+
+/** Example of navbar with custom logo. You set this by adding `logo-url` property. */
+export const CustomLogoNavbar = Template.bind({})
+CustomLogoNavbar.args = {
+  logoUrl: '/assets/images/lukso-logo.svg',
+  icon: '',
 }

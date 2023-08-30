@@ -309,7 +309,7 @@ export async function run(argv: any) {
         viteStaticCopy({
           targets: [
             {
-              src: ['./custom-elements.json', './LICENSE', './README.md'],
+              src: ['./LICENSE', './README.md'],
               dest: '..',
             },
           ],

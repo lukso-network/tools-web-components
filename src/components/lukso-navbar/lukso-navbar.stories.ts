@@ -37,6 +37,26 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isTestnet: {
+      name: 'is-testnet',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    icon: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    hasMenu: {
+      name: 'has-menu',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onBrandClick: {
       name: 'on-brand-click',
       action: 'on-brand-click',
@@ -54,6 +74,12 @@ const meta: Meta = {
     'is-transparent': {
       name: 'isTransparent',
     },
+    'is-testnet': {
+      name: 'isTestnet',
+    },
+    'has-menu': {
+      name: 'hasMenu',
+    },
   },
   args: {
     title: `UNIVERSAL
@@ -61,6 +87,9 @@ PROFILES`,
     isCenter: false,
     isSticky: false,
     isTransparent: false,
+    isTestnet: false,
+    icon: 'wallet-outline',
+    hasMenu: false,
   },
   parameters: {
     controls: {
@@ -73,6 +102,8 @@ PROFILES`,
         'isTransparent',
         'isMenuOpen',
         'transparentStyles',
+        'isTestnet',
+        'hasMenu',
       ],
     },
     design: {
@@ -84,12 +115,24 @@ PROFILES`,
 
 export default meta
 
-const Template = ({ title, isCenter, isSticky, isTransparent, onBrandClick }) =>
+const Template = ({
+  title,
+  isCenter,
+  isSticky,
+  isTransparent,
+  onBrandClick,
+  isTestnet,
+  icon,
+  hasMenu,
+}) =>
   html`<lukso-navbar
     title=${title}
     ?is-center=${isCenter}
     ?is-sticky=${isSticky}
     ?is-transparent=${isTransparent}
+    ?is-testnet=${isTestnet}
+    icon=${icon}
+    ?has-menu=${hasMenu}
     @on-brand-click=${onBrandClick}
   ></lukso-navbar>`
 
@@ -99,12 +142,18 @@ const MenuTemplate = ({
   isSticky,
   isTransparent,
   onBrandClick,
+  isTestnet,
+  icon,
+  hasMenu,
 }) =>
   html`<lukso-navbar
     title=${title}
     ?is-center=${isCenter}
     ?is-sticky=${isSticky}
     ?is-transparent=${isTransparent}
+    ?is-testnet=${isTestnet}
+    icon=${icon}
+    ?has-menu=${hasMenu}
     @on-brand-click=${onBrandClick}
   >
     <div slot="desktop">
@@ -161,5 +210,14 @@ StickyNavbar.args = {
   isSticky: true,
 }
 
-/** Navbar with menu. It uses `desktop` and `mobile` slots for menus for different devices.  */
+/** Navbar with menu. It uses `desktop` and `mobile` slots for menus for different devices. It also require `has-menu` property to be set.  */
 export const NavbarWithMenu = MenuTemplate.bind({})
+NavbarWithMenu.args = {
+  hasMenu: true,
+}
+
+/** Example of navbar with testnet badge. You set this by adding `is-testnet` property. */
+export const TestnetNavbar = Template.bind({})
+TestnetNavbar.args = {
+  isTestnet: true,
+}

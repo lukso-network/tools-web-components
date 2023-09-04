@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.29.0",
+  "version": "1.30.0",
   "type": "module",
   "files": [
     "dist",
@@ -104,6 +104,11 @@
       "require": "./dist/components/lukso-navbar/index.cjs",
       "import": "./dist/components/lukso-navbar/index.js",
       "types": "./dist/components/lukso-navbar/index.d.ts"
+    },
+    "./dist/components/lukso-network": {
+      "require": "./dist/components/lukso-network/index.cjs",
+      "import": "./dist/components/lukso-network/index.js",
+      "types": "./dist/components/lukso-network/index.d.ts"
     },
     "./dist/components/lukso-profile": {
       "require": "./dist/components/lukso-profile/index.cjs",

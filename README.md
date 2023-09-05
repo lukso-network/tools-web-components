@@ -132,7 +132,3 @@ The only caveat with linking is that this will add resolution entry into `packag
 ```sh
 yarn unlink ../tools-web-components
 ```
-
-## How to build the components
-
-// TBA

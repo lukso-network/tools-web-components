@@ -1671,12 +1671,57 @@
             },
             {
               "kind": "field",
+              "name": "isTestnet",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-testnet"
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "icon"
+            },
+            {
+              "kind": "field",
+              "name": "hasMenu",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "has-menu"
+            },
+            {
+              "kind": "field",
+              "name": "logoUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "logo-url"
+            },
+            {
+              "kind": "field",
               "name": "isMenuOpen",
               "type": {
                 "text": "boolean"
               },
               "privacy": "private",
               "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "defaultLogoUrl",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "'/assets/images/up-logo.png'"
             },
             {
               "kind": "field",
@@ -1747,6 +1792,38 @@
               },
               "default": "false",
               "fieldName": "isTransparent"
+            },
+            {
+              "name": "is-testnet",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isTestnet"
+            },
+            {
+              "name": "icon",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "icon"
+            },
+            {
+              "name": "has-menu",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasMenu"
+            },
+            {
+              "name": "logo-url",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "logoUrl"
             }
           ],
           "superclass": {
@@ -2481,6 +2558,107 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/lukso-terms/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "LuksoTerms",
+          "members": [
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "text"
+            },
+            {
+              "kind": "field",
+              "name": "hasScrollButton",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "defaultStyles",
+              "privacy": "private",
+              "default": "`h-[56px] w-full sticky bottom-0 -mt-[56px]\n    bg-gradient-to-b from-transparent to-neutral-100/80\n    flex justify-center transition-opacity opacity-0`"
+            },
+            {
+              "kind": "method",
+              "name": "onScrollBottom",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleScroll",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleBottomScroll",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "inheritedFrom": {
+                "name": "TailwindStyledElement",
+                "module": "src/shared/tailwind-element/index.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "text",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "text"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "TailwindStyledElement",
+              "package": "@/shared/tailwind-element"
+            }
+          ],
+          "superclass": {
+            "name": "style",
+            "module": "/src/components/lukso-terms/style.scss"
+          },
+          "tagName": "lukso-terms",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LuksoTerms",
+          "declaration": {
+            "name": "LuksoTerms",
+            "module": "src/components/lukso-terms/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lukso-terms",
+          "declaration": {
+            "name": "LuksoTerms",
+            "module": "src/components/lukso-terms/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/lukso-test/index.ts",
       "declarations": [
         {
@@ -2598,107 +2776,6 @@
           "declaration": {
             "name": "LuksoTest",
             "module": "src/components/lukso-test/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/lukso-terms/index.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "LuksoTerms",
-          "members": [
-            {
-              "kind": "field",
-              "name": "text",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "attribute": "text"
-            },
-            {
-              "kind": "field",
-              "name": "hasScrollButton",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "true"
-            },
-            {
-              "kind": "field",
-              "name": "defaultStyles",
-              "privacy": "private",
-              "default": "`h-[56px] w-full sticky bottom-0 -mt-[56px]\n    bg-gradient-to-b from-transparent to-neutral-100/80\n    flex justify-center transition-opacity opacity-0`"
-            },
-            {
-              "kind": "method",
-              "name": "onScrollBottom",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "handleScroll",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "handleBottomScroll",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true,
-              "inheritedFrom": {
-                "name": "TailwindStyledElement",
-                "module": "src/shared/tailwind-element/index.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "text",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "text"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "TailwindStyledElement",
-              "package": "@/shared/tailwind-element"
-            }
-          ],
-          "superclass": {
-            "name": "style",
-            "module": "/src/components/lukso-terms/style.scss"
-          },
-          "tagName": "lukso-terms",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LuksoTerms",
-          "declaration": {
-            "name": "LuksoTerms",
-            "module": "src/components/lukso-terms/index.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "lukso-terms",
-          "declaration": {
-            "name": "LuksoTerms",
-            "module": "src/components/lukso-terms/index.ts"
           }
         }
       ]

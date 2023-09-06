@@ -22,8 +22,17 @@ export class LuksoFooter extends TailwindElement {
         >
           <slot name="bottom"></slot>
           <div class="flex sm:justify-end">
-            <a href="https://lukso.network/" target="_blank">
-              <img src="/assets/images/powered-by.svg" alt="Powered by LUKSO" />
+            <a
+              href="https://lukso.network/"
+              target="_blank"
+              class="sm:text-right opacity-50 text-neutral-30"
+            >
+              <span class="paragraph-inter-10-semi-bold">Powered by</span>
+              <img
+                src="/assets/images/lukso-logo.svg"
+                alt="LUKSO"
+                class="h-4"
+              />
             </a>
           </div>
         </div>

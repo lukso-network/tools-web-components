@@ -4,6 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 import '@/components/lukso-icon'
+import '@/components/lukso-tag'
 
 @customElement('lukso-navbar')
 export class LuksoNavbar extends TailwindElement {
@@ -120,11 +121,9 @@ export class LuksoNavbar extends TailwindElement {
             <span>${this.title}</span>
           </div>
           ${this.isTestnet
-            ? html`<div
-                class="paragraph-inter-12-medium rounded-8 bg-yellow-65 px-2 py-1 ml-2"
-              >
+            ? html`<lukso-tag background-color="yellow-65" class="ml-2">
                 TESTNET
-              </div>`
+              </lukso-tag>`
             : ''}
           ${this.icon
             ? html`<lukso-icon

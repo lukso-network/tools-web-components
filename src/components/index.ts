@@ -2,6 +2,7 @@
 export * from './lukso-button/index'
 export * from './lukso-card/index'
 export * from './lukso-checkbox/index'
+export * from './lukso-footer/index'
 export * from './lukso-icon/index'
 export * from './lukso-input/index'
 export * from './lukso-modal/index'

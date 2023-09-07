@@ -90,6 +90,11 @@
       "import": "./dist/components/lukso-checkbox/index.js",
       "types": "./dist/components/lukso-checkbox/index.d.ts"
     },
+    "./dist/components/lukso-footer": {
+      "require": "./dist/components/lukso-footer/index.cjs",
+      "import": "./dist/components/lukso-footer/index.js",
+      "types": "./dist/components/lukso-footer/index.d.ts"
+    },
     "./dist/components/lukso-icon": {
       "require": "./dist/components/lukso-icon/index.cjs",
       "import": "./dist/components/lukso-icon/index.js",

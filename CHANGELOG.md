@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.31.1](https://github.com/lukso-network/tools-web-components/compare/v1.31.0...v1.31.1) (2023-09-07)
+
+
+### Bug Fixes
+
+* Repair dts file path for files in ./src ([#192](https://github.com/lukso-network/tools-web-components/issues/192)) ([9c02913](https://github.com/lukso-network/tools-web-components/commit/9c02913fb85de15770922c0a815307f1ca98de56))
+
 ## [1.31.0](https://github.com/lukso-network/tools-web-components/compare/v1.30.0...v1.31.0) (2023-09-07)
 
 

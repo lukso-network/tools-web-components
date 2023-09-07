@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.31.0](https://github.com/lukso-network/tools-web-components/compare/v1.30.0...v1.31.0) (2023-09-07)
+
+
+### Features
+
+* Footer component ([#190](https://github.com/lukso-network/tools-web-components/issues/190)) ([48d1a15](https://github.com/lukso-network/tools-web-components/commit/48d1a15eb0162062b2f1ebec9c70a56e370e9aad))
+* navbar rework ([#186](https://github.com/lukso-network/tools-web-components/issues/186)) ([0b640c6](https://github.com/lukso-network/tools-web-components/commit/0b640c605ec188eb7356dd88df1e591b0174bb79))
+
+
+### Bug Fixes
+
+* Remove checked in output files ([#187](https://github.com/lukso-network/tools-web-components/issues/187)) ([e754aaa](https://github.com/lukso-network/tools-web-components/commit/e754aaa683bcd6efa5b9d65d234adc7b9883aacf))
+* Use tag component in navbar ([#191](https://github.com/lukso-network/tools-web-components/issues/191)) ([fd8ae04](https://github.com/lukso-network/tools-web-components/commit/fd8ae0471a7a2094beca7fae4a99225f77bd67f3))
+
 ## [1.30.0](https://github.com/lukso-network/tools-web-components/compare/v1.29.0...v1.30.0) (2023-08-01)
 
 

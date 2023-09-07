@@ -323,12 +323,17 @@ export async function run(argv: any) {
           ],
           outDir: './package/dist',
           beforeWriteFile: (filePath: string, content: string) => {
-            console.log('dts1 out', filePath)
             return { filePath: filePath.replace('/src/', '/'), content }
           },
         }),
         dts({
           include: ['./src/shared/tools/color-palette.ts'],
+          beforeWriteFile: (filePath: string, content: string) => {
+            return {
+              filePath: filePath.replace('/shared/tools/', '/'),
+              content,
+            }
+          },
           outDir: './package/dist',
         }),
       ].filter(item => item),

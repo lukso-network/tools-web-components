@@ -85,6 +85,11 @@
       "import": "./dist/components/lukso-card/index.js",
       "types": "./dist/components/lukso-card/index.d.ts"
     },
+    "./dist/components/lukso-checkbox": {
+      "require": "./dist/components/lukso-checkbox/index.cjs",
+      "import": "./dist/components/lukso-checkbox/index.js",
+      "types": "./dist/components/lukso-checkbox/index.d.ts"
+    },
     "./dist/components/lukso-footer": {
       "require": "./dist/components/lukso-footer/index.cjs",
       "import": "./dist/components/lukso-footer/index.js",

@@ -63,6 +63,9 @@ export class LuksoInput extends TailwindElement {
   @property({ type: Number })
   min: number | undefined = undefined
 
+  @property({ type: Boolean })
+  borderless = false
+
   @state()
   private hasHocus = false
 
@@ -70,11 +73,11 @@ export class LuksoInput extends TailwindElement {
   private hasHighlight = false
 
   private defaultInputStyles = `bg-neutral-100 paragraph-inter-14-regular px-4 py-3
-    border border-solid h-[48px] placeholder:text-neutral-70
+    border-solid h-[48px] placeholder:text-neutral-70
     outline-none transition transition-all duration-150 appearance-none`
 
   private defaultUnitStyles = `paragraph-inter-12-regular text-neutral-60 flex px-3.5 items-center relative
-    border border-solid h-[48px] transition transition-all duration-150
+    border-solid h-[48px] transition transition-all duration-150
     rounded-r-12 border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0
     before:w-[1px] before:h-[24px] whitespace-nowrap cursor-pointer`
 
@@ -111,6 +114,7 @@ export class LuksoInput extends TailwindElement {
           ['text-neutral-20']: !this.isDisabled,
           ['cursor-not-allowed']: this.isReadonly,
           [this.customClass]: !!this.customClass,
+          [this.borderless ? 'border-0' : 'border']: true,
         })}
         @focus=${this.handleFocus}
         @input=${this.handleInput}
@@ -157,6 +161,7 @@ export class LuksoInput extends TailwindElement {
           !this.hasHighlight,
         [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
           this.hasHighlight,
+        [this.borderless ? 'border-0' : 'border']: true,
       })}
       @mouseenter=${this.handleMouseOver}
       @mouseleave=${this.handleMouseOut}

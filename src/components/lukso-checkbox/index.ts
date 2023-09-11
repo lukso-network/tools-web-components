@@ -76,7 +76,7 @@ export class LuksoCheckbox extends TailwindElement {
           hidden: !this.checked,
         })}
         name="tick"
-        color="neutral-20"
+        color=${this.isDisabled ? 'neutral-60' : 'neutral-20'}
       ></lukso-icon>
     `
   }
@@ -90,8 +90,7 @@ export class LuksoCheckbox extends TailwindElement {
             !this.hasHighlight,
           [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
             this.hasHighlight,
-          ['cursor-not-allowed text-neutral-60']: this.isDisabled,
-          ['text-neutral-20']: !this.isDisabled,
+          ['cursor-not-allowed border-neutral-60']: this.isDisabled,
           ['cursor-not-allowed']: this.isReadonly,
           ['h-[40px] w-[40px]']: this.size === 'medium',
           ['h-[32px] w-[32px]']: this.size === 'small',
@@ -113,12 +112,15 @@ export class LuksoCheckbox extends TailwindElement {
         type="checkbox"
         class=${customClassMap({
           [this.defaultInputStyles]: true,
+          ['cursor-not-allowed text-neutral-60']: this.isDisabled,
+          ['cursor-not-allowed']: this.isReadonly,
         })}
         ref=${this.ref}
         id=${id}
         data-testid=${this.name ? `input-${this.name}` : 'input'}
         ?disabled=${this.isDisabled ? true : undefined}
-        @change=${this.handleChange}
+        ?readonly=${this.isReadonly ? true : undefined}
+        @change=${!this.isReadonly ? this.handleChange : 'return false;'}
       />
     `
   }
@@ -140,6 +142,8 @@ export class LuksoCheckbox extends TailwindElement {
             this.size === 'medium' || this.size === 'small',
           ['paragraph-inter-12-semi-bold']: this.size === 'x-small',
           ['text-red-65']: this.error !== '',
+          ['cursor-not-allowed text-neutral-60']: this.isDisabled,
+          ['cursor-not-allowed']: this.isReadonly,
         })}
       >
         <slot></slot>

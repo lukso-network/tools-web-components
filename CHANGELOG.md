@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.32.0](https://github.com/lukso-network/tools-web-components/compare/v1.31.1...v1.32.0) (2023-09-11)
+
+
+### Features
+
+* Add new `profile-2` variant to card component ([#196](https://github.com/lukso-network/tools-web-components/issues/196)) ([0866b10](https://github.com/lukso-network/tools-web-components/commit/0866b105806373472093bac5054baa24f094132b))
+* Borderless input ([#197](https://github.com/lukso-network/tools-web-components/issues/197)) ([ac90ff0](https://github.com/lukso-network/tools-web-components/commit/ac90ff0570811bb7774132997483bc6d35e94706))
+* **DEV-8034:** updated state management and added slot support ([#195](https://github.com/lukso-network/tools-web-components/issues/195)) ([f7bc517](https://github.com/lukso-network/tools-web-components/commit/f7bc51787f754f86b92bee5cbe7a6342fece6377))
+
 ## [1.31.1](https://github.com/lukso-network/tools-web-components/compare/v1.31.0...v1.31.1) (2023-09-07)
 
 

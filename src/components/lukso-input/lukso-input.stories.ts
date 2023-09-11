@@ -126,6 +126,12 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    borderless: {
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onBlur: {
       name: 'on-blur',
       description: 'Emitted on input blur event.',
@@ -205,6 +211,7 @@ const meta: Meta = {
     autofocus: false,
     min: undefined,
     max: undefined,
+    borderless: false,
   },
   parameters: {
     controls: {
@@ -251,6 +258,7 @@ const Template = ({
   onKeyDown,
   onKeyPress,
   onUnitClick,
+  borderless,
 }) =>
   html`<lukso-input
     value=${value}
@@ -269,6 +277,7 @@ const Template = ({
     ?is-disabled=${isDisabled}
     custom-class=${customClass}
     accept=${accept}
+    ?borderless=${borderless}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}
     @on-change=${onChange}
@@ -334,4 +343,11 @@ MinMaxValue.args = {
   min: 1,
   max: 10,
   type: 'number',
+}
+
+/** With `borderless` property you can render input without border. */
+export const Borderless = Template.bind({})
+Borderless.args = {
+  borderless: true,
+  placeholder: '0',
 }

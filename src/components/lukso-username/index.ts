@@ -31,6 +31,9 @@ export class LuksoUsername extends TailwindElement {
   @property({ type: String, attribute: 'name-color' })
   nameColor = ''
 
+  @property({ type: String, attribute: 'custom-class' })
+  customClass = ''
+
   /** Width of the first 4 bytes of the address */
   private bytesWidth = 52
 
@@ -102,6 +105,7 @@ export class LuksoUsername extends TailwindElement {
 
     return html`<div
       class="inline-flex ${customClassMap({
+        [this.customClass]: true,
         'paragraph-ptmono-10-bold': this.size === 'x-small',
         'paragraph-ptmono-12-bold': this.size === 'small',
         'paragraph-ptmono-16-bold': this.size === 'large',

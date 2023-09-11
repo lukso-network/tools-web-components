@@ -13,9 +13,6 @@ export class LuksoCheckbox extends TailwindElement {
   name = ''
 
   @property({ type: String })
-  label = ''
-
-  @property({ type: String })
   id = ''
 
   @property({ type: String })
@@ -30,20 +27,8 @@ export class LuksoCheckbox extends TailwindElement {
   @property({ type: String })
   error = ''
 
-  @property({ type: String, attribute: 'profile-url' })
-  profileUrl = ''
-
-  @property({ type: String, attribute: 'profile-address' })
-  profileAddress = ''
-
-  @property({ type: Boolean, attribute: 'has-identicon' })
-  hasIdenticon = false
-
-  @property({ type: String, attribute: 'up-username' })
-  upUsername = ''
-
-  @property({ type: String, attribute: 'up-address' })
-  upAddress = ''
+  @property({ type: Boolean })
+  checked: boolean = false
 
   @property({ type: String, attribute: 'custom-class' })
   customClass = ''
@@ -54,20 +39,14 @@ export class LuksoCheckbox extends TailwindElement {
   @property({ type: Boolean, attribute: 'is-disabled' })
   isDisabled = false
 
-  @property({ type: Boolean, attribute: 'is-checked' })
-  isChecked = false
-
   @state()
   private hasFocus = false
-
-  @state()
-  private hasChecked = false
 
   @state()
   private hasHighlight = false
 
   private defaultContainerStyles = `
-        flex items-center
+        flex items-center gap-2
         border border-solid border-neutral-100      
         select-none  
     `
@@ -80,7 +59,7 @@ export class LuksoCheckbox extends TailwindElement {
     `
 
   private defaultLabelStyles = `
-    pl-2 text-neutral-20 block
+    text-neutral-20 block
     `
 
   private defaultCheckboxStyles = `
@@ -90,31 +69,14 @@ export class LuksoCheckbox extends TailwindElement {
     border border-solid rounded-md
     outline-none transition transition-all duration-150 appearance-none`
 
-  connectedCallback() {
-    super.connectedCallback()
-    this.hasChecked = this.isChecked
-  }
-
-  attributeChangedCallback(
-    name: string,
-    _old: string | null,
-    value: string | null
-  ) {
-    super.attributeChangedCallback(name, _old, value)
-    if (name === 'is-checked') {
-      this.hasChecked = this.isChecked
-      this.requestUpdate()
-    }
-  }
-
   checkedIconTemplate(): unknown {
     return html`
       <lukso-icon
         class=${customClassMap({
-          hidden: !this.hasChecked,
+          hidden: !this.checked,
         })}
         name="tick"
-        color="neutral-20"
+        color=${this.isDisabled ? 'neutral-60' : 'neutral-20'}
       ></lukso-icon>
     `
   }
@@ -128,9 +90,7 @@ export class LuksoCheckbox extends TailwindElement {
             !this.hasHighlight,
           [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
             this.hasHighlight,
-          ['cursor-not-allowed text-neutral-60']: this.isDisabled,
-          ['text-neutral-20']: !this.isDisabled,
-          ['cursor-not-allowed']: this.isReadonly,
+          ['border-neutral-60']: this.isDisabled,
           ['h-[40px] w-[40px]']: this.size === 'medium',
           ['h-[32px] w-[32px]']: this.size === 'small',
           ['h-[28px] w-[28px]']: this.size === 'x-small',
@@ -147,16 +107,18 @@ export class LuksoCheckbox extends TailwindElement {
     return html`
       <input
         name=${this.name}
-        ?checked=${this.hasChecked ? 'checked' : undefined}
+        ?checked=${this.checked ? 'checked' : undefined}
         type="checkbox"
         class=${customClassMap({
           [this.defaultInputStyles]: true,
+          ['text-neutral-60']: this.isDisabled,
         })}
         ref=${this.ref}
         id=${id}
         data-testid=${this.name ? `input-${this.name}` : 'input'}
         ?disabled=${this.isDisabled ? true : undefined}
-        @change=${this.handleChange}
+        ?readonly=${this.isReadonly ? true : undefined}
+        @change=${!this.isReadonly ? this.handleChange : 'return false;'}
       />
     `
   }
@@ -178,66 +140,18 @@ export class LuksoCheckbox extends TailwindElement {
             this.size === 'medium' || this.size === 'small',
           ['paragraph-inter-12-semi-bold']: this.size === 'x-small',
           ['text-red-65']: this.error !== '',
+          ['text-neutral-60']: this.isDisabled,
         })}
-        >${this.label}</span
       >
-    `
-  }
-
-  profileTemplate() {
-    let size
-
-    switch (this.size) {
-      case 'medium':
-        size = 'small'
-        break
-      case 'small':
-      case 'x-small':
-      default:
-        size = 'x-small'
-        break
-    }
-
-    return html`
-      <lukso-profile
-        class="ml-2"
-        profile-url=${this.profileUrl}
-        profile-address=${this.profileAddress}
-        has-identicon=${this.hasIdenticon}
-        size=${size}
-      ></lukso-profile>
-    `
-  }
-
-  usernameTemplate() {
-    let size
-
-    switch (this.size) {
-      case 'medium':
-        size = 'large'
-        break
-      case 'small':
-        size = 'small'
-        break
-      case 'x-small':
-      default:
-        size = 'x-small'
-        break
-    }
-    return html`
-      <lukso-username
-        class="ml-2"
-        name=${this.upUsername}
-        address=${this.upAddress}
-        size=${size}
-      ></lukso-username>
+        <slot></slot>
+      </span>
     `
   }
 
   profileUsernameTemplate() {
     return html`
-      <div class="flex items-center">
-        ${this.profileTemplate()} ${this.usernameTemplate()}
+      <div class="flex items-center text-neutral-20 gap-2 justify-center">
+        <slot></slot>
       </div>
     `
   }
@@ -247,7 +161,10 @@ export class LuksoCheckbox extends TailwindElement {
       <div>
         <label
           for=${this.name}
-          class=${this.defaultContainerStyles}
+          class=${customClassMap({
+            [this.defaultContainerStyles]: true,
+            ['cursor-not-allowed']: this.isDisabled || this.isReadonly,
+          })}
           @mouseenter=${this.handleMouseOver}
           @mouseleave=${this.handleMouseOut}
         >
@@ -262,16 +179,19 @@ export class LuksoCheckbox extends TailwindElement {
 
   private handleChange(event: Event) {
     const target = event.target as HTMLInputElement
-    const changeEvent = new CustomEvent('on-change', {
-      detail: {
-        value: target.value,
-        event,
-      },
-      bubbles: false,
-      composed: true,
-    })
-    this.hasChecked = !this.hasChecked
-    this.dispatchEvent(changeEvent)
+    this.checked = target.checked
+
+    this.dispatchEvent(
+      new CustomEvent('on-change', {
+        detail: {
+          value: target.value,
+          checked: target.checked,
+          event,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   private handleMouseOver() {

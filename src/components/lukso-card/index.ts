@@ -110,7 +110,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative"
         >
           <div
-            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10 absolute opacity-10"
+            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-90 absolute"
           ></div>
           <div>
             <slot name="header"></slot>

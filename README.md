@@ -73,7 +73,7 @@ module.exports = {
 // main.scss
 $font-file-path: '/assets/fonts';
 
-@import '@lukso/web-components/sass/main.scss';
+@import '@lukso/web-components/tools/sass/main.scss';
 ```
 
 ##### 3. Add script to copy assets in your build config
@@ -81,8 +81,8 @@ $font-file-path: '/assets/fonts';
 In order to use other files like fonts or images from library we need to manually copy them to your project. This is ESM limitation that allow to import only `js` files.
 
 ```ts
-import { copyAssets } from '@lukso/web-components/copy-assets'
-import assets from '@lukso/web-components/assets'
+import { copyAssets } from '@lukso/web-components/tools/copy-assets'
+import assets from '@lukso/web-components/tools/assets'
 
 copyAssets('./src', assets)
 ```
@@ -97,7 +97,7 @@ Atm the only thing that you can benefit from non Tailwind CSS projects is loadin
 // main.scss
 $font-file-path: '/assets/fonts';
 
-@import '@lukso/web-components/sass/fonts.scss';
+@import '@lukso/web-components/tools/sass/fonts.scss';
 ```
 
 ## Development workflow

@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.32.1](https://github.com/lukso-network/tools-web-components/compare/v1.32.0...v1.32.1) (2023-09-11)
+
+
+### Bug Fixes
+
+* checkbox styles ([#202](https://github.com/lukso-network/tools-web-components/issues/202)) ([5340ecd](https://github.com/lukso-network/tools-web-components/commit/5340ecd7974221c6c2077fa444526936ab5f6fa7))
+* **DEV-8194:** profile card background ([#200](https://github.com/lukso-network/tools-web-components/issues/200)) ([b2f48b5](https://github.com/lukso-network/tools-web-components/commit/b2f48b51ad48742189261f39fa6ccff458236393))
+* wrong import path in README.md ([#199](https://github.com/lukso-network/tools-web-components/issues/199)) ([ee3ad2a](https://github.com/lukso-network/tools-web-components/commit/ee3ad2af289aae3f5cb79be01289761426f3a1dc))
+
 ## [1.32.0](https://github.com/lukso-network/tools-web-components/compare/v1.31.1...v1.32.0) (2023-09-11)
 
 

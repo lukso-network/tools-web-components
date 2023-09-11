@@ -57,13 +57,6 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    isFullWidth: {
-      name: 'is-full-width',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Attributes',
-      },
-    },
     isDisabled: {
       name: 'is-disabled',
       control: { type: 'boolean' },
@@ -78,53 +71,11 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    onBlur: {
-      name: 'on-blur',
-      description: 'Emitted on input blur event.',
-      table: {
-        category: 'Events',
-      },
-    },
     onChange: {
       name: 'on-change',
       description: 'Emitted on input change event.',
       table: {
         category: 'Events',
-      },
-    },
-    onClick: {
-      name: 'on-click',
-      description: 'Emitted on input change event.',
-      table: {
-        category: 'Events',
-      },
-    },
-    profileAddress: {
-      name: 'profile-address',
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    hasIdenticon: {
-      name: 'has-identicon',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    upUsername: {
-      name: 'up-username',
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    upAddress: {
-      name: 'up-address',
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
       },
     },
     'is-full-width': {
@@ -141,14 +92,13 @@ const meta: Meta = {
     },
   },
   args: {
+    checked: false,
     label: 'Label',
     type: 'text',
     name: 'input',
     isReadonly: false,
-    customClass: '',
-    isFullWidth: false,
     isDisabled: false,
-    checked: false,
+    customClass: '',
   },
   parameters: {
     controls: {
@@ -157,7 +107,6 @@ const meta: Meta = {
         'defaultCheckboxStyles',
         'defaultContainerStyles',
         'defaultLabelStyles',
-        'isFullWidth',
         'hasFocus',
         'hasHighlight',
         'customClass',
@@ -180,28 +129,22 @@ const Template = ({
   label,
   error,
   size,
-  isFullWidth,
   isReadonly,
   isDisabled,
   checked,
   customClass,
-  onBlur,
   onChange,
-  onClick,
 }) =>
   html` <lukso-checkbox
     name=${name}
     type=${type}
     error=${error}
     size=${size}
-    ?is-full-width=${isFullWidth}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
     ?checked=${checked}
     custom-class=${customClass}
-    @on-blur=${onBlur}
     @on-change=${onChange}
-    @on-click=${onClick}
   >
     ${label}
   </lukso-checkbox>`
@@ -237,14 +180,11 @@ const ProfileCheckboxTemplate = ({
   type,
   error,
   size,
-  isFullWidth,
   isReadonly,
   isDisabled,
   checked,
   customClass,
-  onBlur,
   onChange,
-  onClick,
 
   profileUrl,
   profileAddress,
@@ -258,14 +198,11 @@ const ProfileCheckboxTemplate = ({
     type=${type}
     error=${error}
     size=${size}
-    ?is-full-width=${isFullWidth}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
     ?checked=${checked}
     custom-class=${customClass}
-    @on-blur=${onBlur}
     @on-change=${onChange}
-    @on-click=${onClick}
   >
     <lukso-profile
       profile-url=${profileUrl}

@@ -1,4 +1,4 @@
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
@@ -47,7 +47,6 @@ export class LuksoCheckbox extends TailwindElement {
 
   private defaultContainerStyles = `
         flex items-center gap-2
-        border border-solid border-neutral-100      
         select-none  
     `
 
@@ -169,9 +168,8 @@ export class LuksoCheckbox extends TailwindElement {
           @mouseleave=${this.handleMouseOut}
         >
           ${this.inputTemplate()} ${this.checkboxTemplate()}
-          ${this.type === 'text'
-            ? this.labelTemplate()
-            : this.profileUsernameTemplate()}
+          ${this.type === 'text' ? this.labelTemplate() : nothing}
+          ${this.type === 'profile' ? this.profileUsernameTemplate() : nothing}
         </label>
       </div>
     `

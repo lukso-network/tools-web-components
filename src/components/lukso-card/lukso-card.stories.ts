@@ -10,12 +10,13 @@ const meta: Meta = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['basic', 'with-header', 'profile'],
+      options: ['basic', 'with-header', 'profile', 'profile-2'],
       table: {
         category: 'Attributes',
       },
     },
     content: { control: { type: 'text' } },
+    bottomContent: { control: { type: 'text' } },
     header: {
       control: { type: 'text' },
       if: { arg: 'variant', eq: 'with-header' },
@@ -23,7 +24,7 @@ const meta: Meta = {
     backgroundUrl: {
       name: 'background-url',
       control: { type: 'text' },
-      if: { arg: 'variant', eq: 'profile' },
+      if: { arg: 'variant', neq: 'basic' },
       table: {
         category: 'Attributes',
       },
@@ -31,7 +32,7 @@ const meta: Meta = {
     profileUrl: {
       name: 'profile-url',
       control: { type: 'text' },
-      if: { arg: 'variant', eq: 'profile' },
+      if: { arg: 'variant', neq: 'basic' },
       table: {
         category: 'Attributes',
       },
@@ -39,7 +40,7 @@ const meta: Meta = {
     profileAddress: {
       name: 'profile-address',
       control: { type: 'text' },
-      if: { arg: 'variant', eq: 'profile' },
+      if: { arg: 'variant', neq: 'basic' },
       table: {
         category: 'Attributes',
       },
@@ -124,6 +125,7 @@ const meta: Meta = {
     customClass: '',
     size: 'medium',
     isHoverable: false,
+    bottomContent: 'Lorem ipsum dolor sit amet, consectetur',
   },
   parameters: {
     controls: {
@@ -215,6 +217,7 @@ const ProfileTemplate = ({
   customClass,
   size,
   isHoverable,
+  bottomContent,
 }) => html`
   <lukso-card
     variant=${variant}
@@ -229,6 +232,7 @@ const ProfileTemplate = ({
     ?is-hoverable=${isHoverable}
   >
     <div slot="content" class="p-6">${content}</div>
+    <div slot="bottom" class="p-6">${bottomContent}</div>
   </lukso-card>
 `
 
@@ -312,6 +316,14 @@ ProfileCard.parameters = {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18027&t=AGmdbG8fXRENuU3o-4',
   },
+}
+
+/** Example of `profile-2` variant.  */
+export const Profile2Card = ProfileTemplate.bind({})
+Profile2Card.args = {
+  variant: 'profile-2',
+  isFixedWidth: true,
+  isFixedHeight: true,
 }
 
 /** You can customize card with `custom-class` property, it will be used instead of default styles.  */

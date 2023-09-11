@@ -1,4 +1,3 @@
-
 # @lukso/web-components &middot; [![npm version](https://img.shields.io/npm/v/@lukso/web-components.svg?style=flat)](https://www.npmjs.com/package/@lukso/web-components)
 
 Web Components library address issue of sharing same visual elements and basic style setup across different projects. It's based on following tools

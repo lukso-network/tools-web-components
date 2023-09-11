@@ -7,7 +7,7 @@ import { customClassMap } from '@/shared/directives'
 import style from './style.scss?inline'
 import '@/components/lukso-profile'
 
-export type CardVariants = 'basic' | 'with-header' | 'profile'
+export type CardVariants = 'basic' | 'with-header' | 'profile' | 'profile-2'
 export type CardSizes = 'small' | 'medium'
 
 @customElement('lukso-card')
@@ -140,12 +140,68 @@ export class LuksoCard extends TailwindStyledElement(style) {
     `
   }
 
+  profile2Template() {
+    return html`
+      <div
+        data-testid="card"
+        class="bg-neutral-100 grid grid-rows-[auto,1fr] ${customClassMap({
+          [this.mediumStyles]: !this.customClass && this.size === 'medium',
+          [this.smallStyles]: !this.customClass && this.size === 'small',
+          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
+          [this.customClass]: !!this.customClass,
+          ['w-[362px]']: this.isFixedWidth,
+          ['min-h-[534px]']: this.isFixedHeight,
+          ['w-full']: this.isFullWidth,
+        })}"
+      >
+        <div
+          style=${styleMap({
+            backgroundImage: `url(${this.backgroundUrl})`,
+          })}
+          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative"
+        >
+          <div
+            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10 absolute opacity-10"
+          ></div>
+          <div>
+            <slot name="header"></slot>
+          </div>
+        </div>
+        <div class="grid grid-rows-[max-content,auto]">
+          <div class="bg-neutral-100 shadow-neutral-drop-shadow relative">
+            <lukso-profile
+              profile-url=${this.profileUrl}
+              size="large"
+              profile-address=${this.profileAddress}
+              has-identicon
+              class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
+            ></lukso-profile>
+            <div
+              class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center -mb-2"
+            >
+              <div
+                class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]
+              shadow-neutral-above-shadow-1xl"
+              ></div>
+            </div>
+            <slot name="content"></slot>
+          </div>
+          <div class="bg-neutral-97 rounded-b-24">
+            <slot name="bottom"></slot>
+          </div>
+        </div>
+      </div>
+    `
+  }
+
   render() {
     switch (this.variant) {
       case 'with-header':
         return this.withHeaderTemplate()
       case 'profile':
         return this.profileTemplate()
+      case 'profile-2':
+        return this.profile2Template()
 
       default:
         return this.basicTemplate()

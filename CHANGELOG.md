@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.33.1](https://github.com/lukso-network/tools-web-components/compare/v1.33.0...v1.33.1) (2023-09-12)
+
+
+### Bug Fixes
+
+* update telegram link ([#205](https://github.com/lukso-network/tools-web-components/issues/205)) ([0142785](https://github.com/lukso-network/tools-web-components/commit/0142785c1b7008c3638777a8c0e3ba71fef8f726))
+
 ## [1.33.0](https://github.com/lukso-network/tools-web-components/compare/v1.32.1...v1.33.0) (2023-09-12)
 
 

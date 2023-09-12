@@ -14,7 +14,7 @@ export class LuksoShare extends TailwindStyledElement(style) {
     twitter: 'https://twitter.com/lukso_io',
     instagram: 'https://www.instagram.com/lukso',
     linkedin: 'https://linkedin.com/company/lukso',
-    telegram: 'https://t.me/lukso',
+    telegram: 'https://t.me/LUKSO_News',
     discord: 'https://discord.gg/lukso',
     reddit: 'https://www.reddit.com/r/lukso',
     medium: 'https://medium.com/lukso',

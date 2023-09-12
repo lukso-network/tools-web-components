@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.33.0](https://github.com/lukso-network/tools-web-components/compare/v1.32.1...v1.33.0) (2023-09-12)
+
+
+### Features
+
+* Hero card ([#203](https://github.com/lukso-network/tools-web-components/issues/203)) ([2f17ce6](https://github.com/lukso-network/tools-web-components/commit/2f17ce61aa316cf7a1a0a9780e50a772d2ff424d))
+
 ## [1.32.1](https://github.com/lukso-network/tools-web-components/compare/v1.32.0...v1.32.1) (2023-09-11)
 
 

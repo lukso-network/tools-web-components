@@ -2,6 +2,8 @@ import { html } from 'lit-html'
 import { Meta } from '@storybook/web-components'
 
 import './index'
+import '../lukso-profile'
+import '../lukso-username'
 
 /**  Documentation and examples of `lukso-card` component. Cards are using `slots` to put content in different places like `header` or `content`.  */
 const meta: Meta = {
@@ -10,7 +12,7 @@ const meta: Meta = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['basic', 'with-header', 'profile', 'profile-2'],
+      options: ['basic', 'with-header', 'profile', 'profile-2', 'hero'],
       table: {
         category: 'Attributes',
       },
@@ -19,12 +21,10 @@ const meta: Meta = {
     bottomContent: { control: { type: 'text' } },
     header: {
       control: { type: 'text' },
-      if: { arg: 'variant', eq: 'with-header' },
     },
     backgroundUrl: {
       name: 'background-url',
       control: { type: 'text' },
-      if: { arg: 'variant', neq: 'basic' },
       table: {
         category: 'Attributes',
       },
@@ -32,7 +32,6 @@ const meta: Meta = {
     profileUrl: {
       name: 'profile-url',
       control: { type: 'text' },
-      if: { arg: 'variant', neq: 'basic' },
       table: {
         category: 'Attributes',
       },
@@ -40,7 +39,6 @@ const meta: Meta = {
     profileAddress: {
       name: 'profile-address',
       control: { type: 'text' },
-      if: { arg: 'variant', neq: 'basic' },
       table: {
         category: 'Attributes',
       },
@@ -236,6 +234,52 @@ const ProfileTemplate = ({
   </lukso-card>
 `
 
+const HeroTemplate = ({
+  backgroundUrl,
+  profileUrl,
+  profileAddress,
+  isFixedHeight,
+  isFixedWidth,
+  isFullWidth,
+  customClass,
+  size,
+  isHoverable,
+}) => html`
+  <lukso-card
+    variant="hero"
+    background-url=${backgroundUrl}
+    ?is-fixed-width=${isFixedWidth}
+    ?is-fixed-height=${isFixedHeight}
+    ?is-full-width=${isFullWidth}
+    custom-class=${customClass}
+    size=${size}
+    ?is-hoverable=${isHoverable}
+  >
+    <div slot="content" class="flex flex-col items-center">
+      <lukso-profile
+        profile-url=${profileUrl}
+        profile-address=${profileAddress}
+        has-identicon
+        class="mb-4"
+      >
+      </lukso-profile>
+      <lukso-username
+        name="User123"
+        size="large"
+        address-color="neutral-100"
+        name-color="neutral-100"
+      ></lukso-username>
+      <lukso-username
+        address=${profileAddress}
+        size="small"
+        slice-by="40"
+        address-color="neutral-100"
+        name-color="neutral-100"
+      ></lukso-username>
+    </div>
+  </lukso-card>
+`
+
 /** By default card is using `basic` variant.  */
 export const DefaultCard = DefaultTemplate.bind({})
 DefaultCard.parameters = {
@@ -324,6 +368,13 @@ Profile2Card.args = {
   variant: 'profile-2',
   isFixedWidth: true,
   isFixedHeight: true,
+}
+
+/** Example of `hero` variant with custom content.  */
+export const HeroCard = HeroTemplate.bind({})
+HeroCard.args = {
+  variant: 'hero',
+  isFullWidth: true,
 }
 
 /** You can customize card with `custom-class` property, it will be used instead of default styles.  */

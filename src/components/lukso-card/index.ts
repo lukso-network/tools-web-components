@@ -7,7 +7,12 @@ import { customClassMap } from '@/shared/directives'
 import style from './style.scss?inline'
 import '@/components/lukso-profile'
 
-export type CardVariants = 'basic' | 'with-header' | 'profile' | 'profile-2'
+export type CardVariants =
+  | 'basic'
+  | 'with-header'
+  | 'profile'
+  | 'profile-2'
+  | 'hero'
 export type CardSizes = 'small' | 'medium'
 
 @customElement('lukso-card')
@@ -107,10 +112,10 @@ export class LuksoCard extends TailwindStyledElement(style) {
           style=${styleMap({
             backgroundImage: `url(${this.backgroundUrl})`,
           })}
-          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative"
+          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-90"
         >
           <div
-            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-90 absolute"
+            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-20/10 absolute"
           ></div>
           <div>
             <slot name="header"></slot>
@@ -158,10 +163,10 @@ export class LuksoCard extends TailwindStyledElement(style) {
           style=${styleMap({
             backgroundImage: `url(${this.backgroundUrl})`,
           })}
-          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative"
+          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-90"
         >
           <div
-            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10 absolute opacity-10"
+            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10/10 absolute"
           ></div>
           <div>
             <slot name="header"></slot>
@@ -194,6 +199,37 @@ export class LuksoCard extends TailwindStyledElement(style) {
     `
   }
 
+  heroTemplate() {
+    return html`
+      <div
+        data-testid="card"
+        class="h-[240px] flex bg-neutral-90 ${customClassMap({
+          [this.mediumStyles]: !this.customClass && this.size === 'medium',
+          [this.smallStyles]: !this.customClass && this.size === 'small',
+          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
+          [this.customClass]: !!this.customClass,
+          ['w-[362px]']: this.isFixedWidth,
+          ['min-h-[534px]']: this.isFixedHeight,
+          ['w-full']: this.isFullWidth,
+        })}"
+      >
+        <div
+          style=${styleMap({
+            backgroundImage: `url(${this.backgroundUrl})`,
+          })}
+          class="h-full w-full -mb-6 bg-center bg-cover rounded-24 relative"
+        >
+          <div class="h-full w-full rounded-24 bg-neutral-20/10 absolute"></div>
+          <div
+            class="h-full w-full flex flex-col items-center justify-center  absolute"
+          >
+            <slot name="content"></slot>
+          </div>
+        </div>
+      </div>
+    `
+  }
+
   render() {
     switch (this.variant) {
       case 'with-header':
@@ -202,6 +238,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
         return this.profileTemplate()
       case 'profile-2':
         return this.profile2Template()
+      case 'hero':
+        return this.heroTemplate()
 
       default:
         return this.basicTemplate()

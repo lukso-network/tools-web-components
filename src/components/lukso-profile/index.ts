@@ -53,7 +53,7 @@ export class LuksoProfile extends TailwindElement {
     return this.sizes[this.size].identiconSize
   }
 
-  private defaultProfileUrl = '/assets/images/profile-default.png'
+  private defaultProfileUrl = '/assets/images/profile-default.svg'
 
   private identicon() {
     return this.hasIdenticon && this.profileAddress && this.identiconSize()

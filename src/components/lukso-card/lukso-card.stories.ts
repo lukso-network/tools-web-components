@@ -18,7 +18,7 @@ const meta: Meta = {
       },
     },
     content: { control: { type: 'text' } },
-    bottomContent: { control: { type: 'text' } },
+    bottom: { control: { type: 'text' } },
     header: {
       control: { type: 'text' },
     },
@@ -112,8 +112,9 @@ const meta: Meta = {
   },
   args: {
     variant: 'basic',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     header: 'Dolor sit amet',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    bottom: 'Lorem ipsum dolor sit amet, consectetur',
     backgroundUrl: 'images/sample-background.jpg',
     profileUrl: 'images/sample-avatar.png',
     profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
@@ -123,7 +124,6 @@ const meta: Meta = {
     customClass: '',
     size: 'medium',
     isHoverable: false,
-    bottomContent: 'Lorem ipsum dolor sit amet, consectetur',
   },
   parameters: {
     controls: {
@@ -215,7 +215,7 @@ const ProfileTemplate = ({
   customClass,
   size,
   isHoverable,
-  bottomContent,
+  bottom,
 }) => html`
   <lukso-card
     variant=${variant}
@@ -230,7 +230,7 @@ const ProfileTemplate = ({
     ?is-hoverable=${isHoverable}
   >
     <div slot="content" class="p-6">${content}</div>
-    <div slot="bottom" class="p-6">${bottomContent}</div>
+    <div slot="bottom" class="p-6">${bottom}</div>
   </lukso-card>
 `
 

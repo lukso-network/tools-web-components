@@ -114,9 +114,11 @@ export class LuksoCard extends TailwindStyledElement(style) {
           })}
           class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-90"
         >
-          <div
-            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-20/10 absolute"
-          ></div>
+          ${this.backgroundUrl
+            ? html` <div
+                class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-20/10 absolute"
+              ></div>`
+            : ''}
           <div>
             <slot name="header"></slot>
           </div>
@@ -165,9 +167,11 @@ export class LuksoCard extends TailwindStyledElement(style) {
           })}
           class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-90"
         >
-          <div
-            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10/10 absolute"
-          ></div>
+          ${this.backgroundUrl
+            ? html`<div
+                class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10/10 absolute"
+              ></div>`
+            : ''}
           <div>
             <slot name="header"></slot>
           </div>
@@ -185,8 +189,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
               class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center -mb-2"
             >
               <div
-                class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]
-              shadow-neutral-above-shadow-1xl"
+                class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]"
               ></div>
             </div>
             <slot name="content"></slot>
@@ -203,7 +206,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="h-[240px] flex bg-neutral-90 ${customClassMap({
+        class="h-[240px] flex bg-neutral-100 ${customClassMap({
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
@@ -219,7 +222,11 @@ export class LuksoCard extends TailwindStyledElement(style) {
           })}
           class="h-full w-full -mb-6 bg-center bg-cover rounded-24 relative"
         >
-          <div class="h-full w-full rounded-24 bg-neutral-20/10 absolute"></div>
+          ${this.backgroundUrl
+            ? html`<div
+                class="h-full w-full rounded-24 bg-neutral-20/10 absolute"
+              ></div>`
+            : null}
           <div
             class="h-full w-full flex flex-col items-center justify-center  absolute"
           >

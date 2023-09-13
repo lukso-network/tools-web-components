@@ -43,10 +43,10 @@ export class LuksoUsername extends TailwindElement {
    */
   private addressBytesTemplate() {
     return html`<div
-      class="inline-block text-neutral-60 "
-      style=${styleMap({
-        color: `var(--${this.addressColor})`,
-      })}
+      class="inline-block ${customClassMap({
+        ['text-' + this.addressColor]: this.addressColor !== '',
+        ['text-neutral-60']: this.addressColor === '',
+      })}"
     >
       #${this.address.slice(2, 6)}
     </div>`
@@ -62,11 +62,11 @@ export class LuksoUsername extends TailwindElement {
         {
           ['text-transparent bg-clip-text bg-gradient-to-r from-gradient-1-start to-gradient-1-end']:
             this.nameColor === '',
+          ['text-' + this.nameColor]: this.nameColor !== '',
         }
       )}"
       style=${styleMap({
         maxWidth: `${this.maxWidth - this.bytesWidth}px`,
-        color: `var(--${this.nameColor})`,
       })}
     >
       @${this.name}

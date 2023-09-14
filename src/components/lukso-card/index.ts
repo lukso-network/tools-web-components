@@ -35,9 +35,6 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-fixed-height' })
   isFixedHeight = false
 
-  @property({ type: Boolean, attribute: 'is-full-width' })
-  isFullWidth = false
-
   @property({ type: String, attribute: 'custom-class' })
   customClass = ''
 
@@ -61,8 +58,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
           ['w-[362px]']: this.isFixedWidth,
+          ['w-full']: !this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
-          ['w-full']: this.isFullWidth,
         })}"
       >
         <slot name="content"></slot>
@@ -80,8 +77,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
           ['w-[362px]']: this.isFixedWidth,
+          ['w-full']: !this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
-          ['w-full']: this.isFullWidth,
         })}"
       >
         <div>
@@ -104,8 +101,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
           ['w-[362px]']: this.isFixedWidth,
+          ['w-full']: !this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
-          ['w-full']: this.isFullWidth,
         })}"
       >
         <div
@@ -157,8 +154,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
           ['w-[362px]']: this.isFixedWidth,
+          ['w-full']: !this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
-          ['w-full']: this.isFullWidth,
         })}"
       >
         <div
@@ -212,8 +209,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
           ['w-[362px]']: this.isFixedWidth,
+          ['w-full']: !this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
-          ['w-full']: this.isFullWidth,
         })}"
       >
         <div

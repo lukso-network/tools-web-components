@@ -146,6 +146,9 @@ const DefaultTemplate = ({
   customClass,
   size,
   isHoverable,
+  backgroundUrl,
+  profileUrl,
+  profileAddress,
 }) => html`
   <lukso-card
     variant=${variant}
@@ -154,6 +157,9 @@ const DefaultTemplate = ({
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
+    background-url=${backgroundUrl}
+    profile-url=${profileUrl}
+    profile-address=${profileAddress}
   >
     <div slot="header" class="p-6">${header}</div>
     <div slot="content" class="p-6">${content}</div>
@@ -179,7 +185,7 @@ const CustomHeaderTemplate = ({
     size=${size}
     ?is-hoverable=${isHoverable}
   >
-    <div slot="header" class="p-6 relative overflow-hidden min-h-[200px]">
+    <div slot="header" class="p-6 pb-12 relative overflow-hidden min-h-[200px]">
       <div
         class="w-[876px] h-[200px] -left-[257px] top-[72px] bg-neutral-95 rounded-[50%] absolute"
       ></div>

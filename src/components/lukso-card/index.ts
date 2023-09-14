@@ -71,15 +71,17 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-100 grid grid-rows-[auto,1fr] ${customClassMap({
-          [this.mediumStyles]: !this.customClass && this.size === 'medium',
-          [this.smallStyles]: !this.customClass && this.size === 'small',
-          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
-          [this.customClass]: !!this.customClass,
-          ['w-[362px]']: this.isFixedWidth,
-          ['w-full']: !this.isFixedWidth,
-          ['min-h-[534px]']: this.isFixedHeight,
-        })}"
+        class="bg-neutral-100 grid grid-rows-[auto,1fr] overflow-hidden ${customClassMap(
+          {
+            [this.mediumStyles]: !this.customClass && this.size === 'medium',
+            [this.smallStyles]: !this.customClass && this.size === 'small',
+            [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
+            [this.customClass]: !!this.customClass,
+            ['w-[362px]']: this.isFixedWidth,
+            ['w-full']: !this.isFixedWidth,
+            ['min-h-[534px]']: this.isFixedHeight,
+          }
+        )}"
       >
         <div>
           <slot name="header"></slot>
@@ -95,15 +97,17 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-100 grid grid-rows-[auto,1fr] ${customClassMap({
-          [this.mediumStyles]: !this.customClass && this.size === 'medium',
-          [this.smallStyles]: !this.customClass && this.size === 'small',
-          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
-          [this.customClass]: !!this.customClass,
-          ['w-[362px]']: this.isFixedWidth,
-          ['w-full']: !this.isFixedWidth,
-          ['min-h-[534px]']: this.isFixedHeight,
-        })}"
+        class="bg-neutral-100 grid grid-rows-[auto,1fr] overflow-hidden ${customClassMap(
+          {
+            [this.mediumStyles]: !this.customClass && this.size === 'medium',
+            [this.smallStyles]: !this.customClass && this.size === 'small',
+            [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
+            [this.customClass]: !!this.customClass,
+            ['w-[362px]']: this.isFixedWidth,
+            ['w-full']: !this.isFixedWidth,
+            ['min-h-[534px]']: this.isFixedHeight,
+          }
+        )}"
       >
         <div
           style=${styleMap({
@@ -148,15 +152,17 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-100 grid grid-rows-[auto,1fr] ${customClassMap({
-          [this.mediumStyles]: !this.customClass && this.size === 'medium',
-          [this.smallStyles]: !this.customClass && this.size === 'small',
-          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
-          [this.customClass]: !!this.customClass,
-          ['w-[362px]']: this.isFixedWidth,
-          ['w-full']: !this.isFixedWidth,
-          ['min-h-[534px]']: this.isFixedHeight,
-        })}"
+        class="bg-neutral-100 grid grid-rows-[auto,1fr] overflow-hidden ${customClassMap(
+          {
+            [this.mediumStyles]: !this.customClass && this.size === 'medium',
+            [this.smallStyles]: !this.customClass && this.size === 'small',
+            [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
+            [this.customClass]: !!this.customClass,
+            ['w-[362px]']: this.isFixedWidth,
+            ['w-full']: !this.isFixedWidth,
+            ['min-h-[534px]']: this.isFixedHeight,
+          }
+        )}"
       >
         <div
           style=${styleMap({

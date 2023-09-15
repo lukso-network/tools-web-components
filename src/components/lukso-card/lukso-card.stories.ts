@@ -57,13 +57,6 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    isFullWidth: {
-      name: 'is-full-width',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Attributes',
-      },
-    },
     customClass: {
       name: 'custom-class',
       control: { type: 'text' },
@@ -100,9 +93,6 @@ const meta: Meta = {
     'is-fixed-height': {
       name: 'isFixedHeight',
     },
-    'is-full-width': {
-      name: 'isFullWidth',
-    },
     'custom-class': {
       name: 'customClass',
     },
@@ -118,7 +108,6 @@ const meta: Meta = {
     backgroundUrl: 'images/sample-background.jpg',
     profileUrl: 'images/sample-avatar.png',
     profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
-    isFullWidth: false,
     isFixedWidth: false,
     isFixedHeight: false,
     customClass: '',
@@ -134,7 +123,6 @@ const meta: Meta = {
         'profileAddress',
         'isFixedWidth',
         'isFixedHeight',
-        'isFullWidth',
         'styles',
         'customClass',
         'isHoverable',
@@ -152,24 +140,30 @@ const DefaultTemplate = ({
   variant,
   content,
   header,
+  bottom,
   isFixedHeight,
   isFixedWidth,
-  isFullWidth,
   customClass,
   size,
   isHoverable,
+  backgroundUrl,
+  profileUrl,
+  profileAddress,
 }) => html`
   <lukso-card
     variant=${variant}
     ?is-fixed-width=${isFixedWidth}
     ?is-fixed-height=${isFixedHeight}
-    ?is-full-width=${isFullWidth}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
+    background-url=${backgroundUrl}
+    profile-url=${profileUrl}
+    profile-address=${profileAddress}
   >
     <div slot="header" class="p-6">${header}</div>
     <div slot="content" class="p-6">${content}</div>
+    <div slot="bottom" class="p-6">${bottom}</div>
   </lukso-card>
 `
 
@@ -179,7 +173,6 @@ const CustomHeaderTemplate = ({
   header,
   isFixedHeight,
   isFixedWidth,
-  isFullWidth,
   customClass,
   size,
   isHoverable,
@@ -188,12 +181,11 @@ const CustomHeaderTemplate = ({
     variant=${variant}
     ?is-fixed-width=${isFixedWidth}
     ?is-fixed-height=${isFixedHeight}
-    ?is-full-width=${isFullWidth}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
   >
-    <div slot="header" class="p-6 relative overflow-hidden min-h-[200px]">
+    <div slot="header" class="p-6 pb-12 relative overflow-hidden min-h-[200px]">
       <div
         class="w-[876px] h-[200px] -left-[257px] top-[72px] bg-neutral-95 rounded-[50%] absolute"
       ></div>
@@ -211,7 +203,6 @@ const ProfileTemplate = ({
   profileAddress,
   isFixedHeight,
   isFixedWidth,
-  isFullWidth,
   customClass,
   size,
   isHoverable,
@@ -224,7 +215,6 @@ const ProfileTemplate = ({
     profile-address=${profileAddress}
     ?is-fixed-width=${isFixedWidth}
     ?is-fixed-height=${isFixedHeight}
-    ?is-full-width=${isFullWidth}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
@@ -240,7 +230,6 @@ const HeroTemplate = ({
   profileAddress,
   isFixedHeight,
   isFixedWidth,
-  isFullWidth,
   customClass,
   size,
   isHoverable,
@@ -250,7 +239,6 @@ const HeroTemplate = ({
     background-url=${backgroundUrl}
     ?is-fixed-width=${isFixedWidth}
     ?is-fixed-height=${isFixedHeight}
-    ?is-full-width=${isFullWidth}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
@@ -289,25 +277,13 @@ DefaultCard.parameters = {
   },
 }
 
-/** If you need card with fixed sizes you can add `is-fixed-width` or `is-fixed-height` property.  */
+/** If you need card with fixed size of `362px` you can add `is-fixed-width` property, otherwise card take 100% width.  */
 export const FixedCard = DefaultTemplate.bind({})
 FixedCard.args = {
   isFixedWidth: true,
   isFixedHeight: true,
 }
 FixedCard.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
-  },
-}
-
-/** If you need card with full width of parent container you can add `is-full-width` property.  */
-export const FullWidthCard = DefaultTemplate.bind({})
-FullWidthCard.args = {
-  isFullWidth: true,
-}
-FullWidthCard.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
@@ -374,7 +350,6 @@ Profile2Card.args = {
 export const HeroCard = HeroTemplate.bind({})
 HeroCard.args = {
   variant: 'hero',
-  isFullWidth: true,
 }
 
 /** You can customize card with `custom-class` property, it will be used instead of default styles.  */

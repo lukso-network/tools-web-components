@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.35.0](https://github.com/lukso-network/tools-web-components/compare/v1.34.1...v1.35.0) (2023-09-22)
+
+
+### Features
+
+* search component ([#212](https://github.com/lukso-network/tools-web-components/issues/212)) ([75d75bf](https://github.com/lukso-network/tools-web-components/commit/75d75bf929f8aca0544cb377115ae3ba9cc1bb55))
+
 ## [1.34.1](https://github.com/lukso-network/tools-web-components/compare/v1.34.0...v1.34.1) (2023-09-15)
 
 

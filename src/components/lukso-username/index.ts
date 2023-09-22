@@ -3,13 +3,14 @@ import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit-html/directives/style-map.js'
 
 import { sliceAddress } from '@/shared/tools/slice-address'
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
+import style from './style.scss?inline'
 
-export type UsernameSize = 'x-small' | 'small' | 'large'
+export type UsernameSize = 'x-small' | 'small' | 'medium' | 'large'
 
 @customElement('lukso-username')
-export class LuksoUsername extends TailwindElement {
+export class LuksoUsername extends TailwindStyledElement(style) {
   @property({ type: String })
   name = ''
 
@@ -108,6 +109,7 @@ export class LuksoUsername extends TailwindElement {
         [this.customClass]: true,
         'paragraph-ptmono-10-bold': this.size === 'x-small',
         'paragraph-ptmono-12-bold': this.size === 'small',
+        'paragraph-ptmono-14-bold': this.size === 'medium',
         'paragraph-ptmono-16-bold': this.size === 'large',
       })}"
     >

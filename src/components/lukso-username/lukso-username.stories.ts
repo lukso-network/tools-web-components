@@ -30,7 +30,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['x-small', 'small', 'large'],
+      options: ['x-small', 'small', 'medium', 'large'],
       table: {
         category: 'Attributes',
       },

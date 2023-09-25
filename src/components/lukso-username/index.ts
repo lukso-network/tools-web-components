@@ -1,6 +1,7 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit-html/directives/style-map.js'
+import { nothing } from 'lit-html'
 
 import { sliceAddress } from '@/shared/tools/slice-address'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -34,6 +35,12 @@ export class LuksoUsername extends TailwindStyledElement(style) {
 
   @property({ type: String, attribute: 'custom-class' })
   customClass = ''
+
+  @property({ type: Boolean, attribute: 'hide-prefix' })
+  hidePrefix = false
+
+  @property({ type: String })
+  prefix = '@'
 
   /** Width of the first 4 bytes of the address */
   private bytesWidth = 52
@@ -70,7 +77,7 @@ export class LuksoUsername extends TailwindStyledElement(style) {
         maxWidth: `${this.maxWidth - this.bytesWidth}px`,
       })}
     >
-      @${this.name}
+      ${this.hidePrefix ? nothing : this.prefix}${this.name}
     </div>`
   }
 

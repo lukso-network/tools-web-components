@@ -57,6 +57,27 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    prefix: {
+      name: 'prefix',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    hidePrefix: {
+      name: 'hide-prefix',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    customClass: {
+      name: 'custom-class',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'max-width': {
       name: 'maxWidth',
     },
@@ -69,6 +90,12 @@ const meta: Meta = {
     'name-color': {
       name: 'nameColor',
     },
+    'hide-prefix': {
+      name: 'hidePrefix',
+    },
+    'custom-class': {
+      name: 'customClass',
+    },
   },
   args: {
     name: 'John',
@@ -80,6 +107,7 @@ const meta: Meta = {
     nameColor: '',
     prefix: '@',
     hidePrefix: false,
+    customClass: '',
   },
   parameters: {
     controls: {
@@ -89,6 +117,9 @@ const meta: Meta = {
         'sliceBy',
         'addressColor',
         'nameColor',
+        'hidePrefix',
+        'customClass',
+        'styles',
       ],
     },
     design: {
@@ -108,6 +139,7 @@ const Template = ({
   sliceBy,
   addressColor,
   nameColor,
+  customClass,
   prefix,
   hidePrefix,
 }) =>
@@ -119,6 +151,7 @@ const Template = ({
     slice-by=${sliceBy}
     address-color=${addressColor}
     name-color=${nameColor}
+    custom-class=${customClass}
     prefix=${prefix}
     ?hide-prefix=${hidePrefix}
   ></lukso-username>`

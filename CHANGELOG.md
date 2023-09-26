@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.37.0](https://github.com/lukso-network/tools-web-components/compare/v1.36.0...v1.37.0) (2023-09-26)
+
+
+### Features
+
+* Scroll results in search ([#217](https://github.com/lukso-network/tools-web-components/issues/217)) ([6dd3f47](https://github.com/lukso-network/tools-web-components/commit/6dd3f47c69e72caaef22c23a1e8cc9a85a7205e7))
+
 ## [1.36.0](https://github.com/lukso-network/tools-web-components/compare/v1.35.0...v1.36.0) (2023-09-26)
 
 

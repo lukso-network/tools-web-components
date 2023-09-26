@@ -196,6 +196,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         profile-address="${result.address}"
         profile-url="${result.image}"
         size="x-small"
+        has-identicon
       ></lukso-profile>
       <lukso-username
         name="${result.name?.toLowerCase()}"

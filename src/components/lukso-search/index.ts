@@ -7,6 +7,7 @@ import style from './style.scss?inline'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
+import { Address } from '@/shared/types'
 
 export type StringResult = {
   id?: string
@@ -14,7 +15,7 @@ export type StringResult = {
 }
 
 export type ProfileResult = {
-  address: string
+  address: Address
   image?: string
   name?: string
 }

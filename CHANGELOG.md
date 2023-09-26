@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.36.0](https://github.com/lukso-network/tools-web-components/compare/v1.35.0...v1.36.0) (2023-09-26)
+
+
+### Features
+
+* customize username prefix ([#216](https://github.com/lukso-network/tools-web-components/issues/216)) ([5f1aff1](https://github.com/lukso-network/tools-web-components/commit/5f1aff16dc2f53ad96778227507a584db3673b14))
+
+
+### Bug Fixes
+
+* Add `Address` type for address field ([#214](https://github.com/lukso-network/tools-web-components/issues/214)) ([b0bb885](https://github.com/lukso-network/tools-web-components/commit/b0bb8856e85d1123ef2b3867b68325367e323cc1))
+
 ## [1.35.0](https://github.com/lukso-network/tools-web-components/compare/v1.34.1...v1.35.0) (2023-09-22)
 
 

@@ -198,7 +198,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         size="x-small"
       ></lukso-profile>
       <lukso-username
-        name="${result.name}"
+        name="${result.name?.toLowerCase()}"
         address="${result.address}"
         name-color="neutral-20"
         max-width="300"

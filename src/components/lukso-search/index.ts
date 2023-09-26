@@ -170,7 +170,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     }
 
     return html`<div
-      class="bg-neutral-100 border border-neutral-90 shadow-1xl rounded-12 p-3 mt-2 z-50 flex absolute w-full flex-col gap-1"
+      class="bg-neutral-100 border border-neutral-90 shadow-1xl rounded-12 p-3 mt-2 z-50 flex absolute w-full flex-col gap-1 overflow-y-auto max-h-60 scroll"
     >
       ${resultTemplates}
     </div>`
@@ -198,7 +198,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         size="x-small"
       ></lukso-profile>
       <lukso-username
-        name="${result.name}"
+        name="${result.name?.toLowerCase()}"
         address="${result.address}"
         name-color="neutral-20"
         max-width="300"

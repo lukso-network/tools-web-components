@@ -48,6 +48,18 @@ export class LuksoCard extends TailwindStyledElement(style) {
   private smallStyles = `rounded-12 shadow-neutral-drop-shadow`
   private smallHoverStyles = `hover:shadow-neutral-drop-shadow-1xl cursor-pointer transition`
 
+  private backgroundImageOrGradient() {
+    const opacityHex = '80' // 50%
+    const gradientStart = `#${this.profileAddress.slice(2, 8)}${opacityHex}`
+    const gradientEnd = `#${this.profileAddress.slice(36, 42)}${opacityHex}`
+
+    if (this.backgroundUrl) {
+      return `url(${this.backgroundUrl})`
+    }
+
+    return `linear-gradient(90deg, ${gradientStart}, ${gradientEnd})`
+  }
+
   basicTemplate() {
     return html`
       <div
@@ -111,9 +123,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
       >
         <div
           style=${styleMap({
-            backgroundImage: `url(${this.backgroundUrl})`,
+            backgroundImage: this.backgroundImageOrGradient(),
           })}
-          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-90"
+          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative"
         >
           ${this.backgroundUrl
             ? html` <div
@@ -166,9 +178,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
       >
         <div
           style=${styleMap({
-            backgroundImage: `url(${this.backgroundUrl})`,
+            backgroundImage: this.backgroundImageOrGradient(),
           })}
-          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-90"
+          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-100"
         >
           ${this.backgroundUrl
             ? html`<div

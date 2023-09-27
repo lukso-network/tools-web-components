@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.39.0](https://github.com/lukso-network/tools-web-components/compare/v1.38.0...v1.39.0) (2023-09-27)
+
+
+### Features
+
+* Show gradient background if image is missing ([#221](https://github.com/lukso-network/tools-web-components/issues/221)) ([4da7403](https://github.com/lukso-network/tools-web-components/commit/4da74039956fd892a90d14fbd100ab2b6242d23f))
+
 ## [1.38.0](https://github.com/lukso-network/tools-web-components/compare/v1.37.0...v1.38.0) (2023-09-27)
 
 

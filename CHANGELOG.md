@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.38.0](https://github.com/lukso-network/tools-web-components/compare/v1.37.0...v1.38.0) (2023-09-27)
+
+
+### Features
+
+* Add identicons to x-small profile and search results ([#219](https://github.com/lukso-network/tools-web-components/issues/219)) ([246b5bb](https://github.com/lukso-network/tools-web-components/commit/246b5bbc5afb8ced933362b6a02d99a4f8bf65f5))
+
 ## [1.37.0](https://github.com/lukso-network/tools-web-components/compare/v1.36.0...v1.37.0) (2023-09-26)
 
 

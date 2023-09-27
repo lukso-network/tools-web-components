@@ -49,9 +49,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
   private smallHoverStyles = `hover:shadow-neutral-drop-shadow-1xl cursor-pointer transition`
 
   private backgroundImageOrGradient() {
-    const opacityHex = '80' // 50%
-    const gradientStart = `#${this.profileAddress.slice(2, 8)}${opacityHex}`
-    const gradientEnd = `#${this.profileAddress.slice(36, 42)}${opacityHex}`
+    const opacity = '80' // 50% in hex format
+    const gradientStart = `#${this.profileAddress.slice(2, 8)}${opacity}`
+    const gradientEnd = `#${this.profileAddress.slice(36, 42)}${opacity}`
 
     if (this.backgroundUrl) {
       return `url(${this.backgroundUrl})`

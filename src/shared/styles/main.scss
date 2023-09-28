@@ -13,3 +13,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+strong {
+  @apply font-600;
+}

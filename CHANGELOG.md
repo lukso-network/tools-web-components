@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.40.0](https://github.com/lukso-network/tools-web-components/compare/v1.39.0...v1.40.0) (2023-09-28)
+
+
+### Features
+
+* Add dapp card variant ([#225](https://github.com/lukso-network/tools-web-components/issues/225)) ([9e71e5a](https://github.com/lukso-network/tools-web-components/commit/9e71e5a3a8ace2f1d56567ce205407dd48a5734f))
+* Overwrite default font weight for `strong` tag ([#223](https://github.com/lukso-network/tools-web-components/issues/223)) ([cbfb28b](https://github.com/lukso-network/tools-web-components/commit/cbfb28b279210fca7609d5c7de1da2955c55e367))
+
 ## [1.39.0](https://github.com/lukso-network/tools-web-components/compare/v1.38.0...v1.39.0) (2023-09-27)
 
 

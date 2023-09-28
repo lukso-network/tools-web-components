@@ -110,6 +110,27 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isSearching: {
+      name: 'is-searching',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    showNoResults: {
+      name: 'show-no-results',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    noResultsText: {
+      name: 'no-results-text',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onSearch: {
       name: 'on-search',
       description: 'Emitted on search.',
@@ -135,6 +156,15 @@ const meta: Meta = {
     },
     'is-disabled': {
       name: 'isDisabled',
+    },
+    'is-searching': {
+      name: 'isSearching',
+    },
+    'show-no-results': {
+      name: 'showNoResults',
+    },
+    'no-results-text': {
+      name: 'noResultsText',
     },
   },
   args: {
@@ -168,6 +198,9 @@ const meta: Meta = {
       },
     ],
     debounce: 700,
+    isSearching: false,
+    showNoResults: false,
+    noResultsText: 'No results found...',
   },
   parameters: {
     controls: {
@@ -175,14 +208,17 @@ const meta: Meta = {
         'defaultInputStyles',
         'defaultUnitStyles',
         'isFullWidth',
-        'hasHocus',
+        'hasFocus',
         'hasHighlight',
         'customClass',
         'isReadonly',
         'isDisabled',
         'isSearching',
+        'isDebouncing',
         'debounceTimer',
         'styles',
+        'showNoResults',
+        'noResultsText',
       ],
     },
     design: {
@@ -208,6 +244,9 @@ const Template = ({
   customClass,
   borderless,
   debounce,
+  isSearching,
+  showNoResults,
+  noResultsText,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -253,19 +292,22 @@ const Template = ({
     ?borderless=${borderless}
     results=${JSON.stringify(results)}
     debounce=${debounce}
+    ?is-searching=${isSearching}
+    no-results-text=${noResultsText}
+    ?show-no-results=${showNoResults}
     @on-search=${onSearch}
     @on-select=${onSelect}
     class="mb-[200px]"
   ></lukso-search>`
 }
 
-/**   */
+/** Example of search with `string` values.  */
 export const DefaultSearch = Template.bind({})
 DefaultSearch.args = {
   placeholder: 'Type to search...',
 }
 
-/**   */
+/** Example of search with `profile` values.  */
 export const ProfileSearch = Template.bind({})
 ProfileSearch.args = {
   placeholder: 'Type to search...',
@@ -285,4 +327,19 @@ ProfileSearch.args = {
       address: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
     },
   ],
+}
+
+/** To indicate when search is processing results you can add `is-searching` attribute. */
+export const SearchingState = Template.bind({})
+SearchingState.args = {
+  isSearching: true,
+  results: undefined,
+}
+
+/** To show that search hes no results add `show-no-results` attribute. You can also customize no results text with `no-results-text` attribute. */
+export const NoResults = Template.bind({})
+NoResults.args = {
+  showNoResults: true,
+  noResultsText: 'Oops, nothing here...',
+  results: undefined,
 }

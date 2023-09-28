@@ -73,14 +73,23 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: Number })
   debounce = 700
 
+  @property({ type: Boolean, attribute: 'is-searching' })
+  isSearching = false
+
+  @property({ type: String, attribute: 'no-results-text' })
+  noResultsText = ''
+
+  @property({ type: Boolean, attribute: 'show-no-results' })
+  showNoResults = false
+
   @state()
-  private hasHocus = false
+  private hasFocus = false
 
   @state()
   private hasHighlight = false
 
   @state()
-  private isSearching = false
+  private isDebouncing = false
 
   @state()
   private debounceTimer: NodeJS.Timeout
@@ -150,29 +159,44 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   resultsTemplate() {
-    if (this.results === '') {
+    const resultTemplates = []
+
+    // hide results dropdown unless user is calling no-results template or no no-results text is provided
+    if (
+      (this.results === '' && !this.showNoResults) ||
+      (this.showNoResults && !this.noResultsText)
+    ) {
       return html``
     }
 
-    const resultTemplates = []
-    const results = JSON.parse(this.results) as StringResult[]
+    if (this.showNoResults) {
+      resultTemplates.push(this.resultEmptyTemplate())
+    } else {
+      const results = JSON.parse(this.results) as StringResult[]
 
-    for (const result of Object.entries(results)) {
-      if ('value' in result[1]) {
-        // StringResult dropdown
-        resultTemplates.push(this.resultStringTemplate(result[1]))
-      } else if ('address' in result[1]) {
-        // ProfileResult dropdown
-        resultTemplates.push(this.resultProfileTemplate(result[1]))
-      } else {
-        console.error('Unknown result type', result)
+      for (const result of Object.entries(results)) {
+        if ('value' in result[1]) {
+          // StringResult dropdown
+          resultTemplates.push(this.resultStringTemplate(result[1]))
+        } else if ('address' in result[1]) {
+          // ProfileResult dropdown
+          resultTemplates.push(this.resultProfileTemplate(result[1]))
+        } else {
+          console.error('Unknown result type', result)
+        }
       }
     }
 
     return html`<div
-      class="bg-neutral-100 border border-neutral-90 shadow-1xl rounded-12 p-3 mt-2 z-50 flex absolute w-full flex-col gap-1 overflow-y-auto max-h-60 scroll"
+      class="bg-neutral-100 border border-neutral-90 shadow-1xl rounded-12 p-3 mt-2 z-50 flex absolute w-full flex-col gap-1 overflow-y-auto max-h-64"
     >
       ${resultTemplates}
+    </div>`
+  }
+
+  resultEmptyTemplate() {
+    return html`<div class="paragraph-inter-14-semi-bold text-neutral-20 pl-1">
+      ${this.noResultsText}
     </div>`
   }
 
@@ -221,13 +245,13 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   private handleFocus() {
     if (!this.isReadonly && !this.isDisabled) {
-      this.hasHocus = true
+      this.hasFocus = true
       this.hasHighlight = true
     }
   }
 
   private handleBlur() {
-    this.hasHocus = false
+    this.hasFocus = false
     this.hasHighlight = false
   }
 
@@ -242,16 +266,16 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       })
 
       this.dispatchEvent(changeEvent)
-      this.isSearching = false
+      this.isDebouncing = false
     }, this.debounce)
   }
 
   private handleSearch(event: Event) {
-    if (this.isSearching) {
+    if (this.isDebouncing) {
       clearTimeout(this.debounceTimer)
     }
 
-    this.isSearching = true
+    this.isDebouncing = true
     const target = event.target as HTMLInputElement
     this.searchDebounce(target.value)
   }
@@ -263,7 +287,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   private handleMouseOut() {
-    if (!this.hasHocus) {
+    if (!this.hasFocus) {
       this.hasHighlight = false
     }
   }
@@ -276,15 +300,21 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         <div class="flex relative items-center">
           ${this.inputTemplate()}
           <lukso-icon
-            name="search"
+            name="${this.isSearching || this.isDebouncing
+              ? 'spinner'
+              : 'search'}"
             class="absolute right-0 mr-3 ${customClassMap({
               ['opacity-60 cursor-not-allowed']: this.isDisabled,
               ['cursor-not-allowed']: this.isReadonly,
+              ['animate-spin']: this.isSearching || this.isDebouncing,
             })}"
             @mouseenter=${this.handleMouseOver}
           ></lukso-icon>
         </div>
-        ${this.resultsTemplate()} ${this.error ? this.errorTemplate() : nothing}
+        ${this.results || (this.showNoResults && this.hasFocus)
+          ? this.resultsTemplate()
+          : nothing}
+        ${this.error ? this.errorTemplate() : nothing}
       </div>
     `
   }

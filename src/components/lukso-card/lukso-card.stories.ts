@@ -12,7 +12,7 @@ const meta: Meta = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['basic', 'with-header', 'profile', 'profile-2', 'hero'],
+      options: ['basic', 'with-header', 'profile', 'profile-2', 'hero', 'dapp'],
       table: {
         category: 'Attributes',
       },
@@ -346,10 +346,16 @@ Profile2Card.args = {
   isFixedHeight: true,
 }
 
-/** Example of `hero` variant with custom content.  */
+/** Example of `hero` variant.  */
 export const HeroCard = HeroTemplate.bind({})
 HeroCard.args = {
   variant: 'hero',
+}
+
+/** Example of `dapp` variant.  */
+export const DappCard = ProfileTemplate.bind({})
+DappCard.args = {
+  variant: 'dapp',
 }
 
 /** You can customize card with `custom-class` property, it will be used instead of default styles.  */

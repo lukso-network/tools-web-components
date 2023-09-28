@@ -13,6 +13,7 @@ export type CardVariants =
   | 'profile'
   | 'profile-2'
   | 'hero'
+  | 'dapp'
 export type CardSizes = 'small' | 'medium'
 
 @customElement('lukso-card')
@@ -127,11 +128,10 @@ export class LuksoCard extends TailwindStyledElement(style) {
           })}
           class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative"
         >
-          ${this.backgroundUrl
-            ? html` <div
-                class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-20/10 absolute"
-              ></div>`
-            : ''}
+          ${this.backgroundUrl &&
+          html` <div
+            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-20/10 absolute"
+          ></div>`}
           <div>
             <slot name="header"></slot>
           </div>
@@ -182,11 +182,10 @@ export class LuksoCard extends TailwindStyledElement(style) {
           })}
           class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-100"
         >
-          ${this.backgroundUrl
-            ? html`<div
-                class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10/10 absolute"
-              ></div>`
-            : ''}
+          ${this.backgroundUrl &&
+          html`<div
+            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10/10 absolute"
+          ></div>`}
           <div>
             <slot name="header"></slot>
           </div>
@@ -237,16 +236,50 @@ export class LuksoCard extends TailwindStyledElement(style) {
           })}
           class="h-full w-full -mb-6 bg-center bg-cover rounded-24 relative"
         >
-          ${this.backgroundUrl
-            ? html`<div
-                class="h-full w-full rounded-24 bg-neutral-20/10 absolute"
-              ></div>`
-            : null}
+          ${this.backgroundUrl &&
+          html`<div
+            class="h-full w-full rounded-24 bg-neutral-20/10 absolute"
+          ></div>`}
           <div
             class="h-full w-full flex flex-col items-center justify-center  absolute"
           >
             <slot name="content"></slot>
           </div>
+        </div>
+      </div>
+    `
+  }
+
+  dappTemplate() {
+    return html`
+      <div
+        data-testid="card"
+        class="bg-neutral-100 grid grid-rows-[auto,1fr] overflow-hidden ${customClassMap(
+          {
+            [this.mediumStyles]: !this.customClass && this.size === 'medium',
+            [this.smallStyles]: !this.customClass && this.size === 'small',
+            [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
+            [this.customClass]: !!this.customClass,
+            ['w-[362px]']: this.isFixedWidth,
+            ['w-full']: !this.isFixedWidth,
+            ['min-h-[534px]']: this.isFixedHeight,
+          }
+        )}"
+      >
+        <div
+          style=${styleMap({
+            backgroundImage: this.backgroundImageOrGradient(),
+          })}
+          class="min-h-[240px] bg-center bg-cover rounded-[24px_24px_0_0] relative"
+        >
+          <div>
+            <slot name="header"></slot>
+          </div>
+        </div>
+        <div
+          class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-[0_0_24px_24px] relative"
+        >
+          <slot name="content"></slot>
         </div>
       </div>
     `
@@ -262,7 +295,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
         return this.profile2Template()
       case 'hero':
         return this.heroTemplate()
-
+      case 'dapp':
+        return this.dappTemplate()
       default:
         return this.basicTemplate()
     }

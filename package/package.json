@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.29.0",
+  "version": "1.39.0",
   "type": "module",
   "files": [
     "dist",
@@ -85,6 +85,16 @@
       "import": "./dist/components/lukso-card/index.js",
       "types": "./dist/components/lukso-card/index.d.ts"
     },
+    "./dist/components/lukso-checkbox": {
+      "require": "./dist/components/lukso-checkbox/index.cjs",
+      "import": "./dist/components/lukso-checkbox/index.js",
+      "types": "./dist/components/lukso-checkbox/index.d.ts"
+    },
+    "./dist/components/lukso-footer": {
+      "require": "./dist/components/lukso-footer/index.cjs",
+      "import": "./dist/components/lukso-footer/index.js",
+      "types": "./dist/components/lukso-footer/index.d.ts"
+    },
     "./dist/components/lukso-icon": {
       "require": "./dist/components/lukso-icon/index.cjs",
       "import": "./dist/components/lukso-icon/index.js",
@@ -119,6 +129,11 @@
       "require": "./dist/components/lukso-sanitize/index.cjs",
       "import": "./dist/components/lukso-sanitize/index.js",
       "types": "./dist/components/lukso-sanitize/index.d.ts"
+    },
+    "./dist/components/lukso-search": {
+      "require": "./dist/components/lukso-search/index.cjs",
+      "import": "./dist/components/lukso-search/index.js",
+      "types": "./dist/components/lukso-search/index.d.ts"
     },
     "./dist/components/lukso-share": {
       "require": "./dist/components/lukso-share/index.cjs",

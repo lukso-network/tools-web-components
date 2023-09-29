@@ -1,0 +1,327 @@
+import { html, nothing } from 'lit'
+import { customElement, property, state } from 'lit/decorators.js'
+
+import { TailwindStyledElement } from '@/shared/tailwind-element'
+import { customClassMap } from '@/shared/directives'
+import style from './style.scss?inline'
+import '@/components/lukso-icon'
+import '@/components/lukso-profile'
+import '@/components/lukso-username'
+import { Address } from '@/shared/types'
+
+export type StringResult = {
+  id?: string
+  value: string
+}
+
+export type ProfileResult = {
+  address: Address
+  image?: string
+  name?: string
+}
+
+@customElement('lukso-search')
+export class LuksoSearch extends TailwindStyledElement(style) {
+  @property({ type: String })
+  value = ''
+
+  @property({ type: String })
+  name = ''
+
+  @property({ type: String })
+  type = 'text'
+
+  @property({ type: String })
+  placeholder = ''
+
+  @property({ type: String })
+  label = ''
+
+  @property({ type: String })
+  autocomplete = 'off'
+
+  @property({ type: String })
+  id = ''
+
+  @property({ type: String })
+  description = ''
+
+  @property({ type: String })
+  error = ''
+
+  @property({ type: String, attribute: 'custom-class' })
+  customClass = ''
+
+  @property({ type: Boolean, attribute: 'is-full-width' })
+  isFullWidth = false
+
+  @property({ type: Boolean, attribute: 'is-readonly' })
+  isReadonly = false
+
+  @property({ type: Boolean, attribute: 'is-disabled' })
+  isDisabled = false
+
+  @property({ type: Boolean })
+  autofocus = false
+
+  @property({ type: Boolean })
+  borderless = false
+
+  @property({ type: String })
+  results = ''
+
+  @property({ type: Number })
+  debounce = 700
+
+  @property({ type: Boolean, attribute: 'is-searching' })
+  isSearching = false
+
+  @property({ type: String, attribute: 'no-results-text' })
+  noResultsText = ''
+
+  @property({ type: Boolean, attribute: 'show-no-results' })
+  showNoResults = false
+
+  @state()
+  private hasFocus = false
+
+  @state()
+  private hasHighlight = false
+
+  @state()
+  private isDebouncing = false
+
+  @state()
+  private debounceTimer: NodeJS.Timeout
+
+  private defaultInputStyles = `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-10
+    border-solid h-[48px] placeholder:text-neutral-70
+    outline-none transition transition-all duration-150 appearance-none rounded-12`
+
+  inputTemplate() {
+    return html`
+      <input
+        name=${this.name}
+        type=${this.type as any}
+        .value=${this.value}
+        placeholder=${this.placeholder}
+        ?autofocus=${this.autofocus}
+        autocomplete=${this.autocomplete}
+        id=${this.id || this.name}
+        data-testid=${this.name ? `input-${this.name}` : 'input'}
+        ?readonly=${this.isReadonly ? true : undefined}
+        ?disabled=${this.isDisabled ? true : undefined}
+        class=${customClassMap({
+          [this.defaultInputStyles]: true,
+          [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
+            !this.hasHighlight,
+          [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
+            this.hasHighlight,
+          ['w-full']: this.isFullWidth,
+          ['w-[350px]']: !this.isFullWidth,
+          ['cursor-not-allowed text-neutral-60']: this.isDisabled,
+          ['text-neutral-20']: !this.isDisabled,
+          ['cursor-not-allowed']: this.isReadonly,
+          [this.customClass]: !!this.customClass,
+          [this.borderless ? 'border-0' : 'border']: true,
+        })}
+        @focus=${this.handleFocus}
+        @input=${this.handleSearch}
+        @blur=${this.handleBlur}
+        @mouseenter=${this.handleMouseOver}
+        @mouseleave=${this.handleMouseOut}
+      />
+    `
+  }
+
+  labelTemplate() {
+    return html`
+      <label
+        for=${this.name}
+        class="heading-inter-14-bold text-neutral-20 pb-2 block"
+        >${this.label}</label
+      >
+    `
+  }
+
+  descriptionTemplate() {
+    return html`
+      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
+        ${this.description ?? nothing}
+      </div>
+    `
+  }
+
+  errorTemplate() {
+    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
+      ${this.error}
+    </div>`
+  }
+
+  resultsTemplate() {
+    const resultTemplates = []
+
+    // hide results dropdown unless user is calling no-results template or no no-results text is provided
+    if (
+      (this.results === '' && !this.showNoResults) ||
+      (this.showNoResults && !this.noResultsText)
+    ) {
+      return html``
+    }
+
+    if (this.showNoResults) {
+      resultTemplates.push(this.resultEmptyTemplate())
+    } else {
+      const results = JSON.parse(this.results) as StringResult[]
+
+      for (const result of Object.entries(results)) {
+        if ('value' in result[1]) {
+          // StringResult dropdown
+          resultTemplates.push(this.resultStringTemplate(result[1]))
+        } else if ('address' in result[1]) {
+          // ProfileResult dropdown
+          resultTemplates.push(this.resultProfileTemplate(result[1]))
+        } else {
+          console.error('Unknown result type', result)
+        }
+      }
+    }
+
+    return html`<div
+      class="bg-neutral-100 border border-neutral-90 shadow-1xl rounded-12 p-3 mt-2 z-50 flex absolute w-full flex-col gap-1 overflow-y-auto max-h-64"
+    >
+      ${resultTemplates}
+    </div>`
+  }
+
+  resultEmptyTemplate() {
+    return html`<div class="paragraph-inter-14-semi-bold text-neutral-20 pl-1">
+      ${this.noResultsText}
+    </div>`
+  }
+
+  resultStringTemplate(result: StringResult) {
+    return html`<div
+      data-id="${result.id}"
+      class="paragraph-inter-14-regular text-neutral-20 cursor-pointer hover:bg-neutral-98 rounded-8 p-2"
+      @click=${() => this.handleSelect(result)}
+    >
+      ${result.value}
+    </div>`
+  }
+
+  resultProfileTemplate(result: ProfileResult) {
+    return html`<div
+      data-id="${result.address}"
+      class="cursor-pointer hover:bg-neutral-98 rounded-8 p-2 flex gap-2 items-center"
+      @click=${() => this.handleSelect(result)}
+    >
+      <lukso-profile
+        profile-address="${result.address}"
+        profile-url="${result.image}"
+        size="x-small"
+        has-identicon
+      ></lukso-profile>
+      <lukso-username
+        name="${result.name?.toLowerCase()}"
+        address="${result.address}"
+        name-color="neutral-20"
+        max-width="300"
+        size="medium"
+      ></lukso-username>
+    </div>`
+  }
+
+  private handleSelect(result: StringResult | ProfileResult) {
+    const selectEvent = new CustomEvent('on-select', {
+      detail: {
+        value: result,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(selectEvent)
+  }
+
+  private handleFocus() {
+    if (!this.isReadonly && !this.isDisabled) {
+      this.hasFocus = true
+      this.hasHighlight = true
+    }
+  }
+
+  private handleBlur() {
+    this.hasFocus = false
+    this.hasHighlight = false
+  }
+
+  private searchDebounce(searchTerm: string) {
+    this.debounceTimer = setTimeout(() => {
+      const changeEvent = new CustomEvent('on-search', {
+        detail: {
+          value: searchTerm,
+        },
+        bubbles: false,
+        composed: true,
+      })
+
+      this.dispatchEvent(changeEvent)
+      this.isDebouncing = false
+    }, this.debounce)
+  }
+
+  private handleSearch(event: Event) {
+    if (this.isDebouncing) {
+      clearTimeout(this.debounceTimer)
+    }
+
+    this.isDebouncing = true
+    const target = event.target as HTMLInputElement
+    this.searchDebounce(target.value)
+  }
+
+  private handleMouseOver() {
+    if (!this.isReadonly && !this.isDisabled) {
+      this.hasHighlight = true
+    }
+  }
+
+  private handleMouseOut() {
+    if (!this.hasFocus) {
+      this.hasHighlight = false
+    }
+  }
+
+  render() {
+    return html`
+      <div class="relative w-full">
+        ${this.label ? this.labelTemplate() : nothing}
+        ${this.description ? this.descriptionTemplate() : nothing}
+        <div class="flex relative items-center">
+          ${this.inputTemplate()}
+          <lukso-icon
+            name="${this.isSearching || this.isDebouncing
+              ? 'spinner'
+              : 'search'}"
+            class="absolute right-0 mr-3 ${customClassMap({
+              ['opacity-60 cursor-not-allowed']: this.isDisabled,
+              ['cursor-not-allowed']: this.isReadonly,
+              ['animate-spin']: this.isSearching || this.isDebouncing,
+            })}"
+            @mouseenter=${this.handleMouseOver}
+          ></lukso-icon>
+        </div>
+        ${this.results || (this.showNoResults && this.hasFocus)
+          ? this.resultsTemplate()
+          : nothing}
+        ${this.error ? this.errorTemplate() : nothing}
+      </div>
+    `
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'lukso-search': LuksoSearch
+  }
+}

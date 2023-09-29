@@ -4,6 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js'
 import makeBlockie from 'ethereum-blockies-base64'
 
 import { TailwindElement } from '@/shared/tailwind-element'
+import { customClassMap } from '@/shared/directives'
 
 export type ProfileSize = 'x-small' | 'small' | 'medium' | 'large' | 'x-large'
 type SizeDef = { identiconSize?: number; profileImageSize: number }
@@ -24,7 +25,7 @@ export class LuksoProfile extends TailwindElement {
 
   sizes: Record<ProfileSize, SizeDef> = {
     'x-small': {
-      identiconSize: undefined,
+      identiconSize: 12,
       profileImageSize: 24,
     },
     small: {
@@ -53,7 +54,7 @@ export class LuksoProfile extends TailwindElement {
     return this.sizes[this.size].identiconSize
   }
 
-  private defaultProfileUrl = '/assets/images/profile-default.png'
+  private defaultProfileUrl = '/assets/images/profile-default.svg'
 
   private identicon() {
     return this.hasIdenticon && this.profileAddress && this.identiconSize()
@@ -86,7 +87,12 @@ export class LuksoProfile extends TailwindElement {
             ? html`<img
                 src=${this.identicon()}
                 class="absolute shadow-shadow-1xl rounded-full
-                  outline outline-2 outline-neutral-100 right-0 bottom-0"
+                  outline outline-neutral-100 right-0 bottom-0 ${customClassMap(
+                  {
+                    'outline-2': this.identiconSize() >= 16,
+                    'outline-1': this.identiconSize() < 16,
+                  }
+                )}"
                 style=${styleMap({
                   width: `${this.identiconSize()}px`,
                   height: `${this.identiconSize()}px`,

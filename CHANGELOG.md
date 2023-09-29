@@ -1,5 +1,127 @@
 # Changelog
 
+## [1.41.0](https://github.com/lukso-network/tools-web-components/compare/v1.40.0...v1.41.0) (2023-09-28)
+
+
+### Features
+
+* search improvements ([#226](https://github.com/lukso-network/tools-web-components/issues/226)) ([69eebfd](https://github.com/lukso-network/tools-web-components/commit/69eebfd5e12b5f5daa92b735b6f430e86b52e776))
+
+## [1.40.0](https://github.com/lukso-network/tools-web-components/compare/v1.39.0...v1.40.0) (2023-09-28)
+
+
+### Features
+
+* Add dapp card variant ([#225](https://github.com/lukso-network/tools-web-components/issues/225)) ([9e71e5a](https://github.com/lukso-network/tools-web-components/commit/9e71e5a3a8ace2f1d56567ce205407dd48a5734f))
+* Overwrite default font weight for `strong` tag ([#223](https://github.com/lukso-network/tools-web-components/issues/223)) ([cbfb28b](https://github.com/lukso-network/tools-web-components/commit/cbfb28b279210fca7609d5c7de1da2955c55e367))
+
+## [1.39.0](https://github.com/lukso-network/tools-web-components/compare/v1.38.0...v1.39.0) (2023-09-27)
+
+
+### Features
+
+* Show gradient background if image is missing ([#221](https://github.com/lukso-network/tools-web-components/issues/221)) ([4da7403](https://github.com/lukso-network/tools-web-components/commit/4da74039956fd892a90d14fbd100ab2b6242d23f))
+
+## [1.38.0](https://github.com/lukso-network/tools-web-components/compare/v1.37.0...v1.38.0) (2023-09-27)
+
+
+### Features
+
+* Add identicons to x-small profile and search results ([#219](https://github.com/lukso-network/tools-web-components/issues/219)) ([246b5bb](https://github.com/lukso-network/tools-web-components/commit/246b5bbc5afb8ced933362b6a02d99a4f8bf65f5))
+
+## [1.37.0](https://github.com/lukso-network/tools-web-components/compare/v1.36.0...v1.37.0) (2023-09-26)
+
+
+### Features
+
+* Scroll results in search ([#217](https://github.com/lukso-network/tools-web-components/issues/217)) ([6dd3f47](https://github.com/lukso-network/tools-web-components/commit/6dd3f47c69e72caaef22c23a1e8cc9a85a7205e7))
+
+## [1.36.0](https://github.com/lukso-network/tools-web-components/compare/v1.35.0...v1.36.0) (2023-09-26)
+
+
+### Features
+
+* customize username prefix ([#216](https://github.com/lukso-network/tools-web-components/issues/216)) ([5f1aff1](https://github.com/lukso-network/tools-web-components/commit/5f1aff16dc2f53ad96778227507a584db3673b14))
+
+
+### Bug Fixes
+
+* Add `Address` type for address field ([#214](https://github.com/lukso-network/tools-web-components/issues/214)) ([b0bb885](https://github.com/lukso-network/tools-web-components/commit/b0bb8856e85d1123ef2b3867b68325367e323cc1))
+
+## [1.35.0](https://github.com/lukso-network/tools-web-components/compare/v1.34.1...v1.35.0) (2023-09-22)
+
+
+### Features
+
+* search component ([#212](https://github.com/lukso-network/tools-web-components/issues/212)) ([75d75bf](https://github.com/lukso-network/tools-web-components/commit/75d75bf929f8aca0544cb377115ae3ba9cc1bb55))
+
+## [1.34.1](https://github.com/lukso-network/tools-web-components/compare/v1.34.0...v1.34.1) (2023-09-15)
+
+
+### Bug Fixes
+
+* card adjustments ([#210](https://github.com/lukso-network/tools-web-components/issues/210)) ([f226c9d](https://github.com/lukso-network/tools-web-components/commit/f226c9d69e974791624b25881343aebcf7750fd5))
+
+## [1.34.0](https://github.com/lukso-network/tools-web-components/compare/v1.33.1...v1.34.0) (2023-09-13)
+
+
+### Features
+
+* Update empty states ([#207](https://github.com/lukso-network/tools-web-components/issues/207)) ([9f7ba7f](https://github.com/lukso-network/tools-web-components/commit/9f7ba7f589f14853865634657727b9666c69d996))
+
+## [1.33.1](https://github.com/lukso-network/tools-web-components/compare/v1.33.0...v1.33.1) (2023-09-12)
+
+
+### Bug Fixes
+
+* update telegram link ([#205](https://github.com/lukso-network/tools-web-components/issues/205)) ([0142785](https://github.com/lukso-network/tools-web-components/commit/0142785c1b7008c3638777a8c0e3ba71fef8f726))
+
+## [1.33.0](https://github.com/lukso-network/tools-web-components/compare/v1.32.1...v1.33.0) (2023-09-12)
+
+
+### Features
+
+* Hero card ([#203](https://github.com/lukso-network/tools-web-components/issues/203)) ([2f17ce6](https://github.com/lukso-network/tools-web-components/commit/2f17ce61aa316cf7a1a0a9780e50a772d2ff424d))
+
+## [1.32.1](https://github.com/lukso-network/tools-web-components/compare/v1.32.0...v1.32.1) (2023-09-11)
+
+
+### Bug Fixes
+
+* checkbox styles ([#202](https://github.com/lukso-network/tools-web-components/issues/202)) ([5340ecd](https://github.com/lukso-network/tools-web-components/commit/5340ecd7974221c6c2077fa444526936ab5f6fa7))
+* **DEV-8194:** profile card background ([#200](https://github.com/lukso-network/tools-web-components/issues/200)) ([b2f48b5](https://github.com/lukso-network/tools-web-components/commit/b2f48b51ad48742189261f39fa6ccff458236393))
+* wrong import path in README.md ([#199](https://github.com/lukso-network/tools-web-components/issues/199)) ([ee3ad2a](https://github.com/lukso-network/tools-web-components/commit/ee3ad2af289aae3f5cb79be01289761426f3a1dc))
+
+## [1.32.0](https://github.com/lukso-network/tools-web-components/compare/v1.31.1...v1.32.0) (2023-09-11)
+
+
+### Features
+
+* Add new `profile-2` variant to card component ([#196](https://github.com/lukso-network/tools-web-components/issues/196)) ([0866b10](https://github.com/lukso-network/tools-web-components/commit/0866b105806373472093bac5054baa24f094132b))
+* Borderless input ([#197](https://github.com/lukso-network/tools-web-components/issues/197)) ([ac90ff0](https://github.com/lukso-network/tools-web-components/commit/ac90ff0570811bb7774132997483bc6d35e94706))
+* **DEV-8034:** updated state management and added slot support ([#195](https://github.com/lukso-network/tools-web-components/issues/195)) ([f7bc517](https://github.com/lukso-network/tools-web-components/commit/f7bc51787f754f86b92bee5cbe7a6342fece6377))
+
+## [1.31.1](https://github.com/lukso-network/tools-web-components/compare/v1.31.0...v1.31.1) (2023-09-07)
+
+
+### Bug Fixes
+
+* Repair dts file path for files in ./src ([#192](https://github.com/lukso-network/tools-web-components/issues/192)) ([9c02913](https://github.com/lukso-network/tools-web-components/commit/9c02913fb85de15770922c0a815307f1ca98de56))
+
+## [1.31.0](https://github.com/lukso-network/tools-web-components/compare/v1.30.0...v1.31.0) (2023-09-07)
+
+
+### Features
+
+* Footer component ([#190](https://github.com/lukso-network/tools-web-components/issues/190)) ([48d1a15](https://github.com/lukso-network/tools-web-components/commit/48d1a15eb0162062b2f1ebec9c70a56e370e9aad))
+* navbar rework ([#186](https://github.com/lukso-network/tools-web-components/issues/186)) ([0b640c6](https://github.com/lukso-network/tools-web-components/commit/0b640c605ec188eb7356dd88df1e591b0174bb79))
+
+
+### Bug Fixes
+
+* Remove checked in output files ([#187](https://github.com/lukso-network/tools-web-components/issues/187)) ([e754aaa](https://github.com/lukso-network/tools-web-components/commit/e754aaa683bcd6efa5b9d65d234adc7b9883aacf))
+* Use tag component in navbar ([#191](https://github.com/lukso-network/tools-web-components/issues/191)) ([fd8ae04](https://github.com/lukso-network/tools-web-components/commit/fd8ae0471a7a2094beca7fae4a99225f77bd67f3))
+
 ## [1.30.0](https://github.com/lukso-network/tools-web-components/compare/v1.29.0...v1.30.0) (2023-08-01)
 
 

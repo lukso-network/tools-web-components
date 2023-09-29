@@ -30,7 +30,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['x-small', 'small', 'large'],
+      options: ['x-small', 'small', 'medium', 'large'],
       table: {
         category: 'Attributes',
       },
@@ -57,6 +57,27 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    prefix: {
+      name: 'prefix',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    hidePrefix: {
+      name: 'hide-prefix',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    customClass: {
+      name: 'custom-class',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'max-width': {
       name: 'maxWidth',
     },
@@ -69,6 +90,12 @@ const meta: Meta = {
     'name-color': {
       name: 'nameColor',
     },
+    'hide-prefix': {
+      name: 'hidePrefix',
+    },
+    'custom-class': {
+      name: 'customClass',
+    },
   },
   args: {
     name: 'John',
@@ -78,6 +105,9 @@ const meta: Meta = {
     sliceBy: 8,
     addressColor: '',
     nameColor: '',
+    prefix: '@',
+    hidePrefix: false,
+    customClass: '',
   },
   parameters: {
     controls: {
@@ -87,6 +117,9 @@ const meta: Meta = {
         'sliceBy',
         'addressColor',
         'nameColor',
+        'hidePrefix',
+        'customClass',
+        'styles',
       ],
     },
     design: {
@@ -106,6 +139,9 @@ const Template = ({
   sliceBy,
   addressColor,
   nameColor,
+  customClass,
+  prefix,
+  hidePrefix,
 }) =>
   html`<lukso-username
     name=${name}
@@ -115,24 +151,27 @@ const Template = ({
     slice-by=${sliceBy}
     address-color=${addressColor}
     name-color=${nameColor}
+    custom-class=${customClass}
+    prefix=${prefix}
+    ?hide-prefix=${hidePrefix}
   ></lukso-username>`
 
 /** By default user name is displayed as `name` prefixed with `@` character and 4 bytes of `address` */
 export const DefaultUsername = Template.bind({})
 
-/** Long names get truncated. You can control width of the component with `max-width` property. */
+/** Long names get truncated. You can control width of the component with `max-width` attribute. */
 export const LongName = Template.bind({})
 LongName.args = {
   name: 'ThisIsAReallyLongName',
 }
 
-/** Example of component that has only `name` property. */
+/** Example of component that has only `name` attribute. */
 export const OnlyName = Template.bind({})
 OnlyName.args = {
   address: '',
 }
 
-/** Example of component that has only `address` property and `small` size. */
+/** Example of component that has only `address` attribute and `small` size. */
 export const OnlyAddress = Template.bind({})
 OnlyAddress.args = {
   name: '',
@@ -140,7 +179,7 @@ OnlyAddress.args = {
   sliceBy: 4,
 }
 
-/** You can specify amount of sliced characters in the address with `slice-by` property. */
+/** You can specify amount of sliced characters in the address with `slice-by` attribute. */
 export const SliceAddressBy4 = Template.bind({})
 SliceAddressBy4.args = {
   name: '',
@@ -148,9 +187,24 @@ SliceAddressBy4.args = {
   size: 'small',
 }
 
-/** Color of the address and name can be changed via `name-color` and `address-color` property. */
+/** Color of the address and name can be changed via `name-color` and `address-color` attribute. */
 export const CustomColor = Template.bind({})
 CustomColor.args = {
   nameColor: 'red-55',
   addressColor: 'green-54',
+}
+
+/** You can customize prefix with `prefix` attribute. */
+export const CustomPrefixColor = Template.bind({})
+CustomPrefixColor.args = {
+  prefix: '$',
+}
+
+/** You can hide prefix completely by adding `hide-prefix` attribute. */
+export const HidePrefix = Template.bind({})
+HidePrefix.args = {
+  hidePrefix: true,
+  name: 'anonymous-profile',
+  maxWidth: 300,
+  address: '',
 }

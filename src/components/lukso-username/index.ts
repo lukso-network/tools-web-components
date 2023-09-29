@@ -1,15 +1,17 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit-html/directives/style-map.js'
+import { nothing } from 'lit-html'
 
 import { sliceAddress } from '@/shared/tools/slice-address'
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
+import style from './style.scss?inline'
 
-export type UsernameSize = 'x-small' | 'small' | 'large'
+export type UsernameSize = 'x-small' | 'small' | 'medium' | 'large'
 
 @customElement('lukso-username')
-export class LuksoUsername extends TailwindElement {
+export class LuksoUsername extends TailwindStyledElement(style) {
   @property({ type: String })
   name = ''
 
@@ -31,6 +33,15 @@ export class LuksoUsername extends TailwindElement {
   @property({ type: String, attribute: 'name-color' })
   nameColor = ''
 
+  @property({ type: String, attribute: 'custom-class' })
+  customClass = ''
+
+  @property({ type: Boolean, attribute: 'hide-prefix' })
+  hidePrefix = false
+
+  @property({ type: String })
+  prefix = '@'
+
   /** Width of the first 4 bytes of the address */
   private bytesWidth = 52
 
@@ -40,10 +51,10 @@ export class LuksoUsername extends TailwindElement {
    */
   private addressBytesTemplate() {
     return html`<div
-      class="inline-block text-neutral-60 "
-      style=${styleMap({
-        color: `var(--${this.addressColor})`,
-      })}
+      class="inline-block ${customClassMap({
+        ['text-' + this.addressColor]: this.addressColor !== '',
+        ['text-neutral-60']: this.addressColor === '',
+      })}"
     >
       #${this.address.slice(2, 6)}
     </div>`
@@ -59,14 +70,14 @@ export class LuksoUsername extends TailwindElement {
         {
           ['text-transparent bg-clip-text bg-gradient-to-r from-gradient-1-start to-gradient-1-end']:
             this.nameColor === '',
+          ['text-' + this.nameColor]: this.nameColor !== '',
         }
       )}"
       style=${styleMap({
         maxWidth: `${this.maxWidth - this.bytesWidth}px`,
-        color: `var(--${this.nameColor})`,
       })}
     >
-      @${this.name}
+      ${this.hidePrefix ? nothing : this.prefix}${this.name}
     </div>`
   }
 
@@ -102,8 +113,10 @@ export class LuksoUsername extends TailwindElement {
 
     return html`<div
       class="inline-flex ${customClassMap({
+        [this.customClass]: true,
         'paragraph-ptmono-10-bold': this.size === 'x-small',
         'paragraph-ptmono-12-bold': this.size === 'small',
+        'paragraph-ptmono-14-bold': this.size === 'medium',
         'paragraph-ptmono-16-bold': this.size === 'large',
       })}"
     >

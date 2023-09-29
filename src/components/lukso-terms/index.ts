@@ -72,6 +72,7 @@ export class LuksoTerms extends TailwindStyledElement(style) {
         })}
       >
         <div
+          data-testid="scroll-to-bottom"
           class="w-10 h-10 bg-neutral-100 rounded-full shadow-1xl flex items-center justify-center animate-bounce2 cursor-pointer"
           @click=${this.handleBottomScroll}
         >

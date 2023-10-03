@@ -59,8 +59,8 @@ CustomStyle.args = {
   customStyle: 'grid-template-columns: repeat(4, max-content)',
 }
 
-/** With `providers` attribute pick only providers that you want. Use `JSON.stringify` to encode `array`. */
+/** With `providers` attribute pick only providers that you want, you can also control order this way. Use `JSON.stringify` to encode `array`. */
 export const LimitProviders = Template.bind({})
 LimitProviders.args = {
-  providers: ['twitter', 'instagram', 'linkedin'],
+  providers: ['instagram', 'linkedin', 'twitter'],
 }

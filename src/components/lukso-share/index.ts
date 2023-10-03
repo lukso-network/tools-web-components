@@ -60,10 +60,8 @@ export class LuksoShare extends TailwindStyledElement(style) {
   render() {
     const linkTemplates = []
 
-    for (const provider of Object.keys(this.urls) as Provider[]) {
-      if (this.providers.includes(provider)) {
-        linkTemplates.push(this.linkTemplate(provider, this.urls[provider]))
-      }
+    for (const provider of this.providers) {
+      linkTemplates.push(this.linkTemplate(provider, this.urls[provider]))
     }
 
     return html`<div

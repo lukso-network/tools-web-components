@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { Meta } from '@storybook/web-components'
 
 import './index'
@@ -7,8 +7,19 @@ import './index'
 const meta: Meta = {
   title: 'Design System/Components/lukso-footer',
   component: 'lukso-footer',
-  argTypes: {},
-  args: {},
+  argTypes: {
+    providers: {
+      control: {
+        type: 'array',
+      },
+      table: {
+        category: 'Attributes',
+      },
+    },
+  },
+  args: {
+    providers: [],
+  },
   parameters: {
     controls: {
       exclude: [],
@@ -22,8 +33,10 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({}) =>
-  html`<lukso-footer>
+const Template = ({ providers }) =>
+  html`<lukso-footer
+    providers=${providers.length ? JSON.stringify(providers) : nothing}
+  >
     <div
       slot="links"
       class="grid gap-4 items-center grid-cols-1 grid-rows-2
@@ -69,3 +82,9 @@ const Template = ({}) =>
 
 /** Example of default footer.  */
 export const DefaultFooter = Template.bind({})
+
+/** With `providers` attribute pick only providers that you want, you can also control order this way. Use `JSON.stringify` to encode `array`. */
+export const LimitProviders = Template.bind({})
+LimitProviders.args = {
+  providers: ['instagram', 'linkedin', 'twitter'],
+}

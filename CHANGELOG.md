@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.42.0](https://github.com/lukso-network/tools-web-components/compare/v1.41.0...v1.42.0) (2023-10-03)
+
+
+### Features
+
+* footer rework ([#230](https://github.com/lukso-network/tools-web-components/issues/230)) ([a054eee](https://github.com/lukso-network/tools-web-components/commit/a054eee6c3b513635bc2ef48745e2d704c8a6111))
+
 ## [1.41.0](https://github.com/lukso-network/tools-web-components/compare/v1.40.0...v1.41.0) (2023-09-28)
 
 

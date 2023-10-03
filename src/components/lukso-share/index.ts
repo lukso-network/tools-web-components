@@ -3,14 +3,41 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
-import { customClassMap } from '@/shared/directives'
+
+export type Provider =
+  | 'twitter'
+  | 'instagram'
+  | 'linkedin'
+  | 'telegram'
+  | 'discord'
+  | 'reddit'
+  | 'medium'
+  | 'github'
+
+export type Url = `https://${string}`
+
+export type ProviderLinks = {
+  [key in Provider]: Url
+}
 
 @customElement('lukso-share')
 export class LuksoShare extends TailwindStyledElement(style) {
-  @property({ type: String, attribute: 'custom-class' })
-  customClass = ''
+  @property({ type: String, attribute: 'custom-style' })
+  customStyle = ''
 
-  private urls = {
+  @property({ type: Array })
+  providers: Provider[] = [
+    'twitter',
+    'instagram',
+    'linkedin',
+    'telegram',
+    'discord',
+    'reddit',
+    'medium',
+    'github',
+  ]
+
+  private urls: ProviderLinks = {
     twitter: 'https://twitter.com/lukso_io',
     instagram: 'https://www.instagram.com/lukso',
     linkedin: 'https://linkedin.com/company/lukso',
@@ -21,27 +48,26 @@ export class LuksoShare extends TailwindStyledElement(style) {
     github: 'https://github.com/lukso-network',
   }
 
-  linkTemplate(name: string, url: string) {
+  linkTemplate(name: Provider, url: Url) {
     return html`<a
       href=${url}
       target="_blank"
-      class="transition-all duration-300 rounded-full hover:opacity-80 hover:shadow-button-hover-primary"
+      class="transition-all duration-300 rounded-full opacity-50 hover:opacity-80 hover:shadow-button-hover-primary h-7 w-7"
       ><img src="/assets/images/social-${name}.svg" alt=""
     /></a>`
   }
 
   render() {
     const linkTemplates = []
-    for (const i of Object.keys(this.urls)) {
-      linkTemplates.push(this.linkTemplate(i, this.urls[i]))
+
+    for (const provider of this.providers) {
+      linkTemplates.push(this.linkTemplate(provider, this.urls[provider]))
     }
 
     return html`<div
-      class="grid gap-4 grid-cols-[repeat(4,max-content)] sm:grid-cols-[repeat(8,max-content)] ${customClassMap(
-        {
-          [this.customClass]: !!this.customClass,
-        }
-      )}"
+      class="grid gap-2 sm:gap-4"
+      style="grid-template-columns: repeat(${this.providers
+        .length}, max-content); ${this.customStyle}"
     >
       ${linkTemplates}
     </div>`

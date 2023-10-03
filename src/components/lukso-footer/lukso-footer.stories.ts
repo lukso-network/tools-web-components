@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { Meta } from '@storybook/web-components'
 
 import './index'
@@ -7,8 +7,19 @@ import './index'
 const meta: Meta = {
   title: 'Design System/Components/lukso-footer',
   component: 'lukso-footer',
-  argTypes: {},
-  args: {},
+  argTypes: {
+    providers: {
+      control: {
+        type: 'array',
+      },
+      table: {
+        category: 'Attributes',
+      },
+    },
+  },
+  args: {
+    providers: [],
+  },
   parameters: {
     controls: {
       exclude: [],
@@ -22,36 +33,58 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({}) =>
-  html`<lukso-footer>
+const Template = ({ providers }) =>
+  html`<lukso-footer
+    providers=${providers.length ? JSON.stringify(providers) : nothing}
+  >
     <div
-      slot="top"
-      class="grid gap-6 items-center sm:gap-10
-      sm:grid-cols-[repeat(2,max-content)]"
+      slot="links"
+      class="grid gap-4 items-center grid-cols-1 grid-rows-2
+      xl:grid-cols-[repeat(3,max-content)] xl:gap-10 xl:grid-rows-1"
     >
-      <a
-        href=""
-        class="nav-apax-12-medium-uppercase text-purple-41 hover:underline hover:text-purple-31"
-      >
-        FAQs
-      </a>
-      <a
-        href=""
-        class="nav-apax-12-medium-uppercase text-purple-41 hover:underline hover:text-purple-31"
-      >
-        NEED HELP?
-      </a>
-    </div>
-
-    <div slot="bottom" class="gap-8 flex items-center">
-      <a href="" class="paragraph-inter-12-medium hover:underline">
-        Privacy Policy
-      </a>
-      <a href="" class="paragraph-inter-12-medium hover:underline">
-        Terms & Conditions
-      </a>
+      <div class="flex gap-10">
+        <a
+          href=""
+          class="nav-apax-12-medium-uppercase text-purple-41 hover:underline hover:text-purple-31"
+        >
+          FAQs
+        </a>
+        <a
+          href=""
+          class="nav-apax-12-medium-uppercase text-purple-41 hover:underline hover:text-purple-31"
+        >
+          NEED HELP?
+        </a>
+        <a
+          href=""
+          class="nav-apax-12-medium-uppercase text-purple-41 hover:underline hover:text-purple-31"
+        >
+          GITHUB
+        </a>
+      </div>
+      <div class="hidden w-0.5 h-4 bg-purple-63 xl:block"></div>
+      <div class="flex gap-10">
+        <a
+          href=""
+          class="nav-apax-12-medium-uppercase text-purple-41/70 hover:underline hover:text-purple-31/70"
+        >
+          PRIVACY POLICY
+        </a>
+        <a
+          href=""
+          class="nav-apax-12-medium-uppercase text-purple-41/70 hover:underline hover:text-purple-31/70"
+        >
+          TERMs
+        </a>
+      </div>
     </div>
   </lukso-footer>`
 
 /** Example of default footer.  */
 export const DefaultFooter = Template.bind({})
+
+/** With `providers` attribute pick only providers that you want, you can also control order this way. Use `JSON.stringify` to encode `array`. */
+export const LimitProviders = Template.bind({})
+LimitProviders.args = {
+  providers: ['instagram', 'linkedin', 'twitter'],
+}

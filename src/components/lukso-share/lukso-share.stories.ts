@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { Meta } from '@storybook/web-components'
 
 import './index'
@@ -8,37 +8,59 @@ const meta: Meta = {
   title: 'Design System/Components/lukso-share',
   component: 'lukso-share',
   argTypes: {
-    customClass: {
-      name: 'custom-class',
+    providers: {
+      control: {
+        type: 'array',
+      },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    customStyle: {
+      name: 'custom-style',
       control: { type: 'text' },
       table: {
         category: 'Attributes',
       },
     },
-    'custom-class': {
-      name: 'customClass',
+    'custom-style': {
+      name: 'customStyle',
     },
   },
   args: {
-    customClass: '',
+    customStyle: '',
+    providers: [],
   },
   parameters: {
     controls: {
-      exclude: ['linkTemplate', 'urls', 'customClass', 'styles'],
+      exclude: ['linkTemplate', 'urls', 'customStyle', 'styles'],
+    },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?type=design&node-id=3410-25226&mode=design&t=gTZ6PeUlf4UI5Iak-4',
     },
   },
 }
 
 export default meta
 
-const Template = ({ customClass }) =>
-  html`<lukso-share custom-class=${customClass}></lukso-share>`
+const Template = ({ customStyle, providers }) =>
+  html`<lukso-share
+    custom-style=${customStyle ? customStyle : nothing}
+    providers=${providers.length ? JSON.stringify(providers) : nothing}
+  ></lukso-share>`
 
-/** Component render responsive list of links, use `custom-class` property to change layout of the elements. */
+/** Component render responsive list of links. */
 export const Default = Template.bind({})
-Default.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1879-22788&t=mhehL8oWD5WMiaZM-4',
-  },
+
+/** With `custom-style` attribute you can change layout of the elements. */
+export const CustomStyle = Template.bind({})
+CustomStyle.args = {
+  customStyle: 'grid-template-columns: repeat(4, max-content)',
+}
+
+/** With `providers` attribute pick only providers that you want, you can also control order this way. Use `JSON.stringify` to encode `array`. */
+export const LimitProviders = Template.bind({})
+LimitProviders.args = {
+  providers: ['instagram', 'linkedin', 'twitter'],
 }

@@ -65,8 +65,9 @@ export class LuksoShare extends TailwindStyledElement(style) {
     }
 
     return html`<div
-      class="grid gap-2 grid-cols-[repeat(8,max-content)] sm:gap-4"
-      style=${this.customStyle}
+      class="grid gap-2 sm:gap-4"
+      style="grid-template-columns: repeat(${this.providers
+        .length}, max-content); ${this.customStyle}"
     >
       ${linkTemplates}
     </div>`

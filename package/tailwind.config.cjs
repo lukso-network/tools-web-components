@@ -98,6 +98,7 @@ module.exports = {
           '0px 117px 47px rgba(112, 96, 92, 0.02), 0px 66px 40px rgba(112, 96, 92, 0.08), 0px 29px 29px rgba(112, 96, 92, 0.13), 0px 7px 16px rgba(112, 96, 92, 0.15), 0px 0px 0px rgba(112, 96, 92, 0.16)',
         'neutral-inner-shadow':
           'inset 0px 9px 3px rgba(63, 93, 116, 0.01), inset 0px 5px 3px rgba(63, 93, 116, 0.04), inset 0px 2px 2px rgba(63, 93, 116, 0.07), inset 0px 1px 1px rgba(63, 93, 116, 0.08)',
+        'neutral-inner-shadow-top': 'inset 0 7px 9px -7px rgb(18 41 74 / 21%)',
         'neutral-inner-shadow-1xl':
           'inset 0px 19px 8px rgba(63, 93, 116, 0.02), inset 0px 11px 6px rgba(63, 93, 116, 0.08), inset 0px 5px 5px rgba(63, 93, 116, 0.13), inset 0px 1px 3px rgba(63, 93, 116, 0.15)',
         'neutral-inner-shadow-2xl':

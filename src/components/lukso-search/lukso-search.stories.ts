@@ -145,6 +145,13 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    onBlur: {
+      name: 'on-blur',
+      description: 'Emitted on input blur event.',
+      table: {
+        category: 'Events',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -250,6 +257,7 @@ const Template = ({
   showNoResults,
   noResultsText,
   margin,
+  onBlur,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -299,6 +307,7 @@ const Template = ({
     ?show-no-results=${showNoResults}
     @on-search=${onSearch}
     @on-select=${onSelect}
+    @on-blur=${onBlur}
     results=${results ? JSON.stringify(results) : nothing}
     style="margin-bottom: ${margin}px;"
   ></lukso-search>`

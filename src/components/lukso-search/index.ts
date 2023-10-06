@@ -289,9 +289,19 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     }
   }
 
-  private handleBlur() {
+  private handleBlur(event: FocusEvent) {
     this.hasFocus = false
     this.hasHighlight = false
+    const target = event.target as HTMLInputElement
+    const blurEvent = new CustomEvent('on-blur', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(blurEvent)
   }
 
   private searchDebounce(searchTerm: string) {

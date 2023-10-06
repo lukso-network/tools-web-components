@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { Meta } from '@storybook/web-components'
 import { useArgs } from '@storybook/client-api'
 
@@ -168,9 +168,8 @@ const meta: Meta = {
     },
   },
   args: {
-    type: 'text',
     value: '',
-    name: 'input',
+    name: '',
     label: '',
     description: '',
     error: '',
@@ -197,7 +196,7 @@ const meta: Meta = {
         value: 'Third result',
       },
     ],
-    debounce: 700,
+    debounce: undefined,
     isSearching: false,
     showNoResults: false,
     noResultsText: 'No results found...',
@@ -219,6 +218,9 @@ const meta: Meta = {
         'styles',
         'showNoResults',
         'noResultsText',
+        'margin',
+        'resultsParsed',
+        'searchTerm',
       ],
     },
     design: {
@@ -247,6 +249,7 @@ const Template = ({
   isSearching,
   showNoResults,
   noResultsText,
+  margin,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -278,26 +281,26 @@ const Template = ({
   }
 
   return html`<lukso-search
-    value=${value}
-    name=${name}
-    placeholder=${placeholder}
-    label=${label}
-    description=${description}
-    error=${error}
+    value=${value ? value : nothing}
+    name=${name ? name : nothing}
+    placeholder=${placeholder ? placeholder : nothing}
+    label=${label ? label : nothing}
+    description=${description ? description : nothing}
+    error=${error ? error : nothing}
     ?is-full-width=${isFullWidth}
     ?autofocus=${autofocus}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
-    custom-class=${customClass}
+    custom-class=${customClass ? customClass : nothing}
     ?borderless=${borderless}
-    results=${JSON.stringify(results)}
-    debounce=${debounce}
+    debounce=${debounce ? debounce : nothing}
     ?is-searching=${isSearching}
     no-results-text=${noResultsText}
     ?show-no-results=${showNoResults}
     @on-search=${onSearch}
     @on-select=${onSelect}
-    class="mb-[200px]"
+    results=${results ? JSON.stringify(results) : nothing}
+    style="margin-bottom: ${margin}px;"
   ></lukso-search>`
 }
 
@@ -305,6 +308,7 @@ const Template = ({
 export const DefaultSearch = Template.bind({})
 DefaultSearch.args = {
   placeholder: 'Type to search...',
+  margin: 150,
 }
 
 /** Example of search with `profile` values.  */
@@ -327,6 +331,7 @@ ProfileSearch.args = {
       address: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
     },
   ],
+  margin: 160,
 }
 
 /** To indicate when search is processing results you can add `is-searching` attribute. */
@@ -334,6 +339,8 @@ export const SearchingState = Template.bind({})
 SearchingState.args = {
   isSearching: true,
   results: undefined,
+  value: '123',
+  margin: 250,
 }
 
 /** To show that search hes no results add `show-no-results` attribute. You can also customize no results text with `no-results-text` attribute. */
@@ -342,4 +349,5 @@ NoResults.args = {
   showNoResults: true,
   noResultsText: 'Oops, nothing here...',
   results: undefined,
+  margin: 50,
 }

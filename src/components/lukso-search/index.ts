@@ -1,4 +1,4 @@
-import { html, nothing } from 'lit'
+import { TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -9,16 +9,18 @@ import '@/components/lukso-profile'
 import '@/components/lukso-username'
 import { Address } from '@/shared/types'
 
-export type StringResult = {
+export type SearchStringResult = {
   id?: string
   value: string
 }
 
-export type ProfileResult = {
+export type SearchProfileResult = {
   address: Address
   image?: string
   name?: string
 }
+
+export type SearchResult = SearchStringResult | SearchProfileResult
 
 @customElement('lukso-search')
 export class LuksoSearch extends TailwindStyledElement(style) {
@@ -27,9 +29,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   @property({ type: String })
   name = ''
-
-  @property({ type: String })
-  type = 'text'
 
   @property({ type: String })
   placeholder = ''
@@ -94,6 +93,12 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @state()
   private debounceTimer: NodeJS.Timeout
 
+  @state()
+  private resultsParsed: SearchResult[] = []
+
+  @state()
+  private searchTerm = ''
+
   private defaultInputStyles = `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-10
     border-solid h-[48px] placeholder:text-neutral-70
     outline-none transition transition-all duration-150 appearance-none rounded-12`
@@ -102,7 +107,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     return html`
       <input
         name=${this.name}
-        type=${this.type as any}
+        type="text"
         .value=${this.value}
         placeholder=${this.placeholder}
         ?autofocus=${this.autofocus}
@@ -159,48 +164,82 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   resultsTemplate() {
-    const resultTemplates = []
+    const resultTemplates: TemplateResult<1>[] = []
+    this.resultsParsed = JSON.parse(this.results) as SearchResult[]
 
-    // hide results dropdown unless user is calling no-results template or no no-results text is provided
-    if (
-      (this.results === '' && !this.showNoResults) ||
-      (this.showNoResults && !this.noResultsText)
-    ) {
-      return html``
-    }
-
-    if (this.showNoResults) {
-      resultTemplates.push(this.resultEmptyTemplate())
-    } else {
-      const results = JSON.parse(this.results) as StringResult[]
-
-      for (const result of Object.entries(results)) {
-        if ('value' in result[1]) {
-          // StringResult dropdown
-          resultTemplates.push(this.resultStringTemplate(result[1]))
-        } else if ('address' in result[1]) {
-          // ProfileResult dropdown
-          resultTemplates.push(this.resultProfileTemplate(result[1]))
-        } else {
-          console.error('Unknown result type', result)
-        }
+    for (const result of Object.entries(this.resultsParsed)) {
+      if ('value' in result[1]) {
+        // StringResult dropdown
+        resultTemplates.push(this.resultStringTemplate(result[1]))
+      } else if ('address' in result[1]) {
+        // ProfileResult dropdown
+        resultTemplates.push(this.resultProfileTemplate(result[1]))
+      } else {
+        console.error('Unknown result type', result)
       }
     }
 
+    return html`${this.dropdownWrapperTemplate(resultTemplates)}`
+  }
+
+  noResultsTemplate() {
+    return html`${this.dropdownWrapperTemplate(
+      html`<div class="paragraph-inter-14-semi-bold text-neutral-20 pl-1">
+        ${this.noResultsText}
+      </div>`
+    )}`
+  }
+
+  loadingTemplate() {
+    // when `showNoResults` is enabled we show just one placeholder line
+    if (this.showNoResults) {
+      return html`${this.dropdownWrapperTemplate(html`
+        <div role="status" class="flex flex-col gap-1">
+          <div
+            class="h-10 bg-neutral-95 w-full rounded-8 animate-pulse animation-delay-none"
+          ></div>
+        </div>
+      `)}`
+    }
+
+    // when no results or there is more then dropdown size we show 5 placeholder lines
+    if (this.resultsParsed.length === 0 || this.resultsParsed.length > 5) {
+      return html`${this.dropdownWrapperTemplate(html`
+        <div role="status" class="flex flex-col gap-1">
+          ${[...Array(5)].map(
+            () =>
+              html`<div
+                class="h-10 bg-neutral-95 w-full rounded-8 animate-pulse animation-delay-none"
+              ></div>`
+          )}
+        </div>
+      `)}`
+    }
+
+    // when show placeholder lines based on the number of results
+    return html`${this.dropdownWrapperTemplate(html`
+      <div role="status" class="flex flex-col gap-1">
+        ${this.resultsParsed.map(
+          () =>
+            html`<div
+              class="h-10 bg-neutral-95 w-full rounded-8 animate-pulse animation-delay-none"
+            ></div>`
+        )}
+      </div>
+    `)}`
+  }
+
+  dropdownWrapperTemplate(
+    innerTemplate: TemplateResult<1> | TemplateResult<1>[]
+  ) {
     return html`<div
       class="bg-neutral-100 border border-neutral-90 shadow-1xl rounded-12 p-3 mt-2 z-50 flex absolute w-full flex-col gap-1 overflow-y-auto max-h-64"
     >
-      ${resultTemplates}
+      ${innerTemplate}
     </div>`
   }
 
-  resultEmptyTemplate() {
-    return html`<div class="paragraph-inter-14-semi-bold text-neutral-20 pl-1">
-      ${this.noResultsText}
-    </div>`
-  }
-
-  resultStringTemplate(result: StringResult) {
+  resultStringTemplate(result: SearchStringResult) {
     return html`<div
       data-id="${result.id}"
       class="paragraph-inter-14-regular text-neutral-20 cursor-pointer hover:bg-neutral-98 rounded-8 p-2"
@@ -210,7 +249,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </div>`
   }
 
-  resultProfileTemplate(result: ProfileResult) {
+  resultProfileTemplate(result: SearchProfileResult) {
     return html`<div
       data-id="${result.address}"
       class="cursor-pointer hover:bg-neutral-98 rounded-8 p-2 flex gap-2 items-center"
@@ -232,7 +271,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </div>`
   }
 
-  private handleSelect(result: StringResult | ProfileResult) {
+  private handleSelect(result: SearchResult) {
     const selectEvent = new CustomEvent('on-select', {
       detail: {
         value: result,
@@ -250,12 +289,23 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     }
   }
 
-  private handleBlur() {
+  private handleBlur(event: FocusEvent) {
     this.hasFocus = false
     this.hasHighlight = false
+    const target = event.target as HTMLInputElement
+    const blurEvent = new CustomEvent('on-blur', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(blurEvent)
   }
 
   private searchDebounce(searchTerm: string) {
+    this.value = searchTerm
     this.debounceTimer = setTimeout(() => {
       const changeEvent = new CustomEvent('on-search', {
         detail: {
@@ -300,20 +350,27 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         <div class="flex relative items-center">
           ${this.inputTemplate()}
           <lukso-icon
-            name="${this.isSearching || this.isDebouncing
-              ? 'spinner'
-              : 'search'}"
+            name="search"
             class="absolute right-0 mr-3 ${customClassMap({
               ['opacity-60 cursor-not-allowed']: this.isDisabled,
               ['cursor-not-allowed']: this.isReadonly,
-              ['animate-spin']: this.isSearching || this.isDebouncing,
             })}"
             @mouseenter=${this.handleMouseOver}
           ></lukso-icon>
         </div>
-        ${this.results || (this.showNoResults && this.hasFocus)
+        <!-- results dropdown -->
+        ${this.results && !(this.isSearching || this.isDebouncing)
           ? this.resultsTemplate()
           : nothing}
+        <!-- no results dropdown -->
+        ${this.showNoResults && !(this.isSearching || this.isDebouncing)
+          ? this.noResultsTemplate()
+          : nothing}
+        <!-- loading dropdown -->
+        ${this.value && (this.isSearching || this.isDebouncing)
+          ? this.loadingTemplate()
+          : nothing}
+        <!-- error -->
         ${this.error ? this.errorTemplate() : nothing}
       </div>
     `

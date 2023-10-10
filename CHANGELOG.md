@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.43.0](https://github.com/lukso-network/tools-web-components/compare/v1.42.0...v1.43.0) (2023-10-09)
+
+
+### Features
+
+* `lukso-search` loading changes ([#235](https://github.com/lukso-network/tools-web-components/issues/235)) ([b76a165](https://github.com/lukso-network/tools-web-components/commit/b76a1656b1482d7b118a61c5715b06e8d724bdf0))
+
+
+### Bug Fixes
+
+* issue with overflow card ([#233](https://github.com/lukso-network/tools-web-components/issues/233)) ([638fe1e](https://github.com/lukso-network/tools-web-components/commit/638fe1e85b766838604db33c038002df79754401))
+
 ## [1.42.0](https://github.com/lukso-network/tools-web-components/compare/v1.41.0...v1.42.0) (2023-10-03)
 
 

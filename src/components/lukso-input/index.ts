@@ -178,9 +178,10 @@ export class LuksoInput extends TailwindElement {
     }
   }
 
-  private handleBlur(event: FocusEvent) {
+  private async handleBlur(event: FocusEvent) {
     this.hasHocus = false
     this.hasHighlight = false
+    await this.updateComplete
     const target = event.target as HTMLInputElement
     const blurEvent = new CustomEvent('on-blur', {
       detail: {
@@ -193,7 +194,8 @@ export class LuksoInput extends TailwindElement {
     this.dispatchEvent(blurEvent)
   }
 
-  private handleChange(event: Event) {
+  private async handleChange(event: Event) {
+    await this.updateComplete
     const target = event.target as HTMLInputElement
     const changeEvent = new CustomEvent('on-change', {
       detail: {
@@ -206,8 +208,10 @@ export class LuksoInput extends TailwindElement {
     this.dispatchEvent(changeEvent)
   }
 
-  private handleInput(event: Event) {
+  private async handleInput(event: Event) {
     const target = event.target as HTMLInputElement
+    this.value = target.value
+    await this.updateComplete
     const changeEvent = new CustomEvent('on-input', {
       detail: {
         value: target.value,
@@ -219,7 +223,8 @@ export class LuksoInput extends TailwindElement {
     this.dispatchEvent(changeEvent)
   }
 
-  private handleKeyUp(event: KeyboardEvent) {
+  private async handleKeyUp(event: KeyboardEvent) {
+    await this.updateComplete
     const target = event.target as HTMLInputElement
     const keyEvent = new CustomEvent('on-key-up', {
       detail: {
@@ -232,7 +237,8 @@ export class LuksoInput extends TailwindElement {
     this.dispatchEvent(keyEvent)
   }
 
-  private handleKeyDown(event: KeyboardEvent) {
+  private async handleKeyDown(event: KeyboardEvent) {
+    await this.updateComplete
     const target = event.target as HTMLInputElement
     const keyEvent = new CustomEvent('on-key-down', {
       detail: {
@@ -245,7 +251,8 @@ export class LuksoInput extends TailwindElement {
     this.dispatchEvent(keyEvent)
   }
 
-  private handleKeyPress(event: KeyboardEvent) {
+  private async handleKeyPress(event: KeyboardEvent) {
+    await this.updateComplete
     const target = event.target as HTMLInputElement
     const keyEvent = new CustomEvent('on-key-press', {
       detail: {

@@ -81,6 +81,26 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'show-no-results' })
   showNoResults = false
 
+  @property({
+    hasChanged(newVal: number, oldVal: number) {
+      const selectedOption = document.activeElement?.shadowRoot?.querySelector(
+        `[data-index="${newVal}"`
+      )
+
+      if (selectedOption) {
+        // when user navigate through options we scroll to the selected option
+        selectedOption.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest',
+        })
+      }
+
+      return newVal !== oldVal
+    },
+  })
+  selected = undefined
+
   @state()
   private hasFocus = false
 
@@ -133,6 +153,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         @focus=${this.handleFocus}
         @input=${this.handleSearch}
         @blur=${this.handleBlur}
+        @click=${this.handleInputClick}
         @mouseenter=${this.handleMouseOver}
         @mouseleave=${this.handleMouseOut}
       />
@@ -168,12 +189,14 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.resultsParsed = JSON.parse(this.results) as SearchResult[]
 
     for (const result of Object.entries(this.resultsParsed)) {
+      const index = Number(result[0])
+
       if ('value' in result[1]) {
         // StringResult dropdown
-        resultTemplates.push(this.resultStringTemplate(result[1]))
+        resultTemplates.push(this.resultStringTemplate(result[1], index))
       } else if ('address' in result[1]) {
         // ProfileResult dropdown
-        resultTemplates.push(this.resultProfileTemplate(result[1]))
+        resultTemplates.push(this.resultProfileTemplate(result[1], index))
       } else {
         console.error('Unknown result type', result)
       }
@@ -239,20 +262,30 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </div>`
   }
 
-  resultStringTemplate(result: SearchStringResult) {
+  resultStringTemplate(result: SearchStringResult, index: number) {
     return html`<div
       data-id="${result.id}"
-      class="paragraph-inter-14-regular text-neutral-20 cursor-pointer hover:bg-neutral-98 rounded-8 p-2"
+      data-index="${index + 1}"
+      class="paragraph-inter-14-regular text-neutral-20 cursor-pointer hover:bg-neutral-98 rounded-8 p-2 ${customClassMap(
+        {
+          ['bg-neutral-98']: this.selected === index + 1,
+        }
+      )}'"
       @click=${() => this.handleSelect(result)}
     >
       ${result.value}
     </div>`
   }
 
-  resultProfileTemplate(result: SearchProfileResult) {
+  resultProfileTemplate(result: SearchProfileResult, index: number) {
     return html`<div
       data-id="${result.address}"
-      class="cursor-pointer hover:bg-neutral-98 rounded-8 p-2 flex gap-2 items-center"
+      data-index="${index + 1}"
+      class="cursor-pointer hover:bg-neutral-98 rounded-8 p-2 flex gap-2 items-center ${customClassMap(
+        {
+          ['bg-neutral-98']: this.selected === index + 1,
+        }
+      )}"
       @click=${() => this.handleSelect(result)}
     >
       <lukso-profile
@@ -302,6 +335,19 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       composed: true,
     })
     this.dispatchEvent(blurEvent)
+  }
+
+  private handleInputClick(event: MouseEvent) {
+    const target = event.target as HTMLInputElement
+    const clickEvent = new CustomEvent('on-input-click', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(clickEvent)
   }
 
   private searchDebounce(searchTerm: string) {

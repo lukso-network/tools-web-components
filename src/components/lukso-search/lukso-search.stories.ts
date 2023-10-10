@@ -131,6 +131,12 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    selected: {
+      control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onSearch: {
       name: 'on-search',
       description: 'Emitted on search.',
@@ -207,6 +213,7 @@ const meta: Meta = {
     isSearching: false,
     showNoResults: false,
     noResultsText: 'No results found...',
+    selected: undefined,
   },
   parameters: {
     controls: {
@@ -258,6 +265,7 @@ const Template = ({
   noResultsText,
   margin,
   onBlur,
+  selected,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -305,6 +313,7 @@ const Template = ({
     ?is-searching=${isSearching}
     no-results-text=${noResultsText}
     ?show-no-results=${showNoResults}
+    selected=${selected ? selected : nothing}
     @on-search=${onSearch}
     @on-select=${onSelect}
     @on-blur=${onBlur}
@@ -359,4 +368,11 @@ NoResults.args = {
   noResultsText: 'Oops, nothing here...',
   results: undefined,
   margin: 50,
+}
+
+/** Example of selected option.  */
+export const SelectedOption = Template.bind({})
+SelectedOption.args = {
+  margin: 150,
+  selected: 1,
 }

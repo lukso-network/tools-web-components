@@ -19,9 +19,10 @@ export class LuksoSwitch extends TailwindElement {
   })
   private isDisabled = false
 
-  private handleChange(event: Event) {
-    this.isChecked = !this.isChecked
+  private async handleChange(event: Event) {
     const target = event.target as HTMLInputElement
+    this.isChecked = target.checked
+    await this.updateComplete
     const changeEvent = new CustomEvent('on-change', {
       detail: {
         value: target.checked,

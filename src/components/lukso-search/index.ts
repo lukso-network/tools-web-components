@@ -1,4 +1,4 @@
-import { TemplateResult, html, nothing } from 'lit'
+import { PropertyValues, TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -81,6 +81,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'show-no-results' })
   showNoResults = false
 
+  @property({ type: Number })
+  selected = undefined
+
   @state()
   private hasFocus = false
 
@@ -102,6 +105,23 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   private defaultInputStyles = `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-10
     border-solid h-[48px] placeholder:text-neutral-70
     outline-none transition transition-all duration-150 appearance-none rounded-12`
+
+  willUpdate(changedProperties: PropertyValues<this>) {
+    // for long lists when selected option changes we scroll to it
+    if (changedProperties.has('selected')) {
+      const selectedOption = this.shadowRoot?.querySelector(
+        `[data-index="${changedProperties.get('selected')}"`
+      )
+
+      if (selectedOption) {
+        selectedOption.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest',
+        })
+      }
+    }
+  }
 
   inputTemplate() {
     return html`
@@ -133,6 +153,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         @focus=${this.handleFocus}
         @input=${this.handleSearch}
         @blur=${this.handleBlur}
+        @click=${this.handleInputClick}
         @mouseenter=${this.handleMouseOver}
         @mouseleave=${this.handleMouseOut}
       />
@@ -168,12 +189,14 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.resultsParsed = JSON.parse(this.results) as SearchResult[]
 
     for (const result of Object.entries(this.resultsParsed)) {
+      const index = Number(result[0])
+
       if ('value' in result[1]) {
         // StringResult dropdown
-        resultTemplates.push(this.resultStringTemplate(result[1]))
+        resultTemplates.push(this.resultStringTemplate(result[1], index))
       } else if ('address' in result[1]) {
         // ProfileResult dropdown
-        resultTemplates.push(this.resultProfileTemplate(result[1]))
+        resultTemplates.push(this.resultProfileTemplate(result[1], index))
       } else {
         console.error('Unknown result type', result)
       }
@@ -239,20 +262,30 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </div>`
   }
 
-  resultStringTemplate(result: SearchStringResult) {
+  resultStringTemplate(result: SearchStringResult, index: number) {
     return html`<div
       data-id="${result.id}"
-      class="paragraph-inter-14-regular text-neutral-20 cursor-pointer hover:bg-neutral-98 rounded-8 p-2"
+      data-index="${index + 1}"
+      class="paragraph-inter-14-regular text-neutral-20 cursor-pointer hover:bg-neutral-98 rounded-8 p-2 ${customClassMap(
+        {
+          ['bg-neutral-98']: this.selected === index + 1,
+        }
+      )}'"
       @click=${() => this.handleSelect(result)}
     >
       ${result.value}
     </div>`
   }
 
-  resultProfileTemplate(result: SearchProfileResult) {
+  resultProfileTemplate(result: SearchProfileResult, index: number) {
     return html`<div
       data-id="${result.address}"
-      class="cursor-pointer hover:bg-neutral-98 rounded-8 p-2 flex gap-2 items-center"
+      data-index="${index + 1}"
+      class="cursor-pointer hover:bg-neutral-98 rounded-8 p-2 flex gap-2 items-center ${customClassMap(
+        {
+          ['bg-neutral-98']: this.selected === index + 1,
+        }
+      )}"
       @click=${() => this.handleSelect(result)}
     >
       <lukso-profile
@@ -271,7 +304,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </div>`
   }
 
-  private handleSelect(result: SearchResult) {
+  private async handleSelect(result: SearchResult) {
+    await this.updateComplete
     const selectEvent = new CustomEvent('on-select', {
       detail: {
         value: result,
@@ -289,7 +323,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     }
   }
 
-  private handleBlur(event: FocusEvent) {
+  private async handleBlur(event: FocusEvent) {
+    await this.updateComplete
     this.hasFocus = false
     this.hasHighlight = false
     const target = event.target as HTMLInputElement
@@ -304,7 +339,22 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.dispatchEvent(blurEvent)
   }
 
-  private searchDebounce(searchTerm: string) {
+  private async handleInputClick(event: MouseEvent) {
+    await this.updateComplete
+    const target = event.target as HTMLInputElement
+    const clickEvent = new CustomEvent('on-input-click', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(clickEvent)
+  }
+
+  private async searchDebounce(searchTerm: string) {
+    await this.updateComplete
     this.value = searchTerm
     this.debounceTimer = setTimeout(() => {
       const changeEvent = new CustomEvent('on-search', {

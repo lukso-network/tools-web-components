@@ -304,7 +304,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </div>`
   }
 
-  private handleSelect(result: SearchResult) {
+  private async handleSelect(result: SearchResult) {
+    await this.updateComplete
     const selectEvent = new CustomEvent('on-select', {
       detail: {
         value: result,
@@ -322,7 +323,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     }
   }
 
-  private handleBlur(event: FocusEvent) {
+  private async handleBlur(event: FocusEvent) {
+    await this.updateComplete
     this.hasFocus = false
     this.hasHighlight = false
     const target = event.target as HTMLInputElement
@@ -337,7 +339,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.dispatchEvent(blurEvent)
   }
 
-  private handleInputClick(event: MouseEvent) {
+  private async handleInputClick(event: MouseEvent) {
+    await this.updateComplete
     const target = event.target as HTMLInputElement
     const clickEvent = new CustomEvent('on-input-click', {
       detail: {
@@ -350,7 +353,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.dispatchEvent(clickEvent)
   }
 
-  private searchDebounce(searchTerm: string) {
+  private async searchDebounce(searchTerm: string) {
+    await this.updateComplete
     this.value = searchTerm
     this.debounceTimer = setTimeout(() => {
       const changeEvent = new CustomEvent('on-search', {

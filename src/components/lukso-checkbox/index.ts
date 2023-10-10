@@ -175,9 +175,10 @@ export class LuksoCheckbox extends TailwindElement {
     `
   }
 
-  private handleChange(event: Event) {
+  private async handleChange(event: Event) {
     const target = event.target as HTMLInputElement
     this.checked = target.checked
+    await this.updateComplete
 
     this.dispatchEvent(
       new CustomEvent('on-change', {

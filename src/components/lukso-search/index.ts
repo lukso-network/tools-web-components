@@ -1,4 +1,4 @@
-import { TemplateResult, html, nothing } from 'lit'
+import { PropertyValues, TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -81,24 +81,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'show-no-results' })
   showNoResults = false
 
-  @property({
-    hasChanged(newVal: number, oldVal: number) {
-      const selectedOption = document.activeElement?.shadowRoot?.querySelector(
-        `[data-index="${newVal}"`
-      )
-
-      if (selectedOption) {
-        // when user navigate through options we scroll to the selected option
-        selectedOption.scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
-          inline: 'nearest',
-        })
-      }
-
-      return newVal !== oldVal
-    },
-  })
+  @property({ type: Number })
   selected = undefined
 
   @state()
@@ -122,6 +105,23 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   private defaultInputStyles = `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-10
     border-solid h-[48px] placeholder:text-neutral-70
     outline-none transition transition-all duration-150 appearance-none rounded-12`
+
+  willUpdate(changedProperties: PropertyValues<this>) {
+    // for ling lists when selected option changes we scroll to it
+    if (changedProperties.has('selected')) {
+      const selectedOption = this.shadowRoot?.querySelector(
+        `[data-index="${changedProperties.get('selected')}"`
+      )
+
+      if (selectedOption) {
+        selectedOption.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest',
+        })
+      }
+    }
+  }
 
   inputTemplate() {
     return html`

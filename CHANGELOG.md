@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.44.0](https://github.com/lukso-network/tools-web-components/compare/v1.43.0...v1.44.0) (2023-10-10)
+
+
+### Features
+
+* add `selected` option in search ([#239](https://github.com/lukso-network/tools-web-components/issues/239)) ([6638ea1](https://github.com/lukso-network/tools-web-components/commit/6638ea1cc6178ecb086d9914b48a797dc438e718))
+
+
+### Bug Fixes
+
+* Repair event handlers for checkbox, switch and input ([#236](https://github.com/lukso-network/tools-web-components/issues/236)) ([5e79db8](https://github.com/lukso-network/tools-web-components/commit/5e79db82fe7f006ba27b2c8277a95dfb9bdf9de9))
+
 ## [1.43.0](https://github.com/lukso-network/tools-web-components/compare/v1.42.0...v1.43.0) (2023-10-09)
 
 

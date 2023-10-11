@@ -126,6 +126,7 @@ module.exports = {
         'wizard-line': 'inset 0px 0px 2px rgba(0, 0, 0, 0.14)',
       },
       fontSize: {
+        6: '6px',
         8: '8px',
         10: '10px',
         12: '12px',

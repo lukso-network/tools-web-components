@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
 
-export type Provider =
+export type ProviderName =
   | 'twitter'
   | 'instagram'
   | 'linkedin'
@@ -17,7 +17,12 @@ export type Provider =
 export type Url = `https://${string}`
 
 export type ProviderLinks = {
-  [key in Provider]: Url
+  [key in ProviderName]: Url
+}
+
+export type ProviderObject = {
+  name: ProviderName
+  url: Url
 }
 
 @customElement('lukso-share')
@@ -26,7 +31,7 @@ export class LuksoShare extends TailwindStyledElement(style) {
   customStyle = ''
 
   @property({ type: Array })
-  providers: Provider[] = [
+  providers: ProviderName[] | ProviderObject[] = [
     'twitter',
     'instagram',
     'linkedin',
@@ -37,8 +42,8 @@ export class LuksoShare extends TailwindStyledElement(style) {
     'github',
   ]
 
-  private urls: ProviderLinks = {
-    twitter: 'https://twitter.com/lukso_io',
+  private defaultProviderLinks: ProviderLinks = {
+    twitter: 'https://twitter.com/ERC725Account',
     instagram: 'https://www.instagram.com/lukso',
     linkedin: 'https://linkedin.com/company/lukso',
     telegram: 'https://t.me/LUKSO_News',
@@ -48,7 +53,7 @@ export class LuksoShare extends TailwindStyledElement(style) {
     github: 'https://github.com/lukso-network',
   }
 
-  linkTemplate(name: Provider, url: Url) {
+  linkTemplate(name: ProviderName, url: Url) {
     return html`<a
       href=${url}
       target="_blank"
@@ -61,7 +66,13 @@ export class LuksoShare extends TailwindStyledElement(style) {
     const linkTemplates = []
 
     for (const provider of this.providers) {
-      linkTemplates.push(this.linkTemplate(provider, this.urls[provider]))
+      if (typeof provider === 'string') {
+        linkTemplates.push(
+          this.linkTemplate(provider, this.defaultProviderLinks[provider])
+        )
+      } else {
+        linkTemplates.push(this.linkTemplate(provider.name, provider.url))
+      }
     }
 
     return html`<div

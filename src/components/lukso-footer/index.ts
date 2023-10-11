@@ -3,12 +3,12 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 import '@/components/lukso-share'
-import { Provider } from '@/components/lukso-share'
+import { ProviderName, ProviderObject } from '@/components/lukso-share'
 
 @customElement('lukso-footer')
 export class LuksoFooter extends TailwindElement {
   @property({ type: Array })
-  providers: Provider[] = [
+  providers: ProviderName[] | ProviderObject[] = [
     'twitter',
     'instagram',
     'linkedin',
@@ -26,7 +26,7 @@ export class LuksoFooter extends TailwindElement {
           class="p-10 grid gap-8 items-center lg:grid-cols-[auto,max-content]"
         >
           <slot name="links"></slot>
-          <div class="flex sm:justify-between gap-4 flex-col sm:flex-row">
+          <div class="flex gap-5 flex-col sm:flex-row sm:justify-between">
             <lukso-share
               providers=${JSON.stringify(this.providers)}
             ></lukso-share>
@@ -34,13 +34,16 @@ export class LuksoFooter extends TailwindElement {
               <a
                 href="https://lukso.network/"
                 target="_blank"
-                class="flex flex-col opacity-50 text-neutral-30 transition-opacity hover:opacity-80 sm:text-right"
+                class="flex flex-col opacity-50 text-neutral-30 transition-opacity hover:opacity-80"
               >
-                <span class="paragraph-inter-10-semi-bold">Powered by</span>
+                <span
+                  class="text-6 not-italic font-600 leading-[7.26px] font-inter"
+                  >Powered by</span
+                >
                 <img
                   src="/assets/images/lukso-logo.svg"
                   alt="LUKSO"
-                  class="h-4"
+                  class="h-4 mt-[1px]"
                 />
               </a>
             </div>

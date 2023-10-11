@@ -55,21 +55,9 @@ const Template = ({ providers }) =>
         >
           NEED HELP?
         </a>
-        <a
-          href=""
-          class="nav-apax-12-medium-uppercase text-purple-41 hover:underline hover:text-purple-31"
-        >
-          GITHUB
-        </a>
       </div>
       <div class="hidden w-0.5 h-4 bg-purple-63 xl:block"></div>
       <div class="flex gap-10">
-        <a
-          href=""
-          class="nav-apax-12-medium-uppercase text-purple-41/70 hover:underline hover:text-purple-31/70"
-        >
-          PRIVACY POLICY
-        </a>
         <a
           href=""
           class="nav-apax-12-medium-uppercase text-purple-41/70 hover:underline hover:text-purple-31/70"

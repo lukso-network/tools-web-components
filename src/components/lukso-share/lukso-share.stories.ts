@@ -33,7 +33,12 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['linkTemplate', 'urls', 'customStyle', 'styles'],
+      exclude: [
+        'linkTemplate',
+        'defaultProviderLinks',
+        'customStyle',
+        'styles',
+      ],
     },
     design: {
       type: 'figma',
@@ -63,4 +68,18 @@ CustomStyle.args = {
 export const LimitProviders = Template.bind({})
 LimitProviders.args = {
   providers: ['instagram', 'linkedin', 'twitter'],
+}
+
+/** If you want overwrite default provider link instead of using just `ProviderName` then pass it as the `ProviderObject`:
+ *
+```json
+{
+  name: 'twitter',
+  url: 'https://twitter.com/lukso_io'
+}
+```
+*/
+export const CustomProviderLink = Template.bind({})
+CustomProviderLink.args = {
+  providers: [{ name: 'twitter', url: 'https://twitter.com/lukso_io' }],
 }

@@ -7,7 +7,11 @@ import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 
 export type ProfileSize = 'x-small' | 'small' | 'medium' | 'large' | 'x-large'
-type SizeDef = { identiconSize?: number; profileImageSize: number }
+type SizeDef = {
+  identiconSize: number
+  profileImageSize: number
+  squareRounding: number
+}
 
 @customElement('lukso-profile')
 export class LuksoProfile extends TailwindElement {
@@ -23,26 +27,34 @@ export class LuksoProfile extends TailwindElement {
   @property({ type: String })
   size: ProfileSize = 'large'
 
+  @property({ type: Boolean, attribute: 'is-square' })
+  isSquare = false
+
   sizes: Record<ProfileSize, SizeDef> = {
     'x-small': {
       identiconSize: 12,
       profileImageSize: 24,
+      squareRounding: 2,
     },
     small: {
       identiconSize: 16,
       profileImageSize: 40,
+      squareRounding: 4,
     },
     medium: {
       identiconSize: 20,
       profileImageSize: 56,
+      squareRounding: 8,
     },
     large: {
       identiconSize: 24,
       profileImageSize: 80,
+      squareRounding: 10,
     },
     'x-large': {
       identiconSize: 28,
       profileImageSize: 96,
+      squareRounding: 12,
     },
   }
 
@@ -52,6 +64,10 @@ export class LuksoProfile extends TailwindElement {
 
   private identiconSize() {
     return this.sizes[this.size].identiconSize
+  }
+
+  private squareRoundingSize() {
+    return this.sizes[this.size].squareRounding
   }
 
   private defaultProfileUrl = '/assets/images/profile-default.svg'
@@ -70,8 +86,11 @@ export class LuksoProfile extends TailwindElement {
           backgroundImage: `url(${this.defaultProfileUrl})`,
           width: `${this.profileImageSize()}px`,
           height: `${this.profileImageSize()}px`,
+          borderRadius: `${
+            this.isSquare ? this.squareRoundingSize() + 'px' : '50%'
+          }`,
         })}
-        class="rounded-full bg-[50%] bg-no-repeat bg-cover bg-neutral-90
+        class="bg-[50%] bg-no-repeat bg-cover bg-neutral-90
           outline outline-2 outline-neutral-100"
       >
         <div
@@ -79,8 +98,11 @@ export class LuksoProfile extends TailwindElement {
             backgroundImage: `url(${this.profileUrl})`,
             width: `${this.profileImageSize()}px`,
             height: `${this.profileImageSize()}px`,
+            borderRadius: `${
+              this.isSquare ? this.squareRoundingSize() + 'px' : '50%'
+            }`,
           })}
-          class="rounded-full bg-[50%] bg-no-repeat bg-cover relative
+          class="bg-[50%] bg-no-repeat bg-cover relative
           "
         >
           ${this.identicon()

@@ -1,13 +1,13 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { Meta } from '@storybook/web-components'
 
 import './index'
 
 /**
  *  Documentation and examples of `lukso-profile` component.
- *  Profiles comes in `x-small`, `small`, `medium`, `large` and `x-large` size that is set in `size` property.
- *  Identicon is generated using `ethereum-blockies-base64` library from `profile-Address` property.
- *  To show profile picture pass valid url in `profile-url` property.
+ *  Profiles comes in `x-small`, `small`, `medium`, `large` and `x-large` size that is set in `size` attribute.
+ *  Identicon is generated using `ethereum-blockies-base64` library from `profile-Address` attribute.
+ *  To show profile picture pass valid url in `profile-url` attribute.
  */
 const meta: Meta = {
   title: 'Design System/Components/lukso-profile',
@@ -43,6 +43,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isSquare: {
+      name: 'is-square',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'profile-url': {
       name: 'profileUrl',
     },
@@ -52,12 +59,16 @@ const meta: Meta = {
     'has-identicon': {
       name: 'hasIdenticon',
     },
+    'is-square': {
+      name: 'isSquare',
+    },
   },
   args: {
-    profileUrl: 'images/sample-avatar.png',
+    profileUrl: 'images/sample-avatar.jpg',
     size: 'x-large',
     profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
     hasIdenticon: true,
+    isSquare: false,
   },
   parameters: {
     controls: {
@@ -70,6 +81,7 @@ const meta: Meta = {
         'profileAddress',
         'hasIdenticon',
         'defaultProfileUrl',
+        'isSquare',
       ],
     },
     design: {
@@ -81,12 +93,19 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ profileUrl, size, profileAddress, hasIdenticon }) =>
+const Template = ({
+  profileUrl,
+  size,
+  profileAddress,
+  hasIdenticon,
+  isSquare,
+}) =>
   html`<lukso-profile
-    profile-url=${profileUrl}
-    size=${size}
-    profile-address=${profileAddress}
+    profile-url=${profileUrl ? profileUrl : nothing}
+    size=${size ? size : nothing}
+    profile-address=${profileAddress ? profileAddress : nothing}
     ?has-identicon=${hasIdenticon}
+    ?is-square=${isSquare}
   ></lukso-profile>`
 
 /** Example of `x-large` profile in `96x96` pixel size.*/
@@ -125,8 +144,14 @@ Unknown.args = {
   profileUrl: '',
 }
 
-/** You can also control if identicon should be visible with `has-identicon` property. */
+/** You can also control if identicon should be visible with `has-identicon` attribute. */
 export const NoIdenticon = Template.bind({})
 NoIdenticon.args = {
   hasIdenticon: false,
+}
+
+/** You can also show square profile using `is-square` attribute. */
+export const Square = Template.bind({})
+Square.args = {
+  isSquare: true,
 }

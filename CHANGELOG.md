@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.46.0](https://github.com/lukso-network/tools-web-components/compare/v1.45.0...v1.46.0) (2023-10-12)
+
+
+### Features
+
+* Add square profile ([#244](https://github.com/lukso-network/tools-web-components/issues/244)) ([862a757](https://github.com/lukso-network/tools-web-components/commit/862a757996c5f69b32ed80f48ef79dd7a9d94aff))
+
+
+### Bug Fixes
+
+* update github svg ([d3ef4d4](https://github.com/lukso-network/tools-web-components/commit/d3ef4d4c00ab1a6206bce449088011d06ff539aa))
+* update github svg ([#242](https://github.com/lukso-network/tools-web-components/issues/242)) ([2ffd8ec](https://github.com/lukso-network/tools-web-components/commit/2ffd8eccfaca8906e7f21d8d2f7796858ed71ec7))
+
 ## [1.45.0](https://github.com/lukso-network/tools-web-components/compare/v1.44.0...v1.45.0) (2023-10-11)
 
 

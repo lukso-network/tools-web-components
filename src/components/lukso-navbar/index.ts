@@ -65,7 +65,7 @@ export class LuksoNavbar extends TailwindElement {
 
   desktopMenuTemplate() {
     return html`<div
-      class="w-full items-center justify-end pr-10 no-underline hidden md:flex"
+      class="items-center justify-end pr-10 no-underline hidden md:flex"
     >
       <slot name="desktop"></slot>
     </div>`

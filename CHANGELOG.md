@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.47.0](https://github.com/lukso-network/tools-web-components/compare/v1.46.0...v1.47.0) (2023-10-13)
+
+
+### Features
+
+* Allow to click nav icon ([#245](https://github.com/lukso-network/tools-web-components/issues/245)) ([74127eb](https://github.com/lukso-network/tools-web-components/commit/74127eb02b431b16ca73d1747dc9e8a9f75bfddc))
+
 ## [1.46.0](https://github.com/lukso-network/tools-web-components/compare/v1.45.0...v1.46.0) (2023-10-12)
 
 

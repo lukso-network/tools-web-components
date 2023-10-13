@@ -51,6 +51,14 @@ export class LuksoNavbar extends TailwindElement {
     this.dispatchEvent(event)
   }
 
+  private handleIconClick() {
+    const event = new CustomEvent('on-icon-click', {
+      bubbles: true,
+      composed: true,
+    })
+    this.dispatchEvent(event)
+  }
+
   private handleMenuToggle() {
     this.isMenuOpen = !this.isMenuOpen
   }
@@ -64,9 +72,7 @@ export class LuksoNavbar extends TailwindElement {
   }
 
   mobileMenuTemplate() {
-    return html`<div
-      class="w-full items-center justify-end pr-6 flex md:hidden"
-    >
+    return html`<div class="items-center justify-end pr-6 flex md:hidden">
       <div
         class="flex items-center justify-center w-8 h-8 cursor-pointer"
         @click=${this.handleMenuToggle}
@@ -102,35 +108,43 @@ export class LuksoNavbar extends TailwindElement {
         class="bg-neutral-100 shadow-pink-drop-shadow h-78 flex
         ${customClassMap({
           [this.centerStyles]: this.isCenter,
+          ['justify-between']: !this.isCenter,
           [this.stickyStyles]: this.isSticky,
           [this.transparentStyles]: this.isTransparent,
         })}"
       >
-        <div
-          class="flex items-center px-7 h-full cursor-pointer sm:px-10"
-          @click=${this.handleBrandClick}
-        >
-          <img
-            src="${this.logoUrl || this.defaultLogoUrl}"
-            class="mr-2 h-[26px]"
-          />
+        <div class="flex items-center px-7 h-full sm:px-10">
           <div
-            class="text-purple-51 nav-apax-14-medium-uppercase
-              whitespace-pre-line flex leading-none hover:text-purple-41"
+            class="flex cursor-pointer group"
+            @click=${this.handleBrandClick}
           >
-            <span>${this.title}</span>
+            <img
+              src="${this.logoUrl || this.defaultLogoUrl}"
+              class="mr-2 h-[26px]"
+            />
+            <div
+              class="text-purple-51 nav-apax-14-medium-uppercase
+                whitespace-pre-line flex leading-none transition group-hover:text-purple-41"
+            >
+              <span>${this.title}</span>
+            </div>
+            ${this.isTestnet
+              ? html`<lukso-tag background-color="yellow-65" class="ml-2">
+                  TESTNET
+                </lukso-tag>`
+              : ''}
           </div>
-          ${this.isTestnet
-            ? html`<lukso-tag background-color="yellow-65" class="ml-2">
-                TESTNET
-              </lukso-tag>`
-            : ''}
           ${this.icon
-            ? html`<lukso-icon
-                class="border-l border-l-purple-82 h-7 items-center pl-3 ml-3"
-                name="${this.icon}"
-                color="purple-51"
-              ></lukso-icon>`
+            ? html`<div
+                class="flex border-l border-l-purple-82 h-7 items-center pl-3 ml-3"
+              >
+                <lukso-icon
+                  class="transition cursor-pointer hover:scale-105"
+                  name="${this.icon}"
+                  color="purple-51"
+                  @click=${this.handleIconClick}
+                ></lukso-icon>
+              </div>`
             : ''}
         </div>
         ${this.isCenter

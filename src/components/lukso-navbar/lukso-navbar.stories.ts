@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { Meta } from '@storybook/web-components'
 
 import './index'
@@ -72,6 +72,14 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    onIconClick: {
+      name: 'on-icon-click',
+      action: 'on-icon-click',
+      description: 'Emitted when icon is clicked',
+      table: {
+        category: 'Events',
+      },
+    },
     'is-center': {
       name: 'isCenter',
     },
@@ -100,7 +108,7 @@ PROFILES`,
     isTestnet: false,
     icon: 'wallet-outline',
     hasMenu: false,
-    logoUrl: undefined,
+    logoUrl: '',
   },
   parameters: {
     controls: {
@@ -116,6 +124,7 @@ PROFILES`,
         'isTestnet',
         'hasMenu',
         'logoUrl',
+        'defaultLogoUrl',
       ],
     },
     design: {
@@ -137,40 +146,19 @@ const Template = ({
   icon,
   hasMenu,
   logoUrl,
+  onIconClick,
 }) =>
   html`<lukso-navbar
-    title=${title}
+    title=${title ? title : nothing}
+    icon=${icon ? icon : nothing}
+    logo-url=${logoUrl ? logoUrl : nothing}
     ?is-center=${isCenter}
     ?is-sticky=${isSticky}
     ?is-transparent=${isTransparent}
     ?is-testnet=${isTestnet}
-    icon=${icon}
     ?has-menu=${hasMenu}
-    logo-url=${logoUrl}
     @on-brand-click=${onBrandClick}
-  ></lukso-navbar>`
-
-const MenuTemplate = ({
-  title,
-  isCenter,
-  isSticky,
-  isTransparent,
-  onBrandClick,
-  isTestnet,
-  icon,
-  hasMenu,
-  logoUrl,
-}) =>
-  html`<lukso-navbar
-    title=${title}
-    ?is-center=${isCenter}
-    ?is-sticky=${isSticky}
-    ?is-transparent=${isTransparent}
-    ?is-testnet=${isTestnet}
-    icon=${icon}
-    ?has-menu=${hasMenu}
-    logo-url=${logoUrl}
-    @on-brand-click=${onBrandClick}
+    @on-icon-click=${onIconClick}
   >
     <div slot="desktop">
       <lukso-button
@@ -204,41 +192,41 @@ const MenuTemplate = ({
     </div>
   </lukso-navbar>`
 
-/** Example of default navbar. It support `@on-brand-click` event that is fired when clicking on the logo/title. */
+/** Example of default navbar.  */
 export const DefaultNavbar = Template.bind({})
 
-/** Example of navbar with logo and title in center. You set this by adding `is-center` property. */
+/** Example of navbar with logo and title in center. You set this by adding `is-center` attribute. */
 export const CenterNavbar = Template.bind({})
 CenterNavbar.args = {
   isCenter: true,
 }
 
-/** Example of navbar with transparent background and no shadow. You set this by adding `is-transparent` property. */
+/** Example of navbar with transparent background and no shadow. You set this by adding `is-transparent` attribute. */
 export const TransparentNavbar = Template.bind({})
 TransparentNavbar.args = {
   isCenter: true,
   isTransparent: true,
 }
 
-/** By default navbar stays at the top of the document. If you want it scroll with the content then ad  `is-sticky` property. */
+/** By default navbar stays at the top of the document. If you want it scroll with the content then ad  `is-sticky` attribute. */
 export const StickyNavbar = Template.bind({})
 StickyNavbar.args = {
   isSticky: true,
 }
 
-/** Navbar with menu. It uses `desktop` and `mobile` slots for menus for different devices. It also require `has-menu` property to be set.  */
-export const NavbarWithMenu = MenuTemplate.bind({})
+/** Navbar with menu. It uses `desktop` and `mobile` slots for menus for different devices. It also require `has-menu` attribute to be set.  */
+export const NavbarWithMenu = Template.bind({})
 NavbarWithMenu.args = {
   hasMenu: true,
 }
 
-/** Example of navbar with testnet badge. You set this by adding `is-testnet` property. */
+/** Example of navbar with testnet badge. You set this by adding `is-testnet` attribute. */
 export const TestnetNavbar = Template.bind({})
 TestnetNavbar.args = {
   isTestnet: true,
 }
 
-/** Example of navbar with custom logo. You set this by adding `logo-url` property. */
+/** Example of navbar with custom logo. You set this by adding `logo-url` attribute. */
 export const CustomLogoNavbar = Template.bind({})
 CustomLogoNavbar.args = {
   logoUrl: '/assets/images/lukso-logo.svg',

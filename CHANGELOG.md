@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.47.1](https://github.com/lukso-network/tools-web-components/compare/v1.47.0...v1.47.1) (2023-10-13)
+
+
+### Bug Fixes
+
+* input update when passing value ([#247](https://github.com/lukso-network/tools-web-components/issues/247)) ([647bae0](https://github.com/lukso-network/tools-web-components/commit/647bae0aaef4314b1e89462a84e3ac7a671232cf))
+* logo issue on desktop ([#248](https://github.com/lukso-network/tools-web-components/issues/248)) ([3610a65](https://github.com/lukso-network/tools-web-components/commit/3610a65f95815bf633ad84aa7bb703a35b4c9cbd))
+
 ## [1.47.0](https://github.com/lukso-network/tools-web-components/compare/v1.46.0...v1.47.0) (2023-10-13)
 
 

@@ -39,6 +39,11 @@ export async function run(argv: any) {
       entry: './src/shared/tools/copy-assets.ts',
     },
     {
+      fileName: 'cn',
+      name: 'tools_cn',
+      entry: './src/shared/tools/cn.ts',
+    },
+    {
       fileName: 'assets/index',
       name: 'tools_assets',
       entry: './src/shared/assets/index.ts',

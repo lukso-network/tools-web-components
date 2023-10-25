@@ -6693,6 +6693,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clsx@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "clsx@npm:2.0.0"
+  checksum: a2cfb2351b254611acf92faa0daf15220f4cd648bdf96ce369d729813b85336993871a4bf6978ddea2b81b5a130478339c20d9d0b5c6fc287e5147f0c059276e
+  languageName: node
+  linkType: hard
+
 "co@npm:^4.6.0":
   version: 4.6.0
   resolution: "co@npm:4.6.0"
@@ -15569,6 +15576,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tailwind-merge@npm:^1.14.0":
+  version: 1.14.0
+  resolution: "tailwind-merge@npm:1.14.0"
+  checksum: 8cf5d37f51b3b32e4bdd5544feaed34357bfba2f64f14834cc4a21ac29b0ae22d7255386467a0f1dadb3e38499389efbbabeddcd0b16571af5a0d346a4921877
+  languageName: node
+  linkType: hard
+
 "tailwindcss@npm:^3.3.3":
   version: 3.3.3
   resolution: "tailwindcss@npm:3.3.3"
@@ -16858,6 +16872,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^6.7.0
     "@typescript-eslint/parser": ^6.7.0
     autoprefixer: ^10.4.15
+    clsx: ^2.0.0
     concurrently: ^8.2.1
     dompurify: ^3.0.5
     eslint: ^8.49.0
@@ -16889,6 +16904,7 @@ __metadata:
     stylelint-config-prettier: ^9.0.5
     stylelint-config-standard-scss: ^11.0.0
     stylelint-prettier: ^4.0.2
+    tailwind-merge: ^1.14.0
     tailwindcss: ^3.3.3
     tinycolor2: ^1.6.0
     ts-node: ^10.9.1

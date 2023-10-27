@@ -3264,6 +3264,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./cn"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./hsl-color-map"
           }
         },

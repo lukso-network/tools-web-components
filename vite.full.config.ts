@@ -202,6 +202,11 @@ async function writePackage() {
       import: './tools/copy-assets.js',
       types: './tools/copy-assets.d.ts',
     },
+    './tools/cn': {
+      require: './tools/cn.cjs',
+      import: './tools/cn.js',
+      types: './tools/cn.d.ts',
+    },
     './tools/': './tools/',
     './tools': {
       require: './tools/index.cjs',

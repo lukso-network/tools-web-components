@@ -64,6 +64,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    headerClass: {
+      name: 'header-class',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium'],
@@ -99,6 +106,9 @@ const meta: Meta = {
     'is-hoverable': {
       name: 'isHoverable',
     },
+    'header-class': {
+      name: 'headerClass',
+    },
   },
   args: {
     variant: 'basic',
@@ -129,6 +139,7 @@ const meta: Meta = {
         'mediumStyles',
         'smallStyles',
         'smallHoverStyles',
+        'headerClass',
       ],
     },
   },
@@ -207,6 +218,7 @@ const ProfileTemplate = ({
   size,
   isHoverable,
   bottom,
+  headerClass,
 }) => html`
   <lukso-card
     variant=${variant}
@@ -218,6 +230,7 @@ const ProfileTemplate = ({
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
+    header-class=${headerClass}
   >
     <div slot="content" class="p-6">${content}</div>
     <div slot="bottom" class="p-6">${bottom}</div>

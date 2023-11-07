@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.48.0](https://github.com/lukso-network/tools-web-components/compare/v1.47.1...v1.48.0) (2023-10-27)
+
+
+### Features
+
+* **DEV-8814:** add cn util fn (tw-merge and clsx) on custom class map and expose it ([#251](https://github.com/lukso-network/tools-web-components/issues/251)) ([97e58ce](https://github.com/lukso-network/tools-web-components/commit/97e58ce4fa204b9f3a5cbc284119ade9add77700))
+
 ## [1.47.1](https://github.com/lukso-network/tools-web-components/compare/v1.47.0...v1.47.1) (2023-10-13)
 
 

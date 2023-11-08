@@ -270,7 +270,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         {
           ['bg-neutral-98']: this.selected === index + 1,
         }
-      )}'"
+      )}"
       @click=${() => this.handleSelect(result)}
     >
       ${result.value}

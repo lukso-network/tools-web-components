@@ -155,30 +155,6 @@ const meta: Meta = {
         id: '3',
         value: 'Third result',
       },
-      {
-        id: '3',
-        value: 'Third result',
-      },
-      {
-        id: '3',
-        value: 'Third result',
-      },
-      {
-        id: '3',
-        value: 'Third result',
-      },
-      {
-        id: '3',
-        value: 'Third result',
-      },
-      {
-        id: '3',
-        value: 'Third result',
-      },
-      {
-        id: '3',
-        value: 'Third result',
-      },
     ],
     selected: undefined,
     openTop: false,

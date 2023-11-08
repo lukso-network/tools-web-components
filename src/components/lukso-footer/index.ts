@@ -2,7 +2,6 @@ import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
-import '@/components/lukso-share'
 import { ProviderName, ProviderObject } from '@/components/lukso-share'
 
 @customElement('lukso-footer')

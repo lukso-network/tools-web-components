@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.49.1](https://github.com/lukso-network/tools-web-components/compare/v1.49.0...v1.49.1) (2023-11-08)
+
+### Bug Fixes
+
+* removed cn function usage on customClassMap ([#256](https://github.com/lukso-network/tools-web-components/issues/256)) ([2883c5b](https://github.com/lukso-network/tools-web-components/commit/2883c5b6ef70911a78cb698925ff2b5ef8848818))
+
 ## [1.49.0](https://github.com/lukso-network/tools-web-components/compare/v1.48.0...v1.49.0) (2023-11-08)
 
 

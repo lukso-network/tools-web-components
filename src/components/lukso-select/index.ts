@@ -231,16 +231,21 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   }
 
   private async handleDropdownKeydown(event: KeyboardEvent) {
-    if (!this.isOpen) {
-      return
-    }
-
-    if (event.key === 'ArrowUp' && this.selected && this.selected > 1) {
+    if (
+      event.key === 'ArrowUp' &&
+      this.selected &&
+      this.selected > 1 &&
+      this.isOpen
+    ) {
       event.preventDefault()
       this.selected = this.selected - 1
     }
 
-    if (event.key === 'ArrowDown' && this.optionsParsed?.length) {
+    if (
+      event.key === 'ArrowDown' &&
+      this.optionsParsed?.length &&
+      this.isOpen
+    ) {
       event.preventDefault()
 
       if (!this.selected) {
@@ -250,7 +255,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       }
     }
 
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && this.isOpen) {
       if (this.optionsParsed?.length && this.selected) {
         const selectedResult = this.optionsParsed[this.selected - 1]
         await this.handleSelect(selectedResult)
@@ -299,7 +304,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
   render() {
     return html`
-      <div class="relative w-full ">
+      <div class="relative w-[inherit]">
         ${this.label ? this.labelTemplate() : nothing}
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class="group">

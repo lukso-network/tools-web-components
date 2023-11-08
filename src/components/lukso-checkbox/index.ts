@@ -47,7 +47,7 @@ export class LuksoCheckbox extends TailwindElement {
 
   private defaultContainerStyles = `
         flex items-center gap-2
-        select-none  
+        select-none
     `
 
   private defaultInputStyles = `

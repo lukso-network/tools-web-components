@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.49.0](https://github.com/lukso-network/tools-web-components/compare/v1.48.0...v1.49.0) (2023-11-08)
+
+
+### Features
+
+* select component ([#254](https://github.com/lukso-network/tools-web-components/issues/254)) ([8f32f3a](https://github.com/lukso-network/tools-web-components/commit/8f32f3a509007401bfa353817aabf893dc77fbc7))
+
 ## [1.48.0](https://github.com/lukso-network/tools-web-components/compare/v1.47.1...v1.48.0) (2023-10-27)
 
 

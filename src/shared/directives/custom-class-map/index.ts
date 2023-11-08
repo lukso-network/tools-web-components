@@ -1,7 +1,5 @@
 import { Directive, directive, PartInfo, PartType } from 'lit/directive.js'
 
-import { cn } from '@/shared/tools/cn'
-
 export interface ClassInfoList {
   readonly [classList: string]: boolean
 }
@@ -22,7 +20,13 @@ export class CustomClassMapDirective extends Directive {
   }
 
   render(classInfoList: ClassInfoList) {
-    return cn(classInfoList)
+    return (
+      ' ' +
+      Object.keys(classInfoList)
+        .filter(key => classInfoList[key])
+        .join(' ') +
+      ' '
+    )
   }
 }
 

@@ -1,11 +1,10 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { styleMap } from 'lit-html/directives/style-map.js'
 import { nothing } from 'lit-html'
 
 import { sliceAddress } from '@/shared/tools/slice-address'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
+import { customClassMap, customStyleMap } from '@/shared/directives'
 import style from './style.scss?inline'
 
 export type UsernameSize = 'x-small' | 'small' | 'medium' | 'large'
@@ -45,46 +44,36 @@ export class LuksoUsername extends TailwindStyledElement(style) {
   /** Width of the first 4 bytes of the address */
   private bytesWidth = 52
 
-  /**
-   * Template for 4byte address
-   * e.g: #1234
-   */
   private addressBytesTemplate() {
     return html`<div
       class="inline-block ${customClassMap({
-        ['text-' + this.addressColor]: this.addressColor !== '',
         ['text-neutral-60']: this.addressColor === '',
       })}"
+      style=${customStyleMap({
+        [`color: var(--${this.addressColor})`]: this.addressColor !== '',
+      })}
     >
       #${this.address.slice(2, 6)}
     </div>`
   }
 
-  /**
-   * Template for name
-   * e.g: @John
-   */
   private nameTemplate() {
     return html`<div
       class="inline-block whitespace-nowrap overflow-hidden text-ellipsis ${customClassMap(
         {
           ['text-transparent bg-clip-text bg-gradient-to-r from-gradient-1-start to-gradient-1-end']:
             this.nameColor === '',
-          ['text-' + this.nameColor]: this.nameColor !== '',
         }
       )}"
-      style=${styleMap({
-        maxWidth: `${this.maxWidth - this.bytesWidth}px`,
+      style=${customStyleMap({
+        [`max-width: ${this.maxWidth - this.bytesWidth}px`]: true,
+        [`color: var(--${this.nameColor})`]: this.nameColor !== '',
       })}
     >
       ${this.hidePrefix ? nothing : this.prefix}${this.name}
     </div>`
   }
 
-  /**
-   * Template for address
-   * e.g: 0x123...789
-   */
   private addressTemplate() {
     return html`<div
       class="inline-block ${customClassMap({

@@ -195,8 +195,8 @@ CustomColor.args = {
 }
 
 /** You can customize prefix with `prefix` attribute. */
-export const CustomPrefixColor = Template.bind({})
-CustomPrefixColor.args = {
+export const CustomPrefix = Template.bind({})
+CustomPrefix.args = {
   prefix: '$',
 }
 

@@ -3,11 +3,14 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 import { ProviderName, ProviderObject } from '@/components/lukso-share'
+import '@/components/lukso-share'
 
 @customElement('lukso-footer')
 export class LuksoFooter extends TailwindElement {
-  @property({ type: Array })
-  providers: ProviderName[] | ProviderObject[] = [
+  @property({ type: String })
+  providers = ''
+
+  private defaultProviders: ProviderName[] | ProviderObject[] = [
     'twitter',
     'instagram',
     'linkedin',
@@ -19,6 +22,14 @@ export class LuksoFooter extends TailwindElement {
   ]
 
   render() {
+    let providers = this.defaultProviders
+
+    try {
+      providers = JSON.parse(this.providers)
+    } catch (error) {
+      // do nothing
+    }
+
     return html`
       <footer class="bg-neutral-100">
         <div
@@ -26,9 +37,7 @@ export class LuksoFooter extends TailwindElement {
         >
           <slot name="links"></slot>
           <div class="flex gap-5 flex-col sm:flex-row sm:justify-between">
-            <lukso-share
-              providers=${JSON.stringify(this.providers)}
-            ></lukso-share>
+            <lukso-share providers=${JSON.stringify(providers)}></lukso-share>
             <div class="flex sm:ml-8 sm:justify-end">
               <a
                 href="https://lukso.network/"

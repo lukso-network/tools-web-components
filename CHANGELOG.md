@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.49.2](https://github.com/lukso-network/tools-web-components/compare/v1.49.1...v1.49.2) (2023-11-10)
+
+
+### Bug Fixes
+
+* color customization for username component ([#258](https://github.com/lukso-network/tools-web-components/issues/258)) ([a9a89ad](https://github.com/lukso-network/tools-web-components/commit/a9a89ad9174db9542e9db3a24a35e68219ff4a72))
+* issue with passing share providers ([#259](https://github.com/lukso-network/tools-web-components/issues/259)) ([99d7b74](https://github.com/lukso-network/tools-web-components/commit/99d7b74860c674bd7bbb79bc5dccdd0ca2b2ca37))
+
 ## [1.49.1](https://github.com/lukso-network/tools-web-components/compare/v1.49.0...v1.49.1) (2023-11-08)
 
 ### Bug Fixes

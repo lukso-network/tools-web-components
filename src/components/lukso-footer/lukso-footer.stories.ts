@@ -15,6 +15,7 @@ const meta: Meta = {
       table: {
         category: 'Attributes',
       },
+      description: 'If no value passed it will use `defaultProviders`',
     },
   },
   args: {

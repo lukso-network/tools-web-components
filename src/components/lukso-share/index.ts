@@ -30,8 +30,10 @@ export class LuksoShare extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'custom-style' })
   customStyle = ''
 
-  @property({ type: Array })
-  providers: ProviderName[] | ProviderObject[] = [
+  @property({ type: String })
+  providers = ''
+
+  private defaultProviders: ProviderName[] | ProviderObject[] = [
     'twitter',
     'instagram',
     'linkedin',
@@ -64,8 +66,15 @@ export class LuksoShare extends TailwindStyledElement(style) {
 
   render() {
     const linkTemplates = []
+    let providers = this.defaultProviders
 
-    for (const provider of this.providers) {
+    try {
+      providers = JSON.parse(this.providers)
+    } catch (error) {
+      // do nothing
+    }
+
+    for (const provider of providers) {
       if (typeof provider === 'string') {
         linkTemplates.push(
           this.linkTemplate(provider, this.defaultProviderLinks[provider])
@@ -77,8 +86,8 @@ export class LuksoShare extends TailwindStyledElement(style) {
 
     return html`<div
       class="grid gap-2 sm:gap-4"
-      style="grid-template-columns: repeat(${this.providers
-        .length}, max-content); ${this.customStyle}"
+      style="grid-template-columns: repeat(${providers.length}, max-content); ${this
+        .customStyle}"
     >
       ${linkTemplates}
     </div>`

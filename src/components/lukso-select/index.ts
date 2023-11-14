@@ -95,7 +95,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       }
     }
 
-    if (changedProperties.has('options')) {
+    if (changedProperties.has('options') && !!this.options) {
       try {
         this.optionsParsed = JSON.parse(this.options) as SelectOption[]
       } catch (error: unknown) {
@@ -103,7 +103,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       }
     }
 
-    if (changedProperties.has('value')) {
+    if (changedProperties.has('value') && !!this.value) {
       try {
         this.valueParsed = JSON.parse(this.value) as SelectOption
       } catch (error: unknown) {

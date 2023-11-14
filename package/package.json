@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.49.1",
+  "version": "1.49.2",
   "type": "module",
   "files": [
     "dist",
@@ -170,6 +170,11 @@
       "import": "./dist/components/lukso-test/index.js",
       "types": "./dist/components/lukso-test/index.d.ts"
     },
+    "./dist/components/lukso-tooltip": {
+      "require": "./dist/components/lukso-tooltip/index.cjs",
+      "import": "./dist/components/lukso-tooltip/index.js",
+      "types": "./dist/components/lukso-tooltip/index.d.ts"
+    },
     "./dist/components/lukso-username": {
       "require": "./dist/components/lukso-username/index.cjs",
       "import": "./dist/components/lukso-username/index.js",
@@ -199,7 +204,8 @@
     ]
   },
   "dependencies": {
-    "ethereum-blockies-base64": "^1.0.2"
+    "ethereum-blockies-base64": "^1.0.2",
+    "tippy.js": "^6.3.7"
   },
   "customElements": "custom-elements.json"
 }

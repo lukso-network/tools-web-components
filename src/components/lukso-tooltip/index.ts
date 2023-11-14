@@ -1,0 +1,137 @@
+import { PropertyValues, html } from 'lit'
+import { customElement, property } from 'lit/decorators.js'
+import tippy from 'tippy.js'
+
+import { TailwindStyledElement } from '@/shared/tailwind-element'
+import style from './style.scss?inline'
+import { customClassMap } from '@/shared/directives'
+
+export type TooltipVariant = 'dark' | 'light' | 'success' | 'danger'
+export type TooltipSize = 'medium' | 'large'
+export type TooltipPlacement =
+  | 'top'
+  | 'top-start'
+  | 'top-end'
+  | 'right'
+  | 'right-start'
+  | 'right-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left'
+  | 'left-start'
+  | 'left-end'
+  | 'auto'
+  | 'auto-start'
+  | 'auto-end'
+export type TooltipTrigger = 'mouseenter' | 'click' | 'manual'
+
+@customElement('lukso-tooltip')
+export class LuksoTooltip extends TailwindStyledElement(style) {
+  @property({ type: String })
+  variant: TooltipVariant = 'dark'
+
+  @property({ type: String })
+  size: TooltipSize = 'medium'
+
+  @property({ type: String })
+  placement: TooltipPlacement = 'top'
+
+  @property({ type: String })
+  trigger: TooltipTrigger = 'mouseenter'
+
+  @property({ type: String })
+  text: string = ''
+
+  @property({ type: Number, attribute: 'max-width' })
+  maxWidth: number = 300
+
+  @property({ type: Boolean })
+  show: boolean = false
+
+  @property({ type: String, attribute: 'hide-on-click' })
+  hideOnClick: string = 'true'
+
+  private defaultTooltipStyles = 'bg-neutral-20 p-4 hidden'
+
+  private tooltipInstance = undefined
+
+  private hideOnClickCheck() {
+    if (this.hideOnClick === 'toggle') {
+      return this.hideOnClick
+    }
+
+    if (this.hideOnClick === 'true') {
+      return true
+    }
+
+    if (this.hideOnClick === 'false') {
+      return false
+    }
+  }
+
+  private initTooltip() {
+    const trigger = this.shadowRoot.getElementById('trigger') as HTMLElement
+    const tooltip = this.shadowRoot.getElementById('tooltip') as HTMLElement
+
+    // if instance already exists, destroy it
+    if (this.tooltipInstance) {
+      this.tooltipInstance.destroy()
+    }
+
+    if (!this.text) {
+      return console.warn('lukso-tooltip: `text` attribute is required')
+    }
+
+    this.tooltipInstance = tippy(trigger, {
+      content: tooltip.innerHTML,
+      allowHTML: true,
+      arrow: true,
+      animation: 'fade',
+      interactive: true,
+      trigger: this.trigger,
+      placement: this.placement,
+      maxWidth: this.maxWidth,
+      theme: `${this.variant}-${this.size}`,
+      hideOnClick: this.hideOnClickCheck(),
+    })
+  }
+
+  async willUpdate(changedProperties: PropertyValues<this>) {
+    await this.updateComplete // wait for the component to be rendered
+
+    // when manually trigger tooltip
+    if (changedProperties.has('show') && this.trigger === 'manual') {
+      if (this.show) {
+        !!!this.tooltipInstance && this.initTooltip()
+        this.tooltipInstance.show()
+      } else {
+        this.tooltipInstance?.hide()
+      }
+      return
+    }
+
+    this.initTooltip()
+  }
+
+  render() {
+    return html`
+      <div
+        id="tooltip"
+        role="tooltip"
+        class=${customClassMap({
+          [this.defaultTooltipStyles]: true,
+        })}
+      >
+        ${this.text}
+      </div>
+      <div id="trigger" class="cursor-pointer"><slot></slot></div>
+    `
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'lukso-tooltip': LuksoTooltip
+  }
+}

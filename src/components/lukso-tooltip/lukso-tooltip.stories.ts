@@ -90,11 +90,47 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isClipboardCopy: {
+      name: 'is-clipboard-copy',
+      control: {
+        type: 'boolean',
+      },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    copyText: {
+      name: 'copy-text',
+      control: {
+        type: 'text',
+      },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    copyValue: {
+      name: 'copy-value',
+      control: {
+        type: 'text',
+      },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'max-width': {
       name: 'maxWidth',
     },
     'hide-on-click': {
       name: 'hideOnClick',
+    },
+    'is-clipboard-copy': {
+      name: 'isClipboardCopy',
+    },
+    'copy-text': {
+      name: 'copyText',
+    },
+    'copy-value': {
+      name: 'copyValue',
     },
   },
   args: {
@@ -106,6 +142,10 @@ const meta: Meta = {
     maxWidth: 300,
     hideOnClick: 'true',
     buttonText: 'Button',
+    show: false,
+    isClipboardCopy: false,
+    copyText: '',
+    copyValue: '',
   },
   parameters: {
     controls: {
@@ -118,6 +158,10 @@ const meta: Meta = {
         'hideOnClick',
         'tooltipInstance',
         'hideOnClickCheck',
+        'isClipboardCopy',
+        'copyText',
+        'copyValue',
+        'showCopy',
       ],
     },
     design: {
@@ -140,6 +184,9 @@ const DefaultTemplate = ({
   show,
   margin,
   hideOnClick,
+  isClipboardCopy,
+  copyText,
+  copyValue,
 }) => html`
   <lukso-tooltip
     variant=${variant ? variant : nothing}
@@ -148,8 +195,11 @@ const DefaultTemplate = ({
     trigger=${trigger ? trigger : nothing}
     text=${text ? text : nothing}
     max-width=${maxWidth ? maxWidth : nothing}
-    ?show=${show ? show : nothing}
+    copy-text=${copyText ? copyText : nothing}
+    copy-value=${copyValue ? copyValue : nothing}
     hide-on-click=${hideOnClick ? hideOnClick : nothing}
+    ?show=${show ? show : undefined}
+    ?is-clipboard-copy=${isClipboardCopy ? isClipboardCopy : undefined}
     class="${margin} mx-20"
   >
     <lukso-button size="small" variant="secondary">${buttonText}</lukso-button>
@@ -220,4 +270,15 @@ DangerVariant.args = {
   trigger: 'manual',
   margin: 'mt-8',
   hideOnClick: 'false',
+}
+
+/** Tooltip can work as clipboard copy component. For that wou need to enable `is-clipboard-copy` and set `copy-text` attribute..  */
+export const ClipboardCopy = DefaultTemplate.bind({})
+ClipboardCopy.args = {
+  margin: 'mt-8',
+  buttonText: 'Click me',
+  text: 'Copy to clipboard',
+  isClipboardCopy: true,
+  copyText: 'Copied!',
+  copyValue: 'copied value',
 }

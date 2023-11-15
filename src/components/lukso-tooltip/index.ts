@@ -1,5 +1,5 @@
 import { PropertyValues, html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 import tippy from 'tippy.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -52,6 +52,18 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'hide-on-click' })
   hideOnClick: string = 'true'
 
+  @property({ type: Boolean, attribute: 'is-clipboard-copy' })
+  isClipboardCopy: boolean = false
+
+  @property({ type: String, attribute: 'copy-text' })
+  copyText: string = ''
+
+  @property({ type: String, attribute: 'copy-value' })
+  copyValue: string = ''
+
+  @state()
+  showCopy: boolean = false
+
   private defaultTooltipStyles = 'bg-neutral-20 p-4 hidden'
 
   private tooltipInstance = undefined
@@ -77,6 +89,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     // if instance already exists, destroy it
     if (this.tooltipInstance) {
       this.tooltipInstance.destroy()
+      this.tooltipInstance = undefined
     }
 
     if (!this.text) {
@@ -95,6 +108,19 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       theme: `${this.variant}-${this.size}`,
       hideOnClick: this.hideOnClickCheck(),
     })
+  }
+
+  private handleClick() {
+    if (!this.isClipboardCopy || !this.copyText || !this.copyValue) {
+      return
+    }
+
+    this.showCopy = true
+    navigator.clipboard.writeText(this.copyValue)
+
+    setTimeout(() => {
+      this.showCopy = false
+    }, 1000)
   }
 
   async willUpdate(changedProperties: PropertyValues<this>) {
@@ -125,7 +151,23 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       >
         ${this.text}
       </div>
-      <div id="trigger" class="cursor-pointer"><slot></slot></div>
+      ${this.isClipboardCopy
+        ? html`<lukso-tooltip
+            trigger="manual"
+            ?show=${this.showCopy ? true : undefined}
+            text=${this.copyText}
+          >
+            <div id="trigger" class="cursor-pointer" @click=${this.handleClick}>
+              <slot></slot>
+            </div>
+          </lukso-tooltip>`
+        : html`<div
+            id="trigger"
+            class="cursor-pointer"
+            @click=${this.handleClick}
+          >
+            <slot></slot>
+          </div>`}
     `
   }
 }

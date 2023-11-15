@@ -283,6 +283,41 @@ DangerVariant.args = {
   hideOnClick: 'false',
 }
 
+/** You can change tooltip placement with `placement` attribute.  */
+export const PlacementRight = DefaultTemplate.bind({})
+PlacementRight.args = {
+  placement: 'right',
+  show: true,
+  trigger: 'manual',
+  hideOnClick: 'false',
+}
+export const PlacementLeft = DefaultTemplate.bind({})
+PlacementLeft.args = {
+  placement: 'left',
+  show: true,
+  trigger: 'manual',
+  hideOnClick: 'false',
+}
+
+export const PlacementBottom = DefaultTemplate.bind({})
+PlacementBottom.args = {
+  placement: 'bottom',
+  show: true,
+  trigger: 'manual',
+  hideOnClick: 'false',
+  margin: 'mb-8',
+}
+
+/** You can modify tooltip offset with `offset` attribute.  */
+export const Offset = DefaultTemplate.bind({})
+Offset.args = {
+  show: true,
+  trigger: 'manual',
+  margin: 'mt-8',
+  hideOnClick: 'false',
+  offset: 20,
+}
+
 /** Tooltip can work as clipboard copy component. For that wou need to enable `is-clipboard-copy` and set `copy-text` attribute..  */
 export const ClipboardCopy = DefaultTemplate.bind({})
 ClipboardCopy.args = {

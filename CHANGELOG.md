@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.50.0](https://github.com/lukso-network/tools-web-components/compare/v1.49.2...v1.50.0) (2023-11-15)
+
+
+### Features
+
+* tooltip component ([#263](https://github.com/lukso-network/tools-web-components/issues/263)) ([392cd8f](https://github.com/lukso-network/tools-web-components/commit/392cd8f3f6972226131112d995dcf5d9278bb96c))
+
+
+### Bug Fixes
+
+* check if value exists before calling `JSON.parse` ([#261](https://github.com/lukso-network/tools-web-components/issues/261)) ([72fc411](https://github.com/lukso-network/tools-web-components/commit/72fc4110663e2afed7f7092b3081064964b0cf80))
+
 ## [1.49.2](https://github.com/lukso-network/tools-web-components/compare/v1.49.1...v1.49.2) (2023-11-10)
 
 

@@ -117,6 +117,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    offset: {
+      control: {
+        type: 'number',
+      },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'max-width': {
       name: 'maxWidth',
     },
@@ -143,6 +151,7 @@ const meta: Meta = {
     hideOnClick: 'true',
     buttonText: 'Button',
     show: false,
+    offset: 10,
     isClipboardCopy: false,
     copyText: '',
     copyValue: '',
@@ -187,6 +196,7 @@ const DefaultTemplate = ({
   isClipboardCopy,
   copyText,
   copyValue,
+  offset,
 }) => html`
   <lukso-tooltip
     variant=${variant ? variant : nothing}
@@ -198,6 +208,7 @@ const DefaultTemplate = ({
     copy-text=${copyText ? copyText : nothing}
     copy-value=${copyValue ? copyValue : nothing}
     hide-on-click=${hideOnClick ? hideOnClick : nothing}
+    offset=${offset ? offset : nothing}
     ?show=${show ? show : undefined}
     ?is-clipboard-copy=${isClipboardCopy ? isClipboardCopy : undefined}
     class="${margin} mx-20"

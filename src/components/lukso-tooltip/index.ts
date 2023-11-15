@@ -61,6 +61,9 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'copy-value' })
   copyValue: string = ''
 
+  @property({ type: Number })
+  offset: number = 10
+
   @state()
   showCopy: boolean = false
 
@@ -93,7 +96,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     }
 
     if (!this.text) {
-      return console.warn('lukso-tooltip: `text` attribute is required')
+      return
     }
 
     this.tooltipInstance = tippy(trigger, {
@@ -106,6 +109,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       placement: this.placement,
       maxWidth: this.maxWidth,
       theme: `${this.variant}-${this.size}`,
+      offset: [0, this.offset],
       hideOnClick: this.hideOnClickCheck(),
     })
   }
@@ -157,6 +161,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
             size=${this.size}
             placement=${this.placement}
             max-width=${this.maxWidth}
+            offset=${this.offset}
             trigger="manual"
             ?show=${this.showCopy ? true : undefined}
             text=${this.copyText}

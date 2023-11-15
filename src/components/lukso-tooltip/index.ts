@@ -153,6 +153,10 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       </div>
       ${this.isClipboardCopy
         ? html`<lukso-tooltip
+            variant=${this.variant}
+            size=${this.size}
+            placement=${this.placement}
+            max-width=${this.maxWidth}
             trigger="manual"
             ?show=${this.showCopy ? true : undefined}
             text=${this.copyText}

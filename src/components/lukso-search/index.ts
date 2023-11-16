@@ -107,7 +107,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     outline-none transition transition-all duration-150 appearance-none rounded-12`
 
   willUpdate(changedProperties: PropertyValues<this>) {
-    console.log('scroll')
     // for long lists when selected option changes we scroll to it
     if (changedProperties.has('selected')) {
       const selectedOption = this.shadowRoot?.querySelector(

@@ -29,7 +29,7 @@ export type TooltipTrigger = 'mouseenter' | 'click' | 'manual'
 @customElement('lukso-tooltip')
 export class LuksoTooltip extends TailwindStyledElement(style) {
   @property({ type: String })
-  variant: TooltipVariant = 'dark'
+  variant: TooltipVariant = 'light'
 
   @property({ type: String })
   size: TooltipSize = 'medium'
@@ -105,6 +105,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       arrow: true,
       animation: 'fade',
       interactive: true,
+      appendTo: () => document.body,
       trigger: this.trigger,
       placement: this.placement,
       maxWidth: this.maxWidth,

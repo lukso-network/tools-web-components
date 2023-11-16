@@ -6,6 +6,7 @@ import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 import style from './style.scss?inline'
 import '@/components/lukso-profile'
+import { cn } from '@/shared/tools'
 
 export type CardVariants =
   | 'basic'
@@ -38,6 +39,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   @property({ type: String, attribute: 'custom-class' })
   customClass = ''
+
+  @property({ type: String, attribute: 'header-class' })
+  headerClass = ''
 
   @property({ type: String })
   size: CardSizes = 'medium'
@@ -96,7 +100,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           }
         )}"
       >
-        <div>
+        <div class=${this.headerClass}>
           <slot name="header"></slot>
         </div>
         <div class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-24">
@@ -124,7 +128,10 @@ export class LuksoCard extends TailwindStyledElement(style) {
           style=${styleMap({
             backgroundImage: this.backgroundImageOrGradient(),
           })}
-          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative"
+          class=${cn(
+            'min-h-[90px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative',
+            this.headerClass
+          )}
         >
           ${this.backgroundUrl &&
           html` <div
@@ -173,7 +180,10 @@ export class LuksoCard extends TailwindStyledElement(style) {
           style=${styleMap({
             backgroundImage: this.backgroundImageOrGradient(),
           })}
-          class="min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-100"
+          class=${cn(
+            'min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-100',
+            this.headerClass
+          )}
         >
           ${this.backgroundUrl &&
           html`<div
@@ -263,7 +273,10 @@ export class LuksoCard extends TailwindStyledElement(style) {
           style=${styleMap({
             backgroundImage: this.backgroundImageOrGradient(),
           })}
-          class="min-h-[240px] bg-center bg-cover rounded-[24px_24px_0_0] relative"
+          class=${cn(
+            'min-h-[240px] bg-center bg-cover rounded-[24px_24px_0_0] relative',
+            this.headerClass
+          )}
         >
           <div>
             <slot name="header"></slot>

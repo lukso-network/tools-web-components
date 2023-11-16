@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.51.0](https://github.com/lukso-network/tools-web-components/compare/v1.50.0...v1.51.0) (2023-11-16)
+
+
+### Features
+
+* lukso-card - add attribute to override header class ([#253](https://github.com/lukso-network/tools-web-components/issues/253)) ([859b5db](https://github.com/lukso-network/tools-web-components/commit/859b5dbc2cbf32aef54d6b2f310314b60a4a90a3))
+
+
+### Bug Fixes
+
+* change how tooltips are attached  ([#266](https://github.com/lukso-network/tools-web-components/issues/266)) ([c990fe5](https://github.com/lukso-network/tools-web-components/commit/c990fe5bba951a1142e8607fa9e645343d80567a))
+* fix issue where whole window scrolls while navigating with arrow keys ([#264](https://github.com/lukso-network/tools-web-components/issues/264)) ([0a98014](https://github.com/lukso-network/tools-web-components/commit/0a980141d0ad3fa58b422bb24eab17a27b33fb11))
+
 ## [1.50.0](https://github.com/lukso-network/tools-web-components/compare/v1.49.2...v1.50.0) (2023-11-15)
 
 

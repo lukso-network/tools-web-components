@@ -88,10 +88,18 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       )
 
       if (selectedOption) {
-        selectedOption.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        })
+        if (
+          'scrollIntoViewIfNeeded' in selectedOption &&
+          typeof selectedOption.scrollIntoViewIfNeeded === 'function'
+        ) {
+          selectedOption.scrollIntoViewIfNeeded()
+        } else {
+          // if scrollIntoViewIfNeeded is not supported, we use scrollIntoView
+          selectedOption.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+          })
+        }
       }
     }
 

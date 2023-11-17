@@ -7865,6 +7865,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-tailwindcss@npm:^3.13.0":
+  version: 3.13.0
+  resolution: "eslint-plugin-tailwindcss@npm:3.13.0"
+  dependencies:
+    fast-glob: ^3.2.5
+    postcss: ^8.4.4
+  peerDependencies:
+    tailwindcss: ^3.3.2
+  checksum: 0ed226300b613987e59d1374c611c374add3205b73647e8ec910ad2409a2a07f9605cb7e6e7a34bda7702946681aef4a289c6b6bcf9f1357fa6bc4e0ee8f508b
+  languageName: node
+  linkType: hard
+
 "eslint-scope@npm:^7.2.2":
   version: 7.2.2
   resolution: "eslint-scope@npm:7.2.2"
@@ -8184,7 +8196,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.3.0":
+"fast-glob@npm:^3.2.5, fast-glob@npm:^3.3.0":
   version: 3.3.2
   resolution: "fast-glob@npm:3.3.2"
   dependencies:
@@ -12799,7 +12811,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.23, postcss@npm:^8.4.27, postcss@npm:^8.4.28, postcss@npm:^8.4.31":
+"postcss@npm:^8.4.23, postcss@npm:^8.4.27, postcss@npm:^8.4.28, postcss@npm:^8.4.31, postcss@npm:^8.4.4":
   version: 8.4.31
   resolution: "postcss@npm:8.4.31"
   dependencies:
@@ -15971,6 +15983,7 @@ __metadata:
     eslint-plugin-import: ^2.29.0
     eslint-plugin-json: ^3.1.0
     eslint-plugin-lit: ^1.10.1
+    eslint-plugin-tailwindcss: ^3.13.0
     espree: ^9.6.1
     ethereum-blockies-base64: ^1.0.2
     http-server: ^14.1.1

@@ -150,8 +150,8 @@ export class LuksoNavbar extends TailwindElement {
         ${this.isCenter
           ? html``
           : this.hasMenu
-          ? html`${this.desktopMenuTemplate()} ${this.mobileMenuTemplate()}`
-          : html``}
+            ? html`${this.desktopMenuTemplate()} ${this.mobileMenuTemplate()}`
+            : html``}
       </nav>
     `
   }

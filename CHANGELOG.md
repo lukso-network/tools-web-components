@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.51.1](https://github.com/lukso-network/tools-web-components/compare/v1.51.0...v1.51.1) (2023-11-17)
+
+
+### Bug Fixes
+
+* move tippy styles file ([#267](https://github.com/lukso-network/tools-web-components/issues/267)) ([f424192](https://github.com/lukso-network/tools-web-components/commit/f42419259b6d8dcc5e606a40a8a8bc24c093546b))
+
 ## [1.51.0](https://github.com/lukso-network/tools-web-components/compare/v1.50.0...v1.51.0) (2023-11-16)
 
 

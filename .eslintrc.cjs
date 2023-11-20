@@ -22,6 +22,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:json/recommended',
     'plugin:lit/recommended',
+    'plugin:tailwindcss/recommended',
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
@@ -51,6 +52,12 @@ module.exports = {
       },
     ],
     'lit/attribute-value-entities': 'off', // to allow using Tailwind selectors in arbitrary variants
+    'tailwindcss/no-custom-classname': [
+      'error',
+      {
+        whitelist: ['paragraph-.*', 'heading-.*', 'nav-.*', 'shadow-.*'],
+      },
+    ],
   },
   overrides: [
     {

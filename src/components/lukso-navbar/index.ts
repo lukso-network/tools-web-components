@@ -61,6 +61,12 @@ export class LuksoNavbar extends TailwindElement {
 
   private handleMenuToggle() {
     this.isMenuOpen = !this.isMenuOpen
+
+    if (this.isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
   }
 
   desktopMenuTemplate() {

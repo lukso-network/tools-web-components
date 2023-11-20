@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.51.2](https://github.com/lukso-network/tools-web-components/compare/v1.51.1...v1.51.2) (2023-11-20)
+
+
+### Bug Fixes
+
+* block window scroll when mobile menu is open ([#271](https://github.com/lukso-network/tools-web-components/issues/271)) ([9a288ab](https://github.com/lukso-network/tools-web-components/commit/9a288abe6b3c85dbee317d40669b9640d644c369))
+
 ## [1.51.1](https://github.com/lukso-network/tools-web-components/compare/v1.51.0...v1.51.1) (2023-11-17)
 
 

@@ -232,7 +232,7 @@ const ProfileTemplate = ({
     ?is-hoverable=${isHoverable}
     header-class=${headerClass}
   >
-    <div slot="content" class="p-6">${content}</div>
+    <div slot="content" class="px-6 pb-9">${content}</div>
     <div slot="bottom" class="p-6">${bottom}</div>
   </lukso-card>
 `

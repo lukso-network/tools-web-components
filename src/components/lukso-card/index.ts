@@ -3,7 +3,6 @@ import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
 import style from './style.scss?inline'
 import '@/components/lukso-profile'
 import { cn } from '@/shared/tools'
@@ -69,15 +68,15 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-100 ${customClassMap({
+        class=${cn('bg-neutral-100', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
-          ['w-[362px]']: this.isFixedWidth,
-          ['w-full']: !this.isFixedWidth,
-          ['min-h-[534px]']: this.isFixedHeight,
-        })}"
+          'w-[362px]': this.isFixedWidth,
+          'w-full': !this.isFixedWidth,
+          'min-h-[534px]': this.isFixedHeight,
+        })}
       >
         <slot name="content"></slot>
       </div>
@@ -88,17 +87,15 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-100 grid grid-rows-[auto,1fr] overflow-hidden ${customClassMap(
-          {
-            [this.mediumStyles]: !this.customClass && this.size === 'medium',
-            [this.smallStyles]: !this.customClass && this.size === 'small',
-            [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
-            [this.customClass]: !!this.customClass,
-            ['w-[362px]']: this.isFixedWidth,
-            ['w-full']: !this.isFixedWidth,
-            ['min-h-[534px]']: this.isFixedHeight,
-          }
-        )}"
+        class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr] overflow-hidden', {
+          [this.mediumStyles]: !this.customClass && this.size === 'medium',
+          [this.smallStyles]: !this.customClass && this.size === 'small',
+          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
+          [this.customClass]: !!this.customClass,
+          'w-[362px]': this.isFixedWidth,
+          'w-full': !this.isFixedWidth,
+          'min-h-[534px]': this.isFixedHeight,
+        })}
       >
         <div class=${this.headerClass}>
           <slot name="header"></slot>
@@ -114,49 +111,54 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-100 grid grid-rows-[auto,1fr] ${customClassMap({
+        class=${cn('bg-neutral-100 grid min-h-[258px]', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
-          ['w-[362px]']: this.isFixedWidth,
-          ['w-full']: !this.isFixedWidth,
-          ['min-h-[534px]']: this.isFixedHeight,
-        })}"
+          'w-[362px]': this.isFixedWidth,
+          'w-full': !this.isFixedWidth,
+          'min-h-[534px]': this.isFixedHeight,
+        })}
       >
         <div
           style=${styleMap({
             backgroundImage: this.backgroundImageOrGradient(),
           })}
           class=${cn(
-            'min-h-[90px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative',
+            'row-end-1 col-span-1 col-end-1 row-span-1 h-full w-full bg-center bg-cover rounded-24 relative',
             this.headerClass
           )}
         >
           ${this.backgroundUrl &&
           html` <div
-            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-20/10 absolute"
+            class="h-full full rounded-[24px_24px_0_0] bg-neutral-20/10 absolute"
           ></div>`}
           <div>
             <slot name="header"></slot>
           </div>
         </div>
-        <div class="bg-neutral-100 rounded-24 relative">
-          <lukso-profile
-            profile-url=${this.profileUrl}
-            size="large"
-            profile-address=${this.profileAddress}
-            has-identicon
-            class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
-          ></lukso-profile>
-          <div
-            class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center -mb-2"
-          >
+        <div
+          class="grid grid-rows-[1fr,auto] row-end-1 col-span-1 col-end-1 row-span-1"
+        >
+          <div></div>
+          <div class="bg-neutral-100 rounded-24 relative min-h-[142px]">
+            <lukso-profile
+              profile-url=${this.profileUrl}
+              size="large"
+              profile-address=${this.profileAddress}
+              has-identicon
+              class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
+            ></lukso-profile>
             <div
-              class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]"
-            ></div>
+              class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center -mb-3"
+            >
+              <div
+                class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]"
+              ></div>
+            </div>
+            <slot name="content"></slot>
           </div>
-          <slot name="content"></slot>
         </div>
       </div>
     `
@@ -166,7 +168,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-100 grid grid-rows-[auto,1fr] ${customClassMap({
+        class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr]', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
@@ -174,7 +176,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           ['w-[362px]']: this.isFixedWidth,
           ['w-full']: !this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
-        })}"
+        })}
       >
         <div
           style=${styleMap({
@@ -225,7 +227,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="h-[240px] flex bg-neutral-100 ${customClassMap({
+        class=${cn('h-[240px] flex bg-neutral-100', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
@@ -233,7 +235,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           ['w-[362px]']: this.isFixedWidth,
           ['w-full']: !this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
-        })}"
+        })}
       >
         <div
           style=${styleMap({
@@ -259,7 +261,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class="bg-neutral-100 grid grid-rows-[auto,1fr] ${customClassMap({
+        class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr]', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
@@ -267,7 +269,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           ['w-[362px]']: this.isFixedWidth,
           ['w-full']: !this.isFixedWidth,
           ['min-h-[534px]']: this.isFixedHeight,
-        })}"
+        })}
       >
         <div
           style=${styleMap({

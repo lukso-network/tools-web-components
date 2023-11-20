@@ -61,6 +61,12 @@ export class LuksoNavbar extends TailwindElement {
 
   private handleMenuToggle() {
     this.isMenuOpen = !this.isMenuOpen
+
+    if (this.isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
   }
 
   desktopMenuTemplate() {
@@ -150,8 +156,8 @@ export class LuksoNavbar extends TailwindElement {
         ${this.isCenter
           ? html``
           : this.hasMenu
-          ? html`${this.desktopMenuTemplate()} ${this.mobileMenuTemplate()}`
-          : html``}
+            ? html`${this.desktopMenuTemplate()} ${this.mobileMenuTemplate()}`
+            : html``}
       </nav>
     `
   }

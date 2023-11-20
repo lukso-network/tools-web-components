@@ -30,11 +30,11 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'profile-address' })
   profileAddress = ''
 
-  @property({ type: Boolean, attribute: 'is-fixed-width' })
-  isFixedWidth = false
+  @property({ type: Number })
+  width: number | undefined = undefined
 
-  @property({ type: Boolean, attribute: 'is-fixed-height' })
-  isFixedHeight = false
+  @property({ type: Number })
+  height: number | undefined = undefined
 
   @property({ type: String, attribute: 'custom-class' })
   customClass = ''
@@ -68,14 +68,16 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
+        style=${styleMap({
+          minHeight: `${this.height}px`,
+          width: `${this.width}px`,
+        })}
         class=${cn('bg-neutral-100', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
-          'w-[362px]': this.isFixedWidth,
-          'w-full': !this.isFixedWidth,
-          'min-h-[534px]': this.isFixedHeight,
+          'w-full': !this.width,
         })}
       >
         <slot name="content"></slot>
@@ -87,14 +89,16 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
+        style=${styleMap({
+          minHeight: `${this.height}px`,
+          width: `${this.width}px`,
+        })}
         class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr] overflow-hidden', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
-          'w-[362px]': this.isFixedWidth,
-          'w-full': !this.isFixedWidth,
-          'min-h-[534px]': this.isFixedHeight,
+          'w-full': !this.width,
         })}
       >
         <div class=${this.headerClass}>
@@ -111,14 +115,16 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        class=${cn('bg-neutral-100 grid min-h-[258px]', {
+        style=${styleMap({
+          minHeight: `${this.height}px`,
+          width: `${this.width}px`,
+        })}
+        class=${cn('bg-neutral-100 grid', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
-          'w-[362px]': this.isFixedWidth,
-          'w-full': !this.isFixedWidth,
-          'min-h-[534px]': this.isFixedHeight,
+          'w-full': !this.width,
         })}
       >
         <div
@@ -142,7 +148,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           class="grid grid-rows-[1fr,auto] row-end-1 col-span-1 col-end-1 row-span-1"
         >
           <div></div>
-          <div class="bg-neutral-100 rounded-24 relative min-h-[142px]">
+          <div class="bg-neutral-100 rounded-24 relative">
             <lukso-profile
               profile-url=${this.profileUrl}
               size="large"
@@ -168,14 +174,16 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
+        style=${styleMap({
+          minHeight: `${this.height}px`,
+          width: `${this.width}px`,
+        })}
         class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr]', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
-          ['w-[362px]']: this.isFixedWidth,
-          ['w-full']: !this.isFixedWidth,
-          ['min-h-[534px]']: this.isFixedHeight,
+          ['w-full']: !this.width,
         })}
       >
         <div
@@ -227,14 +235,16 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
+        style=${styleMap({
+          minHeight: `${this.height}px`,
+          width: `${this.width}px`,
+        })}
         class=${cn('h-[240px] flex bg-neutral-100', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
-          ['w-[362px]']: this.isFixedWidth,
-          ['w-full']: !this.isFixedWidth,
-          ['min-h-[534px]']: this.isFixedHeight,
+          ['w-full']: !this.width,
         })}
       >
         <div
@@ -261,14 +271,16 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
+        style=${styleMap({
+          minHeight: `${this.height}px`,
+          width: `${this.width}px`,
+        })}
         class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr]', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
           [this.smallStyles]: !this.customClass && this.size === 'small',
           [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
           [this.customClass]: !!this.customClass,
-          ['w-[362px]']: this.isFixedWidth,
-          ['w-full']: !this.isFixedWidth,
-          ['min-h-[534px]']: this.isFixedHeight,
+          ['w-full']: !this.width,
         })}
       >
         <div

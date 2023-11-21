@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.51.4](https://github.com/lukso-network/tools-web-components/compare/v1.51.3...v1.51.4) (2023-11-21)
+
+
+### Bug Fixes
+
+* **DEV-8950:** lukso-card fixed host style ([#275](https://github.com/lukso-network/tools-web-components/issues/275)) ([4cbc6ae](https://github.com/lukso-network/tools-web-components/commit/4cbc6aee8f3708b0519d3ddd431f5619cb2433db))
+
 ## [1.51.3](https://github.com/lukso-network/tools-web-components/compare/v1.51.2...v1.51.3) (2023-11-21)
 
 

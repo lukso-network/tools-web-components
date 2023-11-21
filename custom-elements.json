@@ -679,12 +679,12 @@
             },
             {
               "kind": "field",
-              "name": "isFixedHeight",
+              "name": "height",
               "type": {
-                "text": "boolean"
+                "text": "number"
               },
-              "default": "false",
-              "attribute": "is-fixed-height"
+              "default": "534",
+              "attribute": "height"
             },
             {
               "kind": "field",
@@ -804,12 +804,12 @@
               "fieldName": "isFixedWidth"
             },
             {
-              "name": "is-fixed-height",
+              "name": "height",
               "type": {
-                "text": "boolean"
+                "text": "number"
               },
-              "default": "false",
-              "fieldName": "isFixedHeight"
+              "default": "534",
+              "fieldName": "height"
             },
             {
               "name": "is-full-width",

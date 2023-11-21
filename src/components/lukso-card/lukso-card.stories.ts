@@ -43,16 +43,16 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    isFixedWidth: {
-      name: 'is-fixed-width',
-      control: { type: 'boolean' },
+    width: {
+      name: 'width',
+      control: { type: 'number' },
       table: {
         category: 'Attributes',
       },
     },
-    isFixedHeight: {
-      name: 'is-fixed-height',
-      control: { type: 'boolean' },
+    height: {
+      name: 'height',
+      control: { type: 'number' },
       table: {
         category: 'Attributes',
       },
@@ -94,12 +94,6 @@ const meta: Meta = {
     'profile-address': {
       name: 'profileAddress',
     },
-    'is-fixed-width': {
-      name: 'isFixedWidth',
-    },
-    'is-fixed-height': {
-      name: 'isFixedHeight',
-    },
     'custom-class': {
       name: 'customClass',
     },
@@ -118,8 +112,8 @@ const meta: Meta = {
     backgroundUrl: 'images/sample-background.jpg',
     profileUrl: 'images/sample-avatar.png',
     profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
-    isFixedWidth: false,
-    isFixedHeight: false,
+    width: 362,
+    height: 534,
     customClass: '',
     size: 'medium',
     isHoverable: false,
@@ -131,8 +125,6 @@ const meta: Meta = {
         'backgroundUrl',
         'profileUrl',
         'profileAddress',
-        'isFixedWidth',
-        'isFixedHeight',
         'styles',
         'customClass',
         'isHoverable',
@@ -152,8 +144,8 @@ const DefaultTemplate = ({
   content,
   header,
   bottom,
-  isFixedHeight,
-  isFixedWidth,
+  height,
+  width,
   customClass,
   size,
   isHoverable,
@@ -163,8 +155,8 @@ const DefaultTemplate = ({
 }) => html`
   <lukso-card
     variant=${variant}
-    ?is-fixed-width=${isFixedWidth}
-    ?is-fixed-height=${isFixedHeight}
+    width=${width}
+    height=${height}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
@@ -182,16 +174,16 @@ const CustomHeaderTemplate = ({
   variant,
   content,
   header,
-  isFixedHeight,
-  isFixedWidth,
+  height,
+  width,
   customClass,
   size,
   isHoverable,
 }) => html`
   <lukso-card
     variant=${variant}
-    ?is-fixed-width=${isFixedWidth}
-    ?is-fixed-height=${isFixedHeight}
+    width=${width}
+    height=${height}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
@@ -212,8 +204,8 @@ const ProfileTemplate = ({
   backgroundUrl,
   profileUrl,
   profileAddress,
-  isFixedHeight,
-  isFixedWidth,
+  height,
+  width,
   customClass,
   size,
   isHoverable,
@@ -225,14 +217,14 @@ const ProfileTemplate = ({
     background-url=${backgroundUrl}
     profile-url=${profileUrl}
     profile-address=${profileAddress}
-    ?is-fixed-width=${isFixedWidth}
-    ?is-fixed-height=${isFixedHeight}
+    width=${width}
+    height=${height}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
     header-class=${headerClass}
   >
-    <div slot="content" class="p-6">${content}</div>
+    <div slot="content" class="px-6 pb-9">${content}</div>
     <div slot="bottom" class="p-6">${bottom}</div>
   </lukso-card>
 `
@@ -241,8 +233,8 @@ const HeroTemplate = ({
   backgroundUrl,
   profileUrl,
   profileAddress,
-  isFixedHeight,
-  isFixedWidth,
+  height,
+  width,
   customClass,
   size,
   isHoverable,
@@ -250,8 +242,8 @@ const HeroTemplate = ({
   <lukso-card
     variant="hero"
     background-url=${backgroundUrl}
-    ?is-fixed-width=${isFixedWidth}
-    ?is-fixed-height=${isFixedHeight}
+    width=${width}
+    height=${height}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
@@ -290,11 +282,11 @@ DefaultCard.parameters = {
   },
 }
 
-/** If you need card with fixed size of `362px` you can add `is-fixed-width` property, otherwise card take 100% width.  */
+/** If you need card with fixed size of `362px` you can add `width` property, otherwise card take 100% width.  */
 export const FixedCard = DefaultTemplate.bind({})
 FixedCard.args = {
-  isFixedWidth: true,
-  isFixedHeight: true,
+  width: 364,
+  height: 534,
 }
 FixedCard.parameters = {
   design: {
@@ -307,8 +299,8 @@ FixedCard.parameters = {
 export const CardWithHeader = DefaultTemplate.bind({})
 CardWithHeader.args = {
   variant: 'with-header',
-  isFixedWidth: true,
-  isFixedHeight: true,
+  width: 364,
+  height: 534,
 }
 CardWithHeader.parameters = {
   design: {
@@ -321,8 +313,8 @@ CardWithHeader.parameters = {
 export const CardWithCustomHeader = CustomHeaderTemplate.bind({})
 CardWithCustomHeader.args = {
   variant: 'with-header',
-  isFixedWidth: true,
-  isFixedHeight: true,
+  width: 364,
+  height: 534,
 }
 CardWithCustomHeader.parameters = {
   design: {
@@ -335,8 +327,8 @@ CardWithCustomHeader.parameters = {
 export const ProfileCard = ProfileTemplate.bind({})
 ProfileCard.args = {
   variant: 'profile',
-  isFixedWidth: true,
-  isFixedHeight: true,
+  width: 364,
+  height: 534,
   parameters: {
     design: {
       type: 'figma',
@@ -355,8 +347,8 @@ ProfileCard.parameters = {
 export const Profile2Card = ProfileTemplate.bind({})
 Profile2Card.args = {
   variant: 'profile-2',
-  isFixedWidth: true,
-  isFixedHeight: true,
+  width: 364,
+  height: 534,
 }
 
 /** Example of `hero` variant.  */
@@ -374,8 +366,8 @@ DappCard.args = {
 /** You can customize card with `custom-class` property, it will be used instead of default styles.  */
 export const CustomCard = DefaultTemplate.bind({})
 CustomCard.args = {
-  isFixedWidth: true,
-  isFixedHeight: true,
+  width: 364,
+  height: 534,
   customClass: 'rounded-12 bg-warm-97',
 }
 CustomCard.parameters = {

@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { Meta } from '@storybook/web-components'
 
 import './index'
@@ -155,8 +155,8 @@ const DefaultTemplate = ({
 }) => html`
   <lukso-card
     variant=${variant}
-    width=${width}
-    height=${height}
+    width=${width ? width : nothing}
+    height=${height ? height : nothing}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
@@ -182,8 +182,8 @@ const CustomHeaderTemplate = ({
 }) => html`
   <lukso-card
     variant=${variant}
-    width=${width}
-    height=${height}
+    width=${width ? width : nothing}
+    height=${height ? height : nothing}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
@@ -217,8 +217,8 @@ const ProfileTemplate = ({
     background-url=${backgroundUrl}
     profile-url=${profileUrl}
     profile-address=${profileAddress}
-    width=${width}
-    height=${height}
+    width=${width ? width : nothing}
+    height=${height ? height : nothing}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}
@@ -242,8 +242,8 @@ const HeroTemplate = ({
   <lukso-card
     variant="hero"
     background-url=${backgroundUrl}
-    width=${width}
-    height=${height}
+    width=${width ? width : nothing}
+    height=${height ? height : nothing}
     custom-class=${customClass}
     size=${size}
     ?is-hoverable=${isHoverable}

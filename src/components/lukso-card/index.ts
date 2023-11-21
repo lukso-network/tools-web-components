@@ -6,6 +6,7 @@ import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
 import '@/components/lukso-profile'
 import { cn } from '@/shared/tools'
+import { customStyleMap } from '@/shared/directives'
 
 export type CardVariants =
   | 'basic'
@@ -68,9 +69,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        style=${styleMap({
-          minHeight: `${this.height}px`,
-          width: `${this.width}px`,
+        style=${customStyleMap({
+          [`min-height: ${this.height}px`]: !!this.height,
+          [`width: ${this.width}px`]: !!this.width,
         })}
         class=${cn('bg-neutral-100', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
@@ -115,9 +116,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        style=${styleMap({
-          minHeight: `${this.height}px`,
-          width: `${this.width}px`,
+        style=${customStyleMap({
+          [`min-height: ${this.height}px`]: !!this.height,
+          [`width: ${this.width}px`]: !!this.width,
         })}
         class=${cn('bg-neutral-100 grid', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
@@ -174,9 +175,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        style=${styleMap({
-          minHeight: `${this.height}px`,
-          width: `${this.width}px`,
+        style=${customStyleMap({
+          [`min-height: ${this.height}px`]: !!this.height,
+          [`width: ${this.width}px`]: !!this.width,
         })}
         class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr]', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
@@ -235,9 +236,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        style=${styleMap({
-          minHeight: `${this.height}px`,
-          width: `${this.width}px`,
+        style=${customStyleMap({
+          [`min-height: ${this.height}px`]: !!this.height,
+          [`width: ${this.width}px`]: !!this.width,
         })}
         class=${cn('h-[240px] flex bg-neutral-100', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',
@@ -271,9 +272,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return html`
       <div
         data-testid="card"
-        style=${styleMap({
-          minHeight: `${this.height}px`,
-          width: `${this.width}px`,
+        style=${customStyleMap({
+          [`min-height: ${this.height}px`]: !!this.height,
+          [`width: ${this.width}px`]: !!this.width,
         })}
         class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr]', {
           [this.mediumStyles]: !this.customClass && this.size === 'medium',

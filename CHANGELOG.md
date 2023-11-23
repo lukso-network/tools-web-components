@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.51.5](https://github.com/lukso-network/tools-web-components/compare/v1.51.4...v1.51.5) (2023-11-23)
+
+
+### Bug Fixes
+
+* **DEV-8991:** fix colors and styles to match designs ([#277](https://github.com/lukso-network/tools-web-components/issues/277)) ([74a5e12](https://github.com/lukso-network/tools-web-components/commit/74a5e12a9feab6940b29872efd08b1124a9d93e1))
+
 ## [1.51.4](https://github.com/lukso-network/tools-web-components/compare/v1.51.3...v1.51.4) (2023-11-21)
 
 

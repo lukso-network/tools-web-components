@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit-html/directives/style-map.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
+import { cn } from '@/shared/tools'
 
 export type ProgressVariant = 'success' | 'error' | 'warning'
 
@@ -21,6 +21,9 @@ export class LuksoProgress extends TailwindElement {
   @property({ type: String })
   variant: ProgressVariant = 'success'
 
+  @property({ type: Number })
+  height: number | undefined = 16
+
   private progressWidth() {
     return (this.current / this.max) * 100
   }
@@ -29,22 +32,28 @@ export class LuksoProgress extends TailwindElement {
     return html`
       <div
         data-testid="progress"
-        class="w-full h-[12px] rounded-24 bg-neutral-95 relative"
+        style=${styleMap({
+          height: this.height > 16 ? `${this.height}px` : '16px',
+        })}
+        class=${cn('w-full rounded-24 bg-neutral-95 relative')}
       >
         <div
-          class="h-[12px] rounded-s-24 rounded-e-24  transition-all w-[1%] ${customClassMap(
+          style=${styleMap({
+            width: `${this.progressWidth()}%`,
+          })}
+          class=${cn(
+            'rounded-s-24 h-full rounded-e-24  transition-all w-[1%]',
             {
               'bg-green-85': !!this.variant || this.variant === 'success',
               'bg-red-85': this.variant === 'error',
               'bg-yellow-85': this.variant === 'warning',
             }
-          )}"
-          style=${styleMap({
-            width: `${this.progressWidth()}%`,
-          })}
+          )}
         ></div>
         <div
-          class="shadow-neutral-inner-shadow absolute w-full top-0 h-[12px] rounded-24"
+          class=${cn(
+            'shadow-neutral-inner-shadow h-full absolute w-full top-0 rounded-24'
+          )}
         ></div>
       </div>
     `

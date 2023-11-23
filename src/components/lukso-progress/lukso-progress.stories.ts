@@ -33,12 +33,20 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    height: {
+      name: 'height',
+      control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
+    },
   },
   args: {
     min: 0,
     max: 100,
     current: 20,
     variant: 'success',
+    height: 16,
   },
   parameters: {
     controls: {
@@ -53,12 +61,13 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ min, max, current, variant }) =>
+const Template = ({ min, max, current, variant, height }) =>
   html`<lukso-progress
     min=${min}
     max=${max}
     current=${current}
     variant=${variant}
+    height=${height}
   ></lukso-progress>`
 
 /** Example of `success` progress bar. */

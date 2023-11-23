@@ -5,7 +5,7 @@ import { styleMap } from 'lit-html/directives/style-map.js'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 
-export type ProgressVariant = 'success' | 'error'
+export type ProgressVariant = 'success' | 'error' | 'warning'
 
 @customElement('lukso-progress')
 export class LuksoProgress extends TailwindElement {
@@ -29,22 +29,23 @@ export class LuksoProgress extends TailwindElement {
     return html`
       <div
         data-testid="progress"
-        class='w-full h-[12px] shadow-neutral-inner-shadow rounded-24 bg-neutral-95'
+        class="w-full h-[12px] rounded-24 bg-neutral-95 relative"
       >
         <div
-          class="h-[12px] rounded-s-24 rounded-e-16 border border-solid transition-all w-[1%] ${customClassMap(
+          class="h-[12px] rounded-s-24 rounded-e-24  transition-all w-[1%] ${customClassMap(
             {
-              'bg-green-85 border-green-54':
-                !!this.variant || this.variant === 'success',
-              'bg-red-85 border-red-65': this.variant === 'error',
+              'bg-green-85': !!this.variant || this.variant === 'success',
+              'bg-red-85': this.variant === 'error',
+              'bg-yellow-85': this.variant === 'warning',
             }
           )}"
           style=${styleMap({
             width: `${this.progressWidth()}%`,
           })}
-        >
-          </div>
-        </div>
+        ></div>
+        <div
+          class="shadow-neutral-inner-shadow absolute w-full top-0 h-[12px] rounded-24"
+        ></div>
       </div>
     `
   }

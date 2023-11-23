@@ -28,7 +28,7 @@ const meta: Meta = {
     },
     variant: {
       control: { type: 'select' },
-      options: ['success', 'error'],
+      options: ['success', 'error', 'warning'],
       table: {
         category: 'Attributes',
       },

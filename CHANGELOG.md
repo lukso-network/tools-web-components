@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.51.6](https://github.com/lukso-network/tools-web-components/compare/v1.51.5...v1.51.6) (2023-11-23)
+
+
+### Bug Fixes
+
+* **DEV-8991:** lukso-progress: fixed height to match design. Added new height prop ([#279](https://github.com/lukso-network/tools-web-components/issues/279)) ([a0ce91a](https://github.com/lukso-network/tools-web-components/commit/a0ce91ab838de4764ee0e6ae0903c54fe3ea02fd))
+
 ## [1.51.5](https://github.com/lukso-network/tools-web-components/compare/v1.51.4...v1.51.5) (2023-11-23)
 
 

@@ -1514,6 +1514,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.23.1":
+  version: 7.23.4
+  resolution: "@babel/runtime@npm:7.23.4"
+  dependencies:
+    regenerator-runtime: ^0.14.0
+  checksum: 8eb6a6b2367f7d60e7f7dd83f477cc2e2fdb169e5460694d7614ce5c730e83324bcf29251b70940068e757ad1ee56ff8073a372260d90cad55f18a825caf97cd
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.22.15, @babel/template@npm:^7.22.5, @babel/template@npm:^7.3.3":
   version: 7.22.15
   resolution: "@babel/template@npm:7.22.15"
@@ -2431,7 +2440,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lukso/web-components@workspace:package"
   dependencies:
+    clsx: ^2.0.0
     ethereum-blockies-base64: ^1.0.2
+    tailwind-merge: ^2.0.0
+    tailwind-variants: ^0.1.18
     tippy.js: ^6.3.7
   languageName: unknown
   linkType: soft
@@ -15591,6 +15603,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tailwind-merge@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "tailwind-merge@npm:2.0.0"
+  dependencies:
+    "@babel/runtime": ^7.23.1
+  checksum: f6ed8086c2378c26fb9a8c6d1dace2252ebb1d9858c868968e87be1c0248980b436d07cfdb7ab9368a22508705958b3c24330cd6d8c7801df42f57c080cc2fb2
+  languageName: node
+  linkType: hard
+
+"tailwind-variants@npm:^0.1.18":
+  version: 0.1.18
+  resolution: "tailwind-variants@npm:0.1.18"
+  dependencies:
+    tailwind-merge: ^1.14.0
+  peerDependencies:
+    tailwindcss: "*"
+  checksum: 417f1673c47ff1e231248a726eadf6d934a8ba85b01692f083c682a7be8d276de52a22169025cfaaf1d382dcabc7170b98bd8d9fd6b9007eec6f9ab869aca2e4
+  languageName: node
+  linkType: hard
+
 "tailwindcss@npm:^3.3.3":
   version: 3.3.3
   resolution: "tailwindcss@npm:3.3.3"
@@ -16889,7 +16921,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^6.7.0
     "@typescript-eslint/parser": ^6.7.0
     autoprefixer: ^10.4.15
-    clsx: ^2.0.0
     concurrently: ^8.2.1
     dompurify: ^3.0.5
     eslint: ^8.49.0
@@ -16921,7 +16952,6 @@ __metadata:
     stylelint-config-prettier: ^9.0.5
     stylelint-config-standard-scss: ^11.0.0
     stylelint-prettier: ^4.0.2
-    tailwind-merge: ^1.14.0
     tailwindcss: ^3.3.3
     tinycolor2: ^1.6.0
     ts-node: ^10.9.1

@@ -84,10 +84,6 @@ export class LuksoButton extends TailwindStyledElement(style) {
     },
   })
 
-  private loaderStyles = tv({
-    base: `animate-spin`,
-  })
-
   private buttonStyles = tv({
     base: `flex justify-center items-center relative text-center
       border border-solid cursor-pointer transition
@@ -188,14 +184,12 @@ export class LuksoButton extends TailwindStyledElement(style) {
   }
 
   loadingTemplate(): unknown {
-    const loaderStyles = this.loaderStyles()
-
     return html`<lukso-icon
         name="spinner"
         color=${this.variant === 'secondary' || this.variant === 'text'
           ? 'neutral-20'
           : 'neutral-100'}
-        class=${loaderStyles}
+        class="animate-spin"
       ></lukso-icon>
       ${!!this.loadingText
         ? html`<span class="ml-2">${this.loadingText}</span>`

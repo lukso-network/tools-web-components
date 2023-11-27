@@ -199,7 +199,6 @@ const meta: Meta = {
         'customClass',
         'isActive',
         'counterStyles',
-        'loaderStyles',
         'buttonStyles',
         'noTransition',
       ],

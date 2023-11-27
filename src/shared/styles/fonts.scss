@@ -49,7 +49,7 @@ $font-file-path: '/assets/fonts' !default;
 @font-face {
   font-family: Inter;
   src: url('#{$font-file-path}/Inter-ExtraBold.woff2') format('woff2');
-  font-weight: bold;
+  font-weight: bolder;
   font-style: normal;
   font-display: swap;
 }

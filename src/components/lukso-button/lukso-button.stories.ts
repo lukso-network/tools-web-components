@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
@@ -14,7 +14,14 @@ const meta: Meta = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'landing', 'text'],
+      options: [
+        'primary',
+        'secondary',
+        'landing',
+        'text',
+        'nav-button',
+        'nav-text',
+      ],
       table: {
         category: 'Attributes',
       },
@@ -72,6 +79,9 @@ const meta: Meta = {
     isActive: {
       name: 'is-active',
       control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
     },
     isLoading: {
       name: 'is-loading',
@@ -128,6 +138,9 @@ const meta: Meta = {
     count: {
       control: { type: 'number' },
       if: { arg: 'isLink', truthy: false },
+      table: {
+        category: 'Attributes',
+      },
     },
     'is-full-width': {
       name: 'isFullWidth',
@@ -172,21 +185,8 @@ const meta: Meta = {
   parameters: {
     controls: {
       exclude: [
-        'defaultStyles',
-        'secondaryStyles',
-        'primaryStyles',
-        'landingStyles',
-        'textStyles',
-        'linkStyles',
-        'buttonStyles',
-        'mediumSize',
-        'smallSize',
-        'longPressStyles',
-        'noTransition',
         'isPressed',
         'timer',
-        'pressedStyles',
-        'noTransitionStyles',
         'handleMouseDown',
         'handleMouseUp',
         'custom-class',
@@ -198,6 +198,10 @@ const meta: Meta = {
         'loadingText',
         'customClass',
         'isActive',
+        'counterStyles',
+        'loaderStyles',
+        'buttonStyles',
+        'noTransition',
       ],
     },
   },
@@ -225,40 +229,21 @@ const Template = ({
   count,
 }) =>
   html`<lukso-button
-    variant=${variant}
+    variant=${variant ? variant : nothing}
+    size=${size ? size : nothing}
+    href=${href ? href : nothing}
+    type=${type ? type : nothing}
+    target=${target ? target : nothing}
+    rel=${rel ? rel : nothing}
+    loading-text=${loadingText ? loadingText : nothing}
+    custom-class=${customClass ? customClass : nothing}
+    count=${count ? count : nothing}
     ?disabled=${disabled}
-    size=${size}
     ?is-full-width=${isFullWidth}
     ?is-long-press=${isLongPress}
     ?is-link=${isLink}
     ?is-loading=${isLoading}
     ?is-active=${isActive}
-    href=${href}
-    type=${type}
-    target=${target}
-    rel=${rel}
-    loading-text=${loadingText}
-    @on-long-press-complete=${onLongPressComplete}
-    custom-class=${customClass}
-    count=${count}
-    >${text}</lukso-button
-  >`
-
-const LongPressTemplate = ({
-  variant,
-  disabled,
-  text,
-  size,
-  isFullWidth,
-  isLongPress,
-  onLongPressComplete,
-}) =>
-  html`<lukso-button
-    variant=${variant}
-    ?disabled=${disabled}
-    size=${size}
-    ?is-full-width=${isFullWidth}
-    ?is-long-press=${isLongPress}
     @on-long-press-complete=${onLongPressComplete}
     >${text}</lukso-button
   >`
@@ -315,6 +300,18 @@ Text.parameters = {
   },
 }
 
+/** Example of `nav-button` variant.  */
+export const NavButton = Template.bind({})
+NavButton.args = {
+  variant: 'nav-button',
+}
+
+/** Example of `nav-text` variant.  */
+export const NavText = Template.bind({})
+NavText.args = {
+  variant: 'nav-text',
+}
+
 /** If you need button to take full width of the parent element add `is-full-width` property. */
 export const FullWidth = Template.bind({})
 FullWidth.args = {
@@ -359,7 +356,7 @@ IconButton.parameters = {
 /** Long press button require to hold press state till animation fully completes. To turn on this effect add  `is-long-press` property.
  * In order to handle long press complete add `@on-long-press-complete` event handler.
  */
-export const LongPressButton = LongPressTemplate.bind({})
+export const LongPressButton = Template.bind({})
 LongPressButton.args = {
   variant: 'primary',
   text: 'Hold to submit',

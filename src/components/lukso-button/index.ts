@@ -1,11 +1,18 @@
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
+import { tv } from 'tailwind-variants'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
 import style from './style.scss?inline'
+import { cn } from '@/shared/tools'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'landing' | 'text'
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'landing'
+  | 'text'
+  | 'nav-button'
+  | 'nav-text'
 export type ButtonSize = 'small' | 'medium'
 export type ButtonType = 'submit' | 'reset' | 'button'
 export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
@@ -68,44 +75,72 @@ export class LuksoButton extends TailwindStyledElement(style) {
   @state()
   private timer = 0
 
-  private defaultStyles = `flex justify-center items-center relative text-center
-    border border-solid cursor-pointer transition
-    duration-250 active:scale-98 active:duration-25
-    disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100 disabled:opacity-50`
+  private counterStyles = tv({
+    base: `ml-2 border border-neutral-20 rounded-4 px-[2px] py-[1px] paragraph-inter-10-semi-bold text-neutral-20 bg-neutral-100`,
+    variants: {
+      isActive: {
+        true: `text-neutral-100 bg-neutral-20`,
+      },
+    },
+  })
 
-  private secondaryStyles = `bg-neutral-100 border-neutral-90 text-neutral-20
-    hover:shadow-button-hover-secondary active:shadow-button-press-secondary`
-
-  private primaryStyles = `bg-neutral-20 border-neutral-20 text-neutral-100
-    disabled:hover:!bg-neutral-20 disabled:hover:!border-neutral-20
-    hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25
-    active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25
-    before:bg-neutral-10`
-
-  private landingStyles = `bg-purple-51 border-purple-51 text-neutral-100
-    disabled:hover:!bg-purple-51 disabled:hover:!border-purple-51
-    hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58
-    active:shadow-button-press-primary
-    before:bg-purple-51`
-
-  private textStyles = `bg-transparent border-none text-neutral-20
-    hover:text-neutral-35
-    active:text-neutral-35 active:scale-100
-    disabled:text-neutral-90`
-
-  private linkStyles = `!p-0 active:!scale-100 underline text-purple-51 hover:text-purple-41`
-
-  private longPressStyles = `relative overflow-hidden z-[1] active:outline-0
-    before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-[48px]
-    before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-0`
-
-  private pressedStyles = `before:w-full before:z-[-1]`
-
-  private noTransitionStyles = `before:transition-none`
-
-  private mediumSize = `h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12`
-
-  private smallSize = `h-[28px] px-3 paragraph-inter-12-regular rounded-8 hover:shadow-none active:shadow-none`
+  private buttonStyles = tv({
+    base: `flex justify-center items-center relative text-center
+      border border-solid cursor-pointer transition
+      duration-250 active:scale-98 active:duration-25
+      disabled:shadow-none disabled:cursor-not-allowed disabled:scale-100 disabled:opacity-50`,
+    variants: {
+      color: {
+        primary: `bg-neutral-20 border-neutral-20 text-neutral-100
+            disabled:hover:!bg-neutral-20 disabled:hover:!border-neutral-20
+            hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25
+            active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25
+            before:bg-neutral-10`,
+        secondary: `bg-neutral-100 border-neutral-90 text-neutral-20
+            hover:shadow-button-hover-secondary active:shadow-button-press-secondary`,
+        landing: `bg-purple-51 border-purple-51 text-neutral-100
+            disabled:hover:!bg-purple-51 disabled:hover:!border-purple-51
+            hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58
+            active:shadow-button-press-primary
+            before:bg-purple-51`,
+        text: `bg-transparent border-none text-neutral-20
+            hover:text-neutral-35
+            active:text-neutral-35 active:scale-100
+            disabled:text-neutral-90`,
+        link: `!p-0 active:!scale-100 underline text-purple-51 hover:text-purple-41`,
+        'nav-button': `nav-apax-12-medium-uppercase text-purple-41 !text-12`,
+        'nav-text': `bg-transparent border-none nav-apax-12-medium-uppercase text-purple-63 hover:text-purple-41 !text-12 transition`,
+      },
+      size: {
+        medium: `h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12`,
+        small: `h-[28px] px-3 paragraph-inter-12-regular rounded-8 hover:shadow-none active:shadow-none`,
+      },
+      isLongPress: {
+        true: `relative overflow-hidden z-[1] active:outline-0
+          before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-[48px]
+          before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-0`,
+      },
+      isFullWidth: {
+        true: `w-full`,
+      },
+      isPressed: {
+        true: `before:w-full before:z-[-1]`,
+      },
+      noTransition: {
+        true: `before:transition-none`,
+      },
+      isActive: {
+        true: `border-neutral-20`,
+      },
+    },
+    compoundVariants: [
+      {
+        isActive: true,
+        color: 'nav-text',
+        class: 'text-purple-41',
+      },
+    ],
+  })
 
   private handleMouseDown() {
     // Additional check for using long press on non-primary and non-landing variants
@@ -154,76 +189,60 @@ export class LuksoButton extends TailwindStyledElement(style) {
         color=${this.variant === 'secondary' || this.variant === 'text'
           ? 'neutral-20'
           : 'neutral-100'}
-        class=${customClassMap({
-          'animate-spin': true,
-          'mr-2': !!this.loadingText,
-        })}
+        class="animate-spin"
       ></lukso-icon>
-      ${this.loadingText}`
+      ${!!this.loadingText
+        ? html`<span class="ml-2">${this.loadingText}</span>`
+        : nothing}`
   }
 
   counterTemplate() {
-    return html`
-      <span
-        class=${customClassMap({
-          'ml-2 border border-neutral-20 rounded-4 px-[2px] py-[1px] paragraph-inter-10-semi-bold':
-            true,
-          ['text-neutral-100 bg-neutral-20']: this.isActive,
-          ['text-neutral-20 bg-neutral-100']: !this.isActive,
-        })}
-        >${this.count}</span
-      >
-    `
+    const counterStyles = this.counterStyles({
+      isActive: this.isActive,
+    })
+
+    return html` <span class=${counterStyles}>${this.count}</span> `
   }
 
   buttonTemplate() {
+    const buttonStyles = this.buttonStyles({
+      size: this.size,
+      color: this.variant,
+      isLongPress: this.isLongPress,
+      isFullWidth: this.isFullWidth,
+      isPressed: this.isPressed,
+      isActive: this.isActive,
+    })
+
     return html`
       <button
         data-testid="button"
         ?disabled=${this.disabled || this.isLoading}
         type=${this.type}
-        class=${customClassMap({
-          [this.defaultStyles]: true,
-          [this.mediumSize]: this.size === 'medium',
-          [this.smallSize]: this.size === 'small',
-          [this.primaryStyles]: this.variant === 'primary',
-          [this.secondaryStyles]: this.variant === 'secondary',
-          [this.landingStyles]: this.variant === 'landing',
-          [this.textStyles]: this.variant === 'text',
-          ['w-full']: this.isFullWidth,
-          [this.longPressStyles]: this.isLongPress,
-          [this.pressedStyles]: this.isPressed,
-          [this.noTransitionStyles]: this.noTransition,
-          ['!border-neutral-20']: this.isActive && this.variant === 'secondary',
-          [this.customClass]: !!this.customClass,
-        })}
+        class=${cn(buttonStyles, this.customClass)}
         @mousedown=${this.handleMouseDown}
         @mouseup=${this.handleMouseUp}
         @mouseleave=${this.handleMouseUp}
       >
         ${this.isLoading ? this.loadingTemplate() : html`<slot></slot>`}
-        ${this.count ? this.counterTemplate() : ''}
+        ${this.count ? this.counterTemplate() : nothing}
       </button>
     `
   }
 
   linkTemplate() {
+    const buttonStyles = this.buttonStyles({
+      size: this.size,
+      color: this.variant,
+      isLongPress: this.isLongPress,
+      isFullWidth: this.isFullWidth,
+      isPressed: this.isPressed,
+    })
+
     return html`
       <a
         data-testid="link"
-        class=${customClassMap({
-          [this.defaultStyles]: true,
-          [this.mediumSize]: this.size === 'medium',
-          [this.smallSize]: this.size === 'small',
-          [this.primaryStyles]: this.variant === 'primary',
-          [this.secondaryStyles]: this.variant === 'secondary',
-          [this.landingStyles]: this.variant === 'landing',
-          [this.textStyles]: this.variant === 'text',
-          [this.linkStyles]: this.variant === 'text',
-          ['w-full']: this.isFullWidth,
-          ['!border-neutral-20']: this.isActive && this.variant === 'secondary',
-          [this.customClass]: !!this.customClass,
-        })}
+        class=${cn(buttonStyles, this.customClass)}
         href=${this.href}
         target=${this.target}
         rel=${this.rel}

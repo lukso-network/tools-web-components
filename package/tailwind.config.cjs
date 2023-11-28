@@ -1,6 +1,6 @@
 const plugin = require('tailwindcss/plugin')
 
-const { colorPalette, boxShadows, fontWeights, fontSizes, lineHeights, scales, heights, borderRadius } = require('./tools/tailwind-config.cjs')
+const { colorPalette, boxShadows, fontWeights, fontSizes, lineHeights, scales, heights, borderRadius, spacing } = require('./tools/tailwind-config.cjs')
 
 /**
  * Add animation delay utilities. Example: .animation-delay-1000
@@ -159,9 +159,7 @@ module.exports = {
         both: 'both',
       },
       borderRadius: borderRadius,
-      spacing: {
-        22: '5.5rem', // 88px
-      }
+      spacing: spacing
     },
   },
   plugins: [

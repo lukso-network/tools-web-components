@@ -311,6 +311,12 @@ NavText.args = {
   variant: 'nav-text',
 }
 
+/** Example of `small` size button.  */
+export const SmallSize = Template.bind({})
+SmallSize.args = {
+  size: 'small',
+}
+
 /** If you need button to take full width of the parent element add `is-full-width` property. */
 export const FullWidth = Template.bind({})
 FullWidth.args = {

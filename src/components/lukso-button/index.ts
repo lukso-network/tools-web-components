@@ -113,7 +113,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
       },
       size: {
         medium: `h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12`,
-        small: `h-[28px] px-3 paragraph-inter-12-regular rounded-8 hover:shadow-none active:shadow-none`,
+        small: `h-[28px] px-3 paragraph-inter-12-medium rounded-8 hover:shadow-none active:shadow-none`,
       },
       isLongPress: {
         true: `relative overflow-hidden z-[1] active:outline-0

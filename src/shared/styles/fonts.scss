@@ -16,6 +16,14 @@ $font-file-path: '/assets/fonts' !default;
 
 @font-face {
   font-family: Inter;
+  src: url('#{$font-file-path}/Inter-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
   src: url('#{$font-file-path}/Inter-Bold.woff2') format('woff2');
   font-weight: bold;
   font-style: normal;
@@ -42,14 +50,6 @@ $font-file-path: '/assets/fonts' !default;
   font-family: Inter;
   src: url('#{$font-file-path}/Inter-Thin.woff2') format('woff2');
   font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Inter;
-  src: url('#{$font-file-path}/Inter-ExtraBold.woff2') format('woff2');
-  font-weight: bolder;
   font-style: normal;
   font-display: swap;
 }

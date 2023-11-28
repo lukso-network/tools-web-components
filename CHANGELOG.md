@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.52.0](https://github.com/lukso-network/tools-web-components/compare/v1.51.6...v1.52.0) (2023-11-28)
+
+
+### Features
+
+* **DEV-9202:** configuration of twMerge to take our custom tw config ([#284](https://github.com/lukso-network/tools-web-components/issues/284)) ([2f50d56](https://github.com/lukso-network/tools-web-components/commit/2f50d56e94a56672b14ef10fbeba07bf5871f266))
+* rework button component into Tailwind Variants ([#282](https://github.com/lukso-network/tools-web-components/issues/282)) ([14f1373](https://github.com/lukso-network/tools-web-components/commit/14f13739f09961a49b825e308851479807650615))
+
+
+### Bug Fixes
+
+* **DEV-9084:** fix bold and extra bold Inter fonts ([#281](https://github.com/lukso-network/tools-web-components/issues/281)) ([fc7955c](https://github.com/lukso-network/tools-web-components/commit/fc7955cc0b1a2eb4a332addad9281f8fb8434acc))
+
 ## [1.51.6](https://github.com/lukso-network/tools-web-components/compare/v1.51.5...v1.51.6) (2023-11-23)
 
 

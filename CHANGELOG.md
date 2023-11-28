@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.52.1](https://github.com/lukso-network/tools-web-components/compare/v1.52.0...v1.52.1) (2023-11-28)
+
+
+### Bug Fixes
+
+* **DEV-9202:** fixed wrong twMerge config. Fixed fonts inter extra bold ([#285](https://github.com/lukso-network/tools-web-components/issues/285)) ([d694085](https://github.com/lukso-network/tools-web-components/commit/d6940853c3d1a8fcad13b35f2e984e612c4e0d67))
+* small button font and tooltip trigger size ([#286](https://github.com/lukso-network/tools-web-components/issues/286)) ([b0f6de3](https://github.com/lukso-network/tools-web-components/commit/b0f6de35797dc52e433ab0c3be4e1350f17ac025))
+
 ## [1.52.0](https://github.com/lukso-network/tools-web-components/compare/v1.51.6...v1.52.0) (2023-11-28)
 
 

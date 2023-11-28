@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.52.2](https://github.com/lukso-network/tools-web-components/compare/v1.52.1...v1.52.2) (2023-11-28)
+
+
+### Bug Fixes
+
+* missing tw merge config - force release ([#288](https://github.com/lukso-network/tools-web-components/issues/288)) ([1fdb1d2](https://github.com/lukso-network/tools-web-components/commit/1fdb1d2174c6e87a6e894ec7f6ed920e2f9c10cc))
+
 ## [1.52.1](https://github.com/lukso-network/tools-web-components/compare/v1.52.0...v1.52.1) (2023-11-28)
 
 

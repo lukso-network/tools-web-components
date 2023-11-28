@@ -29,9 +29,9 @@ export async function run(argv: any) {
       entry: './src/shared/tools/index.ts',
     },
     {
-      fileName: 'color-palette',
-      name: 'tools_color_palette',
-      entry: './src/shared/tools/color-palette.ts',
+      fileName: 'tailwind-config',
+      name: 'tools_tailwind_config',
+      entry: './src/shared/tools/tailwind-config.ts',
     },
     {
       fileName: 'copy-assets',

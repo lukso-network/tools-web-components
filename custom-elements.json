@@ -3248,7 +3248,7 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./color-palette"
+            "package": "./tailwind-config"
           }
         },
         {

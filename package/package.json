@@ -51,10 +51,10 @@
       "import": "./tools/sass/index.js",
       "types": "./tools/sass/index.d.ts"
     },
-    "./tools/color-palette": {
-      "require": "./tools/color-palette.cjs",
-      "import": "./tools/color-palette.js",
-      "types": "./tools/color-palette.d.ts"
+    "./tools/tailwind-config": {
+      "require": "./tools/tailwind-config.cjs",
+      "import": "./tools/tailwind-config.js",
+      "types": "./tools/tailwind-config.d.ts"
     },
     "./tools/copy-assets": {
       "require": "./tools/copy-assets.cjs",

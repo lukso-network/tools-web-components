@@ -8,7 +8,7 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import * as url from 'node:url'
 
-import { colorPalette } from './package/tools/color-palette.js'
+import { colorPalette } from './package/tools/tailwind-config.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -192,10 +192,10 @@ async function writePackage() {
       import: './tools/sass/index.js',
       types: './tools/sass/index.d.ts',
     },
-    './tools/color-palette': {
-      require: './tools/color-palette.cjs',
-      import: './tools/color-palette.js',
-      types: './tools/color-palette.d.ts',
+    './tools/tailwind-config': {
+      require: './tools/tailwind-config.cjs',
+      import: './tools/tailwind-config.js',
+      types: './tools/tailwind-config.d.ts',
     },
     './tools/copy-assets': {
       require: './tools/copy-assets.cjs',
@@ -269,9 +269,9 @@ export async function run(argv: any) {
       entry: './src/index.ts',
     },
     {
-      fileName: 'color-palette',
-      name: 'web_component_color_palette',
-      entry: './src/shared/tools/color-palette.ts',
+      fileName: 'tailwind-config',
+      name: 'web_component_tailwind_config',
+      entry: './src/shared/tools/tailwind-config.ts',
     },
   ].concat(
     list.map(({ entry, fileName, name }) => {
@@ -332,7 +332,7 @@ export async function run(argv: any) {
           },
         }),
         dts({
-          include: ['./src/shared/tools/color-palette.ts'],
+          include: ['./src/shared/tools/tailwind-config.ts'],
           beforeWriteFile: (filePath: string, content: string) => {
             return {
               filePath: filePath.replace('/shared/tools/', '/'),

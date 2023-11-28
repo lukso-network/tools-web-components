@@ -167,7 +167,11 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
             ?show=${this.showCopy ? true : undefined}
             text=${this.copyText}
           >
-            <div id="trigger" class="cursor-pointer" @click=${this.handleClick}>
+            <div
+              id="trigger"
+              class="cursor-pointer flex"
+              @click=${this.handleClick}
+            >
               <slot></slot>
             </div>
           </lukso-tooltip>`

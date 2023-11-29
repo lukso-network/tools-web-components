@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.53.0](https://github.com/lukso-network/tools-web-components/compare/v1.52.2...v1.53.0) (2023-11-29)
+
+
+### Features
+
+* add `cross-filled` icon ([#290](https://github.com/lukso-network/tools-web-components/issues/290)) ([8355d22](https://github.com/lukso-network/tools-web-components/commit/8355d22986934414dbbd109012dc7ff2756e49a9))
+* Add proper link variant ([#292](https://github.com/lukso-network/tools-web-components/issues/292)) ([8e5b8b5](https://github.com/lukso-network/tools-web-components/commit/8e5b8b54e5244eae820bd6b893eb64e09dd7932f))
+
 ## [1.52.2](https://github.com/lukso-network/tools-web-components/compare/v1.52.1...v1.52.2) (2023-11-28)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.53.1](https://github.com/lukso-network/tools-web-components/compare/v1.53.0...v1.53.1) (2023-11-29)
+
+
+### Bug Fixes
+
+* icon border issue and tooltip trigger size ([#293](https://github.com/lukso-network/tools-web-components/issues/293)) ([8b5d781](https://github.com/lukso-network/tools-web-components/commit/8b5d7819ddd398500e213bc874c50faf9e8869b9))
+
 ## [1.53.0](https://github.com/lukso-network/tools-web-components/compare/v1.52.2...v1.53.0) (2023-11-29)
 
 

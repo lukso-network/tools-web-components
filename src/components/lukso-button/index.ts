@@ -107,7 +107,6 @@ export class LuksoButton extends TailwindStyledElement(style) {
             hover:text-neutral-35
             active:text-neutral-35 active:scale-100
             disabled:text-neutral-90`,
-        link: `!p-0 active:!scale-100 underline text-purple-51 hover:text-purple-41`,
         'nav-button': `nav-apax-12-medium-uppercase text-purple-41 !text-12`,
         'nav-text': `bg-transparent border-none nav-apax-12-medium-uppercase text-purple-63 hover:text-purple-41 !text-12 transition`,
       },

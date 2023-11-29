@@ -122,6 +122,7 @@ import { completeFilledFadeIn } from './icons/complete-filled-fade-in'
 import { desktopSharp } from './icons/desktop-sharp'
 import { switched } from './icons/switched'
 import { progressIndicatorAlt } from './icons/progress-indicator-alt'
+import { crossFilled } from './icons/cross-filled'
 
 export type IconOptions = {
   width: number
@@ -259,6 +260,7 @@ const iconMap = {
   'desktop-sharp': desktopSharp,
   switched,
   'progress-indicator-alt': progressIndicatorAlt,
+  'cross-filled': crossFilled,
 }
 
 @customElement('lukso-icon')

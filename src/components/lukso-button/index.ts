@@ -13,6 +13,7 @@ export type ButtonVariant =
   | 'text'
   | 'nav-button'
   | 'nav-text'
+  | 'link'
 export type ButtonSize = 'small' | 'medium'
 export type ButtonType = 'submit' | 'reset' | 'button'
 export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
@@ -107,6 +108,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
             hover:text-neutral-35
             active:text-neutral-35 active:scale-100
             disabled:text-neutral-90`,
+        link: `bg-transparent border-none active:!scale-100 underline text-purple-51 hover:text-purple-41`,
         'nav-button': `nav-apax-12-medium-uppercase text-purple-41 !text-12`,
         'nav-text': `bg-transparent border-none nav-apax-12-medium-uppercase text-purple-63 hover:text-purple-41 !text-12 transition`,
       },
@@ -137,6 +139,11 @@ export class LuksoButton extends TailwindStyledElement(style) {
         isActive: true,
         color: 'nav-text',
         class: 'text-purple-41',
+      },
+      {
+        size: ['medium', 'small'],
+        color: 'link',
+        class: 'p-0 h-[initial]',
       },
     ],
   })

@@ -21,6 +21,7 @@ const meta: Meta = {
         'text',
         'nav-button',
         'nav-text',
+        'link',
       ],
       table: {
         category: 'Attributes',
@@ -189,7 +190,6 @@ const meta: Meta = {
         'timer',
         'handleMouseDown',
         'handleMouseUp',
-        'custom-class',
         'styles',
         'isFullWidth',
         'isLongPress',
@@ -309,6 +309,12 @@ NavButton.args = {
 export const NavText = Template.bind({})
 NavText.args = {
   variant: 'nav-text',
+}
+
+/** Example of `link` variant.  */
+export const LinkVariant = Template.bind({})
+LinkVariant.args = {
+  variant: 'link',
 }
 
 /** Example of `small` size button.  */

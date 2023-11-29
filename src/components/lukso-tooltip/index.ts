@@ -177,7 +177,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
           </lukso-tooltip>`
         : html`<div
             id="trigger"
-            class="cursor-pointer"
+            class="cursor-pointer flex"
             @click=${this.handleClick}
           >
             <slot></slot>

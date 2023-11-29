@@ -16,8 +16,10 @@ export const crossFilled = (options: IconOptions) => {
     })}
   >
     <path
-      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+      d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z"
       fill="var(--${options.color})"
+      stroke="var(--${options.color})"
+      stroke-width="${options.strokeWidth}"
     />
     <path
       d="M8 16.0001L16.0002 7.99995"

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.53.2](https://github.com/lukso-network/tools-web-components/compare/v1.53.1...v1.53.2) (2023-11-30)
+
+
+### Bug Fixes
+
+* issue with tooltip positioning ([#295](https://github.com/lukso-network/tools-web-components/issues/295)) ([9f5731c](https://github.com/lukso-network/tools-web-components/commit/9f5731cad1322511f043e895d40767b46dd80a37))
+
 ## [1.53.1](https://github.com/lukso-network/tools-web-components/compare/v1.53.0...v1.53.1) (2023-11-29)
 
 

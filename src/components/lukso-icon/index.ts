@@ -81,6 +81,7 @@ import { profileRecovery } from './icons/profile-recovery'
 import { profileRecovery2 } from './icons/profile-recovery-2'
 import { profileRestore } from './icons/profile-restore'
 import { profile } from './icons/profile'
+import { qrCodeScan } from './icons/qr-code-scan'
 import { qrCode } from './icons/qr-code'
 import { relayer } from './icons/relayer'
 import { reload } from './icons/reload'
@@ -123,6 +124,18 @@ import { desktopSharp } from './icons/desktop-sharp'
 import { switched } from './icons/switched'
 import { progressIndicatorAlt } from './icons/progress-indicator-alt'
 import { crossFilled } from './icons/cross-filled'
+import { transferSend } from './icons/transfer-send'
+import { flagOutline } from './icons/flag-outline'
+import { tokenId } from './icons/token-id'
+import { editDoc } from './icons/edit-doc'
+import { codeOutline } from './icons/code-outline'
+import { saveOutline } from './icons/save-outline'
+import { scan } from './icons/scan'
+import { faceId } from './icons/face-id'
+import { profileFile } from './icons/profile-file'
+import { handRightOutline } from './icons/hand-right-outline'
+import { extensionOutline } from './icons/extension-outline'
+import { luksoLogo } from './icons/lukso-logo'
 
 export type IconOptions = {
   width: number
@@ -261,6 +274,19 @@ const iconMap = {
   switched,
   'progress-indicator-alt': progressIndicatorAlt,
   'cross-filled': crossFilled,
+  'transfer-send': transferSend,
+  'flag-outline': flagOutline,
+  'token-id': tokenId,
+  'edit-doc': editDoc,
+  'code-outline': codeOutline,
+  'save-outline': saveOutline,
+  scan,
+  'qr-code-scan': qrCodeScan,
+  'face-id': faceId,
+  'profile-file': profileFile,
+  'hand-right-outline': handRightOutline,
+  'extension-outline': extensionOutline,
+  'lukso-logo': luksoLogo,
 }
 
 @customElement('lukso-icon')

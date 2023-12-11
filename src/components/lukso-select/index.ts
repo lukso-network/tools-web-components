@@ -1,8 +1,8 @@
 import { PropertyValues, TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
+import { tv } from 'tailwind-variants'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
 import style from './style.scss?inline'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
@@ -65,9 +65,61 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   @state()
   private valueParsed: SelectOption | undefined = undefined
 
-  private defaultInputStyles = `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-11
-    border-solid h-[48px] placeholder:text-neutral-70 select-none whitespace-nowrap
-    outline-none transition transition-all duration-150 appearance-none rounded-12`
+  private inputStyles = tv({
+    base: `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-11
+      border border-solid h-[48px] placeholder:text-neutral-70 select-none whitespace-nowrap
+      outline-none transition transition-all duration-150 appearance-none rounded-12
+      text-neutral-20 cursor-pointer border-neutral-90 group-hover:border-neutral-35`,
+    variants: {
+      isFullWidth: {
+        true: `w-full`,
+      },
+      isDisabled: {
+        true: `cursor-not-allowed text-neutral-60 group-hover:border-neutral-90`,
+      },
+      hasError: {
+        true: `border-red-85 group-hover:border-red-65`,
+      },
+      borderless: {
+        true: `border-0`,
+      },
+    },
+  })
+
+  private dropdownWrapperStyles = tv({
+    base: `bg-neutral-100 border w-full border-neutral-90 shadow-1xl rounded-12 p-3 z-50
+      flex absolute flex-col gap-1 overflow-y-auto max-h-64 mt-2`,
+    variants: {
+      openTop: {
+        true: `bottom-[48px] mb-2 mt-0`,
+      },
+    },
+  })
+
+  private optionsStringStyles = tv({
+    base: `paragraph-inter-14-regular text-neutral-20 cursor-pointer rounded-8 p-2
+      whitespace-nowrap hover:bg-neutral-98`,
+    variants: {
+      isSelected: {
+        true: `bg-neutral-95 hover:bg-neutral-95`,
+      },
+      isActive: {
+        true: `bg-neutral-98`,
+      },
+    },
+  })
+
+  private iconStyles = tv({
+    base: `absolute right-0 mr-3 transition cursor-pointer`,
+    variants: {
+      isDisabled: {
+        true: `opacity-60 cursor-not-allowed`,
+      },
+      isOpen: {
+        true: `rotate-180`,
+      },
+    },
+  })
 
   connectedCallback() {
     super.connectedCallback()
@@ -121,20 +173,18 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   }
 
   inputTemplate() {
+    const inputStyles = this.inputStyles({
+      isFullWidth: this.isFullWidth,
+      isDisabled: this.isDisabled,
+      hasError: !!this.error,
+      borderless: this.borderless,
+    })
+
     return html`
       <div
         id=${this.id}
         data-testid=${this.id ? `select-${this.id}` : 'select'}
-        class=${customClassMap({
-          [this.defaultInputStyles]: true,
-          ['border-neutral-90 group-hover:border-neutral-35']:
-            !!!this.error && !this.isDisabled,
-          ['border-red-85 group-hover:border-red-65']: !!this.error,
-          ['w-full']: this.isFullWidth,
-          ['cursor-not-allowed text-neutral-60']: this.isDisabled,
-          ['text-neutral-20 cursor-pointer']: !this.isDisabled,
-          [this.borderless ? 'border-0' : 'border']: true,
-        })}
+        class=${inputStyles}
         @blur=${this.handleBlur}
         @click=${this.handleClick}
       >
@@ -184,32 +234,24 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   dropdownWrapperTemplate(
     innerTemplate: TemplateResult<1> | TemplateResult<1>[]
   ) {
-    return html`<div
-      class="bg-neutral-100 border w-full border-neutral-90 shadow-1xl rounded-12 p-3 z-50 flex absolute flex-col gap-1 overflow-y-auto max-h-64 ${customClassMap(
-        {
-          ['bottom-[48px] mb-2']: this.openTop,
-          ['mt-2']: !this.openTop,
-        }
-      )}
-      )}"
-    >
-      ${innerTemplate}
-    </div>`
+    const dropdownWrapperStyles = this.dropdownWrapperStyles({
+      openTop: this.openTop,
+    })
+
+    return html`<div class="${dropdownWrapperStyles}">${innerTemplate}</div>`
   }
 
   optionStringTemplate(option: SelectStringOption, index: number) {
+    const optionsStringStyles = this.optionsStringStyles({
+      isSelected: this.valueParsed?.id === option.id,
+      isActive:
+        this.selected === index + 1 && this.valueParsed?.id !== option.id,
+    })
+
     return html`<div
       data-id="${option.id}"
       data-index="${index + 1}"
-      class="paragraph-inter-14-regular text-neutral-20 cursor-pointer rounded-8 p-2 whitespace-nowrap ${customClassMap(
-        {
-          ['bg-neutral-95 hover:bg-neutral-95']:
-            this.valueParsed?.id === option.id,
-          ['bg-neutral-98']:
-            this.selected === index + 1 && this.valueParsed?.id !== option.id,
-          ['hover:bg-neutral-98']: this.valueParsed?.id !== option.id,
-        }
-      )}"
+      class="${optionsStringStyles}"
       @click=${() => this.handleSelect(option)}
     >
       ${option.value}
@@ -311,6 +353,11 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   }
 
   render() {
+    const iconStyles = this.iconStyles({
+      isDisabled: this.isDisabled,
+      isOpen: this.isOpen,
+    })
+
     return html`
       <div class="relative w-[inherit]">
         ${this.label ? this.labelTemplate() : nothing}
@@ -319,11 +366,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
           <div class="flex relative items-center">
             ${this.inputTemplate()}<lukso-icon
               name=${this.isFullWidth ? 'arrow-down-lg' : 'arrow-down-sm'}
-              class="absolute right-0 mr-3 transition ${customClassMap({
-                ['opacity-60 cursor-not-allowed']: this.isDisabled,
-                ['cursor-pointer']: !this.isDisabled,
-                ['rotate-180']: this.isOpen,
-              })}"
+              class="${iconStyles}"
               @click=${this.handleClick}
             ></lukso-icon>
           </div>

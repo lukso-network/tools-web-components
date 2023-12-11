@@ -98,6 +98,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isLargeIcon: {
+      name: 'is-large-icon',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onSelect: {
       name: 'on-select',
       description: 'Emitted on select element from the dropdown.',
@@ -126,6 +133,9 @@ const meta: Meta = {
     },
     'open-top': {
       name: 'openTop',
+    },
+    'is-large-icon': {
+      name: 'isLargeIcon',
     },
   },
   args: {
@@ -159,11 +169,11 @@ const meta: Meta = {
     ],
     selected: undefined,
     openTop: false,
+    isLargeIcon: false,
   },
   parameters: {
     controls: {
       exclude: [
-        'defaultInputStyles',
         'isFullWidth',
         'hasFocus',
         'hasHighlight',
@@ -176,6 +186,11 @@ const meta: Meta = {
         'styles',
         'isOpen',
         'openTop',
+        'isLargeIcon',
+        'inputStyles',
+        'dropdownWrapperStyles',
+        'optionsStyles',
+        'iconStyles',
       ],
     },
     design: {
@@ -204,6 +219,7 @@ const Template = ({
   id,
   openTop,
   marginTop,
+  isLargeIcon,
 }) => {
   const [{ options, value }, updateArgs] = useArgs()
 
@@ -224,6 +240,7 @@ const Template = ({
     ?is-open=${isOpen}
     ?borderless=${borderless}
     ?open-top=${openTop}
+    ?is-large-icon=${isLargeIcon}
     selected=${selected ? selected : nothing}
     @on-select=${handleSelect}
     @on-blur=${onBlur}

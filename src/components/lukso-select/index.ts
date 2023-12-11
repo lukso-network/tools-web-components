@@ -67,6 +67,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'open-top' })
   openTop: boolean = false
 
+  @property({ type: Boolean, attribute: 'is-large-icon' })
+  isLargeIcon: boolean = false
+
   @state()
   private optionsParsed: SelectOption[] = []
 
@@ -421,7 +424,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         <div class="group">
           <div class="flex relative items-center">
             ${this.inputTemplate()}<lukso-icon
-              name=${this.isFullWidth ? 'arrow-down-lg' : 'arrow-down-sm'}
+              name=${this.isLargeIcon ? 'arrow-down-lg' : 'arrow-down-sm'}
               class="${iconStyles}"
               @click=${this.handleClick}
             ></lukso-icon>

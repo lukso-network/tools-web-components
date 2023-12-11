@@ -7,13 +7,21 @@ import style from './style.scss?inline'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
+import { Address } from '@/shared/types'
 
 export type SelectStringOption = {
   id?: string
   value: string
 }
 
-export type SelectOption = SelectStringOption
+export type SelectProfileOption = {
+  id: string
+  address: Address
+  image?: string
+  name?: string
+}
+
+export type SelectOption = SelectStringOption | SelectProfileOption
 
 @customElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
@@ -69,7 +77,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     base: `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-11
       border border-solid h-[48px] placeholder:text-neutral-70 select-none whitespace-nowrap
       outline-none transition transition-all duration-150 appearance-none rounded-12
-      text-neutral-20 cursor-pointer border-neutral-90 group-hover:border-neutral-35`,
+      text-neutral-20 cursor-pointer border-neutral-90 group-hover:border-neutral-35
+      flex items-center`,
     variants: {
       isFullWidth: {
         true: `w-full`,
@@ -96,9 +105,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     },
   })
 
-  private optionsStringStyles = tv({
+  private optionsStyles = tv({
     base: `paragraph-inter-14-regular text-neutral-20 cursor-pointer rounded-8 p-2
-      whitespace-nowrap hover:bg-neutral-98`,
+      whitespace-nowrap hover:bg-neutral-98 flex items-center`,
     variants: {
       isSelected: {
         true: `bg-neutral-95 hover:bg-neutral-95`,
@@ -223,6 +232,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
       if ('value' in option[1]) {
         optionTemplates.push(this.optionStringTemplate(option[1], index))
+      } else if ('address' in option[1]) {
+        optionTemplates.push(this.optionProfileTemplate(option[1], index))
       } else {
         console.error('Unknown option type', option)
       }
@@ -242,7 +253,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   }
 
   optionStringTemplate(option: SelectStringOption, index: number) {
-    const optionsStringStyles = this.optionsStringStyles({
+    const optionsStyles = this.optionsStyles({
       isSelected: this.valueParsed?.id === option.id,
       isActive:
         this.selected === index + 1 && this.valueParsed?.id !== option.id,
@@ -251,11 +262,50 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     return html`<div
       data-id="${option.id}"
       data-index="${index + 1}"
-      class="${optionsStringStyles}"
+      class="${optionsStyles}"
       @click=${() => this.handleSelect(option)}
     >
-      ${option.value}
+      ${this.optionStringValue(option)}
     </div>`
+  }
+
+  optionProfileTemplate(option: SelectProfileOption, index: number) {
+    const optionsStyles = this.optionsStyles({
+      isSelected: this.valueParsed?.id === option.id,
+      isActive:
+        this.selected === index + 1 && this.valueParsed?.id !== option.id,
+    })
+
+    return html`<div
+      data-id="${option.id}"
+      data-index="${index + 1}"
+      class="${optionsStyles}"
+      @click=${() => this.handleSelect(option)}
+    >
+      ${this.optionProfileValue(option)}
+    </div>`
+  }
+
+  private optionStringValue(option: SelectStringOption) {
+    return option.value
+  }
+
+  private optionProfileValue(option: SelectProfileOption) {
+    return html`<lukso-profile
+        profile-address="${option.address}"
+        profile-url="${option.image}"
+        size="x-small"
+        has-identicon
+        class="mr-2"
+      ></lukso-profile>
+      <lukso-username
+        name="${option.name?.toLowerCase()}"
+        address="${option.address}"
+        name-color="neutral-20"
+        max-width="150"
+        slice-by="4"
+        size="medium"
+      ></lukso-username>`
   }
 
   private selectedValue() {
@@ -264,7 +314,13 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     )
 
     if (foundValue) {
-      return foundValue.value
+      if ('value' in foundValue) {
+        return this.optionStringValue(foundValue)
+      } else if ('address' in foundValue) {
+        return this.optionProfileValue(foundValue)
+      } else {
+        console.error('Unknown value type', foundValue)
+      }
     }
 
     return ''

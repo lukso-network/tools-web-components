@@ -92,6 +92,7 @@ const meta: Meta = {
       },
     },
     openTop: {
+      name: 'open-top',
       control: { type: 'boolean' },
       table: {
         category: 'Attributes',

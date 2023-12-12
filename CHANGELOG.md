@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.55.0](https://github.com/lukso-network/tools-web-components/compare/v1.54.0...v1.55.0) (2023-12-12)
+
+
+### Features
+
+* support profiles in `lukso-select` ([#299](https://github.com/lukso-network/tools-web-components/issues/299)) ([e10031b](https://github.com/lukso-network/tools-web-components/commit/e10031b6c641b805584a59ac4f40794578e124fb))
+
 ## [1.54.0](https://github.com/lukso-network/tools-web-components/compare/v1.53.2...v1.54.0) (2023-12-09)
 
 

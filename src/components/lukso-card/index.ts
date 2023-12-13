@@ -1,6 +1,7 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
+import { tv } from 'tailwind-variants'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
@@ -15,7 +16,10 @@ export type CardVariants =
   | 'profile-2'
   | 'hero'
   | 'dapp'
+
 export type CardSizes = 'small' | 'medium'
+
+export type CardShadows = 'small' | 'medium' | 'large'
 
 @customElement('lukso-card')
 export class LuksoCard extends TailwindStyledElement(style) {
@@ -46,6 +50,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: String })
   size: CardSizes = 'medium'
 
+  @property({ type: String })
+  shadow: CardShadows = 'large'
+
   @property({ type: Boolean, attribute: 'is-hoverable' })
   isHoverable = false
 
@@ -65,7 +72,52 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return `linear-gradient(90deg, ${gradientStart}, ${gradientEnd})`
   }
 
+  private cardStyles = tv({
+    base: `bg-neutral-100`,
+    variants: {
+      size: {
+        small: `rounded-12`,
+        medium: `rounded-24`,
+      },
+      shadow: {
+        small: `shadow-neutral-drop-shadow`,
+        medium: `shadow-neutral-drop-shadow-1xl`,
+        large: `shadow-neutral-drop-shadow-2xl`,
+      },
+      isHoverable: {
+        true: `cursor-pointer transition`,
+      },
+      hasNoWidth: {
+        true: `w-full`,
+      },
+    },
+    compoundVariants: [
+      {
+        shadow: 'small',
+        isHoverable: true,
+        class: `hover:shadow-neutral-drop-shadow-1xl`,
+      },
+      {
+        shadow: 'medium',
+        isHoverable: true,
+        class: `hover:shadow-neutral-drop-shadow-2xl`,
+      },
+      {
+        shadow: 'large',
+        isHoverable: true,
+        class: `hover:shadow-neutral-drop-shadow-3xl`,
+      },
+    ],
+  })
+
   basicTemplate() {
+    const cardStyles = this.cardStyles({
+      size: this.size,
+      shadow: this.shadow,
+      isHoverable: this.isHoverable,
+      hasNoWidth: !this.width,
+    })
+
     return html`
       <div
         data-testid="card"
@@ -73,13 +125,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [`min-height: ${this.height}px`]: !!this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
-        class=${cn('bg-neutral-100', {
-          [this.mediumStyles]: !this.customClass && this.size === 'medium',
-          [this.smallStyles]: !this.customClass && this.size === 'small',
-          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
-          [this.customClass]: !!this.customClass,
-          'w-full': !this.width,
-        })}
+        class=${cn(cardStyles, this.customClass)}
       >
         <slot name="content"></slot>
       </div>
@@ -87,6 +133,14 @@ export class LuksoCard extends TailwindStyledElement(style) {
   }
 
   withHeaderTemplate() {
+    const cardStyles = this.cardStyles({
+      size: this.size,
+      shadow: this.shadow,
+      isHoverable: this.isHoverable,
+      hasNoWidth: !this.width,
+      class: `grid grid-rows-[auto,1fr] overflow-hidden`,
+    })
+
     return html`
       <div
         data-testid="card"
@@ -94,13 +148,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           minHeight: `${this.height}px`,
           width: `${this.width}px`,
         })}
-        class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr] overflow-hidden', {
-          [this.mediumStyles]: !this.customClass && this.size === 'medium',
-          [this.smallStyles]: !this.customClass && this.size === 'small',
-          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
-          [this.customClass]: !!this.customClass,
-          'w-full': !this.width,
-        })}
+        class=${cn(cardStyles, this.customClass)}
       >
         <div class=${this.headerClass}>
           <slot name="header"></slot>
@@ -113,6 +161,14 @@ export class LuksoCard extends TailwindStyledElement(style) {
   }
 
   profileTemplate() {
+    const cardStyles = this.cardStyles({
+      size: this.size,
+      shadow: this.shadow,
+      isHoverable: this.isHoverable,
+      hasNoWidth: !this.width,
+      class: `grid`,
+    })
+
     return html`
       <div
         data-testid="card"
@@ -120,13 +176,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [`min-height: ${this.height}px`]: !!this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
-        class=${cn('bg-neutral-100 grid', {
-          [this.mediumStyles]: !this.customClass && this.size === 'medium',
-          [this.smallStyles]: !this.customClass && this.size === 'small',
-          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
-          [this.customClass]: !!this.customClass,
-          'w-full': !this.width,
-        })}
+        class=${cn(cardStyles, this.customClass)}
       >
         <div
           style=${styleMap({
@@ -172,6 +222,14 @@ export class LuksoCard extends TailwindStyledElement(style) {
   }
 
   profile2Template() {
+    const cardStyles = this.cardStyles({
+      size: this.size,
+      shadow: this.shadow,
+      isHoverable: this.isHoverable,
+      hasNoWidth: !this.width,
+      class: `grid grid-rows-[auto,1fr]`,
+    })
+
     return html`
       <div
         data-testid="card"
@@ -179,13 +237,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [`min-height: ${this.height}px`]: !!this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
-        class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr]', {
-          [this.mediumStyles]: !this.customClass && this.size === 'medium',
-          [this.smallStyles]: !this.customClass && this.size === 'small',
-          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
-          [this.customClass]: !!this.customClass,
-          ['w-full']: !this.width,
-        })}
+        class=${cn(cardStyles, this.customClass)}
       >
         <div
           style=${styleMap({
@@ -233,6 +285,14 @@ export class LuksoCard extends TailwindStyledElement(style) {
   }
 
   heroTemplate() {
+    const cardStyles = this.cardStyles({
+      size: this.size,
+      shadow: this.shadow,
+      isHoverable: this.isHoverable,
+      hasNoWidth: !this.width,
+      class: `h-[240px] flex`,
+    })
+
     return html`
       <div
         data-testid="card"
@@ -240,13 +300,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [`min-height: ${this.height}px`]: !!this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
-        class=${cn('h-[240px] flex bg-neutral-100', {
-          [this.mediumStyles]: !this.customClass && this.size === 'medium',
-          [this.smallStyles]: !this.customClass && this.size === 'small',
-          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
-          [this.customClass]: !!this.customClass,
-          ['w-full']: !this.width,
-        })}
+        class=${cn(cardStyles, this.customClass)}
       >
         <div
           style=${styleMap({
@@ -269,6 +323,14 @@ export class LuksoCard extends TailwindStyledElement(style) {
   }
 
   dappTemplate() {
+    const cardStyles = this.cardStyles({
+      size: this.size,
+      shadow: this.shadow,
+      isHoverable: this.isHoverable,
+      hasNoWidth: !this.width,
+      class: `grid grid-rows-[auto,1fr]`,
+    })
+
     return html`
       <div
         data-testid="card"
@@ -276,13 +338,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [`min-height: ${this.height}px`]: !!this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
-        class=${cn('bg-neutral-100 grid grid-rows-[auto,1fr]', {
-          [this.mediumStyles]: !this.customClass && this.size === 'medium',
-          [this.smallStyles]: !this.customClass && this.size === 'small',
-          [this.smallHoverStyles]: this.isHoverable && this.size === 'small',
-          [this.customClass]: !!this.customClass,
-          ['w-full']: !this.width,
-        })}
+        class=${cn(cardStyles, this.customClass)}
       >
         <div
           style=${styleMap({

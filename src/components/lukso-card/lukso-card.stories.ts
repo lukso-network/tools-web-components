@@ -78,6 +78,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    shadow: {
+      control: { type: 'select' },
+      options: ['small', 'medium', 'large'],
+      table: {
+        category: 'Attributes',
+      },
+    },
     isHoverable: {
       name: 'is-hoverable',
       control: { type: 'boolean' },
@@ -112,11 +119,12 @@ const meta: Meta = {
     backgroundUrl: 'images/sample-background.jpg',
     profileUrl: 'images/sample-avatar.png',
     profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
-    width: 362,
-    height: 534,
+    width: undefined,
+    height: undefined,
     customClass: '',
     size: 'medium',
     isHoverable: false,
+    shadow: 'large',
   },
   parameters: {
     controls: {
@@ -152,17 +160,19 @@ const DefaultTemplate = ({
   backgroundUrl,
   profileUrl,
   profileAddress,
+  shadow,
 }) => html`
   <lukso-card
-    variant=${variant}
+    variant=${variant ? variant : nothing}
     width=${width ? width : nothing}
     height=${height ? height : nothing}
-    custom-class=${customClass}
-    size=${size}
+    custom-class=${customClass ? customClass : nothing}
+    size=${size ? size : nothing}
+    background-url=${backgroundUrl ? backgroundUrl : nothing}
+    profile-url=${profileUrl ? profileUrl : nothing}
+    profile-address=${profileAddress ? profileAddress : nothing}
+    shadow=${shadow ? shadow : nothing}
     ?is-hoverable=${isHoverable}
-    background-url=${backgroundUrl}
-    profile-url=${profileUrl}
-    profile-address=${profileAddress}
   >
     <div slot="header" class="p-6">${header}</div>
     <div slot="content" class="p-6">${content}</div>
@@ -179,13 +189,15 @@ const CustomHeaderTemplate = ({
   customClass,
   size,
   isHoverable,
+  shadow,
 }) => html`
   <lukso-card
-    variant=${variant}
+    variant=${variant ? variant : nothing}
     width=${width ? width : nothing}
     height=${height ? height : nothing}
-    custom-class=${customClass}
-    size=${size}
+    custom-class=${customClass ? customClass : nothing}
+    size=${size ? size : nothing}
+    shadow=${shadow ? shadow : nothing}
     ?is-hoverable=${isHoverable}
   >
     <div slot="header" class="p-6 pb-12 relative overflow-hidden min-h-[200px]">
@@ -328,7 +340,7 @@ export const ProfileCard = ProfileTemplate.bind({})
 ProfileCard.args = {
   variant: 'profile',
   width: 364,
-  height: 534,
+  height: 300,
   parameters: {
     design: {
       type: 'figma',
@@ -387,5 +399,12 @@ SmallCard.args = {
 export const HoverableCard = DefaultTemplate.bind({})
 HoverableCard.args = {
   size: 'small',
+  shadow: 'medium',
   isHoverable: true,
+}
+
+/** You can select card shadow with `shadow` property.  */
+export const Shadow = DefaultTemplate.bind({})
+Shadow.args = {
+  shadow: 'small',
 }

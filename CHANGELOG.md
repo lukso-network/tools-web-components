@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.56.0](https://github.com/lukso-network/tools-web-components/compare/v1.55.0...v1.56.0) (2023-12-13)
+
+
+### Features
+
+* `lukso-card` component updates ([#301](https://github.com/lukso-network/tools-web-components/issues/301)) ([8bec823](https://github.com/lukso-network/tools-web-components/commit/8bec82398028ce1ab822afaa462f02dac662eeeb))
+
 ## [1.55.0](https://github.com/lukso-network/tools-web-components/compare/v1.54.0...v1.55.0) (2023-12-12)
 
 

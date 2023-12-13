@@ -129,7 +129,6 @@ const meta: Meta = {
   parameters: {
     controls: {
       exclude: [
-        'defaultStyles',
         'backgroundUrl',
         'profileUrl',
         'profileAddress',
@@ -140,6 +139,7 @@ const meta: Meta = {
         'smallStyles',
         'smallHoverStyles',
         'headerClass',
+        'cardStyles',
       ],
     },
   },

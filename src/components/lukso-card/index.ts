@@ -72,7 +72,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
     return `linear-gradient(90deg, ${gradientStart}, ${gradientEnd})`
   }
 
-  private basicStyles = tv({
+  private cardStyles = tv({
     base: `bg-neutral-100`,
     variants: {
       size: {
@@ -111,7 +111,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
   })
 
   basicTemplate() {
-    const basicStyles = this.basicStyles({
+    const cardStyles = this.cardStyles({
       size: this.size,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
@@ -125,7 +125,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [`min-height: ${this.height}px`]: !!this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
-        class=${cn(basicStyles, this.customClass)}
+        class=${cn(cardStyles, this.customClass)}
       >
         <slot name="content"></slot>
       </div>
@@ -133,7 +133,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
   }
 
   withHeaderTemplate() {
-    const basicStyles = this.basicStyles({
+    const cardStyles = this.cardStyles({
       size: this.size,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
@@ -148,7 +148,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           minHeight: `${this.height}px`,
           width: `${this.width}px`,
         })}
-        class=${cn(basicStyles, this.customClass)}
+        class=${cn(cardStyles, this.customClass)}
       >
         <div class=${this.headerClass}>
           <slot name="header"></slot>
@@ -161,7 +161,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
   }
 
   profileTemplate() {
-    const basicStyles = this.basicStyles({
+    const cardStyles = this.cardStyles({
       size: this.size,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
@@ -176,7 +176,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [`min-height: ${this.height}px`]: !!this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
-        class=${cn(basicStyles, this.customClass)}
+        class=${cn(cardStyles, this.customClass)}
       >
         <div
           style=${styleMap({
@@ -222,7 +222,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
   }
 
   profile2Template() {
-    const basicStyles = this.basicStyles({
+    const cardStyles = this.cardStyles({
       size: this.size,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
@@ -237,7 +237,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [`min-height: ${this.height}px`]: !!this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
-        class=${cn(basicStyles, this.customClass)}
+        class=${cn(cardStyles, this.customClass)}
       >
         <div
           style=${styleMap({
@@ -285,7 +285,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
   }
 
   heroTemplate() {
-    const basicStyles = this.basicStyles({
+    const cardStyles = this.cardStyles({
       size: this.size,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
@@ -300,7 +300,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [`min-height: ${this.height}px`]: !!this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
-        class=${cn(basicStyles, this.customClass)}
+        class=${cn(cardStyles, this.customClass)}
       >
         <div
           style=${styleMap({
@@ -323,7 +323,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
   }
 
   dappTemplate() {
-    const basicStyles = this.basicStyles({
+    const cardStyles = this.cardStyles({
       size: this.size,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
@@ -338,7 +338,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           [`min-height: ${this.height}px`]: !!this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
-        class=${cn(basicStyles, this.customClass)}
+        class=${cn(cardStyles, this.customClass)}
       >
         <div
           style=${styleMap({

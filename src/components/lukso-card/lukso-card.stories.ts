@@ -236,7 +236,7 @@ const ProfileTemplate = ({
     ?is-hoverable=${isHoverable}
     header-class=${headerClass}
   >
-    <div slot="content" class="px-6 pb-9">${content}</div>
+    <div slot="content" class="px-6 pb-9 break-words">${content}</div>
     <div slot="bottom" class="p-6">${bottom}</div>
   </lukso-card>
 `
@@ -339,8 +339,8 @@ CardWithCustomHeader.parameters = {
 export const ProfileCard = ProfileTemplate.bind({})
 ProfileCard.args = {
   variant: 'profile',
-  width: 364,
-  height: 300,
+  width: 262,
+  height: 258,
   parameters: {
     design: {
       type: 'figma',

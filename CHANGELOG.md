@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.56.1](https://github.com/lukso-network/tools-web-components/compare/v1.56.0...v1.56.1) (2024-01-16)
+
+
+### Bug Fixes
+
+* **DEV-9294:** fix height cover bg of profile card ([#303](https://github.com/lukso-network/tools-web-components/issues/303)) ([43bd86c](https://github.com/lukso-network/tools-web-components/commit/43bd86ceaafb0b614098ca381854b3bf0d195fe1))
+
 ## [1.56.0](https://github.com/lukso-network/tools-web-components/compare/v1.55.0...v1.56.0) (2023-12-13)
 
 

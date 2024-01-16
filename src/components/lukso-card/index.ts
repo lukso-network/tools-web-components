@@ -166,7 +166,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
-      class: `grid`,
+      class: `grid grid-rows-[1fr,auto]`,
     })
 
     return html`
@@ -183,7 +183,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
             backgroundImage: this.backgroundImageOrGradient(),
           })}
           class=${cn(
-            'row-end-1 col-span-1 col-end-1 row-span-1 h-full w-full bg-center bg-cover rounded-24 relative',
+            'min-h-[92px] -mb-6 w-full bg-center bg-cover rounded-[24px_24px_0_0] relative',
             this.headerClass
           )}
         >
@@ -195,27 +195,28 @@ export class LuksoCard extends TailwindStyledElement(style) {
             <slot name="header"></slot>
           </div>
         </div>
+
         <div
-          class="grid grid-rows-[1fr,auto] row-end-1 col-span-1 col-end-1 row-span-1"
+          style=${customStyleMap({
+            [`width: ${this.width}px`]: !!this.width,
+          })}
+          class="bg-neutral-100 rounded-24 relative break-normal"
         >
-          <div></div>
-          <div class="bg-neutral-100 rounded-24 relative">
-            <lukso-profile
-              profile-url=${this.profileUrl}
-              size="large"
-              profile-address=${this.profileAddress}
-              has-identicon
-              class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
-            ></lukso-profile>
+          <lukso-profile
+            profile-url=${this.profileUrl}
+            size="large"
+            profile-address=${this.profileAddress}
+            has-identicon
+            class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
+          ></lukso-profile>
+          <div
+            class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center -mb-3"
+          >
             <div
-              class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center -mb-3"
-            >
-              <div
-                class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]"
-              ></div>
-            </div>
-            <slot name="content"></slot>
+              class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]"
+            ></div>
           </div>
+          <slot name="content"></slot>
         </div>
       </div>
     `

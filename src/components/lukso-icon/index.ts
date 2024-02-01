@@ -136,6 +136,7 @@ import { profileFile } from './icons/profile-file'
 import { handRightOutline } from './icons/hand-right-outline'
 import { extensionOutline } from './icons/extension-outline'
 import { luksoLogo } from './icons/lukso-logo'
+import { metamaskLogo } from './icons/metamask-logo'
 
 export type IconOptions = {
   width: number
@@ -216,6 +217,7 @@ const iconMap = {
   mail,
   'menu-1': menu1,
   'menu-2': menu2,
+  'metamask-logo': metamaskLogo,
   migrate,
   minimize,
   network,

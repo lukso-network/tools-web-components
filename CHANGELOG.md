@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.57.0](https://github.com/lukso-network/tools-web-components/compare/v1.56.1...v1.57.0) (2024-02-01)
+
+
+### Features
+
+* add icon metamask-logo ([#305](https://github.com/lukso-network/tools-web-components/issues/305)) ([4340ce4](https://github.com/lukso-network/tools-web-components/commit/4340ce48903802590bdf4246da892eb8c149ae91))
+
 ## [1.56.1](https://github.com/lukso-network/tools-web-components/compare/v1.56.0...v1.56.1) (2024-01-16)
 
 

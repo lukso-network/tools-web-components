@@ -61,12 +61,17 @@ export class LuksoCard extends TailwindStyledElement(style) {
   private smallHoverStyles = `hover:shadow-neutral-drop-shadow-1xl cursor-pointer transition`
 
   private backgroundImageOrGradient() {
-    const opacity = '80' // 50% in hex format
-    const gradientStart = `#${this.profileAddress.slice(2, 8)}${opacity}`
-    const gradientEnd = `#${this.profileAddress.slice(36, 42)}${opacity}`
-
     if (this.backgroundUrl) {
       return `url(${this.backgroundUrl})`
+    }
+
+    let gradientStart = '#24354210' // bg-neutral-20/10
+    let gradientEnd = '#24354220' // bg-neutral-20/20
+    const opacity = '80' // 50% in hex format
+
+    if (this.profileAddress) {
+      gradientStart = `#${this.profileAddress.slice(2, 8)}${opacity}`
+      gradientEnd = `#${this.profileAddress.slice(36, 42)}${opacity}`
     }
 
     return `linear-gradient(90deg, ${gradientStart}, ${gradientEnd})`

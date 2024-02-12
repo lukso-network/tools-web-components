@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.57.1](https://github.com/lukso-network/tools-web-components/compare/v1.57.0...v1.57.1) (2024-02-12)
+
+
+### Bug Fixes
+
+* Add fallback color when no profile address ([#307](https://github.com/lukso-network/tools-web-components/issues/307)) ([0f18b9e](https://github.com/lukso-network/tools-web-components/commit/0f18b9ec94560ca7b0bd8135407d503267cbc480))
+
 ## [1.57.0](https://github.com/lukso-network/tools-web-components/compare/v1.56.1...v1.57.0) (2024-02-01)
 
 

@@ -1,8 +1,8 @@
 import { html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
+import { tv } from 'tailwind-variants'
 
 import { TailwindElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
 import '@/components/lukso-icon'
 import '@/components/lukso-tag'
 
@@ -37,11 +37,42 @@ export class LuksoNavbar extends TailwindElement {
 
   private defaultLogoUrl = '/assets/images/up-logo.png'
 
-  private centerStyles = `justify-center`
+  private navbarStyles = tv({
+    base: `bg-neutral-100 shadow-pink-drop-shadow h-78 grid items-center`,
+    variants: {
+      isCenter: {
+        true: `justify-center`,
+        false: `grid-cols-[minmax(max-content,35%)_auto_minmax(max-content,35%)]`,
+      },
+      isSticky: {
+        true: `sticky top-0 z-[1000]`,
+      },
+      isTransparent: {
+        true: `!bg-transparent !shadow-none`,
+      },
+    },
+  })
 
-  private stickyStyles = `sticky top-0 z-[1000]`
+  private mobileMenuTriggerStyles = tv({
+    base: `w-[18px] h-[2px] rounded-4 bg-neutral-20 transition-all
+    before:content-[''] before:absolute before:w-[18px] before:h-[2px] before:bg-neutral-20 before:rounded-4 before:transition-all before:-translate-y-[6px]
+    after:content-[''] after:absolute after:w-[18px] after:h-[2px] after:bg-neutral-20 after:rounded-4 after:transition-all after:translate-y-[6px]`,
+    variants: {
+      isMenuOpen: {
+        true: `!bg-transparent before:rotate-[45deg] before:!-translate-y-[0px] after:-rotate-[45deg] after:!translate-y-[0px]`,
+      },
+    },
+  })
 
-  private transparentStyles = `!bg-transparent !shadow-none`
+  private mobileMenuDropdownStyles = tv({
+    base: `fixed top-[78px] left-0 w-full h-full bg-neutral-100 z-[1000] justify-center items-center flex md:hidden`,
+    variants: {
+      isMenuOpen: {
+        true: `animate-fade-in animation-duration-150`,
+        false: `!hidden`,
+      },
+    },
+  })
 
   private handleBrandClick() {
     const event = new CustomEvent('on-brand-click', {
@@ -84,6 +115,13 @@ export class LuksoNavbar extends TailwindElement {
   }
 
   mobileMenuTemplate() {
+    const mobileMenuTriggerStyles = this.mobileMenuTriggerStyles({
+      isMenuOpen: this.isMenuOpen,
+    })
+    const mobileMenuDropdownStyles = this.mobileMenuDropdownStyles({
+      isMenuOpen: this.isMenuOpen,
+    })
+
     return html`<div></div>
       <div class="items-center justify-end pr-6 flex md:hidden gap-2">
         <div class="flex">
@@ -93,43 +131,23 @@ export class LuksoNavbar extends TailwindElement {
           class="flex items-center justify-center w-8 h-8 cursor-pointer"
           @click=${this.handleMenuToggle}
         >
-          <div
-            class="w-[18px] h-[2px] rounded-4 bg-neutral-20 transition-all
-          before:content-[''] before:absolute before:w-[18px] before:h-[2px] before:bg-neutral-20 before:rounded-4 before:transition-all before:-translate-y-[6px]
-          after:content-[''] after:absolute after:w-[18px] after:h-[2px] after:bg-neutral-20 after:rounded-4 after:transition-all after:translate-y-[6px]
-          ${customClassMap({
-              '!bg-transparent before:rotate-[45deg] before:!-translate-y-[0px] after:-rotate-[45deg] after:!translate-y-[0px]':
-                this.isMenuOpen,
-            })}
-      "
-          ></div>
+          <div class=${mobileMenuTriggerStyles}></div>
         </div>
-        <div
-          class="fixed top-[78px] left-0 w-full h-full bg-neutral-100 z-[1000] justify-center items-center flex md:hidden
-        ${customClassMap({
-            'animate-fade-in animation-duration-150': this.isMenuOpen,
-            '!hidden': !this.isMenuOpen,
-          })}"
-          @click=${this.handleMenuToggle}
-        >
+        <div class=${mobileMenuDropdownStyles} @click=${this.handleMenuToggle}>
           <slot name="mobile-menu"></slot>
         </div>
       </div>`
   }
 
   render() {
+    const navbarStyles = this.navbarStyles({
+      isCenter: this.isCenter,
+      isSticky: this.isSticky,
+      isTransparent: this.isTransparent,
+    })
+
     return html`
-      <nav
-        data-testid="navbar"
-        class="bg-neutral-100 shadow-pink-drop-shadow h-78 grid items-center
-        ${customClassMap({
-          [this.centerStyles]: this.isCenter,
-          ['grid-cols-[minmax(max-content,35%)_auto_minmax(max-content,35%)]']:
-            !this.isCenter,
-          [this.stickyStyles]: this.isSticky,
-          [this.transparentStyles]: this.isTransparent,
-        })}"
-      >
+      <nav data-testid="navbar" class=${navbarStyles}>
         <div class="flex items-center px-7 h-full sm:px-10">
           <div
             class="flex cursor-pointer group"

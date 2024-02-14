@@ -148,7 +148,7 @@ export class LuksoNavbar extends TailwindElement {
 
     return html`
       <nav data-testid="navbar" class=${navbarStyles}>
-        <div class="flex items-center px-7 h-full sm:px-10">
+        <div class="flex items-center px-7 h-[inherit] sm:px-10">
           <div
             class="flex cursor-pointer group"
             @click=${this.handleBrandClick}

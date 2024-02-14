@@ -1,9 +1,11 @@
 import { html, nothing } from 'lit-html'
 import { Meta } from '@storybook/web-components'
+import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
 import './index'
 import '../lukso-button/index'
 import '../lukso-icon/index'
+import '../lukso-search/index'
 
 /**  Documentation and examples of `lukso-navbar` component.  */
 const meta: Meta = {
@@ -147,6 +149,7 @@ const Template = ({
   hasMenu,
   logoUrl,
   onIconClick,
+  slots,
 }) =>
   html`<lukso-navbar
     title=${title ? title : nothing}
@@ -160,36 +163,22 @@ const Template = ({
     @on-brand-click=${onBrandClick}
     @on-icon-click=${onIconClick}
   >
-    <div slot="desktop">
-      <lukso-button
-        variant="text"
-        custom-class="text-purple-51 text-12 hover:text-purple-41"
-      >
-        HOME
-      </lukso-button>
-      <lukso-button
-        variant="text"
-        custom-class="text-purple-51 text-12 hover:text-purple-41"
-      >
-        LOGIN
-      </lukso-button>
-    </div>
-    <div slot="mobile">
-      <div class="flex flex-col items-center justify-center h-screen pb-32">
-        <lukso-button
-          variant="text"
-          custom-class="text-purple-51 text-12 hover:text-purple-41"
-        >
-          HOME
-        </lukso-button>
-        <lukso-button
-          variant="text"
-          custom-class="text-purple-51 text-12 hover:text-purple-41"
-        >
-          LOGIN
-        </lukso-button>
-      </div>
-    </div>
+    ${slots?.menu?.desktop
+      ? html`<div slot="desktop-menu">${unsafeHTML(slots?.menu?.desktop)}</div>`
+      : nothing}
+    ${slots?.menu?.mobile
+      ? html`<div slot="mobile-menu">${unsafeHTML(slots?.menu?.mobile)}</div>`
+      : nothing}
+    ${slots?.center?.desktop
+      ? html`<div slot="desktop-center">
+          ${unsafeHTML(slots?.center?.desktop)}
+        </div>`
+      : nothing}
+    ${slots?.mobileIcons
+      ? html`<div slot="mobile-icons" class="flex">
+          ${unsafeHTML(slots?.mobileIcons)}
+        </div>`
+      : nothing}
   </lukso-navbar>`
 
 /** Example of default navbar.  */
@@ -204,7 +193,6 @@ CenterNavbar.args = {
 /** Example of navbar with transparent background and no shadow. You set this by adding `is-transparent` attribute. */
 export const TransparentNavbar = Template.bind({})
 TransparentNavbar.args = {
-  isCenter: true,
   isTransparent: true,
 }
 
@@ -218,6 +206,36 @@ StickyNavbar.args = {
 export const NavbarWithMenu = Template.bind({})
 NavbarWithMenu.args = {
   hasMenu: true,
+  slots: {
+    menu: {
+      desktop: `<lukso-button
+      variant="text"
+      custom-class="text-purple-51 text-12 hover:text-purple-41"
+    >
+      HOME
+    </lukso-button>
+    <lukso-button
+      variant="text"
+      custom-class="text-purple-51 text-12 hover:text-purple-41"
+    >
+      LOGIN
+    </lukso-button>`,
+    },
+    mobile: `<div class="flex flex-col items-center justify-center h-screen pb-32">
+    <lukso-button
+      variant="text"
+      custom-class="text-purple-51 text-12 hover:text-purple-41"
+    >
+      HOME
+    </lukso-button>
+    <lukso-button
+      variant="text"
+      custom-class="text-purple-51 text-12 hover:text-purple-41"
+    >
+      LOGIN
+    </lukso-button>
+  </div>`,
+  },
 }
 
 /** Example of navbar with testnet badge. You set this by adding `is-testnet` attribute. */
@@ -231,4 +249,17 @@ export const CustomLogoNavbar = Template.bind({})
 CustomLogoNavbar.args = {
   logoUrl: '/assets/images/lukso-logo.svg',
   icon: '',
+}
+
+/** Example of navbar with `lukso-search` component. */
+export const SearchNavbar = Template.bind({})
+SearchNavbar.args = {
+  hasMenu: true,
+  slots: {
+    center: {
+      desktop: '<lukso-search></lukso-search>',
+    },
+    mobileIcons:
+      '<lukso-icon name="search" class="cursor-pointer"></lukso-icon>',
+  },
 }

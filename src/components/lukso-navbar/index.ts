@@ -1,4 +1,4 @@
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
@@ -70,51 +70,62 @@ export class LuksoNavbar extends TailwindElement {
   }
 
   desktopMenuTemplate() {
-    return html`<div
+    return html` <div
       class="items-center justify-end pr-10 no-underline hidden md:flex"
     >
-      <slot name="desktop"></slot>
+      <slot name="desktop-menu"></slot>
+    </div>`
+  }
+
+  desktopCenterTemplate() {
+    return html`<div class="items-center hidden md:flex">
+      <slot name="desktop-center"></slot>
     </div>`
   }
 
   mobileMenuTemplate() {
-    return html`<div class="items-center justify-end pr-6 flex md:hidden">
-      <div
-        class="flex items-center justify-center w-8 h-8 cursor-pointer"
-        @click=${this.handleMenuToggle}
-      >
+    return html`<div></div>
+      <div class="items-center justify-end pr-6 flex md:hidden gap-2">
+        <div class="flex">
+          <slot name="mobile-icons"></slot>
+        </div>
         <div
-          class="w-[18px] h-[2px] rounded-4 bg-neutral-20 transition-all
+          class="flex items-center justify-center w-8 h-8 cursor-pointer"
+          @click=${this.handleMenuToggle}
+        >
+          <div
+            class="w-[18px] h-[2px] rounded-4 bg-neutral-20 transition-all
           before:content-[''] before:absolute before:w-[18px] before:h-[2px] before:bg-neutral-20 before:rounded-4 before:transition-all before:-translate-y-[6px]
           after:content-[''] after:absolute after:w-[18px] after:h-[2px] after:bg-neutral-20 after:rounded-4 after:transition-all after:translate-y-[6px]
           ${customClassMap({
-            '!bg-transparent before:rotate-[45deg] before:!-translate-y-[0px] after:-rotate-[45deg] after:!translate-y-[0px]':
-              this.isMenuOpen,
-          })}
+              '!bg-transparent before:rotate-[45deg] before:!-translate-y-[0px] after:-rotate-[45deg] after:!translate-y-[0px]':
+                this.isMenuOpen,
+            })}
       "
-        ></div>
-      </div>
-      <div
-        class="fixed top-[78px] left-0 w-full h-full bg-neutral-100 z-[1000] justify-center items-center flex md:hidden
+          ></div>
+        </div>
+        <div
+          class="fixed top-[78px] left-0 w-full h-full bg-neutral-100 z-[1000] justify-center items-center flex md:hidden
         ${customClassMap({
-          'animate-fade-in animation-duration-150': this.isMenuOpen,
-          '!hidden': !this.isMenuOpen,
-        })}"
-        @click=${this.handleMenuToggle}
-      >
-        <slot name="mobile"></slot>
-      </div>
-    </div>`
+            'animate-fade-in animation-duration-150': this.isMenuOpen,
+            '!hidden': !this.isMenuOpen,
+          })}"
+          @click=${this.handleMenuToggle}
+        >
+          <slot name="mobile-menu"></slot>
+        </div>
+      </div>`
   }
 
   render() {
     return html`
       <nav
         data-testid="navbar"
-        class="bg-neutral-100 shadow-pink-drop-shadow h-78 flex
+        class="bg-neutral-100 shadow-pink-drop-shadow h-78 grid items-center
         ${customClassMap({
           [this.centerStyles]: this.isCenter,
-          ['justify-between']: !this.isCenter,
+          ['grid-cols-[minmax(max-content,35%)_auto_minmax(max-content,35%)]']:
+            !this.isCenter,
           [this.stickyStyles]: this.isSticky,
           [this.transparentStyles]: this.isTransparent,
         })}"
@@ -138,7 +149,7 @@ export class LuksoNavbar extends TailwindElement {
               ? html`<lukso-tag background-color="yellow-65" class="ml-2">
                   TESTNET
                 </lukso-tag>`
-              : ''}
+              : nothing}
           </div>
           ${this.icon
             ? html`<div
@@ -151,13 +162,14 @@ export class LuksoNavbar extends TailwindElement {
                   @click=${this.handleIconClick}
                 ></lukso-icon>
               </div>`
-            : ''}
+            : nothing}
         </div>
+        ${this.isCenter ? nothing : this.desktopCenterTemplate()}
         ${this.isCenter
-          ? html``
+          ? nothing
           : this.hasMenu
           ? html`${this.desktopMenuTemplate()} ${this.mobileMenuTemplate()}`
-          : html``}
+          : nothing}
       </nav>
     `
   }

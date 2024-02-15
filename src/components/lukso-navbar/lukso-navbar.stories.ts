@@ -257,7 +257,7 @@ SearchNavbar.args = {
   hasMenu: true,
   slots: {
     center: {
-      desktop: '<lukso-search></lukso-search>',
+      desktop: '<lukso-search placeholder="Search..."></lukso-search>',
     },
     mobileIcons:
       '<lukso-icon name="search" class="cursor-pointer"></lukso-icon>',

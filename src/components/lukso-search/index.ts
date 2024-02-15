@@ -334,7 +334,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   private async handleDropdownKeydown(event: KeyboardEvent) {
-    console.log('asdf')
     if (
       event.key === 'ArrowUp' &&
       this.selected &&

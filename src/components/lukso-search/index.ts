@@ -360,6 +360,10 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         await this.handleSelect(selectedResult)
       }
     }
+
+    if (event.key === 'Escape') {
+      this.results = ''
+    }
   }
 
   private async handleSelect(result: SearchResult) {

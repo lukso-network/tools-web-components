@@ -370,6 +370,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         await this.handleSelect(selectedResult)
       }
     }
+
+    if (event.key === 'Escape') {
+      this.isOpen = false
+    }
   }
 
   private async handleSelect(option: SelectOption) {

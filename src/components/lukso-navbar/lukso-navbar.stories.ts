@@ -66,6 +66,12 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    mobileBreakpoint: {
+      name: 'mobile-breakpoint',
+      control: { type: 'select' },
+      options: ['sm', 'md', 'lg', 'xl', '2xl'],
+      table: { category: 'Attributes' },
+    },
     onBrandClick: {
       name: 'on-brand-click',
       action: 'on-brand-click',
@@ -100,6 +106,9 @@ const meta: Meta = {
     'logo-url': {
       name: 'logoUrl',
     },
+    'mobile-breakpoint': {
+      name: 'mobileBreakpoint',
+    },
   },
   args: {
     title: `UNIVERSAL
@@ -111,6 +120,7 @@ PROFILES`,
     icon: 'wallet-outline',
     hasMenu: false,
     logoUrl: '',
+    mobileBreakpoint: 'md',
   },
   parameters: {
     controls: {
@@ -127,6 +137,8 @@ PROFILES`,
         'hasMenu',
         'logoUrl',
         'defaultLogoUrl',
+        'mobileBreakpoint',
+        'navbarStyles',
       ],
     },
     design: {
@@ -150,11 +162,13 @@ const Template = ({
   logoUrl,
   onIconClick,
   slots,
+  mobileBreakpoint,
 }) =>
   html`<lukso-navbar
     title=${title ? title : nothing}
     icon=${icon ? icon : nothing}
     logo-url=${logoUrl ? logoUrl : nothing}
+    mobile-breakpoint=${mobileBreakpoint ? mobileBreakpoint : nothing}
     ?is-center=${isCenter}
     ?is-sticky=${isSticky}
     ?is-transparent=${isTransparent}

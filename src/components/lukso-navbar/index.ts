@@ -6,6 +6,8 @@ import { TailwindElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-tag'
 
+export type NavbarMobileBreakpoint = 'sm' | 'md' | 'lg' | 'xl'
+
 @customElement('lukso-navbar')
 export class LuksoNavbar extends TailwindElement {
   @property({ type: String })
@@ -32,44 +34,78 @@ export class LuksoNavbar extends TailwindElement {
   @property({ type: String, attribute: 'logo-url' })
   logoUrl = ''
 
+  @property({ type: String, attribute: 'mobile-breakpoint' })
+  mobileBreakpoint: NavbarMobileBreakpoint = 'md'
+
   @state()
   private isMenuOpen = false
 
   private defaultLogoUrl = '/assets/images/up-logo.png'
 
   private navbarStyles = tv({
-    base: `bg-neutral-100 shadow-pink-drop-shadow h-78 grid items-center`,
+    slots: {
+      wrapper: `bg-neutral-100 shadow-pink-drop-shadow h-78 grid items-center`,
+      mobileMenuWrapper: `items-center justify-end pr-6 flex gap-2`,
+      mobileMenuTrigger: `w-[18px] h-[2px] rounded-4 bg-neutral-20 transition-all
+        before:content-[''] before:absolute before:w-[18px] before:h-[2px] before:bg-neutral-20 before:rounded-4 before:transition-all before:-translate-y-[6px]
+        after:content-[''] after:absolute after:w-[18px] after:h-[2px] after:bg-neutral-20 after:rounded-4 after:transition-all after:translate-y-[6px]`,
+      mobileMenuDropdown: `fixed top-[78px] left-0 w-full h-full bg-neutral-100 z-[1000] justify-center items-center flex`,
+      desktopMenuWrapper: `items-center justify-end pr-10 no-underline hidden`,
+      desktopCenterWrapper: `items-center hidden`,
+    },
     variants: {
       isCenter: {
-        true: `justify-center`,
-        false: `grid-cols-[minmax(max-content,35%)_auto_minmax(max-content,35%)]`,
+        true: {
+          wrapper: `justify-center`,
+        },
+        false: {
+          wrapper: `grid-cols-[minmax(max-content,35%)_auto_minmax(max-content,35%)]`,
+        },
       },
       isSticky: {
-        true: `sticky top-0 z-[1000]`,
+        true: {
+          wrapper: `sticky top-0 z-[1000]`,
+        },
       },
       isTransparent: {
-        true: `!bg-transparent !shadow-none`,
+        true: {
+          wrapper: `!bg-transparent !shadow-none`,
+        },
       },
-    },
-  })
-
-  private mobileMenuTriggerStyles = tv({
-    base: `w-[18px] h-[2px] rounded-4 bg-neutral-20 transition-all
-    before:content-[''] before:absolute before:w-[18px] before:h-[2px] before:bg-neutral-20 before:rounded-4 before:transition-all before:-translate-y-[6px]
-    after:content-[''] after:absolute after:w-[18px] after:h-[2px] after:bg-neutral-20 after:rounded-4 after:transition-all after:translate-y-[6px]`,
-    variants: {
-      isMenuOpen: {
-        true: `!bg-transparent before:rotate-[45deg] before:!-translate-y-[0px] after:-rotate-[45deg] after:!translate-y-[0px]`,
+      mobileBreakpoint: {
+        sm: {
+          mobileMenuWrapper: `sm:hidden`,
+          mobileMenuDropdown: `sm:hidden`,
+          desktopMenuWrapper: `sm:flex`,
+          desktopCenterWrapper: `sm:flex`,
+        },
+        md: {
+          mobileMenuWrapper: `md:hidden`,
+          mobileMenuDropdown: `md:hidden`,
+          desktopMenuWrapper: `md:flex`,
+          desktopCenterWrapper: `md:flex`,
+        },
+        lg: {
+          mobileMenuWrapper: `lg:hidden`,
+          mobileMenuDropdown: `lg:hidden`,
+          desktopMenuWrapper: `lg:flex`,
+          desktopCenterWrapper: `lg:flex`,
+        },
+        xl: {
+          mobileMenuWrapper: `xl:hidden`,
+          mobileMenuDropdown: `xl:hidden`,
+          desktopMenuWrapper: `xl:flex`,
+          desktopCenterWrapper: `xl:flex`,
+        },
       },
-    },
-  })
-
-  private mobileMenuDropdownStyles = tv({
-    base: `fixed top-[78px] left-0 w-full h-full bg-neutral-100 z-[1000] justify-center items-center flex md:hidden`,
-    variants: {
       isMenuOpen: {
-        true: `animate-fade-in animation-duration-150`,
-        false: `!hidden`,
+        true: {
+          mobileMenuTrigger: `!bg-transparent before:rotate-[45deg] before:!-translate-y-[0px] after:-rotate-[45deg] after:!translate-y-[0px]`,
+          mobileMenuDropdown: `animate-fade-in animation-duration-150`,
+        },
+        false: {
+          mobileMenuDropdown: `!hidden`,
+        },
       },
     },
   })
@@ -101,29 +137,34 @@ export class LuksoNavbar extends TailwindElement {
   }
 
   desktopMenuTemplate() {
-    return html` <div
-      class="items-center justify-end pr-10 no-underline hidden md:flex"
-    >
+    const { desktopMenuWrapper } = this.navbarStyles({
+      mobileBreakpoint: this.mobileBreakpoint,
+    })
+
+    return html` <div class=${desktopMenuWrapper()}>
       <slot name="desktop-menu"></slot>
     </div>`
   }
 
   desktopCenterTemplate() {
-    return html`<div class="items-center hidden md:flex">
+    const { desktopCenterWrapper } = this.navbarStyles({
+      mobileBreakpoint: this.mobileBreakpoint,
+    })
+
+    return html`<div class=${desktopCenterWrapper()}>
       <slot name="desktop-center"></slot>
     </div>`
   }
 
   mobileMenuTemplate() {
-    const mobileMenuTriggerStyles = this.mobileMenuTriggerStyles({
-      isMenuOpen: this.isMenuOpen,
-    })
-    const mobileMenuDropdownStyles = this.mobileMenuDropdownStyles({
-      isMenuOpen: this.isMenuOpen,
-    })
+    const { mobileMenuTrigger, mobileMenuDropdown, mobileMenuWrapper } =
+      this.navbarStyles({
+        isMenuOpen: this.isMenuOpen,
+        mobileBreakpoint: this.mobileBreakpoint,
+      })
 
     return html`<div></div>
-      <div class="items-center justify-end pr-6 flex md:hidden gap-2">
+      <div class=${mobileMenuWrapper()}>
         <div class="flex">
           <slot name="mobile-icons"></slot>
         </div>
@@ -131,23 +172,24 @@ export class LuksoNavbar extends TailwindElement {
           class="flex items-center justify-center w-8 h-8 cursor-pointer"
           @click=${this.handleMenuToggle}
         >
-          <div class=${mobileMenuTriggerStyles}></div>
+          <div class=${mobileMenuTrigger()}></div>
         </div>
-        <div class=${mobileMenuDropdownStyles} @click=${this.handleMenuToggle}>
+        <div class=${mobileMenuDropdown()} @click=${this.handleMenuToggle}>
           <slot name="mobile-menu"></slot>
         </div>
       </div>`
   }
 
   render() {
-    const navbarStyles = this.navbarStyles({
+    const { wrapper } = this.navbarStyles({
       isCenter: this.isCenter,
       isSticky: this.isSticky,
       isTransparent: this.isTransparent,
+      mobileBreakpoint: this.mobileBreakpoint,
     })
 
     return html`
-      <nav data-testid="navbar" class=${navbarStyles}>
+      <nav data-testid="navbar" class=${wrapper()}>
         <div class="flex items-center px-7 h-[inherit] sm:px-10">
           <div
             class="flex cursor-pointer group"

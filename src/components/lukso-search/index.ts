@@ -106,6 +106,17 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     border-solid h-[48px] placeholder:text-neutral-70
     outline-none transition transition-all duration-150 appearance-none rounded-12`
 
+  connectedCallback() {
+    super.connectedCallback()
+    window.addEventListener('click', this.handleOutsideDropdownClick.bind(this))
+    window.addEventListener('keydown', this.handleDropdownKeydown.bind(this))
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    window.removeEventListener('click', this.handleOutsideDropdownClick)
+    window.removeEventListener('keydown', this.handleDropdownKeydown)
+  }
+
   willUpdate(changedProperties: PropertyValues<this>) {
     // for long lists when selected option changes we scroll to it
     if (changedProperties.has('selected')) {
@@ -141,6 +152,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         autocomplete=${this.autocomplete}
         id=${this.id || this.name}
         data-testid=${this.name ? `input-${this.name}` : 'input'}
+        data-component="lukso-search"
         ?readonly=${this.isReadonly ? true : undefined}
         ?disabled=${this.isDisabled ? true : undefined}
         class=${customClassMap({
@@ -311,6 +323,49 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </div>`
   }
 
+  private async handleOutsideDropdownClick(event: Event) {
+    const element = event.target as HTMLElement
+
+    if (element?.dataset?.component === 'lukso-search') {
+      return
+    }
+
+    this.results = ''
+  }
+
+  private async handleDropdownKeydown(event: KeyboardEvent) {
+    if (
+      event.key === 'ArrowUp' &&
+      this.selected &&
+      this.selected > 1 &&
+      this.resultsParsed?.length
+    ) {
+      event.preventDefault()
+      this.selected = this.selected - 1
+    }
+
+    if (event.key === 'ArrowDown' && this.resultsParsed?.length) {
+      event.preventDefault()
+
+      if (!this.selected) {
+        this.selected = 1
+      } else if (this.selected < this.resultsParsed.length) {
+        this.selected = this.selected + 1
+      }
+    }
+
+    if (event.key === 'Enter' && this.resultsParsed?.length) {
+      if (this.selected) {
+        const selectedResult = this.resultsParsed[this.selected - 1]
+        await this.handleSelect(selectedResult)
+      }
+    }
+
+    if (event.key === 'Escape') {
+      this.results = ''
+    }
+  }
+
   private async handleSelect(result: SearchResult) {
     await this.updateComplete
     const selectEvent = new CustomEvent('on-select', {
@@ -357,6 +412,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       bubbles: false,
       composed: true,
     })
+    this.handleSearch(event)
     this.dispatchEvent(clickEvent)
   }
 

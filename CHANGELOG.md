@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.58.0](https://github.com/lukso-network/tools-web-components/compare/v1.57.1...v1.58.0) (2024-02-15)
+
+
+### Features
+
+* navbar search ([#309](https://github.com/lukso-network/tools-web-components/issues/309)) ([02d6347](https://github.com/lukso-network/tools-web-components/commit/02d6347d20cddf32811053858f083e81964a8c6a))
+
 ## [1.57.1](https://github.com/lukso-network/tools-web-components/compare/v1.57.0...v1.57.1) (2024-02-12)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.59.0](https://github.com/lukso-network/tools-web-components/compare/v1.58.0...v1.59.0) (2024-02-19)
+
+
+### Features
+
+* Tooltip white variant ([#311](https://github.com/lukso-network/tools-web-components/issues/311)) ([ece72e0](https://github.com/lukso-network/tools-web-components/commit/ece72e07f20e7dee3121531b0430cedf84973f11))
+
 ## [1.58.0](https://github.com/lukso-network/tools-web-components/compare/v1.57.1...v1.58.0) (2024-02-15)
 
 

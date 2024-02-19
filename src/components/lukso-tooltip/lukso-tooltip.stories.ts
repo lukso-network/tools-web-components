@@ -11,7 +11,7 @@ const meta: Meta = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['dark', 'light', 'success', 'danger'],
+      options: ['dark', 'light', 'success', 'danger', 'white'],
       table: {
         category: 'Attributes',
       },

@@ -6,7 +6,7 @@ import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
 import { customClassMap } from '@/shared/directives'
 
-export type TooltipVariant = 'dark' | 'light' | 'success' | 'danger'
+export type TooltipVariant = 'dark' | 'light' | 'success' | 'danger' | 'white'
 export type TooltipSize = 'medium' | 'large'
 export type TooltipPlacement =
   | 'top'

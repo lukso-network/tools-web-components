@@ -338,12 +338,14 @@ export class LuksoIcon extends TailwindStyledElement(style) {
 
     if (!icon) {
       console.warn(`Icon ${this.name} not found`)
+      return html``
     }
 
     const size = this.sizes[this.size]
 
     if (!size) {
       console.warn(`Size ${this.size} not found`)
+      return html``
     }
 
     return html`

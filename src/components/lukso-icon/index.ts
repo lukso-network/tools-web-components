@@ -137,6 +137,10 @@ import { handRightOutline } from './icons/hand-right-outline'
 import { extensionOutline } from './icons/extension-outline'
 import { luksoLogo } from './icons/lukso-logo'
 import { metamaskLogo } from './icons/metamask-logo'
+import { documentOutline } from './icons/document-outline'
+import { headsetOutline } from './icons/headset-outline'
+import { cubeOutline } from './icons/cube-outline'
+import { filmOutline } from './icons/film-outline'
 
 export type IconOptions = {
   width: number
@@ -289,6 +293,10 @@ const iconMap = {
   'hand-right-outline': handRightOutline,
   'extension-outline': extensionOutline,
   'lukso-logo': luksoLogo,
+  'document-outline': documentOutline,
+  'headset-outline': headsetOutline,
+  'cube-outline': cubeOutline,
+  'film-outline': filmOutline,
 }
 
 @customElement('lukso-icon')

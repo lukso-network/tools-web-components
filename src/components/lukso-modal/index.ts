@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 
-export type ModalSizes = 'small' | 'medium' | 'full'
+export type ModalSizes = 'small' | 'medium' | 'full' | 'auto'
 
 @customElement('lukso-modal')
 export class LuksoModal extends TailwindElement {
@@ -14,13 +14,22 @@ export class LuksoModal extends TailwindElement {
   @property({ type: String })
   size: ModalSizes = 'small'
 
-  private wrapperStyles = `opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6 animate-fade-in animation-duration-200`
-  private openStyles = `flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh]`
+  private wrapperStyles = `opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6  animation-duration-200`
+  private openStyles = `flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh] animate-fade-in`
   private overlayStyles = `bg-[rgba(36,53,66,0.8)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999]`
   private dialogStyles = `bg-neutral-98 rounded-12 shadow-neutral-drop-shadow-3xl z-[1001]`
 
   private close() {
     this.isOpen = false
+  }
+
+  private async handleBackdropClick() {
+    await this.updateComplete
+    const clickEvent = new CustomEvent('on-backdrop-click', {
+      bubbles: true,
+      composed: true,
+    })
+    this.dispatchEvent(clickEvent)
   }
 
   render() {
@@ -37,6 +46,7 @@ export class LuksoModal extends TailwindElement {
           class=${customClassMap({
             [this.overlayStyles]: true,
           })}
+          @click=${this.handleBackdropClick}
         ></div>
         <div
           class=${customClassMap({

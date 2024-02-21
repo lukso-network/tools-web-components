@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.60.0](https://github.com/lukso-network/tools-web-components/compare/v1.59.0...v1.60.0) (2024-02-21)
+
+
+### Features
+
+* Add modal auto size and handle backdrop click ([#315](https://github.com/lukso-network/tools-web-components/issues/315)) ([9c349e5](https://github.com/lukso-network/tools-web-components/commit/9c349e5da67fe76952125e39f822861f957828c4))
+* new icons ([#313](https://github.com/lukso-network/tools-web-components/issues/313)) ([fe31fb7](https://github.com/lukso-network/tools-web-components/commit/fe31fb72580d465d715a8bda6d1610468dad0100))
+
 ## [1.59.0](https://github.com/lukso-network/tools-web-components/compare/v1.58.0...v1.59.0) (2024-02-19)
 
 

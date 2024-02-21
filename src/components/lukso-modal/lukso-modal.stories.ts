@@ -20,9 +20,16 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'full'],
+      options: ['small', 'medium', 'full', 'auto'],
       table: {
         category: 'Attributes',
+      },
+    },
+    onBackdropClick: {
+      name: 'on-backdrop-click',
+      description: 'Emitted on backdrop click.',
+      table: {
+        category: 'Events',
       },
     },
     'is-open': {

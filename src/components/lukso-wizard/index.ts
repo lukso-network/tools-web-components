@@ -3,12 +3,14 @@ import { customElement, property } from 'lit/decorators.js'
 import { repeat } from 'lit/directives/repeat.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
+import { customClassMap, customStyleMap } from '@/shared/directives'
 import style from './style.scss?inline'
 
 export type WizardStep = {
   label: string
 }
+
+const DEFAULT_STEP_WIDTH = 121
 
 @customElement('lukso-wizard')
 export class LuksoWizard extends TailwindStyledElement(style) {
@@ -20,6 +22,9 @@ export class LuksoWizard extends TailwindStyledElement(style) {
 
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
+
+  @property({ type: Number, attribute: 'step-width' })
+  stepWidth = DEFAULT_STEP_WIDTH
 
   private activeStepStyles = `[&_.lukso-wizard-circle-inner]:border-2 [&_.lukso-wizard-circle-inner]:border-purple-51`
 
@@ -36,9 +41,11 @@ export class LuksoWizard extends TailwindStyledElement(style) {
           [this.completedStepStyles]: index + 1 < this.activeStep,
           [this.activeStepStyles]: index + 1 === this.activeStep,
           ['w-full']: this.isFullWidth,
-          ['w-[121px]']: !this.isFullWidth,
         }
       )}"
+      style=${customStyleMap({
+        [`width: ${this.stepWidth || DEFAULT_STEP_WIDTH}px`]: !this.isFullWidth,
+      })}
     >
       <div
         class="text-purple-51 nav-apax-8-medium-uppercase whitespace-pre-line flex text-center break-words uppercase"

@@ -23,6 +23,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    stepWidth: {
+      name: 'step-width',
+      control: { type: 'number', min: 1, step: 1 },
+      table: {
+        category: 'Attributes',
+      },
+    },
     isFullWidth: {
       name: 'is-full-width',
       control: { type: 'boolean' },
@@ -63,6 +70,7 @@ LYXe`,
         'completedStepStyles',
         'activeStep',
         'isFullWidth',
+        'stepWidth',
         'styles',
       ],
     },
@@ -75,11 +83,12 @@ LYXe`,
 
 export default meta
 
-const Template = ({ steps, activeStep, isFullWidth }) =>
+const Template = ({ steps, activeStep, isFullWidth, stepWidth }) =>
   html`<lukso-wizard
     steps=${JSON.stringify(steps)}
     active-step=${activeStep}
     ?is-full-width=${isFullWidth}
+    step-width=${stepWidth}
   ></lukso-wizard>`
 
 export const BasicWizard = Template.bind({})

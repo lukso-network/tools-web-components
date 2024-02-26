@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.60.1](https://github.com/lukso-network/tools-web-components/compare/v1.60.0...v1.60.1) (2024-02-26)
+
+
+### Bug Fixes
+
+* Correctly quote URLs. ([#317](https://github.com/lukso-network/tools-web-components/issues/317)) ([16b8564](https://github.com/lukso-network/tools-web-components/commit/16b856453e57b0ff73b4d23e84a07125c7beb296))
+
 ## [1.60.0](https://github.com/lukso-network/tools-web-components/compare/v1.59.0...v1.60.0) (2024-02-21)
 
 

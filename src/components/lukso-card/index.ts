@@ -227,7 +227,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       >
         <div
           style=${styleMap({
-            backgroundImage: `url(${this.backgroundUrl})`,
+            backgroundImage: `url('${this.backgroundUrl}')`,
           })}
           class="h-full w-full -mb-6 bg-center bg-cover rounded-24 relative"
         >

@@ -83,7 +83,7 @@ export class LuksoProfile extends TailwindElement {
       <div
         data-testid="profile"
         style=${styleMap({
-          backgroundImage: `url(${this.defaultProfileUrl})`,
+          backgroundImage: `url('${this.defaultProfileUrl}')`,
           width: `${this.profileImageSize()}px`,
           height: `${this.profileImageSize()}px`,
           borderRadius: `${
@@ -95,7 +95,7 @@ export class LuksoProfile extends TailwindElement {
       >
         <div
           style=${styleMap({
-            backgroundImage: `url(${this.profileUrl})`,
+            backgroundImage: `url('${this.profileUrl}')`,
             width: `${this.profileImageSize()}px`,
             height: `${this.profileImageSize()}px`,
             borderRadius: `${

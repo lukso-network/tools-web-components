@@ -62,7 +62,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   private backgroundImageOrGradient() {
     if (this.backgroundUrl) {
-      return `url(${this.backgroundUrl})`
+      return `url('${this.backgroundUrl}')`
     }
 
     let gradientStart = '#24354210' // bg-neutral-20/10

@@ -141,6 +141,7 @@ import { documentOutline } from './icons/document-outline'
 import { headsetOutline } from './icons/headset-outline'
 import { cubeOutline } from './icons/cube-outline'
 import { filmOutline } from './icons/film-outline'
+import { crossFilledFadeIn } from './icons/cross-filled-fade-in'
 
 export type IconOptions = {
   width: number
@@ -280,6 +281,7 @@ const iconMap = {
   switched,
   'progress-indicator-alt': progressIndicatorAlt,
   'cross-filled': crossFilled,
+  'cross-filled-fade-in': crossFilledFadeIn,
   'transfer-send': transferSend,
   'flag-outline': flagOutline,
   'token-id': tokenId,

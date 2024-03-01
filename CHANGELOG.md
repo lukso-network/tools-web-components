@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.61.0](https://github.com/lukso-network/tools-web-components/compare/v1.60.2...v1.61.0) (2024-03-01)
+
+
+### Features
+
+* new icon cross-filled-fade-in ([#321](https://github.com/lukso-network/tools-web-components/issues/321)) ([20681a4](https://github.com/lukso-network/tools-web-components/commit/20681a4e8d63ef043ac0f1df02820cd630ac0546))
+
 ## [1.60.2](https://github.com/lukso-network/tools-web-components/compare/v1.60.1...v1.60.2) (2024-02-27)
 
 

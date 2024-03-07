@@ -142,6 +142,7 @@ import { headsetOutline } from './icons/headset-outline'
 import { cubeOutline } from './icons/cube-outline'
 import { filmOutline } from './icons/film-outline'
 import { crossFilledFadeIn } from './icons/cross-filled-fade-in'
+import { videoOutline } from './icons/video-outline'
 
 export type IconOptions = {
   width: number
@@ -299,6 +300,7 @@ const iconMap = {
   'headset-outline': headsetOutline,
   'cube-outline': cubeOutline,
   'film-outline': filmOutline,
+  'video-outline': videoOutline,
 }
 
 @customElement('lukso-icon')

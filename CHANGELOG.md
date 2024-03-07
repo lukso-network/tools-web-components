@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.62.0](https://github.com/lukso-network/tools-web-components/compare/v1.61.0...v1.62.0) (2024-03-07)
+
+
+### Features
+
+* `video-outline` icon ([#323](https://github.com/lukso-network/tools-web-components/issues/323)) ([f05003d](https://github.com/lukso-network/tools-web-components/commit/f05003d29d64374f3e42e3c3d3bf000e95fbbde1))
+
 ## [1.61.0](https://github.com/lukso-network/tools-web-components/compare/v1.60.2...v1.61.0) (2024-03-01)
 
 

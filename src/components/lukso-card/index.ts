@@ -17,7 +17,7 @@ export type CardVariants =
   | 'hero'
   | 'dapp'
 
-export type CardSizes = 'small' | 'medium' | 'none'
+export type CardBorderRadius = 'small' | 'medium' | 'none'
 
 export type CardShadows = 'small' | 'medium' | 'large'
 
@@ -47,8 +47,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'header-class' })
   headerClass = ''
 
-  @property({ type: String })
-  size: CardSizes = 'medium'
+  @property({ type: String, attribute: 'border-radius' })
+  borderRadius: CardBorderRadius = 'medium'
 
   @property({ type: String })
   shadow: CardShadows = 'large'
@@ -80,7 +80,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
   private cardStyles = tv({
     base: `bg-neutral-100`,
     variants: {
-      size: {
+      borderRadius: {
         none: `rounded-0`,
         small: `rounded-12`,
         medium: `rounded-24`,
@@ -118,7 +118,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   basicTemplate() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -140,7 +140,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   withHeaderTemplate() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -170,7 +170,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   profileTemplate() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -212,7 +212,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
         >
           <lukso-profile
             profile-url=${this.profileUrl}
-            size="large"
+            borderRadius="large"
             profile-address=${this.profileAddress}
             has-identicon
             class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
@@ -232,7 +232,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   profile2Template() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -269,7 +269,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           <div class="bg-neutral-100 relative">
             <lukso-profile
               profile-url=${this.profileUrl}
-              size="large"
+              borderRadius="large"
               profile-address=${this.profileAddress}
               has-identicon
               class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
@@ -295,7 +295,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   heroTemplate() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -333,7 +333,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   dappTemplate() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,

@@ -71,9 +71,10 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    size: {
+    borderRadius: {
+      name: 'border-radius',
       control: { type: 'select' },
-      options: ['small', 'medium'],
+      options: ['none', 'small', 'medium'],
       table: {
         category: 'Attributes',
       },
@@ -110,6 +111,9 @@ const meta: Meta = {
     'header-class': {
       name: 'headerClass',
     },
+    'border-radius': {
+      name: 'borderRadius',
+    },
   },
   args: {
     variant: 'basic',
@@ -122,7 +126,7 @@ const meta: Meta = {
     width: undefined,
     height: undefined,
     customClass: '',
-    size: 'medium',
+    borderRadius: 'medium',
     isHoverable: false,
     shadow: 'large',
   },
@@ -140,6 +144,7 @@ const meta: Meta = {
         'smallHoverStyles',
         'headerClass',
         'cardStyles',
+        'borderRadius',
       ],
     },
   },
@@ -155,7 +160,7 @@ const DefaultTemplate = ({
   height,
   width,
   customClass,
-  size,
+  borderRadius,
   isHoverable,
   backgroundUrl,
   profileUrl,
@@ -167,7 +172,7 @@ const DefaultTemplate = ({
     width=${width ? width : nothing}
     height=${height ? height : nothing}
     custom-class=${customClass ? customClass : nothing}
-    size=${size ? size : nothing}
+    border-radius=${borderRadius ? borderRadius : nothing}
     background-url=${backgroundUrl ? backgroundUrl : nothing}
     profile-url=${profileUrl ? profileUrl : nothing}
     profile-address=${profileAddress ? profileAddress : nothing}
@@ -187,7 +192,7 @@ const CustomHeaderTemplate = ({
   height,
   width,
   customClass,
-  size,
+  borderRadius,
   isHoverable,
   shadow,
 }) => html`
@@ -196,7 +201,7 @@ const CustomHeaderTemplate = ({
     width=${width ? width : nothing}
     height=${height ? height : nothing}
     custom-class=${customClass ? customClass : nothing}
-    size=${size ? size : nothing}
+    border-radius=${borderRadius ? borderRadius : nothing}
     shadow=${shadow ? shadow : nothing}
     ?is-hoverable=${isHoverable}
   >
@@ -219,7 +224,7 @@ const ProfileTemplate = ({
   height,
   width,
   customClass,
-  size,
+  borderRadius,
   isHoverable,
   bottom,
   headerClass,
@@ -232,7 +237,7 @@ const ProfileTemplate = ({
     width=${width ? width : nothing}
     height=${height ? height : nothing}
     custom-class=${customClass}
-    size=${size}
+    border-radius=${borderRadius}
     ?is-hoverable=${isHoverable}
     header-class=${headerClass}
   >
@@ -248,7 +253,7 @@ const HeroTemplate = ({
   height,
   width,
   customClass,
-  size,
+  borderRadius,
   isHoverable,
 }) => html`
   <lukso-card
@@ -257,7 +262,7 @@ const HeroTemplate = ({
     width=${width ? width : nothing}
     height=${height ? height : nothing}
     custom-class=${customClass}
-    size=${size}
+    border-radius=${borderRadius}
     ?is-hoverable=${isHoverable}
   >
     <div slot="content" class="flex flex-col items-center">
@@ -389,16 +394,16 @@ CustomCard.parameters = {
   },
 }
 
-/** You can select card size with `size` property.  */
+/** You can select card border radius with `borderRadius` property.  */
 export const SmallCard = DefaultTemplate.bind({})
 SmallCard.args = {
-  size: 'small',
+  borderRadius: 'small',
 }
 
 /** Card can be as hoverable element with `is-hoverable` property.  */
 export const HoverableCard = DefaultTemplate.bind({})
 HoverableCard.args = {
-  size: 'small',
+  borderRadius: 'small',
   shadow: 'medium',
   isHoverable: true,
 }

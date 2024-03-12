@@ -17,7 +17,7 @@ export type CardVariants =
   | 'hero'
   | 'dapp'
 
-export type CardSizes = 'small' | 'medium'
+export type CardBorderRadius = 'small' | 'medium' | 'none'
 
 export type CardShadows = 'small' | 'medium' | 'large'
 
@@ -47,8 +47,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'header-class' })
   headerClass = ''
 
-  @property({ type: String })
-  size: CardSizes = 'medium'
+  @property({ type: String, attribute: 'border-radius' })
+  borderRadius: CardBorderRadius = 'medium'
 
   @property({ type: String })
   shadow: CardShadows = 'large'
@@ -80,7 +80,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
   private cardStyles = tv({
     base: `bg-neutral-100`,
     variants: {
-      size: {
+      borderRadius: {
+        none: `rounded-0`,
         small: `rounded-12`,
         medium: `rounded-24`,
       },
@@ -117,7 +118,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   basicTemplate() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -139,7 +140,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   withHeaderTemplate() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -158,7 +159,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
         <div class=${this.headerClass}>
           <slot name="header"></slot>
         </div>
-        <div class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-24">
+        <div
+          class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-[inherit]"
+        >
           <slot name="content"></slot>
         </div>
       </div>
@@ -167,7 +170,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   profileTemplate() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -188,13 +191,13 @@ export class LuksoCard extends TailwindStyledElement(style) {
             backgroundImage: this.backgroundImageOrGradient(),
           })}
           class=${cn(
-            'min-h-[92px] -mb-6 w-full bg-center bg-cover rounded-[24px_24px_0_0] relative',
+            'min-h-[92px] -mb-6 w-full bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative',
             this.headerClass
           )}
         >
           ${this.backgroundUrl &&
           html` <div
-            class="h-full full rounded-[24px_24px_0_0] bg-neutral-20/10 absolute"
+            class="h-full full rounded-t-[inherit] rounded-b-0 bg-neutral-20/10 absolute"
           ></div>`}
           <div>
             <slot name="header"></slot>
@@ -205,11 +208,11 @@ export class LuksoCard extends TailwindStyledElement(style) {
           style=${customStyleMap({
             [`width: ${this.width}px`]: !!this.width,
           })}
-          class="bg-neutral-100 rounded-24 relative break-normal"
+          class="bg-neutral-100 rounded-[inherit] relative break-normal"
         >
           <lukso-profile
             profile-url=${this.profileUrl}
-            size="large"
+            borderRadius="large"
             profile-address=${this.profileAddress}
             has-identicon
             class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
@@ -229,7 +232,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   profile2Template() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -250,23 +253,23 @@ export class LuksoCard extends TailwindStyledElement(style) {
             backgroundImage: this.backgroundImageOrGradient(),
           })}
           class=${cn(
-            'min-h-[129px] -mb-6 bg-center bg-cover rounded-[24px_24px_0_0] relative bg-neutral-100',
+            'min-h-[129px] -mb-6 bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative bg-neutral-100',
             this.headerClass
           )}
         >
           ${this.backgroundUrl &&
           html`<div
-            class="min-h-full min-w-full rounded-[24px_24px_0_0] bg-neutral-10/10 absolute"
+            class="min-h-full min-w-full rounded-t-[inherit] rounded-b-0 bg-neutral-10/10 absolute"
           ></div>`}
           <div>
             <slot name="header"></slot>
           </div>
         </div>
-        <div class="grid grid-rows-[max-content,auto]">
+        <div class="grid grid-rows-[max-content,auto] rounded-b-[inherit]">
           <div class="bg-neutral-100 relative">
             <lukso-profile
               profile-url=${this.profileUrl}
-              size="large"
+              borderRadius="large"
               profile-address=${this.profileAddress}
               has-identicon
               class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
@@ -281,7 +284,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
             <slot name="content"></slot>
           </div>
           <div
-            class="bg-neutral-97 rounded-b-24 shadow-neutral-inner-shadow-top"
+            class="bg-neutral-97 rounded-b-[inherit] shadow-neutral-inner-shadow-top"
           >
             <slot name="bottom"></slot>
           </div>
@@ -292,7 +295,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   heroTemplate() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -312,11 +315,11 @@ export class LuksoCard extends TailwindStyledElement(style) {
           style=${styleMap({
             backgroundImage: `url('${this.backgroundUrl}')`,
           })}
-          class="h-full w-full -mb-6 bg-center bg-cover rounded-24 relative"
+          class="h-full w-full -mb-6 bg-center bg-cover rounded-[inherit] relative"
         >
           ${this.backgroundUrl &&
           html`<div
-            class="h-full w-full rounded-24 bg-neutral-20/10 absolute"
+            class="h-full w-full rounded-[inherit] bg-neutral-20/10 absolute"
           ></div>`}
           <div
             class="h-full w-full flex flex-col items-center justify-center  absolute"
@@ -330,7 +333,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   dappTemplate() {
     const cardStyles = this.cardStyles({
-      size: this.size,
+      borderRadius: this.borderRadius,
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
@@ -351,7 +354,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
             backgroundImage: this.backgroundImageOrGradient(),
           })}
           class=${cn(
-            'min-h-[240px] bg-center bg-cover rounded-[24px_24px_0_0] relative',
+            'min-h-[240px] bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative',
             this.headerClass
           )}
         >
@@ -360,7 +363,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           </div>
         </div>
         <div
-          class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-[0_0_24px_24px] relative"
+          class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-t-0 rounded-b-[inherit] relative"
         >
           <slot name="content"></slot>
         </div>

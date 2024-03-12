@@ -73,7 +73,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium'],
+      options: ['none', 'small', 'medium'],
       table: {
         category: 'Attributes',
       },

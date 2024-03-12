@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.63.0](https://github.com/lukso-network/tools-web-components/compare/v1.62.0...v1.63.0) (2024-03-12)
+
+
+### Features
+
+* Allow to set no border radius in card ([#325](https://github.com/lukso-network/tools-web-components/issues/325)) ([bce88ae](https://github.com/lukso-network/tools-web-components/commit/bce88aed3af6cb860fcebfb457f6c469a9a083fa))
+
 ## [1.62.0](https://github.com/lukso-network/tools-web-components/compare/v1.61.0...v1.62.0) (2024-03-07)
 
 

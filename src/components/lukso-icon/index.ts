@@ -143,6 +143,7 @@ import { cubeOutline } from './icons/cube-outline'
 import { filmOutline } from './icons/film-outline'
 import { crossFilledFadeIn } from './icons/cross-filled-fade-in'
 import { videoOutline } from './icons/video-outline'
+import { walletRestore } from './icons/wallet-restore'
 
 export type IconOptions = {
   width: number
@@ -269,6 +270,7 @@ const iconMap = {
   'turn-up': turnUp,
   unlocked,
   'wallet-outline': walletOutline,
+  'wallet-restore': walletRestore,
   'warning-round': warningRound,
   'warning-triangle': warningTriangle,
   'google-color': googleColor,

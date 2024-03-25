@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.64.0](https://github.com/lukso-network/tools-web-components/compare/v1.63.0...v1.64.0) (2024-03-25)
+
+
+### Features
+
+* **DEV-10424:** add wallet-restore icon ([#327](https://github.com/lukso-network/tools-web-components/issues/327)) ([710ef02](https://github.com/lukso-network/tools-web-components/commit/710ef021fe9e3ab60f0ab3a828210fd83b901928))
+
 ## [1.63.0](https://github.com/lukso-network/tools-web-components/compare/v1.62.0...v1.63.0) (2024-03-12)
 
 

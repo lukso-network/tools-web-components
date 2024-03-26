@@ -23,7 +23,7 @@ export const walletRestore = (options: IconOptions) => {
     />
     <path
       d="M20.582 8.386V7.151a2.06 2.06 0 0 0-2.446-2.023L7.288 6.98a2.06 2.06 0 0 0-1.674 2.024v2.019"
-      sstroke="var(--${options.color})"
+      stroke="var(--${options.color})"
       stroke-width="${options.strokeWidth}"
       stroke-linejoin="round"
     />

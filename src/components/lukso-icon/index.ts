@@ -144,6 +144,8 @@ import { filmOutline } from './icons/film-outline'
 import { crossFilledFadeIn } from './icons/cross-filled-fade-in'
 import { videoOutline } from './icons/video-outline'
 import { walletRestore } from './icons/wallet-restore'
+import { logoX } from './icons/logo-x'
+import { logoFacebook } from './icons/logo-facebook'
 
 export type IconOptions = {
   width: number
@@ -215,12 +217,14 @@ const iconMap = {
   login,
   'login-2': login2,
   'login-3': login3,
-  'logo-chrome': logoChrome,
   'logo-brave': logoBrave,
+  'logo-chrome': logoChrome,
   'logo-edge': logoEdge,
+  'logo-facebook': logoFacebook,
   'logo-firefox': logoFirefox,
   'logo-opera': logoOpera,
   'logo-safari': logoSafari,
+  'logo-x': logoX,
   mail,
   'menu-1': menu1,
   'menu-2': menu2,

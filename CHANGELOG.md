@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.65.0](https://github.com/lukso-network/tools-web-components/compare/v1.64.1...v1.65.0) (2024-04-12)
+
+
+### Features
+
+* **DEV-10643:** new logos for social logins - x and facebook ([#331](https://github.com/lukso-network/tools-web-components/issues/331)) ([f834de7](https://github.com/lukso-network/tools-web-components/commit/f834de77f40506519ce421f50a922c96738b703b))
+
 ## [1.64.1](https://github.com/lukso-network/tools-web-components/compare/v1.64.0...v1.64.1) (2024-03-26)
 
 

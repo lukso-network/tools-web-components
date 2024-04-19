@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.66.0](https://github.com/lukso-network/tools-web-components/compare/v1.65.0...v1.66.0) (2024-04-19)
+
+
+### Features
+
+* Add support for border color in `lukso-tag` component ([#333](https://github.com/lukso-network/tools-web-components/issues/333)) ([cf496f9](https://github.com/lukso-network/tools-web-components/commit/cf496f91aeec8cf2036acc4f38c38c054360091e))
+
 ## [1.65.0](https://github.com/lukso-network/tools-web-components/compare/v1.64.1...v1.65.0) (2024-04-12)
 
 

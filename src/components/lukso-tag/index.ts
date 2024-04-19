@@ -1,9 +1,9 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { styleMap } from 'lit/directives/style-map.js'
+import { tv } from 'tailwind-variants'
 
+import { customStyleMap } from '@/shared/directives'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
 import style from './style.scss?inline'
 
 export type TagSizes = 'x-small' | 'small' | 'large'
@@ -19,48 +19,62 @@ export class LuksoTag extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'background-color' })
   backgroundColor = ''
 
+  @property({ type: String, attribute: 'border-color' })
+  borderColor = ''
+
   @property({ type: String, attribute: 'text-color' })
   textColor = ''
 
-  private defaultStyles = `inline-flex items-center justify-center border border-neutral-20 text-neutral-20`
-  private extraSmallStyles = `font-inter text-8 font-500 leading-20 h-[20px]`
-  private smallStyles = `paragraph-inter-12-medium h-[28px]`
-  private largeStyles = `paragraph-inter-14-medium h-[34px]`
+  private tagStyles = tv({
+    base: 'inline-flex items-center justify-center border border-neutral-20 text-neutral-20 px-2',
+    variants: {
+      size: {
+        'x-small': 'font-inter text-8 font-500 leading-20 h-[20px] px-1 rounded-4',
+        small: 'paragraph-inter-12-medium h-[28px] px-2 rounded-8',
+        large: 'paragraph-inter-14-medium h-[34px] px-4 rounded-8',
+      },
+      isRounded: {
+        true: 'rounded-[56px]',
+      },
+    },
+    compoundVariants: [
+      {
+        size: 'small',
+        isRounded: true,
+        class: 'px-3',
+      },
+      {
+        size: 'x-small',
+        isRounded: true,
+        class: 'px-2',
+      },
+    ],
+  })
 
-  private padding() {
-    if (this.size === 'x-small' && !this.isRounded) {
-      return 'px-1'
+  private resolveBorderColor() {
+    if (this.borderColor) {
+      return this.borderColor
     }
 
-    if (this.size === 'small' && this.isRounded) {
-      return 'px-3'
+    if (this.backgroundColor) {
+      return this.backgroundColor
     }
-
-    if (this.size === 'large') {
-      return 'px-4'
-    }
-
-    return 'px-2'
   }
 
   render() {
+    const tagStyles = this.tagStyles({
+      size: this.size,
+      isRounded: this.isRounded,
+    })
+
     return html`
       <div
         data-testid="tag"
-        class=${customClassMap({
-          [this.defaultStyles]: true,
-          [this.padding()]: true,
-          ['rounded-[56px]']: this.isRounded,
-          ['rounded-8']: !this.isRounded && this.size !== 'x-small',
-          ['rounded-4']: !this.isRounded && this.size === 'x-small',
-          [this.extraSmallStyles]: this.size === 'x-small',
-          [this.smallStyles]: this.size === 'small',
-          [this.largeStyles]: this.size === 'large',
-        })}
-        style=${styleMap({
-          backgroundColor: `var(--${this.backgroundColor})`,
-          borderColor: `var(--${this.backgroundColor})`,
-          color: `var(--${this.textColor})`,
+        class=${tagStyles}
+        style=${customStyleMap({
+          [`background-color: var(--${this.backgroundColor})`]: !!this.backgroundColor,
+          [`border-color: var(--${this.resolveBorderColor()})`]: !!this.resolveBorderColor(),
+          [`color: var(--${this.textColor})`]: !!this.textColor,
         })}
       >
         <slot></slot>

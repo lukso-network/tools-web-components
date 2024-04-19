@@ -88,7 +88,7 @@ const meta: Meta = {
         'textColor',
         'borderColor',
         'tagStyles',
-        'styles'
+        'styles',
       ],
     },
   },
@@ -96,13 +96,20 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ content, size, isRounded, backgroundColor, textColor, borderColor }) =>
+const Template = ({
+  content,
+  size,
+  isRounded,
+  backgroundColor,
+  textColor,
+  borderColor,
+}) =>
   html`<lukso-tag
     size=${size ? size : nothing}
     ?is-rounded=${isRounded}
-    background-color=${backgroundColor? backgroundColor : nothing}
+    background-color=${backgroundColor ? backgroundColor : nothing}
     text-color=${textColor ? textColor : nothing}
-    border-color=${borderColor? borderColor : nothing}
+    border-color=${borderColor ? borderColor : nothing}
     >${content}</lukso-tag
   >`
 

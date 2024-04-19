@@ -1,6 +1,7 @@
-import { html } from 'lit-html'
-import { Meta } from '@storybook/web-components'
+import { html, nothing } from 'lit-html'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
+
+import type { Meta } from '@storybook/web-components'
 
 import './index'
 import '../lukso-icon'
@@ -49,6 +50,15 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    borderColor: {
+      name: 'border-color',
+      control: {
+        type: 'text',
+      },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-rounded': {
       name: 'isRounded',
     },
@@ -58,6 +68,9 @@ const meta: Meta = {
     'text-color': {
       name: 'textColor',
     },
+    'border-color': {
+      name: 'borderColor',
+    },
   },
   args: {
     size: 'small',
@@ -65,17 +78,17 @@ const meta: Meta = {
     content: 'Small Tag',
     backgroundColor: '',
     textColor: '',
+    borderColor: '',
   },
   parameters: {
     controls: {
       exclude: [
-        'defaultStyles',
-        'smallStyles',
-        'largeStyles',
         'isRounded',
         'backgroundColor',
         'textColor',
-        'padding',
+        'borderColor',
+        'tagStyles',
+        'styles',
       ],
     },
   },
@@ -83,12 +96,20 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ content, size, isRounded, backgroundColor, textColor }) =>
+const Template = ({
+  content,
+  size,
+  isRounded,
+  backgroundColor,
+  textColor,
+  borderColor,
+}) =>
   html`<lukso-tag
-    size=${size}
+    size=${size ? size : nothing}
     ?is-rounded=${isRounded}
-    background-color=${backgroundColor}
-    text-color=${textColor}
+    background-color=${backgroundColor ? backgroundColor : nothing}
+    text-color=${textColor ? textColor : nothing}
+    border-color=${borderColor ? borderColor : nothing}
     >${content}</lukso-tag
   >`
 
@@ -139,7 +160,7 @@ RoundedTag.parameters = {
   },
 }
 
-/** You can change color of the tag to any from the palette with `text-color` and `background-color` property. */
+/** You can change color of the tag to any from the palette with `text-color`, `background-color` and 'border-color` property. */
 export const CustomColorTag = Template.bind({})
 CustomColorTag.args = {
   content: 'Custom Color Tag',

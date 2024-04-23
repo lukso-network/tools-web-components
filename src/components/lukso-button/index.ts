@@ -227,6 +227,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
         type=${this.type}
         class=${cn(buttonStyles, this.customClass)}
         @mousedown=${this.handleMouseDown}
+        @touchstart=${this.handleMouseDown}
+        @touchend=${this.handleMouseUp}
+        @touchcancel=${this.handleMouseUp}
         @mouseup=${this.handleMouseUp}
         @mouseleave=${this.handleMouseUp}
       >

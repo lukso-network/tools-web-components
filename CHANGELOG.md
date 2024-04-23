@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.66.1](https://github.com/lukso-network/tools-web-components/compare/v1.66.0...v1.66.1) (2024-04-23)
+
+
+### Bug Fixes
+
+* adds touchstart, touchend, touchcancel to longclick button ([#335](https://github.com/lukso-network/tools-web-components/issues/335)) ([1a6385f](https://github.com/lukso-network/tools-web-components/commit/1a6385fc27c9ae39cdc1591ddc5456772b196881))
+
 ## [1.66.0](https://github.com/lukso-network/tools-web-components/compare/v1.65.0...v1.66.0) (2024-04-19)
 
 

@@ -126,6 +126,12 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    options: {
+      control: { type: 'object' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'max-width': {
       name: 'maxWidth',
     },
@@ -156,12 +162,12 @@ const meta: Meta = {
     isClipboardCopy: false,
     copyText: '',
     copyValue: '',
+    options: ''
   },
   parameters: {
     controls: {
       exclude: [
         'styles',
-        'defaultTooltipStyles',
         'maxWidth',
         'buttonText',
         'margin',
@@ -198,6 +204,7 @@ const DefaultTemplate = ({
   copyText,
   copyValue,
   offset,
+  options
 }) => html`
   <lukso-tooltip
     variant=${variant ? variant : nothing}
@@ -212,6 +219,7 @@ const DefaultTemplate = ({
     offset=${offset ? offset : nothing}
     ?show=${show ? show : undefined}
     ?is-clipboard-copy=${isClipboardCopy ? isClipboardCopy : undefined}
+    options=${options ? options : nothing}
     class="${margin} mx-20"
   >
     <lukso-button size="small" variant="secondary">${buttonText}</lukso-button>
@@ -328,4 +336,29 @@ ClipboardCopy.args = {
   isClipboardCopy: true,
   copyText: 'Copied!',
   copyValue: 'copied value',
+}
+
+/** Tooltip with options (copied to clipboard).  */
+export const OptionsTooltip = DefaultTemplate.bind({})
+OptionsTooltip.args = {
+  variant: 'light',
+  buttonText: 'Hover me',
+  margin: 'my-8',
+  options: JSON.stringify([
+    {
+      id: 'option1',
+      text: 'Option 1',
+      value: 'option#1',
+    },
+    {
+      id: 'option2',
+      text: 'Option 2',
+      value: 'option#2',
+    },
+    {
+      id: 'option3',
+      text: 'Option 3',
+      value: 'option#3',
+    },
+  ])
 }

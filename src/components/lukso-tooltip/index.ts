@@ -4,7 +4,6 @@ import tippy from 'tippy.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
-import { customClassMap } from '@/shared/directives'
 
 export type TooltipVariant = 'dark' | 'light' | 'success' | 'danger' | 'white'
 export type TooltipSize = 'medium' | 'large'
@@ -25,6 +24,12 @@ export type TooltipPlacement =
   | 'auto-start'
   | 'auto-end'
 export type TooltipTrigger = 'mouseenter' | 'click' | 'manual'
+
+export type TooltipOption = {
+  id?: string
+  value: string
+  text: string
+}
 
 @customElement('lukso-tooltip')
 export class LuksoTooltip extends TailwindStyledElement(style) {
@@ -64,10 +69,14 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   @property({ type: Number })
   offset = 10
 
+  @property({ type: String })
+  options = ''
+
   @state()
   showCopy = false
 
-  private defaultTooltipStyles = 'bg-neutral-20 p-4 hidden'
+  @state()
+  optionsParsed: TooltipOption[] = []
 
   private tooltipInstance = undefined
 
@@ -95,7 +104,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       this.tooltipInstance = undefined
     }
 
-    if (!this.text) {
+    if (!this.text && !this.options) {
       return
     }
 
@@ -142,7 +151,29 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       return
     }
 
+    if (changedProperties.has('options') && !!this.options) {
+      try {
+        this.optionsParsed = JSON.parse(this.options) as TooltipOption[]
+      } catch (error: unknown) {
+        console.warn('Could not parse options', error)
+      }
+    }
+
     this.initTooltip()
+  }
+
+  private optionsTemplate() {
+    return html`
+      ${Object.entries(this.optionsParsed).map(
+        option =>
+          html`<div
+            class="mb-1 rounded-4 px-2 py-1 hover:cursor-pointer hover:bg-neutral-95"
+            onClick="navigator.clipboard.writeText('${option[1].value}')"
+          >
+            ${option[1].text}
+          </div>`
+      )}
+    `
   }
 
   render() {
@@ -150,11 +181,9 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       <div
         id="tooltip"
         role="tooltip"
-        class=${customClassMap({
-          [this.defaultTooltipStyles]: true,
-        })}
+        class="bg-neutral-20 p-4 hidden"
       >
-        ${this.text}
+        ${this.options ? this.optionsTemplate() : this.text}
       </div>
       ${this.isClipboardCopy
         ? html`<lukso-tooltip

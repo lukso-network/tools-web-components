@@ -1,10 +1,9 @@
-import { PropertyValues, html } from 'lit'
+import { type PropertyValues, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import tippy from 'tippy.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
-import { customClassMap } from '@/shared/directives'
 
 export type TooltipVariant = 'dark' | 'light' | 'success' | 'danger' | 'white'
 export type TooltipSize = 'medium' | 'large'
@@ -26,6 +25,12 @@ export type TooltipPlacement =
   | 'auto-end'
 export type TooltipTrigger = 'mouseenter' | 'click' | 'manual'
 
+export type TooltipOption = {
+  id?: string
+  value: string
+  text: string
+}
+
 @customElement('lukso-tooltip')
 export class LuksoTooltip extends TailwindStyledElement(style) {
   @property({ type: String })
@@ -41,33 +46,37 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   trigger: TooltipTrigger = 'mouseenter'
 
   @property({ type: String })
-  text: string = ''
+  text = ''
 
   @property({ type: Number, attribute: 'max-width' })
-  maxWidth: number = 300
+  maxWidth = 300
 
   @property({ type: Boolean })
-  show: boolean = false
+  show = false
 
   @property({ type: String, attribute: 'hide-on-click' })
-  hideOnClick: string = 'true'
+  hideOnClick = 'true'
 
   @property({ type: Boolean, attribute: 'is-clipboard-copy' })
-  isClipboardCopy: boolean = false
+  isClipboardCopy = false
 
   @property({ type: String, attribute: 'copy-text' })
-  copyText: string = ''
+  copyText = ''
 
   @property({ type: String, attribute: 'copy-value' })
-  copyValue: string = ''
+  copyValue = ''
 
   @property({ type: Number })
-  offset: number = 10
+  offset = 10
+
+  @property({ type: String })
+  options = ''
 
   @state()
-  showCopy: boolean = false
+  showCopy = false
 
-  private defaultTooltipStyles = 'bg-neutral-20 p-4 hidden'
+  @state()
+  optionsParsed: TooltipOption[] = []
 
   private tooltipInstance = undefined
 
@@ -95,7 +104,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       this.tooltipInstance = undefined
     }
 
-    if (!this.text) {
+    if (!this.text && !this.options) {
       return
     }
 
@@ -134,7 +143,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     // when manually trigger tooltip
     if (changedProperties.has('show') && this.trigger === 'manual') {
       if (this.show) {
-        !!!this.tooltipInstance && this.initTooltip()
+        !this.tooltipInstance && this.initTooltip()
         this.tooltipInstance.show()
       } else {
         this.tooltipInstance?.hide()
@@ -142,19 +151,35 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       return
     }
 
+    if (changedProperties.has('options') && !!this.options) {
+      try {
+        this.optionsParsed = JSON.parse(this.options) as TooltipOption[]
+      } catch (error: unknown) {
+        console.warn('Could not parse options', error)
+      }
+    }
+
     this.initTooltip()
+  }
+
+  private optionsTemplate() {
+    return html`
+      ${Object.entries(this.optionsParsed).map(
+        option =>
+          html`<div
+            class="mb-1 rounded-4 px-2 py-1 hover:cursor-pointer hover:bg-neutral-95"
+            onClick="navigator.clipboard.writeText('${option[1].value}')"
+          >
+            ${option[1].text}
+          </div>`
+      )}
+    `
   }
 
   render() {
     return html`
-      <div
-        id="tooltip"
-        role="tooltip"
-        class=${customClassMap({
-          [this.defaultTooltipStyles]: true,
-        })}
-      >
-        ${this.text}
+      <div id="tooltip" role="tooltip" class="bg-neutral-20 p-4 hidden">
+        ${this.options ? this.optionsTemplate() : this.text}
       </div>
       ${this.isClipboardCopy
         ? html`<lukso-tooltip

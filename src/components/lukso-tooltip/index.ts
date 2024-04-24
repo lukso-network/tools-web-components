@@ -1,4 +1,4 @@
-import { PropertyValues, html } from 'lit'
+import { type PropertyValues, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import tippy from 'tippy.js'
 
@@ -41,31 +41,31 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   trigger: TooltipTrigger = 'mouseenter'
 
   @property({ type: String })
-  text: string = ''
+  text = ''
 
   @property({ type: Number, attribute: 'max-width' })
-  maxWidth: number = 300
+  maxWidth = 300
 
   @property({ type: Boolean })
-  show: boolean = false
+  show = false
 
   @property({ type: String, attribute: 'hide-on-click' })
-  hideOnClick: string = 'true'
+  hideOnClick = 'true'
 
   @property({ type: Boolean, attribute: 'is-clipboard-copy' })
-  isClipboardCopy: boolean = false
+  isClipboardCopy = false
 
   @property({ type: String, attribute: 'copy-text' })
-  copyText: string = ''
+  copyText = ''
 
   @property({ type: String, attribute: 'copy-value' })
-  copyValue: string = ''
+  copyValue = ''
 
   @property({ type: Number })
-  offset: number = 10
+  offset = 10
 
   @state()
-  showCopy: boolean = false
+  showCopy = false
 
   private defaultTooltipStyles = 'bg-neutral-20 p-4 hidden'
 
@@ -134,7 +134,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     // when manually trigger tooltip
     if (changedProperties.has('show') && this.trigger === 'manual') {
       if (this.show) {
-        !!!this.tooltipInstance && this.initTooltip()
+        !this.tooltipInstance && this.initTooltip()
         this.tooltipInstance.show()
       } else {
         this.tooltipInstance?.hide()

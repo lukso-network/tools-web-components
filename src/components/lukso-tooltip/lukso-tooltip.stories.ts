@@ -162,7 +162,7 @@ const meta: Meta = {
     isClipboardCopy: false,
     copyText: '',
     copyValue: '',
-    options: ''
+    options: '',
   },
   parameters: {
     controls: {
@@ -204,7 +204,7 @@ const DefaultTemplate = ({
   copyText,
   copyValue,
   offset,
-  options
+  options,
 }) => html`
   <lukso-tooltip
     variant=${variant ? variant : nothing}
@@ -360,5 +360,5 @@ OptionsTooltip.args = {
       text: 'Option 3',
       value: 'option#3',
     },
-  ])
+  ]),
 }

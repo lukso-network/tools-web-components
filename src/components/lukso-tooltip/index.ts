@@ -178,11 +178,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
 
   render() {
     return html`
-      <div
-        id="tooltip"
-        role="tooltip"
-        class="bg-neutral-20 p-4 hidden"
-      >
+      <div id="tooltip" role="tooltip" class="bg-neutral-20 p-4 hidden">
         ${this.options ? this.optionsTemplate() : this.text}
       </div>
       ${this.isClipboardCopy

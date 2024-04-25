@@ -172,6 +172,11 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     this.initTooltip()
   }
 
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    this.tooltipInstance?.destroy()
+  }
+
   private optionsTemplate() {
     const { options } = this.tooltipStyles()
 

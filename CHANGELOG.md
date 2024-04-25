@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.67.0](https://github.com/lukso-network/tools-web-components/compare/v1.66.1...v1.67.0) (2024-04-25)
+
+
+### Features
+
+* options tooltip ([#337](https://github.com/lukso-network/tools-web-components/issues/337)) ([2ddca4c](https://github.com/lukso-network/tools-web-components/commit/2ddca4c3253a2d9e40c6c8f3f5b55221af5b10ea))
+
 ## [1.66.1](https://github.com/lukso-network/tools-web-components/compare/v1.66.0...v1.66.1) (2024-04-23)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.68.1](https://github.com/lukso-network/tools-web-components/compare/v1.68.0...v1.68.1) (2024-04-25)
+
+
+### Bug Fixes
+
+* cleanup tooltip instance on component disconnect ([#342](https://github.com/lukso-network/tools-web-components/issues/342)) ([1a73d5c](https://github.com/lukso-network/tools-web-components/commit/1a73d5c661bd7561623758941bf470d9a5067913))
+
 ## [1.68.0](https://github.com/lukso-network/tools-web-components/compare/v1.67.0...v1.68.0) (2024-04-25)
 
 

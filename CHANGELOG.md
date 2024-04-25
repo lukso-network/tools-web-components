@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.68.0](https://github.com/lukso-network/tools-web-components/compare/v1.67.0...v1.68.0) (2024-04-25)
+
+
+### Features
+
+* add size prop to lukso-wizard. removed is-full-width ([#338](https://github.com/lukso-network/tools-web-components/issues/338)) ([aa05cad](https://github.com/lukso-network/tools-web-components/commit/aa05cad23e343149d805a48678e09d895f04a279))
+
+
+### Bug Fixes
+
+* styling issue for options ([#340](https://github.com/lukso-network/tools-web-components/issues/340)) ([fcc4c1b](https://github.com/lukso-network/tools-web-components/commit/fcc4c1bfe6e676f3b9b4a0536f23b5ee68503fb8))
+
 ## [1.67.0](https://github.com/lukso-network/tools-web-components/compare/v1.66.1...v1.67.0) (2024-04-25)
 
 

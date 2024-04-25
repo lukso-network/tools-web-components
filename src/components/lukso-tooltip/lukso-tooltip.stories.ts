@@ -338,7 +338,7 @@ ClipboardCopy.args = {
   copyValue: 'copied value',
 }
 
-/** Tooltip with options (copied to clipboard).  */
+/** Tooltip with `options` (copied to clipboard).  */
 export const OptionsTooltip = DefaultTemplate.bind({})
 OptionsTooltip.args = {
   variant: 'light',

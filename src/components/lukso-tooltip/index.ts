@@ -1,6 +1,8 @@
 import { type PropertyValues, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import tippy from 'tippy.js'
+import { tv } from 'tailwind-variants'
+import { styleMap } from 'lit/directives/style-map.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
@@ -79,6 +81,14 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   optionsParsed: TooltipOption[] = []
 
   private tooltipInstance = undefined
+
+  private tooltipStyles = tv({
+    slots: {
+      tooltip: 'hidden',
+      trigger: 'cursor-pointer flex flex-col items-center',
+      options: 'rounded-4 hover:bg-neutral-95',
+    },
+  })
 
   private hideOnClickCheck() {
     if (this.hideOnClick === 'toggle') {
@@ -163,22 +173,31 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   }
 
   private optionsTemplate() {
-    return html`
-      ${Object.entries(this.optionsParsed).map(
+    const { options } = this.tooltipStyles()
+
+    // because of the bug in the getting styles properly for options we pass them as style property
+    return html`<ul>
+      ${Object.entries(this.optionsParsed)?.map(
         option =>
-          html`<div
-            class="mb-1 rounded-4 px-2 py-1 hover:cursor-pointer hover:bg-neutral-95"
+          html`<li
+            class=${options()}
+            style=${styleMap({
+              padding: '4px 8px',
+              cursor: 'pointer',
+            })}
             onClick="navigator.clipboard.writeText('${option[1].value}')"
           >
             ${option[1].text}
-          </div>`
+          </li>`
       )}
-    `
+    </ul>`
   }
 
   render() {
+    const { tooltip, trigger } = this.tooltipStyles()
+
     return html`
-      <div id="tooltip" role="tooltip" class="bg-neutral-20 p-4 hidden">
+      <div id="tooltip" role="tooltip" class=${tooltip()}>
         ${this.options ? this.optionsTemplate() : this.text}
       </div>
       ${this.isClipboardCopy
@@ -192,19 +211,11 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
             ?show=${this.showCopy ? true : undefined}
             text=${this.copyText}
           >
-            <div
-              id="trigger"
-              class="cursor-pointer flex flex-col items-center"
-              @click=${this.handleClick}
-            >
+            <div id="trigger" class=${trigger()} @click=${this.handleClick}>
               <slot></slot>
             </div>
           </lukso-tooltip>`
-        : html`<div
-            id="trigger"
-            class="cursor-pointer flex flex-col items-center"
-            @click=${this.handleClick}
-          >
+        : html`<div id="trigger" class=${trigger()} @click=${this.handleClick}>
             <slot></slot>
           </div>`}
     `

@@ -2,16 +2,11 @@ import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import makeBlockie from 'ethereum-blockies-base64'
+import { tv } from 'tailwind-variants'
 
 import { TailwindElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
 
 export type ProfileSize = 'x-small' | 'small' | 'medium' | 'large' | 'x-large'
-type SizeDef = {
-  identiconSize: number
-  profileImageSize: number
-  squareRounding: number
-}
 
 @customElement('lukso-profile')
 export class LuksoProfile extends TailwindElement {
@@ -30,96 +25,124 @@ export class LuksoProfile extends TailwindElement {
   @property({ type: Boolean, attribute: 'is-square' })
   isSquare = false
 
-  sizes: Record<ProfileSize, SizeDef> = {
-    'x-small': {
-      identiconSize: 12,
-      profileImageSize: 24,
-      squareRounding: 2,
-    },
-    small: {
-      identiconSize: 16,
-      profileImageSize: 40,
-      squareRounding: 4,
-    },
-    medium: {
-      identiconSize: 20,
-      profileImageSize: 56,
-      squareRounding: 8,
-    },
-    large: {
-      identiconSize: 24,
-      profileImageSize: 80,
-      squareRounding: 10,
-    },
-    'x-large': {
-      identiconSize: 28,
-      profileImageSize: 96,
-      squareRounding: 12,
-    },
-  }
-
-  private profileImageSize() {
-    return this.sizes[this.size].profileImageSize
-  }
-
-  private identiconSize() {
-    return this.sizes[this.size].identiconSize
-  }
-
-  private squareRoundingSize() {
-    return this.sizes[this.size].squareRounding
-  }
-
-  private defaultProfileUrl = '/assets/images/profile-default.svg'
+  @property({ type: String })
+  placeholder = '/assets/images/profile-default.svg'
 
   private identicon() {
-    return this.hasIdenticon && this.profileAddress && this.identiconSize()
+    return this.hasIdenticon && this.profileAddress
       ? makeBlockie(this.profileAddress)
       : ''
   }
 
+  private profileStyles = tv({
+    slots: {
+      wrapper:
+        'bg-[50%] bg-no-repeat bg-cover bg-neutral-90 outline outline-2 outline-neutral-100',
+      profile: 'bg-[50%] bg-no-repeat bg-cover relative',
+      identicon:
+        'absolute shadow-shadow-1xl rounded-full outline outline-neutral-100 right-0 bottom-0',
+    },
+    variants: {
+      isSquare: {
+        false: {
+          wrapper: 'rounded-full',
+          profile: 'rounded-full',
+        },
+      },
+      size: {
+        'x-small': {
+          wrapper: 'w-6 h-6',
+          profile: 'w-6 h-6',
+          identicon: 'w-3 h-3 outline-1',
+        },
+        small: {
+          wrapper: 'w-10 h-10',
+          profile: 'w-10 h-10',
+          identicon: 'w-4 h-4 outline-2',
+        },
+        medium: {
+          wrapper: 'w-14 h-14',
+          profile: 'w-14 h-14',
+          identicon: 'w-5 h-5 outline-2',
+        },
+        large: {
+          wrapper: 'w-20 h-20',
+          profile: 'w-20 h-20',
+          identicon: 'w-6 h-6 outline-2',
+        },
+        'x-large': {
+          wrapper: 'w-24 h-24',
+          profile: 'w-24 h-24',
+          identicon: 'w-7 h-7 outline-2',
+        },
+      },
+    },
+    compoundVariants: [
+      {
+        isSquare: true,
+        size: 'x-small',
+        class: {
+          wrapper: 'rounded-[2px]',
+          profile: 'rounded-[2px]',
+        },
+      },
+      {
+        isSquare: true,
+        size: 'small',
+        class: {
+          wrapper: 'rounded-4',
+          profile: 'rounded-4',
+        },
+      },
+      {
+        isSquare: true,
+        size: 'medium',
+        class: {
+          wrapper: 'rounded-8',
+          profile: 'rounded-8',
+        },
+      },
+      {
+        isSquare: true,
+        size: 'large',
+        class: {
+          wrapper: 'rounded-[10px]',
+          profile: 'rounded-[10px]',
+        },
+      },
+      {
+        isSquare: true,
+        size: 'x-large',
+        class: {
+          wrapper: 'rounded-12',
+          profile: 'rounded-12',
+        },
+      },
+    ],
+  })
+
   render() {
+    const { wrapper, profile, identicon } = this.profileStyles({
+      size: this.size,
+      isSquare: this.isSquare,
+    })
+
     return html`
       <div
         data-testid="profile"
         style=${styleMap({
-          backgroundImage: `url('${this.defaultProfileUrl}')`,
-          width: `${this.profileImageSize()}px`,
-          height: `${this.profileImageSize()}px`,
-          borderRadius: `${
-            this.isSquare ? this.squareRoundingSize() + 'px' : '50%'
-          }`,
+          backgroundImage: `url('${this.placeholder}')`,
         })}
-        class="bg-[50%] bg-no-repeat bg-cover bg-neutral-90
-          outline outline-2 outline-neutral-100"
+        class=${wrapper()}
       >
         <div
           style=${styleMap({
             backgroundImage: `url('${this.profileUrl}')`,
-            width: `${this.profileImageSize()}px`,
-            height: `${this.profileImageSize()}px`,
-            borderRadius: `${
-              this.isSquare ? this.squareRoundingSize() + 'px' : '50%'
-            }`,
           })}
-          class="bg-[50%] bg-no-repeat bg-cover relative
-          "
+          class=${profile()}
         >
           ${this.identicon()
-            ? html`<img
-                src=${this.identicon()}
-                class="absolute shadow-shadow-1xl rounded-full
-                  outline outline-neutral-100 right-0 bottom-0 ${customClassMap(
-                  {
-                    'outline-2': this.identiconSize() >= 16,
-                    'outline-1': this.identiconSize() < 16,
-                  }
-                )}"
-                style=${styleMap({
-                  width: `${this.identiconSize()}px`,
-                  height: `${this.identiconSize()}px`,
-                })}
-              />`
+            ? html`<img src=${this.identicon()} class=${identicon()} />`
             : ''}
         </div>
       </div>

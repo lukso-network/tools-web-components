@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.69.0](https://github.com/lukso-network/tools-web-components/compare/v1.68.1...v1.69.0) (2024-04-26)
+
+
+### Features
+
+* add custom placeholder option for `lukso-profile` component ([#344](https://github.com/lukso-network/tools-web-components/issues/344)) ([69cf07a](https://github.com/lukso-network/tools-web-components/commit/69cf07a8e4e10d2f7ad62e9057e9626988e61099))
+
 ## [1.68.1](https://github.com/lukso-network/tools-web-components/compare/v1.68.0...v1.68.1) (2024-04-25)
 
 

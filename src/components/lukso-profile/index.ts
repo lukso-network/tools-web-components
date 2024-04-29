@@ -1,10 +1,10 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { styleMap } from 'lit/directives/style-map.js'
 import makeBlockie from 'ethereum-blockies-base64'
 import { tv } from 'tailwind-variants'
 
 import { TailwindElement } from '@/shared/tailwind-element'
+import '@/components/lukso-image'
 
 export type ProfileSize = 'x-small' | 'small' | 'medium' | 'large' | 'x-large'
 
@@ -36,9 +36,8 @@ export class LuksoProfile extends TailwindElement {
 
   private profileStyles = tv({
     slots: {
-      wrapper:
-        'bg-[50%] bg-no-repeat bg-cover bg-neutral-90 outline outline-2 outline-neutral-100',
-      profile: 'bg-[50%] bg-no-repeat bg-cover relative',
+      wrapper: 'outline outline-2 outline-neutral-100 relative',
+      profile: 'overflow-hidden',
       identicon:
         'absolute shadow-shadow-1xl rounded-full outline outline-neutral-100 right-0 bottom-0',
     },
@@ -128,23 +127,16 @@ export class LuksoProfile extends TailwindElement {
     })
 
     return html`
-      <div
-        data-testid="profile"
-        style=${styleMap({
-          backgroundImage: `url('${this.placeholder}')`,
-        })}
-        class=${wrapper()}
-      >
-        <div
-          style=${styleMap({
-            backgroundImage: `url('${this.profileUrl}')`,
-          })}
-          class=${profile()}
-        >
-          ${this.identicon()
-            ? html`<img src=${this.identicon()} class=${identicon()} />`
-            : ''}
+      <div data-testid="profile" class=${wrapper()}>
+        <div class=${profile()}>
+          <lukso-image
+            src=${this.profileUrl}
+            placeholder=${this.placeholder}
+          ></lukso-image>
         </div>
+        ${this.identicon()
+          ? html`<img src=${this.identicon()} class=${identicon()} />`
+          : ''}
       </div>
     `
   }

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.70.0](https://github.com/lukso-network/tools-web-components/compare/v1.69.0...v1.70.0) (2024-04-30)
+
+
+### Features
+
+* image component ([#346](https://github.com/lukso-network/tools-web-components/issues/346)) ([c99ed83](https://github.com/lukso-network/tools-web-components/commit/c99ed8317d8f6706a31430e1e78b34850d95bf30))
+
 ## [1.69.0](https://github.com/lukso-network/tools-web-components/compare/v1.68.1...v1.69.0) (2024-04-26)
 
 

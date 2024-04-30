@@ -90,6 +90,7 @@ const meta: Meta = {
         'hasIdenticon',
         'defaultProfileUrl',
         'isSquare',
+        'profileStyles',
       ],
     },
     design: {

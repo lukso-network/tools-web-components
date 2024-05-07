@@ -121,7 +121,7 @@ const meta: Meta = {
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     bottom: 'Lorem ipsum dolor sit amet, consectetur',
     backgroundUrl: 'images/sample-background.jpg',
-    profileUrl: 'images/sample-avatar.png',
+    profileUrl: 'images/sample-avatar.jpg',
     profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
     width: undefined,
     height: undefined,

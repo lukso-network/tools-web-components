@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { Meta } from '@storybook/web-components'
 
 import '../index'
@@ -23,18 +23,15 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    isFullWidth: {
-      name: 'is-full-width',
-      control: { type: 'boolean' },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium', 'large', 'full-width'],
       table: {
         category: 'Attributes',
       },
     },
     'active-step': {
       name: 'activeStep',
-    },
-    'is-full-width': {
-      name: 'isFullWidth',
     },
   },
   args: {
@@ -53,8 +50,8 @@ LYXe`,
       },
       { label: 'Status' },
     ],
+    size: 'medium',
     activeStep: 3,
-    isFullWidth: false,
   },
   parameters: {
     controls: {
@@ -62,7 +59,6 @@ LYXe`,
         'activeStepStyles',
         'completedStepStyles',
         'activeStep',
-        'isFullWidth',
         'styles',
       ],
     },
@@ -75,17 +71,11 @@ LYXe`,
 
 export default meta
 
-const Template = ({ steps, activeStep, isFullWidth }) =>
+const Template = ({ steps, activeStep, size }) =>
   html`<lukso-wizard
     steps=${JSON.stringify(steps)}
     active-step=${activeStep}
-    ?is-full-width=${isFullWidth}
+    size=${size ? size : nothing}
   ></lukso-wizard>`
 
 export const BasicWizard = Template.bind({})
-
-/** If you need button to take full width of the parent element add `is-full-width` property. */
-export const FullWidthWizard = Template.bind({})
-FullWidthWizard.args = {
-  isFullWidth: true,
-}

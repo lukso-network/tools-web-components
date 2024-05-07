@@ -1,5 +1,6 @@
 import { html, nothing } from 'lit-html'
-import { Meta } from '@storybook/web-components'
+
+import type { Meta } from '@storybook/web-components'
 
 import './index'
 
@@ -50,6 +51,12 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    placeholder: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'profile-url': {
       name: 'profileUrl',
     },
@@ -69,6 +76,7 @@ const meta: Meta = {
     profileAddress: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
     hasIdenticon: true,
     isSquare: false,
+    placeholder: undefined,
   },
   parameters: {
     controls: {
@@ -82,6 +90,7 @@ const meta: Meta = {
         'hasIdenticon',
         'defaultProfileUrl',
         'isSquare',
+        'profileStyles',
       ],
     },
     design: {
@@ -99,6 +108,7 @@ const Template = ({
   profileAddress,
   hasIdenticon,
   isSquare,
+  placeholder,
 }) =>
   html`<lukso-profile
     profile-url=${profileUrl ? profileUrl : nothing}
@@ -106,6 +116,7 @@ const Template = ({
     profile-address=${profileAddress ? profileAddress : nothing}
     ?has-identicon=${hasIdenticon}
     ?is-square=${isSquare}
+    placeholder=${placeholder ? placeholder : nothing}
   ></lukso-profile>`
 
 /** Example of `x-large` profile in `96x96` pixel size.*/
@@ -154,4 +165,11 @@ NoIdenticon.args = {
 export const Square = Template.bind({})
 Square.args = {
   isSquare: true,
+}
+
+/** You can also change default placeholder using `placeholder` attribute. */
+export const Placeholder = Template.bind({})
+Placeholder.args = {
+  profileUrl: '',
+  placeholder: '/assets/images/token-default.svg',
 }

@@ -1,5 +1,52 @@
 # Changelog
 
+## [1.70.0](https://github.com/lukso-network/tools-web-components/compare/v1.69.0...v1.70.0) (2024-04-30)
+
+
+### Features
+
+* image component ([#346](https://github.com/lukso-network/tools-web-components/issues/346)) ([c99ed83](https://github.com/lukso-network/tools-web-components/commit/c99ed8317d8f6706a31430e1e78b34850d95bf30))
+
+## [1.69.0](https://github.com/lukso-network/tools-web-components/compare/v1.68.1...v1.69.0) (2024-04-26)
+
+
+### Features
+
+* add custom placeholder option for `lukso-profile` component ([#344](https://github.com/lukso-network/tools-web-components/issues/344)) ([69cf07a](https://github.com/lukso-network/tools-web-components/commit/69cf07a8e4e10d2f7ad62e9057e9626988e61099))
+
+## [1.68.1](https://github.com/lukso-network/tools-web-components/compare/v1.68.0...v1.68.1) (2024-04-25)
+
+
+### Bug Fixes
+
+* cleanup tooltip instance on component disconnect ([#342](https://github.com/lukso-network/tools-web-components/issues/342)) ([1a73d5c](https://github.com/lukso-network/tools-web-components/commit/1a73d5c661bd7561623758941bf470d9a5067913))
+
+## [1.68.0](https://github.com/lukso-network/tools-web-components/compare/v1.67.0...v1.68.0) (2024-04-25)
+
+
+### Features
+
+* add size prop to lukso-wizard. removed is-full-width ([#338](https://github.com/lukso-network/tools-web-components/issues/338)) ([aa05cad](https://github.com/lukso-network/tools-web-components/commit/aa05cad23e343149d805a48678e09d895f04a279))
+
+
+### Bug Fixes
+
+* styling issue for options ([#340](https://github.com/lukso-network/tools-web-components/issues/340)) ([fcc4c1b](https://github.com/lukso-network/tools-web-components/commit/fcc4c1bfe6e676f3b9b4a0536f23b5ee68503fb8))
+
+## [1.67.0](https://github.com/lukso-network/tools-web-components/compare/v1.66.1...v1.67.0) (2024-04-25)
+
+
+### Features
+
+* options tooltip ([#337](https://github.com/lukso-network/tools-web-components/issues/337)) ([2ddca4c](https://github.com/lukso-network/tools-web-components/commit/2ddca4c3253a2d9e40c6c8f3f5b55221af5b10ea))
+
+## [1.66.1](https://github.com/lukso-network/tools-web-components/compare/v1.66.0...v1.66.1) (2024-04-23)
+
+
+### Bug Fixes
+
+* adds touchstart, touchend, touchcancel to longclick button ([#335](https://github.com/lukso-network/tools-web-components/issues/335)) ([1a6385f](https://github.com/lukso-network/tools-web-components/commit/1a6385fc27c9ae39cdc1591ddc5456772b196881))
+
 ## [1.66.0](https://github.com/lukso-network/tools-web-components/compare/v1.65.0...v1.66.0) (2024-04-19)
 
 

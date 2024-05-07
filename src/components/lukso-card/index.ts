@@ -1,5 +1,10 @@
 import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import {
+  customElement,
+  property,
+  state,
+  queryAssignedElements,
+} from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { tv } from 'tailwind-variants'
 
@@ -55,6 +60,16 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   @property({ type: Boolean, attribute: 'is-hoverable' })
   isHoverable = false
+
+  @queryAssignedElements({ slot: 'bottom', flatten: true })
+  private _bottomNodes: NodeListOf<HTMLElement>
+
+  @state()
+  private _hasBottom = false
+
+  private _onBottomSlotChange() {
+    this._hasBottom = this._bottomNodes.length > 0
+  }
 
   private mediumStyles = `rounded-24 shadow-neutral-drop-shadow-2xl`
   private smallStyles = `rounded-12 shadow-neutral-drop-shadow`
@@ -266,7 +281,11 @@ export class LuksoCard extends TailwindStyledElement(style) {
           </div>
         </div>
         <div class="grid grid-rows-[max-content,auto] rounded-b-[inherit]">
-          <div class="bg-neutral-100 relative">
+          <div
+            class="bg-neutral-100 relative ${this._hasBottom
+              ? ''
+              : 'rounded-b-[inherit]'}"
+          >
             <lukso-profile
               profile-url=${this.profileUrl}
               borderRadius="large"
@@ -286,7 +305,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           <div
             class="bg-neutral-97 rounded-b-[inherit] shadow-neutral-inner-shadow-top"
           >
-            <slot name="bottom"></slot>
+            <slot @slotchange=${this._onBottomSlotChange} name="bottom"></slot>
           </div>
         </div>
       </div>

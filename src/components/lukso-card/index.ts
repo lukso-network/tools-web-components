@@ -1,5 +1,10 @@
 import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import {
+  customElement,
+  property,
+  state,
+  queryAssignedElements,
+} from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { tv } from 'tailwind-variants'
 
@@ -57,10 +62,15 @@ export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-hoverable' })
   isHoverable = false
 
-  private mediumStyles = 'rounded-24 shadow-neutral-drop-shadow-2xl'
-  private smallStyles = 'rounded-12 shadow-neutral-drop-shadow'
-  private smallHoverStyles =
-    'hover:shadow-neutral-drop-shadow-1xl cursor-pointer transition'
+  @queryAssignedElements({ slot: 'bottom', flatten: true })
+  private bottomNodes: NodeListOf<HTMLElement>
+
+  @state()
+  private hasBottom = false
+
+  private onBottomSlotChange() {
+    this.hasBottom = this.bottomNodes.length > 0
+  }
 
   private backgroundGradient() {
     let gradientStart = '#24354210' // bg-neutral-20/10
@@ -274,7 +284,11 @@ export class LuksoCard extends TailwindStyledElement(style) {
           </div>
         </div>
         <div class="grid grid-rows-[max-content,auto] rounded-b-[inherit]">
-          <div class="bg-neutral-100 relative">
+          <div
+            class=${cn('bg-neutral-100 relative', {
+              'rounded-b-[inherit]': !this.hasBottom,
+            })}
+          >
             <lukso-profile
               profile-url=${this.profileUrl}
               borderRadius="large"
@@ -294,7 +308,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           <div
             class="bg-neutral-97 rounded-b-[inherit] shadow-neutral-inner-shadow-top"
           >
-            <slot name="bottom"></slot>
+            <slot @slotchange=${this.onBottomSlotChange} name="bottom"></slot>
           </div>
         </div>
       </div>

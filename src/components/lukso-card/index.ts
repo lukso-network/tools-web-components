@@ -63,23 +63,13 @@ export class LuksoCard extends TailwindStyledElement(style) {
   isHoverable = false
 
   @queryAssignedElements({ slot: 'bottom', flatten: true })
-  private _bottomNodes: NodeListOf<HTMLElement>
+  private bottomNodes: NodeListOf<HTMLElement>
 
   @state()
-  private _hasBottom = false
+  private hasBottom = false
 
-  private _onBottomSlotChange() {
-    this._hasBottom = this._bottomNodes.length > 0
-  }
-
-  private mediumStyles = `rounded-24 shadow-neutral-drop-shadow-2xl`
-  private smallStyles = `rounded-12 shadow-neutral-drop-shadow`
-  private smallHoverStyles = `hover:shadow-neutral-drop-shadow-1xl cursor-pointer transition`
-
-  private backgroundImageOrGradient() {
-    if (this.backgroundUrl) {
-      return `url('${this.backgroundUrl}')`
-    }
+  private onBottomSlotChange() {
+    this.hasBottom = this.bottomNodes.length > 0
   }
 
   private backgroundGradient() {
@@ -295,9 +285,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
         </div>
         <div class="grid grid-rows-[max-content,auto] rounded-b-[inherit]">
           <div
-            class="bg-neutral-100 relative ${this._hasBottom
-              ? ''
-              : 'rounded-b-[inherit]'}"
+            class=${cn('bg-neutral-100 relative', {
+              'rounded-b-[inherit]': !this.hasBottom,
+            })}
           >
             <lukso-profile
               profile-url=${this.profileUrl}
@@ -318,7 +308,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           <div
             class="bg-neutral-97 rounded-b-[inherit] shadow-neutral-inner-shadow-top"
           >
-            <slot @slotchange=${this._onBottomSlotChange} name="bottom"></slot>
+            <slot @slotchange=${this.onBottomSlotChange} name="bottom"></slot>
           </div>
         </div>
       </div>

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.70.1](https://github.com/lukso-network/tools-web-components/compare/v1.70.0...v1.70.1) (2024-05-08)
+
+
+### Bug Fixes
+
+* adds bottom border for lukso-card ([#348](https://github.com/lukso-network/tools-web-components/issues/348)) ([f49943b](https://github.com/lukso-network/tools-web-components/commit/f49943b049ed8841c06a8605a19363a7349b55bc))
+
 ## [1.70.0](https://github.com/lukso-network/tools-web-components/compare/v1.69.0...v1.70.0) (2024-04-30)
 
 

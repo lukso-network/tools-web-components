@@ -72,6 +72,18 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    showArrow: {
+      name: 'show-arrow',
+      control: {
+        type: 'boolean',
+      },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    'show-arrow': {
+      name: 'showArrow',
+    },
     show: {
       control: {
         type: 'boolean',
@@ -163,6 +175,7 @@ const meta: Meta = {
     copyText: '',
     copyValue: '',
     options: '',
+    showArrow: true,
   },
   parameters: {
     controls: {
@@ -178,6 +191,9 @@ const meta: Meta = {
         'copyText',
         'copyValue',
         'showCopy',
+        'showArrow',
+        'optionsParsed',
+        'tooltipStyles',
       ],
     },
     design: {
@@ -204,6 +220,7 @@ const DefaultTemplate = ({
   copyText,
   copyValue,
   offset,
+  showArrow,
   options,
 }) => html`
   <lukso-tooltip
@@ -220,6 +237,7 @@ const DefaultTemplate = ({
     ?show=${show ? show : undefined}
     ?is-clipboard-copy=${isClipboardCopy ? isClipboardCopy : undefined}
     options=${options ? options : nothing}
+    ?show-arrow=${showArrow ? showArrow : undefined}
     class="${margin} mx-20"
   >
     <lukso-button size="small" variant="secondary">${buttonText}</lukso-button>

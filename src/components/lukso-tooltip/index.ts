@@ -74,6 +74,9 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   @property({ type: String })
   options = ''
 
+  @property({ type: Boolean, attribute: 'show-arrow' })
+  showArrow = true
+
   @state()
   showCopy = false
 
@@ -121,7 +124,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     this.tooltipInstance = tippy(trigger, {
       content: tooltip.innerHTML,
       allowHTML: true,
-      arrow: true,
+      arrow: this.showArrow,
       animation: 'fade',
       interactive: true,
       appendTo: () => document.body,

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.71.0](https://github.com/lukso-network/tools-web-components/compare/v1.70.1...v1.71.0) (2024-05-09)
+
+
+### Features
+
+* add show-arrow prop to lukso-tooltip ([#350](https://github.com/lukso-network/tools-web-components/issues/350)) ([0cdb1be](https://github.com/lukso-network/tools-web-components/commit/0cdb1be9380ae09bbfae4c189175c4c50364f7bd))
+
 ## [1.70.1](https://github.com/lukso-network/tools-web-components/compare/v1.70.0...v1.70.1) (2024-05-08)
 
 

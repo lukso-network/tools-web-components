@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.71.1](https://github.com/lukso-network/tools-web-components/compare/v1.71.0...v1.71.1) (2024-05-16)
+
+
+### Bug Fixes
+
+* new glasses and unlink icons ([#352](https://github.com/lukso-network/tools-web-components/issues/352)) ([43c7138](https://github.com/lukso-network/tools-web-components/commit/43c713803b79af4a6062a9f2b6f0295c9d7771d3))
+
 ## [1.71.0](https://github.com/lukso-network/tools-web-components/compare/v1.70.1...v1.71.0) (2024-05-09)
 
 

@@ -146,6 +146,8 @@ import { videoOutline } from './icons/video-outline'
 import { walletRestore } from './icons/wallet-restore'
 import { logoX } from './icons/logo-x'
 import { logoFacebook } from './icons/logo-facebook'
+import { glasses } from './icons/glasses'
+import { unlink } from './icons/unlink'
 
 export type IconOptions = {
   width: number
@@ -201,6 +203,7 @@ const iconMap = {
   filter,
   'fish-outline': fishOutline,
   flip,
+  glasses,
   globe,
   hamburger,
   infinite,
@@ -272,6 +275,7 @@ const iconMap = {
   'turn-left': turnLeft,
   'turn-right': turnRight,
   'turn-up': turnUp,
+  unlink,
   unlocked,
   'wallet-outline': walletOutline,
   'wallet-restore': walletRestore,

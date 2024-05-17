@@ -148,6 +148,8 @@ import { logoX } from './icons/logo-x'
 import { logoFacebook } from './icons/logo-facebook'
 import { glasses } from './icons/glasses'
 import { unlink } from './icons/unlink'
+import { logoPolygon } from './icons/logo-polygon'
+import { logoFantom } from './icons/logo-fantom'
 
 export type IconOptions = {
   width: number
@@ -224,8 +226,10 @@ const iconMap = {
   'logo-chrome': logoChrome,
   'logo-edge': logoEdge,
   'logo-facebook': logoFacebook,
+  'logo-fantom': logoFantom,
   'logo-firefox': logoFirefox,
   'logo-opera': logoOpera,
+  'logo-polygon': logoPolygon,
   'logo-safari': logoSafari,
   'logo-x': logoX,
   mail,

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.71.2](https://github.com/lukso-network/tools-web-components/compare/v1.71.1...v1.71.2) (2024-05-17)
+
+
+### Bug Fixes
+
+* add new icons polygon and fantom ([#354](https://github.com/lukso-network/tools-web-components/issues/354)) ([dd0e3cc](https://github.com/lukso-network/tools-web-components/commit/dd0e3ccf78ba2bbfa5fcf76d2640e7d46e1ba430))
+
 ## [1.71.1](https://github.com/lukso-network/tools-web-components/compare/v1.71.0...v1.71.1) (2024-05-16)
 
 

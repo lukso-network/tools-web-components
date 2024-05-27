@@ -46,7 +46,8 @@ export class LuksoImage extends TailwindElement {
 
   private imageStyles = tv({
     slots: {
-      wrapper:
+      wrapper: 'size-full bg-neutral-100',
+      placeholder:
         'bg-[50%] bg-no-repeat bg-cover bg-neutral-90 relative size-full',
       image: 'object-cover opacity-0 size-full',
     },
@@ -70,7 +71,7 @@ export class LuksoImage extends TailwindElement {
         isLoading: true,
         hasError: false,
         class: {
-          wrapper: 'animate-pulse',
+          placeholder: 'animate-pulse',
         },
       },
       {
@@ -84,25 +85,27 @@ export class LuksoImage extends TailwindElement {
   })
 
   render() {
-    const { wrapper, image } = this.imageStyles({
+    const { wrapper, placeholder, image } = this.imageStyles({
       isLoading: this.isLoading,
       hasError: this.hasError,
     })
 
     return html`
-      <div
-        class=${wrapper()}
-        style=${styleMap({
-          backgroundImage: `url('${this.resolvedPlaceholder}')`,
-        })}
-      >
-        <img
-          src=${this.src}
-          class=${image()}
-          loading="lazy"
-          @load=${this.handleLoad}
-          @error=${this.handleError}
-        />
+      <div class=${wrapper()}>
+        <div
+          class=${placeholder()}
+          style=${styleMap({
+            backgroundImage: `url('${this.resolvedPlaceholder}')`,
+          })}
+        >
+          <img
+            src=${this.src}
+            class=${image()}
+            loading="lazy"
+            @load=${this.handleLoad}
+            @error=${this.handleError}
+          />
+        </div>
       </div>
     `
   }

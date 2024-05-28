@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.71.3](https://github.com/lukso-network/tools-web-components/compare/v1.71.2...v1.71.3) (2024-05-27)
+
+
+### Bug Fixes
+
+* Add blank background to image component ([#356](https://github.com/lukso-network/tools-web-components/issues/356)) ([2bc0697](https://github.com/lukso-network/tools-web-components/commit/2bc069787ef4a86d3ec7efdf1d141990297caee8))
+
 ## [1.71.2](https://github.com/lukso-network/tools-web-components/compare/v1.71.1...v1.71.2) (2024-05-17)
 
 

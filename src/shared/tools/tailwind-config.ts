@@ -3,10 +3,14 @@ import tinycolor from 'tinycolor2'
 import { hslColorMap } from './hsl-color-map.js'
 
 export const boxShadows = {
-  'button-hover-primary': '0px 20px 16px -16px rgba(0, 0, 0, 0.4)',
-  'button-hover-secondary': '0px 20px 16px -16px rgba(0, 0, 0, 0.12)',
-  'button-press-primary': '0px 12px 16px -16px rgba(0, 0, 0, 0.4)',
-  'button-press-secondary': '0px 12px 16px -16px rgba(0, 0, 0, 0.12)',
+  'button-medium-hover-primary': '0px 20px 16px -16px rgba(0, 0, 0, 0.4)',
+  'button-medium-hover-secondary': '0px 20px 16px -16px rgba(0, 0, 0, 0.12)',
+  'button-medium-press-primary': '0px 12px 16px -16px rgba(0, 0, 0, 0.4)',
+  'button-medium-press-secondary': '0px 12px 16px -16px rgba(0, 0, 0, 0.12)',
+  'button-small-hover-primary': '0px 10px 8px -8px rgba(0, 0, 0, 0.4)',
+  'button-small-hover-secondary': '0px 10px 8px -8px rgba(0, 0, 0, 0.12)',
+  'button-small-press-primary': '0px 6px 8px -8px rgba(0, 0, 0, 0.4)',
+  'button-small-press-secondary': '0px 6px 8x -8px rgba(0, 0, 0, 0.12)',
   '1xl': '0px 0px 16px rgba(189, 206, 219, 0.4)',
   '2xl':
     '0px 36px 80px rgba(189, 206, 219, 0.3), 0px 5.01331px 33.4221px rgba(189, 206, 219, 0.0503198), 0px 2.68036px 17.869px rgba(189, 206, 219, 0.0417275), 0px 1.50259px 10.0172px rgba(189, 206, 219, 0.035), 0px 0.798012px 5.32008px rgba(189, 206, 219, 0.0282725), 0px 0.332071px 2.21381px rgba(189, 206, 219, 0.0196802)',

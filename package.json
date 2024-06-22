@@ -1,7 +1,7 @@
 {
   "name": "web-components-builder",
   "private": true,
-  "version": "1.71.3",
+  "version": "1.71.4",
   "type": "module",
   "scripts": {
     "config-prepare": "ts-node-esm ./vite.tools.config.ts --mode=production",

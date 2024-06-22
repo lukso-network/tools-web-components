@@ -77,10 +77,10 @@ export class LuksoButton extends TailwindStyledElement(style) {
   private timer = 0
 
   private counterStyles = tv({
-    base: `ml-2 border border-neutral-20 rounded-4 px-[2px] py-[1px] paragraph-inter-10-semi-bold text-neutral-20 bg-neutral-100`,
+    base: 'ml-2 border border-neutral-20 rounded-4 px-[2px] py-[1px] paragraph-inter-10-semi-bold text-neutral-20 bg-neutral-100',
     variants: {
       isActive: {
-        true: `text-neutral-100 bg-neutral-20`,
+        true: 'text-neutral-100 bg-neutral-20',
       },
     },
   })
@@ -94,27 +94,24 @@ export class LuksoButton extends TailwindStyledElement(style) {
       color: {
         primary: `bg-neutral-20 border-neutral-20 text-neutral-100
             disabled:hover:!bg-neutral-20 disabled:hover:!border-neutral-20
-            hover:shadow-button-hover-primary hover:bg-neutral-25 hover:border-neutral-25
-            active:shadow-button-press-primary active:bg-neutral-25 active:border-neutral-25
-            before:bg-neutral-10`,
-        secondary: `bg-neutral-100 border-neutral-90 text-neutral-20
-            hover:shadow-button-hover-secondary active:shadow-button-press-secondary`,
+            hover:bg-neutral-25 hover:border-neutral-25
+            active:bg-neutral-25 active:border-neutral-25 before:bg-neutral-10`,
+        secondary: 'bg-neutral-100 border-neutral-90 text-neutral-20',
         landing: `bg-purple-51 border-purple-51 text-neutral-100
             disabled:hover:!bg-purple-51 disabled:hover:!border-purple-51
-            hover:shadow-button-hover-primary hover:bg-purple-58 hover:border-purple-58
-            active:shadow-button-press-primary
-            before:bg-purple-51`,
+            hover:bg-purple-58 hover:border-purple-58 before:bg-purple-51`,
         text: `bg-transparent border-none text-neutral-20
             hover:text-neutral-35
             active:text-neutral-35 active:scale-100
             disabled:text-neutral-90`,
-        link: `bg-transparent border-none active:!scale-100 underline text-purple-51 hover:text-purple-41`,
-        'nav-button': `nav-apax-12-medium-uppercase text-purple-41 !text-12`,
-        'nav-text': `bg-transparent border-none nav-apax-12-medium-uppercase text-purple-63 hover:text-purple-41 !text-12 transition`,
+        link: 'bg-transparent border-none active:!scale-100 underline text-purple-51 hover:text-purple-41',
+        'nav-button': 'nav-apax-12-medium-uppercase text-purple-41 !text-12',
+        'nav-text':
+          'bg-transparent border-none nav-apax-12-medium-uppercase text-purple-63 hover:text-purple-41 !text-12 transition',
       },
       size: {
-        medium: `h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12`,
-        small: `h-[28px] px-3 paragraph-inter-12-medium rounded-8 hover:shadow-none active:shadow-none`,
+        medium: 'h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12',
+        small: 'h-[28px] px-3 paragraph-inter-12-medium rounded-8',
       },
       isLongPress: {
         true: `relative overflow-hidden z-[1] active:outline-0
@@ -122,16 +119,16 @@ export class LuksoButton extends TailwindStyledElement(style) {
           before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-0`,
       },
       isFullWidth: {
-        true: `w-full`,
+        true: 'w-full',
       },
       isPressed: {
-        true: `before:w-full before:z-[-1]`,
+        true: 'before:w-full before:z-[-1]',
       },
       noTransition: {
-        true: `before:transition-none`,
+        true: 'before:transition-none',
       },
       isActive: {
-        true: `border-neutral-20`,
+        true: 'border-neutral-20',
       },
     },
     compoundVariants: [
@@ -144,6 +141,30 @@ export class LuksoButton extends TailwindStyledElement(style) {
         size: ['medium', 'small'],
         color: 'link',
         class: 'p-0 h-[initial]',
+      },
+      {
+        size: ['medium'],
+        color: ['primary', 'landing'],
+        class:
+          'hover:shadow-button-medium-hover-primary active:shadow-button-medium-press-primary',
+      },
+      {
+        size: ['medium'],
+        color: ['secondary'],
+        class:
+          'hover:shadow-button-medium-hover-secondary active:shadow-button-medium-press-secondary',
+      },
+      {
+        size: ['small'],
+        color: ['primary', 'landing'],
+        class:
+          'hover:shadow-button-small-hover-primary active:shadow-button-small-press-primary',
+      },
+      {
+        size: ['small'],
+        color: ['secondary'],
+        class:
+          'hover:shadow-button-small-hover-secondary active:shadow-button-small-press-secondary',
       },
     ],
   })
@@ -189,7 +210,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
     this.timer && clearTimeout(this.timer)
   }
 
-  loadingTemplate(): unknown {
+  loadingTemplate() {
     return html`<lukso-icon
         name="spinner"
         color=${this.variant === 'secondary' || this.variant === 'text'
@@ -197,7 +218,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
           : 'neutral-100'}
         class="animate-spin"
       ></lukso-icon>
-      ${!!this.loadingText
+      ${this.loadingText
         ? html`<span class="ml-2">${this.loadingText}</span>`
         : nothing}`
   }

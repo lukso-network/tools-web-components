@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.71.4](https://github.com/lukso-network/tools-web-components/compare/v1.71.3...v1.71.4) (2024-06-22)
+
+
+### Bug Fixes
+
+* add missing shadows to small button ([#358](https://github.com/lukso-network/tools-web-components/issues/358)) ([1eecc3d](https://github.com/lukso-network/tools-web-components/commit/1eecc3de0e6a4c0a06bbecfbd209b93ec54dcea9))
+
 ## [1.71.3](https://github.com/lukso-network/tools-web-components/compare/v1.71.2...v1.71.3) (2024-05-27)
 
 

@@ -1,7 +1,7 @@
 import { html } from 'lit'
 import { styleMap } from 'lit/directives/style-map.js'
 
-import { IconOptions } from '@/components/lukso-icon/index.js'
+import type { IconOptions } from '@/components/lukso-icon/index.js'
 
 export const addPhoto = (options: IconOptions) => {
   return html`<svg
@@ -42,5 +42,5 @@ export const addPhoto = (options: IconOptions) => {
       stroke="var(--${options.color})"
       stroke-width="${options.strokeWidth}"
     />
-  </svg> `
+  </svg>`
 }

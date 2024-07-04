@@ -2,7 +2,8 @@ import { html, nothing } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
-import { Meta } from '@storybook/web-components'
+
+import type { Meta } from '@storybook/web-components'
 
 import './index'
 import '../lukso-icon'
@@ -143,6 +144,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isIcon: {
+      name: 'is-icon',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -164,6 +172,9 @@ const meta: Meta = {
     'is-active': {
       name: 'isActive',
     },
+    'is-icon': {
+      name: 'isIcon',
+    },
   },
   args: {
     text: 'Hello World',
@@ -182,6 +193,7 @@ const meta: Meta = {
     customClass: '',
     isActive: false,
     count: 0,
+    isIcon: false,
   },
   parameters: {
     controls: {
@@ -201,6 +213,7 @@ const meta: Meta = {
         'counterStyles',
         'buttonStyles',
         'noTransition',
+        'isIcon',
       ],
     },
   },
@@ -226,6 +239,7 @@ const Template = ({
   customClass,
   isActive,
   count,
+  isIcon,
 }) =>
   html`<lukso-button
     variant=${variant ? variant : nothing}
@@ -243,6 +257,7 @@ const Template = ({
     ?is-link=${isLink}
     ?is-loading=${isLoading}
     ?is-active=${isActive}
+    ?is-icon=${isIcon}
     @on-long-press-complete=${onLongPressComplete}
     >${text}</lukso-button
   >`
@@ -353,8 +368,9 @@ DisabledButton.parameters = {
 export const IconButton = Template.bind({})
 IconButton.args = {
   variant: 'primary',
+  isIcon: true,
   text: unsafeHTML(
-    `<lukso-icon name="add-photo" size="medium" color="neutral-100" class="mr-2"></lukso-icon>Icon Button`
+    `<lukso-icon name="logo-facebook-mono" size="medium" color="neutral-100"></lukso-icon>`
   ),
 }
 IconButton.parameters = {

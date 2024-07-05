@@ -2443,7 +2443,7 @@ __metadata:
     clsx: ^2.0.0
     ethereum-blockies-base64: ^1.0.2
     tailwind-merge: ^2.0.0
-    tailwind-variants: ^0.1.18
+    tailwind-variants: ^0.2.1
     tippy.js: ^6.3.7
   languageName: unknown
   linkType: soft
@@ -15609,14 +15609,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:^1.14.0":
-  version: 1.14.0
-  resolution: "tailwind-merge@npm:1.14.0"
-  checksum: 8cf5d37f51b3b32e4bdd5544feaed34357bfba2f64f14834cc4a21ac29b0ae22d7255386467a0f1dadb3e38499389efbbabeddcd0b16571af5a0d346a4921877
-  languageName: node
-  linkType: hard
-
-"tailwind-merge@npm:^2.0.0":
+"tailwind-merge@npm:^2.0.0, tailwind-merge@npm:^2.2.0":
   version: 2.3.0
   resolution: "tailwind-merge@npm:2.3.0"
   dependencies:
@@ -15625,14 +15618,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-variants@npm:^0.1.18":
-  version: 0.1.20
-  resolution: "tailwind-variants@npm:0.1.20"
+"tailwind-variants@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "tailwind-variants@npm:0.2.1"
   dependencies:
-    tailwind-merge: ^1.14.0
+    tailwind-merge: ^2.2.0
   peerDependencies:
     tailwindcss: "*"
-  checksum: 9a504c4e262b255fcaeb0f3f9ca7f72a9f83bfc6ab699397d32f86120694eea6ac694903d668a4cf9bf2ad3cdded276af2a86f359235b1eae8643a245d479c2c
+  checksum: 39086c633399032fed3923c44980a05183e27179f64bcb945f05ca6efec9bae283a371502ae34c9cb5740b195ef3967aab23cdf79fe2cf87be8fa2f19fb38a03
   languageName: node
   linkType: hard
 

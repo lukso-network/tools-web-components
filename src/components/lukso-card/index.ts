@@ -321,7 +321,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
-      class: 'h-[240px] flex',
+      class: 'flex',
     })
 
     return html`
@@ -329,6 +329,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
         data-testid="card"
         style=${customStyleMap({
           [`min-height: ${this.height}px`]: !!this.height,
+          'min-height: 240px': !this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
         class=${cn(cardStyles, this.customClass)}

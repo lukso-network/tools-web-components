@@ -2,7 +2,8 @@ import { html, nothing } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
-import { Meta } from '@storybook/web-components'
+
+import type { Meta } from '@storybook/web-components'
 
 import './index'
 import '../lukso-icon'

@@ -1,6 +1,7 @@
 import { html, nothing } from 'lit-html'
-import { Meta } from '@storybook/web-components'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
+
+import type { Meta } from '@storybook/web-components'
 
 import './index'
 import '../lukso-button/index'

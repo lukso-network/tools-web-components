@@ -150,6 +150,17 @@ import { glasses } from './icons/glasses'
 import { unlink } from './icons/unlink'
 import { logoPolygon } from './icons/logo-polygon'
 import { logoFantom } from './icons/logo-fantom'
+import { logoFacebookMono } from './icons/logo-facebook-mono'
+import { logoXMono } from './icons/logo-x-mono'
+import { logoInstagramMono } from './icons/logo-instagram-mono'
+import { logoMediumMono } from './icons/logo-medium-mono'
+import { logoDiscordMono } from './icons/logo-discord-mono'
+import { logoSnapchatMono } from './icons/logo-snapchat-mono'
+import { logoWhatsappMono } from './icons/logo-whatsapp-mono'
+import { logoTelegramMono } from './icons/logo-telegram-mono'
+import { logoLinkedinMono } from './icons/logo-linkedin-mono'
+import { logoGithubMono } from './icons/logo-github-mono'
+import { logoUniversalPageMono } from './icons/logo-universal-page-mono'
 
 export type IconOptions = {
   width: number
@@ -315,6 +326,17 @@ const iconMap = {
   'cube-outline': cubeOutline,
   'film-outline': filmOutline,
   'video-outline': videoOutline,
+  'logo-facebook-mono': logoFacebookMono,
+  'logo-x-mono': logoXMono,
+  'logo-instagram-mono': logoInstagramMono,
+  'logo-medium-mono': logoMediumMono,
+  'logo-discord-mono': logoDiscordMono,
+  'logo-snapchat-mono': logoSnapchatMono,
+  'logo-whatsapp-mono': logoWhatsappMono,
+  'logo-telegram-mono': logoTelegramMono,
+  'logo-linkedin-mono': logoLinkedinMono,
+  'logo-github-mono': logoGithubMono,
+  'logo-universal-page-mono': logoUniversalPageMono,
 }
 
 @customElement('lukso-icon')

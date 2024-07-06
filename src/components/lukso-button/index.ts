@@ -67,6 +67,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
   @property({ type: Number })
   count = ''
 
+  @property({ type: Boolean, attribute: 'is-icon' })
+  isIcon = false
+
   @state()
   private isPressed = false
 
@@ -130,6 +133,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
       isActive: {
         true: 'border-neutral-20',
       },
+      isIcon: {
+        true: '',
+      },
     },
     compoundVariants: [
       {
@@ -165,6 +171,16 @@ export class LuksoButton extends TailwindStyledElement(style) {
         color: ['secondary'],
         class:
           'hover:shadow-button-small-hover-secondary active:shadow-button-small-press-secondary',
+      },
+      {
+        isIcon: true,
+        size: ['medium'],
+        class: 'px-3',
+      },
+      {
+        isIcon: true,
+        size: ['small'],
+        class: 'px-[6px]',
       },
     ],
   })
@@ -239,6 +255,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
       isFullWidth: this.isFullWidth,
       isPressed: this.isPressed,
       isActive: this.isActive,
+      isIcon: this.isIcon,
     })
 
     return html`
@@ -267,6 +284,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
       isLongPress: this.isLongPress,
       isFullWidth: this.isFullWidth,
       isPressed: this.isPressed,
+      isIcon: this.isIcon,
     })
 
     return html`

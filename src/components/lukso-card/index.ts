@@ -1,4 +1,4 @@
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 import {
   customElement,
   property,
@@ -61,6 +61,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   @property({ type: Boolean, attribute: 'is-hoverable' })
   isHoverable = false
+
+  @property({ type: Boolean, attribute: 'has-overlay' })
+  hasOverlay = false
 
   @queryAssignedElements({ slot: 'bottom', flatten: true })
   private bottomNodes: NodeListOf<HTMLElement>
@@ -205,13 +208,15 @@ export class LuksoCard extends TailwindStyledElement(style) {
         >
           ${this.backgroundUrl &&
           html`<div
-              class="rounded-t-[inherit] overflow-hidden absolute inset-0"
-            >
-              <lukso-image src=${this.backgroundUrl}></lukso-image>
-            </div>
-            <div
-              class="h-full full rounded-t-[inherit] rounded-b-0 bg-neutral-20/10 absolute"
-            ></div>`}
+            class="rounded-t-[inherit] overflow-hidden absolute inset-0"
+          >
+            <lukso-image src=${this.backgroundUrl}></lukso-image>
+          </div>`}
+          ${this.hasOverlay
+            ? html`<div
+                class="h-full full rounded-t-[inherit] rounded-b-0 bg-neutral-20/10 absolute"
+              ></div>`
+            : nothing}
           <div class="relative">
             <slot name="header"></slot>
           </div>
@@ -321,7 +326,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
-      class: 'h-[240px] flex',
+      class: 'flex',
     })
 
     return html`
@@ -329,6 +334,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
         data-testid="card"
         style=${customStyleMap({
           [`min-height: ${this.height}px`]: !!this.height,
+          'min-height: 240px': !this.height,
           [`width: ${this.width}px`]: !!this.width,
         })}
         class=${cn(cardStyles, this.customClass)}
@@ -336,13 +342,15 @@ export class LuksoCard extends TailwindStyledElement(style) {
         <div
           class="h-full w-full -mb-6 bg-center bg-cover rounded-[inherit] relative"
         >
-          <div class="rounded-[inherit] overflow-hidden absolute inset-0">
-            <lukso-image src=${this.backgroundUrl}></lukso-image>
-          </div>
           ${this.backgroundUrl &&
-          html`<div
-            class="h-full w-full rounded-[inherit] bg-neutral-20/10 absolute"
-          ></div>`}
+          html`<div class="rounded-[inherit] overflow-hidden absolute inset-0">
+            <lukso-image src=${this.backgroundUrl}></lukso-image>
+          </div>`}
+          ${this.hasOverlay && this.backgroundUrl
+            ? html`<div
+                class="h-full w-full rounded-[inherit] bg-neutral-20/10 absolute"
+              ></div>`
+            : nothing}
           <div
             class="h-full w-full flex flex-col items-center justify-center absolute"
           >

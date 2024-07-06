@@ -1,5 +1,6 @@
 import { html, nothing } from 'lit-html'
-import { Meta } from '@storybook/web-components'
+
+import type { Meta } from '@storybook/web-components'
 
 import './index'
 import '../lukso-profile'
@@ -93,6 +94,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    hasOverlay: {
+      name: 'has-overlay',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'background-url': {
       name: 'backgroundUrl',
     },
@@ -114,6 +122,9 @@ const meta: Meta = {
     'border-radius': {
       name: 'borderRadius',
     },
+    'has-overlay': {
+      name: 'hasOverlay',
+    },
   },
   args: {
     variant: 'basic',
@@ -129,6 +140,7 @@ const meta: Meta = {
     borderRadius: 'medium',
     isHoverable: false,
     shadow: 'large',
+    hasOverlay: false,
   },
   parameters: {
     controls: {
@@ -145,6 +157,9 @@ const meta: Meta = {
         'headerClass',
         'cardStyles',
         'borderRadius',
+        'hasBottom',
+        'bottomNodes',
+        'hasOverlay',
       ],
     },
   },
@@ -166,6 +181,7 @@ const DefaultTemplate = ({
   profileUrl,
   profileAddress,
   shadow,
+  hasOverlay,
 }) => html`
   <lukso-card
     variant=${variant ? variant : nothing}
@@ -178,6 +194,7 @@ const DefaultTemplate = ({
     profile-address=${profileAddress ? profileAddress : nothing}
     shadow=${shadow ? shadow : nothing}
     ?is-hoverable=${isHoverable}
+    ?has-overlay=${hasOverlay}
   >
     <div slot="header" class="p-6">${header}</div>
     <div slot="content" class="p-6">${content}</div>
@@ -195,6 +212,7 @@ const CustomHeaderTemplate = ({
   borderRadius,
   isHoverable,
   shadow,
+  hasOverlay,
 }) => html`
   <lukso-card
     variant=${variant ? variant : nothing}
@@ -204,6 +222,7 @@ const CustomHeaderTemplate = ({
     border-radius=${borderRadius ? borderRadius : nothing}
     shadow=${shadow ? shadow : nothing}
     ?is-hoverable=${isHoverable}
+    ?has-overlay=${hasOverlay}
   >
     <div slot="header" class="p-6 pb-12 relative overflow-hidden min-h-[200px]">
       <div
@@ -228,6 +247,7 @@ const ProfileTemplate = ({
   isHoverable,
   bottom,
   headerClass,
+  hasOverlay,
 }) => html`
   <lukso-card
     variant=${variant}
@@ -240,6 +260,7 @@ const ProfileTemplate = ({
     border-radius=${borderRadius}
     ?is-hoverable=${isHoverable}
     header-class=${headerClass}
+    ?has-overlay=${hasOverlay}
   >
     <div slot="content" class="px-6 pb-9 break-words">${content}</div>
     <div slot="bottom" class="p-6">${bottom}</div>
@@ -255,6 +276,7 @@ const HeroTemplate = ({
   customClass,
   borderRadius,
   isHoverable,
+  hasOverlay,
 }) => html`
   <lukso-card
     variant="hero"
@@ -264,6 +286,7 @@ const HeroTemplate = ({
     custom-class=${customClass}
     border-radius=${borderRadius}
     ?is-hoverable=${isHoverable}
+    ?has-overlay=${hasOverlay}
   >
     <div slot="content" class="flex flex-col items-center">
       <lukso-profile

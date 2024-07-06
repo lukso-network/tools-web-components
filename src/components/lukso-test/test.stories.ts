@@ -1,7 +1,8 @@
 import { html } from 'lit-html'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
-import { Meta } from '@storybook/web-components'
+
+import type { Meta } from '@storybook/web-components'
 
 import '../index'
 

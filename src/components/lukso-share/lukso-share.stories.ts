@@ -1,5 +1,6 @@
 import { html, nothing } from 'lit-html'
-import { Meta } from '@storybook/web-components'
+
+import type { Meta } from '@storybook/web-components'
 
 import './index'
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.72.0](https://github.com/lukso-network/tools-web-components/compare/v1.71.4...v1.72.0) (2024-07-06)
+
+
+### Features
+
+* `lukso-card` updates ([#361](https://github.com/lukso-network/tools-web-components/issues/361)) ([02d0fe5](https://github.com/lukso-network/tools-web-components/commit/02d0fe58ea20a79e682a21b1ccd0a302a962897e))
+* social mono icons ([#360](https://github.com/lukso-network/tools-web-components/issues/360)) ([b03d2de](https://github.com/lukso-network/tools-web-components/commit/b03d2de8c4fd8ed24fb989e639e9c21b70aeda6f))
+
 ## [1.71.4](https://github.com/lukso-network/tools-web-components/compare/v1.71.3...v1.71.4) (2024-06-22)
 
 

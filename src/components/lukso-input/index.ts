@@ -1,11 +1,16 @@
 import { html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
+import { tv } from 'tailwind-variants'
 
-import { TailwindElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
+import { cn } from '@/shared/tools'
+import '@/components/lukso-icon'
+import style from './style.scss?inline'
+
+export type InputSize = 'small' | 'medium'
 
 @customElement('lukso-input')
-export class LuksoInput extends TailwindElement {
+export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''
 
@@ -66,27 +71,124 @@ export class LuksoInput extends TailwindElement {
   @property({ type: Boolean })
   borderless = false
 
+  @property({ type: String })
+  size: InputSize = 'medium'
+
+  @property({ type: String, attribute: 'right-icon' })
+  rightIcon = ''
+
   @state()
   private hasHocus = false
 
   @state()
   private hasHighlight = false
 
-  private defaultInputStyles = `bg-neutral-100 paragraph-inter-14-regular px-4 py-3
-    border-solid h-[48px] placeholder:text-neutral-70
-    outline-none transition transition-all duration-150 appearance-none`
-
-  private defaultUnitStyles = `paragraph-inter-12-regular text-neutral-60 flex px-3.5 items-center relative
-    border-solid h-[48px] transition transition-all duration-150
-    rounded-r-12 border-l-0 before:bg-neutral-90 before:absolute before:top-[calc(50%-12px)] before:left-0
-    before:w-[1px] before:h-[24px] whitespace-nowrap cursor-pointer`
+  private inputStyles = tv({
+    slots: {
+      wrapper: 'group flex',
+      input: `bg-neutral-100 border-solid placeholder:text-neutral-70 w-full
+        outline-none transition transition-all duration-150 appearance-none`,
+      unit: `text-neutral-60 flex items-center relative border-solid transition
+        transition-all duration-150 before:bg-neutral-90 before:absolute
+        before:left-0 before:w-[1px] whitespace-nowrap cursor-pointer`,
+      rightIcon: 'absolute top-1/2 transform -translate-y-1/2',
+    },
+    variants: {
+      hasError: {
+        true: {
+          input: 'border-red-85',
+          unit: 'border-red-85',
+        },
+        false: {
+          input: 'border-neutral-90',
+          unit: 'border-neutral-90',
+        },
+      },
+      hasHighlight: {
+        true: {
+          input: 'border-neutral-35',
+          unit: 'border-neutral-35',
+        },
+      },
+      hasUnit: {
+        true: { input: '!border-r-0 !rounded-r-0' },
+      },
+      hasRightIcon: {
+        true: {},
+      },
+      borderless: {
+        true: { input: 'border-0', unit: 'border-0' },
+        false: { input: 'border', unit: 'border border-l-0' },
+      },
+      isReadonly: {
+        true: { input: 'cursor-not-allowed' },
+      },
+      isDisabled: {
+        true: { input: 'text-neutral-60 cursor-not-allowed' },
+        false: { input: 'text-neutral-20' },
+      },
+      isFullWidth: {
+        true: { wrapper: 'w-full' },
+        false: { wrapper: 'w-[350px]' },
+      },
+      size: {
+        small: {
+          input: 'h-[28px] px-2 py-1 paragraph-inter-12-regular rounded-8',
+          unit: 'h-[28px] paragraph-inter-10-regular px-2 rounded-r-8 before:top-[calc(50%-6px)] before:h-[12px]',
+          rightIcon: 'right-2',
+        },
+        medium: {
+          input: 'h-[48px] px-4 py-3 paragraph-inter-14-regular rounded-12',
+          unit: 'h-[48px] paragraph-inter-12-regular px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
+          rightIcon: 'right-3',
+        },
+      },
+    },
+    compoundVariants: [
+      {
+        isFullWidth: false,
+        hasUnit: true,
+        class: { wrapper: 'w-[300px]' },
+      },
+      {
+        isFullWidth: false,
+        hasUnit: false,
+        size: 'small',
+        class: { wrapper: 'w-[190px]' },
+      },
+      {
+        isFullWidth: false,
+        hasUnit: true,
+        size: 'small',
+        class: { wrapper: 'w-[210px]' },
+      },
+      {
+        hasHighlight: true,
+        hasError: true,
+        class: {
+          input: 'border-red-65',
+          unit: 'border-red-65',
+        },
+      },
+      {
+        hasRightIcon: true,
+        size: 'medium',
+        class: { input: 'pr-10' },
+      },
+      {
+        hasRightIcon: true,
+        size: 'small',
+        class: { input: 'pr-7' },
+      },
+    ],
+  })
 
   // @input works better in vue
-  inputTemplate() {
+  inputTemplate(styles: string) {
     return html`
       <input
         name=${this.name}
-        type=${this.type as any}
+        type=${this.type}
         .value=${this.value}
         placeholder=${this.placeholder}
         ?autofocus=${this.autofocus}
@@ -99,23 +201,7 @@ export class LuksoInput extends TailwindElement {
         accept=${this.accept}
         ?readonly=${this.isReadonly ? true : undefined}
         ?disabled=${this.isDisabled ? true : undefined}
-        class=${customClassMap({
-          [this.defaultInputStyles]: true,
-          [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
-            !this.hasHighlight,
-          [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
-            this.hasHighlight,
-          ['rounded-l-12 border-r-0']: this.unit !== '',
-          ['rounded-12']: this.unit === '',
-          ['w-full']: this.isFullWidth,
-          ['w-[350px]']: !this.isFullWidth && this.unit === '',
-          ['w-[300px]']: !this.isFullWidth && this.unit !== '',
-          ['cursor-not-allowed text-neutral-60']: this.isDisabled,
-          ['text-neutral-20']: !this.isDisabled,
-          ['cursor-not-allowed']: this.isReadonly,
-          [this.customClass]: !!this.customClass,
-          [this.borderless ? 'border-0' : 'border']: true,
-        })}
+        class=${cn(styles, this.customClass)}
         @focus=${this.handleFocus}
         @input=${this.handleInput}
         @change=${this.handleChange}
@@ -153,22 +239,23 @@ export class LuksoInput extends TailwindElement {
     </div>`
   }
 
-  unitTemplate() {
+  unitTemplate(styles: string) {
     return html`<div
-      class=${customClassMap({
-        [this.defaultUnitStyles]: true,
-        [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
-          !this.hasHighlight,
-        [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
-          this.hasHighlight,
-        [this.borderless ? 'border-0' : 'border']: true,
-      })}
+      class=${styles}
       @mouseenter=${this.handleMouseOver}
       @mouseleave=${this.handleMouseOut}
       @click=${this.handleUnitClick}
     >
       ${this.unit}
     </div>`
+  }
+
+  rightIconTemplate(styles: string) {
+    return html`<lukso-icon
+      name=${this.rightIcon}
+      size=${this.size}
+      class=${styles}
+    ></lukso-icon>`
   }
 
   private handleFocus() {
@@ -291,12 +378,28 @@ export class LuksoInput extends TailwindElement {
   }
 
   render() {
+    const { wrapper, input, unit, rightIcon } = this.inputStyles({
+      hasError: this.error !== '',
+      hasHighlight: this.hasHighlight,
+      borderless: this.borderless,
+      isReadonly: this.isReadonly,
+      isDisabled: this.isDisabled,
+      isFullWidth: this.isFullWidth,
+      hasUnit: this.unit !== '',
+      size: this.size,
+      hasRightIcon: this.rightIcon !== '',
+    })
+
     return html`
-      <div>
+      <div class="w-[inherit]">
         ${this.label ? this.labelTemplate() : nothing}
         ${this.description ? this.descriptionTemplate() : nothing}
-        <div class="flex">
-          ${this.inputTemplate()} ${this.unit ? this.unitTemplate() : nothing}
+        <div class=${wrapper()}>
+          <div class="relative w-[inherit]">
+            ${this.inputTemplate(input())}
+            ${this.rightIcon ? this.rightIconTemplate(rightIcon()) : nothing}
+          </div>
+          ${this.unit ? this.unitTemplate(unit()) : nothing}
         </div>
         ${this.error ? this.errorTemplate() : nothing}
       </div>

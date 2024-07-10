@@ -1,13 +1,15 @@
-import { PropertyValues, TemplateResult, html, nothing } from 'lit'
+import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
-import style from './style.scss?inline'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
-import { Address } from '@/shared/types'
+import '@/components/lukso-input'
+import style from './style.scss?inline'
+
+import type { Address } from '@/shared/types'
 
 export type SearchStringResult = {
   id?: string
@@ -85,12 +87,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   selected = undefined
 
   @state()
-  private hasFocus = false
-
-  @state()
-  private hasHighlight = false
-
-  @state()
   private isDebouncing = false
 
   @state()
@@ -102,15 +98,12 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @state()
   private searchTerm = ''
 
-  private defaultInputStyles = `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-10
-    border-solid h-[48px] placeholder:text-neutral-70
-    outline-none transition transition-all duration-150 appearance-none rounded-12`
-
   connectedCallback() {
     super.connectedCallback()
     window.addEventListener('click', this.handleOutsideDropdownClick.bind(this))
     window.addEventListener('keydown', this.handleDropdownKeydown.bind(this))
   }
+
   disconnectedCallback() {
     super.disconnectedCallback()
     window.removeEventListener('click', this.handleOutsideDropdownClick)
@@ -139,68 +132,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         }
       }
     }
-  }
-
-  inputTemplate() {
-    return html`
-      <input
-        name=${this.name}
-        type="text"
-        .value=${this.value}
-        placeholder=${this.placeholder}
-        ?autofocus=${this.autofocus}
-        autocomplete=${this.autocomplete}
-        id=${this.id || this.name}
-        data-testid=${this.name ? `input-${this.name}` : 'input'}
-        data-component="lukso-search"
-        ?readonly=${this.isReadonly ? true : undefined}
-        ?disabled=${this.isDisabled ? true : undefined}
-        class=${customClassMap({
-          [this.defaultInputStyles]: true,
-          [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
-            !this.hasHighlight,
-          [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
-            this.hasHighlight,
-          ['w-full']: this.isFullWidth,
-          ['w-[350px]']: !this.isFullWidth,
-          ['cursor-not-allowed text-neutral-60']: this.isDisabled,
-          ['text-neutral-20']: !this.isDisabled,
-          ['cursor-not-allowed']: this.isReadonly,
-          [this.customClass]: !!this.customClass,
-          [this.borderless ? 'border-0' : 'border']: true,
-        })}
-        @focus=${this.handleFocus}
-        @input=${this.handleSearch}
-        @blur=${this.handleBlur}
-        @click=${this.handleInputClick}
-        @mouseenter=${this.handleMouseOver}
-        @mouseleave=${this.handleMouseOut}
-      />
-    `
-  }
-
-  labelTemplate() {
-    return html`
-      <label
-        for=${this.name}
-        class="heading-inter-14-bold text-neutral-20 pb-2 block"
-        >${this.label}</label
-      >
-    `
-  }
-
-  descriptionTemplate() {
-    return html`
-      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        ${this.description ?? nothing}
-      </div>
-    `
-  }
-
-  errorTemplate() {
-    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
-      ${this.error}
-    </div>`
   }
 
   resultsTemplate() {
@@ -287,7 +218,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       data-index="${index + 1}"
       class="paragraph-inter-14-regular text-neutral-20 cursor-pointer hover:bg-neutral-98 rounded-8 p-2 ${customClassMap(
         {
-          ['bg-neutral-98']: this.selected === index + 1,
+          'bg-neutral-98': this.selected === index + 1,
         }
       )}"
       @click=${() => this.handleSelect(result)}
@@ -302,7 +233,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       data-index="${index + 1}"
       class="cursor-pointer hover:bg-neutral-98 rounded-8 p-2 flex gap-2 items-center ${customClassMap(
         {
-          ['bg-neutral-98']: this.selected === index + 1,
+          'bg-neutral-98': this.selected === index + 1,
         }
       )}"
       @click=${() => this.handleSelect(result)}
@@ -378,17 +309,17 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.dispatchEvent(selectEvent)
   }
 
-  private handleFocus() {
-    if (!this.isReadonly && !this.isDisabled) {
-      this.hasFocus = true
-      this.hasHighlight = true
-    }
-  }
+  // private handleFocus() {
+  //   if (!this.isReadonly && !this.isDisabled) {
+  //     this.hasFocus = true
+  //     this.hasHighlight = true
+  //   }
+  // }
 
   private async handleBlur(event: FocusEvent) {
     await this.updateComplete
-    this.hasFocus = false
-    this.hasHighlight = false
+    // this.hasFocus = false
+    // this.hasHighlight = false
     const target = event.target as HTMLInputElement
     const blurEvent = new CustomEvent('on-blur', {
       detail: {
@@ -443,34 +374,30 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.searchDebounce(target.value)
   }
 
-  private handleMouseOver() {
-    if (!this.isReadonly && !this.isDisabled) {
-      this.hasHighlight = true
-    }
-  }
-
-  private handleMouseOut() {
-    if (!this.hasFocus) {
-      this.hasHighlight = false
-    }
-  }
-
   render() {
     return html`
       <div class="relative w-full">
-        ${this.label ? this.labelTemplate() : nothing}
-        ${this.description ? this.descriptionTemplate() : nothing}
-        <div class="flex relative items-center">
-          ${this.inputTemplate()}
-          <lukso-icon
-            name="search"
-            class="absolute right-0 mr-3 ${customClassMap({
-              ['opacity-60 cursor-not-allowed']: this.isDisabled,
-              ['cursor-not-allowed']: this.isReadonly,
-            })}"
-            @mouseenter=${this.handleMouseOver}
-          ></lukso-icon>
-        </div>
+        <lukso-input
+          name=${this.name}
+          type="text"
+          value=${this.value}
+          placeholder=${this.placeholder}
+          autocomplete=${this.autocomplete}
+          label=${this.label}
+          description=${this.description}
+          error=${this.error}
+          custom-class=${this.customClass}
+          id=${this.id}
+          data-component="lukso-search"
+          right-icon="search"
+          ?autofocus=${this.autofocus}
+          ?readonly=${this.isReadonly}
+          ?disabled=${this.isDisabled}
+          ?is-full-width=${this.isFullWidth}
+          @on-input=${this.handleSearch}
+          @on-blur=${this.handleBlur}
+          @on-input-click=${this.handleInputClick}
+        ></lukso-input>
         <!-- results dropdown -->
         ${this.results && !(this.isSearching || this.isDebouncing)
           ? this.resultsTemplate()
@@ -483,8 +410,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         ${this.value && (this.isSearching || this.isDebouncing)
           ? this.loadingTemplate()
           : nothing}
-        <!-- error -->
-        ${this.error ? this.errorTemplate() : nothing}
       </div>
     `
   }

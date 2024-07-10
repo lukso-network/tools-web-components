@@ -152,6 +152,13 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    onInputClick: {
+      name: 'on-input-click',
+      description: 'Emitted on input click event.',
+      table: {
+        category: 'Events',
+      },
+    },
     onBlur: {
       name: 'on-blur',
       description: 'Emitted on input blur event.',
@@ -219,8 +226,6 @@ const meta: Meta = {
   parameters: {
     controls: {
       exclude: [
-        'defaultInputStyles',
-        'defaultUnitStyles',
         'isFullWidth',
         'hasFocus',
         'hasHighlight',
@@ -267,6 +272,7 @@ const Template = ({
   margin,
   onBlur,
   selected,
+  onInputClick,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -318,6 +324,7 @@ const Template = ({
     @on-search=${onSearch}
     @on-select=${onSelect}
     @on-blur=${onBlur}
+    @on-input-click=${onInputClick}
     results=${results ? JSON.stringify(results) : nothing}
     style="margin-bottom: ${margin}px;"
   ></lukso-search>`

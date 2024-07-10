@@ -16,6 +16,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium'],
+      table: {
+        category: 'Attributes',
+      },
+    },
     id: {
       control: { type: 'text' },
       table: {
@@ -144,6 +151,7 @@ const meta: Meta = {
       id: '2',
       value: 'Second result',
     }),
+    size: 'medium',
     label: '',
     description: '',
     error: '',
@@ -221,6 +229,7 @@ const Template = ({
   openTop,
   marginTop,
   isLargeIcon,
+  size,
 }) => {
   const [{ options, value }, updateArgs] = useArgs()
 
@@ -246,6 +255,7 @@ const Template = ({
     @on-select=${handleSelect}
     @on-blur=${onBlur}
     value=${value ? value : nothing}
+    size=${size ? size : nothing}
     options=${options ? JSON.stringify(options) : nothing}
     style="margin-bottom: ${marginBottom}px; margin-top: ${marginTop}px;"
   ></lukso-select>`

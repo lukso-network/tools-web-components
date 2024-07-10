@@ -1,13 +1,14 @@
-import { PropertyValues, TemplateResult, html, nothing } from 'lit'
+import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import style from './style.scss?inline'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
-import { Address } from '@/shared/types'
+import style from './style.scss?inline'
+
+import type { Address } from '@/shared/types'
 
 export type SelectStringOption = {
   id?: string
@@ -22,6 +23,8 @@ export type SelectProfileOption = {
 }
 
 export type SelectOption = SelectStringOption | SelectProfileOption
+
+export type SelectSize = 'small' | 'medium'
 
 @customElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
@@ -62,13 +65,16 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   selected = undefined
 
   @property({ type: Boolean, attribute: 'is-open' })
-  isOpen: boolean = false
+  isOpen = false
 
   @property({ type: Boolean, attribute: 'open-top' })
-  openTop: boolean = false
+  openTop = false
 
   @property({ type: Boolean, attribute: 'is-large-icon' })
-  isLargeIcon: boolean = false
+  isLargeIcon = false
+
+  @property({ type: String })
+  size: SelectSize = 'medium'
 
   @state()
   private optionsParsed: SelectOption[] = []
@@ -77,58 +83,75 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   private valueParsed: SelectOption | undefined = undefined
 
   private inputStyles = tv({
-    base: `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-11
-      border border-solid h-[48px] placeholder:text-neutral-70 select-none whitespace-nowrap
-      outline-none transition transition-all duration-150 appearance-none rounded-12
+    base: `bg-neutral-100
+      border border-solid placeholder:text-neutral-70 select-none whitespace-nowrap
+      outline-none transition transition-all duration-150 appearance-none
       text-neutral-20 cursor-pointer border-neutral-90 group-hover:border-neutral-35
       flex items-center`,
     variants: {
       isFullWidth: {
-        true: `w-full`,
+        true: 'w-full',
       },
       isDisabled: {
-        true: `cursor-not-allowed text-neutral-60 group-hover:border-neutral-90`,
+        true: 'cursor-not-allowed text-neutral-60 group-hover:border-neutral-90',
       },
       hasError: {
-        true: `border-red-85 group-hover:border-red-65`,
+        true: 'border-red-85 group-hover:border-red-65',
       },
       borderless: {
-        true: `border-0`,
+        true: 'border-0',
+      },
+      size: {
+        medium:
+          'h-[48px] px-4 py-3 pr-11 paragraph-inter-14-regular rounded-12',
+        small: 'h-[28px] px-3 py-2 pr-8 paragraph-inter-12-regular rounded-8',
       },
     },
   })
 
   private dropdownWrapperStyles = tv({
-    base: `bg-neutral-100 border w-full border-neutral-90 shadow-1xl rounded-12 p-3 z-50
-      flex absolute flex-col gap-1 overflow-y-auto max-h-64 mt-2`,
+    base: `bg-neutral-100 border w-full border-neutral-90 shadow-1xl z-50
+      flex absolute flex-col gap-1 overflow-y-auto max-h-64`,
     variants: {
       openTop: {
-        true: `bottom-[48px] mb-2 mt-0`,
+        true: 'bottom-[48px] mb-2 mt-0',
+      },
+      size: {
+        medium: 'rounded-12 p-3 mt-2',
+        small: 'rounded-8 p-2 mt-1',
       },
     },
   })
 
   private optionsStyles = tv({
-    base: `paragraph-inter-14-regular text-neutral-20 cursor-pointer rounded-8 p-2
+    base: `text-neutral-20 cursor-pointer
       whitespace-nowrap hover:bg-neutral-98 flex items-center`,
     variants: {
       isSelected: {
-        true: `bg-neutral-95 hover:bg-neutral-95`,
+        true: 'bg-neutral-95 hover:bg-neutral-95',
       },
       isActive: {
-        true: `bg-neutral-98`,
+        true: 'bg-neutral-98',
+      },
+      size: {
+        medium: 'paragraph-inter-14-regular rounded-8 p-2',
+        small: 'paragraph-inter-12-regular rounded-4 py-1 px-2',
       },
     },
   })
 
   private iconStyles = tv({
-    base: `absolute right-0 mr-3 transition cursor-pointer`,
+    base: 'absolute right-0 transition cursor-pointer',
     variants: {
       isDisabled: {
-        true: `opacity-60 cursor-not-allowed`,
+        true: 'opacity-60 cursor-not-allowed',
       },
       isOpen: {
-        true: `rotate-180`,
+        true: 'rotate-180',
+      },
+      size: {
+        medium: 'mr-3',
+        small: 'mr-2',
       },
     },
   })
@@ -190,6 +213,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       isDisabled: this.isDisabled,
       hasError: !!this.error,
       borderless: this.borderless,
+      size: this.size,
     })
 
     return html`
@@ -250,6 +274,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   ) {
     const dropdownWrapperStyles = this.dropdownWrapperStyles({
       openTop: this.openTop,
+      size: this.size,
     })
 
     return html`<div class="${dropdownWrapperStyles}">${innerTemplate}</div>`
@@ -260,6 +285,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       isSelected: this.valueParsed?.id === option.id,
       isActive:
         this.selected === index + 1 && this.valueParsed?.id !== option.id,
+      size: this.size,
     })
 
     return html`<div
@@ -277,6 +303,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       isSelected: this.valueParsed?.id === option.id,
       isActive:
         this.selected === index + 1 && this.valueParsed?.id !== option.id,
+      size: this.size,
     })
 
     return html`<div
@@ -307,7 +334,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         name-color="neutral-20"
         max-width="150"
         slice-by="4"
-        size="medium"
+        size=${this.size}
       ></lukso-username>`
   }
 
@@ -319,11 +346,13 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     if (foundValue) {
       if ('value' in foundValue) {
         return this.optionStringValue(foundValue)
-      } else if ('address' in foundValue) {
-        return this.optionProfileValue(foundValue)
-      } else {
-        console.error('Unknown value type', foundValue)
       }
+
+      if ('address' in foundValue) {
+        return this.optionProfileValue(foundValue)
+      }
+
+      console.error('Unknown value type', foundValue)
     }
 
     return ''
@@ -419,6 +448,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     const iconStyles = this.iconStyles({
       isDisabled: this.isDisabled,
       isOpen: this.isOpen,
+      size: this.size,
     })
 
     return html`

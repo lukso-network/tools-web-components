@@ -121,10 +121,13 @@ export class LuksoInput extends TailwindStyledElement(style) {
         false: { input: 'border', unit: 'border border-l-0' },
       },
       isReadonly: {
-        true: { input: 'cursor-not-allowed' },
+        true: { input: 'cursor-not-allowed', rightIcon: 'cursor-not-allowed' },
       },
       isDisabled: {
-        true: { input: 'text-neutral-60 cursor-not-allowed' },
+        true: {
+          input: 'text-neutral-60 cursor-not-allowed',
+          rightIcon: 'cursor-not-allowed opacity-50',
+        },
         false: { input: 'text-neutral-20' },
       },
       isFullWidth: {
@@ -187,18 +190,18 @@ export class LuksoInput extends TailwindStyledElement(style) {
   inputTemplate(styles: string) {
     return html`
       <input
-        name=${this.name}
+        name=${this.name ? this.name : nothing}
         type=${this.type}
         .value=${this.value}
-        placeholder=${this.placeholder}
+        placeholder=${this.placeholder ? this.placeholder : nothing}
         ?autofocus=${this.autofocus}
-        min=${this.min}
-        max=${this.max}
+        min=${this.min ? this.min : nothing}
+        max=${this.max ? this.max : nothing}
         autocomplete=${this.autocomplete}
-        ref=${this.ref}
-        id=${this.id || this.name}
+        ref=${this.ref ? this.ref : nothing}
+        id=${this.id ? this.id : nothing}
         data-testid=${this.name ? `input-${this.name}` : 'input'}
-        accept=${this.accept}
+        accept=${this.accept ? this.accept : nothing}
         ?readonly=${this.isReadonly ? true : undefined}
         ?disabled=${this.isDisabled ? true : undefined}
         class=${cn(styles, this.customClass)}
@@ -211,6 +214,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
         @keypress=${this.handleKeyPress}
         @mouseenter=${this.handleMouseOver}
         @mouseleave=${this.handleMouseOut}
+        @click=${this.handleInputClick}
       />
     `
   }
@@ -375,6 +379,20 @@ export class LuksoInput extends TailwindStyledElement(style) {
     })
     this.dispatchEvent(clickEvent)
     input.focus()
+  }
+
+  private async handleInputClick(event: MouseEvent) {
+    await this.updateComplete
+    const target = event.target as HTMLInputElement
+    const clickEvent = new CustomEvent('on-input-click', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(clickEvent)
   }
 
   render() {

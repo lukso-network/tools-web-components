@@ -196,6 +196,13 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    onInputClick: {
+      name: 'on-input-click',
+      description: 'Emitted on input click.',
+      table: {
+        category: 'Events',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -279,6 +286,7 @@ const Template = ({
   onKeyDown,
   onKeyPress,
   onUnitClick,
+  onInputClick,
   borderless,
   size,
   rightIcon,
@@ -309,6 +317,7 @@ const Template = ({
     @on-key-down=${onKeyDown}
     @on-key-press=${onKeyPress}
     @on-unit-click=${onUnitClick}
+    @on-input-click=${onInputClick}
   ></lukso-input>`
 
 /** Example of default input with `value`.  */

@@ -8,7 +8,7 @@ import '@/components/lukso-profile'
 import '@/components/lukso-username'
 import style from './style.scss?inline'
 
-import type { Address } from '@/shared/types'
+import type { Address, InputSize } from '@/shared/types'
 
 export type SelectStringOption = {
   id?: string
@@ -23,8 +23,6 @@ export type SelectProfileOption = {
 }
 
 export type SelectOption = SelectStringOption | SelectProfileOption
-
-export type SelectSize = 'small' | 'medium'
 
 @customElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
@@ -74,7 +72,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   isLargeIcon = false
 
   @property({ type: String })
-  size: SelectSize = 'medium'
+  size: InputSize = 'medium'
 
   @state()
   private optionsParsed: SelectOption[] = []
@@ -102,9 +100,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         true: 'border-0',
       },
       size: {
+        small: 'h-[28px] px-3 py-2 pr-8 paragraph-inter-12-regular rounded-8',
         medium:
           'h-[48px] px-4 py-3 pr-11 paragraph-inter-14-regular rounded-12',
-        small: 'h-[28px] px-3 py-2 pr-8 paragraph-inter-12-regular rounded-8',
       },
     },
   })
@@ -117,8 +115,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         true: 'bottom-[48px] mb-2 mt-0',
       },
       size: {
-        medium: 'rounded-12 p-3 mt-2',
         small: 'rounded-8 p-2 mt-1',
+        medium: 'rounded-12 p-3 mt-2',
       },
     },
   })
@@ -134,8 +132,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         true: 'bg-neutral-98',
       },
       size: {
-        medium: 'paragraph-inter-14-regular rounded-8 p-2',
         small: 'paragraph-inter-12-regular rounded-4 py-1 px-2',
+        medium: 'paragraph-inter-14-regular rounded-8 p-2',
       },
     },
   })
@@ -150,8 +148,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         true: 'rotate-180',
       },
       size: {
-        medium: 'mr-3',
         small: 'mr-2',
+        medium: 'mr-3',
       },
     },
   })

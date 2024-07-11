@@ -6,6 +6,8 @@ import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
 import { cn } from '@/shared/tools'
 
+import type { InputSize } from '@/shared/types'
+
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
@@ -14,7 +16,6 @@ export type ButtonVariant =
   | 'nav-button'
   | 'nav-text'
   | 'link'
-export type ButtonSize = 'small' | 'medium'
 export type ButtonType = 'submit' | 'reset' | 'button'
 export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
 
@@ -26,7 +27,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
   variant: ButtonVariant = 'primary'
 
   @property({ type: String })
-  size: ButtonSize = 'medium'
+  size: InputSize = 'medium'
 
   @property({ type: Boolean })
   disabled = false

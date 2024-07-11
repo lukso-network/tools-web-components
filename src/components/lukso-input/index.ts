@@ -7,7 +7,7 @@ import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
 import style from './style.scss?inline'
 
-export type InputSize = 'small' | 'medium'
+import type { InputSize } from '@/shared/types'
 
 @customElement('lukso-input')
 export class LuksoInput extends TailwindStyledElement(style) {

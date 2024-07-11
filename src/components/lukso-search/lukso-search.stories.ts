@@ -138,6 +138,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium'],
+      table: {
+        category: 'Attributes',
+      },
+    },
     onSearch: {
       name: 'on-search',
       description: 'Emitted on search.',
@@ -190,6 +197,7 @@ const meta: Meta = {
   },
   args: {
     value: '',
+    size: 'medium',
     name: '',
     label: '',
     description: '',
@@ -273,6 +281,7 @@ const Template = ({
   onBlur,
   selected,
   onInputClick,
+  size,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -321,6 +330,7 @@ const Template = ({
     no-results-text=${noResultsText}
     ?show-no-results=${showNoResults}
     selected=${selected ? selected : nothing}
+    size=${size ? size : nothing}
     @on-search=${onSearch}
     @on-select=${onSelect}
     @on-blur=${onBlur}

@@ -83,6 +83,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'show-no-results' })
   showNoResults = false
 
+  @property({ type: Boolean, attribute: 'hide-loading' })
+  hideLoading = false
+
   @property({ type: Number })
   selected = undefined
 
@@ -377,7 +380,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       bubbles: false,
       composed: true,
     })
-    this.handleSearch(event)
     this.dispatchEvent(clickEvent)
   }
 
@@ -442,7 +444,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           ? this.noResultsTemplate()
           : nothing}
         <!-- loading dropdown -->
-        ${this.value && (this.isSearching || this.isDebouncing)
+        ${!this.hideLoading &&
+        this.value &&
+        (this.isSearching || this.isDebouncing)
           ? this.loadingTemplate()
           : nothing}
       </div>

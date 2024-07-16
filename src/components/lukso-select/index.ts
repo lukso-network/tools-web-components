@@ -12,17 +12,27 @@ import type { Address, InputSize } from '@/shared/types'
 
 export type SelectStringOption = {
   id?: string
+  group?: string
   value: string
 }
 
 export type SelectProfileOption = {
-  id: string
+  id?: string
   address: Address
   image?: string
   name?: string
 }
 
-export type SelectOption = SelectStringOption | SelectProfileOption
+export type SelectGroupedStringOption = {
+  id?: string
+  group: string
+  values: string[]
+}
+
+export type SelectOption =
+  | SelectStringOption
+  | SelectProfileOption
+  | SelectGroupedStringOption
 
 @customElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
@@ -108,22 +118,22 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   })
 
   private dropdownWrapperStyles = tv({
-    base: `bg-neutral-100 border w-full border-neutral-90 shadow-1xl z-50
-      flex absolute flex-col gap-1 overflow-y-auto max-h-64`,
+    base: `bg-neutral-100 border w-auto border-neutral-90 shadow-1xl z-50
+      flex absolute flex-col gap-1 overflow-y-auto max-h-64 `,
     variants: {
       openTop: {
         true: 'bottom-[48px] mb-2 mt-0',
       },
       size: {
-        small: 'rounded-8 p-2 mt-1',
-        medium: 'rounded-12 p-3 mt-2',
+        small: 'rounded-8 p-2 mt-1 max-w-[200px]',
+        medium: 'rounded-12 p-3 mt-2 max-w-[300px]',
       },
     },
   })
 
   private optionsStyles = tv({
     base: `text-neutral-20 cursor-pointer
-      whitespace-nowrap hover:bg-neutral-98 flex items-center`,
+      whitespace-nowrap hover:bg-neutral-98 flex items-center truncate`,
     variants: {
       isSelected: {
         true: 'bg-neutral-95 hover:bg-neutral-95',
@@ -131,11 +141,26 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       isActive: {
         true: 'bg-neutral-98',
       },
+      isGroup: {
+        true: '',
+      },
       size: {
-        small: 'paragraph-inter-12-regular rounded-4 py-1 px-2',
-        medium: 'paragraph-inter-14-regular rounded-8 p-2',
+        small: 'paragraph-inter-12-regular rounded-4 py-1 px-2 min-h-[28px]',
+        medium: 'paragraph-inter-14-regular rounded-8 p-2 min-h-[38px]',
       },
     },
+    compoundVariants: [
+      {
+        isGroup: true,
+        size: 'small',
+        class: 'pl-3',
+      },
+      {
+        isGroup: true,
+        size: 'medium',
+        class: 'pl-4',
+      },
+    ],
   })
 
   private iconStyles = tv({
@@ -255,7 +280,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     for (const option of Object.entries(this.optionsParsed)) {
       const index = Number(option[0])
 
-      if ('value' in option[1]) {
+      if ('values' in option[1]) {
+        optionTemplates.push(this.optionGroupedStringTemplate(option[1], index))
+      } else if ('value' in option[1]) {
         optionTemplates.push(this.optionStringTemplate(option[1], index))
       } else if ('address' in option[1]) {
         optionTemplates.push(this.optionProfileTemplate(option[1], index))
@@ -278,12 +305,30 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     return html`<div class="${dropdownWrapperStyles}">${innerTemplate}</div>`
   }
 
+  optionGroupedStringTemplate(
+    option: SelectGroupedStringOption,
+    index: number
+  ) {
+    return html`<div
+        class="paragraph-inter-10-bold-uppercase text-neutral-20 p-1"
+      >
+        ${option.group}
+      </div>
+      ${option.values.map((value, valueIndex) =>
+        this.optionStringTemplate(
+          { id: `${index}-${valueIndex}`, group: option.group, value },
+          index
+        )
+      )}`
+  }
+
   optionStringTemplate(option: SelectStringOption, index: number) {
     const optionsStyles = this.optionsStyles({
       isSelected: this.valueParsed?.id === option.id,
       isActive:
         this.selected === index + 1 && this.valueParsed?.id !== option.id,
       size: this.size,
+      isGroup: !!option.group,
     })
 
     return html`<div

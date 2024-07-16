@@ -106,13 +106,15 @@ const meta: Meta = {
     },
     debounce: {
       control: { type: 'number' },
-      description: 'Debounce events in milliseconds.',
+      description:
+        'Debounce search event to re-trigger when user type into input field. Value is in milliseconds.',
       table: {
         category: 'Attributes',
       },
     },
     isSearching: {
       name: 'is-searching',
+      description: 'Manually show loading state.',
       control: { type: 'boolean' },
       table: {
         category: 'Attributes',
@@ -120,6 +122,7 @@ const meta: Meta = {
     },
     showNoResults: {
       name: 'show-no-results',
+      description: 'Show no results state.',
       control: { type: 'boolean' },
       table: {
         category: 'Attributes',
@@ -127,6 +130,7 @@ const meta: Meta = {
     },
     noResultsText: {
       name: 'no-results-text',
+      description: 'Text displayed on no results state.',
       control: { type: 'text' },
       table: {
         category: 'Attributes',
@@ -134,6 +138,7 @@ const meta: Meta = {
     },
     selected: {
       control: { type: 'number' },
+      description: 'Manually select an item from the dropdown.',
       table: {
         category: 'Attributes',
       },
@@ -141,6 +146,14 @@ const meta: Meta = {
     size: {
       control: { type: 'select' },
       options: ['small', 'medium'],
+      table: {
+        category: 'Attributes',
+      },
+    },
+    hideLoading: {
+      name: 'hide-loading',
+      description: 'Hide loading state from appearing.',
+      control: { type: 'boolean' },
       table: {
         category: 'Attributes',
       },
@@ -194,6 +207,9 @@ const meta: Meta = {
     'no-results-text': {
       name: 'noResultsText',
     },
+    'hide-loading': {
+      name: 'hideLoading',
+    },
   },
   args: {
     value: '',
@@ -202,13 +218,16 @@ const meta: Meta = {
     label: '',
     description: '',
     error: '',
-    isReadonly: false,
     customClass: '',
     placeholder: '',
+    isReadonly: false,
     isFullWidth: false,
     isDisabled: false,
     autofocus: false,
     borderless: false,
+    isSearching: false,
+    showNoResults: false,
+    hideLoading: false,
     id: 'search',
     autocomplete: 'off',
     results: [
@@ -226,8 +245,6 @@ const meta: Meta = {
       },
     ],
     debounce: undefined,
-    isSearching: false,
-    showNoResults: false,
     noResultsText: 'No results found...',
     selected: undefined,
   },
@@ -235,8 +252,6 @@ const meta: Meta = {
     controls: {
       exclude: [
         'isFullWidth',
-        'hasFocus',
-        'hasHighlight',
         'customClass',
         'isReadonly',
         'isDisabled',
@@ -249,6 +264,9 @@ const meta: Meta = {
         'margin',
         'resultsParsed',
         'searchTerm',
+        'hideLoading',
+        'inputStyles',
+        'resultStyles',
       ],
     },
     design: {
@@ -282,6 +300,7 @@ const Template = ({
   selected,
   onInputClick,
   size,
+  hideLoading,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -323,19 +342,20 @@ const Template = ({
     ?autofocus=${autofocus}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
-    custom-class=${customClass ? customClass : nothing}
     ?borderless=${borderless}
-    debounce=${debounce ? debounce : nothing}
     ?is-searching=${isSearching}
-    no-results-text=${noResultsText}
     ?show-no-results=${showNoResults}
+    ?hide-loading=${hideLoading}
+    custom-class=${customClass ? customClass : nothing}
+    debounce=${debounce ? debounce : nothing}
+    no-results-text=${noResultsText}
     selected=${selected ? selected : nothing}
     size=${size ? size : nothing}
+    results=${results ? JSON.stringify(results) : nothing}
     @on-search=${onSearch}
     @on-select=${onSelect}
     @on-blur=${onBlur}
     @on-input-click=${onInputClick}
-    results=${results ? JSON.stringify(results) : nothing}
     style="margin-bottom: ${margin}px;"
   ></lukso-search>`
 }
@@ -393,4 +413,11 @@ export const SelectedOption = Template.bind({})
 SelectedOption.args = {
   margin: 150,
   selected: 1,
+}
+
+/** Example of small search.  */
+export const Small = Template.bind({})
+Small.args = {
+  margin: 150,
+  size: 'small',
 }

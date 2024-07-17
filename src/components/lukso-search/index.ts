@@ -1,13 +1,15 @@
-import { PropertyValues, TemplateResult, html, nothing } from 'lit'
+import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
+import { tv } from 'tailwind-variants'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
-import style from './style.scss?inline'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
-import { Address } from '@/shared/types'
+import '@/components/lukso-input'
+import style from './style.scss?inline'
+
+import type { Address, InputSize } from '@/shared/types'
 
 export type SearchStringResult = {
   id?: string
@@ -81,14 +83,14 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'show-no-results' })
   showNoResults = false
 
+  @property({ type: Boolean, attribute: 'hide-loading' })
+  hideLoading = false
+
   @property({ type: Number })
   selected = undefined
 
-  @state()
-  private hasFocus = false
-
-  @state()
-  private hasHighlight = false
+  @property({ type: String })
+  size: InputSize = 'medium'
 
   @state()
   private isDebouncing = false
@@ -102,15 +104,58 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @state()
   private searchTerm = ''
 
-  private defaultInputStyles = `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-10
-    border-solid h-[48px] placeholder:text-neutral-70
-    outline-none transition transition-all duration-150 appearance-none rounded-12`
+  private inputStyles = tv({
+    slots: {
+      dropdownWrapper:
+        'bg-neutral-100 border border-neutral-90 shadow-1xl z-50 flex absolute w-full flex-col gap-1 overflow-y-auto max-h-64',
+      loading: 'bg-neutral-95 w-full animate-pulse animation-delay-none',
+    },
+    variants: {
+      size: {
+        small: {
+          dropdownWrapper: 'rounded-8 p-2 mt-1',
+          loading: 'h-7 rounded-4',
+        },
+        medium: {
+          dropdownWrapper: 'rounded-12 p-3 mt-2',
+          loading: 'h-10 rounded-8',
+        },
+      },
+    },
+  })
+
+  private resultStyles = tv({
+    slots: {
+      resultString: 'text-neutral-20 cursor-pointer hover:bg-neutral-98',
+      resultProfile:
+        'cursor-pointer hover:bg-neutral-98 flex gap-2 items-center',
+    },
+    variants: {
+      selected: {
+        true: {
+          resultString: 'bg-neutral-98',
+          resultProfile: 'bg-neutral-98',
+        },
+      },
+      size: {
+        small: {
+          resultString: 'paragraph-inter-12-regular rounded-4 py-1 px-2',
+          resultProfile: 'rounded-4 py-1 px-2',
+        },
+        medium: {
+          resultString: 'paragraph-inter-14-regular rounded-8 p-2',
+          resultProfile: 'rounded-8 p-2',
+        },
+      },
+    },
+  })
 
   connectedCallback() {
     super.connectedCallback()
     window.addEventListener('click', this.handleOutsideDropdownClick.bind(this))
     window.addEventListener('keydown', this.handleDropdownKeydown.bind(this))
   }
+
   disconnectedCallback() {
     super.disconnectedCallback()
     window.removeEventListener('click', this.handleOutsideDropdownClick)
@@ -139,68 +184,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         }
       }
     }
-  }
-
-  inputTemplate() {
-    return html`
-      <input
-        name=${this.name}
-        type="text"
-        .value=${this.value}
-        placeholder=${this.placeholder}
-        ?autofocus=${this.autofocus}
-        autocomplete=${this.autocomplete}
-        id=${this.id || this.name}
-        data-testid=${this.name ? `input-${this.name}` : 'input'}
-        data-component="lukso-search"
-        ?readonly=${this.isReadonly ? true : undefined}
-        ?disabled=${this.isDisabled ? true : undefined}
-        class=${customClassMap({
-          [this.defaultInputStyles]: true,
-          [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
-            !this.hasHighlight,
-          [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
-            this.hasHighlight,
-          ['w-full']: this.isFullWidth,
-          ['w-[350px]']: !this.isFullWidth,
-          ['cursor-not-allowed text-neutral-60']: this.isDisabled,
-          ['text-neutral-20']: !this.isDisabled,
-          ['cursor-not-allowed']: this.isReadonly,
-          [this.customClass]: !!this.customClass,
-          [this.borderless ? 'border-0' : 'border']: true,
-        })}
-        @focus=${this.handleFocus}
-        @input=${this.handleSearch}
-        @blur=${this.handleBlur}
-        @click=${this.handleInputClick}
-        @mouseenter=${this.handleMouseOver}
-        @mouseleave=${this.handleMouseOut}
-      />
-    `
-  }
-
-  labelTemplate() {
-    return html`
-      <label
-        for=${this.name}
-        class="heading-inter-14-bold text-neutral-20 pb-2 block"
-        >${this.label}</label
-      >
-    `
-  }
-
-  descriptionTemplate() {
-    return html`
-      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        ${this.description ?? nothing}
-      </div>
-    `
-  }
-
-  errorTemplate() {
-    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
-      ${this.error}
-    </div>`
   }
 
   resultsTemplate() {
@@ -233,13 +216,15 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   loadingTemplate() {
+    const { loading } = this.inputStyles({
+      size: this.size,
+    })
+
     // when `showNoResults` is enabled we show just one placeholder line
     if (this.showNoResults) {
       return html`${this.dropdownWrapperTemplate(html`
         <div role="status" class="flex flex-col gap-1">
-          <div
-            class="h-10 bg-neutral-95 w-full rounded-8 animate-pulse animation-delay-none"
-          ></div>
+          <div class=${loading()}></div>
         </div>
       `)}`
     }
@@ -248,12 +233,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     if (this.resultsParsed.length === 0 || this.resultsParsed.length > 5) {
       return html`${this.dropdownWrapperTemplate(html`
         <div role="status" class="flex flex-col gap-1">
-          ${[...Array(5)].map(
-            () =>
-              html`<div
-                class="h-10 bg-neutral-95 w-full rounded-8 animate-pulse animation-delay-none"
-              ></div>`
-          )}
+          ${[...Array(5)].map(() => html`<div class=${loading()}></div>`)}
         </div>
       `)}`
     }
@@ -261,12 +241,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     // when show placeholder lines based on the number of results
     return html`${this.dropdownWrapperTemplate(html`
       <div role="status" class="flex flex-col gap-1">
-        ${this.resultsParsed.map(
-          () =>
-            html`<div
-              class="h-10 bg-neutral-95 w-full rounded-8 animate-pulse animation-delay-none"
-            ></div>`
-        )}
+        ${this.resultsParsed.map(() => html`<div class=${loading()}></div>`)}
       </div>
     `)}`
   }
@@ -274,22 +249,23 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   dropdownWrapperTemplate(
     innerTemplate: TemplateResult<1> | TemplateResult<1>[]
   ) {
-    return html`<div
-      class="bg-neutral-100 border border-neutral-90 shadow-1xl rounded-12 p-3 mt-2 z-50 flex absolute w-full flex-col gap-1 overflow-y-auto max-h-64"
-    >
-      ${innerTemplate}
-    </div>`
+    const { dropdownWrapper } = this.inputStyles({
+      size: this.size,
+    })
+
+    return html`<div class=${dropdownWrapper()}>${innerTemplate}</div>`
   }
 
   resultStringTemplate(result: SearchStringResult, index: number) {
+    const { resultString } = this.resultStyles({
+      selected: this.selected === index + 1,
+      size: this.size,
+    })
+
     return html`<div
       data-id="${result.id}"
       data-index="${index + 1}"
-      class="paragraph-inter-14-regular text-neutral-20 cursor-pointer hover:bg-neutral-98 rounded-8 p-2 ${customClassMap(
-        {
-          ['bg-neutral-98']: this.selected === index + 1,
-        }
-      )}"
+      class=${resultString()}
       @click=${() => this.handleSelect(result)}
     >
       ${result.value}
@@ -297,14 +273,15 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   resultProfileTemplate(result: SearchProfileResult, index: number) {
+    const { resultProfile } = this.resultStyles({
+      selected: this.selected === index + 1,
+      size: this.size,
+    })
+
     return html`<div
       data-id="${result.address}"
       data-index="${index + 1}"
-      class="cursor-pointer hover:bg-neutral-98 rounded-8 p-2 flex gap-2 items-center ${customClassMap(
-        {
-          ['bg-neutral-98']: this.selected === index + 1,
-        }
-      )}"
+      class=${resultProfile()}
       @click=${() => this.handleSelect(result)}
     >
       <lukso-profile
@@ -378,17 +355,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.dispatchEvent(selectEvent)
   }
 
-  private handleFocus() {
-    if (!this.isReadonly && !this.isDisabled) {
-      this.hasFocus = true
-      this.hasHighlight = true
-    }
-  }
-
   private async handleBlur(event: FocusEvent) {
     await this.updateComplete
-    this.hasFocus = false
-    this.hasHighlight = false
     const target = event.target as HTMLInputElement
     const blurEvent = new CustomEvent('on-blur', {
       detail: {
@@ -412,7 +380,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       bubbles: false,
       composed: true,
     })
-    this.handleSearch(event)
     this.dispatchEvent(clickEvent)
   }
 
@@ -443,34 +410,31 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.searchDebounce(target.value)
   }
 
-  private handleMouseOver() {
-    if (!this.isReadonly && !this.isDisabled) {
-      this.hasHighlight = true
-    }
-  }
-
-  private handleMouseOut() {
-    if (!this.hasFocus) {
-      this.hasHighlight = false
-    }
-  }
-
   render() {
     return html`
       <div class="relative w-full">
-        ${this.label ? this.labelTemplate() : nothing}
-        ${this.description ? this.descriptionTemplate() : nothing}
-        <div class="flex relative items-center">
-          ${this.inputTemplate()}
-          <lukso-icon
-            name="search"
-            class="absolute right-0 mr-3 ${customClassMap({
-              ['opacity-60 cursor-not-allowed']: this.isDisabled,
-              ['cursor-not-allowed']: this.isReadonly,
-            })}"
-            @mouseenter=${this.handleMouseOver}
-          ></lukso-icon>
-        </div>
+        <lukso-input
+          name=${this.name}
+          type="text"
+          value=${this.value}
+          placeholder=${this.placeholder}
+          autocomplete=${this.autocomplete}
+          label=${this.label}
+          description=${this.description}
+          error=${this.error}
+          custom-class=${this.customClass}
+          id=${this.id}
+          size=${this.size}
+          data-component="lukso-search"
+          right-icon="search"
+          ?autofocus=${this.autofocus}
+          ?readonly=${this.isReadonly}
+          ?disabled=${this.isDisabled}
+          ?is-full-width=${this.isFullWidth}
+          @on-input=${this.handleSearch}
+          @on-blur=${this.handleBlur}
+          @on-input-click=${this.handleInputClick}
+        ></lukso-input>
         <!-- results dropdown -->
         ${this.results && !(this.isSearching || this.isDebouncing)
           ? this.resultsTemplate()
@@ -480,11 +444,11 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           ? this.noResultsTemplate()
           : nothing}
         <!-- loading dropdown -->
-        ${this.value && (this.isSearching || this.isDebouncing)
+        ${!this.hideLoading &&
+        this.value &&
+        (this.isSearching || this.isDebouncing)
           ? this.loadingTemplate()
           : nothing}
-        <!-- error -->
-        ${this.error ? this.errorTemplate() : nothing}
       </div>
     `
   }

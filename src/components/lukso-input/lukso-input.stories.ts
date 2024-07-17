@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 
 import type { Meta } from '@storybook/web-components'
 
@@ -11,6 +11,13 @@ const meta: Meta = {
   argTypes: {
     value: {
       control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium'],
       table: {
         category: 'Attributes',
       },
@@ -133,6 +140,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    rightIcon: {
+      name: 'right-icon',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onBlur: {
       name: 'on-blur',
       description: 'Emitted on input blur event.',
@@ -182,6 +196,13 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    onInputClick: {
+      name: 'on-input-click',
+      description: 'Emitted on input click.',
+      table: {
+        category: 'Events',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -194,37 +215,43 @@ const meta: Meta = {
     'is-disabled': {
       name: 'isDisabled',
     },
+    'right-icon': {
+      name: 'rightIcon',
+    },
   },
   args: {
     type: 'text',
     value: '',
+    size: 'medium',
+    isFullWidth: false,
+    isDisabled: false,
+    isReadonly: false,
+    autofocus: false,
+    borderless: false,
     name: 'input',
     label: '',
+    unit: '',
+    rightIcon: '',
     description: '',
     error: '',
-    isReadonly: false,
     accept: 'image',
     customClass: '',
     placeholder: '',
-    unit: '',
-    isFullWidth: false,
-    isDisabled: false,
-    autofocus: false,
     min: undefined,
     max: undefined,
-    borderless: false,
   },
   parameters: {
     controls: {
       exclude: [
-        'defaultInputStyles',
-        'defaultUnitStyles',
         'isFullWidth',
         'hasHocus',
         'hasHighlight',
         'customClass',
         'isReadonly',
         'isDisabled',
+        'inputStyles',
+        'rightIcon',
+        'styles',
       ],
     },
     design: {
@@ -259,7 +286,10 @@ const Template = ({
   onKeyDown,
   onKeyPress,
   onUnitClick,
+  onInputClick,
   borderless,
+  size,
+  rightIcon,
 }) =>
   html`<lukso-input
     value=${value}
@@ -279,12 +309,15 @@ const Template = ({
     custom-class=${customClass}
     accept=${accept}
     ?borderless=${borderless}
+    size=${size ? size : nothing}
+    right-icon=${rightIcon ? rightIcon : nothing}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}
     @on-change=${onChange}
     @on-key-down=${onKeyDown}
     @on-key-press=${onKeyPress}
     @on-unit-click=${onUnitClick}
+    @on-input-click=${onInputClick}
   ></lukso-input>`
 
 /** Example of default input with `value`.  */
@@ -313,8 +346,8 @@ LabelAndDescription.args = {
 }
 
 /** Example of input with `error`. */
-export const Error = Template.bind({})
-Error.args = {
+export const ErrorInput = Template.bind({})
+ErrorInput.args = {
   label: 'Title',
   description: 'Description',
   error: 'Error message',
@@ -351,4 +384,18 @@ export const Borderless = Template.bind({})
 Borderless.args = {
   borderless: true,
   placeholder: '0',
+}
+
+/** Example of `small` size input. */
+export const Small = Template.bind({})
+Small.args = {
+  size: 'small',
+}
+
+/** Example of input with icon on right side. */
+export const RightIcon = Template.bind({})
+RightIcon.args = {
+  rightIcon: 'search',
+  // size: 'small',
+  // unit: '1',
 }

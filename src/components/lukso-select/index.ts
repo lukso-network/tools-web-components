@@ -1,27 +1,39 @@
-import { PropertyValues, TemplateResult, html, nothing } from 'lit'
+import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
+import { v4 as uuidv4 } from 'uuid'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import style from './style.scss?inline'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
-import { Address } from '@/shared/types'
+import style from './style.scss?inline'
+
+import type { Address, InputSize } from '@/shared/types'
 
 export type SelectStringOption = {
   id?: string
+  group?: string
   value: string
 }
 
 export type SelectProfileOption = {
-  id: string
+  id?: string
   address: Address
   image?: string
   name?: string
 }
 
-export type SelectOption = SelectStringOption | SelectProfileOption
+export type SelectGroupedStringOption = {
+  id?: string
+  group: string
+  values: string[]
+}
+
+export type SelectOption =
+  | SelectStringOption
+  | SelectProfileOption
+  | SelectGroupedStringOption
 
 @customElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
@@ -62,73 +74,146 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   selected = undefined
 
   @property({ type: Boolean, attribute: 'is-open' })
-  isOpen: boolean = false
+  isOpen = false
 
   @property({ type: Boolean, attribute: 'open-top' })
-  openTop: boolean = false
+  openTop = false
 
   @property({ type: Boolean, attribute: 'is-large-icon' })
-  isLargeIcon: boolean = false
+  isLargeIcon = false
+
+  @property({ type: Boolean, attribute: 'is-right' })
+  isRight = false
+
+  @property({ type: String })
+  size: InputSize = 'medium'
+
+  @property({ type: Boolean, attribute: 'show-selection-counter' })
+  showSelectionCounter = false
 
   @state()
   private optionsParsed: SelectOption[] = []
 
   @state()
-  private valueParsed: SelectOption | undefined = undefined
+  private valueParsed: SelectOption[] | undefined = undefined
+
+  constructor() {
+    super()
+
+    if (!this.id) {
+      this.id = uuidv4()
+    }
+  }
 
   private inputStyles = tv({
-    base: `bg-neutral-100 paragraph-inter-14-regular px-4 py-3 pr-11
-      border border-solid h-[48px] placeholder:text-neutral-70 select-none whitespace-nowrap
-      outline-none transition transition-all duration-150 appearance-none rounded-12
+    base: `bg-neutral-100
+      border border-solid placeholder:text-neutral-70 select-none whitespace-nowrap
+      outline-none transition transition-all duration-150 appearance-none
       text-neutral-20 cursor-pointer border-neutral-90 group-hover:border-neutral-35
       flex items-center`,
     variants: {
       isFullWidth: {
-        true: `w-full`,
+        true: 'w-full',
       },
       isDisabled: {
-        true: `cursor-not-allowed text-neutral-60 group-hover:border-neutral-90`,
+        true: 'cursor-not-allowed text-neutral-60 group-hover:border-neutral-90',
       },
       hasError: {
-        true: `border-red-85 group-hover:border-red-65`,
+        true: 'border-red-85 group-hover:border-red-65',
       },
       borderless: {
-        true: `border-0`,
+        true: 'border-0',
+      },
+      size: {
+        small: 'h-[28px] px-3 py-2 pr-8 paragraph-inter-12-regular rounded-8',
+        medium:
+          'h-[48px] px-4 py-3 pr-11 paragraph-inter-14-regular rounded-12',
+      },
+    },
+  })
+
+  private counterStyles = tv({
+    base: 'border border-neutral-20',
+    variants: {
+      isDisabled: {
+        true: 'opacity-60 cursor-not-allowed',
+      },
+      size: {
+        small:
+          'paragraph-inter-10-semi-bold rounded-4 py-[1px] px-[5px] ml-1.5',
+        medium:
+          'paragraph-inter-14-semi-bold rounded-8 py-[2px] px-[10px] ml-3',
       },
     },
   })
 
   private dropdownWrapperStyles = tv({
-    base: `bg-neutral-100 border w-full border-neutral-90 shadow-1xl rounded-12 p-3 z-50
-      flex absolute flex-col gap-1 overflow-y-auto max-h-64 mt-2`,
+    base: `bg-neutral-100 border w-auto border-neutral-90 shadow-1xl z-50
+      flex absolute flex-col gap-1 overflow-y-auto max-h-64 `,
     variants: {
       openTop: {
-        true: `bottom-[48px] mb-2 mt-0`,
+        true: 'bottom-[48px] mb-2 mt-0',
+      },
+      size: {
+        small: 'rounded-8 p-2 mt-1 max-w-[200px] min-w-[120px]',
+        medium: 'rounded-12 p-3 mt-2 max-w-[300px] min-w-[200px]',
+      },
+      isRight: {
+        true: 'right-0',
       },
     },
   })
 
   private optionsStyles = tv({
-    base: `paragraph-inter-14-regular text-neutral-20 cursor-pointer rounded-8 p-2
-      whitespace-nowrap hover:bg-neutral-98 flex items-center`,
+    base: `text-neutral-20 cursor-pointer
+      whitespace-nowrap hover:bg-neutral-98 flex items-center truncate`,
     variants: {
       isSelected: {
-        true: `bg-neutral-95 hover:bg-neutral-95`,
+        true: 'bg-neutral-95 hover:bg-neutral-95',
       },
       isActive: {
-        true: `bg-neutral-98`,
+        true: 'bg-neutral-98',
+      },
+      isGroup: {
+        true: '',
+      },
+      size: {
+        small: 'paragraph-inter-12-regular rounded-4 py-1 px-2 min-h-[28px]',
+        medium: 'paragraph-inter-14-regular rounded-8 p-2 min-h-[38px]',
+      },
+      isDisabled: {
+        true: 'opacity-60 cursor-not-allowed',
+      },
+      isReadonly: {
+        true: 'cursor-not-allowed',
       },
     },
+    compoundVariants: [
+      {
+        isGroup: true,
+        size: 'small',
+        class: 'pl-3',
+      },
+      {
+        isGroup: true,
+        size: 'medium',
+        class: 'pl-4',
+      },
+    ],
   })
 
   private iconStyles = tv({
-    base: `absolute right-0 mr-3 transition cursor-pointer`,
+    base: 'absolute right-0 transition cursor-pointer',
     variants: {
       isDisabled: {
-        true: `opacity-60 cursor-not-allowed`,
+        true: 'opacity-60 cursor-not-allowed',
       },
       isOpen: {
-        true: `rotate-180`,
+        true: 'rotate-180',
+      },
+      size: {
+        small: 'mr-2',
+        medium: 'mr-3',
       },
     },
   })
@@ -138,6 +223,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     window.addEventListener('click', this.handleOutsideDropdownClick.bind(this))
     window.addEventListener('keydown', this.handleDropdownKeydown.bind(this))
   }
+
   disconnectedCallback() {
     super.disconnectedCallback()
     window.removeEventListener('click', this.handleOutsideDropdownClick)
@@ -177,7 +263,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
     if (changedProperties.has('value') && !!this.value) {
       try {
-        this.valueParsed = JSON.parse(this.value) as SelectOption
+        const value = JSON.parse(this.value)
+        this.valueParsed = Array.isArray(value) ? value : [value]
       } catch (error: unknown) {
         console.warn('Could not parse value', error)
       }
@@ -190,6 +277,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       isDisabled: this.isDisabled,
       hasError: !!this.error,
       borderless: this.borderless,
+      size: this.size,
     })
 
     return html`
@@ -200,9 +288,24 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         @blur=${this.handleBlur}
         @click=${this.handleClick}
       >
-        ${this.value ? this.selectedValue() : this.placeholder}
+        ${this.placeholder ? this.placeholder : nothing}
+        ${!this.placeholder && this.valueParsed?.length
+          ? this.selectedValueTemplate()
+          : nothing}
+        ${this.showSelectionCounter && this.valueParsed?.length
+          ? this.selectedOptionsCounterTemplate()
+          : nothing}
       </div>
     `
+  }
+
+  selectedOptionsCounterTemplate() {
+    const counterStyles = this.counterStyles({
+      isDisabled: this.isDisabled,
+      size: this.size,
+    })
+
+    return html`<div class=${counterStyles}>${this.valueParsed?.length}</div>`
   }
 
   labelTemplate() {
@@ -233,7 +336,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     for (const option of Object.entries(this.optionsParsed)) {
       const index = Number(option[0])
 
-      if ('value' in option[1]) {
+      if ('values' in option[1]) {
+        optionTemplates.push(this.optionGroupedStringTemplate(option[1], index))
+      } else if ('value' in option[1]) {
         optionTemplates.push(this.optionStringTemplate(option[1], index))
       } else if ('address' in option[1]) {
         optionTemplates.push(this.optionProfileTemplate(option[1], index))
@@ -250,16 +355,40 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   ) {
     const dropdownWrapperStyles = this.dropdownWrapperStyles({
       openTop: this.openTop,
+      size: this.size,
+      isRight: this.isRight,
     })
 
     return html`<div class="${dropdownWrapperStyles}">${innerTemplate}</div>`
   }
 
+  optionGroupedStringTemplate(
+    option: SelectGroupedStringOption,
+    index: number
+  ) {
+    return html`<div
+        class="paragraph-inter-10-bold-uppercase text-neutral-20 p-1"
+      >
+        ${option.group}
+      </div>
+      ${option.values.map((value, valueIndex) => {
+        return this.optionStringTemplate(
+          { id: `${option.id}-${valueIndex}`, group: option.group, value },
+          index
+        )
+      })}`
+  }
+
   optionStringTemplate(option: SelectStringOption, index: number) {
     const optionsStyles = this.optionsStyles({
-      isSelected: this.valueParsed?.id === option.id,
+      isSelected: !!this.valueParsed?.find(value => value.id === option.id),
       isActive:
-        this.selected === index + 1 && this.valueParsed?.id !== option.id,
+        this.selected === index + 1 &&
+        !this.valueParsed?.find(value => value.id === option.id),
+      size: this.size,
+      isGroup: !!option.group,
+      isDisabled: this.isDisabled,
+      isReadonly: this.isReadonly,
     })
 
     return html`<div
@@ -274,9 +403,13 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
   optionProfileTemplate(option: SelectProfileOption, index: number) {
     const optionsStyles = this.optionsStyles({
-      isSelected: this.valueParsed?.id === option.id,
+      isSelected: !!this.valueParsed?.find(value => value.id === option.id),
       isActive:
-        this.selected === index + 1 && this.valueParsed?.id !== option.id,
+        this.selected === index + 1 &&
+        !this.valueParsed?.find(value => value.id === option.id),
+      size: this.size,
+      isDisabled: this.isDisabled,
+      isReadonly: this.isReadonly,
     })
 
     return html`<div
@@ -307,24 +440,61 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         name-color="neutral-20"
         max-width="150"
         slice-by="4"
-        size="medium"
+        size=${this.size}
       ></lukso-username>`
   }
 
-  private selectedValue() {
-    const foundValue = this.optionsParsed.find(
-      option => option.id === this.valueParsed?.id
-    )
+  private selectedValueTemplate() {
+    const firstOption = this.optionsParsed[0]
 
-    if (foundValue) {
-      if ('value' in foundValue) {
-        return this.optionStringValue(foundValue)
-      } else if ('address' in foundValue) {
-        return this.optionProfileValue(foundValue)
-      } else {
-        console.error('Unknown value type', foundValue)
-      }
+    if ('value' in firstOption) {
+      const foundValues = this.optionsParsed.filter(
+        option => !!this.valueParsed?.find(value => value.id === option.id)
+      )
+      return foundValues
+        .map(value => this.optionStringValue(value as SelectStringOption))
+        .join(', ')
     }
+
+    if ('values' in firstOption) {
+      const foundValues: SelectStringOption[] = []
+
+      for (const option of this.optionsParsed) {
+        for (const [index, value] of (
+          option as SelectGroupedStringOption
+        ).values.entries()) {
+          for (const parsedValue of this.valueParsed) {
+            if (parsedValue.id === `${option.id}-${index}`) {
+              foundValues.push({
+                id: `${option.id}-${index}`,
+                value,
+              } as SelectStringOption)
+            }
+          }
+        }
+      }
+
+      return foundValues
+        .map(value => this.optionStringValue(value as SelectStringOption))
+        .join(', ')
+    }
+
+    if ('address' in firstOption) {
+      const foundValues = this.optionsParsed.filter(
+        option => !!this.valueParsed?.find(value => value.id === option.id)
+      )
+      const optionProfileValues = []
+
+      for (const value of foundValues) {
+        optionProfileValues.push(
+          this.optionProfileValue(value as SelectProfileOption)
+        )
+      }
+
+      return optionProfileValues
+    }
+
+    console.error('Unknown value type', this.valueParsed)
 
     return ''
   }
@@ -332,7 +502,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   private handleOutsideDropdownClick(event: Event) {
     const element = event.target as HTMLElement
 
-    if (element.tagName === 'LUKSO-SELECT') {
+    if (element.tagName === 'LUKSO-SELECT' && this.id === element.id) {
       return
     }
 
@@ -419,6 +589,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     const iconStyles = this.iconStyles({
       isDisabled: this.isDisabled,
       isOpen: this.isOpen,
+      size: this.size,
     })
 
     return html`

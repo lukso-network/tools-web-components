@@ -16,6 +16,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium'],
+      table: {
+        category: 'Attributes',
+      },
+    },
     id: {
       control: { type: 'text' },
       table: {
@@ -101,6 +108,23 @@ const meta: Meta = {
     },
     isLargeIcon: {
       name: 'is-large-icon',
+      description: 'Size of dropdown trigger arrow.',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    isRight: {
+      name: 'is-right',
+      description: 'Align dropdown to right side.',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    showSelectionCounter: {
+      name: 'show-selection-counter',
+      description: 'Show counter for selected items.',
       control: { type: 'boolean' },
       table: {
         category: 'Attributes',
@@ -138,22 +162,33 @@ const meta: Meta = {
     'is-large-icon': {
       name: 'isLargeIcon',
     },
+    'show-selection-counter': {
+      name: 'showSelectionCounter',
+    },
+    'is-right': {
+      name: 'isRight',
+    },
   },
   args: {
     value: JSON.stringify({
       id: '2',
       value: 'Second result',
     }),
+    size: 'medium',
     label: '',
     description: '',
     error: '',
-    isReadonly: false,
+    id: 'select',
     placeholder: '',
+    isReadonly: false,
     isFullWidth: false,
     isDisabled: false,
     borderless: false,
-    id: 'select',
     isOpen: true,
+    openTop: false,
+    isLargeIcon: false,
+    isRight: false,
+    showSelectionCounter: false,
     options: [
       {
         id: '1',
@@ -169,8 +204,7 @@ const meta: Meta = {
       },
     ],
     selected: undefined,
-    openTop: false,
-    isLargeIcon: false,
+    float: 'left',
   },
   parameters: {
     controls: {
@@ -192,6 +226,10 @@ const meta: Meta = {
         'dropdownWrapperStyles',
         'optionsStyles',
         'iconStyles',
+        'isRight',
+        'showSelectionCounter',
+        'counterStyles',
+        'float',
       ],
     },
     design: {
@@ -221,6 +259,10 @@ const Template = ({
   openTop,
   marginTop,
   isLargeIcon,
+  size,
+  float,
+  isRight,
+  showSelectionCounter,
 }) => {
   const [{ options, value }, updateArgs] = useArgs()
 
@@ -242,25 +284,35 @@ const Template = ({
     ?borderless=${borderless}
     ?open-top=${openTop}
     ?is-large-icon=${isLargeIcon}
+    ?is-right=${isRight}
+    ?show-selection-counter=${showSelectionCounter}
     selected=${selected ? selected : nothing}
     @on-select=${handleSelect}
     @on-blur=${onBlur}
     value=${value ? value : nothing}
+    size=${size ? size : nothing}
     options=${options ? JSON.stringify(options) : nothing}
-    style="margin-bottom: ${marginBottom}px; margin-top: ${marginTop}px;"
+    style="margin-bottom: ${marginBottom}px; margin-top: ${marginTop}px; float: ${float}"
   ></lukso-select>`
 }
 
 /** Example of select with `string` values.  */
 export const DefaultSelect = Template.bind({})
 DefaultSelect.args = {
-  marginBottom: 150,
+  marginBottom: 160,
+}
+
+/** With `placeholder` value you can set fixed text in selection trigger.  */
+export const Placeholder = Template.bind({})
+Placeholder.args = {
+  marginBottom: 160,
+  placeholder: 'Select value...',
 }
 
 /** Example of select that open top.  */
 export const OpenTop = Template.bind({})
 OpenTop.args = {
-  marginTop: 150,
+  marginTop: 160,
   openTop: true,
 }
 
@@ -292,5 +344,76 @@ ProfileSelect.args = {
     name: 'profile1',
     image: '',
   }),
-  marginBottom: 150,
+  marginBottom: 160,
+}
+
+/** Example of `small` select.  */
+export const SmallSelect = Template.bind({})
+SmallSelect.args = {
+  marginBottom: 120,
+  size: 'small',
+}
+
+/** Example of multi select.  */
+export const MultiSelect = Template.bind({})
+MultiSelect.args = {
+  marginBottom: 160,
+  value: JSON.stringify([
+    {
+      id: '2',
+      value: 'Second result',
+    },
+    {
+      id: '3',
+      value: 'Third result',
+    },
+  ]),
+}
+
+/** Example of right side dropdown.  */
+export const RightSideDropdown = Template.bind({})
+RightSideDropdown.args = {
+  marginBottom: 160,
+  isRight: true,
+  float: 'right',
+}
+
+/** Example of grouped select.  */
+export const GroupedSelect = Template.bind({})
+GroupedSelect.args = {
+  marginBottom: 270,
+  value: JSON.stringify([
+    {
+      id: 'group-1-1',
+      value: 'Blue',
+    },
+    {
+      id: 'group-2-0',
+      value: 'Small',
+    },
+  ]),
+  options: [
+    {
+      id: 'group-1',
+      group: 'Color',
+      values: ['Red', 'Blue', 'Green'],
+    },
+    {
+      id: 'group-2',
+      group: 'Size',
+      values: ['Small', 'Medium'],
+    },
+  ],
+}
+
+/** Example of selection counter.  */
+export const CountSelections = Template.bind({})
+CountSelections.args = {
+  marginBottom: 120,
+  value: JSON.stringify({
+    id: '2',
+    value: 'Second result',
+  }),
+  showSelectionCounter: true,
+  size: 'small',
 }

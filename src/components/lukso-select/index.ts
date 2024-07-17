@@ -1,6 +1,7 @@
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
+import { v4 as uuidv4 } from 'uuid'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
@@ -92,6 +93,14 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
   @state()
   private valueParsed: SelectOption[] | undefined = undefined
+
+  constructor() {
+    super()
+
+    if (!this.id) {
+      this.id = uuidv4()
+    }
+  }
 
   private inputStyles = tv({
     base: `bg-neutral-100
@@ -450,7 +459,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   private handleOutsideDropdownClick(event: Event) {
     const element = event.target as HTMLElement
 
-    if (element.tagName === 'LUKSO-SELECT') {
+    if (element.tagName === 'LUKSO-SELECT' && this.id === element.id) {
       return
     }
 

@@ -2445,6 +2445,7 @@ __metadata:
     tailwind-merge: ^2.0.0
     tailwind-variants: ^0.2.1
     tippy.js: ^6.3.7
+    uuid: ^10.0.0
   languageName: unknown
   linkType: soft
 
@@ -16564,6 +16565,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uuid@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "uuid@npm:10.0.0"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 4b81611ade2885d2313ddd8dc865d93d8dccc13ddf901745edca8f86d99bc46d7a330d678e7532e7ebf93ce616679fb19b2e3568873ac0c14c999032acb25869
+  languageName: node
+  linkType: hard
+
 "uuid@npm:^8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
@@ -16936,7 +16946,6 @@ __metadata:
     eslint-plugin-json: ^3.1.0
     eslint-plugin-lit: ^1.9.1
     espree: ^9.6.1
-    ethereum-blockies-base64: ^1.0.2
     http-server: ^14.1.1
     husky: ^8.0.3
     lint-staged: ^14.0.1

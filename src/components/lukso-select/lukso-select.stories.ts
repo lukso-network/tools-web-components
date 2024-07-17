@@ -162,6 +162,12 @@ const meta: Meta = {
     'is-large-icon': {
       name: 'isLargeIcon',
     },
+    'show-selection-counter': {
+      name: 'showSelectionCounter',
+    },
+    'is-right': {
+      name: 'isRight',
+    },
   },
   args: {
     value: JSON.stringify({
@@ -222,6 +228,8 @@ const meta: Meta = {
         'iconStyles',
         'isRight',
         'showSelectionCounter',
+        'counterStyles',
+        'float',
       ],
     },
     design: {

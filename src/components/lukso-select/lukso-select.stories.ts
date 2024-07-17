@@ -302,6 +302,13 @@ DefaultSelect.args = {
   marginBottom: 160,
 }
 
+/** With `placeholder` value you can set fixed text in selection trigger.  */
+export const Placeholder = Template.bind({})
+Placeholder.args = {
+  marginBottom: 160,
+  placeholder: 'Select value...',
+}
+
 /** Example of select that open top.  */
 export const OpenTop = Template.bind({})
 OpenTop.args = {

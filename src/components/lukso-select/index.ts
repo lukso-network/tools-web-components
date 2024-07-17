@@ -288,7 +288,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         @blur=${this.handleBlur}
         @click=${this.handleClick}
       >
-        ${this.value ? this.selectedValueTemplate() : this.placeholder}
+        ${this.placeholder ? this.placeholder : nothing}
+        ${!this.placeholder && this.valueParsed?.length
+          ? this.selectedValueTemplate()
+          : nothing}
         ${this.showSelectionCounter && this.valueParsed?.length
           ? this.selectedOptionsCounterTemplate()
           : nothing}

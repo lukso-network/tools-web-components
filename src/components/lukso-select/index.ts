@@ -81,6 +81,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-large-icon' })
   isLargeIcon = false
 
+  @property({ type: Boolean, attribute: 'is-right' })
+  isRight = false
+
   @property({ type: String })
   size: InputSize = 'medium'
 
@@ -88,7 +91,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   private optionsParsed: SelectOption[] = []
 
   @state()
-  private valueParsed: SelectOption | undefined = undefined
+  private valueParsed: SelectOption[] | undefined = undefined
 
   private inputStyles = tv({
     base: `bg-neutral-100
@@ -125,8 +128,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         true: 'bottom-[48px] mb-2 mt-0',
       },
       size: {
-        small: 'rounded-8 p-2 mt-1 max-w-[200px]',
-        medium: 'rounded-12 p-3 mt-2 max-w-[300px]',
+        small: 'rounded-8 p-2 mt-1 max-w-[200px] min-w-[120px]',
+        medium: 'rounded-12 p-3 mt-2 max-w-[300px] min-w-[200px]',
       },
     },
   })
@@ -184,6 +187,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     window.addEventListener('click', this.handleOutsideDropdownClick.bind(this))
     window.addEventListener('keydown', this.handleDropdownKeydown.bind(this))
   }
+
   disconnectedCallback() {
     super.disconnectedCallback()
     window.removeEventListener('click', this.handleOutsideDropdownClick)
@@ -223,7 +227,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
     if (changedProperties.has('value') && !!this.value) {
       try {
-        this.valueParsed = JSON.parse(this.value) as SelectOption
+        const value = JSON.parse(this.value)
+        this.valueParsed = Array.isArray(value) ? value : [value]
       } catch (error: unknown) {
         console.warn('Could not parse value', error)
       }
@@ -314,19 +319,20 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       >
         ${option.group}
       </div>
-      ${option.values.map((value, valueIndex) =>
-        this.optionStringTemplate(
-          { id: `${index}-${valueIndex}`, group: option.group, value },
+      ${option.values.map((value, valueIndex) => {
+        return this.optionStringTemplate(
+          { id: `${option.id}-${valueIndex}`, group: option.group, value },
           index
         )
-      )}`
+      })}`
   }
 
   optionStringTemplate(option: SelectStringOption, index: number) {
     const optionsStyles = this.optionsStyles({
-      isSelected: this.valueParsed?.id === option.id,
+      isSelected: !!this.valueParsed?.find(value => value.id === option.id),
       isActive:
-        this.selected === index + 1 && this.valueParsed?.id !== option.id,
+        this.selected === index + 1 &&
+        !this.valueParsed?.find(value => value.id === option.id),
       size: this.size,
       isGroup: !!option.group,
     })
@@ -343,9 +349,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
   optionProfileTemplate(option: SelectProfileOption, index: number) {
     const optionsStyles = this.optionsStyles({
-      isSelected: this.valueParsed?.id === option.id,
+      isSelected: !!this.valueParsed?.find(value => value.id === option.id),
       isActive:
-        this.selected === index + 1 && this.valueParsed?.id !== option.id,
+        this.selected === index + 1 &&
+        !this.valueParsed?.find(value => value.id === option.id),
       size: this.size,
     })
 
@@ -382,21 +389,56 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   }
 
   private selectedValue() {
-    const foundValue = this.optionsParsed.find(
-      option => option.id === this.valueParsed?.id
-    )
+    const firstOption = this.optionsParsed[0]
 
-    if (foundValue) {
-      if ('value' in foundValue) {
-        return this.optionStringValue(foundValue)
-      }
-
-      if ('address' in foundValue) {
-        return this.optionProfileValue(foundValue)
-      }
-
-      console.error('Unknown value type', foundValue)
+    if ('value' in firstOption) {
+      const foundValues = this.optionsParsed.filter(
+        option => !!this.valueParsed?.find(value => value.id === option.id)
+      )
+      return foundValues
+        .map(value => this.optionStringValue(value as SelectStringOption))
+        .join(', ')
     }
+
+    if ('values' in firstOption) {
+      const foundValues: SelectStringOption[] = []
+
+      for (const option of this.optionsParsed) {
+        for (const [index, value] of (
+          option as SelectGroupedStringOption
+        ).values.entries()) {
+          for (const parsedValue of this.valueParsed) {
+            if (parsedValue.id === `${option.id}-${index}`) {
+              foundValues.push({
+                id: `${option.id}-${index}`,
+                value,
+              } as SelectStringOption)
+            }
+          }
+        }
+      }
+
+      return foundValues
+        .map(value => this.optionStringValue(value as SelectStringOption))
+        .join(', ')
+    }
+
+    if ('address' in firstOption) {
+      const foundValues = this.optionsParsed.filter(
+        option => !!this.valueParsed?.find(value => value.id === option.id)
+      )
+      const optionProfileValues = []
+
+      for (const value of foundValues) {
+        optionProfileValues.push(
+          this.optionProfileValue(value as SelectProfileOption)
+        )
+      }
+
+      return optionProfileValues
+    }
+
+    console.error('Unknown value type', this.valueParsed)
 
     return ''
   }

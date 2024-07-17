@@ -131,6 +131,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         small: 'rounded-8 p-2 mt-1 max-w-[200px] min-w-[120px]',
         medium: 'rounded-12 p-3 mt-2 max-w-[300px] min-w-[200px]',
       },
+      isRight: {
+        true: 'right-0',
+      },
     },
   })
 
@@ -305,6 +308,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     const dropdownWrapperStyles = this.dropdownWrapperStyles({
       openTop: this.openTop,
       size: this.size,
+      isRight: this.isRight,
     })
 
     return html`<div class="${dropdownWrapperStyles}">${innerTemplate}</div>`

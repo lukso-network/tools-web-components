@@ -348,6 +348,7 @@ export const RightSideDropdown = Template.bind({})
 RightSideDropdown.args = {
   marginBottom: 160,
   isRight: true,
+  float: 'right',
 }
 
 /** Example of grouped select.  */

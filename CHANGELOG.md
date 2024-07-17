@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.73.0](https://github.com/lukso-network/tools-web-components/compare/v1.72.0...v1.73.0) (2024-07-17)
+
+
+### Features
+
+* small inputs ([#364](https://github.com/lukso-network/tools-web-components/issues/364)) ([2a58f9d](https://github.com/lukso-network/tools-web-components/commit/2a58f9dfe0b004450666b038f839d48f9dbecb59))
+
 ## [1.72.0](https://github.com/lukso-network/tools-web-components/compare/v1.71.4...v1.72.0) (2024-07-06)
 
 

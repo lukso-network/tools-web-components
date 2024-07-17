@@ -289,7 +289,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         @click=${this.handleClick}
       >
         ${this.value ? this.selectedValueTemplate() : this.placeholder}
-        ${this.showSelectionCounter
+        ${this.showSelectionCounter && this.valueParsed?.length
           ? this.selectedOptionsCounterTemplate()
           : nothing}
       </div>

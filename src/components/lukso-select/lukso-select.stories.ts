@@ -122,6 +122,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    showSelectionCounter: {
+      name: 'show-selection-counter',
+      description: 'Show counter for selected items.',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onSelect: {
       name: 'on-select',
       description: 'Emitted on select element from the dropdown.',
@@ -174,6 +182,7 @@ const meta: Meta = {
     openTop: false,
     isLargeIcon: false,
     isRight: false,
+    showSelectionCounter: false,
     options: [
       {
         id: '1',
@@ -212,6 +221,7 @@ const meta: Meta = {
         'optionsStyles',
         'iconStyles',
         'isRight',
+        'showSelectionCounter',
       ],
     },
     design: {
@@ -244,6 +254,7 @@ const Template = ({
   size,
   float,
   isRight,
+  showSelectionCounter,
 }) => {
   const [{ options, value }, updateArgs] = useArgs()
 
@@ -266,6 +277,7 @@ const Template = ({
     ?open-top=${openTop}
     ?is-large-icon=${isLargeIcon}
     ?is-right=${isRight}
+    ?show-selection-counter=${showSelectionCounter}
     selected=${selected ? selected : nothing}
     @on-select=${handleSelect}
     @on-blur=${onBlur}
@@ -377,4 +389,16 @@ GroupedSelect.args = {
       values: ['Small', 'Medium'],
     },
   ],
+}
+
+/** Example of selection counter.  */
+export const CountSelections = Template.bind({})
+CountSelections.args = {
+  marginBottom: 120,
+  value: JSON.stringify({
+    id: '2',
+    value: 'Second result',
+  }),
+  showSelectionCounter: true,
+  size: 'small',
 }

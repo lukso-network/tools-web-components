@@ -88,6 +88,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   @property({ type: String })
   size: InputSize = 'medium'
 
+  @property({ type: Boolean, attribute: 'show-selection-counter' })
+  showSelectionCounter = false
+
   @state()
   private optionsParsed: SelectOption[] = []
 
@@ -129,6 +132,21 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     },
   })
 
+  private counterStyles = tv({
+    base: 'border border-neutral-20',
+    variants: {
+      isDisabled: {
+        true: 'opacity-60 cursor-not-allowed',
+      },
+      size: {
+        small:
+          'paragraph-inter-10-semi-bold rounded-4 py-[1px] px-[5px] ml-1.5',
+        medium:
+          'paragraph-inter-14-semi-bold rounded-8 py-[2px] px-[10px] ml-3',
+      },
+    },
+  })
+
   private dropdownWrapperStyles = tv({
     base: `bg-neutral-100 border w-auto border-neutral-90 shadow-1xl z-50
       flex absolute flex-col gap-1 overflow-y-auto max-h-64 `,
@@ -162,6 +180,12 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       size: {
         small: 'paragraph-inter-12-regular rounded-4 py-1 px-2 min-h-[28px]',
         medium: 'paragraph-inter-14-regular rounded-8 p-2 min-h-[38px]',
+      },
+      isDisabled: {
+        true: 'opacity-60 cursor-not-allowed',
+      },
+      isReadonly: {
+        true: 'cursor-not-allowed',
       },
     },
     compoundVariants: [
@@ -264,9 +288,21 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         @blur=${this.handleBlur}
         @click=${this.handleClick}
       >
-        ${this.value ? this.selectedValue() : this.placeholder}
+        ${this.value ? this.selectedValueTemplate() : this.placeholder}
+        ${this.showSelectionCounter
+          ? this.selectedOptionsCounterTemplate()
+          : nothing}
       </div>
     `
+  }
+
+  selectedOptionsCounterTemplate() {
+    const counterStyles = this.counterStyles({
+      isDisabled: this.isDisabled,
+      size: this.size,
+    })
+
+    return html`<div class=${counterStyles}>${this.valueParsed?.length}</div>`
   }
 
   labelTemplate() {
@@ -348,6 +384,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         !this.valueParsed?.find(value => value.id === option.id),
       size: this.size,
       isGroup: !!option.group,
+      isDisabled: this.isDisabled,
+      isReadonly: this.isReadonly,
     })
 
     return html`<div
@@ -367,6 +405,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         this.selected === index + 1 &&
         !this.valueParsed?.find(value => value.id === option.id),
       size: this.size,
+      isDisabled: this.isDisabled,
+      isReadonly: this.isReadonly,
     })
 
     return html`<div
@@ -401,7 +441,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       ></lukso-username>`
   }
 
-  private selectedValue() {
+  private selectedValueTemplate() {
     const firstOption = this.optionsParsed[0]
 
     if ('value' in firstOption) {

@@ -161,6 +161,8 @@ import { logoTelegramMono } from './icons/logo-telegram-mono'
 import { logoLinkedinMono } from './icons/logo-linkedin-mono'
 import { logoGithubMono } from './icons/logo-github-mono'
 import { logoUniversalPageMono } from './icons/logo-universal-page-mono'
+import { database } from './icons/database'
+import { emptyOutline } from './icons/empty-outline'
 
 export type IconOptions = {
   width: number
@@ -337,6 +339,8 @@ const iconMap = {
   'logo-linkedin-mono': logoLinkedinMono,
   'logo-github-mono': logoGithubMono,
   'logo-universal-page-mono': logoUniversalPageMono,
+  database,
+  'empty-outline': emptyOutline,
 }
 
 @customElement('lukso-icon')

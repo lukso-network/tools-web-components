@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.74.1](https://github.com/lukso-network/tools-web-components/compare/v1.74.0...v1.74.1) (2024-07-18)
+
+
+### Bug Fixes
+
+* Add nowrap to tag content ([#368](https://github.com/lukso-network/tools-web-components/issues/368)) ([ef622bf](https://github.com/lukso-network/tools-web-components/commit/ef622bfdef00398f8f70cd519cee8dda5ae51603))
+
 ## [1.74.0](https://github.com/lukso-network/tools-web-components/compare/v1.73.0...v1.74.0) (2024-07-18)
 
 

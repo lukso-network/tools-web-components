@@ -26,7 +26,7 @@ export class LuksoTag extends TailwindStyledElement(style) {
   textColor = ''
 
   private tagStyles = tv({
-    base: 'inline-flex items-center justify-center border border-neutral-20 text-neutral-20 px-2',
+    base: 'inline-flex items-center justify-center border border-neutral-20 text-neutral-20 px-2 whitespace-nowrap',
     variants: {
       size: {
         'x-small':

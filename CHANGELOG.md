@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.74.0](https://github.com/lukso-network/tools-web-components/compare/v1.73.0...v1.74.0) (2024-07-18)
+
+
+### Features
+
+* Add `database` icon ([#366](https://github.com/lukso-network/tools-web-components/issues/366)) ([12fc8e5](https://github.com/lukso-network/tools-web-components/commit/12fc8e5915e4409bf850789f4eec691a8164cc7e))
+
 ## [1.73.0](https://github.com/lukso-network/tools-web-components/compare/v1.72.0...v1.73.0) (2024-07-17)
 
 

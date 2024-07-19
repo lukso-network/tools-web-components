@@ -178,7 +178,7 @@ const meta: Meta = {
     label: '',
     description: '',
     error: '',
-    id: 'select',
+    id: '',
     placeholder: '',
     isReadonly: false,
     isFullWidth: false,

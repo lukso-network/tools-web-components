@@ -1,13 +1,13 @@
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
-import { v4 as uuidv4 } from 'uuid'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
 import style from './style.scss?inline'
+import { uniqId } from '@/shared/tools/uniq-id'
 
 import type { Address, InputSize } from '@/shared/types'
 
@@ -101,7 +101,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     super()
 
     if (!this.id) {
-      this.id = uuidv4()
+      this.id = uniqId()
     }
   }
 

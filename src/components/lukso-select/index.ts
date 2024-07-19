@@ -258,6 +258,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         this.optionsParsed = JSON.parse(this.options) as SelectOption[]
       } catch (error: unknown) {
         console.warn('Could not parse options', error)
+        this.optionsParsed = []
       }
     }
 

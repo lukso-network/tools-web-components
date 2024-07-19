@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.71.4",
+  "version": "1.74.0",
   "type": "module",
   "files": [
     "dist",
@@ -213,8 +213,7 @@
     "ethereum-blockies-base64": "^1.0.2",
     "tailwind-merge": "^2.0.0",
     "tailwind-variants": "^0.2.1",
-    "tippy.js": "^6.3.7",
-    "uuid": "^10.0.0"
+    "tippy.js": "^6.3.7"
   },
   "customElements": "custom-elements.json"
 }

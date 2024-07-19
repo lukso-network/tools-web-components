@@ -258,6 +258,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         this.optionsParsed = JSON.parse(this.options) as SelectOption[]
       } catch (error: unknown) {
         console.warn('Could not parse options', error)
+        this.optionsParsed = []
       }
     }
 
@@ -446,6 +447,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
   private selectedValueTemplate() {
     const firstOption = this.optionsParsed[0]
+
+    if (!firstOption) {
+      return ''
+    }
 
     if ('value' in firstOption) {
       const foundValues = this.optionsParsed.filter(

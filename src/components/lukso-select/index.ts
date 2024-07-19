@@ -447,6 +447,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   private selectedValueTemplate() {
     const firstOption = this.optionsParsed[0]
 
+    if (!firstOption) {
+      return ''
+    }
+
     if ('value' in firstOption) {
       const foundValues = this.optionsParsed.filter(
         option => !!this.valueParsed?.find(value => value.id === option.id)

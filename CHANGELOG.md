@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.74.3](https://github.com/lukso-network/tools-web-components/compare/v1.74.2...v1.74.3) (2024-07-19)
+
+
+### Bug Fixes
+
+* Handle no options ([#372](https://github.com/lukso-network/tools-web-components/issues/372)) ([d5c00fb](https://github.com/lukso-network/tools-web-components/commit/d5c00fbde89093427f0cf9a0afcedb4dab74bd8f))
+
 ## [1.74.2](https://github.com/lukso-network/tools-web-components/compare/v1.74.1...v1.74.2) (2024-07-19)
 
 

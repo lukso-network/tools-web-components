@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.74.2](https://github.com/lukso-network/tools-web-components/compare/v1.74.1...v1.74.2) (2024-07-19)
+
+
+### Bug Fixes
+
+* Add simple id generation function ([#370](https://github.com/lukso-network/tools-web-components/issues/370)) ([281726e](https://github.com/lukso-network/tools-web-components/commit/281726ef66ca91feaab20df1e8bff77027fce39b))
+
 ## [1.74.1](https://github.com/lukso-network/tools-web-components/compare/v1.74.0...v1.74.1) (2024-07-18)
 
 

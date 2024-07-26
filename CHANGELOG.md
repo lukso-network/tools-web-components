@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.75.0](https://github.com/lukso-network/tools-web-components/compare/v1.74.3...v1.75.0) (2024-07-26)
+
+
+### Features
+
+* Add reset to search component ([#376](https://github.com/lukso-network/tools-web-components/issues/376)) ([4ec80fa](https://github.com/lukso-network/tools-web-components/commit/4ec80fa17f0713051fda455f21457c91e474b599))
+
+
+### Bug Fixes
+
+* `lukso-select` option style in readonly state ([#374](https://github.com/lukso-network/tools-web-components/issues/374)) ([6cefe93](https://github.com/lukso-network/tools-web-components/commit/6cefe93961853234b4cad02d8d99e29ed08e1d18))
+
 ## [1.74.3](https://github.com/lukso-network/tools-web-components/compare/v1.74.2...v1.74.3) (2024-07-19)
 
 

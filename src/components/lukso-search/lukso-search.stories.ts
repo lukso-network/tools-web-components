@@ -79,6 +79,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    hasReset: {
+      name: 'has-reset',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     customClass: {
       name: 'custom-class',
       control: { type: 'text' },
@@ -186,6 +193,13 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    onReset: {
+      name: 'on-reset',
+      description: 'Emitted on reset event.',
+      table: {
+        category: 'Events',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -210,6 +224,9 @@ const meta: Meta = {
     'hide-loading': {
       name: 'hideLoading',
     },
+    'has-reset': {
+      name: 'hasReset',
+    },
   },
   args: {
     value: '',
@@ -228,6 +245,7 @@ const meta: Meta = {
     isSearching: false,
     showNoResults: false,
     hideLoading: false,
+    hasReset: false,
     id: 'search',
     autocomplete: 'off',
     results: [
@@ -267,6 +285,7 @@ const meta: Meta = {
         'hideLoading',
         'inputStyles',
         'resultStyles',
+        'hasReset',
       ],
     },
     design: {
@@ -301,6 +320,8 @@ const Template = ({
   onInputClick,
   size,
   hideLoading,
+  hasReset,
+  onReset,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -346,6 +367,7 @@ const Template = ({
     ?is-searching=${isSearching}
     ?show-no-results=${showNoResults}
     ?hide-loading=${hideLoading}
+    ?has-reset=${hasReset}
     custom-class=${customClass ? customClass : nothing}
     debounce=${debounce ? debounce : nothing}
     no-results-text=${noResultsText}
@@ -356,6 +378,7 @@ const Template = ({
     @on-select=${onSelect}
     @on-blur=${onBlur}
     @on-input-click=${onInputClick}
+    @on-reset=${onReset}
     style="margin-bottom: ${margin}px;"
   ></lukso-search>`
 }

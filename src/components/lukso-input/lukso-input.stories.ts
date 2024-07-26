@@ -147,6 +147,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isRightIconClickable: {
+      name: 'is-right-icon-clickable',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onBlur: {
       name: 'on-blur',
       description: 'Emitted on input blur event.',
@@ -203,6 +210,13 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    onRightIconClick: {
+      name: 'on-right-icon-click',
+      description: 'Emitted on right icon click.',
+      table: {
+        category: 'Events',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -218,6 +232,9 @@ const meta: Meta = {
     'right-icon': {
       name: 'rightIcon',
     },
+    'is-right-icon-clickable': {
+      name: 'isRightIconClickable',
+    },
   },
   args: {
     type: 'text',
@@ -228,6 +245,7 @@ const meta: Meta = {
     isReadonly: false,
     autofocus: false,
     borderless: false,
+    isRightIconClickable: false,
     name: 'input',
     label: '',
     unit: '',
@@ -252,6 +270,7 @@ const meta: Meta = {
         'inputStyles',
         'rightIcon',
         'styles',
+        'isRightIconClickable',
       ],
     },
     design: {
@@ -287,9 +306,11 @@ const Template = ({
   onKeyPress,
   onUnitClick,
   onInputClick,
+  onRightIconClick,
   borderless,
   size,
   rightIcon,
+  isRightIconClickable,
 }) =>
   html`<lukso-input
     value=${value}
@@ -300,17 +321,18 @@ const Template = ({
     description=${description}
     error=${error}
     unit=${unit}
-    ?is-full-width=${isFullWidth}
-    ?autofocus=${autofocus}
     min=${min}
     max=${max}
-    ?is-readonly=${isReadonly}
-    ?is-disabled=${isDisabled}
     custom-class=${customClass}
     accept=${accept}
-    ?borderless=${borderless}
     size=${size ? size : nothing}
     right-icon=${rightIcon ? rightIcon : nothing}
+    ?is-full-width=${isFullWidth}
+    ?autofocus=${autofocus}
+    ?is-readonly=${isReadonly}
+    ?is-disabled=${isDisabled}
+    ?borderless=${borderless}
+    ?is-right-icon-clickable=${isRightIconClickable}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}
     @on-change=${onChange}
@@ -318,6 +340,7 @@ const Template = ({
     @on-key-press=${onKeyPress}
     @on-unit-click=${onUnitClick}
     @on-input-click=${onInputClick}
+    @on-right-icon-click=${onRightIconClick}
   ></lukso-input>`
 
 /** Example of default input with `value`.  */

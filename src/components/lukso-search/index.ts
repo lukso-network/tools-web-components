@@ -86,6 +86,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'hide-loading' })
   hideLoading = false
 
+  @property({ type: Boolean, attribute: 'has-reset' })
+  hasReset = false
+
   @property({ type: Number })
   selected = undefined
 
@@ -383,6 +386,21 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.dispatchEvent(clickEvent)
   }
 
+  private async handleReset(event: MouseEvent) {
+    await this.updateComplete
+    this.value = ''
+    const target = event.target as HTMLInputElement
+    const clickEvent = new CustomEvent('on-reset', {
+      detail: {
+        value: target.value,
+        event,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(clickEvent)
+  }
+
   private async searchDebounce(searchTerm: string) {
     await this.updateComplete
     this.value = searchTerm
@@ -426,7 +444,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           id=${this.id}
           size=${this.size}
           data-component="lukso-search"
-          right-icon="search"
+          right-icon="${this.hasReset && this.value ? 'close-sm' : 'search'}"
+          ?is-right-icon-clickable=${this.hasReset && this.value}
           ?autofocus=${this.autofocus}
           ?readonly=${this.isReadonly}
           ?disabled=${this.isDisabled}
@@ -434,6 +453,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           @on-input=${this.handleSearch}
           @on-blur=${this.handleBlur}
           @on-input-click=${this.handleInputClick}
+          @on-right-icon-click=${this.handleReset}
         ></lukso-input>
         <!-- results dropdown -->
         ${this.results && !(this.isSearching || this.isDebouncing)

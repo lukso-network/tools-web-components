@@ -166,10 +166,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
   private optionsStyles = tv({
     base: `text-neutral-20 cursor-pointer
-      whitespace-nowrap hover:bg-neutral-98 flex items-center truncate`,
+      whitespace-nowrap flex items-center truncate`,
     variants: {
       isSelected: {
-        true: 'bg-neutral-95 hover:bg-neutral-95',
+        true: 'bg-neutral-95',
       },
       isActive: {
         true: 'bg-neutral-98',
@@ -186,6 +186,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       },
       isReadonly: {
         true: 'cursor-not-allowed',
+        false: 'hover:bg-neutral-98',
       },
     },
     compoundVariants: [
@@ -198,6 +199,11 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         isGroup: true,
         size: 'medium',
         class: 'pl-4',
+      },
+      {
+        isReadonly: false,
+        isSelected: true,
+        class: 'hover:bg-neutral-95',
       },
     ],
   })

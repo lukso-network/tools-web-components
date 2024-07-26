@@ -387,6 +387,10 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   private async handleReset(event: MouseEvent) {
+    if (!this.hasReset) {
+      return
+    }
+
     await this.updateComplete
     this.value = ''
     const target = event.target as HTMLInputElement

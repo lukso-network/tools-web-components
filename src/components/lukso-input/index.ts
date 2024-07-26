@@ -77,6 +77,9 @@ export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'right-icon' })
   rightIcon = ''
 
+  @property({ type: Boolean, attribute: 'is-right-icon-clickable' })
+  isRightIconClickable = false
+
   @state()
   private hasHocus = false
 
@@ -145,6 +148,9 @@ export class LuksoInput extends TailwindStyledElement(style) {
           unit: 'h-[48px] paragraph-inter-12-regular px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
           rightIcon: 'right-3',
         },
+      },
+      isRightIconClickable: {
+        true: { rightIcon: 'cursor-pointer' },
       },
     },
     compoundVariants: [
@@ -259,6 +265,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
       name=${this.rightIcon}
       size=${this.size}
       class=${styles}
+      @click=${this.handleRightIconClick}
     ></lukso-icon>`
   }
 
@@ -395,6 +402,18 @@ export class LuksoInput extends TailwindStyledElement(style) {
     this.dispatchEvent(clickEvent)
   }
 
+  private handleRightIconClick() {
+    const input = this.shadowRoot?.querySelector('input')
+    const clickEvent = new CustomEvent('on-right-icon-click', {
+      detail: {
+        input,
+      },
+      bubbles: true,
+      composed: true,
+    })
+    this.dispatchEvent(clickEvent)
+  }
+
   render() {
     const { wrapper, input, unit, rightIcon } = this.inputStyles({
       hasError: this.error !== '',
@@ -406,6 +425,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
       hasUnit: this.unit !== '',
       size: this.size,
       hasRightIcon: this.rightIcon !== '',
+      isRightIconClickable: this.isRightIconClickable,
     })
 
     return html`

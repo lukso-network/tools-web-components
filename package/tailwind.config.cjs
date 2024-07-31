@@ -158,8 +158,8 @@ module.exports = {
         backwards: 'backwards',
         both: 'both',
       },
-      borderRadius: borderRadius,
-      spacing: spacing
+      borderRadius,
+      spacing
     },
   },
   plugins: [

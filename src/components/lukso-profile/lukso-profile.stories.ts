@@ -25,7 +25,7 @@ const meta: Meta = {
       control: {
         type: 'select',
       },
-      options: ['x-small', 'small', 'medium', 'large', 'x-large'],
+      options: ['x-small', 'small', 'medium', 'large', 'x-large', '2x-large'],
       table: {
         category: 'Attributes',
       },

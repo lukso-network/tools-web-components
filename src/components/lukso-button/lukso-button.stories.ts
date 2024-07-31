@@ -214,6 +214,7 @@ const meta: Meta = {
         'buttonStyles',
         'noTransition',
         'isIcon',
+        'loadingStyles',
       ],
     },
   },

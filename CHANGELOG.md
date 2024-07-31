@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.76.0](https://github.com/lukso-network/tools-web-components/compare/v1.75.0...v1.76.0) (2024-07-31)
+
+
+### Features
+
+* size updates ([#377](https://github.com/lukso-network/tools-web-components/issues/377)) ([6d496c0](https://github.com/lukso-network/tools-web-components/commit/6d496c01635a5339e89487b9bb649bb14cc2aac5))
+
 ## [1.75.0](https://github.com/lukso-network/tools-web-components/compare/v1.74.3...v1.75.0) (2024-07-26)
 
 

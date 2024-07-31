@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.77.0](https://github.com/lukso-network/tools-web-components/compare/v1.76.0...v1.77.0) (2024-07-31)
+
+
+### Features
+
+* `profile-remove` icon ([#379](https://github.com/lukso-network/tools-web-components/issues/379)) ([852d543](https://github.com/lukso-network/tools-web-components/commit/852d543445c6b557854bfe79d599966ef032b0ab))
+
+
+### Bug Fixes
+
+* loading icon size in small button ([#381](https://github.com/lukso-network/tools-web-components/issues/381)) ([75988f3](https://github.com/lukso-network/tools-web-components/commit/75988f3b4645f8c2829d750c64bac57c5a382881))
+
 ## [1.76.0](https://github.com/lukso-network/tools-web-components/compare/v1.75.0...v1.76.0) (2024-07-31)
 
 

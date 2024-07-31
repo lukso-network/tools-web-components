@@ -163,6 +163,7 @@ import { logoGithubMono } from './icons/logo-github-mono'
 import { logoUniversalPageMono } from './icons/logo-universal-page-mono'
 import { database } from './icons/database'
 import { emptyOutline } from './icons/empty-outline'
+import { profileRemove } from './icons/profile-remove'
 
 export type IconOptions = {
   width: number
@@ -341,6 +342,7 @@ const iconMap = {
   'logo-universal-page-mono': logoUniversalPageMono,
   database,
   'empty-outline': emptyOutline,
+  'profile-remove': profileRemove,
 }
 
 @customElement('lukso-icon')

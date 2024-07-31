@@ -136,12 +136,24 @@
     @apply text-12 not-italic font-600 leading-20 font-inter;
   }
 
+  .paragraph-inter-12-bold {
+    @apply text-12 not-italic font-700 leading-20 font-inter;
+  }
+
   .paragraph-inter-10-semi-bold {
     @apply text-10 not-italic font-600 leading-12 font-inter;
   }
 
   .paragraph-inter-10-bold-uppercase {
     @apply text-10 not-italic font-700 leading-12 font-inter uppercase;
+  }
+
+  .paragraph-ptmono-24-regular {
+    @apply text-24 not-italic font-400 leading-26 font-mono;
+  }
+
+  .paragraph-ptmono-24-bold {
+    @apply text-24 not-italic font-700 leading-26 font-mono;
   }
 
   .paragraph-ptmono-16-regular {

@@ -130,7 +130,9 @@ export const borderRadius = {
 }
 
 export const spacing = {
+  18: '4,5rem', // 72px
   22: '5.5rem', // 88px
+  30: '7.5rem', // 120px
 }
 
 export type ColorMap = {

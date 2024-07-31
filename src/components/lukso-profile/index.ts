@@ -6,7 +6,13 @@ import { tv } from 'tailwind-variants'
 import { TailwindElement } from '@/shared/tailwind-element'
 import '@/components/lukso-image'
 
-export type ProfileSize = 'x-small' | 'small' | 'medium' | 'large' | 'x-large'
+export type ProfileSize =
+  | 'x-small'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'x-large'
+  | '2x-large'
 
 @customElement('lukso-profile')
 export class LuksoProfile extends TailwindElement {
@@ -73,6 +79,11 @@ export class LuksoProfile extends TailwindElement {
           wrapper: 'w-24 h-24',
           profile: 'w-24 h-24',
           identicon: 'w-7 h-7 outline-2',
+        },
+        '2x-large': {
+          wrapper: 'w-30 h-30',
+          profile: 'w-30 h-30',
+          identicon: 'w-9 h-9 outline-[2.5px]',
         },
       },
     },

@@ -25,7 +25,7 @@ const meta: Meta = {
       control: {
         type: 'select',
       },
-      options: ['x-small', 'small', 'medium', 'large', 'x-large'],
+      options: ['x-small', 'small', 'medium', 'large', 'x-large', '2x-large'],
       table: {
         category: 'Attributes',
       },
@@ -118,6 +118,12 @@ const Template = ({
     ?is-square=${isSquare}
     placeholder=${placeholder ? placeholder : nothing}
   ></lukso-profile>`
+
+/** Example of `2x-large` profile in `120x120` pixel size.*/
+export const XXLarge = Template.bind({})
+XXLarge.args = {
+  size: '2x-large',
+}
 
 /** Example of `x-large` profile in `96x96` pixel size.*/
 export const XLarge = Template.bind({})

@@ -31,7 +31,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['x-small', 'small', 'medium', 'large'],
+      options: ['x-small', 'small', 'medium', 'large', 'x-large'],
       table: {
         category: 'Attributes',
       },
@@ -172,12 +172,10 @@ OnlyName.args = {
   address: '',
 }
 
-/** Example of component that has only `address` attribute and `small` size. */
+/** Example of component that has only `address` attribute. */
 export const OnlyAddress = Template.bind({})
 OnlyAddress.args = {
   name: '',
-  size: 'small',
-  sliceBy: 4,
 }
 
 /** You can specify amount of sliced characters in the address with `slice-by` attribute. */
@@ -185,7 +183,6 @@ export const SliceAddressBy4 = Template.bind({})
 SliceAddressBy4.args = {
   name: '',
   sliceBy: 4,
-  size: 'small',
 }
 
 /** Color of the address and name can be changed via `name-color` and `address-color` attribute. */
@@ -208,4 +205,34 @@ HidePrefix.args = {
   name: 'anonymous-profile',
   maxWidth: 300,
   address: '',
+}
+
+/** Example of `x-small` size with 10px font.  */
+export const XSmall = Template.bind({})
+XSmall.args = {
+  size: 'x-small',
+}
+
+/** Example of `small` size with 12px font. */
+export const Small = Template.bind({})
+Small.args = {
+  size: 'small',
+}
+
+/** Example of `medium` size with 14px font. */
+export const Medium = Template.bind({})
+Medium.args = {
+  size: 'medium',
+}
+
+/** Example of `large` size with 16px font. */
+export const Large = Template.bind({})
+Large.args = {
+  size: 'large',
+}
+
+/** Example of `x-large` size with 24px font. */
+export const XLarge = Template.bind({})
+XLarge.args = {
+  size: 'x-large',
 }

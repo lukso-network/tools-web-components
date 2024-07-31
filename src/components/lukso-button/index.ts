@@ -186,6 +186,23 @@ export class LuksoButton extends TailwindStyledElement(style) {
     ],
   })
 
+  private loadingStyles = tv({
+    slots: {
+      icon: 'animate-spin',
+      text: '',
+    },
+    variants: {
+      size: {
+        small: {
+          text: 'ml-1',
+        },
+        medium: {
+          text: 'ml-2',
+        },
+      },
+    },
+  })
+
   private handleMouseDown() {
     // Additional check for using long press on non-primary and non-landing variants
     if (
@@ -228,15 +245,20 @@ export class LuksoButton extends TailwindStyledElement(style) {
   }
 
   loadingTemplate() {
+    const { icon, text } = this.loadingStyles({
+      size: this.size,
+    })
+
     return html`<lukso-icon
         name="spinner"
+        size=${this.size}
         color=${this.variant === 'secondary' || this.variant === 'text'
           ? 'neutral-20'
           : 'neutral-100'}
-        class="animate-spin"
+        class=${icon()}
       ></lukso-icon>
       ${this.loadingText
-        ? html`<span class="ml-2">${this.loadingText}</span>`
+        ? html`<span class=${text()}>${this.loadingText}</span>`
         : nothing}`
   }
 

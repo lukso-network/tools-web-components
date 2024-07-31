@@ -119,6 +119,12 @@ const Template = ({
     placeholder=${placeholder ? placeholder : nothing}
   ></lukso-profile>`
 
+/** Example of `2x-large` profile in `120x120` pixel size.*/
+export const XXLarge = Template.bind({})
+XXLarge.args = {
+  size: '2x-large',
+}
+
 /** Example of `x-large` profile in `96x96` pixel size.*/
 export const XLarge = Template.bind({})
 XLarge.args = {

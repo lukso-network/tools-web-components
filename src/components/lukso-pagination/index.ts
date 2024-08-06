@@ -84,7 +84,7 @@ export class LuksoPagination extends TailwindStyledElement(style) {
     const r1 = current - r
     const r2 = current + r
 
-    for (let i = r1 > 2 ? r1 : 2; i <= Math.min(max, r2); i++) items.push(i)
+    for (let i = Math.max(r1, 2); i <= Math.min(max, r2); i++) items.push(i)
 
     if (r2 + 1 < max) items.push('...')
     if (r2 < max) items.push(max)

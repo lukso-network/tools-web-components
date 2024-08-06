@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.78.0](https://github.com/lukso-network/tools-web-components/compare/v1.77.0...v1.78.0) (2024-08-06)
+
+
+### Features
+
+* pagination component ([#382](https://github.com/lukso-network/tools-web-components/issues/382)) ([f247a16](https://github.com/lukso-network/tools-web-components/commit/f247a166e6467a54f1103bf7a0e19e3498293df2))
+
 ## [1.77.0](https://github.com/lukso-network/tools-web-components/compare/v1.76.0...v1.77.0) (2024-07-31)
 
 

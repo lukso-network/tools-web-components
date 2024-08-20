@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.79.0](https://github.com/lukso-network/tools-web-components/compare/v1.78.0...v1.79.0) (2024-08-20)
+
+
+### Features
+
+* Allow custom elements in sanitize component ([#385](https://github.com/lukso-network/tools-web-components/issues/385)) ([c7d9e29](https://github.com/lukso-network/tools-web-components/commit/c7d9e29ffdbb3bea5fa7ed8e99d56828cb676778))
+
 ## [1.78.0](https://github.com/lukso-network/tools-web-components/compare/v1.77.0...v1.78.0) (2024-08-06)
 
 

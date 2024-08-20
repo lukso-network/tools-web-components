@@ -15,6 +15,10 @@ export class LuksoSanitize extends TailwindElement {
 
   private options = {
     ADD_ATTR: ['target'], // allow target attribute on anchor tags
+    CUSTOM_ELEMENT_HANDLING: {
+      tagNameCheck: /^lukso-/,
+      attributeNameCheck: /.*/,
+    },
   }
 
   sanitize() {

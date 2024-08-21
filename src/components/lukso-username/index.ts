@@ -43,8 +43,8 @@ export class LuksoUsername extends TailwindStyledElement(style) {
   @property({ type: String })
   prefix = '@'
 
-  @property({ type: Boolean, attribute: 'has-original-name' })
-  hasOriginalName = false
+  @property({ type: Boolean, attribute: 'no-transform' })
+  noTransform = false
 
   /** Width of the first 4 bytes of the address */
   private bytesWidth = 52
@@ -89,7 +89,7 @@ export class LuksoUsername extends TailwindStyledElement(style) {
   })
 
   private validateName(name?: string) {
-    if (this.hasOriginalName) {
+    if (this.noTransform) {
       return name
     }
 

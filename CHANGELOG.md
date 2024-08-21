@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.80.0](https://github.com/lukso-network/tools-web-components/compare/v1.79.0...v1.80.0) (2024-08-21)
+
+
+### Features
+
+* Add name formatting ([#387](https://github.com/lukso-network/tools-web-components/issues/387)) ([d36ae87](https://github.com/lukso-network/tools-web-components/commit/d36ae8742cd8d72f5adcdd077dff09de1cf5a2d7))
+
 ## [1.79.0](https://github.com/lukso-network/tools-web-components/compare/v1.78.0...v1.79.0) (2024-08-20)
 
 

@@ -79,6 +79,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    hasOriginalName: {
+      name: 'has-original-name',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'max-width': {
       name: 'maxWidth',
     },
@@ -97,6 +104,9 @@ const meta: Meta = {
     'custom-class': {
       name: 'customClass',
     },
+    'has-original-name': {
+      name: 'hasOriginalName',
+    },
   },
   args: {
     name: 'John',
@@ -107,8 +117,9 @@ const meta: Meta = {
     addressColor: '',
     nameColor: '',
     prefix: '@',
-    hidePrefix: false,
     customClass: '',
+    hidePrefix: false,
+    hasOriginalName: false,
   },
   parameters: {
     controls: {
@@ -121,6 +132,7 @@ const meta: Meta = {
         'hidePrefix',
         'customClass',
         'styles',
+        'hasOriginalName',
       ],
     },
     design: {
@@ -143,6 +155,7 @@ const Template = ({
   customClass,
   prefix,
   hidePrefix,
+  hasOriginalName,
 }) =>
   html`<lukso-username
     name=${name}
@@ -155,6 +168,7 @@ const Template = ({
     custom-class=${customClass}
     prefix=${prefix}
     ?hide-prefix=${hidePrefix}
+    ?has-original-name=${hasOriginalName}
   ></lukso-username>`
 
 /** By default user name is displayed as `name` prefixed with `@` character and 4 bytes of `address` */
@@ -235,4 +249,10 @@ Large.args = {
 export const XLarge = Template.bind({})
 XLarge.args = {
   size: 'x-large',
+}
+
+/** Example of unformatted name. */
+export const UnformattedName = Template.bind({})
+UnformattedName.args = {
+  hasOriginalName: true,
 }

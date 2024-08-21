@@ -43,6 +43,9 @@ export class LuksoUsername extends TailwindStyledElement(style) {
   @property({ type: String })
   prefix = '@'
 
+  @property({ type: Boolean, attribute: 'has-original-name' })
+  hasOriginalName = false
+
   /** Width of the first 4 bytes of the address */
   private bytesWidth = 52
 
@@ -85,6 +88,14 @@ export class LuksoUsername extends TailwindStyledElement(style) {
     },
   })
 
+  private validateName(name?: string) {
+    if (this.hasOriginalName) {
+      return name
+    }
+
+    return name?.toLowerCase()
+  }
+
   private addressBytesTemplate(styles: string) {
     return html`<div
       class=${styles}
@@ -104,7 +115,7 @@ export class LuksoUsername extends TailwindStyledElement(style) {
         [`color: var(--${this.nameColor})`]: this.nameColor !== '',
       })}
     >
-      ${this.hidePrefix ? nothing : this.prefix}${this.name}
+      ${this.hidePrefix ? nothing : this.prefix}${this.validateName(this.name)}
     </div>`
   }
 

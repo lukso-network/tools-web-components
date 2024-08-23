@@ -283,7 +283,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
     const target = event.target as HTMLInputElement
     const blurEvent = new CustomEvent('on-blur', {
       detail: {
-        value: target.value,
+        value: target?.value,
         event,
       },
       bubbles: false,
@@ -297,7 +297,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
     const target = event.target as HTMLInputElement
     const changeEvent = new CustomEvent('on-change', {
       detail: {
-        value: target.value,
+        value: target?.value,
         event,
       },
       bubbles: false,
@@ -308,11 +308,11 @@ export class LuksoInput extends TailwindStyledElement(style) {
 
   private async handleInput(event: Event) {
     const target = event.target as HTMLInputElement
-    this.value = target.value
+    this.value = target?.value
     await this.updateComplete
     const changeEvent = new CustomEvent('on-input', {
       detail: {
-        value: target.value,
+        value: target?.value,
         event,
       },
       bubbles: false,
@@ -326,7 +326,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
     const target = event.target as HTMLInputElement
     const keyEvent = new CustomEvent('on-key-up', {
       detail: {
-        value: target.value,
+        value: target?.value,
         event,
       },
       bubbles: true,
@@ -354,7 +354,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
     const target = event.target as HTMLInputElement
     const keyEvent = new CustomEvent('on-key-press', {
       detail: {
-        value: target.value,
+        value: target?.value,
         event,
       },
       bubbles: true,

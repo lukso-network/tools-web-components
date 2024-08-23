@@ -386,6 +386,20 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.dispatchEvent(clickEvent)
   }
 
+  private async handleKeyUp(event: CustomEvent) {
+    await this.updateComplete
+    const value = event?.detail?.value
+    const keyEvent = new CustomEvent('on-key-up', {
+      detail: {
+        value,
+        event,
+      },
+      bubbles: true,
+      composed: true,
+    })
+    this.dispatchEvent(keyEvent)
+  }
+
   private async handleReset(event: MouseEvent) {
     if (!this.hasReset) {
       return
@@ -458,6 +472,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           @on-blur=${this.handleBlur}
           @on-input-click=${this.handleInputClick}
           @on-right-icon-click=${this.handleReset}
+          @on-key-up=${this.handleKeyUp}
         ></lukso-input>
         <!-- results dropdown -->
         ${this.results && !(this.isSearching || this.isDebouncing)

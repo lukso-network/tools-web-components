@@ -200,6 +200,13 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    onKeyUp: {
+      name: 'on-key-up',
+      description: 'Emitted on key up event.',
+      table: {
+        category: 'Events',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -322,6 +329,7 @@ const Template = ({
   hideLoading,
   hasReset,
   onReset,
+  onKeyUp,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -379,6 +387,7 @@ const Template = ({
     @on-blur=${onBlur}
     @on-input-click=${onInputClick}
     @on-reset=${onReset}
+    @on-key-up=${onKeyUp}
     style="margin-bottom: ${margin}px;"
   ></lukso-search>`
 }

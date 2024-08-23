@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.81.0](https://github.com/lukso-network/tools-web-components/compare/v1.80.0...v1.81.0) (2024-08-23)
+
+
+### Features
+
+* add key up event to search ([#389](https://github.com/lukso-network/tools-web-components/issues/389)) ([6cf9fab](https://github.com/lukso-network/tools-web-components/commit/6cf9fab30c701f96c24b0b40144762a10ec89d5d))
+
 ## [1.80.0](https://github.com/lukso-network/tools-web-components/compare/v1.79.0...v1.80.0) (2024-08-21)
 
 

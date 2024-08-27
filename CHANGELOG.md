@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.81.1](https://github.com/lukso-network/tools-web-components/compare/v1.81.0...v1.81.1) (2024-08-27)
+
+
+### Bug Fixes
+
+* prevent double events in search component ([#391](https://github.com/lukso-network/tools-web-components/issues/391)) ([1f41ba0](https://github.com/lukso-network/tools-web-components/commit/1f41ba0cf8d92dfad96b4504248156c115a69a55))
+
 ## [1.81.0](https://github.com/lukso-network/tools-web-components/compare/v1.80.0...v1.81.0) (2024-08-23)
 
 

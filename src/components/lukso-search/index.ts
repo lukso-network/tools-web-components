@@ -359,6 +359,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   private async handleBlur(event: FocusEvent) {
+    event.stopPropagation() // prevent double event firing
     await this.updateComplete
     const target = event.target as HTMLInputElement
     const blurEvent = new CustomEvent('on-blur', {
@@ -373,6 +374,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   private async handleInputClick(event: MouseEvent) {
+    event.stopPropagation() // prevent double event firing
     await this.updateComplete
     const target = event.target as HTMLInputElement
     const clickEvent = new CustomEvent('on-input-click', {
@@ -387,6 +389,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   private async handleKeyUp(event: CustomEvent) {
+    event.stopPropagation() // prevent double event firing
     await this.updateComplete
     const value = event?.detail?.value
     const keyEvent = new CustomEvent('on-key-up', {

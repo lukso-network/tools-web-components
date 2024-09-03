@@ -89,6 +89,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'has-reset' })
   hasReset = false
 
+  @property({ type: Boolean, attribute: 'keep-value-on-escape-hit' })
+  keepValueOnEscapeHit = false
+
   @property({ type: Number })
   selected = undefined
 
@@ -391,7 +394,22 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   private async handleKeyUp(event: CustomEvent) {
     event.stopPropagation() // prevent double event firing
     await this.updateComplete
-    const value = event?.detail?.value
+    let value = event?.detail?.value
+
+    // if escape key is pressed we clear the input
+    if (!this.keepValueOnEscapeHit && event?.detail?.event?.key === 'Escape') {
+      value = ''
+      this.value = ''
+      const changeEvent = new CustomEvent('on-search', {
+        detail: {
+          value,
+        },
+        bubbles: false,
+        composed: true,
+      })
+      this.dispatchEvent(changeEvent)
+    }
+
     const keyEvent = new CustomEvent('on-key-up', {
       detail: {
         value,
@@ -455,7 +473,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         <lukso-input
           name=${this.name}
           type="text"
-          value=${this.value}
+          .value=${this.value}
           placeholder=${this.placeholder}
           autocomplete=${this.autocomplete}
           label=${this.label}
@@ -468,8 +486,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           right-icon="${this.hasReset && this.value ? 'close-sm' : 'search'}"
           ?is-right-icon-clickable=${this.hasReset && this.value}
           ?autofocus=${this.autofocus}
-          ?readonly=${this.isReadonly}
-          ?disabled=${this.isDisabled}
+          ?is-readonly=${this.isReadonly}
+          ?is-disabled=${this.isDisabled}
           ?is-full-width=${this.isFullWidth}
           @on-input=${this.handleSearch}
           @on-blur=${this.handleBlur}

@@ -207,6 +207,15 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    keepValueOnEscapeHit: {
+      name: 'keep-value-on-escape-hit',
+      description:
+        'Bu default `Escape` key will clear the value. Setting true prevents that.',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -253,6 +262,7 @@ const meta: Meta = {
     showNoResults: false,
     hideLoading: false,
     hasReset: false,
+    keepValueOnEscapeHit: false,
     id: 'search',
     autocomplete: 'off',
     results: [
@@ -293,6 +303,7 @@ const meta: Meta = {
         'inputStyles',
         'resultStyles',
         'hasReset',
+        'keepValueOnEscapeHit',
       ],
     },
     design: {
@@ -330,6 +341,7 @@ const Template = ({
   hasReset,
   onReset,
   onKeyUp,
+  keepValueOnEscapeHit,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -376,6 +388,7 @@ const Template = ({
     ?show-no-results=${showNoResults}
     ?hide-loading=${hideLoading}
     ?has-reset=${hasReset}
+    ?keep-value-on-escape-hit=${keepValueOnEscapeHit}
     custom-class=${customClass ? customClass : nothing}
     debounce=${debounce ? debounce : nothing}
     no-results-text=${noResultsText}

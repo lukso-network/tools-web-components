@@ -394,20 +394,13 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   private async handleKeyUp(event: CustomEvent) {
     event.stopPropagation() // prevent double event firing
     await this.updateComplete
-    let value = event?.detail?.value
+    const value = event?.detail?.value
 
     // if escape key is pressed we clear the input
     if (!this.keepValueOnEscapeHit && event?.detail?.event?.key === 'Escape') {
-      value = ''
       this.value = ''
-      const changeEvent = new CustomEvent('on-search', {
-        detail: {
-          value,
-        },
-        bubbles: false,
-        composed: true,
-      })
-      this.dispatchEvent(changeEvent)
+      event.detail.value = ''
+      this.handleSearch(event)
     }
 
     const keyEvent = new CustomEvent('on-key-up', {

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.81.3](https://github.com/lukso-network/tools-web-components/compare/v1.81.2...v1.81.3) (2024-09-05)
+
+
+### Bug Fixes
+
+* reset debounce on escape hit ([#395](https://github.com/lukso-network/tools-web-components/issues/395)) ([788242b](https://github.com/lukso-network/tools-web-components/commit/788242b71468a04d5d333618145ccfb795099826))
+
 ## [1.81.2](https://github.com/lukso-network/tools-web-components/compare/v1.81.1...v1.81.2) (2024-09-03)
 
 

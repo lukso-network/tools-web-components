@@ -110,7 +110,7 @@ const meta: Meta = {
   },
   args: {
     name: 'John',
-    address: '0x9671Db683406EE0817B1f5cB6A3b3BD111477457',
+    address: '0xcdec110f9c255357e37f46cd2687be1f7e9b02f7',
     maxWidth: 200,
     size: 'large',
     sliceBy: 8,

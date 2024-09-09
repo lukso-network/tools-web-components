@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.83.0](https://github.com/lukso-network/tools-web-components/compare/v1.82.0...v1.83.0) (2024-09-09)
+
+
+### Features
+
+* add youtube icon ([#399](https://github.com/lukso-network/tools-web-components/issues/399)) ([a4c3882](https://github.com/lukso-network/tools-web-components/commit/a4c3882796d666ae4853b45dba32892ffe8d7f85))
+
 ## [1.82.0](https://github.com/lukso-network/tools-web-components/compare/v1.81.3...v1.82.0) (2024-09-09)
 
 

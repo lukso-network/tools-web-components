@@ -164,6 +164,7 @@ import { logoUniversalPageMono } from './icons/logo-universal-page-mono'
 import { database } from './icons/database'
 import { emptyOutline } from './icons/empty-outline'
 import { profileRemove } from './icons/profile-remove'
+import { logoYoutubeMono } from './icons/logo-youtube-mono'
 
 export type IconOptions = {
   width: number
@@ -343,6 +344,7 @@ const iconMap = {
   database,
   'empty-outline': emptyOutline,
   'profile-remove': profileRemove,
+  'logo-youtube-mono': logoYoutubeMono,
 }
 
 @customElement('lukso-icon')

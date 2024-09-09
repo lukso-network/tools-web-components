@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.82.0](https://github.com/lukso-network/tools-web-components/compare/v1.81.3...v1.82.0) (2024-09-09)
+
+
+### Features
+
+* checksummed address ([#397](https://github.com/lukso-network/tools-web-components/issues/397)) ([c0b6d7c](https://github.com/lukso-network/tools-web-components/commit/c0b6d7c73598bd30190bf8838217461483b9c35f))
+
 ## [1.81.3](https://github.com/lukso-network/tools-web-components/compare/v1.81.2...v1.81.3) (2024-09-05)
 
 

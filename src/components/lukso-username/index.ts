@@ -2,6 +2,7 @@ import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { nothing } from 'lit-html'
 import { tv } from 'tailwind-variants'
+import { toChecksumAddress } from 'web3-utils'
 
 import { sliceAddress } from '@/shared/tools/slice-address'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -88,7 +89,7 @@ export class LuksoUsername extends TailwindStyledElement(style) {
     },
   })
 
-  private validateName(name?: string) {
+  private transformName(name?: string) {
     if (this.noTransform) {
       return name
     }
@@ -96,18 +97,35 @@ export class LuksoUsername extends TailwindStyledElement(style) {
     return name?.toLowerCase()
   }
 
+  private transformAddress(address?: string) {
+    if (this.noTransform) {
+      return address
+    }
+
+    try {
+      return toChecksumAddress(address)
+    } catch (error) {
+      console.warn(error)
+      return address
+    }
+  }
+
   private addressBytesTemplate(styles: string) {
+    const address = this.transformAddress(this.address)
+
     return html`<div
       class=${styles}
       style=${customStyleMap({
         [`color: var(--${this.addressColor})`]: this.addressColor !== '',
       })}
     >
-      #${this.address.slice(2, 6)}
+      #${address.slice(2, 6)}
     </div>`
   }
 
   private nameTemplate(styles: string) {
+    const name = this.transformName(this.name)
+
     return html`<div
       class=${styles}
       style=${customStyleMap({
@@ -115,18 +133,20 @@ export class LuksoUsername extends TailwindStyledElement(style) {
         [`color: var(--${this.nameColor})`]: this.nameColor !== '',
       })}
     >
-      ${this.hidePrefix ? nothing : this.prefix}${this.validateName(this.name)}
+      ${this.hidePrefix ? nothing : this.prefix}${name}
     </div>`
   }
 
   private addressTemplate(styles: string) {
+    const address = this.transformAddress(this.address)
+
     return html`<div
       class=${styles}
       style=${customStyleMap({
         [`color: var(--${this.addressColor})`]: this.addressColor !== '',
       })}
     >
-      ${sliceAddress(this.address, this.sliceBy, this.sliceBy)}
+      ${sliceAddress(address, this.sliceBy, this.sliceBy)}
     </div>`
   }
 

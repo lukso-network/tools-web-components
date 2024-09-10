@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { detectSocialMedia } from '../social-link-parser'
+import { detectSocialMedia } from '../detect-social-media'
 
-describe('socialLinkParser', () => {
+describe('detectSocialMedia', () => {
   it('should return facebook', () => {
     expect(detectSocialMedia('https://www.facebook.com/')).toBe('facebook')
     expect(detectSocialMedia('https://www.messenger.com/')).toBe('facebook')

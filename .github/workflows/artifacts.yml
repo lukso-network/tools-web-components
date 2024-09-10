@@ -87,11 +87,8 @@ jobs:
       - name: ⚙️ Install
         run: yarn
 
-      - name: ⚙️ Install Playwright
-        run: yarn playwright install --with-deps
-
       - name: 🧪 Testing
-        run: yarn test
+        run: yarn test:ci
 
   publish:
     needs:

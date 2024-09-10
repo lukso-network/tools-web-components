@@ -20,7 +20,9 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "yarn build && storybook build",
     "test-storybook": "yarn config-prepare && test-storybook",
-    "test": "yarn analyze && yarn config-prepare && yarn build && yarn build-storybook && concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'http-server storybook-static --port 6007' 'wait-on -v tcp:127.0.0.1:6007 && yarn test-storybook --url http://127.0.0.1:6007'",
+    "test:components": "yarn analyze && yarn config-prepare && yarn build && yarn build-storybook && concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'http-server storybook-static --port 6007' 'wait-on -v tcp:127.0.0.1:6007 && yarn test-storybook --url http://127.0.0.1:6007'",
+    "test": "vitest",
+    "test:ci": "vitest run",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -72,7 +74,6 @@
     "lit-analyzer": "^1.2.1",
     "lit-html": "^2.8.0",
     "npm-run-all": "^4.1.5",
-    "playwright": "^1.37.1",
     "postcss": "^8.4.29",
     "prettier": "^3.0.3",
     "react": "^18.2.0",
@@ -94,6 +95,7 @@
     "vite-plugin-dts": "^3.5.3",
     "vite-plugin-external": "^4.0.0",
     "vite-plugin-static-copy": "^0.17.0",
+    "vitest": "^2.0.5",
     "wait-on": "^7.0.1",
     "yargs": "^17.7.2"
   },

@@ -10,20 +10,22 @@ export const sliceAddress = (
   startSliceBy = 6,
   endSliceBy?: number
 ): string => {
-  if (!address) {
+  if (!address || typeof address !== 'string') {
     return ''
   }
 
   let sliceAddress = ''
-  endSliceBy = endSliceBy || startSliceBy
+  const effectiveEndSliceBy = endSliceBy || startSliceBy
 
-  if (address.length < startSliceBy + endSliceBy) {
+  if (address.length < startSliceBy + effectiveEndSliceBy) {
     return address
   }
 
   sliceAddress =
     address.length > startSliceBy + 2
-      ? `${address.slice(0, startSliceBy + 2)}...${address.slice(-endSliceBy)}`
+      ? `${address.slice(0, startSliceBy + 2)}...${address.slice(
+          -effectiveEndSliceBy
+        )}`
       : address
 
   return sliceAddress

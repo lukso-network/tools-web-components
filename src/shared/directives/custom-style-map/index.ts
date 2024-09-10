@@ -1,5 +1,5 @@
 import { nothing } from 'lit-html'
-import { Directive, directive, PartInfo, PartType } from 'lit/directive.js'
+import { Directive, directive, type PartInfo, PartType } from 'lit/directive.js'
 
 export interface StyleInfoList {
   readonly [styleList: string]: boolean

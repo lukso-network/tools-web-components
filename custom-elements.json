@@ -3288,6 +3288,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./detect-social-media"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "../assets"
           }
         }

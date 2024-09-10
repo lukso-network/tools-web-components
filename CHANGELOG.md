@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.84.0](https://github.com/lukso-network/tools-web-components/compare/v1.83.0...v1.84.0) (2024-09-10)
+
+
+### Features
+
+* add detect social media to tools ([#401](https://github.com/lukso-network/tools-web-components/issues/401)) ([32abcff](https://github.com/lukso-network/tools-web-components/commit/32abcff446c2c2b3968337998e239bf696712dc7))
+
 ## [1.83.0](https://github.com/lukso-network/tools-web-components/compare/v1.82.0...v1.83.0) (2024-09-09)
 
 

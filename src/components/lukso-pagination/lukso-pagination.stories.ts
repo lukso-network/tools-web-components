@@ -51,6 +51,15 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isMobile: {
+      name: 'is-mobile',
+      control: {
+        type: 'boolean',
+      },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onPageChange: {
       name: 'on-page-change',
       description: 'Event emitted when the page is changed.',
@@ -64,28 +73,46 @@ const meta: Meta = {
     'total-pages': {
       name: 'totalPages',
     },
+    'is-mobile': {
+      name: 'isMobile',
+    },
   },
   args: {
     size: 'small',
     variant: 'secondary',
     currentPage: 1,
     totalPages: 12,
+    isMobile: false,
   },
   parameters: {
     controls: {
-      exclude: ['styles', 'currentPage', 'totalPages', 'pagination'],
+      exclude: [
+        'styles',
+        'currentPage',
+        'totalPages',
+        'pagination',
+        'isMobile',
+      ],
     },
   },
 }
 
 export default meta
 
-const Template = ({ size, currentPage, totalPages, variant, onPageChange }) =>
+const Template = ({
+  size,
+  currentPage,
+  totalPages,
+  variant,
+  onPageChange,
+  isMobile,
+}) =>
   html`<lukso-pagination
     size=${size ? size : nothing}
     variant=${variant ? variant : nothing}
     current-page=${currentPage ? currentPage : nothing}
     total-pages=${totalPages ? totalPages : nothing}
+    ?is-mobile=${isMobile}
     @on-page-change=${onPageChange}
   ></lukso-pagination>`
 
@@ -150,4 +177,11 @@ NavTextVariant.args = {
 export const LinkVariant = Template.bind({})
 LinkVariant.args = {
   variant: 'link',
+}
+
+/** Example mobile pagination. */
+export const Mobile = Template.bind({})
+Mobile.args = {
+  isMobile: true,
+  size: 'medium',
 }

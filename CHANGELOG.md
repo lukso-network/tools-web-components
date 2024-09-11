@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.85.0](https://github.com/lukso-network/tools-web-components/compare/v1.84.0...v1.85.0) (2024-09-10)
+
+
+### Features
+
+* mobile pagination ([#403](https://github.com/lukso-network/tools-web-components/issues/403)) ([7ebadec](https://github.com/lukso-network/tools-web-components/commit/7ebadec2f1de0f377f6c5cfa4e73b2d3ef74431e))
+
 ## [1.84.0](https://github.com/lukso-network/tools-web-components/compare/v1.83.0...v1.84.0) (2024-09-10)
 
 

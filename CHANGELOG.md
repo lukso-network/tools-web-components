@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.85.1](https://github.com/lukso-network/tools-web-components/compare/v1.85.0...v1.85.1) (2024-09-11)
+
+
+### Bug Fixes
+
+* spacing of icon button ([#405](https://github.com/lukso-network/tools-web-components/issues/405)) ([9a50077](https://github.com/lukso-network/tools-web-components/commit/9a5007726d974dddef7feecd0c4e1ece2fd5ac51))
+
 ## [1.85.0](https://github.com/lukso-network/tools-web-components/compare/v1.84.0...v1.85.0) (2024-09-10)
 
 

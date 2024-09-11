@@ -176,7 +176,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
       {
         isIcon: true,
         size: ['medium'],
-        class: 'px-2',
+        class: 'px-3',
       },
       {
         isIcon: true,

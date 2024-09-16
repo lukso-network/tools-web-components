@@ -19,6 +19,7 @@ const meta: Meta = {
         'primary',
         'secondary',
         'landing',
+        'success',
         'text',
         'nav-button',
         'nav-text',
@@ -301,6 +302,12 @@ Landing.parameters = {
     type: 'figma',
     url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9912&t=AGmdbG8fXRENuU3o-4',
   },
+}
+
+/** Example of `success` variant.  */
+export const Success = Template.bind({})
+Success.args = {
+  variant: 'success',
 }
 
 /** Example of `text` variant.  */

@@ -16,6 +16,7 @@ export type ButtonVariant =
   | 'nav-button'
   | 'nav-text'
   | 'link'
+  | 'success'
 export type ButtonType = 'submit' | 'reset' | 'button'
 export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
 
@@ -112,6 +113,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
         'nav-button': 'nav-apax-12-medium-uppercase text-purple-41 !text-12',
         'nav-text':
           'bg-transparent border-none nav-apax-12-medium-uppercase text-purple-63 hover:text-purple-41 !text-12 transition',
+        success: `bg-green-54 border-green-54 text-neutral-100
+            disabled:hover:!bg-green-54 disabled:hover:!border-green-54
+            hover:bg-green-63 hover:border-green-63 before:bg-green-54`,
       },
       size: {
         medium: 'h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12',
@@ -151,7 +155,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
       },
       {
         size: ['medium'],
-        color: ['primary', 'landing'],
+        color: ['primary', 'landing', 'success'],
         class:
           'hover:shadow-button-medium-hover-primary active:shadow-button-medium-press-primary',
       },
@@ -163,7 +167,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
       },
       {
         size: ['small'],
-        color: ['primary', 'landing'],
+        color: ['primary', 'landing', 'success'],
         class:
           'hover:shadow-button-small-hover-primary active:shadow-button-small-press-primary',
       },

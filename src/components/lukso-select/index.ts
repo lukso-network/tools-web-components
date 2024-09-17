@@ -6,6 +6,8 @@ import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
+import '@/components/lukso-dropdown'
+import '@/components/lukso-dropdown-option'
 import style from './style.scss?inline'
 import { uniqId } from '@/shared/tools/uniq-id'
 
@@ -145,67 +147,6 @@ export class LuksoSelect extends TailwindStyledElement(style) {
           'paragraph-inter-14-semi-bold rounded-8 py-[2px] px-[10px] ml-3',
       },
     },
-  })
-
-  private dropdownWrapperStyles = tv({
-    base: `bg-neutral-100 border w-auto border-neutral-90 shadow-1xl z-50
-      flex absolute flex-col gap-1 overflow-y-auto max-h-64 `,
-    variants: {
-      openTop: {
-        true: 'bottom-[48px] mb-2 mt-0',
-      },
-      size: {
-        small: 'rounded-8 p-2 mt-1 max-w-[200px] min-w-[120px]',
-        medium: 'rounded-12 p-3 mt-2 max-w-[300px] min-w-[200px]',
-      },
-      isRight: {
-        true: 'right-0',
-      },
-    },
-  })
-
-  private optionsStyles = tv({
-    base: `text-neutral-20 cursor-pointer
-      whitespace-nowrap flex items-center truncate`,
-    variants: {
-      isSelected: {
-        true: 'bg-neutral-95',
-      },
-      isActive: {
-        true: 'bg-neutral-98',
-      },
-      isGroup: {
-        true: '',
-      },
-      size: {
-        small: 'paragraph-inter-12-regular rounded-4 py-1 px-2 min-h-[28px]',
-        medium: 'paragraph-inter-14-regular rounded-8 p-2 min-h-[38px]',
-      },
-      isDisabled: {
-        true: 'opacity-60 cursor-not-allowed',
-      },
-      isReadonly: {
-        true: 'cursor-not-allowed',
-        false: 'hover:bg-neutral-98',
-      },
-    },
-    compoundVariants: [
-      {
-        isGroup: true,
-        size: 'small',
-        class: 'pl-3',
-      },
-      {
-        isGroup: true,
-        size: 'medium',
-        class: 'pl-4',
-      },
-      {
-        isReadonly: false,
-        isSelected: true,
-        class: 'hover:bg-neutral-95',
-      },
-    ],
   })
 
   private iconStyles = tv({
@@ -354,19 +295,14 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       }
     }
 
-    return html`${this.dropdownWrapperTemplate(optionTemplates)}`
-  }
-
-  dropdownWrapperTemplate(
-    innerTemplate: TemplateResult<1> | TemplateResult<1>[]
-  ) {
-    const dropdownWrapperStyles = this.dropdownWrapperStyles({
-      openTop: this.openTop,
-      size: this.size,
-      isRight: this.isRight,
-    })
-
-    return html`<div class="${dropdownWrapperStyles}">${innerTemplate}</div>`
+    return html`<lukso-dropdown
+      size=${this.size}
+      is-open
+      is-open-on-outside-click
+      ?is-right=${this.isRight}
+      ?open-top=${this.openTop}
+      >${optionTemplates}</lukso-dropdown
+    >`
   }
 
   optionGroupedStringTemplate(
@@ -387,46 +323,36 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   }
 
   optionStringTemplate(option: SelectStringOption, index: number) {
-    const optionsStyles = this.optionsStyles({
-      isSelected: !!this.valueParsed?.find(value => value.id === option.id),
-      isActive:
-        this.selected === index + 1 &&
-        !this.valueParsed?.find(value => value.id === option.id),
-      size: this.size,
-      isGroup: !!option.group,
-      isDisabled: this.isDisabled,
-      isReadonly: this.isReadonly,
-    })
-
-    return html`<div
+    return html`<lukso-dropdown-option
       data-id="${option.id}"
       data-index="${index + 1}"
-      class="${optionsStyles}"
+      ?is-selected=${!!this.valueParsed?.find(value => value.id === option.id)}
+      ?is-active=${this.selected === index + 1 &&
+      !this.valueParsed?.find(value => value.id === option.id)}
+      size=${this.size}
+      ?is-group=${!!option.group}
+      ?is-disabled=${this.isDisabled}
+      ?is-readonly=${this.isReadonly}
       @click=${() => this.handleSelect(option)}
     >
       ${this.optionStringValue(option)}
-    </div>`
+    </lukso-dropdown-option>`
   }
 
   optionProfileTemplate(option: SelectProfileOption, index: number) {
-    const optionsStyles = this.optionsStyles({
-      isSelected: !!this.valueParsed?.find(value => value.id === option.id),
-      isActive:
-        this.selected === index + 1 &&
-        !this.valueParsed?.find(value => value.id === option.id),
-      size: this.size,
-      isDisabled: this.isDisabled,
-      isReadonly: this.isReadonly,
-    })
-
-    return html`<div
+    return html`<lukso-dropdown-option
       data-id="${option.id}"
       data-index="${index + 1}"
-      class="${optionsStyles}"
+      ?is-selected=${!!this.valueParsed?.find(value => value.id === option.id)}
+      ?is-active=${this.selected === index + 1 &&
+      !this.valueParsed?.find(value => value.id === option.id)}
+      size=${this.size}
+      ?is-disabled=${this.isDisabled}
+      ?is-readonly=${this.isReadonly}
       @click=${() => this.handleSelect(option)}
     >
       ${this.optionProfileValue(option)}
-    </div>`
+    </lukso-dropdown-option>`
   }
 
   private optionStringValue(option: SelectStringOption) {

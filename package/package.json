@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.77.0",
+  "version": "1.85.1",
   "type": "module",
   "files": [
     "dist",
@@ -94,6 +94,16 @@
       "require": "./dist/components/lukso-checkbox/index.cjs",
       "import": "./dist/components/lukso-checkbox/index.js",
       "types": "./dist/components/lukso-checkbox/index.d.ts"
+    },
+    "./dist/components/lukso-dropdown": {
+      "require": "./dist/components/lukso-dropdown/index.cjs",
+      "import": "./dist/components/lukso-dropdown/index.js",
+      "types": "./dist/components/lukso-dropdown/index.d.ts"
+    },
+    "./dist/components/lukso-dropdown-option": {
+      "require": "./dist/components/lukso-dropdown-option/index.cjs",
+      "import": "./dist/components/lukso-dropdown-option/index.js",
+      "types": "./dist/components/lukso-dropdown-option/index.d.ts"
     },
     "./dist/components/lukso-footer": {
       "require": "./dist/components/lukso-footer/index.cjs",

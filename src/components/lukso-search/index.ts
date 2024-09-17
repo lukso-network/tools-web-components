@@ -7,6 +7,8 @@ import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
 import '@/components/lukso-input'
+import '@/components/lukso-dropdown'
+import '@/components/lukso-dropdown-option'
 import style from './style.scss?inline'
 
 import type { Address, InputSize } from '@/shared/types'
@@ -110,47 +112,17 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @state()
   private searchTerm = ''
 
-  private inputStyles = tv({
+  private styles = tv({
     slots: {
-      dropdownWrapper:
-        'bg-neutral-100 border border-neutral-90 shadow-1xl z-50 flex absolute w-full flex-col gap-1 overflow-y-auto max-h-64',
       loading: 'bg-neutral-95 w-full animate-pulse animation-delay-none',
     },
     variants: {
       size: {
         small: {
-          dropdownWrapper: 'rounded-8 p-2 mt-1',
           loading: 'h-7 rounded-4',
         },
         medium: {
-          dropdownWrapper: 'rounded-12 p-3 mt-2',
           loading: 'h-10 rounded-8',
-        },
-      },
-    },
-  })
-
-  private resultStyles = tv({
-    slots: {
-      resultString: 'text-neutral-20 cursor-pointer hover:bg-neutral-98',
-      resultProfile:
-        'cursor-pointer hover:bg-neutral-98 flex gap-2 items-center',
-    },
-    variants: {
-      selected: {
-        true: {
-          resultString: 'bg-neutral-98',
-          resultProfile: 'bg-neutral-98',
-        },
-      },
-      size: {
-        small: {
-          resultString: 'paragraph-inter-12-regular rounded-4 py-1 px-2',
-          resultProfile: 'rounded-4 py-1 px-2',
-        },
-        medium: {
-          resultString: 'paragraph-inter-14-regular rounded-8 p-2',
-          resultProfile: 'rounded-8 p-2',
         },
       },
     },
@@ -210,84 +182,94 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       }
     }
 
-    return html`${this.dropdownWrapperTemplate(resultTemplates)}`
+    return html`<lukso-dropdown
+      size=${this.size}
+      is-open
+      is-open-on-outside-click
+      is-full-width
+      >${resultTemplates}</lukso-dropdown
+    >`
   }
 
   noResultsTemplate() {
-    return html`${this.dropdownWrapperTemplate(
-      html`<div class="paragraph-inter-14-semi-bold text-neutral-20 pl-1">
+    return html`<lukso-dropdown
+      size=${this.size}
+      is-open
+      is-open-on-outside-click
+      is-full-width
+      >${html`<div class="paragraph-inter-14-semi-bold text-neutral-20 pl-1">
         ${this.noResultsText}
-      </div>`
-    )}`
+      </div>`}</lukso-dropdown
+    >`
   }
 
   loadingTemplate() {
-    const { loading } = this.inputStyles({
+    const { loading } = this.styles({
       size: this.size,
     })
 
     // when `showNoResults` is enabled we show just one placeholder line
     if (this.showNoResults) {
-      return html`${this.dropdownWrapperTemplate(html`
-        <div role="status" class="flex flex-col gap-1">
-          <div class=${loading()}></div>
-        </div>
-      `)}`
+      return html`<lukso-dropdown
+        size=${this.size}
+        is-open
+        is-open-on-outside-click
+        is-full-width
+        >${html`
+          <div role="status" class="flex flex-col gap-1">
+            <div class=${loading()}></div>
+          </div>
+        `}</lukso-dropdown
+      >`
     }
 
     // when no results or there is more then dropdown size we show 5 placeholder lines
     if (this.resultsParsed.length === 0 || this.resultsParsed.length > 5) {
-      return html`${this.dropdownWrapperTemplate(html`
-        <div role="status" class="flex flex-col gap-1">
-          ${[...Array(5)].map(() => html`<div class=${loading()}></div>`)}
-        </div>
-      `)}`
+      return html`<lukso-dropdown
+        size=${this.size}
+        is-open
+        is-open-on-outside-click
+        is-full-width
+        >${html`
+          <div role="status" class="flex flex-col gap-1">
+            ${[...Array(5)].map(() => html`<div class=${loading()}></div>`)}
+          </div>
+        `}</lukso-dropdown
+      >`
     }
 
     // when show placeholder lines based on the number of results
-    return html`${this.dropdownWrapperTemplate(html`
-      <div role="status" class="flex flex-col gap-1">
-        ${this.resultsParsed.map(() => html`<div class=${loading()}></div>`)}
-      </div>
-    `)}`
-  }
-
-  dropdownWrapperTemplate(
-    innerTemplate: TemplateResult<1> | TemplateResult<1>[]
-  ) {
-    const { dropdownWrapper } = this.inputStyles({
-      size: this.size,
-    })
-
-    return html`<div class=${dropdownWrapper()}>${innerTemplate}</div>`
+    return html`<lukso-dropdown
+      size=${this.size}
+      is-open
+      is-open-on-outside-click
+      is-full-width
+      >${html`
+        <div role="status" class="flex flex-col gap-1">
+          ${this.resultsParsed.map(() => html`<div class=${loading()}></div>`)}
+        </div>
+      `}</lukso-dropdown
+    >`
   }
 
   resultStringTemplate(result: SearchStringResult, index: number) {
-    const { resultString } = this.resultStyles({
-      selected: this.selected === index + 1,
-      size: this.size,
-    })
-
-    return html`<div
+    return html`<lukso-dropdown-option
       data-id="${result.id}"
       data-index="${index + 1}"
-      class=${resultString()}
+      ?is-selected=${this.selected === index + 1}
+      size=${this.size}
       @click=${() => this.handleSelect(result)}
     >
       ${result.value}
-    </div>`
+    </lukso-dropdown-option>`
   }
 
   resultProfileTemplate(result: SearchProfileResult, index: number) {
-    const { resultProfile } = this.resultStyles({
-      selected: this.selected === index + 1,
-      size: this.size,
-    })
-
-    return html`<div
+    return html`<lukso-dropdown-option
       data-id="${result.address}"
       data-index="${index + 1}"
-      class=${resultProfile()}
+      ?is-selected=${this.selected === index + 1}
+      size=${this.size}
       @click=${() => this.handleSelect(result)}
     >
       <lukso-profile
@@ -303,7 +285,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         max-width="300"
         size="medium"
       ></lukso-username>
-    </div>`
+    </lukso-dropdown-option>`
   }
 
   private async handleOutsideDropdownClick(event: Event) {

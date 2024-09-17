@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.86.0](https://github.com/lukso-network/tools-web-components/compare/v1.85.1...v1.86.0) (2024-09-17)
+
+
+### Features
+
+* dropdown component ([#409](https://github.com/lukso-network/tools-web-components/issues/409)) ([f3b6864](https://github.com/lukso-network/tools-web-components/commit/f3b6864fa3845c84c316ab591db11ca29560f5b4))
+* success variant for button ([#407](https://github.com/lukso-network/tools-web-components/issues/407)) ([b64262b](https://github.com/lukso-network/tools-web-components/commit/b64262b52a68e88b31f57ba9741f148d203eb078))
+
 ## [1.85.1](https://github.com/lukso-network/tools-web-components/compare/v1.85.0...v1.85.1) (2024-09-11)
 
 

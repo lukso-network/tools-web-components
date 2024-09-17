@@ -29,7 +29,7 @@ export class LuksoDropdownOption extends TailwindStyledElement(style) {
 
   private styles = tv({
     base: `text-neutral-20 cursor-pointer select-none
-      whitespace-nowrap flex items-center truncate`,
+      whitespace-nowrap flex items-center truncate gap-2`,
     variants: {
       isSelected: {
         true: 'bg-neutral-95',

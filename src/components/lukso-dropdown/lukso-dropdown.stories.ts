@@ -63,6 +63,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isFullWidth: {
+      name: 'is-full-width',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-open': {
       name: 'isOpen',
     },
@@ -78,6 +85,9 @@ const meta: Meta = {
     'trigger-id': {
       name: 'triggerId',
     },
+    'is-full-width': {
+      name: 'isFullWidth',
+    },
   },
   args: {
     size: 'medium',
@@ -86,6 +96,7 @@ const meta: Meta = {
     openTop: false,
     isRight: false,
     isOpenOnOutsideClick: true,
+    isFullWidth: false,
     float: 'left',
     triggerId: '',
   },
@@ -102,6 +113,7 @@ const meta: Meta = {
         '_isOpen',
         'isOpenOnOutsideClick',
         'triggerId',
+        'isFullWidth',
       ],
     },
     design: {
@@ -124,6 +136,7 @@ const Template = ({
   isOpen,
   isOpenOnOutsideClick,
   triggerId,
+  isFullWidth,
 }) => {
   return html`<div
     class="relative"
@@ -139,6 +152,7 @@ const Template = ({
       ?open-top=${openTop}
       ?is-right=${isRight}
       ?is-open-on-outside-click=${isOpenOnOutsideClick}
+      ?is-full-width=${isFullWidth}
       size=${size ? size : nothing}
     >
       <lukso-dropdown-option size=${size ? size : nothing}

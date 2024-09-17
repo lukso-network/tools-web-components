@@ -31,6 +31,9 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-right' })
   isRight = false
 
+  @property({ type: Boolean, attribute: 'is-full-width' })
+  isFullWidth = false
+
   @property({ type: String })
   size: InputSize = 'medium'
 
@@ -46,22 +49,35 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   }
 
   private styles = tv({
-    base: `bg-neutral-100 border w-auto border-neutral-90 shadow-1xl z-50
+    base: `bg-neutral-100 border w-full border-neutral-90 shadow-1xl z-50
       flex absolute flex-col gap-1 overflow-y-auto max-h-64 `,
     variants: {
       openTop: {
         true: 'bottom-[48px] mb-2 mt-0',
       },
       size: {
-        small:
-          'rounded-8 p-2 mt-1 max-w-[200px] min-w-[120px] paragraph-inter-12-regular',
-        medium:
-          'rounded-12 p-3 mt-2 max-w-[300px] min-w-[200px] paragraph-inter-14-regular',
+        small: 'rounded-8 p-2 mt-1 min-w-[120px] paragraph-inter-12-regular',
+        medium: 'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-14-regular',
       },
       isRight: {
         true: 'right-0',
       },
+      isFullWidth: {
+        true: 'w-full',
+      },
     },
+    compoundVariants: [
+      {
+        isFullWidth: false,
+        size: 'small',
+        class: 'max-w-[200px]',
+      },
+      {
+        isFullWidth: false,
+        size: 'medium',
+        class: 'max-w-[300px]',
+      },
+    ],
   })
 
   connectedCallback() {
@@ -101,6 +117,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       openTop: this.openTop,
       size: this.size,
       isRight: this.isRight,
+      isFullWidth: this.isFullWidth,
     })
 
     if (!this._isOpen) {

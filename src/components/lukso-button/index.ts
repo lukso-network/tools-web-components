@@ -17,6 +17,8 @@ export type ButtonVariant =
   | 'nav-text'
   | 'link'
   | 'success'
+  | 'danger'
+  | 'warning'
 export type ButtonType = 'submit' | 'reset' | 'button'
 export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
 
@@ -116,6 +118,12 @@ export class LuksoButton extends TailwindStyledElement(style) {
         success: `bg-green-54 border-green-54 text-neutral-100
             disabled:hover:!bg-green-54 disabled:hover:!border-green-54
             hover:bg-green-63 hover:border-green-63 before:bg-green-54`,
+        danger: `bg-red-55 border-red-55 text-neutral-100
+          disabled:hover:!bg-red-55 disabled:hover:!border-red-55
+          hover:bg-red-65 hover:border-red-65 before:bg-red-55`,
+        warning: `bg-yellow-55 border-yellow-55 text-neutral-100
+          disabled:hover:!bg-yellow-55 disabled:hover:!border-yellow-55
+          hover:bg-yellow-65 hover:border-yellow-65 before:bg-yellow-55`,
       },
       size: {
         medium: 'h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12',
@@ -155,7 +163,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
       },
       {
         size: ['medium'],
-        color: ['primary', 'landing', 'success'],
+        color: ['primary', 'landing', 'success', 'danger', 'warning'],
         class:
           'hover:shadow-button-medium-hover-primary active:shadow-button-medium-press-primary',
       },
@@ -167,7 +175,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
       },
       {
         size: ['small'],
-        color: ['primary', 'landing', 'success'],
+        color: ['primary', 'landing', 'success', 'danger', 'warning'],
         class:
           'hover:shadow-button-small-hover-primary active:shadow-button-small-press-primary',
       },

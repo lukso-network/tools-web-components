@@ -20,6 +20,8 @@ const meta: Meta = {
         'secondary',
         'landing',
         'success',
+        'danger',
+        'warning',
         'text',
         'nav-button',
         'nav-text',
@@ -308,6 +310,18 @@ Landing.parameters = {
 export const Success = Template.bind({})
 Success.args = {
   variant: 'success',
+}
+
+/** Example of `danger` variant.  */
+export const Danger = Template.bind({})
+Danger.args = {
+  variant: 'danger',
+}
+
+/** Example of `warning` variant.  */
+export const Warning = Template.bind({})
+Warning.args = {
+  variant: 'warning',
 }
 
 /** Example of `text` variant.  */

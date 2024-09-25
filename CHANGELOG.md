@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.87.0](https://github.com/lukso-network/tools-web-components/compare/v1.86.0...v1.87.0) (2024-09-25)
+
+
+### Features
+
+* add danger and warning button variant ([#411](https://github.com/lukso-network/tools-web-components/issues/411)) ([7b689e4](https://github.com/lukso-network/tools-web-components/commit/7b689e4d11a0fdaf9dac08be06e9d526cc7a9434))
+* textarea component ([#410](https://github.com/lukso-network/tools-web-components/issues/410)) ([95a4f08](https://github.com/lukso-network/tools-web-components/commit/95a4f081d012aca763200f642a496fb7cef8fa54))
+
 ## [1.86.0](https://github.com/lukso-network/tools-web-components/compare/v1.85.1...v1.86.0) (2024-09-17)
 
 

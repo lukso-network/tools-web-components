@@ -1,8 +1,8 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { tv } from 'tailwind-variants'
 
 import { TailwindElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
 
 export type ModalSizes = 'small' | 'medium' | 'full' | 'auto'
 
@@ -14,10 +14,39 @@ export class LuksoModal extends TailwindElement {
   @property({ type: String })
   size: ModalSizes = 'small'
 
-  private wrapperStyles = `opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6  animation-duration-200`
-  private openStyles = `flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh] animate-fade-in`
-  private overlayStyles = `bg-[rgba(36,53,66,0.8)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999]`
-  private dialogStyles = `bg-neutral-98 rounded-12 shadow-neutral-drop-shadow-3xl z-[1001]`
+  private styles = tv({
+    slots: {
+      wrapper:
+        'opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6  animation-duration-200',
+      overlay:
+        'bg-[rgba(36,53,66,0.8)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999]',
+      dialog:
+        'bg-neutral-98 rounded-12 shadow-neutral-drop-shadow-3xl z-[1001]',
+    },
+    variants: {
+      isOpen: {
+        true: {
+          wrapper:
+            'flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh] animate-fade-in',
+        },
+        false: {
+          wrapper: 'invisible',
+        },
+      },
+      size: {
+        small: {
+          dialog: 'w-[352px]',
+        },
+        medium: {
+          dialog: 'w-[849px]',
+        },
+        full: {
+          dialog: 'w-full',
+        },
+        auto: {},
+      },
+    },
+  })
 
   private close() {
     this.isOpen = false
@@ -33,29 +62,15 @@ export class LuksoModal extends TailwindElement {
   }
 
   render() {
+    const { wrapper, overlay, dialog } = this.styles({
+      isOpen: this.isOpen,
+      size: this.size,
+    })
+
     return html`
-      <div
-        data-testid="modal"
-        class=${customClassMap({
-          [this.wrapperStyles]: true,
-          [this.openStyles]: this.isOpen,
-          ['invisible']: !this.isOpen,
-        })}
-      >
-        <div
-          class=${customClassMap({
-            [this.overlayStyles]: true,
-          })}
-          @click=${this.handleBackdropClick}
-        ></div>
-        <div
-          class=${customClassMap({
-            [this.dialogStyles]: true,
-            ['w-[352px]']: this.size === 'small',
-            ['w-[849px]']: this.size === 'medium',
-            ['w-full']: this.size === 'full',
-          })}
-        >
+      <div data-testid="modal" class=${wrapper()}>
+        <div class=${overlay()} @click=${this.handleBackdropClick}></div>
+        <div class=${dialog()}>
           <slot></slot>
         </div>
       </div>

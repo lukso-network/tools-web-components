@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.88.0](https://github.com/lukso-network/tools-web-components/compare/v1.87.0...v1.88.0) (2024-10-02)
+
+
+### Features
+
+* modal overlay color ([#413](https://github.com/lukso-network/tools-web-components/issues/413)) ([4ac198e](https://github.com/lukso-network/tools-web-components/commit/4ac198e4f7372e5fc6fbd777cf04571f5c352227))
+
 ## [1.87.0](https://github.com/lukso-network/tools-web-components/compare/v1.86.0...v1.87.0) (2024-09-25)
 
 

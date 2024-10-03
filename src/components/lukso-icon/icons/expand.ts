@@ -16,12 +16,34 @@ export const expand = (options: IconOptions) => {
     })}
   >
     <path
-      d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z"
+      d="M4 12V7C4 5.34315 5.34315 4 7 4H12M20 12V17C20 18.6569 18.6569 20 17 20H12"
       stroke="var(--${options.color})"
       stroke-width="${options.strokeWidth}"
+      stroke-linecap="round"
     />
     <path
-      d="M6 6.00012L18 18.0001"
+      d="M19.9999 8C19.9999 6.17755 20 4 20 4H16"
+      stroke="var(--${options.color})"
+      stroke-width="${options.strokeWidth}"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M14 10L20 4"
+      stroke="var(--${options.color})"
+      stroke-width="${options.strokeWidth}"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M4.00007 16C4.00007 17.8224 4 20 4 20L8 20"
+      stroke="var(--${options.color})"
+      stroke-width="${options.strokeWidth}"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M10 14L4 20"
       stroke="var(--${options.color})"
       stroke-width="${options.strokeWidth}"
       stroke-linecap="round"

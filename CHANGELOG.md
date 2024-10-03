@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.88.1](https://github.com/lukso-network/tools-web-components/compare/v1.88.0...v1.88.1) (2024-10-03)
+
+
+### Bug Fixes
+
+* expand icon ([#415](https://github.com/lukso-network/tools-web-components/issues/415)) ([7b1c792](https://github.com/lukso-network/tools-web-components/commit/7b1c7929ac070d6bef0fb1da53b48eee73db7032))
+
 ## [1.88.0](https://github.com/lukso-network/tools-web-components/compare/v1.87.0...v1.88.0) (2024-10-02)
 
 

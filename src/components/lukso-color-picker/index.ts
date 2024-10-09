@@ -52,7 +52,7 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
   size: InputSize = 'medium'
 
   @state()
-  private hasHocus = false
+  private hasFocus = false
 
   @state()
   private hasHighlight = false
@@ -214,13 +214,13 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
 
   private handleFocus() {
     if (!this.isReadonly && !this.isDisabled) {
-      this.hasHocus = true
+      this.hasFocus = true
       this.hasHighlight = true
     }
   }
 
   private async handleBlur(event: FocusEvent) {
-    this.hasHocus = false
+    this.hasFocus = false
     this.hasHighlight = false
     await this.updateComplete
     const target = event.target as HTMLInputElement

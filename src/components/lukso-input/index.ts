@@ -81,7 +81,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
   isRightIconClickable = false
 
   @state()
-  private hasHocus = false
+  private hasFocus = false
 
   @state()
   private hasHighlight = false
@@ -271,13 +271,13 @@ export class LuksoInput extends TailwindStyledElement(style) {
 
   private handleFocus() {
     if (!this.isReadonly && !this.isDisabled) {
-      this.hasHocus = true
+      this.hasFocus = true
       this.hasHighlight = true
     }
   }
 
   private async handleBlur(event: FocusEvent) {
-    this.hasHocus = false
+    this.hasFocus = false
     this.hasHighlight = false
     await this.updateComplete
     const target = event.target as HTMLInputElement
@@ -370,7 +370,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
   }
 
   private handleMouseOut() {
-    if (!this.hasHocus) {
+    if (!this.hasFocus) {
       this.hasHighlight = false
     }
   }

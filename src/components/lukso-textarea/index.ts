@@ -63,7 +63,7 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
   rows = 4
 
   @state()
-  private hasHocus = false
+  private hasFocus = false
 
   @state()
   private hasHighlight = false
@@ -190,13 +190,13 @@ ${this.value}</textarea
 
   private handleFocus() {
     if (!this.isReadonly && !this.isDisabled) {
-      this.hasHocus = true
+      this.hasFocus = true
       this.hasHighlight = true
     }
   }
 
   private async handleBlur(event: FocusEvent) {
-    this.hasHocus = false
+    this.hasFocus = false
     this.hasHighlight = false
     await this.updateComplete
     const target = event.target as HTMLInputElement
@@ -289,7 +289,7 @@ ${this.value}</textarea
   }
 
   private handleMouseOut() {
-    if (!this.hasHocus) {
+    if (!this.hasFocus) {
       this.hasHighlight = false
     }
   }

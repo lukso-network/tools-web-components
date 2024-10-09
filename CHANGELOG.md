@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.89.0](https://github.com/lukso-network/tools-web-components/compare/v1.88.1...v1.89.0) (2024-10-09)
+
+
+### Features
+
+* color picker component ([#417](https://github.com/lukso-network/tools-web-components/issues/417)) ([70dd05f](https://github.com/lukso-network/tools-web-components/commit/70dd05f96f45cb42a61b81f2573f08d5880b21b8))
+
 ## [1.88.1](https://github.com/lukso-network/tools-web-components/compare/v1.88.0...v1.88.1) (2024-10-03)
 
 

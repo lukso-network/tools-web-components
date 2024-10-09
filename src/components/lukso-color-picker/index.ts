@@ -183,7 +183,7 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
         type="color"
         ?disabled=${this.isDisabled || this.isReadonly ? true : undefined}
         class=${colorInputStyles}
-        @input=${this.handleChangeColor}
+        @input=${this.handleInput}
       />
     </div>`
   }
@@ -233,12 +233,6 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
       composed: true,
     })
     this.dispatchEvent(blurEvent)
-  }
-
-  private async handleChangeColor(event: Event) {
-    await this.updateComplete
-    const target = event.target as HTMLInputElement
-    this.value = target?.value
   }
 
   private async handleChange(event: Event) {

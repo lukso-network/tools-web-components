@@ -1,6 +1,7 @@
 import { html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
+import { styleMap } from 'lit/directives/style-map.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
@@ -9,8 +10,8 @@ import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
 
-@customElement('lukso-textarea')
-export class LuksoTextarea extends TailwindStyledElement(style) {
+@customElement('lukso-color-picker')
+export class LuksoColorPicker extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''
 
@@ -18,16 +19,13 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
   name = ''
 
   @property({ type: String })
-  placeholder = ''
+  placeholder = '#000000'
 
   @property({ type: String })
   label = ''
 
   @property({ type: String })
   id = ''
-
-  @property({ type: String })
-  ref: string | undefined = undefined
 
   @property({ type: String })
   description = ''
@@ -50,17 +48,8 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
   @property({ type: Boolean })
   autofocus = false
 
-  @property({ type: Boolean })
-  borderless = false
-
-  @property({ type: Boolean, attribute: 'is-non-resizable' })
-  isNonResizable = false
-
   @property({ type: String })
   size: InputSize = 'medium'
-
-  @property({ type: Number })
-  rows = 4
 
   @state()
   private hasFocus = false
@@ -70,36 +59,43 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
 
   private styles = tv({
     slots: {
-      wrapper: 'group flex',
+      wrapper: 'group grid border overflow-hidden',
       input: `bg-neutral-100 border-solid placeholder:text-neutral-70 w-full
         outline-none transition transition-all duration-150 appearance-none`,
+      color: 'border-r border-solid',
+      colorInput: 'h-[inherit] w-[inherit] opacity-0',
     },
     variants: {
       hasError: {
         true: {
-          input: 'border-red-85',
+          wrapper: 'border-red-85 hover:border-red-65',
+          color: 'border-red-85 group-hover:border-red-65',
         },
         false: {
-          input: 'border-neutral-90',
+          wrapper: 'border-neutral-90',
+          color: 'border-neutral-90',
         },
       },
       hasHighlight: {
         true: {
-          input: 'border-neutral-35',
+          wrapper: 'border-neutral-35',
+          color: 'border-neutral-35',
         },
       },
-      borderless: {
-        true: { input: 'border-0' },
-        false: { input: 'border' },
-      },
       isReadonly: {
-        true: { input: 'cursor-not-allowed' },
+        true: { input: 'cursor-not-allowed', colorInput: 'cursor-not-allowed' },
       },
       isDisabled: {
         true: {
           input: 'text-neutral-60 cursor-not-allowed',
+          color: 'opacity-50',
+          colorInput: 'cursor-not-allowed',
         },
-        false: { input: 'text-neutral-20' },
+        false: {
+          wrapper: 'hover:border-neutral-35',
+          input: 'text-neutral-20',
+          color: 'group-hover:border-neutral-35',
+        },
       },
       isFullWidth: {
         true: { wrapper: 'w-full' },
@@ -107,19 +103,27 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
       },
       size: {
         small: {
-          input: 'min-h-[28px] px-2 py-1 paragraph-inter-12-regular rounded-8',
+          wrapper: 'grid-cols-[28px,auto] rounded-8',
+          input: 'h-[28px] px-2 py-1 paragraph-inter-12-regular rounded-r-8',
+          color: 'h-[28px] w-[28px]',
         },
         medium: {
-          input: 'min-h-[48px] px-4 py-3 paragraph-inter-14-regular rounded-12',
-        },
-      },
-      isNonResizable: {
-        true: {
-          input: 'resize-none',
+          wrapper: 'grid-cols-[48px,auto] rounded-12',
+          input: 'h-[48px] px-4 py-3 paragraph-inter-14-regular rounded-r-12',
+          color: 'h-[48px] w-[48px]',
         },
       },
     },
     compoundVariants: [
+      {
+        isFullWidth: false,
+        class: { wrapper: 'w-[300px]' },
+      },
+      {
+        isFullWidth: false,
+        size: 'small',
+        class: { wrapper: 'w-[190px]' },
+      },
       {
         isFullWidth: false,
         size: 'small',
@@ -129,7 +133,15 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
         hasHighlight: true,
         hasError: true,
         class: {
-          input: 'border-red-65',
+          wrapper: 'border-red-65 hover:border-red-65',
+          color: 'border-red-65 group-hover:border-red-65',
+        },
+      },
+      {
+        isReadonly: false,
+        isDisabled: false,
+        class: {
+          colorInput: 'cursor-pointer',
         },
       },
     ],
@@ -137,14 +149,15 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
 
   inputTemplate(styles: string) {
     return html`
-      <textarea
+      <input
+        .value=${this.value}
         name=${this.name ? this.name : nothing}
+        type="text"
         placeholder=${this.placeholder ? this.placeholder : nothing}
-        ref=${this.ref ? this.ref : nothing}
-        id=${this.id ? this.id : nothing}
-        rows=${this.rows}
-        data-testid=${this.name ? `textarea-${this.name}` : 'textarea'}
         ?autofocus=${this.autofocus}
+        autocomplete="off"
+        id=${this.id ? this.id : nothing}
+        data-testid=${this.name ? `input-${this.name}` : 'input'}
         ?readonly=${this.isReadonly ? true : undefined}
         ?disabled=${this.isDisabled ? true : undefined}
         class=${cn(styles, this.customClass)}
@@ -154,14 +167,25 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
         @blur=${this.handleBlur}
         @keyup=${this.handleKeyUp}
         @keydown=${this.handleKeyDown}
-        @keypress=${this.handleKeyPress}
-        @mouseenter=${this.handleMouseOver}
-        @mouseleave=${this.handleMouseOut}
-        @click=${this.handleInputClick}
-      >
-${this.value}</textarea
-      >
+      />
     `
+  }
+
+  colorPickerTemplate(styles: string, colorInputStyles: string) {
+    return html`<div
+      class=${styles}
+      style=${styleMap({
+        backgroundColor: `${this.value}`,
+      })}
+    >
+      <input
+        .value=${this.value}
+        type="color"
+        ?disabled=${this.isDisabled || this.isReadonly ? true : undefined}
+        class=${colorInputStyles}
+        @input=${this.handleInput}
+      />
+    </div>`
   }
 
   labelTemplate() {
@@ -226,9 +250,9 @@ ${this.value}</textarea
   }
 
   private async handleInput(event: Event) {
+    await this.updateComplete
     const target = event.target as HTMLInputElement
     this.value = target?.value
-    await this.updateComplete
     const changeEvent = new CustomEvent('on-input', {
       detail: {
         value: target?.value,
@@ -257,6 +281,7 @@ ${this.value}</textarea
   private async handleKeyDown(event: KeyboardEvent) {
     await this.updateComplete
     const target = event.target as HTMLInputElement
+
     const keyEvent = new CustomEvent('on-key-down', {
       detail: {
         value: target.value,
@@ -268,56 +293,14 @@ ${this.value}</textarea
     this.dispatchEvent(keyEvent)
   }
 
-  private async handleKeyPress(event: KeyboardEvent) {
-    await this.updateComplete
-    const target = event.target as HTMLInputElement
-    const keyEvent = new CustomEvent('on-key-press', {
-      detail: {
-        value: target?.value,
-        event,
-      },
-      bubbles: true,
-      composed: true,
-    })
-    this.dispatchEvent(keyEvent)
-  }
-
-  private handleMouseOver() {
-    if (!this.isReadonly && !this.isDisabled) {
-      this.hasHighlight = true
-    }
-  }
-
-  private handleMouseOut() {
-    if (!this.hasFocus) {
-      this.hasHighlight = false
-    }
-  }
-
-  private async handleInputClick(event: MouseEvent) {
-    await this.updateComplete
-    const target = event.target as HTMLInputElement
-    const clickEvent = new CustomEvent('on-input-click', {
-      detail: {
-        value: target.value,
-        event,
-      },
-      bubbles: false,
-      composed: true,
-    })
-    this.dispatchEvent(clickEvent)
-  }
-
   render() {
-    const { wrapper, input } = this.styles({
+    const { wrapper, input, color, colorInput } = this.styles({
       hasError: this.error !== '',
       hasHighlight: this.hasHighlight,
-      borderless: this.borderless,
       isReadonly: this.isReadonly,
       isDisabled: this.isDisabled,
       isFullWidth: this.isFullWidth,
       size: this.size,
-      isNonResizable: this.isNonResizable,
     })
 
     return html`
@@ -325,9 +308,8 @@ ${this.value}</textarea
         ${this.label ? this.labelTemplate() : nothing}
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class=${wrapper()}>
-          <div class="relative w-[inherit] flex">
-            ${this.inputTemplate(input())}
-          </div>
+          ${this.colorPickerTemplate(color(), colorInput())}
+          <div class="relative w-full">${this.inputTemplate(input())}</div>
         </div>
         ${this.error ? this.errorTemplate() : nothing}
       </div>
@@ -337,6 +319,6 @@ ${this.value}</textarea
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lukso-textarea': LuksoTextarea
+    'lukso-color-picker': LuksoColorPicker
   }
 }

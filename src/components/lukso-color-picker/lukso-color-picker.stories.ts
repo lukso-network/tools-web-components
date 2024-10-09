@@ -4,10 +4,10 @@ import type { Meta } from '@storybook/web-components'
 
 import './index'
 
-/**  Documentation and examples of `lukso-input` component.  */
+/**  Documentation and examples of `lukso-color-picker` component.  */
 const meta: Meta = {
-  title: 'Design System/Forms/lukso-input',
-  component: 'lukso-input',
+  title: 'Design System/Forms/lukso-color-picker',
+  component: 'lukso-color-picker',
   argTypes: {
     value: {
       control: { type: 'text' },
@@ -23,30 +23,6 @@ const meta: Meta = {
       },
     },
     name: {
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    type: {
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    autocomplete: {
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    ref: {
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    id: {
       control: { type: 'text' },
       table: {
         category: 'Attributes',
@@ -76,7 +52,7 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    unit: {
+    id: {
       control: { type: 'text' },
       table: {
         category: 'Attributes',
@@ -116,44 +92,7 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    accept: {
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    min: {
-      control: { type: 'number' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    max: {
-      control: { type: 'number' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    borderless: {
-      control: { type: 'boolean' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    rightIcon: {
-      name: 'right-icon',
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    isRightIconClickable: {
-      name: 'is-right-icon-clickable',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Attributes',
-      },
-    },
+
     onBlur: {
       name: 'on-blur',
       description: 'Emitted on input blur event.',
@@ -196,27 +135,6 @@ const meta: Meta = {
         category: 'Events',
       },
     },
-    onUnitClick: {
-      name: 'on-unit-click',
-      description: 'Emitted on unit click.',
-      table: {
-        category: 'Events',
-      },
-    },
-    onInputClick: {
-      name: 'on-input-click',
-      description: 'Emitted on input click.',
-      table: {
-        category: 'Events',
-      },
-    },
-    onRightIconClick: {
-      name: 'on-right-icon-click',
-      description: 'Emitted on right icon click.',
-      table: {
-        category: 'Events',
-      },
-    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -229,34 +147,20 @@ const meta: Meta = {
     'is-disabled': {
       name: 'isDisabled',
     },
-    'right-icon': {
-      name: 'rightIcon',
-    },
-    'is-right-icon-clickable': {
-      name: 'isRightIconClickable',
-    },
   },
   args: {
-    type: 'text',
-    value: '',
+    value: '#2A70C0',
     size: 'medium',
     isFullWidth: false,
     isDisabled: false,
     isReadonly: false,
     autofocus: false,
-    borderless: false,
-    isRightIconClickable: false,
     name: 'input',
     label: '',
-    unit: '',
-    rightIcon: '',
     description: '',
     error: '',
-    accept: 'image',
     customClass: '',
-    placeholder: '',
-    min: undefined,
-    max: undefined,
+    placeholder: '#000000',
   },
   parameters: {
     controls: {
@@ -268,9 +172,7 @@ const meta: Meta = {
         'isReadonly',
         'isDisabled',
         'inputStyles',
-        'rightIcon',
         'styles',
-        'isRightIconClickable',
       ],
     },
     design: {
@@ -285,74 +187,52 @@ export default meta
 const Template = ({
   value,
   name,
-  type,
   placeholder,
   label,
   description,
   error,
-  unit,
   isFullWidth,
   autofocus,
-  min,
-  max,
   isReadonly,
   isDisabled,
   customClass,
-  accept,
   onBlur,
   onChange,
   onKeyUp,
   onKeyDown,
   onKeyPress,
-  onUnitClick,
-  onInputClick,
-  onRightIconClick,
-  borderless,
+  onInput,
   size,
-  rightIcon,
-  isRightIconClickable,
 }) =>
-  html`<lukso-input
+  html`<lukso-color-picker
     value=${value}
     name=${name}
-    type=${type}
     placeholder=${placeholder}
     label=${label}
     description=${description}
     error=${error}
-    unit=${unit}
-    min=${min}
-    max=${max}
     custom-class=${customClass}
-    accept=${accept}
     size=${size ? size : nothing}
-    right-icon=${rightIcon ? rightIcon : nothing}
     ?is-full-width=${isFullWidth}
     ?autofocus=${autofocus}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
-    ?borderless=${borderless}
-    ?is-right-icon-clickable=${isRightIconClickable}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}
     @on-change=${onChange}
+    @on-input=${onInput}
     @on-key-down=${onKeyDown}
     @on-key-press=${onKeyPress}
-    @on-unit-click=${onUnitClick}
-    @on-input-click=${onInputClick}
-    @on-right-icon-click=${onRightIconClick}
-  ></lukso-input>`
+  ></lukso-color-picker>`
 
 /** Example of default input with `value`.  */
 export const DefaultInput = Template.bind({})
-DefaultInput.args = {
-  value: 'Text Input',
-}
 
 /** Example of input with `placeholder` text. */
 export const PlaceholderText = Template.bind({})
 PlaceholderText.args = {
   placeholder: 'Placeholder Text',
+  value: '',
 }
 
 /** Example of input with `label`. */
@@ -376,49 +256,14 @@ ErrorInput.args = {
   error: 'Error message',
 }
 
-/** Example of input with `unit`. */
-export const Unit = Template.bind({})
-Unit.args = {
-  unit: 'unit',
-}
-
 /** If you need input to take full width of the parent element add `is-full-width` property. */
 export const FullWidth = Template.bind({})
 FullWidth.args = {
   isFullWidth: true,
 }
 
-/** If you need input to be focused add `autofocus` property. */
-export const Autofocus = Template.bind({})
-Autofocus.args = {
-  autofocus: true,
-}
-
-/** With `min` and `max` property you can specify minimum or maximum value that can be entered. It works with `number`, `range`, `date`, `datetime-local`, `month`, `time` and `week` input types */
-export const MinMaxValue = Template.bind({})
-MinMaxValue.args = {
-  min: 1,
-  max: 10,
-  type: 'number',
-}
-
-/** With `borderless` property you can render input without border. */
-export const Borderless = Template.bind({})
-Borderless.args = {
-  borderless: true,
-  placeholder: '0',
-}
-
 /** Example of `small` size input. */
 export const Small = Template.bind({})
 Small.args = {
   size: 'small',
-}
-
-/** Example of input with icon on right side. */
-export const RightIcon = Template.bind({})
-RightIcon.args = {
-  rightIcon: 'search',
-  // size: 'small',
-  // unit: '1',
 }

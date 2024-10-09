@@ -1059,7 +1059,7 @@
             },
             {
               "kind": "field",
-              "name": "hasHocus",
+              "name": "hasFocus",
               "type": {
                 "text": "boolean"
               },

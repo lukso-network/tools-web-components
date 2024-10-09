@@ -203,7 +203,7 @@ const meta: Meta = {
     controls: {
       exclude: [
         'isFullWidth',
-        'hasHocus',
+        'hasFocus',
         'hasHighlight',
         'customClass',
         'isReadonly',

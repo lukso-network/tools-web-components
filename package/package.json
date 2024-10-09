@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.85.1",
+  "version": "1.88.0",
   "type": "module",
   "files": [
     "dist",
@@ -94,6 +94,11 @@
       "require": "./dist/components/lukso-checkbox/index.cjs",
       "import": "./dist/components/lukso-checkbox/index.js",
       "types": "./dist/components/lukso-checkbox/index.d.ts"
+    },
+    "./dist/components/lukso-color-picker": {
+      "require": "./dist/components/lukso-color-picker/index.cjs",
+      "import": "./dist/components/lukso-color-picker/index.js",
+      "types": "./dist/components/lukso-color-picker/index.d.ts"
     },
     "./dist/components/lukso-dropdown": {
       "require": "./dist/components/lukso-dropdown/index.cjs",
@@ -189,6 +194,11 @@
       "require": "./dist/components/lukso-test/index.cjs",
       "import": "./dist/components/lukso-test/index.js",
       "types": "./dist/components/lukso-test/index.d.ts"
+    },
+    "./dist/components/lukso-textarea": {
+      "require": "./dist/components/lukso-textarea/index.cjs",
+      "import": "./dist/components/lukso-textarea/index.js",
+      "types": "./dist/components/lukso-textarea/index.d.ts"
     },
     "./dist/components/lukso-tooltip": {
       "require": "./dist/components/lukso-tooltip/index.cjs",

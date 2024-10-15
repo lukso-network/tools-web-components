@@ -111,6 +111,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    keepFocusOnEscape: {
+      name: 'keep-focus-on-escape',
+      control: { type: 'boolean' },
+      description: 'Keep input focus on escape hit.',
+      table: {
+        category: 'Attributes',
+      },
+    },
     rows: {
       control: { type: 'number' },
       table: {
@@ -181,6 +189,9 @@ const meta: Meta = {
     'is-non-resizable': {
       name: 'isNonResizable',
     },
+    'keep-focus-on-escape': {
+      name: 'keepFocusOnEscape',
+    },
   },
   args: {
     value: '',
@@ -191,6 +202,7 @@ const meta: Meta = {
     autofocus: false,
     borderless: false,
     isNonResizable: false,
+    keepFocusOnEscape: false,
     name: 'textarea',
     label: '',
     description: '',
@@ -210,6 +222,7 @@ const meta: Meta = {
         'isDisabled',
         'styles',
         'isNonResizable',
+        'keepFocusOnEscape',
       ],
     },
     design: {
@@ -243,6 +256,7 @@ const Template = ({
   size,
   isNonResizable,
   rows,
+  keepFocusOnEscape,
 }) =>
   html`<lukso-textarea
     value=${value}
@@ -260,6 +274,7 @@ const Template = ({
     ?is-disabled=${isDisabled}
     ?borderless=${borderless}
     ?is-non-resizable=${isNonResizable}
+    ?keep-focus-on-escape=${keepFocusOnEscape}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}
     @on-change=${onChange}

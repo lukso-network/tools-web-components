@@ -280,7 +280,7 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
     })
     this.dispatchEvent(keyEvent)
 
-    // if escape key is pressed we clear the input unless keepValueOnEscapeHit is true
+    // if escape key is pressed we clear the input unless keepValueOnEscape is true
     if (event.key === 'Escape' && !this.keepFocusOnEscape) {
       this.blur()
     }

@@ -464,6 +464,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           ?is-readonly=${this.isReadonly}
           ?is-disabled=${this.isDisabled}
           ?is-full-width=${this.isFullWidth}
+          keep-focus-on-escape
           @on-input=${this.handleSearch}
           @on-blur=${this.handleBlur}
           @on-input-click=${this.handleInputClick}

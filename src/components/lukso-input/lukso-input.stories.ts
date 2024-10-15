@@ -154,6 +154,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    keepFocusOnEscape: {
+      name: 'keep-focus-on-escape',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onBlur: {
       name: 'on-blur',
       description: 'Emitted on input blur event.',
@@ -235,6 +242,9 @@ const meta: Meta = {
     'is-right-icon-clickable': {
       name: 'isRightIconClickable',
     },
+    'keep-focus-on-escape': {
+      name: 'keepFocusOnEscape',
+    },
   },
   args: {
     type: 'text',
@@ -246,6 +256,7 @@ const meta: Meta = {
     autofocus: false,
     borderless: false,
     isRightIconClickable: false,
+    keepFocusOnEscape: false,
     name: 'input',
     label: '',
     unit: '',
@@ -271,6 +282,7 @@ const meta: Meta = {
         'rightIcon',
         'styles',
         'isRightIconClickable',
+        'keepFocusOnEscape',
       ],
     },
     design: {
@@ -311,6 +323,7 @@ const Template = ({
   size,
   rightIcon,
   isRightIconClickable,
+  keepFocusOnEscape,
 }) =>
   html`<lukso-input
     value=${value}
@@ -333,6 +346,7 @@ const Template = ({
     ?is-disabled=${isDisabled}
     ?borderless=${borderless}
     ?is-right-icon-clickable=${isRightIconClickable}
+    ?keep-focus-on-escape=${keepFocusOnEscape}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}
     @on-change=${onChange}

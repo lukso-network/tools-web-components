@@ -56,6 +56,9 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-non-resizable' })
   isNonResizable = false
 
+  @property({ type: Boolean, attribute: 'keep-focus-on-escape' })
+  keepFocusOnEscape = false
+
   @property({ type: String })
   size: InputSize = 'medium'
 
@@ -252,6 +255,11 @@ ${this.value}</textarea
       composed: true,
     })
     this.dispatchEvent(keyEvent)
+
+    // if escape key is pressed we clear the input unless keepValueOnEscapeHit is true
+    if (event.key === 'Escape' && !this.keepFocusOnEscape) {
+      this.blur()
+    }
   }
 
   private async handleKeyDown(event: KeyboardEvent) {

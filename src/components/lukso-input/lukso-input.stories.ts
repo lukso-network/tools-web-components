@@ -157,6 +157,7 @@ const meta: Meta = {
     keepFocusOnEscape: {
       name: 'keep-focus-on-escape',
       control: { type: 'boolean' },
+      description: 'Keep input focus on escape hit.',
       table: {
         category: 'Attributes',
       },

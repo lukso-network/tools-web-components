@@ -92,7 +92,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-
+    keepFocusOnEscape: {
+      name: 'keep-focus-on-escape',
+      control: { type: 'boolean' },
+      description: 'Keep input focus on escape hit.',
+      table: {
+        category: 'Attributes',
+      },
+    },
     onBlur: {
       name: 'on-blur',
       description: 'Emitted on input blur event.',
@@ -147,6 +154,9 @@ const meta: Meta = {
     'is-disabled': {
       name: 'isDisabled',
     },
+    'keep-focus-on-escape': {
+      name: 'keepFocusOnEscape',
+    },
   },
   args: {
     value: '#2A70C0',
@@ -155,6 +165,7 @@ const meta: Meta = {
     isDisabled: false,
     isReadonly: false,
     autofocus: false,
+    keepFocusOnEscape: false,
     name: 'input',
     label: '',
     description: '',
@@ -173,6 +184,7 @@ const meta: Meta = {
         'isDisabled',
         'inputStyles',
         'styles',
+        'keepFocusOnEscape',
       ],
     },
     design: {
@@ -203,6 +215,7 @@ const Template = ({
   onKeyPress,
   onInput,
   size,
+  keepFocusOnEscape,
 }) =>
   html`<lukso-color-picker
     value=${value}
@@ -217,6 +230,7 @@ const Template = ({
     ?autofocus=${autofocus}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
+    ?keep-focus-on-escape=${keepFocusOnEscape}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}
     @on-change=${onChange}

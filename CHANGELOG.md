@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.90.0](https://github.com/lukso-network/tools-web-components/compare/v1.89.0...v1.90.0) (2024-10-15)
+
+
+### Features
+
+* Input escape ([#419](https://github.com/lukso-network/tools-web-components/issues/419)) ([fa829f2](https://github.com/lukso-network/tools-web-components/commit/fa829f20325032c93ea0429da793adde2a2d6261))
+
 ## [1.89.0](https://github.com/lukso-network/tools-web-components/compare/v1.88.1...v1.89.0) (2024-10-09)
 
 

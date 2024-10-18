@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.91.0](https://github.com/lukso-network/tools-web-components/compare/v1.90.0...v1.91.0) (2024-10-18)
+
+
+### Features
+
+* Add better dropdown state handling ([#422](https://github.com/lukso-network/tools-web-components/issues/422)) ([c135aa0](https://github.com/lukso-network/tools-web-components/commit/c135aa0df3596ac34c85cc239047c2c819bdeb63))
+
 ## [1.90.0](https://github.com/lukso-network/tools-web-components/compare/v1.89.0...v1.90.0) (2024-10-15)
 
 

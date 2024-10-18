@@ -70,6 +70,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    onChange: {
+      name: 'on-change',
+      description: 'Fires when dropdown is opened or closed.',
+      table: {
+        category: 'Events',
+      },
+    },
     'is-open': {
       name: 'isOpen',
     },
@@ -114,6 +121,7 @@ const meta: Meta = {
         'isOpenOnOutsideClick',
         'triggerId',
         'isFullWidth',
+        'onChangeEvent',
       ],
     },
     design: {
@@ -137,6 +145,7 @@ const Template = ({
   isOpenOnOutsideClick,
   triggerId,
   isFullWidth,
+  onChange,
 }) => {
   return html`<div
     class="relative"
@@ -154,6 +163,7 @@ const Template = ({
       ?is-open-on-outside-click=${isOpenOnOutsideClick}
       ?is-full-width=${isFullWidth}
       size=${size ? size : nothing}
+      @on-change=${onChange}
     >
       <lukso-dropdown-option size=${size ? size : nothing}
         ><lukso-icon

@@ -1,5 +1,5 @@
 import { html, nothing, type PropertyValues } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { customElement, property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -11,6 +11,10 @@ import { uniqId } from '@/shared/tools/uniq-id'
 
 import type { InputSize } from '@/shared/types'
 
+export type LuksoDropdownOnChangeEventDetail = {
+  isOpen: boolean
+}
+
 @customElement('lukso-dropdown')
 export class LuksoDropdown extends TailwindStyledElement(style) {
   @property({ type: String })
@@ -19,7 +23,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'trigger-id' })
   triggerId = ''
 
-  @property({ type: Boolean, attribute: 'is-open' })
+  @property({ type: Boolean, attribute: 'is-open', reflect: true })
   isOpen = false
 
   @property({ type: Boolean, attribute: 'is-open-on-outside-click' })
@@ -36,9 +40,6 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   @property({ type: String })
   size: InputSize = 'medium'
-
-  @state()
-  private _isOpen = false
 
   constructor() {
     super()
@@ -90,9 +91,20 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     window.removeEventListener('click', this.handleClick)
   }
 
-  willUpdate(changedProperties: PropertyValues<this>) {
+  async willUpdate(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('isOpen')) {
-      this._isOpen = this.isOpen
+      await this.updateComplete
+      const changeEvent = new CustomEvent<LuksoDropdownOnChangeEventDetail>(
+        'on-change',
+        {
+          detail: {
+            isOpen: this.isOpen,
+          },
+          bubbles: false,
+          composed: true,
+        }
+      )
+      this.dispatchEvent(changeEvent)
     }
   }
 
@@ -101,14 +113,13 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
     // if we click on trigger or dropdown itself we toggle the dropdown
     if (element.id === this.triggerId || this.id === element.id) {
-      this._isOpen = !this._isOpen
-
+      this.isOpen = !this.isOpen
       return
     }
 
     // if we click outside the dropdown we close it
     if (!this.isOpenOnOutsideClick) {
-      this._isOpen = false
+      this.isOpen = false
     }
   }
 
@@ -120,7 +131,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       isFullWidth: this.isFullWidth,
     })
 
-    if (!this._isOpen) {
+    if (!this.isOpen) {
       return nothing
     }
 

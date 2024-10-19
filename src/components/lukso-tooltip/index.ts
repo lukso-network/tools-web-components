@@ -77,6 +77,12 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'show-arrow' })
   showArrow = true
 
+  @property({ type: Number, attribute: 'show-delay' })
+  showDelay = 300
+
+  @property({ type: Number, attribute: 'hide-delay' })
+  hideDelay = 300
+
   @state()
   showCopy = false
 
@@ -134,6 +140,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       theme: `${this.variant}-${this.size}`,
       offset: [0, this.offset],
       hideOnClick: this.hideOnClickCheck(),
+      delay: [this.showDelay, this.hideDelay],
     })
   }
 

@@ -144,6 +144,26 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    showDelay: {
+      name: 'show-delay',
+      control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    hideDelay: {
+      name: 'hide-delay',
+      control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    'show-delay': {
+      name: 'showDelay',
+    },
+    'hide-delay': {
+      name: 'hideDelay',
+    },
     'max-width': {
       name: 'maxWidth',
     },
@@ -176,6 +196,8 @@ const meta: Meta = {
     copyValue: '',
     options: '',
     showArrow: true,
+    showDelay: 300,
+    hideDelay: 300,
   },
   parameters: {
     controls: {
@@ -194,6 +216,8 @@ const meta: Meta = {
         'showArrow',
         'optionsParsed',
         'tooltipStyles',
+        'showDelay',
+        'hideDelay',
       ],
     },
     design: {
@@ -222,6 +246,8 @@ const DefaultTemplate = ({
   offset,
   showArrow,
   options,
+  showDelay,
+  hideDelay,
 }) => html`
   <lukso-tooltip
     variant=${variant ? variant : nothing}
@@ -236,8 +262,10 @@ const DefaultTemplate = ({
     offset=${offset ? offset : nothing}
     ?show=${show ? show : undefined}
     ?is-clipboard-copy=${isClipboardCopy ? isClipboardCopy : undefined}
-    options=${options ? options : nothing}
     ?show-arrow=${showArrow ? showArrow : undefined}
+    show-delay=${showDelay ? showDelay : nothing}
+    hide-delay=${hideDelay ? hideDelay : nothing}
+    options=${options ? options : nothing}
     class="${margin} mx-20"
   >
     <lukso-button size="small" variant="secondary">${buttonText}</lukso-button>
@@ -379,4 +407,13 @@ OptionsTooltip.args = {
       value: 'option#3',
     },
   ]),
+}
+
+/** Delayed show/hide.  */
+export const DelayedTooltip = DefaultTemplate.bind({})
+DelayedTooltip.args = {
+  buttonText: 'Hover me',
+  margin: 'my-8',
+  showDelay: 1000,
+  hideDelay: 1000,
 }

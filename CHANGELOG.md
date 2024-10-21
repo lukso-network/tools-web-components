@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.92.0](https://github.com/lukso-network/tools-web-components/compare/v1.91.0...v1.92.0) (2024-10-21)
+
+
+### Features
+
+* Add delay options for tooltips ([#424](https://github.com/lukso-network/tools-web-components/issues/424)) ([d28b276](https://github.com/lukso-network/tools-web-components/commit/d28b276160c77b924649de1e8417b096e6ddc82b))
+
 ## [1.91.0](https://github.com/lukso-network/tools-web-components/compare/v1.90.0...v1.91.0) (2024-10-18)
 
 

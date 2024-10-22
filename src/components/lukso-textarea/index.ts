@@ -9,6 +9,8 @@ import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
 
+const FOCUS_DELAY_MS = 10
+
 @customElement('lukso-textarea')
 export class LuksoTextarea extends TailwindStyledElement(style) {
   @property({ type: String })
@@ -137,6 +139,17 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
       },
     ],
   })
+
+  connectedCallback() {
+    super.connectedCallback()
+
+    if (this.autofocus) {
+      setTimeout(() => {
+        const textarea = this.shadowRoot?.querySelector('textarea')
+        textarea?.focus()
+      }, FOCUS_DELAY_MS)
+    }
+  }
 
   inputTemplate(styles: string) {
     return html`

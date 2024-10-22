@@ -10,6 +10,8 @@ import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
 
+const FOCUS_DELAY_MS = 10
+
 @customElement('lukso-color-picker')
 export class LuksoColorPicker extends TailwindStyledElement(style) {
   @property({ type: String })
@@ -149,6 +151,19 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
       },
     ],
   })
+
+  connectedCallback() {
+    super.connectedCallback()
+
+    if (this.autofocus) {
+      setTimeout(() => {
+        const input = this.shadowRoot?.querySelector(
+          'input[autofocus]'
+        ) as HTMLInputElement
+        input?.focus()
+      }, FOCUS_DELAY_MS)
+    }
+  }
 
   inputTemplate(styles: string) {
     return html`

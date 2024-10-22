@@ -9,6 +9,8 @@ import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
 
+const FOCUS_DELAY_MS = 10
+
 @customElement('lukso-input')
 export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: String })
@@ -194,6 +196,17 @@ export class LuksoInput extends TailwindStyledElement(style) {
       },
     ],
   })
+
+  connectedCallback() {
+    super.connectedCallback()
+
+    if (this.autofocus) {
+      setTimeout(() => {
+        const input = this.shadowRoot?.querySelector('input')
+        input?.focus()
+      }, FOCUS_DELAY_MS)
+    }
+  }
 
   // @input works better in vue
   inputTemplate(styles: string) {

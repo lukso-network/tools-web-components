@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.93.0](https://github.com/lukso-network/tools-web-components/compare/v1.92.0...v1.93.0) (2024-10-22)
+
+
+### Features
+
+* improve autofocus ([#426](https://github.com/lukso-network/tools-web-components/issues/426)) ([d2b7d7d](https://github.com/lukso-network/tools-web-components/commit/d2b7d7d392f8c3c5a09557219ba58abe0c3d58bd))
+
 ## [1.92.0](https://github.com/lukso-network/tools-web-components/compare/v1.91.0...v1.92.0) (2024-10-21)
 
 

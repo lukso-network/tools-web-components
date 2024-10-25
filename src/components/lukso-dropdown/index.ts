@@ -8,6 +8,7 @@ import '@/components/lukso-profile'
 import '@/components/lukso-username'
 import style from './style.scss?inline'
 import { uniqId } from '@/shared/tools/uniq-id'
+import { debounceFunction } from '@/shared/tools/debounceFunction'
 
 import type { InputSize } from '@/shared/types'
 
@@ -108,7 +109,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     }
   }
 
-  private handleClick(event: Event) {
+  private handleClick = debounceFunction((event: Event) => {
     const element = event.target as HTMLElement
 
     // if we click on trigger or dropdown itself we toggle the dropdown
@@ -121,7 +122,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     if (!this.isOpenOnOutsideClick) {
       this.isOpen = false
     }
-  }
+  })
 
   render() {
     const styles = this.styles({
@@ -135,7 +136,9 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       return nothing
     }
 
-    return html`<div class="${styles}"><slot></slot></div>`
+    return html`<div class="${styles} animate-fade-in animation-duration-200">
+      <slot></slot>
+    </div>`
   }
 }
 

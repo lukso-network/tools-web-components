@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.94.0](https://github.com/lukso-network/tools-web-components/compare/v1.93.0...v1.94.0) (2024-10-25)
+
+
+### Features
+
+* debounce dropdown open/close ([#428](https://github.com/lukso-network/tools-web-components/issues/428)) ([038ec14](https://github.com/lukso-network/tools-web-components/commit/038ec1430a547cbda45f27e03a809c7c910c756e))
+
 ## [1.93.0](https://github.com/lukso-network/tools-web-components/compare/v1.92.0...v1.93.0) (2024-10-22)
 
 

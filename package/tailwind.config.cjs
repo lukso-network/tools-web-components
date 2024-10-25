@@ -5,9 +5,9 @@ const { colorPalette, boxShadows, fontWeights, fontSizes, lineHeights, scales, h
 /**
  * Add animation delay utilities. Example: .animation-delay-1000
  */
-const animationDelayPlugin = plugin(function ({ addUtilities, theme, e }) {
+const animationDelayPlugin = plugin(({ addUtilities, theme, e }) => {
   const values = theme('animationDelay')
-  var utilities = Object.entries(values).map(([key, value]) => {
+  const utilities = Object.entries(values).map(([key, value]) => {
     return {
       [`.${e(`animation-delay-${key}`)}`]: { animationDelay: `${value}` },
     }
@@ -18,9 +18,9 @@ const animationDelayPlugin = plugin(function ({ addUtilities, theme, e }) {
 /**
  * Add animation iteration utilities. Example: .animation-iteration-infinite
  */
-const animationIterationPlugin = plugin(function ({ addUtilities, theme, e }) {
+const animationIterationPlugin = plugin(({ addUtilities, theme, e }) => {
   const values = theme('animationIteration')
-  var utilities = Object.entries(values).map(([key, value]) => {
+  const utilities = Object.entries(values).map(([key, value]) => {
     return {
       [`.${e(`animation-iteration-${key}`)}`]: {
         animationIterationCount: `${value}`,
@@ -33,9 +33,9 @@ const animationIterationPlugin = plugin(function ({ addUtilities, theme, e }) {
 /**
  * Add animation duration utilities. Example: .animation-duration-1000
  */
-const animationDuration = plugin(function ({ addUtilities, theme, e }) {
+const animationDuration = plugin(({ addUtilities, theme, e }) => {
   const values = theme('animationDuration')
-  var utilities = Object.entries(values).map(([key, value]) => {
+  const utilities = Object.entries(values).map(([key, value]) => {
     return {
       [`.${e(`animation-duration-${key}`)}`]: {
         animationDuration: `${value}`,
@@ -48,9 +48,9 @@ const animationDuration = plugin(function ({ addUtilities, theme, e }) {
 /**
  * Add animation fill mode  utilities. Example: .animation-fill-forwards
  */
-const animationFill = plugin(function ({ addUtilities, theme, e }) {
+const animationFill = plugin(({ addUtilities, theme, e }) => {
   const values = theme('animationFill')
-  var utilities = Object.entries(values).map(([key, value]) => {
+  const utilities = Object.entries(values).map(([key, value]) => {
     return {
       [`.${e(`animation-fill-${key}`)}`]: {
         animationFillMode: `${value}`,

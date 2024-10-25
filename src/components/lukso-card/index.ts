@@ -395,9 +395,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
             <slot name="header"></slot>
           </div>
         </div>
-        <div
-          class="bg-neutral-100 shadow-neutral-above-shadow-1xl rounded-t-0 rounded-b-[inherit] relative"
-        >
+        <div class="bg-neutral-100 rounded-t-0 rounded-b-[inherit] relative">
           <slot name="content"></slot>
         </div>
       </div>

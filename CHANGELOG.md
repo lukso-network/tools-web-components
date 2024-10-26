@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.94.1](https://github.com/lukso-network/tools-web-components/compare/v1.94.0...v1.94.1) (2024-10-26)
+
+
+### Bug Fixes
+
+* Remove extra shadow from dapp card ([#430](https://github.com/lukso-network/tools-web-components/issues/430)) ([6ec0085](https://github.com/lukso-network/tools-web-components/commit/6ec0085b3159e126ead401857b0b2dc08a53224c))
+
 ## [1.94.0](https://github.com/lukso-network/tools-web-components/compare/v1.93.0...v1.94.0) (2024-10-25)
 
 

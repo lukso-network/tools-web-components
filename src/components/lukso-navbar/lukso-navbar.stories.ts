@@ -126,20 +126,15 @@ PROFILES`,
   parameters: {
     controls: {
       exclude: [
-        'defaultStyles',
-        'centerStyles',
-        'stickyStyles',
         'isCenter',
         'isSticky',
         'isTransparent',
         'isMenuOpen',
-        'transparentStyles',
         'isTestnet',
         'hasMenu',
         'logoUrl',
         'defaultLogoUrl',
         'mobileBreakpoint',
-        'navbarStyles',
       ],
     },
     design: {
@@ -156,14 +151,14 @@ const Template = ({
   isCenter,
   isSticky,
   isTransparent,
-  onBrandClick,
   isTestnet,
   icon,
   hasMenu,
   logoUrl,
-  onIconClick,
   slots,
   mobileBreakpoint,
+  onBrandClick,
+  onIconClick,
 }) =>
   html`<lukso-navbar
     title=${title ? title : nothing}

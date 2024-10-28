@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.94.2](https://github.com/lukso-network/tools-web-components/compare/v1.94.1...v1.94.2) (2024-10-28)
+
+
+### Bug Fixes
+
+* Navbar mobile mode issues ([#432](https://github.com/lukso-network/tools-web-components/issues/432)) ([eb04fa0](https://github.com/lukso-network/tools-web-components/commit/eb04fa0407eb21d7caabe759f3c327d33ea1eb36))
+
 ## [1.94.1](https://github.com/lukso-network/tools-web-components/compare/v1.94.0...v1.94.1) (2024-10-26)
 
 

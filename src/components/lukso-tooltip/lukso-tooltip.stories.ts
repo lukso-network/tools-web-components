@@ -215,7 +215,6 @@ const meta: Meta = {
         'showCopy',
         'showArrow',
         'optionsParsed',
-        'tooltipStyles',
         'showDelay',
         'hideDelay',
       ],

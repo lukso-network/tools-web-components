@@ -91,11 +91,18 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
 
   private tooltipInstance = undefined
 
-  private tooltipStyles = tv({
+  private styles = tv({
     slots: {
       tooltip: 'hidden',
       trigger: 'cursor-pointer flex flex-col items-center',
       options: 'rounded-4 hover:bg-neutral-95',
+    },
+    variants: {
+      hasNoText: {
+        true: {
+          trigger: 'cursor-default',
+        },
+      },
     },
   })
 
@@ -187,15 +194,13 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     this.tooltipInstance?.destroy()
   }
 
-  private optionsTemplate() {
-    const { options } = this.tooltipStyles()
-
+  private optionsTemplate(styles: { options: () => string }) {
     // because of the bug in the getting styles properly for options we pass them as style property
     return html`<ul>
       ${Object.entries(this.optionsParsed)?.map(
         option =>
           html`<li
-            class=${options()}
+            class=${styles.options()}
             style=${styleMap({
               padding: '4px 8px',
               cursor: 'pointer',
@@ -209,11 +214,13 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   }
 
   render() {
-    const { tooltip, trigger } = this.tooltipStyles()
+    const styles = this.styles({
+      hasNoText: !this.text,
+    })
 
     return html`
-      <div id="tooltip" role="tooltip" class=${tooltip()}>
-        ${this.options ? this.optionsTemplate() : this.text}
+      <div id="tooltip" role="tooltip" class=${styles.tooltip()}>
+        ${this.options ? this.optionsTemplate(styles) : this.text}
       </div>
       ${this.isClipboardCopy
         ? html`<lukso-tooltip
@@ -226,11 +233,19 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
             ?show=${this.showCopy ? true : undefined}
             text=${this.copyText}
           >
-            <div id="trigger" class=${trigger()} @click=${this.handleClick}>
+            <div
+              id="trigger"
+              class=${styles.trigger()}
+              @click=${this.handleClick}
+            >
               <slot></slot>
             </div>
           </lukso-tooltip>`
-        : html`<div id="trigger" class=${trigger()} @click=${this.handleClick}>
+        : html`<div
+            id="trigger"
+            class=${styles.trigger()}
+            @click=${this.handleClick}
+          >
             <slot></slot>
           </div>`}
     `

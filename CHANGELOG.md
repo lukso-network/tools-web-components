@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.95.0](https://github.com/lukso-network/tools-web-components/compare/v1.94.2...v1.95.0) (2024-10-29)
+
+
+### Features
+
+* default cursor when no text ([#434](https://github.com/lukso-network/tools-web-components/issues/434)) ([47b88f7](https://github.com/lukso-network/tools-web-components/commit/47b88f7e3f19e7c134511414192b6e7761efd2b2))
+
 ## [1.94.2](https://github.com/lukso-network/tools-web-components/compare/v1.94.1...v1.94.2) (2024-10-28)
 
 

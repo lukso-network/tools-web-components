@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.97.0](https://github.com/lukso-network/tools-web-components/compare/v1.96.0...v1.97.0) (2024-10-31)
+
+
+### Features
+
+* add new round shadow ([#438](https://github.com/lukso-network/tools-web-components/issues/438)) ([d3e8e9b](https://github.com/lukso-network/tools-web-components/commit/d3e8e9b73dce5c53f77cbf1f04c2f0d73d69e329))
+
 ## [1.96.0](https://github.com/lukso-network/tools-web-components/compare/v1.95.0...v1.96.0) (2024-10-31)
 
 

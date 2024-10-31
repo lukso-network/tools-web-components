@@ -165,6 +165,7 @@ import { database } from './icons/database'
 import { emptyOutline } from './icons/empty-outline'
 import { profileRemove } from './icons/profile-remove'
 import { logoYoutubeMono } from './icons/logo-youtube-mono'
+import { addGrid } from './icons/add-grid'
 
 export type IconOptions = {
   width: number
@@ -345,6 +346,7 @@ const iconMap = {
   'empty-outline': emptyOutline,
   'profile-remove': profileRemove,
   'logo-youtube-mono': logoYoutubeMono,
+  'add-grid': addGrid,
 }
 
 @customElement('lukso-icon')

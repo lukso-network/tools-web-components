@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.96.0](https://github.com/lukso-network/tools-web-components/compare/v1.95.0...v1.96.0) (2024-10-31)
+
+
+### Features
+
+* add new `add grid` icon ([#436](https://github.com/lukso-network/tools-web-components/issues/436)) ([26ee75e](https://github.com/lukso-network/tools-web-components/commit/26ee75e5c461792039431471cb14ee4e079f0d89))
+
 ## [1.95.0](https://github.com/lukso-network/tools-web-components/compare/v1.94.2...v1.95.0) (2024-10-29)
 
 

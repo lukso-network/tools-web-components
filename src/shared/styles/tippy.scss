@@ -41,7 +41,7 @@
 // sizes
 
 .tippy-size-medium {
-  @apply px-2 py-2 rounded-4 text-10 not-italic font-600 leading-12 font-inter shadow-neutral-drop-shadow-1xl;
+  @apply px-2 py-2 rounded-4 text-10 not-italic font-600 leading-12 font-inter shadow-neutral-shadow-round-1xl;
 
   &[data-placement^='top'] > .tippy-arrow {
     bottom: 0;
@@ -85,7 +85,7 @@
 }
 
 .tippy-size-large {
-  @apply px-3 py-2 rounded-8 text-12 not-italic font-400 leading-20 font-inter shadow-neutral-drop-shadow-1xl;
+  @apply px-3 py-2 rounded-8 text-12 not-italic font-400 leading-20 font-inter shadow-neutral-shadow-round-1xl;
 
   &[data-placement^='top'] > .tippy-arrow {
     bottom: 0;

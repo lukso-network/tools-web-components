@@ -21,7 +21,7 @@ export class LuksoModal extends TailwindElement {
       overlay:
         'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999] animate-fade-in animation-duration-200',
       dialog:
-        'bg-neutral-98 rounded-12 shadow-neutral-drop-shadow-3xl z-[1001]',
+        'bg-neutral-98 rounded-12 shadow-neutral-shadow-round-3xl z-[1001]',
     },
     variants: {
       isOpen: {

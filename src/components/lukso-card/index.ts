@@ -97,9 +97,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
         medium: 'rounded-24',
       },
       shadow: {
-        small: 'shadow-neutral-drop-shadow',
-        medium: 'shadow-neutral-drop-shadow-1xl',
-        large: 'shadow-neutral-drop-shadow-2xl',
+        small: 'shadow-neutral-shadow-round',
+        medium: 'shadow-neutral-shadow-round-1xl',
+        large: 'shadow-neutral-shadow-round-2xl',
       },
       isHoverable: {
         true: 'cursor-pointer transition',
@@ -112,17 +112,17 @@ export class LuksoCard extends TailwindStyledElement(style) {
       {
         shadow: 'small',
         isHoverable: true,
-        class: 'hover:shadow-neutral-drop-shadow-1xl',
+        class: 'hover:shadow-neutral-shadow-round-1xl',
       },
       {
         shadow: 'medium',
         isHoverable: true,
-        class: 'hover:shadow-neutral-drop-shadow-2xl',
+        class: 'hover:shadow-neutral-shadow-round-2xl',
       },
       {
         shadow: 'large',
         isHoverable: true,
-        class: 'hover:shadow-neutral-drop-shadow-3xl',
+        class: 'hover:shadow-neutral-shadow-round-3xl',
       },
     ],
   })

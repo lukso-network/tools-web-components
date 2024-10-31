@@ -59,6 +59,14 @@ export const boxShadows = {
     '0px 0px 48px rgba(112, 96, 92, 0.1), 0px 0px 34.46px rgba(112, 96, 92, 0.0675), 0px 0px 27.9px rgba(112, 96, 92, 0.05), 0px 0px 25.39px rgba(112, 96, 92, 0.0325)',
   'wizard-step': '1px 1px 8px #FFFFFF, inset 1px 1px 4px rgba(0, 0, 0, 0.16)',
   'wizard-line': 'inset 0px 0px 2px rgba(0, 0, 0, 0.14)',
+  'neutral-shadow-round':
+    '0px 7px 5px 0px rgba(63, 93, 116, 0.00), 0px 0px 10px 0px rgba(63, 93, 116, 0.02), 0px 3px 10px 0px rgba(63, 93, 116, 0.08), 0px 4px 4px 0px rgba(63, 93, 116, 0.13), 0px 1px 2px 0px rgba(63, 93, 116, 0.15), 0px 0px 3px 0px rgba(63, 93, 116, 0.16)',
+  'neutral-shadow-round-1xl':
+    '0px 27px 12px 0px rgba(63, 93, 116, 0.00), 0px 18px 7px 0px rgba(63, 93, 116, 0.02), 0px 10px 6px 0px rgba(63, 93, 116, 0.08), 0px 4px 4px 0px rgba(63, 93, 116, 0.13), 0px 1px 2px 0px rgba(63, 93, 116, 0.15), 0px 0px 14px 0px rgba(63, 93, 116, 0.16)',
+  'neutral-shadow-round-2xl':
+    '0px 85px 24px 0px rgba(63, 93, 116, 0.00), 0px 54px 22px 0px rgba(63, 93, 116, 0.02), 0px 30px 18px 0px rgba(63, 93, 116, 0.08), 0px 14px 14px 0px rgba(63, 93, 116, 0.13), 0px 3px 7px 0px rgba(63, 93, 116, 0.15), 0px 0px 23px 0px rgba(63, 93, 116, 0.16)',
+  'neutral-shadow-round-3xl':
+    '0px 185px 52px 0px rgba(63, 93, 116, 0.00), 0px 118px 47px 0px rgba(63, 93, 116, 0.02), 0px 67px 40px 0px rgba(63, 93, 116, 0.08), 0px 30px 30px 0px rgba(63, 93, 116, 0.13), 0px 7px 16px 0px rgba(63, 93, 116, 0.15), 0px 0px 30px 0px rgba(63, 93, 116, 0.16)',
 }
 
 export const fontSizes = {

@@ -63,6 +63,7 @@ describe('detectSocialMedia', () => {
   it('should return youtube', () => {
     expect(detectSocialMedia('https://www.youtube.com/')).toBe('youtube')
     expect(detectSocialMedia('https://www.youtu.be/')).toBe('youtube')
+    expect(detectSocialMedia('https://youtube-nocookie.com/')).toBe('youtube')
   })
 
   it('should return for an invalid url', () => {
@@ -72,5 +73,18 @@ describe('detectSocialMedia', () => {
     expect(detectSocialMedia('https://burntpix.com/')).toBeUndefined()
     expect(detectSocialMedia('test@gmail.com')).toBeUndefined()
     expect(detectSocialMedia('https://fast.co/')).toBeUndefined()
+  })
+
+  it('should return spotify', () => {
+    expect(detectSocialMedia('https://www.spotify.com/')).toBe('spotify')
+    expect(detectSocialMedia('https://open.spotify.com/')).toBe('spotify')
+  })
+
+  it('should return soundcloud', () => {
+    expect(detectSocialMedia('https://www.soundcloud.com/')).toBe('soundcloud')
+  })
+
+  it('should return warpcast', () => {
+    expect(detectSocialMedia('https://www.warpcast.com/')).toBe('warpcast')
   })
 })

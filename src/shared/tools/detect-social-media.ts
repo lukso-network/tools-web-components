@@ -10,7 +10,10 @@ const SOCIAL_MEDIA = {
   linkedin: ['linkedin.com'],
   github: ['github.com'],
   'universal-page': ['universal.page'],
-  youtube: ['youtube.com', 'youtu.be'],
+  youtube: ['youtube.com', 'youtu.be', 'youtube-nocookie.com'],
+  spotify: ['spotify.com', 'open.spotify.com'],
+  soundcloud: ['soundcloud.com'],
+  warpcast: ['warpcast.com'],
 }
 
 /**

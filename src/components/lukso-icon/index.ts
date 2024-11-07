@@ -166,6 +166,8 @@ import { emptyOutline } from './icons/empty-outline'
 import { profileRemove } from './icons/profile-remove'
 import { logoYoutubeMono } from './icons/logo-youtube-mono'
 import { addGrid } from './icons/add-grid'
+import { gallery } from './icons/gallery'
+import { logoElfsightMono } from './icons/logo-elfsight-mono'
 
 export type IconOptions = {
   width: number
@@ -347,6 +349,8 @@ const iconMap = {
   'profile-remove': profileRemove,
   'logo-youtube-mono': logoYoutubeMono,
   'add-grid': addGrid,
+  gallery,
+  'logo-elfsight-mono': logoElfsightMono,
 }
 
 @customElement('lukso-icon')

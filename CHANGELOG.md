@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.99.0](https://github.com/lukso-network/tools-web-components/compare/v1.98.0...v1.99.0) (2024-11-07)
+
+
+### Features
+
+* `gallery` and `logo-elfsight-mono` icon ([#442](https://github.com/lukso-network/tools-web-components/issues/442)) ([16bf016](https://github.com/lukso-network/tools-web-components/commit/16bf01683c75e9a668bd54555c7252e236bef861))
+
 ## [1.98.0](https://github.com/lukso-network/tools-web-components/compare/v1.97.0...v1.98.0) (2024-11-06)
 
 

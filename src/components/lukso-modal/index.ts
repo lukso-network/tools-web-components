@@ -48,10 +48,6 @@ export class LuksoModal extends TailwindElement {
         auto: {},
       },
       disableAnimations: {
-        true: {
-          wrapper: '',
-          overlay: '',
-        },
         false: {
           wrapper: 'animation-duration-300 delay-300 ',
           overlay: 'animation-duration-300',

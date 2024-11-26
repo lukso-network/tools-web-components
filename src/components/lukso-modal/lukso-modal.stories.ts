@@ -19,6 +19,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    disableAnimations: {
+      name: 'disable-animations',
+      control: { type: 'boolean' },
+      description: 'Disables animations',
+      table: {
+        category: 'Attributes',
+      },
+    },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'full', 'auto'],
@@ -40,6 +48,7 @@ const meta: Meta = {
   args: {
     isOpen: false,
     size: 'small',
+    disableAnimations: false,
   },
   parameters: {
     controls: {
@@ -50,6 +59,7 @@ const meta: Meta = {
         'overlayStyles',
         'dialogStyles',
         'isOpen',
+        'disableAnimations',
       ],
     },
     design: {

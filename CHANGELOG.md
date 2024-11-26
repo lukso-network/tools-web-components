@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.99.1](https://github.com/lukso-network/tools-web-components/compare/v1.99.0...v1.99.1) (2024-11-26)
+
+
+### Bug Fixes
+
+* **DEV-12206:** fix modals flickering on IOS android. added new prop to disable animations ([#444](https://github.com/lukso-network/tools-web-components/issues/444)) ([52606bb](https://github.com/lukso-network/tools-web-components/commit/52606bbcc3a08978d2b41796076c280f7a704cfa))
+
 ## [1.99.0](https://github.com/lukso-network/tools-web-components/compare/v1.98.0...v1.99.0) (2024-11-07)
 
 

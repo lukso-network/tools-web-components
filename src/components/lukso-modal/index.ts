@@ -11,15 +11,17 @@ export class LuksoModal extends TailwindElement {
   @property({ type: Boolean, attribute: 'is-open' })
   isOpen = false
 
+  @property({ type: Boolean, attribute: 'disable-animations' })
+  disableAnimations = false
+
   @property({ type: String })
   size: ModalSizes = 'small'
 
   private styles = tv({
     slots: {
-      wrapper:
-        'opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6  animation-duration-200',
+      wrapper: 'opacity-0 fixed z-[1000] transition-opacity top-0 left-0 p-6',
       overlay:
-        'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999] animate-fade-in animation-duration-200',
+        'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[999]',
       dialog:
         'bg-neutral-98 rounded-12 shadow-neutral-shadow-round-3xl z-[1001]',
     },
@@ -27,10 +29,10 @@ export class LuksoModal extends TailwindElement {
       isOpen: {
         true: {
           wrapper:
-            'flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh] animate-fade-in',
+            'flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh]',
         },
         false: {
-          wrapper: 'invisible',
+          wrapper: 'hidden',
         },
       },
       size: {
@@ -45,7 +47,23 @@ export class LuksoModal extends TailwindElement {
         },
         auto: {},
       },
+      disableAnimations: {
+        false: {
+          wrapper: 'animation-duration-300 delay-300 ',
+          overlay: 'animation-duration-300',
+        },
+      },
     },
+    compoundVariants: [
+      {
+        disableAnimations: false,
+        isOpen: true,
+        class: {
+          wrapper: 'animate-fade-in',
+          overlay: 'animate-fade-in',
+        },
+      },
+    ],
   })
 
   private close() {
@@ -65,6 +83,7 @@ export class LuksoModal extends TailwindElement {
     const { wrapper, overlay, dialog } = this.styles({
       isOpen: this.isOpen,
       size: this.size,
+      disableAnimations: this.disableAnimations,
     })
 
     return html`

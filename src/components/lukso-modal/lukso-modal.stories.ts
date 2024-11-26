@@ -19,6 +19,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    disableAnimations: {
+      name: 'disable-animations',
+      control: { type: 'boolean' },
+      description: 'Disables animations',
+      table: {
+        category: 'Attributes',
+      },
+    },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'full', 'auto'],
@@ -40,6 +48,7 @@ const meta: Meta = {
   args: {
     isOpen: false,
     size: 'small',
+    disableAnimations: false,
   },
   parameters: {
     controls: {
@@ -50,6 +59,7 @@ const meta: Meta = {
         'overlayStyles',
         'dialogStyles',
         'isOpen',
+        'disableAnimations',
       ],
     },
     design: {
@@ -61,7 +71,7 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ size }) => {
+const Template = ({ size, disableAnimations }) => {
   const [{ isOpen }, updateArgs] = useArgs()
 
   const handleClose = () => {
@@ -75,7 +85,11 @@ const Template = ({ size }) => {
   return html` <lukso-button variant="primary" @click=${handleOpen}
       >Show modal</lukso-button
     >
-    <lukso-modal ?is-open=${isOpen} size=${size}>
+    <lukso-modal
+      ?is-open=${isOpen}
+      size=${size}
+      ?disable-animations=${disableAnimations}
+    >
       <div class="p-6">
         <h1 class="heading-inter-26-semi-bold pb-4">Lorem ipsum</h1>
         <p class="paragraph-inter-16-regular">

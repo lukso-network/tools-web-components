@@ -1,6 +1,6 @@
 import { build } from 'vite'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import dts from 'vite-plugin-dts'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -20,7 +20,7 @@ const resolve = {
   },
 }
 
-export async function run(argv: any) {
+export async function run(argv) {
   const { mode } = argv
   const libs = [
     {
@@ -151,7 +151,7 @@ if (import.meta.url.startsWith('file:')) {
     const { argv } = yargs(hideBin(process.argv))
     run(argv)
       .then(() => {
-        if (argv['mode'] === 'production') {
+        if (argv.mode === 'production') {
           console.log('build finished')
           process.exit(0)
         }

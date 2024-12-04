@@ -37,7 +37,7 @@ jobs:
         with:
           path: ./.node-version
       - name: 🎛 Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.nodeversion.outputs.content }}
           cache: 'yarn'
@@ -51,10 +51,10 @@ jobs:
     if: ${{ inputs.release_created != 'true' }}
     steps:
       - name: 🛎️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🎛 Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.install.outputs.node_version }}
           cache: 'yarn'
@@ -80,7 +80,7 @@ jobs:
         with:
           ref: ${{ inputs.sha }}
       - name: 🎛 Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.install.outputs.node_version }}
           cache: 'yarn'
@@ -98,10 +98,10 @@ jobs:
     if: ${{ inputs.release_created == 'true' }}
     steps:
       - name: 🛎️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🎛 Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.install.outputs.node_version }}
           cache: 'yarn'

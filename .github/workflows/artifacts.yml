@@ -90,6 +90,78 @@ jobs:
       - name: 🧪 Testing
         run: yarn test:ci
 
+  review:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: 🔍 Get Pull Request Info
+        id: pr-info
+        if: ${{ github.event.number != null }}
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            return !pr.data?.draft && !pr.data.labels?.some(label => label.name === 'review-requested') ? "true" : "false";
+
+      - name: 📃 Output info
+        if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
+        run: echo "${{ steps.pr-info.outputs.result }}"
+
+      - name: 🧑🏼‍💻 Run Auto-Assign
+        if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
+        uses: kentaro-m/auto-assign-action@v2.0.0
+        with:
+          configuration-path: '.github/auto_assign.yaml'
+
+      - name: 🔍 Get Discord Mentions
+        if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
+        id: discord-mentions
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const creator = context.actor;
+            const mentions = [
+              { githubUser: 'dzbo', discordId: '752572450834743316' },
+              { githubUser: 'richtera', discordId: '457668914198085643' },
+              { githubUser: 'doubleppereira', discordId: '366621324069830669' },
+              { githubUser: 'JeneaVranceanu', discordId: '785496710150357023' }
+            ];
+            const filteredMentions = mentions
+              .filter(mention => mention.githubUser !== creator)
+              .map(mention => `<@${mention.discordId}>`)
+              .join(' ');
+            return filteredMentions;
+
+      - name: 📃 Output info
+        if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
+        run: echo "${{ steps.discord-mentions.outputs.result }} https://github.com/lukso-network/tools-web-components/pull/${{ github.event.number }} - ${{ github.event.pull_request.title }}"
+
+      - name: 🧑🏼‍💻 Run Discord Webhook Action
+        if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
+        uses: tsickert/discord-webhook@v6.0.0
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          content: '${{ steps.discord-mentions.outputs.result }} https://github.com/lukso-network/tools-web-components/pull/${{ github.event.number }} - ${{ github.event.pull_request.title }}'
+
+      - name: ✨ Add 'review-requested' Label
+        if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['review-requested']
+            });
+
   publish:
     needs:
       - test

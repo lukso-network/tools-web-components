@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.100.0](https://github.com/lukso-network/tools-web-components/compare/v1.99.1...v1.100.0) (2024-12-05)
+
+
+### Features
+
+* resize icons ([#447](https://github.com/lukso-network/tools-web-components/issues/447)) ([3e7d4ff](https://github.com/lukso-network/tools-web-components/commit/3e7d4ff365fddf81de64ee7deb4b5cfddbfb1fe7))
+
+
+### Bug Fixes
+
+* QR code icon color ([#448](https://github.com/lukso-network/tools-web-components/issues/448)) ([0c0e49c](https://github.com/lukso-network/tools-web-components/commit/0c0e49c44772753d8195505f130c9a2c9a9245a7))
+
 ## [1.99.1](https://github.com/lukso-network/tools-web-components/compare/v1.99.0...v1.99.1) (2024-11-26)
 
 

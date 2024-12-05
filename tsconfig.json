@@ -14,8 +14,8 @@
   },
   "include": [
     "src",
-    "vite.full.config.ts",
-    "vite.tools.config.ts",
+    "vite.full.config.js",
+    "vite.tools.config.js",
     "vitest.config.ts",
     "storybook-static/directives"
   ],

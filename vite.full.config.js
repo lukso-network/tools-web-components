@@ -1,7 +1,7 @@
 import { build } from 'vite'
-import path from 'path'
-import { readdir, readFile, stat, writeFile } from 'fs/promises'
-import { fileURLToPath } from 'url'
+import path from 'node:path'
+import { readdir, readFile, stat, writeFile } from 'node:fs/promises'
+import { fileURLToPath } from 'node:url'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import dts from 'vite-plugin-dts'
 import yargs from 'yargs'
@@ -13,15 +13,7 @@ import { colorPalette } from './package/tools/tailwind-config.js'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export async function readDeps(dir, prefix = []) {
-  let output: {
-    entry: string
-    source: string
-    name: string
-    requires: string
-    imports: string
-    fileName: string
-    types: string
-  }[] =
+  let output =
     prefix.length === 0
       ? [
           {
@@ -60,7 +52,9 @@ export async function readDeps(dir, prefix = []) {
         output.sort(({ name: a }, { name: b }) => {
           if (a > b) {
             return 1
-          } else if (a < b) {
+          }
+
+          if (a < b) {
             return -1
           }
           return 0
@@ -95,7 +89,9 @@ export async function readDeps(dir, prefix = []) {
       output.sort(({ name: a }, { name: b }) => {
         if (a > b) {
           return 1
-        } else if (a < b) {
+        }
+
+        if (a < b) {
           return -1
         }
         return 0
@@ -232,7 +228,7 @@ async function writePackage() {
   pack.version = fullPack.version
   for (const key of Object.keys(pack.dependencies)) {
     const newValue =
-      (fullPack.dependencies || {})[key] || fullPack.devDependencies[key]
+      fullPack.dependencies?.[key] || fullPack.devDependencies[key]
     if (newValue) {
       // Update published dependencies to be the same version we have in the workspace
       pack.dependencies[key] = newValue
@@ -240,7 +236,7 @@ async function writePackage() {
   }
   const newContent = `${JSON.stringify(pack, null, '  ')}\n`
   if (newContent !== oldContent) {
-    console.log(`writing ./package.json`)
+    console.log('writing ./package.json')
     await writeFile('./package/package.json', newContent)
   }
   return exp
@@ -256,7 +252,7 @@ const resolve = {
   },
 }
 
-export async function run(argv: any) {
+export async function run(argv) {
   const { mode } = argv
   await writeIndex()
   await writePackage()
@@ -327,13 +323,13 @@ export async function run(argv: any) {
             './src/shared/directives',
           ],
           outDir: './package/dist',
-          beforeWriteFile: (filePath: string, content: string) => {
+          beforeWriteFile: (filePath, content) => {
             return { filePath: filePath.replace('/src/', '/'), content }
           },
         }),
         dts({
           include: ['./src/shared/tools/tailwind-config.ts'],
-          beforeWriteFile: (filePath: string, content: string) => {
+          beforeWriteFile: (filePath, content) => {
             return {
               filePath: filePath.replace('/shared/tools/', '/'),
               content,
@@ -356,7 +352,7 @@ if (import.meta.url.startsWith('file:')) {
     const { argv } = yargs(hideBin(process.argv))
     run(argv)
       .then(() => {
-        if (argv['mode'] === 'production') {
+        if (argv.mode === 'production') {
           console.log('build finished')
           process.exit(0)
         }

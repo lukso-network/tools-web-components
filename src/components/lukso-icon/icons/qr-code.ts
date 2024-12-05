@@ -15,10 +15,7 @@ export const qrCode = (options: IconOptions) => {
       height: `${options.height}px`,
     })}
   >
-    <mask
-      id="path-1-inside-1_2994_36309"
-      fill="var(--${options.secondaryColor})"
-    >
+    <mask id="path-1-inside-1_2994_36309" fill="var(--${options.color})">
       <rect x="4" y="4" width="6.4" height="6.4" rx="1" />
     </mask>
     <rect
@@ -31,10 +28,7 @@ export const qrCode = (options: IconOptions) => {
       stroke-width="3"
       mask="url(#path-1-inside-1_2994_36309)"
     />
-    <mask
-      id="path-2-inside-2_2994_36309"
-      fill="var(--${options.secondaryColor})"
-    >
+    <mask id="path-2-inside-2_2994_36309" fill="var(--${options.color})">
       <rect x="4" y="13.6" width="6.4" height="6.4" rx="1" />
     </mask>
     <rect
@@ -87,10 +81,7 @@ export const qrCode = (options: IconOptions) => {
       rx="0.8"
       fill="var(--${options.color})"
     />
-    <mask
-      id="path-8-inside-3_2994_36309"
-      fill="var(--${options.secondaryColor})"
-    >
+    <mask id="path-8-inside-3_2994_36309" fill="var(--${options.color})">
       <rect x="13.6001" y="4" width="6.4" height="6.4" rx="1" />
     </mask>
     <rect

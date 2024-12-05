@@ -168,6 +168,8 @@ import { logoYoutubeMono } from './icons/logo-youtube-mono'
 import { addGrid } from './icons/add-grid'
 import { gallery } from './icons/gallery'
 import { logoElfsightMono } from './icons/logo-elfsight-mono'
+import { maximizeVertical } from './icons/maximize-vertical'
+import { minimizeVertical } from './icons/minimize-vertical'
 
 export type IconOptions = {
   width: number
@@ -351,6 +353,8 @@ const iconMap = {
   'add-grid': addGrid,
   gallery,
   'logo-elfsight-mono': logoElfsightMono,
+  'maximize-vertical': maximizeVertical,
+  'minimize-vertical': minimizeVertical,
 }
 
 @customElement('lukso-icon')

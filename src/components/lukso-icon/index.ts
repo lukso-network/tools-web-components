@@ -173,6 +173,7 @@ import { minimizeVertical } from './icons/minimize-vertical'
 import { chart } from './icons/chart'
 import { people } from './icons/people'
 import { documentCode } from './icons/document-code'
+import { logoWarpcastMono } from './icons/logo-warpcast-mono'
 
 export type IconOptions = {
   width: number
@@ -361,6 +362,7 @@ const iconMap = {
   chart,
   people,
   'document-code': documentCode,
+  'logo-warpcast-mono': logoWarpcastMono,
 }
 
 @customElement('lukso-icon')

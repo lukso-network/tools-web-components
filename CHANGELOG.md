@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.101.1](https://github.com/lukso-network/tools-web-components/compare/v1.101.0...v1.101.1) (2024-12-13)
+
+
+### Bug Fixes
+
+* stroke size for new icons ([#452](https://github.com/lukso-network/tools-web-components/issues/452)) ([2856ff0](https://github.com/lukso-network/tools-web-components/commit/2856ff09d413b50443e4a23f29cfce878067ef44))
+
 ## [1.101.0](https://github.com/lukso-network/tools-web-components/compare/v1.100.0...v1.101.0) (2024-12-13)
 
 

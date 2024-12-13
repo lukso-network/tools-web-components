@@ -174,6 +174,9 @@ import { chart } from './icons/chart'
 import { people } from './icons/people'
 import { documentCode } from './icons/document-code'
 import { logoWarpcastMono } from './icons/logo-warpcast-mono'
+import { parachute } from './icons/parachute'
+import { bitcoinConvert } from './icons/bitcoin-convert'
+import { nft } from './icons/nft'
 
 export type IconOptions = {
   width: number
@@ -363,6 +366,9 @@ const iconMap = {
   people,
   'document-code': documentCode,
   'logo-warpcast-mono': logoWarpcastMono,
+  parachute,
+  'bitcoin-convert': bitcoinConvert,
+  nft,
 }
 
 @customElement('lukso-icon')

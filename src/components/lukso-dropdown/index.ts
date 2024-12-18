@@ -52,7 +52,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   private styles = tv({
     base: `bg-neutral-100 border w-full border-neutral-90 shadow-1xl z-50
-      flex absolute flex-col gap-1 overflow-y-auto max-h-64 `,
+      flex absolute flex-col gap-1 overflow-y-auto max-h-64 w-[max-content]`,
     variants: {
       openTop: {
         true: 'bottom-[48px] mb-2 mt-0',

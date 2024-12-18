@@ -177,6 +177,7 @@ import { logoWarpcastMono } from './icons/logo-warpcast-mono'
 import { parachute } from './icons/parachute'
 import { bitcoinConvert } from './icons/bitcoin-convert'
 import { nft } from './icons/nft'
+import { fingerprint } from './icons/fingerprint'
 
 export type IconOptions = {
   width: number
@@ -369,6 +370,7 @@ const iconMap = {
   parachute,
   'bitcoin-convert': bitcoinConvert,
   nft,
+  fingerprint,
 }
 
 @customElement('lukso-icon')

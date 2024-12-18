@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.102.0](https://github.com/lukso-network/tools-web-components/compare/v1.101.2...v1.102.0) (2024-12-18)
+
+
+### Features
+
+* fingerprint icon ([#456](https://github.com/lukso-network/tools-web-components/issues/456)) ([a1f0c46](https://github.com/lukso-network/tools-web-components/commit/a1f0c46c04b0d07c7742beab37c7ae918f44699f))
+
 ## [1.101.2](https://github.com/lukso-network/tools-web-components/compare/v1.101.1...v1.101.2) (2024-12-18)
 
 

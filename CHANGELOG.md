@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.101.2](https://github.com/lukso-network/tools-web-components/compare/v1.101.1...v1.101.2) (2024-12-18)
+
+
+### Bug Fixes
+
+* issue in dropdown width ([#454](https://github.com/lukso-network/tools-web-components/issues/454)) ([53d6d5e](https://github.com/lukso-network/tools-web-components/commit/53d6d5e57a66299cef4804e8231ecb06008767c0))
+
 ## [1.101.1](https://github.com/lukso-network/tools-web-components/compare/v1.101.0...v1.101.1) (2024-12-13)
 
 

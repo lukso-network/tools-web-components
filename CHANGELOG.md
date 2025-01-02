@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.102.2](https://github.com/lukso-network/tools-web-components/compare/v1.102.1...v1.102.2) (2025-01-02)
+
+
+### Bug Fixes
+
+* change option padding ([#460](https://github.com/lukso-network/tools-web-components/issues/460)) ([ae5ea66](https://github.com/lukso-network/tools-web-components/commit/ae5ea66ed7df757fc129dcc0a4a0370f262a38ff))
+
 ## [1.102.1](https://github.com/lukso-network/tools-web-components/compare/v1.102.0...v1.102.1) (2025-01-02)
 
 

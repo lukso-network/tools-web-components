@@ -374,6 +374,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         max-width="150"
         slice-by="4"
         size=${this.size}
+        class="mr-2"
       ></lukso-username>`
   }
 

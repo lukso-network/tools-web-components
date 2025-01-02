@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.102.1](https://github.com/lukso-network/tools-web-components/compare/v1.102.0...v1.102.1) (2025-01-02)
+
+
+### Bug Fixes
+
+* add extra space for scrollbar ([#458](https://github.com/lukso-network/tools-web-components/issues/458)) ([c0f2ab4](https://github.com/lukso-network/tools-web-components/commit/c0f2ab46b0b5db1484ac5bec7659a5c2691d3de5))
+
 ## [1.102.0](https://github.com/lukso-network/tools-web-components/compare/v1.101.2...v1.102.0) (2024-12-18)
 
 

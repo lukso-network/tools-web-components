@@ -178,6 +178,7 @@ import { parachute } from './icons/parachute'
 import { bitcoinConvert } from './icons/bitcoin-convert'
 import { nft } from './icons/nft'
 import { fingerprint } from './icons/fingerprint'
+import { hammer } from './icons/hammer'
 
 export type IconOptions = {
   width: number
@@ -371,6 +372,7 @@ const iconMap = {
   'bitcoin-convert': bitcoinConvert,
   nft,
   fingerprint,
+  hammer,
 }
 
 @customElement('lukso-icon')

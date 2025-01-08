@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.103.0](https://github.com/lukso-network/tools-web-components/compare/v1.102.2...v1.103.0) (2025-01-08)
+
+
+### Features
+
+* add hammer icon ([#462](https://github.com/lukso-network/tools-web-components/issues/462)) ([02c43cc](https://github.com/lukso-network/tools-web-components/commit/02c43cc8963afa0c9008829581b0c463e8bd3213))
+
 ## [1.102.2](https://github.com/lukso-network/tools-web-components/compare/v1.102.1...v1.102.2) (2025-01-02)
 
 

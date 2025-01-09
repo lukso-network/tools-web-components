@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.104.0](https://github.com/lukso-network/tools-web-components/compare/v1.103.0...v1.104.0) (2025-01-09)
+
+
+### Features
+
+* add `hand-heart` icon ([#464](https://github.com/lukso-network/tools-web-components/issues/464)) ([e58d2da](https://github.com/lukso-network/tools-web-components/commit/e58d2dad52a6de79d033a0d1c1a8cbf26192c611))
+
 ## [1.103.0](https://github.com/lukso-network/tools-web-components/compare/v1.102.2...v1.103.0) (2025-01-08)
 
 

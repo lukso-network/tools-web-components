@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.105.0](https://github.com/lukso-network/tools-web-components/compare/v1.104.0...v1.105.0) (2025-01-13)
+
+
+### Features
+
+* add earth icon ([#467](https://github.com/lukso-network/tools-web-components/issues/467)) ([f159051](https://github.com/lukso-network/tools-web-components/commit/f1590512c89c943cd04118671c08411acee0922c))
+
 ## [1.104.0](https://github.com/lukso-network/tools-web-components/compare/v1.103.0...v1.104.0) (2025-01-09)
 
 

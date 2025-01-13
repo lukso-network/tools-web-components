@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.106.0](https://github.com/lukso-network/tools-web-components/compare/v1.105.0...v1.106.0) (2025-01-13)
+
+
+### Features
+
+* add new mono icons ([#469](https://github.com/lukso-network/tools-web-components/issues/469)) ([055a1f3](https://github.com/lukso-network/tools-web-components/commit/055a1f3bd60f019b9fd7a855c1ee56baefb808a8))
+
 ## [1.105.0](https://github.com/lukso-network/tools-web-components/compare/v1.104.0...v1.105.0) (2025-01-13)
 
 

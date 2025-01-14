@@ -181,7 +181,7 @@ import { fingerprint } from './icons/fingerprint'
 import { hammer } from './icons/hammer'
 import { handHeart } from './icons/hand-heart'
 import { earth } from './icons/earth'
-import { logoSoundCloudMono } from './icons/logo-sound-cloud-mono'
+import { logoSoundcloudMono } from './icons/logo-soundcloud-mono'
 import { logoSpotifyMono } from './icons/logo-spotify-mono'
 import { logoGoogleCalendarMono } from './icons/logo-google-calendar-mono'
 import { logoSubstackMono } from './icons/logo-substack-mono'
@@ -381,7 +381,7 @@ const iconMap = {
   hammer,
   'hand-heart': handHeart,
   earth,
-  'logo-sound-cloud-mono': logoSoundCloudMono,
+  'logo-soundcloud-mono': logoSoundcloudMono,
   'logo-spotify-mono': logoSpotifyMono,
   'logo-google-calendar-mono': logoGoogleCalendarMono,
   'logo-substack-mono': logoSubstackMono,

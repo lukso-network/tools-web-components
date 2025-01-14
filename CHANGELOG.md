@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.106.1](https://github.com/lukso-network/tools-web-components/compare/v1.106.0...v1.106.1) (2025-01-14)
+
+
+### Bug Fixes
+
+* update soundcloud name ([#471](https://github.com/lukso-network/tools-web-components/issues/471)) ([fc82ca4](https://github.com/lukso-network/tools-web-components/commit/fc82ca4f1310a566c52aeb66a9e756edfc9f6123))
+
 ## [1.106.0](https://github.com/lukso-network/tools-web-components/compare/v1.105.0...v1.106.0) (2025-01-13)
 
 

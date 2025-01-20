@@ -60,6 +60,7 @@ export class LuksoShare extends TailwindStyledElement(style) {
       href=${url}
       target="_blank"
       class="transition-all duration-300 rounded-full opacity-50 hover:opacity-80 hover:shadow-button-medium-hover-primary h-7 w-7"
+      aria-label="${name}"
       ><img src="/assets/images/social-${name}.svg" alt=""
     /></a>`
   }

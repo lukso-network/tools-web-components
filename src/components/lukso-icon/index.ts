@@ -185,6 +185,9 @@ import { logoSoundcloudMono } from './icons/logo-soundcloud-mono'
 import { logoSpotifyMono } from './icons/logo-spotify-mono'
 import { logoGoogleCalendarMono } from './icons/logo-google-calendar-mono'
 import { logoSubstackMono } from './icons/logo-substack-mono'
+import { logoXround } from './icons/logo-x-round'
+import { logoFarcaster } from './icons/logo-farcaster'
+import { logoLinkedin } from './icons/logo-linkedin'
 
 export type IconOptions = {
   width: number
@@ -385,6 +388,9 @@ const iconMap = {
   'logo-spotify-mono': logoSpotifyMono,
   'logo-google-calendar-mono': logoGoogleCalendarMono,
   'logo-substack-mono': logoSubstackMono,
+  'logo-x-round': logoXround,
+  'logo-farcaster': logoFarcaster,
+  'logo-linkedin': logoLinkedin,
 }
 
 @customElement('lukso-icon')

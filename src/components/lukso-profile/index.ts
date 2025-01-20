@@ -146,7 +146,7 @@ export class LuksoProfile extends TailwindElement {
           ></lukso-image>
         </div>
         ${this.identicon()
-          ? html`<img src=${this.identicon()} class=${identicon()} />`
+          ? html`<img src=${this.identicon()} class=${identicon()} alt="" />`
           : ''}
       </div>
     `

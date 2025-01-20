@@ -102,6 +102,7 @@ export class LuksoImage extends TailwindElement {
             src=${this.src}
             class=${image()}
             loading="lazy"
+            alt=""
             @load=${this.handleLoad}
             @error=${this.handleError}
           />

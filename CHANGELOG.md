@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.107.1](https://github.com/lukso-network/tools-web-components/compare/v1.107.0...v1.107.1) (2025-01-20)
+
+
+### Bug Fixes
+
+* add aria labels in footer ([#479](https://github.com/lukso-network/tools-web-components/issues/479)) ([a2b6db1](https://github.com/lukso-network/tools-web-components/commit/a2b6db1fadfede74eb36bdd2180c95d7439bf3a6))
+* add missing alt attribute ([#476](https://github.com/lukso-network/tools-web-components/issues/476)) ([8adcbc7](https://github.com/lukso-network/tools-web-components/commit/8adcbc7fa6e968a92b122dbad6c01678ff6c16e5))
+* hide tooltip aria ([#477](https://github.com/lukso-network/tools-web-components/issues/477)) ([7ca2873](https://github.com/lukso-network/tools-web-components/commit/7ca28733166c15d722f8e1831dcd1aba502912a3))
+* replace facebook logo with correct size ([#475](https://github.com/lukso-network/tools-web-components/issues/475)) ([b63d5c3](https://github.com/lukso-network/tools-web-components/commit/b63d5c36186ec4aa38898af54b9c2309b6d7aaf1))
+
 ## [1.107.0](https://github.com/lukso-network/tools-web-components/compare/v1.106.1...v1.107.0) (2025-01-20)
 
 

@@ -211,6 +211,7 @@ export class LuksoNavbar extends TailwindElement {
             <img
               src="${this.logoUrl || this.defaultLogoUrl}"
               class="mr-2 h-[26px]"
+              alt="${this.title}"
             />
             <div
               class="text-purple-51 nav-apax-14-medium-uppercase

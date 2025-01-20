@@ -148,6 +148,10 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       offset: [0, this.offset],
       hideOnClick: this.hideOnClickCheck(),
       delay: [this.showDelay, this.hideDelay],
+      aria: {
+        content: null,
+        expanded: false,
+      },
     })
   }
 

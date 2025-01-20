@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.107.0](https://github.com/lukso-network/tools-web-components/compare/v1.106.1...v1.107.0) (2025-01-20)
+
+
+### Features
+
+* Add logos ([#473](https://github.com/lukso-network/tools-web-components/issues/473)) ([ded17ae](https://github.com/lukso-network/tools-web-components/commit/ded17ae76a8d936574091a120b7bc08ef07bbe26))
+
 ## [1.106.1](https://github.com/lukso-network/tools-web-components/compare/v1.106.0...v1.106.1) (2025-01-14)
 
 

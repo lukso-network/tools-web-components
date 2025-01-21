@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.108.0](https://github.com/lukso-network/tools-web-components/compare/v1.107.1...v1.108.0) (2025-01-21)
+
+
+### Features
+
+* Add aria-label to button ([#480](https://github.com/lukso-network/tools-web-components/issues/480)) ([23d01f4](https://github.com/lukso-network/tools-web-components/commit/23d01f44f2c353dd44e5e9e84debb70f588e5915))
+
 ## [1.107.1](https://github.com/lukso-network/tools-web-components/compare/v1.107.0...v1.107.1) (2025-01-20)
 
 

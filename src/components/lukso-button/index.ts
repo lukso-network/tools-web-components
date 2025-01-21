@@ -74,8 +74,8 @@ export class LuksoButton extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-icon' })
   isIcon = false
 
-  @property({ type: String, attribute: 'aria-label' })
-  ariaLabel = ''
+  @property({ type: String })
+  label = ''
 
   @state()
   private isPressed = false
@@ -302,7 +302,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
         ?disabled=${this.disabled || this.isLoading}
         type=${this.type}
         class=${cn(buttonStyles, this.customClass)}
-        aria-label=${this.ariaLabel}
+        aria-label=${this.label}
         @mousedown=${this.handleMouseDown}
         @touchstart=${this.handleMouseDown}
         @touchend=${this.handleMouseUp}

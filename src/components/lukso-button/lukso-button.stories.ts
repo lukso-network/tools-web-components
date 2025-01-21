@@ -154,8 +154,7 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    ariaLabel: {
-      name: 'aria-label',
+    label: {
       control: { type: 'text' },
       table: {
         category: 'Attributes',
@@ -185,9 +184,6 @@ const meta: Meta = {
     'is-icon': {
       name: 'isIcon',
     },
-    'aria-label': {
-      name: 'ariaLabel',
-    },
   },
   args: {
     text: 'Hello World',
@@ -207,7 +203,7 @@ const meta: Meta = {
     isActive: false,
     count: 0,
     isIcon: false,
-    ariaLabel: '',
+    label: '',
   },
   parameters: {
     controls: {
@@ -229,7 +225,6 @@ const meta: Meta = {
         'noTransition',
         'isIcon',
         'loadingStyles',
-        'ariaLabel',
       ],
     },
   },
@@ -256,7 +251,7 @@ const Template = ({
   isActive,
   count,
   isIcon,
-  ariaLabel,
+  label,
 }) =>
   html`<lukso-button
     variant=${variant ? variant : nothing}
@@ -268,7 +263,7 @@ const Template = ({
     loading-text=${loadingText ? loadingText : nothing}
     custom-class=${customClass ? customClass : nothing}
     count=${count ? count : nothing}
-    aria-label=${ariaLabel ? ariaLabel : nothing}
+    label=${label ? label : nothing}
     ?disabled=${disabled}
     ?is-full-width=${isFullWidth}
     ?is-long-press=${isLongPress}

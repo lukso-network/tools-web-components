@@ -188,6 +188,7 @@ import { logoSubstackMono } from './icons/logo-substack-mono'
 import { logoXround } from './icons/logo-x-round'
 import { logoFarcaster } from './icons/logo-farcaster'
 import { logoLinkedin } from './icons/logo-linkedin'
+import { profileRestoreNoSetup } from './icons/profile-restore-no-setup'
 
 export type IconOptions = {
   width: number
@@ -391,6 +392,7 @@ const iconMap = {
   'logo-x-round': logoXround,
   'logo-farcaster': logoFarcaster,
   'logo-linkedin': logoLinkedin,
+  'profile-restore-no-setup': profileRestoreNoSetup,
 }
 
 @customElement('lukso-icon')

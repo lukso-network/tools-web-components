@@ -333,6 +333,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
         href=${this.href}
         target=${this.target}
         rel=${this.rel}
+        aria-label=${this.label}
       >
         <slot></slot>
       </a>

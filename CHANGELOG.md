@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.108.1](https://github.com/lukso-network/tools-web-components/compare/v1.108.0...v1.108.1) (2025-01-21)
+
+
+### Bug Fixes
+
+* add missing label for links ([#482](https://github.com/lukso-network/tools-web-components/issues/482)) ([aa689f7](https://github.com/lukso-network/tools-web-components/commit/aa689f7e8f7e9622b2bae0d817254f592d2d7532))
+
 ## [1.108.0](https://github.com/lukso-network/tools-web-components/compare/v1.107.1...v1.108.0) (2025-01-21)
 
 

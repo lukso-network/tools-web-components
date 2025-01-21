@@ -154,6 +154,12 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    label: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -197,6 +203,7 @@ const meta: Meta = {
     isActive: false,
     count: 0,
     isIcon: false,
+    label: '',
   },
   parameters: {
     controls: {
@@ -244,6 +251,7 @@ const Template = ({
   isActive,
   count,
   isIcon,
+  label,
 }) =>
   html`<lukso-button
     variant=${variant ? variant : nothing}
@@ -255,6 +263,7 @@ const Template = ({
     loading-text=${loadingText ? loadingText : nothing}
     custom-class=${customClass ? customClass : nothing}
     count=${count ? count : nothing}
+    label=${label ? label : nothing}
     ?disabled=${disabled}
     ?is-full-width=${isFullWidth}
     ?is-long-press=${isLongPress}

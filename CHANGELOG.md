@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.109.0](https://github.com/lukso-network/tools-web-components/compare/v1.108.1...v1.109.0) (2025-01-21)
+
+
+### Features
+
+* Add `profile-restore-no-setup` icon ([#484](https://github.com/lukso-network/tools-web-components/issues/484)) ([7d17c7d](https://github.com/lukso-network/tools-web-components/commit/7d17c7d8b23879ba150be6b6bb880f731f48086d))
+
 ## [1.108.1](https://github.com/lukso-network/tools-web-components/compare/v1.108.0...v1.108.1) (2025-01-21)
 
 

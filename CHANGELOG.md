@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.109.1](https://github.com/lukso-network/tools-web-components/compare/v1.109.0...v1.109.1) (2025-01-23)
+
+
+### Bug Fixes
+
+* **DEV-12126:** checkbox to not shrink ([#486](https://github.com/lukso-network/tools-web-components/issues/486)) ([25d1da6](https://github.com/lukso-network/tools-web-components/commit/25d1da66212056f63361c51af80d9f168117fc65))
+
 ## [1.109.0](https://github.com/lukso-network/tools-web-components/compare/v1.108.1...v1.109.0) (2025-01-21)
 
 

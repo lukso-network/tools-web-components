@@ -66,7 +66,7 @@ export class LuksoCheckbox extends TailwindElement {
     bg-neutral-100
     justify-center items-center flex
     border border-solid rounded-md
-    outline-none transition transition-all duration-150 appearance-none`
+    outline-none transition transition-all duration-150 appearance-none shrink-0`
 
   checkedIconTemplate(): unknown {
     return html`

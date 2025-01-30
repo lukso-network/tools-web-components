@@ -217,7 +217,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
                 class="h-full full rounded-t-[inherit] rounded-b-0 bg-neutral-20/10 absolute"
               ></div>`
             : nothing}
-          <div class="relative">
+          <div class="relative h-full">
             <slot name="header"></slot>
           </div>
         </div>
@@ -391,7 +391,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
           <div class="rounded-t-[inherit] overflow-hidden absolute inset-0">
             <lukso-image src=${this.backgroundUrl}></lukso-image>
           </div>
-          <div class="relative">
+          <div class="relative h-full">
             <slot name="header"></slot>
           </div>
         </div>

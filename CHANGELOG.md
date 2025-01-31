@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.110.0](https://github.com/lukso-network/tools-web-components/compare/v1.109.1...v1.110.0) (2025-01-30)
+
+
+### Features
+
+* Add share icon ([#488](https://github.com/lukso-network/tools-web-components/issues/488)) ([2d84264](https://github.com/lukso-network/tools-web-components/commit/2d84264de4f7ac69a2ae7c43ba23969a69c8d7e6))
+
+
+### Bug Fixes
+
+* correct header height in card ([#489](https://github.com/lukso-network/tools-web-components/issues/489)) ([408de61](https://github.com/lukso-network/tools-web-components/commit/408de61bb66f9112aad7a448e08fe221349a8f4f))
+* QR code icon has wrong color ([#490](https://github.com/lukso-network/tools-web-components/issues/490)) ([5d15a00](https://github.com/lukso-network/tools-web-components/commit/5d15a0096634b2614f3cb16b2e610005f3483fdf))
+
 ## [1.109.1](https://github.com/lukso-network/tools-web-components/compare/v1.109.0...v1.109.1) (2025-01-23)
 
 

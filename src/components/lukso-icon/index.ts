@@ -150,7 +150,6 @@ import { glasses } from './icons/glasses'
 import { unlink } from './icons/unlink'
 import { logoPolygon } from './icons/logo-polygon'
 import { logoFantom } from './icons/logo-fantom'
-import { logoFacebookMono } from './icons/logo-facebook-mono'
 import { logoXMono } from './icons/logo-x-mono'
 import { logoInstagramMono } from './icons/logo-instagram-mono'
 import { logoMediumMono } from './icons/logo-medium-mono'
@@ -190,6 +189,9 @@ import { logoFarcaster } from './icons/logo-farcaster'
 import { logoLinkedin } from './icons/logo-linkedin'
 import { profileRestoreNoSetup } from './icons/profile-restore-no-setup'
 import { share } from './icons/share'
+import { logoFacebookRound } from './icons/logo-facebook-round'
+import { logoFarcasterRound } from './icons/logo-farcaster-round'
+import { logoLinkedinRound } from './icons/logo-linkedin-round'
 
 export type IconOptions = {
   width: number
@@ -355,7 +357,7 @@ const iconMap = {
   'cube-outline': cubeOutline,
   'film-outline': filmOutline,
   'video-outline': videoOutline,
-  'logo-facebook-mono': logoFacebookMono,
+  'logo-facebook-mono': logoFacebookRound,
   'logo-x-mono': logoXMono,
   'logo-instagram-mono': logoInstagramMono,
   'logo-medium-mono': logoMediumMono,
@@ -395,6 +397,9 @@ const iconMap = {
   'logo-linkedin': logoLinkedin,
   'profile-restore-no-setup': profileRestoreNoSetup,
   share,
+  'logo-facebook-round': logoFacebookRound,
+  'logo-farcaster-round': logoFarcasterRound,
+  'logo-linkedin-round': logoLinkedinRound,
 }
 
 @customElement('lukso-icon')

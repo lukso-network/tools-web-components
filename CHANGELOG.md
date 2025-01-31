@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.111.0](https://github.com/lukso-network/tools-web-components/compare/v1.110.0...v1.111.0) (2025-01-31)
+
+
+### Features
+
+* Round icons section ([#492](https://github.com/lukso-network/tools-web-components/issues/492)) ([1ac437c](https://github.com/lukso-network/tools-web-components/commit/1ac437c915978820b6529a95fcc30f0854a17b6b))
+
 ## [1.110.0](https://github.com/lukso-network/tools-web-components/compare/v1.109.1...v1.110.0) (2025-01-30)
 
 

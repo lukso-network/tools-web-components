@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.112.0](https://github.com/lukso-network/tools-web-components/compare/v1.111.0...v1.112.0) (2025-02-03)
+
+
+### Features
+
+* Add arrow-long-down icon ([#494](https://github.com/lukso-network/tools-web-components/issues/494)) ([4eca1e8](https://github.com/lukso-network/tools-web-components/commit/4eca1e8b18ca3a0e222875fb2e8646a6d38e87c3))
+
 ## [1.111.0](https://github.com/lukso-network/tools-web-components/compare/v1.110.0...v1.111.0) (2025-01-31)
 
 

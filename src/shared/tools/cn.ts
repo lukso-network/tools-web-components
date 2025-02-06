@@ -1,5 +1,5 @@
 import { extendTailwindMerge } from 'tailwind-merge'
-import { clsx, ClassValue } from 'clsx'
+import { clsx, type ClassValue } from 'clsx'
 
 import {
   colorPalette,
@@ -19,7 +19,7 @@ const customTwMerge = extendTailwindMerge({
         const colors = Object.keys(currentVal[1]).map(
           c => `text-${currentVal[0]}-${c}`
         )
-        return [...acc, ...colors]
+        return acc.concat(colors)
       }, []),
       borderRadius: Object.keys(borderRadius).map(s => `rounded-${s}`),
     },

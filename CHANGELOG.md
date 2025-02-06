@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.112.1](https://github.com/lukso-network/tools-web-components/compare/v1.112.0...v1.112.1) (2025-02-06)
+
+
+### Bug Fixes
+
+* Export shared types ([#496](https://github.com/lukso-network/tools-web-components/issues/496)) ([37620b6](https://github.com/lukso-network/tools-web-components/commit/37620b6e56a8de6e6c711681723cd68db3ada7a0))
+
 ## [1.112.0](https://github.com/lukso-network/tools-web-components/compare/v1.111.0...v1.112.0) (2025-02-03)
 
 

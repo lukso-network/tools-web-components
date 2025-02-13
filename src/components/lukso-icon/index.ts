@@ -193,6 +193,7 @@ import { logoFacebookRound } from './icons/logo-facebook-round'
 import { logoFarcasterRound } from './icons/logo-farcaster-round'
 import { logoLinkedinRound } from './icons/logo-linkedin-round'
 import { arrowLongDown } from './icons/arrow-long-down'
+import { gas } from './icons/gas'
 
 export type IconOptions = {
   width: number
@@ -402,6 +403,7 @@ const iconMap = {
   'logo-farcaster-round': logoFarcasterRound,
   'logo-linkedin-round': logoLinkedinRound,
   'arrow-long-down': arrowLongDown,
+  gas,
 }
 
 @customElement('lukso-icon')

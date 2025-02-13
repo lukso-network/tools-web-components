@@ -1,3 +1,4 @@
+import makeBlockie from 'ethereum-blockies-base64'
 import { html, nothing } from 'lit'
 import {
   customElement,
@@ -64,6 +65,9 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   @property({ type: Boolean, attribute: 'has-overlay' })
   hasOverlay = false
+
+  @property({ type: Boolean, attribute: 'is-eoa' })
+  isEoa = false
 
   @queryAssignedElements({ slot: 'bottom', flatten: true })
   private bottomNodes: NodeListOf<HTMLElement>
@@ -229,10 +233,12 @@ export class LuksoCard extends TailwindStyledElement(style) {
           class="bg-neutral-100 rounded-[inherit] relative break-normal"
         >
           <lukso-profile
-            profile-url=${this.profileUrl}
+            profile-url=${this.isEoa
+              ? makeBlockie(this.profileAddress)
+              : this.profileUrl}
             borderRadius="large"
             profile-address=${this.profileAddress}
-            has-identicon
+            ?has-identicon=${!this.isEoa}
             class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
           ></lukso-profile>
           <div
@@ -295,10 +301,12 @@ export class LuksoCard extends TailwindStyledElement(style) {
             })}
           >
             <lukso-profile
-              profile-url=${this.profileUrl}
+              profile-url=${this.isEoa
+                ? makeBlockie(this.profileAddress)
+                : this.profileUrl}
               borderRadius="large"
               profile-address=${this.profileAddress}
-              has-identicon
+              ?has-identicon=${!this.isEoa}
               class="absolute -top-[40px] left-[calc(50%_-_40px)] z-10"
             ></lukso-profile>
             <div

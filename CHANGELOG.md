@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.113.0](https://github.com/lukso-network/tools-web-components/compare/v1.112.1...v1.113.0) (2025-02-13)
+
+
+### Features
+
+* Show profile as EOA ([#498](https://github.com/lukso-network/tools-web-components/issues/498)) ([943a0ec](https://github.com/lukso-network/tools-web-components/commit/943a0ec123157c6076150e72d421bd094373061b))
+
 ## [1.112.1](https://github.com/lukso-network/tools-web-components/compare/v1.112.0...v1.112.1) (2025-02-06)
 
 

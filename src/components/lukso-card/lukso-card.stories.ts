@@ -101,8 +101,18 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isEoa: {
+      name: 'is-eoa',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'background-url': {
       name: 'backgroundUrl',
+    },
+    'is-eoa': {
+      name: 'isEoa',
     },
     'profile-url': {
       name: 'profileUrl',
@@ -141,6 +151,7 @@ const meta: Meta = {
     isHoverable: false,
     shadow: 'large',
     hasOverlay: false,
+    isEoa: false,
   },
   parameters: {
     controls: {
@@ -160,6 +171,7 @@ const meta: Meta = {
         'hasBottom',
         'bottomNodes',
         'hasOverlay',
+        'isEoa',
       ],
     },
   },
@@ -182,6 +194,7 @@ const DefaultTemplate = ({
   profileAddress,
   shadow,
   hasOverlay,
+  isEoa,
 }) => html`
   <lukso-card
     variant=${variant ? variant : nothing}
@@ -195,6 +208,7 @@ const DefaultTemplate = ({
     shadow=${shadow ? shadow : nothing}
     ?is-hoverable=${isHoverable}
     ?has-overlay=${hasOverlay}
+    ?is-eoa=${isEoa}
   >
     <div slot="header" class="p-6">${header}</div>
     <div slot="content" class="p-6">${content}</div>
@@ -213,6 +227,7 @@ const CustomHeaderTemplate = ({
   isHoverable,
   shadow,
   hasOverlay,
+  isEoa,
 }) => html`
   <lukso-card
     variant=${variant ? variant : nothing}
@@ -223,6 +238,7 @@ const CustomHeaderTemplate = ({
     shadow=${shadow ? shadow : nothing}
     ?is-hoverable=${isHoverable}
     ?has-overlay=${hasOverlay}
+    ?is-eoa=${isEoa}
   >
     <div slot="header" class="p-6 pb-12 relative overflow-hidden min-h-[200px]">
       <div
@@ -248,6 +264,7 @@ const ProfileTemplate = ({
   bottom,
   headerClass,
   hasOverlay,
+  isEoa,
 }) => html`
   <lukso-card
     variant=${variant}
@@ -261,6 +278,7 @@ const ProfileTemplate = ({
     ?is-hoverable=${isHoverable}
     header-class=${headerClass}
     ?has-overlay=${hasOverlay}
+    ?is-eoa=${isEoa}
   >
     <div slot="content" class="px-6 pb-9 break-words">${content}</div>
     <div slot="bottom" class="p-6">${bottom}</div>
@@ -277,6 +295,7 @@ const HeroTemplate = ({
   borderRadius,
   isHoverable,
   hasOverlay,
+  isEoa,
 }) => html`
   <lukso-card
     variant="hero"
@@ -287,6 +306,7 @@ const HeroTemplate = ({
     border-radius=${borderRadius}
     ?is-hoverable=${isHoverable}
     ?has-overlay=${hasOverlay}
+    ?is-eoa=${isEoa}
   >
     <div slot="content" class="flex flex-col items-center">
       <lukso-profile

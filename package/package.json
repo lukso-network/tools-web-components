@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.112.1",
+  "version": "1.114.1",
   "type": "module",
   "files": [
     "dist",

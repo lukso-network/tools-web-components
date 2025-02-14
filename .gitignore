@@ -10,6 +10,7 @@
 /storybook-static
 /.work
 /package/custom-elements.json
+.DS_Store
 
 # Yarn
 .pnp.*

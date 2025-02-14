@@ -305,6 +305,9 @@ export async function run(argv) {
                 exclude: ['node_modules/**', 'tools/**', 'dist/**'],
               }
             : null,
+        rollupOptions: {
+          external: ['fs', 'path', 'node:fs', 'node:path'], // Explicitly externalize these modules
+        },
       },
       plugins: [
         viteStaticCopy({

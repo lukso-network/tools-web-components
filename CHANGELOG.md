@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.115.0](https://github.com/lukso-network/tools-web-components/compare/v1.114.1...v1.115.0) (2025-02-14)
+
+
+### Features
+
+* Add minus-filled icon ([#505](https://github.com/lukso-network/tools-web-components/issues/505)) ([4c2a16d](https://github.com/lukso-network/tools-web-components/commit/4c2a16dc84a4d25e610f5d72d8e6ef5fa41090f9))
+
 ## [1.114.1](https://github.com/lukso-network/tools-web-components/compare/v1.114.0...v1.114.1) (2025-02-14)
 
 

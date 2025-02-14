@@ -4,7 +4,6 @@ import { fileURLToPath } from 'node:url'
 import dts from 'vite-plugin-dts'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import createExternal from 'vite-plugin-external'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import * as url from 'node:url'
 
@@ -95,6 +94,9 @@ export async function run(argv) {
                 exclude: ['node_modules/**', 'tools/**', 'dist/**'],
               }
             : null,
+        rollupOptions: {
+          external: ['fs', 'path', 'node:fs', 'node:path'], // Explicitly externalize these modules
+        },
       },
       plugins: [
         viteStaticCopy({
@@ -112,12 +114,6 @@ export async function run(argv) {
               dest: 'sass',
             },
           ],
-        }),
-        createExternal({
-          externals: {
-            fs: 'fs',
-            path: 'path',
-          },
         }),
         dts({
           entryRoot: 'src/shared/tools',

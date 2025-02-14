@@ -37,6 +37,14 @@
       "stylelint"
     ]
   },
+  "dependencies": {
+    "clsx": "^2.0.0",
+    "ethereum-blockies-base64": "^1.0.2",
+    "tailwind-merge": "^2.0.0",
+    "tailwind-variants": "^0.3.0",
+    "tippy.js": "^6.3.7",
+    "web3-utils": "^4.3.1"
+  },
   "devDependencies": {
     "@babel/preset-react": "^7.22.15",
     "@custom-elements-manifest/analyzer": "^0.8.4",
@@ -70,9 +78,9 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "list-exports": "^1.1.0",
-    "lit": "^2.8.0",
-    "lit-analyzer": "^1.2.1",
-    "lit-html": "^2.8.0",
+    "lit": "^3.2.1",
+    "lit-analyzer": "^2.0.3",
+    "lit-html": "^3.2.1",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.29",
     "prettier": "^3.0.3",

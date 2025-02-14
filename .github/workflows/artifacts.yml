@@ -167,7 +167,6 @@ jobs:
     needs:
       - test
       - install
-      - build
     runs-on: ubuntu-latest
     if: ${{ inputs.release_created == 'true' }}
     steps:

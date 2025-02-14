@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.115.1](https://github.com/lukso-network/tools-web-components/compare/v1.115.0...v1.115.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* Externalize fs and path ([#507](https://github.com/lukso-network/tools-web-components/issues/507)) ([f6f9361](https://github.com/lukso-network/tools-web-components/commit/f6f9361c7c1618f084169a327826bc95544255f4))
+
 ## [1.115.0](https://github.com/lukso-network/tools-web-components/compare/v1.114.1...v1.115.0) (2025-02-14)
 
 

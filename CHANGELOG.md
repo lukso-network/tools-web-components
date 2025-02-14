@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.115.2](https://github.com/lukso-network/tools-web-components/compare/v1.115.1...v1.115.2) (2025-02-14)
+
+
+### Bug Fixes
+
+* Add missing commits ([#509](https://github.com/lukso-network/tools-web-components/issues/509)) ([f78c0f9](https://github.com/lukso-network/tools-web-components/commit/f78c0f91f7ba8ded3ccf325c07dc6edb6ef3860a))
+
 ## [1.115.1](https://github.com/lukso-network/tools-web-components/compare/v1.115.0...v1.115.1) (2025-02-14)
 
 

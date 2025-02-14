@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.114.1](https://github.com/lukso-network/tools-web-components/compare/v1.114.0...v1.114.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* Make build step as dependency for publish ([#502](https://github.com/lukso-network/tools-web-components/issues/502)) ([9e719b0](https://github.com/lukso-network/tools-web-components/commit/9e719b01e2d102866c9055db494c7cc1fb4d0a4d))
+
 ## [1.114.0](https://github.com/lukso-network/tools-web-components/compare/v1.113.0...v1.114.0) (2025-02-13)
 
 

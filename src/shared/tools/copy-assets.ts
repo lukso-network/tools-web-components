@@ -1,5 +1,12 @@
-import fs from 'fs'
-import path from 'path'
+import {
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs'
+import { basename, extname, join } from 'node:path'
 
 /**
  * List of allowed file extensions
@@ -20,21 +27,27 @@ const fileExtensionWhitelist = [
  * @param target - Destination path
  * @returns
  */
-function copyFileSync(source, target) {
+function copyFileSync(source: string, target: string) {
   let targetFile = target
 
   // If target is a directory, a new file with the same name will be created
-  if (fs.existsSync(target)) {
-    if (fs.lstatSync(target).isDirectory()) {
-      targetFile = path.join(target, path.basename(source))
+  if (existsSync(target)) {
+    if (lstatSync(target).isDirectory()) {
+      targetFile = join(target, basename(source))
     }
   }
 
-  if (!fileExtensionWhitelist.includes(path.extname(source))) {
+  if (!fileExtensionWhitelist.includes(extname(source))) {
     return
   }
 
-  fs.writeFileSync(targetFile, fs.readFileSync(source))
+  const _readFileSync = readFileSync(source)
+  const arrayBufferView = new Uint8Array(
+    _readFileSync.buffer,
+    _readFileSync.byteOffset,
+    _readFileSync.byteLength
+  )
+  writeFileSync(targetFile, arrayBufferView)
 }
 
 /**
@@ -43,26 +56,26 @@ function copyFileSync(source, target) {
  * @param source - source directory
  * @param target - destination directory
  */
-function copyFolderRecursiveSync(source, target) {
+function copyFolderRecursiveSync(source: string, target: string) {
   let files = []
 
   // Check if folder needs to be created or integrated
-  const targetFolder = path.join(target, path.basename(source))
-  if (!fs.existsSync(targetFolder)) {
-    fs.mkdirSync(targetFolder)
+  const targetFolder = join(target, basename(source))
+  if (!existsSync(targetFolder)) {
+    mkdirSync(targetFolder)
   }
 
   // Copy
-  if (fs.lstatSync(source).isDirectory()) {
-    files = fs.readdirSync(source)
-    files.forEach(function (file) {
-      const curSource = path.join(source, file)
-      if (fs.lstatSync(curSource).isDirectory()) {
+  if (lstatSync(source).isDirectory()) {
+    files = readdirSync(source)
+    for (const file of files) {
+      const curSource = join(source, file)
+      if (lstatSync(curSource).isDirectory()) {
         copyFolderRecursiveSync(curSource, targetFolder)
       } else {
         copyFileSync(curSource, targetFolder)
       }
-    })
+    }
   }
 }
 
@@ -72,9 +85,9 @@ function copyFolderRecursiveSync(source, target) {
  * @param assetDir - destination directory
  * @param assets - source directory
  */
-export const copyAssets = (assetDir: string, assets: any) => {
-  if (!fs.existsSync(assetDir)) {
-    fs.mkdirSync(assetDir, { recursive: true })
+export const copyAssets = (assetDir: string, assets: string) => {
+  if (!existsSync(assetDir)) {
+    mkdirSync(assetDir, { recursive: true })
   }
   copyFolderRecursiveSync(assets, assetDir)
 }

@@ -12,7 +12,7 @@ import { colorPalette } from './package/tools/tailwind-config.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-export async function readDeps(dir, prefix = []) {
+export async function readDeps(dir, prefix: string[] = []) {
   let output =
     prefix.length === 0
       ? [
@@ -355,7 +355,7 @@ if (import.meta.url.startsWith('file:')) {
     const { argv } = yargs(hideBin(process.argv))
     run(argv)
       .then(() => {
-        if (argv.mode === 'production') {
+        if (argv['mode'] === 'production') {
           console.log('build finished')
           process.exit(0)
         }

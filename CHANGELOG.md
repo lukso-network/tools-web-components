@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.116.1](https://github.com/lukso-network/tools-web-components/compare/v1.116.0...v1.116.1) (2025-02-17)
+
+
+### Bug Fixes
+
+* Some cleanup ([#515](https://github.com/lukso-network/tools-web-components/issues/515)) ([260aaf5](https://github.com/lukso-network/tools-web-components/commit/260aaf5d086f90a35e4054b20400cca51dceb338))
+
 ## [1.116.0](https://github.com/lukso-network/tools-web-components/compare/v1.115.3...v1.116.0) (2025-02-14)
 
 

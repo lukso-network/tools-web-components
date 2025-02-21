@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.116.2](https://github.com/lukso-network/tools-web-components/compare/v1.116.1...v1.116.2) (2025-02-21)
+
+
+### Bug Fixes
+
+* fix progress indicator gradient ([#517](https://github.com/lukso-network/tools-web-components/issues/517)) ([9363f2b](https://github.com/lukso-network/tools-web-components/commit/9363f2bef42373906bfdba495a484e27cde1e778))
+
 ## [1.116.1](https://github.com/lukso-network/tools-web-components/compare/v1.116.0...v1.116.1) (2025-02-17)
 
 

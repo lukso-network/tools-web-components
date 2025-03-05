@@ -337,6 +337,11 @@ ProfileSelect.args = {
       id: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
       address: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
     },
+    {
+      id: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
+      address: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
+      isEOA: true,
+    },
   ],
   value: JSON.stringify({
     id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
@@ -344,7 +349,7 @@ ProfileSelect.args = {
     name: 'profile1',
     image: '',
   }),
-  marginBottom: 160,
+  marginBottom: 200,
 }
 
 /** Example of `small` select.  */

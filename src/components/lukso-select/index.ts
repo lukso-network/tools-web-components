@@ -1,6 +1,7 @@
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
+import makeBlockie from 'ethereum-blockies-base64'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
@@ -24,6 +25,7 @@ export type SelectProfileOption = {
   address: Address
   image?: string
   name?: string
+  isEOA?: boolean
 }
 
 export type SelectGroupedStringOption = {
@@ -360,13 +362,22 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   }
 
   private optionProfileValue(option: SelectProfileOption) {
-    return html`<lukso-profile
-        profile-address="${option.address}"
-        profile-url="${option.image}"
-        size="x-small"
-        has-identicon
-        class="mr-2"
-      ></lukso-profile>
+    const eoaProfilePicture = html`<lukso-profile
+      profile-address="${option.address}"
+      profile-url="${option.address ? makeBlockie(option.address) : ''}"
+      size="x-small"
+    ></lukso-profile>`
+
+    const lsp3ProfilePicture = html`<lukso-profile
+      profile-address="${option.address}"
+      profile-url="${option.image}"
+      size="x-small"
+      has-identicon
+    ></lukso-profile>`
+
+    const profilePicture = option.isEOA ? eoaProfilePicture : lsp3ProfilePicture
+
+    return html`${profilePicture}
       <lukso-username
         name="${option.name?.toLowerCase()}"
         address="${option.address}"
@@ -374,6 +385,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         max-width="150"
         slice-by="4"
         size=${this.size}
+        class="ml-1"
       ></lukso-username>`
   }
 

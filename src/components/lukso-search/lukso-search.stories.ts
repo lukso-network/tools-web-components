@@ -431,8 +431,12 @@ ProfileSearch.args = {
     {
       address: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
     },
+    {
+      address: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
+      isEOA: true,
+    },
   ],
-  margin: 160,
+  margin: 200,
 }
 
 /** To indicate when search is processing results you can add `is-searching` attribute. */

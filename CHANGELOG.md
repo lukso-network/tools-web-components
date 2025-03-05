@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.117.0](https://github.com/lukso-network/tools-web-components/compare/v1.116.2...v1.117.0) (2025-03-05)
+
+
+### Features
+
+* Support EOA in dropdowns ([#519](https://github.com/lukso-network/tools-web-components/issues/519)) ([9898e6a](https://github.com/lukso-network/tools-web-components/commit/9898e6a4f23fde6689c22363e604ebd10b5f2ecc))
+
 ## [1.116.2](https://github.com/lukso-network/tools-web-components/compare/v1.116.1...v1.116.2) (2025-02-21)
 
 

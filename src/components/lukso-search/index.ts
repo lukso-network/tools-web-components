@@ -1,6 +1,7 @@
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
+import makeBlockie from 'ethereum-blockies-base64'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
@@ -22,6 +23,7 @@ export type SearchProfileResult = {
   address: Address
   image?: string
   name?: string
+  isEOA?: boolean
 }
 
 export type SearchResult = SearchStringResult | SearchProfileResult
@@ -265,6 +267,21 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   resultProfileTemplate(result: SearchProfileResult, index: number) {
+    const eoaProfilePicture = html`<lukso-profile
+      profile-address="${result.address}"
+      profile-url="${result.address ? makeBlockie(result.address) : ''}"
+      size="x-small"
+    ></lukso-profile>`
+
+    const lsp3ProfilePicture = html`<lukso-profile
+      profile-address="${result.address}"
+      profile-url="${result.image}"
+      size="x-small"
+      has-identicon
+    ></lukso-profile>`
+
+    const profilePicture = result.isEOA ? eoaProfilePicture : lsp3ProfilePicture
+
     return html`<lukso-dropdown-option
       data-id="${result.address}"
       data-index="${index + 1}"
@@ -272,18 +289,14 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       size=${this.size}
       @click=${() => this.handleSelect(result)}
     >
-      <lukso-profile
-        profile-address="${result.address}"
-        profile-url="${result.image}"
-        size="x-small"
-        has-identicon
-      ></lukso-profile>
+      ${profilePicture}
       <lukso-username
         name="${result.name?.toLowerCase()}"
         address="${result.address}"
         name-color="neutral-20"
         max-width="300"
         size="medium"
+        class="ml-1"
       ></lukso-username>
     </lukso-dropdown-option>`
   }

@@ -195,6 +195,7 @@ import { logoLinkedinRound } from './icons/logo-linkedin-round'
 import { arrowLongDown } from './icons/arrow-long-down'
 import { gas } from './icons/gas'
 import { minusFilled } from './icons/minus-filled'
+import { documentText } from './icons/document-text'
 
 export type IconOptions = {
   width: number
@@ -356,6 +357,7 @@ const iconMap = {
   'extension-outline': extensionOutline,
   'lukso-logo': luksoLogo,
   'document-outline': documentOutline,
+  'document-text': documentText,
   'headset-outline': headsetOutline,
   'cube-outline': cubeOutline,
   'film-outline': filmOutline,

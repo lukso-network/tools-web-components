@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.118.0](https://github.com/lukso-network/tools-web-components/compare/v1.117.0...v1.118.0) (2025-03-27)
+
+
+### Features
+
+* **DEV-13160:** add document-text icon ([#521](https://github.com/lukso-network/tools-web-components/issues/521)) ([1d0e7a8](https://github.com/lukso-network/tools-web-components/commit/1d0e7a88f07f42160371d5f705dfe1916ea50a16))
+
 ## [1.117.0](https://github.com/lukso-network/tools-web-components/compare/v1.116.2...v1.117.0) (2025-03-05)
 
 

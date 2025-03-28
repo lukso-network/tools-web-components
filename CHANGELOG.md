@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.119.0](https://github.com/lukso-network/tools-web-components/compare/v1.118.0...v1.119.0) (2025-03-28)
+
+
+### Features
+
+* **DEV-13171:** change lukso-search component to allow to customize right-icon ([#523](https://github.com/lukso-network/tools-web-components/issues/523)) ([715412e](https://github.com/lukso-network/tools-web-components/commit/715412ede1b06be9837a23fb1f0d5948bbdabae1))
+
 ## [1.118.0](https://github.com/lukso-network/tools-web-components/compare/v1.117.0...v1.118.0) (2025-03-27)
 
 

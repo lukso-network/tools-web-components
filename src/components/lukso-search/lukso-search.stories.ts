@@ -1,5 +1,5 @@
-import { html, nothing } from 'lit-html'
 import { useArgs } from '@storybook/client-api'
+import { html, nothing } from 'lit-html'
 
 import type { Meta } from '@storybook/web-components'
 
@@ -119,6 +119,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    rightIcon: {
+      name: 'right-icon',
+      description: 'Right icon to be displayed in the input field.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     isSearching: {
       name: 'is-searching',
       description: 'Manually show loading state.',
@@ -234,6 +242,9 @@ const meta: Meta = {
     'show-no-results': {
       name: 'showNoResults',
     },
+    'right-icon': {
+      name: 'rightIcon',
+    },
     'no-results-text': {
       name: 'noResultsText',
     },
@@ -262,6 +273,7 @@ const meta: Meta = {
     showNoResults: false,
     hideLoading: false,
     hasReset: false,
+    rightIcon: undefined,
     keepValueOnEscapeHit: false,
     id: 'search',
     autocomplete: 'off',
@@ -297,6 +309,7 @@ const meta: Meta = {
         'showNoResults',
         'noResultsText',
         'margin',
+        'rightIcon',
         'resultsParsed',
         'searchTerm',
         'hideLoading',
@@ -341,6 +354,7 @@ const Template = ({
   hasReset,
   onReset,
   onKeyUp,
+  rightIcon,
   keepValueOnEscapeHit,
 }) => {
   const [{ results }, updateArgs] = useArgs()
@@ -389,6 +403,7 @@ const Template = ({
     ?hide-loading=${hideLoading}
     ?has-reset=${hasReset}
     ?keep-value-on-escape-hit=${keepValueOnEscapeHit}
+    right-icon=${rightIcon ? rightIcon : nothing}
     custom-class=${customClass ? customClass : nothing}
     debounce=${debounce ? debounce : nothing}
     no-results-text=${noResultsText}
@@ -455,6 +470,13 @@ NoResults.args = {
   noResultsText: 'Oops, nothing here...',
   results: undefined,
   margin: 50,
+}
+
+/** Example of custom right-icon */
+export const CustomRightIcon = Template.bind({})
+CustomRightIcon.args = {
+  rightIcon: 'edit',
+  results: undefined,
 }
 
 /** Example of selected option.  */

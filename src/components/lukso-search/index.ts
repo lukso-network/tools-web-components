@@ -1,15 +1,15 @@
+import makeBlockie from 'ethereum-blockies-base64'
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
-import makeBlockie from 'ethereum-blockies-base64'
 
-import { TailwindStyledElement } from '@/shared/tailwind-element'
-import '@/components/lukso-icon'
-import '@/components/lukso-profile'
-import '@/components/lukso-username'
-import '@/components/lukso-input'
 import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
+import '@/components/lukso-icon'
+import '@/components/lukso-input'
+import '@/components/lukso-profile'
+import '@/components/lukso-username'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
 
 import type { Address, InputSize } from '@/shared/types'
@@ -74,6 +74,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   @property({ type: String })
   results = ''
+
+  @property({ type: String, attribute: 'right-icon' })
+  rightIcon = 'search'
 
   @property({ type: Number })
   debounce = 700
@@ -471,7 +474,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           id=${this.id}
           size=${this.size}
           data-component="lukso-search"
-          right-icon="${this.hasReset && this.value ? 'close-sm' : 'search'}"
+          right-icon="${this.hasReset && this.value
+            ? 'close-sm'
+            : this.rightIcon}"
           ?is-right-icon-clickable=${this.hasReset && this.value}
           ?autofocus=${this.autofocus}
           ?is-readonly=${this.isReadonly}

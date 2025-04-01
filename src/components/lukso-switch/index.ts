@@ -1,14 +1,16 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
+import { tv } from 'tailwind-variants'
 
 import { TailwindElement } from '@/shared/tailwind-element'
-import { customClassMap } from '@/shared/directives'
+
+const DEFAULT_COLOR = 'green-54'
 
 @customElement('lukso-switch')
 export class LuksoSwitch extends TailwindElement {
   @property({ type: String })
-  color = 'green-54'
+  color = DEFAULT_COLOR
 
   @property({ type: Boolean, attribute: 'is-checked' })
   private isChecked = false
@@ -21,7 +23,7 @@ export class LuksoSwitch extends TailwindElement {
 
   private async handleChange(event: Event) {
     const target = event.target as HTMLInputElement
-    this.isChecked = target.checked
+    console.log('target', target)
     await this.updateComplete
     const changeEvent = new CustomEvent('on-change', {
       detail: {
@@ -34,23 +36,54 @@ export class LuksoSwitch extends TailwindElement {
     this.dispatchEvent(changeEvent)
   }
 
-  private defaultLabelStyles = `transition duration-300 ease-in block h-6 overflow-hidden rounded-full relative inline-block w-10`
-
-  private defaultInputStyles = `absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none transition duration-300 ease-in`
+  private styles = tv({
+    slots: {
+      label:
+        'transition duration-300 ease-in block h-6 overflow-hidden rounded-full relative inline-block w-10',
+      input:
+        'absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none transition duration-300 ease-in',
+    },
+    variants: {
+      isChecked: {
+        true: {
+          input: 'translate-x-4',
+        },
+        false: {
+          label: 'bg-neutral-90',
+          input: 'border-neutral-90',
+        },
+      },
+      isDisabled: {
+        true: {
+          label: 'opacity-70 cursor-not-allowed',
+          input: 'cursor-not-allowed',
+        },
+        false: {
+          label: 'cursor-pointer',
+          input: 'cursor-pointer',
+        },
+      },
+    },
+  })
 
   render() {
+    const { label, input } = this.styles({
+      isChecked: this.isChecked,
+      isDisabled: this.isDisabled,
+    })
+
+    if (!this.color) {
+      this.color = DEFAULT_COLOR
+    }
+
     return html`
       <label
         for="switch"
-        class=${customClassMap({
-          [this.defaultLabelStyles]: true,
-        })}
+        class=${label()}
         style=${styleMap({
           backgroundColor: `var(--${
             this.isChecked ? this.color : 'neutral-90'
           })`,
-          opacity: this.isDisabled ? 0.7 : 1,
-          cursor: this.isDisabled ? 'not-allowed' : 'pointer',
         })}
       >
         <input
@@ -58,13 +91,9 @@ export class LuksoSwitch extends TailwindElement {
           id="switch"
           ?checked=${this.isChecked}
           ?disabled=${this.isDisabled}
-          class=${customClassMap({
-            [this.defaultInputStyles]: true,
-            ['translate-x-4']: this.isChecked,
-          })}
+          class=${input()}
           style=${styleMap({
             borderColor: `var(--${this.isChecked ? this.color : 'neutral-90'})`,
-            cursor: this.isDisabled ? 'not-allowed' : 'pointer',
           })}
           @change=${this.handleChange}
         />

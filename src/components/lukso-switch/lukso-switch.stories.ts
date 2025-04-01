@@ -1,4 +1,5 @@
 import { html } from 'lit-html'
+import { useArgs } from '@storybook/client-api'
 
 import type { Meta } from '@storybook/web-components'
 
@@ -50,19 +51,13 @@ const meta: Meta = {
     },
   },
   args: {
-    color: 'green-54',
+    color: '',
     isDisabled: false,
     isChecked: false,
   },
   parameters: {
     controls: {
-      exclude: [
-        'defaultLabelStyles',
-        'defaultInputStyles',
-        'checked',
-        'isDisabled',
-        'isChecked',
-      ],
+      exclude: ['checked', 'isDisabled', 'isChecked'],
     },
     design: {
       type: 'figma',
@@ -73,26 +68,37 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ color, onChange, isDisabled, isChecked }) =>
-  html`<lukso-switch
-    @on-change=${onChange}
+const Template = ({ color, isDisabled }) => {
+  const [{ isChecked }, updateArgs] = useArgs()
+
+  const handleToggle = () => {
+    updateArgs({ isChecked: !isChecked })
+  }
+
+  return html`<lukso-switch
+    @on-change=${handleToggle}
     color=${color}
     ?is-disabled=${isDisabled}
     ?is-checked=${isChecked}
   ></lukso-switch>`
+}
 
 /** Example of default switch.  */
 export const DefaultInput = Template.bind({})
 DefaultInput.args = {
-  color: 'green-54',
   isChecked: true,
-  isDisabled: false,
 }
 
 /** Example of disabled switch.  */
 export const DisabledInput = Template.bind({})
 DisabledInput.args = {
-  color: 'red-65',
   isChecked: true,
   isDisabled: true,
+}
+
+/** Example of switch in different color.  */
+export const ColoredInput = Template.bind({})
+ColoredInput.args = {
+  color: 'red-65',
+  isChecked: true,
 }

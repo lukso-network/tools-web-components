@@ -1,4 +1,4 @@
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { tv } from 'tailwind-variants'
@@ -12,18 +12,29 @@ export class LuksoSwitch extends TailwindElement {
   @property({ type: String })
   color = DEFAULT_COLOR
 
+  @property({ type: String })
+  name = 'switch'
+
+  @property({ type: String })
+  label = ''
+
+  @property({ type: String })
+  description = ''
+
+  @property({ type: String })
+  error = ''
+
   @property({ type: Boolean, attribute: 'is-checked' })
-  private isChecked = false
+  isChecked = false
 
   @property({
     type: Boolean,
     attribute: 'is-disabled',
   })
-  private isDisabled = false
+  isDisabled = false
 
   private async handleChange(event: Event) {
     const target = event.target as HTMLInputElement
-    console.log('target', target)
     await this.updateComplete
     const changeEvent = new CustomEvent('on-change', {
       detail: {
@@ -63,13 +74,43 @@ export class LuksoSwitch extends TailwindElement {
           input: 'cursor-pointer',
         },
       },
+      hasError: {
+        true: {
+          label: '!bg-red-65',
+          input: '!border-red-65',
+        },
+      },
     },
   })
+
+  labelTemplate() {
+    return html`
+      <div
+        class="heading-inter-14-bold text-neutral-20 pb-2 block"
+        >${this.label}</label
+      >
+    `
+  }
+
+  descriptionTemplate() {
+    return html`
+      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
+        ${this.description ?? nothing}
+      </div>
+    `
+  }
+
+  errorTemplate() {
+    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
+      ${this.error}
+    </div>`
+  }
 
   render() {
     const { label, input } = this.styles({
       isChecked: this.isChecked,
       isDisabled: this.isDisabled,
+      hasError: this.error !== '',
     })
 
     if (!this.color) {
@@ -77,27 +118,36 @@ export class LuksoSwitch extends TailwindElement {
     }
 
     return html`
-      <label
-        for="switch"
-        class=${label()}
-        style=${styleMap({
-          backgroundColor: `var(--${
-            this.isChecked ? this.color : 'neutral-90'
-          })`,
-        })}
-      >
-        <input
-          type="checkbox"
-          id="switch"
-          ?checked=${this.isChecked}
-          ?disabled=${this.isDisabled}
-          class=${input()}
-          style=${styleMap({
-            borderColor: `var(--${this.isChecked ? this.color : 'neutral-90'})`,
-          })}
-          @change=${this.handleChange}
-        />
-      </label>
+      <div class="w-[inherit]">
+        ${this.label ? this.labelTemplate() : nothing}
+        ${this.description ? this.descriptionTemplate() : nothing}
+        <div class="flex">
+          <label
+            for=${this.name}
+            class=${label()}
+            style=${styleMap({
+              backgroundColor: `var(--${
+                this.isChecked ? this.color : 'neutral-90'
+              })`,
+            })}
+          >
+            <input
+              type="checkbox"
+              name=${this.name}
+              ?checked=${this.isChecked}
+              ?disabled=${this.isDisabled}
+              class=${input()}
+              style=${styleMap({
+                borderColor: `var(--${
+                  this.isChecked ? this.color : 'neutral-90'
+                })`,
+              })}
+              @change=${this.handleChange}
+            />
+          </label>
+        </div>
+        ${this.error ? this.errorTemplate() : nothing}
+      </div>
     `
   }
 }

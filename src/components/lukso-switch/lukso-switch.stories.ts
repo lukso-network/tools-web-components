@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { useArgs } from '@storybook/client-api'
 
 import type { Meta } from '@storybook/web-components'
@@ -36,6 +36,30 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    name: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    label: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    description: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    error: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-checked': {
       name: 'isChecked',
     },
@@ -54,6 +78,10 @@ const meta: Meta = {
     color: '',
     isDisabled: false,
     isChecked: false,
+    name: 'input',
+    label: '',
+    description: '',
+    error: '',
   },
   parameters: {
     controls: {
@@ -68,7 +96,7 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ color, isDisabled }) => {
+const Template = ({ color, isDisabled, name, label, description, error }) => {
   const [{ isChecked }, updateArgs] = useArgs()
 
   const handleToggle = () => {
@@ -78,6 +106,10 @@ const Template = ({ color, isDisabled }) => {
   return html`<lukso-switch
     @on-change=${handleToggle}
     color=${color}
+    name=${name ? name : nothing}
+    label=${label ? label : nothing}
+    description=${description ? description : nothing}
+    error=${error ? error : nothing}
     ?is-disabled=${isDisabled}
     ?is-checked=${isChecked}
   ></lukso-switch>`
@@ -99,6 +131,27 @@ DisabledInput.args = {
 /** Example of switch in different color.  */
 export const ColoredInput = Template.bind({})
 ColoredInput.args = {
-  color: 'red-65',
+  color: 'sky-64',
   isChecked: true,
+}
+
+/** Example of switch with `label`. */
+export const Label = Template.bind({})
+Label.args = {
+  label: 'Title',
+}
+
+/** Example of switch with `label` and `description`. */
+export const LabelAndDescription = Template.bind({})
+LabelAndDescription.args = {
+  label: 'Title',
+  description: 'Description',
+}
+
+/** Example of switch with `error`. */
+export const ErrorInput = Template.bind({})
+ErrorInput.args = {
+  label: 'Title',
+  description: 'Description',
+  error: 'Error message',
 }

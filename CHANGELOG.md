@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.119.1](https://github.com/lukso-network/tools-web-components/compare/v1.119.0...v1.119.1) (2025-04-02)
+
+
+### Bug Fixes
+
+* switch input doesn't update ([#525](https://github.com/lukso-network/tools-web-components/issues/525)) ([9cfd448](https://github.com/lukso-network/tools-web-components/commit/9cfd448a8c728757242869eb8c895cfd3e32dbae))
+
 ## [1.119.0](https://github.com/lukso-network/tools-web-components/compare/v1.118.0...v1.119.0) (2025-03-28)
 
 

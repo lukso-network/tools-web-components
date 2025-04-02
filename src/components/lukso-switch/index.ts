@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { tv } from 'tailwind-variants'
 
+import { uniqId } from '@/shared/tools/uniq-id'
 import { TailwindElement } from '@/shared/tailwind-element'
 
 const DEFAULT_COLOR = 'green-54'
@@ -11,6 +12,9 @@ const DEFAULT_COLOR = 'green-54'
 export class LuksoSwitch extends TailwindElement {
   @property({ type: String })
   color = DEFAULT_COLOR
+
+  @property({ type: String })
+  id = ''
 
   @property({ type: String })
   name = 'switch'
@@ -45,6 +49,14 @@ export class LuksoSwitch extends TailwindElement {
       composed: true,
     })
     this.dispatchEvent(changeEvent)
+  }
+
+  constructor() {
+    super()
+
+    if (!this.id) {
+      this.id = `switch-${uniqId()}`
+    }
   }
 
   private styles = tv({
@@ -118,12 +130,11 @@ export class LuksoSwitch extends TailwindElement {
     }
 
     return html`
-      <div class="w-[inherit]">
+      <label for=${this.id} class="w-[inherit]">
         ${this.label ? this.labelTemplate() : nothing}
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class="flex">
-          <label
-            for=${this.name}
+          <div
             class=${label()}
             style=${styleMap({
               backgroundColor: `var(--${
@@ -133,6 +144,7 @@ export class LuksoSwitch extends TailwindElement {
           >
             <input
               type="checkbox"
+              id=${this.id}
               name=${this.name}
               ?checked=${this.isChecked}
               ?disabled=${this.isDisabled}

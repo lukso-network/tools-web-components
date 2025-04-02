@@ -36,6 +36,12 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    id: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     name: {
       control: { type: 'text' },
       table: {
@@ -82,6 +88,7 @@ const meta: Meta = {
     label: '',
     description: '',
     error: '',
+    id: '',
   },
   parameters: {
     controls: {
@@ -96,7 +103,15 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ color, isDisabled, name, label, description, error }) => {
+const Template = ({
+  color,
+  isDisabled,
+  name,
+  label,
+  description,
+  error,
+  id,
+}) => {
   const [{ isChecked }, updateArgs] = useArgs()
 
   const handleToggle = () => {
@@ -105,6 +120,7 @@ const Template = ({ color, isDisabled, name, label, description, error }) => {
 
   return html`<lukso-switch
     @on-change=${handleToggle}
+    id=${id ? id : nothing}
     color=${color}
     name=${name ? name : nothing}
     label=${label ? label : nothing}

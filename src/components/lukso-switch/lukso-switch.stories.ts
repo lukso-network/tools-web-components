@@ -1,4 +1,5 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
+import { useArgs } from '@storybook/client-api'
 
 import type { Meta } from '@storybook/web-components'
 
@@ -35,6 +36,36 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    id: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    name: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    label: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    description: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    error: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-checked': {
       name: 'isChecked',
     },
@@ -50,19 +81,18 @@ const meta: Meta = {
     },
   },
   args: {
-    color: 'green-54',
+    color: '',
     isDisabled: false,
     isChecked: false,
+    name: 'input',
+    label: '',
+    description: '',
+    error: '',
+    id: '',
   },
   parameters: {
     controls: {
-      exclude: [
-        'defaultLabelStyles',
-        'defaultInputStyles',
-        'checked',
-        'isDisabled',
-        'isChecked',
-      ],
+      exclude: ['checked', 'isDisabled', 'isChecked'],
     },
     design: {
       type: 'figma',
@@ -73,26 +103,71 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ color, onChange, isDisabled, isChecked }) =>
-  html`<lukso-switch
-    @on-change=${onChange}
+const Template = ({
+  color,
+  isDisabled,
+  name,
+  label,
+  description,
+  error,
+  id,
+}) => {
+  const [{ isChecked }, updateArgs] = useArgs()
+
+  const handleToggle = () => {
+    updateArgs({ isChecked: !isChecked })
+  }
+
+  return html`<lukso-switch
+    @on-change=${handleToggle}
+    id=${id ? id : nothing}
     color=${color}
+    name=${name ? name : nothing}
+    label=${label ? label : nothing}
+    description=${description ? description : nothing}
+    error=${error ? error : nothing}
     ?is-disabled=${isDisabled}
     ?is-checked=${isChecked}
   ></lukso-switch>`
+}
 
 /** Example of default switch.  */
 export const DefaultInput = Template.bind({})
 DefaultInput.args = {
-  color: 'green-54',
   isChecked: true,
-  isDisabled: false,
 }
 
 /** Example of disabled switch.  */
 export const DisabledInput = Template.bind({})
 DisabledInput.args = {
-  color: 'red-65',
   isChecked: true,
   isDisabled: true,
+}
+
+/** Example of switch in different color.  */
+export const ColoredInput = Template.bind({})
+ColoredInput.args = {
+  color: 'sky-64',
+  isChecked: true,
+}
+
+/** Example of switch with `label`. */
+export const Label = Template.bind({})
+Label.args = {
+  label: 'Title',
+}
+
+/** Example of switch with `label` and `description`. */
+export const LabelAndDescription = Template.bind({})
+LabelAndDescription.args = {
+  label: 'Title',
+  description: 'Description',
+}
+
+/** Example of switch with `error`. */
+export const ErrorInput = Template.bind({})
+ErrorInput.args = {
+  label: 'Title',
+  description: 'Description',
+  error: 'Error message',
 }

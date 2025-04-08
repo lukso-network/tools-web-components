@@ -421,6 +421,7 @@ HeroCard.args = {
 export const DappCard = ProfileTemplate.bind({})
 DappCard.args = {
   variant: 'dapp',
+  height: 170,
 }
 
 /** You can customize card with `custom-class` property, it will be used instead of default styles.  */

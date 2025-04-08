@@ -392,7 +392,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
             backgroundImage: this.backgroundGradient(),
           })}
           class=${cn(
-            'min-h-[240px] bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative',
+            'min-h-[inherit] bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative',
             this.headerClass
           )}
         >

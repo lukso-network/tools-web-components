@@ -51,7 +51,7 @@ export class LuksoNavbar extends TailwindElement {
         after:content-[''] after:absolute after:w-[18px] after:h-[2px] after:bg-neutral-20 after:rounded-4 after:transition-all after:translate-y-[6px]`,
       mobileMenuDropdown:
         'fixed top-[78px] left-0 w-full h-full bg-neutral-100 z-[1000] justify-center items-center flex',
-      desktopMenuWrapper: 'items-center justify-end pr-10 no-underline hidden',
+      desktopMenuWrapper: 'items-center justify-end pr-6 no-underline hidden',
       desktopCenterWrapper: 'items-center hidden',
     },
     variants: {
@@ -203,7 +203,7 @@ export class LuksoNavbar extends TailwindElement {
 
     return html`
       <nav data-testid="navbar" class=${styles.wrapper()}>
-        <div class="flex items-center px-7 h-[inherit] sm:px-10">
+        <div class="flex items-center px-6 h-[inherit]">
           <div
             class="flex cursor-pointer group"
             @click=${this.handleBrandClick}

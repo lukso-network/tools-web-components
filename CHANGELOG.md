@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.120.0](https://github.com/lukso-network/tools-web-components/compare/v1.119.1...v1.120.0) (2025-04-08)
+
+
+### Features
+
+* Allow to set dapp card height ([#527](https://github.com/lukso-network/tools-web-components/issues/527)) ([6b97a73](https://github.com/lukso-network/tools-web-components/commit/6b97a73f869ec9ca45eb95ae2d164c4be8c4b5ca))
+
 ## [1.119.1](https://github.com/lukso-network/tools-web-components/compare/v1.119.0...v1.119.1) (2025-04-02)
 
 

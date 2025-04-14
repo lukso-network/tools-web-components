@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.121.0](https://github.com/lukso-network/tools-web-components/compare/v1.120.0...v1.121.0) (2025-04-14)
+
+
+### Features
+
+* Navbar spacing update ([#529](https://github.com/lukso-network/tools-web-components/issues/529)) ([3ee3fe2](https://github.com/lukso-network/tools-web-components/commit/3ee3fe212905ba3bd103d47fc8d42ec04c4c68c7))
+
 ## [1.120.0](https://github.com/lukso-network/tools-web-components/compare/v1.119.1...v1.120.0) (2025-04-08)
 
 

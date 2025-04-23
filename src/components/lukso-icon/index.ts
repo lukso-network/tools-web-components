@@ -196,6 +196,7 @@ import { arrowLongDown } from './icons/arrow-long-down'
 import { gas } from './icons/gas'
 import { minusFilled } from './icons/minus-filled'
 import { documentText } from './icons/document-text'
+import { category } from './icons/category'
 
 export type IconOptions = {
   width: number
@@ -408,6 +409,7 @@ const iconMap = {
   'arrow-long-down': arrowLongDown,
   gas,
   'minus-filled': minusFilled,
+  category,
 }
 
 @customElement('lukso-icon')

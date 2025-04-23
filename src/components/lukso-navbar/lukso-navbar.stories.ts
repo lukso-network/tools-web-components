@@ -60,6 +60,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    hasMobileDropdownMenu: {
+      name: 'has-mobile-dropdown-menu',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     logoUrl: {
       name: 'logo-url',
       control: { type: 'text' },
@@ -110,6 +117,9 @@ const meta: Meta = {
     'mobile-breakpoint': {
       name: 'mobileBreakpoint',
     },
+    'has-mobile-dropdown-menu': {
+      name: 'hasMobileDropdownMenu',
+    },
   },
   args: {
     title: `UNIVERSAL
@@ -118,8 +128,9 @@ PROFILES`,
     isSticky: false,
     isTransparent: false,
     isTestnet: false,
-    icon: 'wallet-outline',
     hasMenu: false,
+    hasMobileDropdownMenu: false,
+    icon: 'wallet-outline',
     logoUrl: '',
     mobileBreakpoint: 'md',
   },
@@ -135,6 +146,7 @@ PROFILES`,
         'logoUrl',
         'defaultLogoUrl',
         'mobileBreakpoint',
+        'hasMobileDropdownMenu',
       ],
     },
     design: {
@@ -154,13 +166,14 @@ const Template = ({
   isTestnet,
   icon,
   hasMenu,
+  hasMobileDropdownMenu,
   logoUrl,
   slots,
   mobileBreakpoint,
   onBrandClick,
   onIconClick,
-}) =>
-  html`<lukso-navbar
+}) => html`
+  <lukso-navbar
     title=${title ? title : nothing}
     icon=${icon ? icon : nothing}
     logo-url=${logoUrl ? logoUrl : nothing}
@@ -170,6 +183,7 @@ const Template = ({
     ?is-transparent=${isTransparent}
     ?is-testnet=${isTestnet}
     ?has-menu=${hasMenu}
+    ?has-mobile-dropdown-menu=${hasMobileDropdownMenu}
     @on-brand-click=${onBrandClick}
     @on-icon-click=${onIconClick}
   >
@@ -184,12 +198,13 @@ const Template = ({
           ${unsafeHTML(slots?.center?.desktop)}
         </div>`
       : nothing}
-    ${slots?.mobileIcons
-      ? html`<div slot="mobile-icons" class="flex">
-          ${unsafeHTML(slots?.mobileIcons)}
+    ${slots?.mobileDropdown
+      ? html`<div slot="mobile-dropdown" class="flex">
+          ${unsafeHTML(slots?.mobileDropdown)}
         </div>`
       : nothing}
-  </lukso-navbar>`
+  </lukso-navbar>
+`
 
 /** Example of default navbar.  */
 export const DefaultNavbar = Template.bind({})
@@ -231,20 +246,6 @@ NavbarWithMenu.args = {
       LOGIN
     </lukso-button>`,
     },
-    mobile: `<div class="flex flex-col items-center justify-center h-screen pb-32">
-    <lukso-button
-      variant="text"
-      custom-class="text-purple-51 text-12 hover:text-purple-41"
-    >
-      HOME
-    </lukso-button>
-    <lukso-button
-      variant="text"
-      custom-class="text-purple-51 text-12 hover:text-purple-41"
-    >
-      LOGIN
-    </lukso-button>
-  </div>`,
   },
 }
 
@@ -269,7 +270,35 @@ SearchNavbar.args = {
     center: {
       desktop: '<lukso-search placeholder="Search..."></lukso-search>',
     },
-    mobileIcons:
-      '<lukso-icon name="search" class="cursor-pointer"></lukso-icon>',
+  },
+}
+
+/** Example of mobile navbar with mobile menu slot (change viewport width to see the effect). */
+export const MobileMenuNavbar = Template.bind({})
+MobileMenuNavbar.args = {
+  icon: '',
+  hasMenu: true,
+  slots: {
+    menu: {
+      mobile: `<div class="flex justify-end items-center"><lukso-icon name="search"></lukso-icon></div>`,
+    },
+  },
+}
+
+/** Example of mobile navbar with mobile dropdown menu (change viewport width to see the effect). */
+export const MobileDropdownNavbar = Template.bind({})
+MobileDropdownNavbar.args = {
+  icon: '',
+  hasMenu: true,
+  hasMobileDropdownMenu: true,
+  slots: {
+    mobileDropdown: `<div class="flex flex-col items-center justify-center h-screen pb-32">
+        <lukso-button
+          variant="text"
+          custom-class="text-purple-51 text-12 hover:text-purple-41"
+        >
+          HOME
+        </lukso-button>
+        </div>`,
   },
 }

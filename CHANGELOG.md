@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.122.0](https://github.com/lukso-network/tools-web-components/compare/v1.121.0...v1.122.0) (2025-04-23)
+
+
+### Features
+
+* Add category icon ([#531](https://github.com/lukso-network/tools-web-components/issues/531)) ([69b7ad1](https://github.com/lukso-network/tools-web-components/commit/69b7ad15c64c4e6304d29cf5a2c24077805bc2b2))
+* rollback nav padding ([#532](https://github.com/lukso-network/tools-web-components/issues/532)) ([a1a61e3](https://github.com/lukso-network/tools-web-components/commit/a1a61e31b8a4d260deb100d08bc487e1adb68007))
+
 ## [1.121.0](https://github.com/lukso-network/tools-web-components/compare/v1.120.0...v1.121.0) (2025-04-14)
 
 

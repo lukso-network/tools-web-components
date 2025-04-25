@@ -129,12 +129,12 @@ export class LuksoButton extends TailwindStyledElement(style) {
           hover:bg-yellow-65 hover:border-yellow-65 before:bg-yellow-55`,
       },
       size: {
-        medium: 'h-[48px] px-6 paragraph-inter-16-semi-bold rounded-12',
-        small: 'h-[28px] px-3 paragraph-inter-12-medium rounded-8',
+        medium: 'h-12 px-6 paragraph-inter-16-semi-bold rounded-12',
+        small: 'h-7 px-3 paragraph-inter-12-medium rounded-8',
       },
       isLongPress: {
         true: `relative overflow-hidden z-[1] active:outline-0
-          before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-[48px]
+          before:absolute before:content-[''] before:top-0 before:left-0 before:w-0 before:h-12
           before:transition-all before:duration-[2000ms] before:z-[-1] before:rounded-0`,
       },
       isFullWidth: {
@@ -191,12 +191,12 @@ export class LuksoButton extends TailwindStyledElement(style) {
       {
         isIcon: true,
         size: ['medium'],
-        class: 'px-3',
+        class: 'px-0 w-12',
       },
       {
         isIcon: true,
         size: ['small'],
-        class: 'px-[1px]',
+        class: 'px-0 w-7',
       },
     ],
   })

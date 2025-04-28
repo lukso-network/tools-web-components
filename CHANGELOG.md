@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.124.0](https://github.com/lukso-network/tools-web-components/compare/v1.123.0...v1.124.0) (2025-04-28)
+
+
+### Features
+
+* Change modal z-index ([#538](https://github.com/lukso-network/tools-web-components/issues/538)) ([ecddfbf](https://github.com/lukso-network/tools-web-components/commit/ecddfbfa05968878076729b6567973b0881e0140))
+
 ## [1.123.0](https://github.com/lukso-network/tools-web-components/compare/v1.122.0...v1.123.0) (2025-04-28)
 
 

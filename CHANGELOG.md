@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.123.0](https://github.com/lukso-network/tools-web-components/compare/v1.122.0...v1.123.0) (2025-04-28)
+
+
+### Features
+
+* Fade in up animation ([#535](https://github.com/lukso-network/tools-web-components/issues/535)) ([fc84151](https://github.com/lukso-network/tools-web-components/commit/fc84151696d52e5cb978264d94050fbf73f8ddc5))
+* Update icon button size ([#536](https://github.com/lukso-network/tools-web-components/issues/536)) ([6ea1d7f](https://github.com/lukso-network/tools-web-components/commit/6ea1d7fdc3b743e12288f6eba36fa658b4610c1b))
+
 ## [1.122.0](https://github.com/lukso-network/tools-web-components/compare/v1.121.0...v1.122.0) (2025-04-23)
 
 

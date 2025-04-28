@@ -89,6 +89,7 @@ module.exports = {
         'resize-in': 'resize-in 0.5s ease-in-out',
         'fade-in': 'fade-in 0.5s ease-in-out',
         bounce2: 'bounce2 1s ease-in-out infinite alternate',
+        'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
       },
       keyframes: {
         'pulse-resize': {
@@ -106,6 +107,16 @@ module.exports = {
         bounce2: {
           '0%': { transform: 'translateY(-6px)' },
           '100%': { transform: 'translateY(10)' },
+        },
+        'fade-in-up': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(10px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
         },
       },
       animationDelay: {

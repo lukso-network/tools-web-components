@@ -160,7 +160,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium'],
+      options: ['small', 'medium', 'large'],
       table: {
         category: 'Attributes',
       },

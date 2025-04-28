@@ -31,6 +31,9 @@ export class LuksoNavbar extends TailwindElement {
   @property({ type: Boolean, attribute: 'has-menu' })
   hasMenu = false
 
+  @property({ type: Boolean, attribute: 'has-mobile-dropdown-menu' })
+  hasMobileDropdownMenu = false
+
   @property({ type: String, attribute: 'logo-url' })
   logoUrl = ''
 
@@ -163,8 +166,9 @@ export class LuksoNavbar extends TailwindElement {
 
   desktopCenterTemplate(styles: { desktopCenterWrapper: () => string }) {
     return html`<div class=${styles.desktopCenterWrapper()}>
-      <slot name="desktop-center"></slot>
-    </div>`
+        <slot name="desktop-center"></slot>
+      </div>
+      <div class="sm:hidden"></div>`
   }
 
   mobileMenuTemplate(styles: {
@@ -172,24 +176,73 @@ export class LuksoNavbar extends TailwindElement {
     mobileMenuDropdown: () => string
     mobileMenuWrapper: () => string
   }) {
-    return html`<div></div>
-      <div class=${styles.mobileMenuWrapper()}>
-        <div class="flex">
-          <slot name="mobile-icons"></slot>
+    return html`<div class=${styles.mobileMenuWrapper()}>
+      <slot name="mobile-menu"></slot>
+
+      ${this.hasMobileDropdownMenu
+        ? html` <div
+              class="flex items-center justify-center w-8 h-8 cursor-pointer"
+              @click=${this.handleMenuToggle}
+            >
+              <div class=${styles.mobileMenuTrigger()}></div>
+            </div>
+            <div
+              class=${styles.mobileMenuDropdown()}
+              @click=${this.handleMenuToggle}
+            >
+              <slot name="mobile-dropdown"></slot>
+            </div>`
+        : nothing}
+    </div>`
+  }
+
+  brandTemplate() {
+    return html`
+      <div class="flex items-center px-6 md:px-10 h-[inherit]">
+        <div class="flex cursor-pointer group" @click=${this.handleBrandClick}>
+          <img
+            src="${this.logoUrl || this.defaultLogoUrl}"
+            class="mr-2 h-[26px]"
+            alt="${this.title}"
+          />
+          <div
+            class="text-purple-51 nav-apax-14-medium-uppercase
+                whitespace-pre-line flex leading-none transition group-hover:text-purple-41"
+          >
+            <span>${this.title}</span>
+          </div>
+          ${this.isTestnet
+            ? html`<lukso-tag background-color="yellow-65" class="ml-2">
+                TESTNET
+              </lukso-tag>`
+            : nothing}
         </div>
-        <div
-          class="flex items-center justify-center w-8 h-8 cursor-pointer"
-          @click=${this.handleMenuToggle}
-        >
-          <div class=${styles.mobileMenuTrigger()}></div>
-        </div>
-        <div
-          class=${styles.mobileMenuDropdown()}
-          @click=${this.handleMenuToggle}
-        >
-          <slot name="mobile-menu"></slot>
-        </div>
-      </div>`
+        ${this.icon
+          ? html`<div
+              class="flex border-l border-l-purple-82 h-7 items-center pl-3 ml-3"
+            >
+              <lukso-icon
+                class="transition cursor-pointer hover:scale-105"
+                name="${this.icon}"
+                color="purple-51"
+                @click=${this.handleIconClick}
+              ></lukso-icon>
+            </div>`
+          : nothing}
+      </div>
+    `
+  }
+
+  menuTemplate(styles: {
+    desktopMenuWrapper: () => string
+    desktopCenterWrapper?: () => string
+    mobileMenuWrapper: () => string
+    mobileMenuTrigger: () => string
+    mobileMenuDropdown: () => string
+  }): ReturnType<typeof html> {
+    return html`<div class="flex items-center justify-end">
+      ${this.desktopMenuTemplate(styles)} ${this.mobileMenuTemplate(styles)}
+    </div>`
   }
 
   render() {
@@ -203,47 +256,12 @@ export class LuksoNavbar extends TailwindElement {
 
     return html`
       <nav data-testid="navbar" class=${styles.wrapper()}>
-        <div class="flex items-center px-10 h-[inherit]">
-          <div
-            class="flex cursor-pointer group"
-            @click=${this.handleBrandClick}
-          >
-            <img
-              src="${this.logoUrl || this.defaultLogoUrl}"
-              class="mr-2 h-[26px]"
-              alt="${this.title}"
-            />
-            <div
-              class="text-purple-51 nav-apax-14-medium-uppercase
-                whitespace-pre-line flex leading-none transition group-hover:text-purple-41"
-            >
-              <span>${this.title}</span>
-            </div>
-            ${this.isTestnet
-              ? html`<lukso-tag background-color="yellow-65" class="ml-2">
-                  TESTNET
-                </lukso-tag>`
-              : nothing}
-          </div>
-          ${this.icon
-            ? html`<div
-                class="flex border-l border-l-purple-82 h-7 items-center pl-3 ml-3"
-              >
-                <lukso-icon
-                  class="transition cursor-pointer hover:scale-105"
-                  name="${this.icon}"
-                  color="purple-51"
-                  @click=${this.handleIconClick}
-                ></lukso-icon>
-              </div>`
-            : nothing}
-        </div>
+        ${this.brandTemplate()}
         ${this.isCenter ? nothing : this.desktopCenterTemplate(styles)}
         ${this.isCenter
           ? nothing
           : this.hasMenu
-          ? html`${this.desktopMenuTemplate(styles)}
-            ${this.mobileMenuTemplate(styles)}`
+          ? this.menuTemplate(styles)
           : nothing}
       </nav>
     `

@@ -197,6 +197,7 @@ import { gas } from './icons/gas'
 import { minusFilled } from './icons/minus-filled'
 import { documentText } from './icons/document-text'
 import { category } from './icons/category'
+import { flash } from './icons/flash'
 
 export type IconOptions = {
   width: number
@@ -410,6 +411,7 @@ const iconMap = {
   gas,
   'minus-filled': minusFilled,
   category,
+  flash,
 }
 
 @customElement('lukso-icon')

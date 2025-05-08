@@ -16,6 +16,8 @@ export type LuksoDropdownOnChangeEventDetail = {
   isOpen: boolean
 }
 
+export type LuksoDropdownTrigger = 'click' | 'hover'
+
 @customElement('lukso-dropdown')
 export class LuksoDropdown extends TailwindStyledElement(style) {
   @property({ type: String })
@@ -42,6 +44,9 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   @property({ type: String })
   size: InputSize | 'large' = 'medium'
 
+  @property({ type: String })
+  trigger: LuksoDropdownTrigger = 'click'
+
   constructor() {
     super()
 
@@ -51,51 +56,126 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   }
 
   private styles = tv({
-    base: `bg-neutral-100 border w-full border-neutral-90 shadow-1xl z-50
-      flex absolute flex-col gap-1 overflow-y-auto max-h-64 w-[max-content]`,
+    slots: {
+      wrapper: 'absolute z-50',
+      dropdown: `bg-neutral-100 border border-neutral-90 shadow-1xl
+        flex flex-col gap-1 overflow-y-auto w-[max-content] animate-fade-in animation-duration-200`,
+    },
     variants: {
       openTop: {
-        true: 'bottom-[48px] mb-2 mt-0',
+        true: {
+          wrapper: 'mt-0',
+        },
       },
       size: {
-        small: 'rounded-8 p-2 mt-1 min-w-[120px] paragraph-inter-12-regular',
-        medium: 'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-14-regular',
-        large: 'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-16-semi-bold',
+        small: {
+          dropdown:
+            'rounded-8 p-2 mt-1 min-w-[120px] paragraph-inter-12-regular max-h-52',
+        },
+        medium: {
+          dropdown:
+            'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-14-regular max-h-64',
+        },
+        large:
+          'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-16-semi-bold max-h-64',
       },
       isRight: {
-        true: 'right-0',
+        true: {
+          wrapper: 'right-0',
+        },
       },
       isFullWidth: {
-        true: 'w-full',
+        true: { wrapper: 'w-full', dropdown: 'w-full' },
       },
     },
     compoundVariants: [
       {
         isFullWidth: false,
         size: 'small',
-        class: 'max-w-[200px]',
+        class: { dropdown: 'max-w-[200px]' },
       },
       {
         isFullWidth: false,
         size: 'medium',
-        class: 'max-w-[300px]',
+        class: { dropdown: 'max-w-[300px]' },
       },
       {
         isFullWidth: false,
         size: 'large',
-        class: 'max-w-[400px]',
+        class: { dropdown: 'max-w-[400px]' },
+      },
+      {
+        openTop: true,
+        size: 'small',
+        class: { wrapper: 'bottom-7 mb-1' },
+      },
+      {
+        openTop: true,
+        size: ['medium', 'large'],
+        class: { wrapper: 'bottom-12 mb-2' },
       },
     ],
   })
 
+  private handleMouseEnter = () => {
+    this.isOpen = true
+  }
+
+  private handleMouseLeave = (event: MouseEvent) => {
+    const relatedTarget = event.relatedTarget as HTMLElement
+
+    // if we are leaving the trigger and entering the dropdown we don't want to close it
+    if (relatedTarget?.id === this.id || relatedTarget?.id === this.triggerId) {
+      return
+    }
+
+    this.isOpen = false
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties)
+
+    // when dropdown is open we need to add event listeners
+    if (changedProperties.has('isOpen') && this.trigger === 'hover') {
+      const dropdownElement = this.shadowRoot?.getElementById(this.id)
+
+      if (this.isOpen && dropdownElement) {
+        dropdownElement.addEventListener('mouseenter', this.handleMouseEnter)
+        dropdownElement.addEventListener('mouseleave', this.handleMouseLeave)
+      } else if (dropdownElement) {
+        dropdownElement.removeEventListener('mouseenter', this.handleMouseEnter)
+        dropdownElement.removeEventListener('mouseleave', this.handleMouseLeave)
+      }
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback()
+
     window.addEventListener('click', this.handleClick.bind(this))
+
+    if (this.trigger === 'hover') {
+      const triggerElement = document.getElementById(this.triggerId)
+
+      if (triggerElement) {
+        triggerElement.addEventListener('mouseenter', this.handleMouseEnter)
+        triggerElement.addEventListener('mouseleave', this.handleMouseLeave)
+      }
+    }
   }
 
   disconnectedCallback() {
     super.disconnectedCallback()
     window.removeEventListener('click', this.handleClick)
+
+    if (this.trigger === 'hover') {
+      const triggerElement = document.getElementById(this.triggerId)
+
+      if (triggerElement) {
+        triggerElement.removeEventListener('mouseenter', this.handleMouseEnter)
+        triggerElement.removeEventListener('mouseleave', this.handleMouseLeave)
+      }
+    }
   }
 
   async willUpdate(changedProperties: PropertyValues<this>) {
@@ -131,7 +211,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   })
 
   render() {
-    const styles = this.styles({
+    const { wrapper, dropdown } = this.styles({
       openTop: this.openTop,
       size: this.size,
       isRight: this.isRight,
@@ -142,8 +222,10 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       return nothing
     }
 
-    return html`<div class="${styles} animate-fade-in animation-duration-200">
-      <slot></slot>
+    return html`<div id=${this.id} class=${wrapper()}>
+      <div class=${dropdown()}>
+        <slot></slot>
+      </div>
     </div>`
   }
 }

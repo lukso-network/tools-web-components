@@ -2,13 +2,13 @@ import { html, nothing, type PropertyValues } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
-import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
-import style from './style.scss?inline'
-import { uniqId } from '@/shared/tools/uniq-id'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { debounceFunction } from '@/shared/tools/debounceFunction'
+import { uniqId } from '@/shared/tools/uniq-id'
+import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
 
@@ -42,7 +42,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   isFullWidth = false
 
   @property({ type: String })
-  size: InputSize = 'medium'
+  size: InputSize | 'large' = 'medium'
 
   @property({ type: String })
   trigger: LuksoDropdownTrigger = 'click'
@@ -76,6 +76,8 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
           dropdown:
             'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-14-regular max-h-64',
         },
+        large:
+          'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-16-semi-bold max-h-64',
       },
       isRight: {
         true: {
@@ -98,13 +100,18 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         class: { dropdown: 'max-w-[300px]' },
       },
       {
+        isFullWidth: false,
+        size: 'large',
+        class: { dropdown: 'max-w-[400px]' },
+      },
+      {
         openTop: true,
         size: 'small',
         class: { wrapper: 'bottom-7 mb-1' },
       },
       {
         openTop: true,
-        size: 'medium',
+        size: ['medium', 'large'],
         class: { wrapper: 'bottom-12 mb-2' },
       },
     ],

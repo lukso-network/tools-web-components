@@ -165,9 +165,7 @@ const Template = ({
     class="relative"
     style="margin-bottom: ${marginBottom}px; margin-top: ${marginTop}px; text-align: ${align}; width: 100%;"
   >
-    <lukso-button id=${triggerId} size=${size ? size : nothing}
-      >Click me!</lukso-button
-    >
+    <lukso-button id=${triggerId}>Click me!</lukso-button>
     <lukso-dropdown
       id=${id ? id : nothing}
       trigger-id=${triggerId ? triggerId : nothing}

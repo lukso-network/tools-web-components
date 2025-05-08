@@ -54,7 +54,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium'],
+      options: ['small', 'medium', 'large'],
       table: {
         category: 'Attributes',
       },
@@ -189,7 +189,7 @@ const meta: Meta = {
     text: 'Hello World',
     isLink: false,
     disabled: false,
-    size: 'medium',
+    size: 'large',
     variant: 'primary',
     type: 'button',
     isFullWidth: false,
@@ -367,6 +367,18 @@ LinkVariant.args = {
 export const SmallSize = Template.bind({})
 SmallSize.args = {
   size: 'small',
+}
+
+/** Example of `medium` size button.  */
+export const MediumSize = Template.bind({})
+MediumSize.args = {
+  size: 'medium',
+}
+
+/** Example of `large` size button.  */
+export const LargeSize = Template.bind({})
+LargeSize.args = {
+  size: 'large',
 }
 
 /** If you need button to take full width of the parent element add `is-full-width` property. */

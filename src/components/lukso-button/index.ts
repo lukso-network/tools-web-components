@@ -30,7 +30,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
   variant: ButtonVariant = 'primary'
 
   @property({ type: String })
-  size: InputSize = 'medium'
+  size: InputSize | 'large' = 'large'
 
   @property({ type: Boolean })
   disabled = false
@@ -129,8 +129,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
           hover:bg-yellow-65 hover:border-yellow-65 before:bg-yellow-55`,
       },
       size: {
-        medium: 'h-12 px-6 paragraph-inter-16-semi-bold rounded-12',
         small: 'h-7 px-3 paragraph-inter-12-medium rounded-8',
+        medium: 'h-10 px-4 paragraph-inter-14-semi-bold rounded-10',
+        large: 'h-12 px-6 paragraph-inter-16-semi-bold rounded-12',
       },
       isLongPress: {
         true: `relative overflow-hidden z-[1] active:outline-0
@@ -160,18 +161,18 @@ export class LuksoButton extends TailwindStyledElement(style) {
         class: 'text-purple-41',
       },
       {
-        size: ['medium', 'small'],
+        size: ['medium', 'small', 'large'],
         color: 'link',
         class: 'p-0 h-[initial]',
       },
       {
-        size: ['medium'],
+        size: ['medium', 'large'],
         color: ['primary', 'landing', 'success', 'danger', 'warning'],
         class:
           'hover:shadow-button-medium-hover-primary active:shadow-button-medium-press-primary',
       },
       {
-        size: ['medium'],
+        size: ['medium', 'large'],
         color: ['secondary'],
         class:
           'hover:shadow-button-medium-hover-secondary active:shadow-button-medium-press-secondary',
@@ -190,13 +191,18 @@ export class LuksoButton extends TailwindStyledElement(style) {
       },
       {
         isIcon: true,
-        size: ['medium'],
-        class: 'px-0 w-12',
+        size: ['small'],
+        class: 'px-0 w-7',
       },
       {
         isIcon: true,
-        size: ['small'],
-        class: 'px-0 w-7',
+        size: ['medium'],
+        class: 'px-0 w-10',
+      },
+      {
+        isIcon: true,
+        size: ['large'],
+        class: 'px-0 w-12',
       },
     ],
   })
@@ -212,6 +218,9 @@ export class LuksoButton extends TailwindStyledElement(style) {
           text: 'ml-1',
         },
         medium: {
+          text: 'ml-[6px]',
+        },
+        large: {
           text: 'ml-2',
         },
       },

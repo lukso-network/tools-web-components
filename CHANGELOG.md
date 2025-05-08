@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.125.0](https://github.com/lukso-network/tools-web-components/compare/v1.124.0...v1.125.0) (2025-05-07)
+
+
+### Features
+
+* Add flash icon ([#541](https://github.com/lukso-network/tools-web-components/issues/541)) ([53a66ff](https://github.com/lukso-network/tools-web-components/commit/53a66ff72a8a7741779a77cf68bd7505f82f20e6))
+
 ## [1.124.0](https://github.com/lukso-network/tools-web-components/compare/v1.123.0...v1.124.0) (2025-04-28)
 
 

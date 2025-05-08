@@ -24,6 +24,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    trigger: {
+      control: { type: 'select' },
+      options: ['click', 'hover'],
+      table: {
+        category: 'Attributes',
+      },
+    },
     triggerId: {
       control: { type: 'text' },
       description: 'Id of the element that will trigger dropdown open/close.',
@@ -104,8 +111,11 @@ const meta: Meta = {
     isRight: false,
     isOpenOnOutsideClick: true,
     isFullWidth: false,
-    float: 'left',
+    align: 'left',
     triggerId: '',
+    trigger: 'click',
+    marginTop: 0,
+    marginBottom: 0,
   },
   parameters: {
     controls: {
@@ -116,12 +126,15 @@ const meta: Meta = {
         'isOpen',
         'openTop',
         'isRight',
-        'float',
+        'align',
         '_isOpen',
         'isOpenOnOutsideClick',
         'triggerId',
         'isFullWidth',
         'onChangeEvent',
+        'handleMouseEnter',
+        'handleMouseLeave',
+        'handleClick',
       ],
     },
     design: {
@@ -139,24 +152,26 @@ const Template = ({
   openTop,
   marginTop,
   size,
-  float,
+  align,
   isRight,
   isOpen,
   isOpenOnOutsideClick,
   triggerId,
+  trigger,
   isFullWidth,
   onChange,
 }) => {
   return html`<div
     class="relative"
-    style="margin-bottom: ${marginBottom}px; margin-top: ${marginTop}px; float: ${float}"
+    style="margin-bottom: ${marginBottom}px; margin-top: ${marginTop}px; text-align: ${align}; width: 100%;"
   >
     <lukso-button id=${triggerId} size=${size ? size : nothing}
       >Click me!</lukso-button
     >
     <lukso-dropdown
       id=${id ? id : nothing}
-      trigger-id=${triggerId}
+      trigger-id=${triggerId ? triggerId : nothing}
+      trigger=${trigger ? trigger : nothing}
       ?is-open=${isOpen}
       ?open-top=${openTop}
       ?is-right=${isRight}
@@ -195,16 +210,49 @@ const Template = ({
 }
 
 /** Example of dropdown.  */
-export const DefaultDropdown = Template.bind({})
-DefaultDropdown.args = {
+export const Default = Template.bind({})
+Default.args = {
   marginBottom: 170,
   triggerId: 'dropdown-1',
 }
 
 /** Example of `small` dropdown.  */
-export const SmallDropdown = Template.bind({})
-SmallDropdown.args = {
+export const SmallSize = Template.bind({})
+SmallSize.args = {
   marginBottom: 130,
   size: 'small',
   triggerId: 'dropdown-2',
+}
+
+/** Example of right side dropdown.  */
+export const RightSide = Template.bind({})
+RightSide.args = {
+  marginBottom: 170,
+  triggerId: 'dropdown-4',
+  isRight: true,
+  align: 'right',
+}
+
+/** Example of dropdown that opens to the top.  */
+export const OpenTop = Template.bind({})
+OpenTop.args = {
+  marginTop: 170,
+  triggerId: 'dropdown-5',
+  openTop: true,
+}
+
+/** Example of full width dropdown.  */
+export const FullWidth = Template.bind({})
+FullWidth.args = {
+  marginBottom: 170,
+  triggerId: 'dropdown-6',
+  isFullWidth: true,
+}
+
+/** Example of dropdown triggered on hover.  */
+export const HoverTrigger = Template.bind({})
+HoverTrigger.args = {
+  marginBottom: 170,
+  triggerId: 'dropdown-7',
+  trigger: 'hover',
 }

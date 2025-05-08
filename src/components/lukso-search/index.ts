@@ -103,7 +103,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   selected = undefined
 
   @property({ type: String })
-  size: InputSize = 'medium'
+  size: InputSize | 'large' = 'medium'
 
   @state()
   private isDebouncing = false
@@ -128,6 +128,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         },
         medium: {
           loading: 'h-10 rounded-8',
+        },
+        large: {
+          loading: 'h-12 rounded-8',
         },
       },
     },

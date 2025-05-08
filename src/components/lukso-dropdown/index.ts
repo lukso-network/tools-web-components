@@ -2,13 +2,13 @@ import { html, nothing, type PropertyValues } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
-import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
-import style from './style.scss?inline'
-import { uniqId } from '@/shared/tools/uniq-id'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { debounceFunction } from '@/shared/tools/debounceFunction'
+import { uniqId } from '@/shared/tools/uniq-id'
+import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
 
@@ -40,7 +40,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   isFullWidth = false
 
   @property({ type: String })
-  size: InputSize = 'medium'
+  size: InputSize | 'large' = 'medium'
 
   constructor() {
     super()
@@ -60,6 +60,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       size: {
         small: 'rounded-8 p-2 mt-1 min-w-[120px] paragraph-inter-12-regular',
         medium: 'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-14-regular',
+        large: 'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-16-semi-bold',
       },
       isRight: {
         true: 'right-0',
@@ -78,6 +79,11 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         isFullWidth: false,
         size: 'medium',
         class: 'max-w-[300px]',
+      },
+      {
+        isFullWidth: false,
+        size: 'large',
+        class: 'max-w-[400px]',
       },
     ],
   })

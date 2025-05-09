@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.126.0](https://github.com/lukso-network/tools-web-components/compare/v1.125.0...v1.126.0) (2025-05-08)
+
+
+### Features
+
+* Add new 40px button variant to web component library ([#545](https://github.com/lukso-network/tools-web-components/issues/545)) ([7dc9ec6](https://github.com/lukso-network/tools-web-components/commit/7dc9ec6f8fa2dad756b9411f242c645f3afe6ce9))
+* **DEV-13104:** add new variant large for input-search, input, dropdown and dropdown-option ([#540](https://github.com/lukso-network/tools-web-components/issues/540)) ([39b7878](https://github.com/lukso-network/tools-web-components/commit/39b78786611ed245d37edfc90bbf07cd4bd2b8af))
+* Support dropdown hover ([#544](https://github.com/lukso-network/tools-web-components/issues/544)) ([83b0842](https://github.com/lukso-network/tools-web-components/commit/83b0842c4dc683e849a21942487237cdc654355c))
+
 ## [1.125.0](https://github.com/lukso-network/tools-web-components/compare/v1.124.0...v1.125.0) (2025-05-07)
 
 

@@ -198,6 +198,8 @@ import { minusFilled } from './icons/minus-filled'
 import { documentText } from './icons/document-text'
 import { category } from './icons/category'
 import { flash } from './icons/flash'
+import { userCircleAdd } from './icons/user-circle-add'
+import { profileCircle } from './icons/profile-circle'
 
 export type IconOptions = {
   width: number
@@ -412,6 +414,8 @@ const iconMap = {
   'minus-filled': minusFilled,
   category,
   flash,
+  'user-circle-add': userCircleAdd,
+  'profile-circle': profileCircle,
 }
 
 @customElement('lukso-icon')

@@ -387,26 +387,36 @@ RightSideDropdown.args = {
 export const GroupedSelect = Template.bind({})
 GroupedSelect.args = {
   marginBottom: 270,
-  value: JSON.stringify([
+  value: JSON.stringify({
+    id: 'group-1-blue',
+    group: 'Color',
+    value: 'Blue',
+  }),
+  options: [
     {
-      id: 'group-1-1',
+      id: 'group-1-red',
+      group: 'Color',
+      value: 'Red',
+    },
+    {
+      id: 'group-1-blue',
+      group: 'Color',
       value: 'Blue',
     },
     {
-      id: 'group-2-0',
+      id: 'group-1-green',
+      group: 'Color',
+      value: 'Green',
+    },
+    {
+      id: 'group-2-small',
+      group: 'Size',
       value: 'Small',
     },
-  ]),
-  options: [
     {
-      id: 'group-1',
-      group: 'Color',
-      values: ['Red', 'Blue', 'Green'],
-    },
-    {
-      id: 'group-2',
+      id: 'group-2-medium',
       group: 'Size',
-      values: ['Small', 'Medium'],
+      value: 'Medium',
     },
   ],
 }

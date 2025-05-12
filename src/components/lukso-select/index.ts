@@ -28,16 +28,7 @@ export type SelectProfileOption = {
   isEOA?: boolean
 }
 
-export type SelectGroupedStringOption = {
-  id?: string
-  group: string
-  values: string[]
-}
-
-export type SelectOption =
-  | SelectStringOption
-  | SelectProfileOption
-  | SelectGroupedStringOption
+export type SelectOption = SelectStringOption | SelectProfileOption
 
 @customElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
@@ -282,11 +273,34 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
   optionsTemplate() {
     const optionTemplates: TemplateResult<1>[] = []
+    let _options = []
 
-    for (const option of Object.entries(this.optionsParsed)) {
+    // get list of groups names
+    const groups: string[] = this.optionsParsed.reduce((acc, option) => {
+      if ('group' in option && !acc.includes(option.group)) {
+        acc.push(option.group)
+      }
+      return acc
+    }, [] as string[])
+
+    // if there are groups, we need to group the options
+    if (groups.length > 0) {
+      for (const group of groups) {
+        _options.push({
+          group,
+          values: this.optionsParsed.filter(
+            option => 'group' in option && option.group === group
+          ),
+        })
+      }
+    } else {
+      _options = this.optionsParsed
+    }
+
+    for (const option of Object.entries(_options)) {
       const index = Number(option[0])
 
-      if ('values' in option[1]) {
+      if ('group' in option[1]) {
         optionTemplates.push(this.optionGroupedStringTemplate(option[1], index))
       } else if ('value' in option[1]) {
         optionTemplates.push(this.optionStringTemplate(option[1], index))
@@ -308,7 +322,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   }
 
   optionGroupedStringTemplate(
-    option: SelectGroupedStringOption,
+    option: {
+      group: string
+      values: SelectStringOption[]
+    },
     index: number
   ) {
     return html`<div
@@ -316,9 +333,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       >
         ${option.group}
       </div>
-      ${option.values.map((value, valueIndex) => {
+      ${option.values.map(value => {
         return this.optionStringTemplate(
-          { id: `${option.id}-${valueIndex}`, group: option.group, value },
+          { id: value.id, group: option.group, value: value.value },
           index
         )
       })}`
@@ -400,29 +417,6 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       const foundValues = this.optionsParsed.filter(
         option => !!this.valueParsed?.find(value => value.id === option.id)
       )
-      return foundValues
-        .map(value => this.optionStringValue(value as SelectStringOption))
-        .join(', ')
-    }
-
-    if ('values' in firstOption) {
-      const foundValues: SelectStringOption[] = []
-
-      for (const option of this.optionsParsed) {
-        for (const [index, value] of (
-          option as SelectGroupedStringOption
-        ).values.entries()) {
-          for (const parsedValue of this.valueParsed) {
-            if (parsedValue.id === `${option.id}-${index}`) {
-              foundValues.push({
-                id: `${option.id}-${index}`,
-                value,
-              } as SelectStringOption)
-            }
-          }
-        }
-      }
-
       return foundValues
         .map(value => this.optionStringValue(value as SelectStringOption))
         .join(', ')

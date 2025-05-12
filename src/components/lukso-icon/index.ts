@@ -200,6 +200,8 @@ import { category } from './icons/category'
 import { flash } from './icons/flash'
 import { userCircleAdd } from './icons/user-circle-add'
 import { profileCircle } from './icons/profile-circle'
+import { playLinear } from './icons/play-linear'
+import { stopLinear } from './icons/stop-linear'
 
 export type IconOptions = {
   width: number
@@ -416,6 +418,8 @@ const iconMap = {
   flash,
   'user-circle-add': userCircleAdd,
   'profile-circle': profileCircle,
+  'play-linear': playLinear,
+  'stop-linear': stopLinear,
 }
 
 @customElement('lukso-icon')

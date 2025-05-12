@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.127.0](https://github.com/lukso-network/tools-web-components/compare/v1.126.0...v1.127.0) (2025-05-12)
+
+
+### Features
+
+* Add new icons ([#546](https://github.com/lukso-network/tools-web-components/issues/546)) ([baff421](https://github.com/lukso-network/tools-web-components/commit/baff421311dc94ccf7ecf637c9de738ac3f02f1e))
+* Add play/stop icon ([#549](https://github.com/lukso-network/tools-web-components/issues/549)) ([b220802](https://github.com/lukso-network/tools-web-components/commit/b2208021bbb4962d77e387326c5f982a1a46e892))
+* Rework grouped select ([#548](https://github.com/lukso-network/tools-web-components/issues/548)) ([fd9b4ca](https://github.com/lukso-network/tools-web-components/commit/fd9b4caf45f5fb6745fa80b5b82c11e34b4fa306))
+
 ## [1.126.0](https://github.com/lukso-network/tools-web-components/compare/v1.125.0...v1.126.0) (2025-05-08)
 
 

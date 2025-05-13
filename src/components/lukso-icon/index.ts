@@ -202,6 +202,7 @@ import { userCircleAdd } from './icons/user-circle-add'
 import { profileCircle } from './icons/profile-circle'
 import { playLinear } from './icons/play-linear'
 import { stopLinear } from './icons/stop-linear'
+import { minus } from './icons/minus'
 
 export type IconOptions = {
   width: number
@@ -413,6 +414,7 @@ const iconMap = {
   'logo-linkedin-round': logoLinkedinRound,
   'arrow-long-down': arrowLongDown,
   gas,
+  minus,
   'minus-filled': minusFilled,
   category,
   flash,

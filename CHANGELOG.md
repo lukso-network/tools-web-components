@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.128.0](https://github.com/lukso-network/tools-web-components/compare/v1.127.0...v1.128.0) (2025-05-13)
+
+
+### Features
+
+* **DEV-13111:** add minus icon ([#550](https://github.com/lukso-network/tools-web-components/issues/550)) ([c231266](https://github.com/lukso-network/tools-web-components/commit/c2312669ee31dcec118abe03516244769f80e166))
+
+
+### Bug Fixes
+
+* When text change tooltip should be reinitialized ([#551](https://github.com/lukso-network/tools-web-components/issues/551)) ([f658978](https://github.com/lukso-network/tools-web-components/commit/f6589784b950c5ac1c381b65eb7d02decaebef79))
+
 ## [1.127.0](https://github.com/lukso-network/tools-web-components/compare/v1.126.0...v1.127.0) (2025-05-12)
 
 

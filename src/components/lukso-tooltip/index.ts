@@ -190,7 +190,14 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       }
     }
 
-    this.initTooltip()
+    if (changedProperties.has('text')) {
+      if (this.text !== '') {
+        this.initTooltip()
+      } else {
+        this.tooltipInstance?.destroy()
+        this.tooltipInstance = undefined
+      }
+    }
   }
 
   disconnectedCallback() {

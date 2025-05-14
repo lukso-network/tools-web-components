@@ -6,6 +6,7 @@ import { styleMap } from 'lit/directives/style-map.js'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
+import '@/components/lukso-sanitize'
 import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
@@ -219,7 +220,7 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
   descriptionTemplate() {
     return html`
       <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        ${this.description ?? nothing}
+        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
       </div>
     `
   }

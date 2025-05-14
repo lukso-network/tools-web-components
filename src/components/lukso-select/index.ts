@@ -9,6 +9,7 @@ import '@/components/lukso-profile'
 import '@/components/lukso-username'
 import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
+import '@/components/lukso-sanitize'
 import style from './style.scss?inline'
 import { uniqId } from '@/shared/tools/uniq-id'
 
@@ -260,7 +261,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   descriptionTemplate() {
     return html`
       <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        ${this.description ?? nothing}
+        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
       </div>
     `
   }

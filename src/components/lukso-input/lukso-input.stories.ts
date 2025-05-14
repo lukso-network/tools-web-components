@@ -380,14 +380,12 @@ Label.args = {
 export const LabelAndDescription = Template.bind({})
 LabelAndDescription.args = {
   label: 'Title',
-  description: 'Description',
+  description: 'My <i>description</i>',
 }
 
 /** Example of input with `error`. */
 export const ErrorInput = Template.bind({})
 ErrorInput.args = {
-  label: 'Title',
-  description: 'Description',
   error: 'Error message',
 }
 

@@ -5,6 +5,7 @@ import { tv } from 'tailwind-variants'
 
 import { uniqId } from '@/shared/tools/uniq-id'
 import { TailwindElement } from '@/shared/tailwind-element'
+import '@/components/lukso-sanitize'
 
 const DEFAULT_COLOR = 'green-54'
 
@@ -107,7 +108,7 @@ export class LuksoSwitch extends TailwindElement {
   descriptionTemplate() {
     return html`
       <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        ${this.description ?? nothing}
+        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
       </div>
     `
   }

@@ -5,6 +5,7 @@ import { tv } from 'tailwind-variants'
 import '@/components/lukso-icon'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
+import '@/components/lukso-sanitize'
 import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
@@ -264,7 +265,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
   descriptionTemplate() {
     return html`
       <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        ${this.description ?? nothing}
+        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
       </div>
     `
   }

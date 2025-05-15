@@ -19,7 +19,8 @@ export class LuksoModal extends TailwindElement {
 
   private styles = tv({
     slots: {
-      wrapper: 'opacity-0 fixed z-[1011] transition-opacity top-0 left-0 p-6',
+      wrapper:
+        'opacity-0 fixed z-[1011] transition-opacity top-0 left-0 p-6 overflow-y-auto',
       overlay:
         'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[1010]',
       dialog:
@@ -29,7 +30,7 @@ export class LuksoModal extends TailwindElement {
       isOpen: {
         true: {
           wrapper:
-            'flex opacity-100 visible items-center justify-center w-[100vw] h-[100vh]',
+            'grid opacity-100 visible items-center justify-center w-[100vw] h-[100vh]',
         },
         false: {
           wrapper: 'hidden',

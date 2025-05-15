@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.129.0](https://github.com/lukso-network/tools-web-components/compare/v1.128.0...v1.129.0) (2025-05-15)
+
+
+### Features
+
+* Rework modal scrolling ([#555](https://github.com/lukso-network/tools-web-components/issues/555)) ([7d10c6c](https://github.com/lukso-network/tools-web-components/commit/7d10c6c660daa49f5cd5c4788f996cc31a77f997))
+* Support html in description ([#553](https://github.com/lukso-network/tools-web-components/issues/553)) ([2e6ecf3](https://github.com/lukso-network/tools-web-components/commit/2e6ecf3fcafb03c4ab577338c3c49652fcbc12b9))
+
 ## [1.128.0](https://github.com/lukso-network/tools-web-components/compare/v1.127.0...v1.128.0) (2025-05-13)
 
 

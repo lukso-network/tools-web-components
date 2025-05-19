@@ -20,17 +20,16 @@ export class LuksoModal extends TailwindElement {
   private styles = tv({
     slots: {
       wrapper:
-        'opacity-0 fixed z-[1011] transition-opacity top-0 left-0 p-6 overflow-y-auto',
+        'opacity-0 fixed z-[1011] transition-opacity inset-0 w-screen h-screen overflow-y-auto overscroll-none touch-none',
       overlay:
-        'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed top-0 left-0 w-[100vw] h-[100vh] z-[1010]',
+        'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed inset-0 w-[100vw] h-[100vh] z-[1010]',
       dialog:
-        'bg-neutral-98 rounded-12 shadow-neutral-shadow-round-3xl z-[1012]',
+        'bg-neutral-98 rounded-12 shadow-neutral-shadow-round-3xl z-[1012] mx-auto',
     },
     variants: {
       isOpen: {
         true: {
-          wrapper:
-            'grid opacity-100 visible items-center justify-center w-[100vw] h-[100vh]',
+          wrapper: 'opacity-100 visible w-[100vw] h-[100vh]',
         },
         false: {
           wrapper: 'hidden',
@@ -50,7 +49,7 @@ export class LuksoModal extends TailwindElement {
       },
       disableAnimations: {
         false: {
-          wrapper: 'animation-duration-300 delay-300 ',
+          wrapper: 'animation-duration-300 delay-300',
           overlay: 'animation-duration-300',
         },
       },
@@ -89,9 +88,13 @@ export class LuksoModal extends TailwindElement {
 
     return html`
       <div data-testid="modal" class=${wrapper()}>
-        <div class=${overlay()} @click=${this.handleBackdropClick}></div>
-        <div class=${dialog()}>
-          <slot></slot>
+        <div
+          class="min-h-screen flex items-center justify-center pt-6 pb-[120px] sm:pb-6 px-6 w-full"
+        >
+          <div class=${overlay()} @click=${this.handleBackdropClick}></div>
+          <div class=${dialog()}>
+            <slot></slot>
+          </div>
         </div>
       </div>
     `

@@ -3,8 +3,8 @@ import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import style from './style.scss?inline'
 import { cn } from '@/shared/tools'
+import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
 

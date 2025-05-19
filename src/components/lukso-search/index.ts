@@ -8,6 +8,7 @@ import '@/components/lukso-dropdown-option'
 import '@/components/lukso-icon'
 import '@/components/lukso-input'
 import '@/components/lukso-profile'
+import '@/components/lukso-tag'
 import '@/components/lukso-username'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
@@ -26,7 +27,16 @@ export type SearchProfileResult = {
   isEOA?: boolean
 }
 
-export type SearchResult = SearchStringResult | SearchProfileResult
+export type SearchUniversalNameResult = {
+  id?: string
+  value: string
+  status: boolean
+}
+
+export type SearchResult =
+  | SearchStringResult
+  | SearchProfileResult
+  | SearchUniversalNameResult
 
 @customElement('lukso-search')
 export class LuksoSearch extends TailwindStyledElement(style) {
@@ -41,6 +51,12 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   @property({ type: String })
   label = ''
+
+  @property({ type: String })
+  availableText = 'Available'
+
+  @property({ type: String })
+  unavailableText = 'Registered'
 
   @property({ type: String })
   autocomplete = 'off'
@@ -179,12 +195,23 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     for (const result of Object.entries(this.resultsParsed)) {
       const index = Number(result[0])
 
-      if ('value' in result[1]) {
+      if ('value' in result[1] && 'status' in result[1]) {
+        // UniversalNameResult dropdown
+        resultTemplates.push(
+          this.resultUniversalNameTemplate(
+            result[1] as SearchUniversalNameResult,
+            index
+          )
+        )
+      } else if ('value' in result[1]) {
         // StringResult dropdown
-        resultTemplates.push(this.resultStringTemplate(result[1], index))
+        resultTemplates.push(
+          this.resultStringTemplate(result[1] as SearchStringResult, index)
+        )
       } else if ('address' in result[1]) {
         // ProfileResult dropdown
         resultTemplates.push(this.resultProfileTemplate(result[1], index))
+      } else if ('value' in result[1]) {
       } else {
         console.error('Unknown result type', result)
       }
@@ -269,6 +296,29 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       @click=${() => this.handleSelect(result)}
     >
       ${result.value}
+    </lukso-dropdown-option>`
+  }
+
+  resultUniversalNameTemplate(
+    result: SearchUniversalNameResult,
+    index: number
+  ) {
+    const tag = html`<lukso-tag
+      is-rounded
+      background-color="${result.status ? 'green-90' : 'neutral-95'}"
+      text-color="${result.status ? 'green-45' : 'neutral-60'}"
+      >${!!result.status ? this.availableText : this.unavailableText}</lukso-tag
+    >`
+    return html`<lukso-dropdown-option
+      data-id="${result.id}"
+      data-index="${index + 1}"
+      ?is-selected=${this.selected === index + 1}
+      size=${this.size}
+      @click=${() => this.handleSelect(result)}
+    >
+      <div class="flex flex-row items-center justify-between w-full">
+        ${result.value} ${tag}
+      </div>
     </lukso-dropdown-option>`
   }
 

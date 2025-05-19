@@ -3,9 +3,9 @@ import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
 import '@/components/lukso-icon'
+import '@/components/lukso-sanitize'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
-import '@/components/lukso-sanitize'
 import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
@@ -155,7 +155,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
           rightIcon: 'right-3',
         },
         large: {
-          input: 'h-[70px] px-4 py-5 paragraph-inter-16-regular rounded-12',
+          input: 'h-[70px] px-4 py-5 paragraph-inter-16-semi-bold rounded-12',
           unit: 'h-[48px] paragraph-inter-16-semi-bold px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
           rightIcon: 'right-4',
         },

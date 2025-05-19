@@ -76,8 +76,10 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
           dropdown:
             'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-14-regular max-h-64',
         },
-        large:
-          'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-16-semi-bold max-h-64',
+        large: {
+          dropdown:
+            'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-14-semi-bold max-h-64',
+        },
       },
       isRight: {
         true: {

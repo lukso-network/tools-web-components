@@ -454,6 +454,24 @@ ProfileSearch.args = {
   margin: 200,
 }
 
+export const UniversalNameSearch = Template.bind({})
+UniversalNameSearch.args = {
+  results: [
+    {
+      value: 'Peter Pan',
+      status: true,
+      id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+    },
+    {
+      value: 'Peter Parker',
+      status: false,
+      id: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
+    },
+  ],
+  margin: 200,
+  size: 'large',
+}
+
 /** To indicate when search is processing results you can add `is-searching` attribute. */
 export const SearchingState = Template.bind({})
 SearchingState.args = {

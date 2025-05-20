@@ -160,7 +160,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'medium', 'large', 'x-large'],
       table: {
         category: 'Attributes',
       },
@@ -469,7 +469,7 @@ UniversalNameSearch.args = {
     },
   ],
   margin: 200,
-  size: 'large',
+  size: 'x-large',
 }
 
 /** To indicate when search is processing results you can add `is-searching` attribute. */

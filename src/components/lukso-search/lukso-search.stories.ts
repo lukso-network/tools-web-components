@@ -143,6 +143,22 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    availableText: {
+      name: 'available-text',
+      description: 'Text displayed on available state.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    unavailableText: {
+      name: 'unavailable-text',
+      description: 'Text displayed on unavailable state.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     noResultsText: {
       name: 'no-results-text',
       description: 'Text displayed on no results state.',
@@ -224,6 +240,12 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    'available-text': {
+      name: 'availableText',
+    },
+    'unavailable-text': {
+      name: 'unavailableText',
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -264,6 +286,8 @@ const meta: Meta = {
     error: '',
     customClass: '',
     placeholder: '',
+    availableText: undefined,
+    unavailableText: undefined,
     isReadonly: false,
     isFullWidth: false,
     isDisabled: false,
@@ -303,6 +327,8 @@ const meta: Meta = {
         'isReadonly',
         'isDisabled',
         'isSearching',
+        'availableText',
+        'unavailableText',
         'isDebouncing',
         'debounceTimer',
         'styles',
@@ -456,6 +482,7 @@ ProfileSearch.args = {
 
 export const UniversalNameSearch = Template.bind({})
 UniversalNameSearch.args = {
+  placeholder: 'Type to search...',
   results: [
     {
       value: 'Peter Pan',

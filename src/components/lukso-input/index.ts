@@ -75,7 +75,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
   borderless = false
 
   @property({ type: String })
-  size: InputSize | 'large' | 'x-large' = 'medium'
+  size: InputSize | 'large' | 'x-large' = 'large'
 
   @property({ type: String, attribute: 'right-icon' })
   rightIcon = ''
@@ -155,13 +155,13 @@ export class LuksoInput extends TailwindStyledElement(style) {
           rightIcon: 'right-3',
         },
         large: {
-          input: 'h-[48px] px-4 py-2 paragraph-inter-14-semi-bold rounded-12',
-          unit: 'h-[48px] paragraph-inter-14-semi-bold px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
+          input: 'h-[48px] px-4 py-2 paragraph-inter-14-regular rounded-12',
+          unit: 'h-[48px] paragraph-inter-14-regular px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
           rightIcon: 'right-3',
         },
         'x-large': {
-          input: 'h-[68px] px-4 py-5 paragraph-inter-16-semi-bold rounded-12',
-          unit: 'h-[48px] paragraph-inter-16-semi-bold px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
+          input: 'h-[68px] px-4 py-5 paragraph-inter-16-regular rounded-12',
+          unit: 'h-[48px] paragraph-inter-16-regular px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
           rightIcon: 'right-4',
         },
       },
@@ -290,7 +290,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
   rightIconTemplate(styles: string) {
     return html`<lukso-icon
       name=${this.rightIcon}
-      size=${this.size}
+      size="medium"
       class=${styles}
       @click=${this.handleRightIconClick}
     ></lukso-icon>`

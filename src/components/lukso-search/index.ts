@@ -52,10 +52,10 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: String })
   label = ''
 
-  @property({ type: String })
+  @property({ type: String, attribute: 'available-text' })
   availableText = 'Available'
 
-  @property({ type: String })
+  @property({ type: String, attribute: 'unavailable-text' })
   unavailableText = 'Registered'
 
   @property({ type: String })
@@ -119,7 +119,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   selected = undefined
 
   @property({ type: String })
-  size: InputSize | 'large' | 'x-large' = 'medium'
+  size: InputSize | 'large' | 'x-large' = 'large'
 
   @state()
   private isDebouncing = false
@@ -129,9 +129,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   @state()
   private resultsParsed: SearchResult[] = []
-
-  @state()
-  private searchTerm = ''
 
   private styles = tv({
     slots: {
@@ -191,6 +188,12 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     }
   }
 
+  sizeDropdown() {
+    const dropdownSize =
+      this.size === 'large' || this.size === 'x-large' ? 'medium' : this.size
+    return dropdownSize
+  }
+
   resultsTemplate() {
     const resultTemplates: TemplateResult<1>[] = []
     this.resultsParsed = JSON.parse(this.results) as SearchResult[]
@@ -220,11 +223,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       }
     }
 
-    const dropdownSize =
-      this.size === 'large' || this.size === 'x-large' ? 'medium' : this.size
-
     return html`<lukso-dropdown
-      size=${dropdownSize}
+      size=${this.sizeDropdown()}
       is-open
       is-open-on-outside-click
       is-full-width
@@ -233,10 +233,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   noResultsTemplate() {
-    const dropdownSize =
-      this.size === 'large' || this.size === 'x-large' ? 'medium' : this.size
     return html`<lukso-dropdown
-      size=${dropdownSize}
+      size=${this.sizeDropdown()}
       is-open
       is-open-on-outside-click
       is-full-width
@@ -251,13 +249,10 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       size: this.size,
     })
 
-    const dropdownSize =
-      this.size === 'large' || this.size === 'x-large' ? 'medium' : this.size
-
     // when `showNoResults` is enabled we show just one placeholder line
     if (this.showNoResults) {
       return html`<lukso-dropdown
-        size=${dropdownSize}
+        size=${this.sizeDropdown()}
         is-open
         is-open-on-outside-click
         is-full-width
@@ -272,7 +267,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     // when no results or there is more then dropdown size we show 5 placeholder lines
     if (this.resultsParsed.length === 0 || this.resultsParsed.length > 5) {
       return html`<lukso-dropdown
-        size=${dropdownSize}
+        size=${this.sizeDropdown()}
         is-open
         is-open-on-outside-click
         is-full-width
@@ -286,7 +281,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
     // when show placeholder lines based on the number of results
     return html`<lukso-dropdown
-      size=${dropdownSize}
+      size=${this.sizeDropdown()}
       is-open
       is-open-on-outside-click
       is-full-width
@@ -316,8 +311,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     result: SearchUniversalNameResult,
     index: number
   ) {
-    const dropdownSize =
-      this.size === 'large' || this.size === 'x-large' ? 'medium' : this.size
     const tag = html`<lukso-tag
       is-rounded
       background-color="${result.status ? 'green-90' : 'neutral-95'}"
@@ -328,7 +321,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       data-id="${result.id}"
       data-index="${index + 1}"
       ?is-selected=${this.selected === index + 1}
-      size=${dropdownSize}
+      size=${this.sizeDropdown()}
       @click=${() => this.handleSelect(result)}
     >
       <div class="flex flex-row items-center justify-between w-full">
@@ -339,8 +332,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   resultProfileTemplate(result: SearchProfileResult, index: number) {
-    const dropdownSize =
-      this.size === 'large' || this.size === 'x-large' ? 'medium' : this.size
     const eoaProfilePicture = html`<lukso-profile
       profile-address="${result.address}"
       profile-url="${result.address ? makeBlockie(result.address) : ''}"
@@ -360,7 +351,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       data-id="${result.address}"
       data-index="${index + 1}"
       ?is-selected=${this.selected === index + 1}
-      size=${dropdownSize}
+      size=${this.sizeDropdown()}
       @click=${() => this.handleSelect(result)}
     >
       ${profilePicture}

@@ -161,7 +161,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
         },
         'x-large': {
           input: 'h-[68px] px-4 py-5 paragraph-inter-16-regular rounded-12',
-          unit: 'h-[48px] paragraph-inter-16-regular px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
+          unit: 'h-[68px] paragraph-inter-16-regular px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
           rightIcon: 'right-4',
         },
       },

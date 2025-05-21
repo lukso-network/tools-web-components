@@ -143,6 +143,22 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    availableText: {
+      name: 'available-text',
+      description: 'Text displayed on available state.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    unavailableText: {
+      name: 'unavailable-text',
+      description: 'Text displayed on unavailable state.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     noResultsText: {
       name: 'no-results-text',
       description: 'Text displayed on no results state.',
@@ -160,7 +176,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'medium', 'large', 'x-large'],
       table: {
         category: 'Attributes',
       },
@@ -224,6 +240,12 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    'available-text': {
+      name: 'availableText',
+    },
+    'unavailable-text': {
+      name: 'unavailableText',
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -264,6 +286,8 @@ const meta: Meta = {
     error: '',
     customClass: '',
     placeholder: '',
+    availableText: undefined,
+    unavailableText: undefined,
     isReadonly: false,
     isFullWidth: false,
     isDisabled: false,
@@ -303,6 +327,8 @@ const meta: Meta = {
         'isReadonly',
         'isDisabled',
         'isSearching',
+        'availableText',
+        'unavailableText',
         'isDebouncing',
         'debounceTimer',
         'styles',
@@ -452,6 +478,25 @@ ProfileSearch.args = {
     },
   ],
   margin: 200,
+}
+
+export const UniversalNameSearch = Template.bind({})
+UniversalNameSearch.args = {
+  placeholder: 'Type to search...',
+  results: [
+    {
+      value: 'Peter Pan',
+      status: true,
+      id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+    },
+    {
+      value: 'Peter Parker',
+      status: false,
+      id: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
+    },
+  ],
+  margin: 200,
+  size: 'x-large',
 }
 
 /** To indicate when search is processing results you can add `is-searching` attribute. */

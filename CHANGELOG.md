@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.130.0](https://github.com/lukso-network/tools-web-components/compare/v1.129.0...v1.130.0) (2025-05-21)
+
+
+### Features
+
+* Rework modal for mobile ([#556](https://github.com/lukso-network/tools-web-components/issues/556)) ([eeafa56](https://github.com/lukso-network/tools-web-components/commit/eeafa56e8402c383f859567eeefd6b26fc63b39f))
+
+
+### Bug Fixes
+
+* add new variant for universal names results. ([#558](https://github.com/lukso-network/tools-web-components/issues/558)) ([927d585](https://github.com/lukso-network/tools-web-components/commit/927d585ae18efed322de26efdbbe70a4edcc82de))
+
 ## [1.129.0](https://github.com/lukso-network/tools-web-components/compare/v1.128.0...v1.129.0) (2025-05-15)
 
 

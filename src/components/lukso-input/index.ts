@@ -145,23 +145,24 @@ export class LuksoInput extends TailwindStyledElement(style) {
       },
       size: {
         small: {
-          input: 'h-[28px] px-2 py-1 paragraph-inter-12-regular rounded-8',
-          unit: 'h-[28px] paragraph-inter-10-regular px-2 rounded-r-8 before:top-[calc(50%-6px)] before:h-[12px]',
-          rightIcon: 'right-2',
+          input: 'h-[28px] px-3 py-1 paragraph-inter-12-regular rounded-8',
+          unit: 'h-[28px] paragraph-inter-12-regular px-2 rounded-r-8 before:top-[calc(50%-6px)] before:h-[12px]',
+          rightIcon: 'right-3',
         },
         medium: {
-          input: 'h-[40px] px-4 py-2 paragraph-inter-14-regular rounded-12',
-          unit: 'h-[40px] paragraph-inter-12-regular px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
-          rightIcon: 'right-3',
+          input:
+            'h-[40px] px-3.5 py-2 paragraph-inter-14-regular rounded-[10px]',
+          unit: 'h-[40px] paragraph-inter-12-regular px-3 rounded-r-[10px] before:top-[calc(50%-12px)] before:h-[24px]',
+          rightIcon: 'right-4',
         },
         large: {
           input: 'h-[48px] px-4 py-2 paragraph-inter-14-regular rounded-12',
-          unit: 'h-[48px] paragraph-inter-14-regular px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
-          rightIcon: 'right-3',
+          unit: 'h-[48px] paragraph-inter-12-regular pl-3 pr-4 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
+          rightIcon: 'right-4',
         },
         'x-large': {
-          input: 'h-[68px] px-4 py-5 paragraph-inter-16-regular rounded-12',
-          unit: 'h-[68px] paragraph-inter-16-regular px-3.5 rounded-r-12 before:top-[calc(50%-12px)] before:h-[24px]',
+          input: 'h-[68px] px-5 py-5 paragraph-inter-16-regular rounded-[14px]',
+          unit: 'h-[68px] paragraph-inter-16-regular pl-3 pr-4 rounded-r-[14px] before:top-[calc(50%-12px)] before:h-[24px]',
           rightIcon: 'right-4',
         },
       },
@@ -288,9 +289,10 @@ export class LuksoInput extends TailwindStyledElement(style) {
   }
 
   rightIconTemplate(styles: string) {
+    const iconSize = this.size === 'small' ? 'small' : 'medium'
     return html`<lukso-icon
       name=${this.rightIcon}
-      size="medium"
+      size=${iconSize}
       class=${styles}
       @click=${this.handleRightIconClick}
     ></lukso-icon>`

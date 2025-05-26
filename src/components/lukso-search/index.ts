@@ -11,6 +11,7 @@ import '@/components/lukso-profile'
 import '@/components/lukso-tag'
 import '@/components/lukso-username'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
+import { sliceAddress } from '@/shared/tools'
 import style from './style.scss?inline'
 
 import type { Address, InputSize } from '@/shared/types'
@@ -25,6 +26,7 @@ export type SearchProfileResult = {
   image?: string
   name?: string
   isEOA?: boolean
+  isUP?: boolean
 }
 
 export type SearchUniversalNameResult = {
@@ -345,7 +347,23 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       has-identicon
     ></lukso-profile>`
 
-    const profilePicture = result.isEOA ? eoaProfilePicture : lsp3ProfilePicture
+    const isUP = result.isUP === false ? false : true
+    const profilePicture =
+      result.isEOA || !isUP ? eoaProfilePicture : lsp3ProfilePicture
+    let name = result.name
+    let address: string = result.address as string
+
+    if (!name) {
+      if (result.isEOA) {
+        name = sliceAddress(result.address, 8)
+        address = '__EOA'
+      } else if (isUP) {
+        name = 'anonymous-profile'
+      } else {
+        name = ''
+        address = sliceAddress(result.address, 8)
+      }
+    }
 
     return html`<lukso-dropdown-option
       data-id="${result.address}"
@@ -356,11 +374,13 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     >
       ${profilePicture}
       <lukso-username
-        name="${result.name?.toLowerCase()}"
-        address="${result.address}"
+        name="${name?.toLowerCase()}"
+        address="${address}"
         name-color="neutral-20"
         max-width="300"
         size="medium"
+        hide-prefix="${result.isEOA}"
+        no-transform="${result.isEOA}"
         class="ml-1"
       ></lukso-username>
     </lukso-dropdown-option>`

@@ -250,7 +250,7 @@ const meta: Meta = {
   args: {
     type: 'text',
     value: '',
-    size: 'medium',
+    size: 'large',
     isFullWidth: false,
     isDisabled: false,
     isReadonly: false,

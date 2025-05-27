@@ -21,12 +21,17 @@ export type SearchStringResult = {
   value: string
 }
 
+export enum SearchProfileType {
+  UP = 'up',
+  EOA = 'eoa',
+  SmartContract = 'sc',
+}
+
 export type SearchProfileResult = {
   address: Address
   image?: string
   name?: string
-  isEOA?: boolean
-  isUP?: boolean
+  type?: SearchProfileType
 }
 
 export type SearchUniversalNameResult = {
@@ -347,22 +352,45 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       has-identicon
     ></lukso-profile>`
 
-    const isUP = result.isUP === false ? false : true
-    const profilePicture =
-      result.isEOA || !isUP ? eoaProfilePicture : lsp3ProfilePicture
-    let name = result.name
-    let address: string = result.address as string
+    const type = result.type || SearchProfileType.UP
 
-    if (!name) {
-      if (result.isEOA) {
-        name = sliceAddress(result.address, 8)
-        address = '__EOA'
-      } else if (isUP) {
-        name = 'anonymous-profile'
-      } else {
-        name = ''
-        address = sliceAddress(result.address, 8)
-      }
+    const profilePicture =
+      type !== SearchProfileType.UP ? eoaProfilePicture : lsp3ProfilePicture
+
+    const upProfileUsername = html`<lukso-username
+      name="${result.name?.toLowerCase() || 'anonymous-profile'}"
+      address="${result.address}"
+      name-color="neutral-20"
+      max-width="300"
+      size="medium"
+      ?hide-prefix="${!result.name}"
+      class="ml-1"
+    ></lukso-username> `
+    const eoaUsername = html`<lukso-username
+      name="${sliceAddress(result.address, 8)}"
+      address="__EOA"
+      name-color="neutral-20"
+      max-width="300"
+      size="medium"
+      hide-prefix
+      class="ml-1"
+    ></lukso-username>`
+
+    const scUsername = html`<lukso-username
+      name=""
+      address="${sliceAddress(result.address, 8)}"
+      name-color="neutral-20"
+      max-width="300"
+      size="medium"
+      hide-prefix
+      class="ml-1"
+    ></lukso-username>`
+
+    let profileName = scUsername
+    if (type === SearchProfileType.EOA) {
+      profileName = eoaUsername
+    } else if (type === SearchProfileType.UP) {
+      profileName = upProfileUsername
     }
 
     return html`<lukso-dropdown-option
@@ -372,17 +400,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       size=${this.sizeDropdown()}
       @click=${() => this.handleSelect(result)}
     >
-      ${profilePicture}
-      <lukso-username
-        name="${name?.toLowerCase()}"
-        address="${address}"
-        name-color="neutral-20"
-        max-width="300"
-        size="medium"
-        hide-prefix="${result.isEOA}"
-        no-transform="${result.isEOA}"
-        class="ml-1"
-      ></lukso-username>
+      ${profilePicture} ${profileName}
     </lukso-dropdown-option>`
   }
 

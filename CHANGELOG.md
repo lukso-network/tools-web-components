@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.131.0](https://github.com/lukso-network/tools-web-components/compare/v1.130.0...v1.131.0) (2025-05-27)
+
+
+### Features
+
+* **DEV-13752:** fix the result display of UP results ([#560](https://github.com/lukso-network/tools-web-components/issues/560)) ([5996845](https://github.com/lukso-network/tools-web-components/commit/599684553ea195e74d2a942e75e7d87575032d92))
+
+
+### Bug Fixes
+
+* **DEV-13768:** fixed new sizes ([#559](https://github.com/lukso-network/tools-web-components/issues/559)) ([e1e5c04](https://github.com/lukso-network/tools-web-components/commit/e1e5c047081a0fdde9137f49f49faf23f7acfe9c))
+
 ## [1.130.0](https://github.com/lukso-network/tools-web-components/compare/v1.129.0...v1.130.0) (2025-05-21)
 
 

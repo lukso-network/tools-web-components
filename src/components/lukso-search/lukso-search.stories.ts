@@ -469,12 +469,20 @@ ProfileSearch.args = {
       name: 'profile1',
       image: '',
     },
+    // Anonymous UP
+    {
+      address: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+      name: '',
+      image: '',
+    },
+    // Non UP and Non EOA Address
     {
       address: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
+      type: 'sc',
     },
     {
       address: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
-      isEOA: true,
+      type: 'eoa',
     },
   ],
   margin: 200,

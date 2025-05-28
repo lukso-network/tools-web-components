@@ -320,7 +320,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   ) {
     const tag = html`<lukso-tag
       is-rounded
-      background-color="${result.status ? 'green-90' : 'neutral-95'}"
+      background-color="${result.status ? 'green-95' : 'neutral-95'}"
       text-color="${result.status ? 'green-45' : 'neutral-60'}"
       >${!!result.status ? this.availableText : this.unavailableText}</lukso-tag
     >`

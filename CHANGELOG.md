@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.131.1](https://github.com/lukso-network/tools-web-components/compare/v1.131.0...v1.131.1) (2025-05-28)
+
+
+### Bug Fixes
+
+* fix color green-95 on up search result ([#562](https://github.com/lukso-network/tools-web-components/issues/562)) ([75d68c1](https://github.com/lukso-network/tools-web-components/commit/75d68c153b0bb62e15194220fd5c24608bcd0840))
+
 ## [1.131.0](https://github.com/lukso-network/tools-web-components/compare/v1.130.0...v1.131.0) (2025-05-27)
 
 

@@ -203,7 +203,7 @@ import { profileCircle } from './icons/profile-circle'
 import { playLinear } from './icons/play-linear'
 import { stopLinear } from './icons/stop-linear'
 import { minus } from './icons/minus'
-import { medalStar } from './icons/medal-star' 
+import { medalStar } from './icons/medal-star'
 
 export type IconOptions = {
   width: number
@@ -423,7 +423,7 @@ const iconMap = {
   'profile-circle': profileCircle,
   'play-linear': playLinear,
   'stop-linear': stopLinear,
-  'medal-star': medalStar
+  'medal-star': medalStar,
 }
 
 @customElement('lukso-icon')

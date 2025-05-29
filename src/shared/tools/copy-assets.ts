@@ -41,7 +41,7 @@ function copyFileSync(source, target) {
     return
   }
 
-  writeFileSync(targetFile, readFileSync(source))
+  writeFileSync(targetFile, readFileSync(source, 'utf-8'))
 }
 
 /**

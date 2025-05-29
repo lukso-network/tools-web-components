@@ -1,4 +1,3 @@
-export * from './tailwind-config'
 export * from './hsl-color-map'
 export * from './slice-address'
 export * from '../assets'

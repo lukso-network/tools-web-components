@@ -261,8 +261,8 @@ export class LuksoNavbar extends TailwindElement {
         ${this.isCenter
           ? nothing
           : this.hasMenu
-          ? this.menuTemplate(styles)
-          : nothing}
+            ? this.menuTemplate(styles)
+            : nothing}
       </nav>
     `
   }

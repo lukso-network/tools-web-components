@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.132.0](https://github.com/lukso-network/tools-web-components/compare/v1.131.1...v1.132.0) (2025-06-02)
+
+
+### Features
+
+* new icon - medal icon ([3fb2985](https://github.com/lukso-network/tools-web-components/commit/3fb29852756d5e3d679ab12609783c0d074d0b0a))
+* new icon - medal icon ([#565](https://github.com/lukso-network/tools-web-components/issues/565)) ([5c1d727](https://github.com/lukso-network/tools-web-components/commit/5c1d72791a568ab98d1a5f79d8e4be74010c9f45))
+
+
+### Bug Fixes
+
+* **DEV-13897:** add missing colors design system ([#567](https://github.com/lukso-network/tools-web-components/issues/567)) ([cc0c36a](https://github.com/lukso-network/tools-web-components/commit/cc0c36af2d5331984711386563a1c35d49d0f95d))
+* lint ([9b02f14](https://github.com/lukso-network/tools-web-components/commit/9b02f1481c3938362eaa6e93086091e757abd5d1))
+* Repair build by upgrading some node-modules. ([#564](https://github.com/lukso-network/tools-web-components/issues/564)) ([3607c3f](https://github.com/lukso-network/tools-web-components/commit/3607c3f48a33b1b76f4d23efe73d11a6ea33507e))
+
 ## [1.131.1](https://github.com/lukso-network/tools-web-components/compare/v1.131.0...v1.131.1) (2025-05-28)
 
 

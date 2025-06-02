@@ -167,13 +167,19 @@ export const colorPalette = {
   cloud: hslColorMap(200, 38, [43, 75, 88]),
   ocean: hslColorMap(209, 38, [38, 75, 88]),
   sky: hslColorMap(209, 64, [64, 75, 85]),
-  lukso: hslColorMap(335, 33, [70, 80, 90]),
-  yellow: hslColorMap(36, 100, [55, 65, 75, 85]),
+  lukso: hslColorMap(335, 33, [50, 60, 70, 80, 90]),
+  yellow: hslColorMap(36, 100, [55, 65, 75, 85, 95]),
   green: hslColorMap(135, 57, [45, 54, 63, 75, 85, 95]),
-  blue: hslColorMap(216, 96, [50, 60, 75, 85]),
-  red: hslColorMap(0, 75, [55, 65, 75, 85]),
-  purple: hslColorMap(230, 24, [94, 82, 63, 58, 51, 41, 31, 15]),
+  blue: hslColorMap(216, 96, [40, 50, 60, 75, 85, 95]),
+  red: hslColorMap(0, 75, [55, 65, 75, 85, 95]),
+  purple: hslColorMap(230, 24, [94, 82, 63, 58, 51, 41, 31, 18, 15]),
   pink: hslColorMap(11, 73, [97, 96, 95, 94, 93, 92, 91, 90]),
+  measure: hslColorMap(327, 82, [50, 70, 80, 97]),
+  grey: hslColorMap(
+    0,
+    0,
+    [80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10]
+  ),
   'gradient-1': {
     start: '#D39B9D',
     end: '#9071D1',
@@ -215,4 +221,12 @@ export const neutral3 = splitColor(
   colorPalette.neutral,
   16,
   Object.keys(colorPalette.neutral).length
+)
+
+export const grey1 = splitColor(colorPalette['grey'], 0, 8)
+export const grey2 = splitColor(colorPalette['grey'], 8, 16)
+export const grey3 = splitColor(
+  colorPalette['grey'],
+  16,
+  Object.keys(colorPalette['grey']).length
 )

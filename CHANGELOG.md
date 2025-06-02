@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.132.1](https://github.com/lukso-network/tools-web-components/compare/v1.132.0...v1.132.1) (2025-06-02)
+
+
+### Bug Fixes
+
+* Repair lint and copyFileSync ([#568](https://github.com/lukso-network/tools-web-components/issues/568)) ([d00c166](https://github.com/lukso-network/tools-web-components/commit/d00c166342e79bdce9d5f413ae14202b4a6aaf12))
+
 ## [1.132.0](https://github.com/lukso-network/tools-web-components/compare/v1.131.1...v1.132.0) (2025-06-02)
 
 

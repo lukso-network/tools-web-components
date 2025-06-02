@@ -3,8 +3,7 @@ import {
   lstatSync,
   mkdirSync,
   readdirSync,
-  readFileSync,
-  writeFileSync,
+  copyFileSync as fsCopyFileSync,
 } from 'node:fs'
 import { basename, extname, join } from 'node:path'
 
@@ -41,7 +40,7 @@ function copyFileSync(source, target) {
     return
   }
 
-  writeFileSync(targetFile, readFileSync(source, 'utf-8'))
+  fsCopyFileSync(source, targetFile)
 }
 
 /**

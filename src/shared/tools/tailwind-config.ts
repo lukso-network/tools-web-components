@@ -224,9 +224,8 @@ export const neutral3 = splitColor(
 )
 
 export const grey1 = splitColor(colorPalette.grey, 0, 8)
-export const grey2 = splitColor(colorPalette.grey, 8, 16)
-export const grey3 = splitColor(
+export const grey2 = splitColor(
   colorPalette.grey,
-  16,
+  8,
   Object.keys(colorPalette.grey).length
 )

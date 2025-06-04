@@ -2,10 +2,10 @@ import { type PropertyValues, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import tippy from 'tippy.js'
 import { tv } from 'tailwind-variants'
-import { styleMap } from 'lit/directives/style-map.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
+import '@/components/lukso-sanitize'
 
 export type TooltipVariant = 'dark' | 'light' | 'success' | 'danger' | 'white'
 export type TooltipSize = 'medium' | 'large'
@@ -71,9 +71,6 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   @property({ type: Number })
   offset = 10
 
-  @property({ type: String })
-  options = ''
-
   @property({ type: Boolean, attribute: 'show-arrow' })
   showArrow = true
 
@@ -86,16 +83,12 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
   @state()
   showCopy = false
 
-  @state()
-  optionsParsed: TooltipOption[] = []
-
   private tooltipInstance = undefined
 
   private styles = tv({
     slots: {
       tooltip: 'hidden',
       trigger: 'cursor-pointer flex flex-col items-center',
-      options: 'rounded-4 hover:bg-neutral-95',
     },
     variants: {
       hasNoText: {
@@ -130,7 +123,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
       this.tooltipInstance = undefined
     }
 
-    if (!this.text && !this.options) {
+    if (!this.text) {
       return
     }
 
@@ -175,19 +168,11 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     if (changedProperties.has('show') && this.trigger === 'manual') {
       if (this.show) {
         !this.tooltipInstance && this.initTooltip()
-        this.tooltipInstance.show()
+        this.tooltipInstance?.show()
       } else {
         this.tooltipInstance?.hide()
       }
       return
-    }
-
-    if (changedProperties.has('options') && !!this.options) {
-      try {
-        this.optionsParsed = JSON.parse(this.options) as TooltipOption[]
-      } catch (error: unknown) {
-        console.warn('Could not parse options', error)
-      }
     }
 
     if (changedProperties.has('text')) {
@@ -200,28 +185,69 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     }
   }
 
+  connectedCallback() {
+    super.connectedCallback()
+
+    setTimeout(() => {
+      const textSlot = this.shadowRoot?.querySelector(
+        'slot[name="text"]'
+      ) as HTMLSlotElement | null
+
+      if (textSlot) {
+        textSlot.addEventListener('slotchange', this.handleSlotChange)
+        this.handleSlotChange()
+      }
+    }, 0)
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback()
     this.tooltipInstance?.destroy()
+
+    const textSlot = this.shadowRoot?.querySelector(
+      'slot[name="text"]'
+    ) as HTMLSlotElement | null
+    if (textSlot) {
+      textSlot.removeEventListener('slotchange', this.handleSlotChange)
+    }
   }
 
-  private optionsTemplate(styles: { options: () => string }) {
-    // because of the bug in the getting styles properly for options we pass them as style property
-    return html`<ul>
-      ${Object.entries(this.optionsParsed)?.map(
-        option =>
-          html`<li
-            class=${styles.options()}
-            style=${styleMap({
-              padding: '4px 8px',
-              cursor: 'pointer',
-            })}
-            onClick="navigator.clipboard.writeText('${option[1].value}')"
-          >
-            ${option[1].text}
-          </li>`
-      )}
-    </ul>`
+  private handleSlotChange = () => {
+    const textSlot = this.shadowRoot?.querySelector(
+      'slot[name="text"]'
+    ) as HTMLSlotElement | null
+
+    if (textSlot) {
+      setTimeout(() => {
+        const assignedNodes = textSlot.assignedNodes({ flatten: true })
+        const html = assignedNodes
+          .map(node => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              return (node as HTMLElement).innerHTML
+            }
+            if (node.nodeType === Node.TEXT_NODE) {
+              return node.textContent?.trim() || ''
+            }
+            return ''
+          })
+          .filter(Boolean)
+          .join('')
+          .replace(/<!--\?lit\$.*?\$-->/g, '')
+
+        const decoded = this.decodeHtmlEntities(html)
+
+        if (decoded && `<div>${decoded}</div>` !== this.text) {
+          this.text = `<div>${decoded}</div>`
+          this.initTooltip()
+        }
+      }, 0)
+    }
+  }
+
+  private decodeHtmlEntities(str: string): string {
+    const txt = document.createElement('textarea')
+    txt.innerHTML = str
+    return txt.value
   }
 
   render() {
@@ -231,8 +257,9 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
 
     return html`
       <div id="tooltip" role="tooltip" class=${styles.tooltip()}>
-        ${this.options ? this.optionsTemplate(styles) : this.text}
+        ${html`<lukso-sanitize html-content=${this.text}></lukso-sanitize>`}
       </div>
+      <slot name="text" class="hidden"></slot>
       ${this.isClipboardCopy
         ? html`<lukso-tooltip
             variant=${this.variant}

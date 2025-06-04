@@ -138,12 +138,6 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    options: {
-      control: { type: 'object' },
-      table: {
-        category: 'Attributes',
-      },
-    },
     showDelay: {
       name: 'show-delay',
       control: { type: 'number' },
@@ -185,7 +179,7 @@ const meta: Meta = {
     size: 'medium',
     placement: 'top',
     trigger: 'mouseenter',
-    text: 'Hello!',
+    text: '',
     maxWidth: 300,
     hideOnClick: 'true',
     buttonText: 'Button',
@@ -194,10 +188,10 @@ const meta: Meta = {
     isClipboardCopy: false,
     copyText: '',
     copyValue: '',
-    options: '',
     showArrow: true,
     showDelay: 300,
     hideDelay: 300,
+    textSlot: '',
   },
   parameters: {
     controls: {
@@ -214,7 +208,6 @@ const meta: Meta = {
         'copyValue',
         'showCopy',
         'showArrow',
-        'optionsParsed',
         'showDelay',
         'hideDelay',
       ],
@@ -244,9 +237,9 @@ const DefaultTemplate = ({
   copyValue,
   offset,
   showArrow,
-  options,
   showDelay,
   hideDelay,
+  textSlot,
 }) => html`
   <lukso-tooltip
     variant=${variant ? variant : nothing}
@@ -264,16 +257,19 @@ const DefaultTemplate = ({
     ?show-arrow=${showArrow ? showArrow : undefined}
     show-delay=${showDelay ? showDelay : nothing}
     hide-delay=${hideDelay ? hideDelay : nothing}
-    options=${options ? options : nothing}
     class="${margin} mx-20"
   >
-    <lukso-button size="small" variant="secondary">${buttonText}</lukso-button>
+    <lukso-button size="small" variant="secondary" trigger="click"
+      >${buttonText}
+    </lukso-button>
+    <div slot="text">${textSlot}</div>
   </lukso-tooltip>
 `
 
 /** By default tooltip activates on hover.  */
 export const DefaultTooltip = DefaultTemplate.bind({})
 DefaultTooltip.args = {
+  text: 'Hello!',
   buttonText: 'Hover me',
   margin: 'my-8',
 }
@@ -281,6 +277,7 @@ DefaultTooltip.args = {
 /** You can activate tooltip with click.  */
 export const ClickTrigger = DefaultTemplate.bind({})
 ClickTrigger.args = {
+  text: 'Hello!',
   trigger: 'click',
   buttonText: 'Click me',
   margin: 'mt-8',
@@ -293,13 +290,14 @@ MaxWidth.args = {
   maxWidth: 200,
   show: true,
   trigger: 'manual',
-  margin: 'mt-10',
+  margin: 'mt-20',
   hideOnClick: 'false',
 }
 
 /** Example of `large` size.  */
 export const LargeSize = DefaultTemplate.bind({})
 LargeSize.args = {
+  text: 'Hello!',
   size: 'large',
   show: true,
   trigger: 'manual',
@@ -310,6 +308,7 @@ LargeSize.args = {
 /** Example of `light` variant.  */
 export const LightVariant = DefaultTemplate.bind({})
 LightVariant.args = {
+  text: 'Hello!',
   variant: 'light',
   show: true,
   trigger: 'manual',
@@ -320,6 +319,7 @@ LightVariant.args = {
 /** Example of `success` variant.  */
 export const SuccessVariant = DefaultTemplate.bind({})
 SuccessVariant.args = {
+  text: 'Hello!',
   variant: 'success',
   show: true,
   trigger: 'manual',
@@ -330,6 +330,7 @@ SuccessVariant.args = {
 /** Example of `danger` variant.  */
 export const DangerVariant = DefaultTemplate.bind({})
 DangerVariant.args = {
+  text: 'Hello!',
   variant: 'danger',
   show: true,
   trigger: 'manual',
@@ -340,6 +341,7 @@ DangerVariant.args = {
 /** You can change tooltip placement with `placement` attribute.  */
 export const PlacementRight = DefaultTemplate.bind({})
 PlacementRight.args = {
+  text: 'Hello!',
   placement: 'right',
   show: true,
   trigger: 'manual',
@@ -347,6 +349,7 @@ PlacementRight.args = {
 }
 export const PlacementLeft = DefaultTemplate.bind({})
 PlacementLeft.args = {
+  text: 'Hello!',
   placement: 'left',
   show: true,
   trigger: 'manual',
@@ -355,6 +358,7 @@ PlacementLeft.args = {
 
 export const PlacementBottom = DefaultTemplate.bind({})
 PlacementBottom.args = {
+  text: 'Hello!',
   placement: 'bottom',
   show: true,
   trigger: 'manual',
@@ -365,6 +369,7 @@ PlacementBottom.args = {
 /** You can modify tooltip offset with `offset` attribute.  */
 export const Offset = DefaultTemplate.bind({})
 Offset.args = {
+  text: 'Hello!',
   show: true,
   trigger: 'manual',
   margin: 'mt-8',
@@ -383,36 +388,20 @@ ClipboardCopy.args = {
   copyValue: 'copied value',
 }
 
-/** Tooltip with `options` (copied to clipboard).  */
-export const OptionsTooltip = DefaultTemplate.bind({})
-OptionsTooltip.args = {
-  variant: 'light',
-  buttonText: 'Hover me',
-  margin: 'my-8',
-  options: JSON.stringify([
-    {
-      id: 'option1',
-      text: 'Option 1',
-      value: 'option#1',
-    },
-    {
-      id: 'option2',
-      text: 'Option 2',
-      value: 'option#2',
-    },
-    {
-      id: 'option3',
-      text: 'Option 3',
-      value: 'option#3',
-    },
-  ]),
-}
-
 /** Delayed show/hide.  */
 export const DelayedTooltip = DefaultTemplate.bind({})
 DelayedTooltip.args = {
+  text: 'Hello!',
   buttonText: 'Hover me',
-  margin: 'my-8',
+  margin: 'mt-8',
   showDelay: 1000,
   hideDelay: 1000,
+}
+
+/** With named slot you can pass in HTML content into the tooltip. */
+export const NamedSlot = DefaultTemplate.bind({})
+NamedSlot.args = {
+  buttonText: 'Hover me',
+  margin: 'mt-8',
+  textSlot: '<b>This</b> is a tooltip with named <i>slot</i>',
 }

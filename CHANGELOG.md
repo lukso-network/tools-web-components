@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.133.0](https://github.com/lukso-network/tools-web-components/compare/v1.132.1...v1.133.0) (2025-06-05)
+
+
+### Features
+
+* Add tooltip for profile icon hover state ([#571](https://github.com/lukso-network/tools-web-components/issues/571)) ([f383654](https://github.com/lukso-network/tools-web-components/commit/f3836546b2ae38bf5232f80d849eb1ff86956d08))
+
 ## [1.132.1](https://github.com/lukso-network/tools-web-components/compare/v1.132.0...v1.132.1) (2025-06-02)
 
 

@@ -32,8 +32,11 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    'auto-focus': {
+      name: 'autoFocus',
+    },
     onChange: {
-      name: 'change',
+      name: 'on-change',
       description: 'Emitted when a radio in the group is selected.',
       table: {
         category: 'Events',
@@ -43,11 +46,10 @@ const meta: Meta = {
   args: {
     name: 'radio-group',
     value: 'option1',
-    autoFocus: false,
   },
   parameters: {
     controls: {
-      exclude: ['autoFocus', 'onChange', 'focusedIndex', 'radios'],
+      exclude: ['autoFocus', 'focusedIndex', 'radios'],
     },
     design: {
       type: 'figma',

@@ -95,7 +95,14 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['isDisabled', 'isReadonly', 'customClass', 'onChangeEvent'],
+      exclude: [
+        'isDisabled',
+        'isReadonly',
+        'customClass',
+        'hasFocus',
+        'hasHighlight',
+        'radioStyles',
+      ],
     },
     design: {
       type: 'figma',

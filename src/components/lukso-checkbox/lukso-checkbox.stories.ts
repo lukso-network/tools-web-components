@@ -72,11 +72,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    onChange: {
-      name: 'on-change',
-      description: 'Emitted on input change event.',
+    size: {
+      control: {
+        type: 'select',
+      },
+      options: ['x-small', 'small', 'medium'],
       table: {
-        category: 'Events',
+        category: 'Attributes',
       },
     },
     'is-full-width': {
@@ -111,8 +113,11 @@ const meta: Meta = {
         'hasFocus',
         'hasHighlight',
         'customClass',
+        'isFullWidth',
         'isReadonly',
         'isDisabled',
+        'onChangeEvent',
+        'onChange',
       ],
     },
     design: {

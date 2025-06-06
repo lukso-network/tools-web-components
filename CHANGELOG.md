@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.134.0](https://github.com/lukso-network/tools-web-components/compare/v1.133.0...v1.134.0) (2025-06-06)
+
+
+### Features
+
+* **DEV-13913:** add lukso-radio and lukso-radio-group component ([#572](https://github.com/lukso-network/tools-web-components/issues/572)) ([435ad59](https://github.com/lukso-network/tools-web-components/commit/435ad5962a74693b6ef18d82544cd59825841568))
+
 ## [1.133.0](https://github.com/lukso-network/tools-web-components/compare/v1.132.1...v1.133.0) (2025-06-05)
 
 

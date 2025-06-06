@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.131.1",
+  "version": "1.132.1",
   "type": "module",
   "files": [
     "dist",
@@ -154,6 +154,16 @@
       "require": "./dist/components/lukso-progress/index.cjs",
       "import": "./dist/components/lukso-progress/index.js",
       "types": "./dist/components/lukso-progress/index.d.ts"
+    },
+    "./dist/components/lukso-radio": {
+      "require": "./dist/components/lukso-radio/index.cjs",
+      "import": "./dist/components/lukso-radio/index.js",
+      "types": "./dist/components/lukso-radio/index.d.ts"
+    },
+    "./dist/components/lukso-radio-group": {
+      "require": "./dist/components/lukso-radio-group/index.cjs",
+      "import": "./dist/components/lukso-radio-group/index.js",
+      "types": "./dist/components/lukso-radio-group/index.d.ts"
     },
     "./dist/components/lukso-sanitize": {
       "require": "./dist/components/lukso-sanitize/index.cjs",

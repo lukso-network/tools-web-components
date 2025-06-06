@@ -23,23 +23,28 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    autoFocus: {
+    autofocus: {
       control: {
         type: 'boolean',
       },
-      name: 'auto-focus',
       table: {
         category: 'Attributes',
       },
     },
-    'auto-focus': {
-      name: 'autoFocus',
-    },
-    onChange: {
-      name: 'on-change',
+    change: {
       description: 'Emitted when a radio in the group is selected.',
       table: {
         category: 'Events',
+      },
+    },
+    focusedIndex: {
+      table: {
+        disable: true,
+      },
+    },
+    radios: {
+      table: {
+        disable: true,
       },
     },
   },
@@ -49,7 +54,7 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['autoFocus', 'focusedIndex', 'radios'],
+      exclude: [],
     },
     design: {
       type: 'figma',

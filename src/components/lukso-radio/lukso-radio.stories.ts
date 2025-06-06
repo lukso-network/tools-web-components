@@ -76,11 +76,24 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    customClass: {
+      name: 'custom-class',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-disabled': {
       name: 'isDisabled',
     },
     'is-readonly': {
       name: 'isReadonly',
+    },
+    'custom-class': {
+      name: 'customClass',
+    },
+    'on-change': {
+      name: 'onChange',
     },
   },
   args: {
@@ -102,6 +115,7 @@ const meta: Meta = {
         'hasFocus',
         'hasHighlight',
         'radioStyles',
+        'onChange',
       ],
     },
     design: {
@@ -130,7 +144,7 @@ const Template = ({
     if (onChange) {
       onChange(event)
     }
-    updateArgs({ checked: checked ? false : true })
+    updateArgs({ checked: !checked })
   }
 
   return html`<lukso-radio

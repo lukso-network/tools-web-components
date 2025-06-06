@@ -1,16 +1,32 @@
 import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 
+import type { LuksoRadio } from '../lukso-radio'
+
+type HTMLRadioElement = HTMLInputElement & {
+  checked: boolean
+  isDisabled: boolean
+  isReadonly: boolean
+}
+
 @customElement('lukso-radio-group')
 export class LuksoRadioGroup extends TailwindElement {
-  @property({ type: String }) name = ''
-  @property({ type: String }) value = ''
-  @property({ type: Boolean, attribute: 'auto-focus' }) autoFocus = false
+  @property({ type: String })
+  name = ''
+
+  @property({ type: String })
+  value = ''
+
+  @property({ type: Boolean })
+  autofocus = false
 
   // Track the currently focused radio index
+  @state()
   private focusedIndex = -1
+
+  @state()
   private radios: HTMLElement[] = []
 
   // Detect if radio group is laid out horizontally or vertically
@@ -51,10 +67,11 @@ export class LuksoRadioGroup extends TailwindElement {
 
   private updateRadios() {
     const radios = this.querySelectorAll('lukso-radio')
-    radios.forEach((el: any) => {
+
+    for (const el of radios) {
       // Set checked state based on value comparison
       el.checked = el.value === this.value
-    })
+    }
   }
 
   // Make sure radios are updated when they become available
@@ -75,7 +92,9 @@ export class LuksoRadioGroup extends TailwindElement {
     if (!this.radios.length) return
 
     // Find the currently selected radio
-    const selectedIndex = this.radios.findIndex((radio: any) => radio.checked)
+    const selectedIndex = this.radios.findIndex(
+      (radio: HTMLElement & { checked: boolean }) => radio.checked
+    )
 
     // Start from selected radio or first radio if none selected
     if (this.focusedIndex === -1) {
@@ -130,7 +149,7 @@ export class LuksoRadioGroup extends TailwindElement {
     // Move focus to the new radio button
     if (newIndex !== this.focusedIndex) {
       this.focusedIndex = newIndex
-      const radioToFocus = this.radios[newIndex] as any
+      const radioToFocus = this.radios[newIndex] as HTMLRadioElement
 
       // Only focus and select if not disabled
       if (!radioToFocus.isDisabled && !radioToFocus.isReadonly) {
@@ -161,13 +180,13 @@ export class LuksoRadioGroup extends TailwindElement {
     this.setupInitialState()
 
     // Setup auto-focus if enabled
-    if (this.autoFocus) {
+    if (this.autofocus) {
       setTimeout(() => this.handleGroupFocus(), 50)
     }
   }
 
   // Called after the first update and subsequent updates
-  updated(changedProperties: Map<string, any>) {
+  updated(changedProperties: Map<string, unknown>) {
     super.updated?.(changedProperties)
 
     // If value changed, update radio buttons
@@ -195,7 +214,9 @@ export class LuksoRadioGroup extends TailwindElement {
   private handleGroupFocus() {
     if (!this.isConnected) return
 
-    const radios = Array.from(this.querySelectorAll('lukso-radio')) as any[]
+    const radios = Array.from(
+      this.querySelectorAll('lukso-radio')
+    ) as LuksoRadio[]
     if (!radios.length) return
 
     // Find the selected radio or the first enabled radio

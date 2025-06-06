@@ -25,7 +25,7 @@ export class LuksoRadio extends TailwindElement {
   error = ''
 
   @property({ type: Boolean })
-  checked: boolean = false
+  checked = false
 
   @property({ type: String, attribute: 'custom-class' })
   customClass = ''

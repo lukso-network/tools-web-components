@@ -93,7 +93,7 @@ export class LuksoRadioGroup extends TailwindElement {
 
     // Find the currently selected radio
     const selectedIndex = this.radios.findIndex(
-      (radio: HTMLElement & { checked: boolean }) => radio.checked
+      (radio: HTMLRadioElement) => radio.checked
     )
 
     // Start from selected radio or first radio if none selected

@@ -119,7 +119,7 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
 
     // if instance already exists, destroy it
     if (this.tooltipInstance) {
-      this.tooltipInstance.destroy()
+      this.tooltipInstance?.destroy()
       this.tooltipInstance = undefined
     }
 

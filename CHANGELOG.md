@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.134.1](https://github.com/lukso-network/tools-web-components/compare/v1.134.0...v1.134.1) (2025-06-09)
+
+
+### Bug Fixes
+
+* test failures for Tippy instance destroy ([#575](https://github.com/lukso-network/tools-web-components/issues/575)) ([faaa078](https://github.com/lukso-network/tools-web-components/commit/faaa078f6552487e7d569698a889841b7ad1733b))
+
 ## [1.134.0](https://github.com/lukso-network/tools-web-components/compare/v1.133.0...v1.134.0) (2025-06-06)
 
 

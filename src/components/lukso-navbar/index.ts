@@ -8,6 +8,17 @@ import '@/components/lukso-tag'
 
 export type NavbarMobileBreakpoint = 'sm' | 'md' | 'lg' | 'xl'
 
+type Styles = FunctionMap<
+  | 'wrapper'
+  | 'mobileMenuWrapper'
+  | 'mobileMenuTrigger'
+  | 'mobileMenuDropdown'
+  | 'desktopMenuWrapper'
+  | 'desktopCenterWrapper'
+  | 'desktopCenterPlaceholder',
+  string
+>
+
 @customElement('lukso-navbar')
 export class LuksoNavbar extends TailwindElement {
   @property({ type: String })
@@ -56,6 +67,7 @@ export class LuksoNavbar extends TailwindElement {
         'fixed top-[78px] left-0 w-full h-full bg-neutral-100 z-[1000] justify-center items-center flex',
       desktopMenuWrapper: 'items-center justify-end pr-10 no-underline hidden',
       desktopCenterWrapper: 'items-center hidden',
+      desktopCenterPlaceholder: '',
     },
     variants: {
       isCenter: {
@@ -83,24 +95,28 @@ export class LuksoNavbar extends TailwindElement {
           mobileMenuDropdown: 'sm:hidden',
           desktopMenuWrapper: 'sm:flex',
           desktopCenterWrapper: 'sm:flex',
+          desktopCenterPlaceholder: 'sm:hidden',
         },
         md: {
           mobileMenuWrapper: 'md:hidden',
           mobileMenuDropdown: 'md:hidden',
           desktopMenuWrapper: 'md:flex',
           desktopCenterWrapper: 'md:flex',
+          desktopCenterPlaceholder: 'md:hidden',
         },
         lg: {
           mobileMenuWrapper: 'lg:hidden',
           mobileMenuDropdown: 'lg:hidden',
           desktopMenuWrapper: 'lg:flex',
           desktopCenterWrapper: 'lg:flex',
+          desktopCenterPlaceholder: 'lg:hidden',
         },
         xl: {
           mobileMenuWrapper: 'xl:hidden',
           mobileMenuDropdown: 'xl:hidden',
           desktopMenuWrapper: 'xl:flex',
           desktopCenterWrapper: 'xl:flex',
+          desktopCenterPlaceholder: 'xl:hidden',
         },
       },
       isMenuOpen: {
@@ -158,24 +174,20 @@ export class LuksoNavbar extends TailwindElement {
     }
   }
 
-  desktopMenuTemplate(styles: { desktopMenuWrapper: () => string }) {
+  desktopMenuTemplate(styles: Styles) {
     return html` <div class=${styles.desktopMenuWrapper()}>
       <slot name="desktop-menu"></slot>
     </div>`
   }
 
-  desktopCenterTemplate(styles: { desktopCenterWrapper: () => string }) {
+  desktopCenterTemplate(styles: Styles) {
     return html`<div class=${styles.desktopCenterWrapper()}>
         <slot name="desktop-center"></slot>
       </div>
-      <div class="sm:hidden"></div>`
+      <div class=${styles.desktopCenterPlaceholder()}></div>`
   }
 
-  mobileMenuTemplate(styles: {
-    mobileMenuTrigger: () => string
-    mobileMenuDropdown: () => string
-    mobileMenuWrapper: () => string
-  }) {
+  mobileMenuTemplate(styles: Styles) {
     return html`<div class=${styles.mobileMenuWrapper()}>
       <slot name="mobile-menu"></slot>
 
@@ -233,13 +245,7 @@ export class LuksoNavbar extends TailwindElement {
     `
   }
 
-  menuTemplate(styles: {
-    desktopMenuWrapper: () => string
-    desktopCenterWrapper?: () => string
-    mobileMenuWrapper: () => string
-    mobileMenuTrigger: () => string
-    mobileMenuDropdown: () => string
-  }): ReturnType<typeof html> {
+  menuTemplate(styles: Styles): ReturnType<typeof html> {
     return html`<div class="flex items-center justify-end">
       ${this.desktopMenuTemplate(styles)} ${this.mobileMenuTemplate(styles)}
     </div>`

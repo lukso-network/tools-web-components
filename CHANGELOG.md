@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.134.2](https://github.com/lukso-network/tools-web-components/compare/v1.134.1...v1.134.2) (2025-06-11)
+
+
+### Bug Fixes
+
+* Buttons are shifted on mobile navbar ([#577](https://github.com/lukso-network/tools-web-components/issues/577)) ([8fc0b06](https://github.com/lukso-network/tools-web-components/commit/8fc0b065ef233d6f23bf9e610a8c4a974a25ae1a))
+
 ## [1.134.1](https://github.com/lukso-network/tools-web-components/compare/v1.134.0...v1.134.1) (2025-06-09)
 
 

@@ -204,6 +204,11 @@ import { playLinear } from './icons/play-linear'
 import { stopLinear } from './icons/stop-linear'
 import { minus } from './icons/minus'
 import { medalStar } from './icons/medal-star'
+import { editLinear } from './icons/edit-linear'
+import { imageLinear } from './icons/image-linear'
+import { hexagon } from './icons/hexagon'
+
+
 
 export type IconOptions = {
   width: number
@@ -424,6 +429,10 @@ const iconMap = {
   'play-linear': playLinear,
   'stop-linear': stopLinear,
   'medal-star': medalStar,
+  'edit-linear': editLinear,
+  'image-linear': imageLinear,
+  'hexagon': hexagon,
+
 }
 
 @customElement('lukso-icon')

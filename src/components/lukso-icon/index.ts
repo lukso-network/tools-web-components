@@ -429,7 +429,7 @@ const iconMap = {
   'medal-star': medalStar,
   'edit-linear': editLinear,
   'image-linear': imageLinear,
-  hexagon: hexagon,
+  hexagon,
 }
 
 @customElement('lukso-icon')

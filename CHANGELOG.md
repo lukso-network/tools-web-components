@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.135.0](https://github.com/lukso-network/tools-web-components/compare/v1.134.2...v1.135.0) (2025-06-12)
+
+
+### Features
+
+* add new icons ([4ab63f2](https://github.com/lukso-network/tools-web-components/commit/4ab63f261bc7e39c23ab9f48954004c972509c7b))
+* add new icons ([#579](https://github.com/lukso-network/tools-web-components/issues/579)) ([b58a446](https://github.com/lukso-network/tools-web-components/commit/b58a446c1b25697eb7d661ad61e79169583f9d2d))
+
+
+### Bug Fixes
+
+* lint ([7842075](https://github.com/lukso-network/tools-web-components/commit/78420753e0bd2e00baddb67ad39529d2d9fcc758))
+* lint ([ba77fa1](https://github.com/lukso-network/tools-web-components/commit/ba77fa1f7ca8230d491f33fbb82cf4dbe604cf6c))
+
 ## [1.134.2](https://github.com/lukso-network/tools-web-components/compare/v1.134.1...v1.134.2) (2025-06-11)
 
 

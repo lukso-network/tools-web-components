@@ -23,6 +23,7 @@ export type CardVariants =
   | 'profile-2'
   | 'hero'
   | 'dapp'
+  | 'profile-3'
 
 export type CardBorderRadius = 'small' | 'medium' | 'none'
 
@@ -328,6 +329,66 @@ export class LuksoCard extends TailwindStyledElement(style) {
     `
   }
 
+  profile3Template() {
+    const cardStyles = this.cardStyles({
+      borderRadius: this.borderRadius,
+      shadow: this.shadow,
+      isHoverable: this.isHoverable,
+      hasNoWidth: !this.width,
+      class: 'grid grid-rows-[auto,1fr]',
+    })
+
+    return html`
+      <div
+        data-testid="card"
+        style=${customStyleMap({
+          [`min-height: ${this.height}px`]: !!this.height,
+          [`width: ${this.width}px`]: !!this.width,
+        })}
+        class=${cn(cardStyles, this.customClass)}
+      >
+        <div
+          style=${styleMap({
+            backgroundImage: this.backgroundGradient(),
+          })}
+          class=${cn(
+            'min-h-[40px] bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative bg-neutral-100',
+            this.headerClass
+          )}
+        >
+          ${this.backgroundUrl &&
+          html`<div
+              class="rounded-t-[inherit] overflow-hidden absolute inset-0"
+            >
+              <lukso-image src=${this.backgroundUrl}></lukso-image>
+            </div>
+            <div
+              class="min-h-full min-w-full rounded-t-[inherit] rounded-b-0 bg-neutral-10/10 absolute"
+            ></div>`}
+          <div>
+            <slot name="header"></slot>
+          </div>
+        </div>
+        <div class="grid grid-rows-[max-content] rounded-b-[inherit]">
+          <div class="bg-neutral-100 relative pt-5 rounded-b-[inherit]">
+            <lukso-profile
+              profile-url=${this.isEoa
+                ? makeBlockie(this.profileAddress)
+                : this.profileUrl}
+              borderRadius="large"
+              profile-address=${this.profileAddress}
+              ?has-identicon=${!this.isEoa}
+              size="small"
+              class="absolute -top-6 left-3 z-10 border-[3px] border-neutral-100 rounded-full"
+            ></lukso-profile>
+
+            <slot name="content"></slot>
+          </div>
+        </div>
+      </div>
+    `
+  }
+
   heroTemplate() {
     const cardStyles = this.cardStyles({
       borderRadius: this.borderRadius,
@@ -418,6 +479,8 @@ export class LuksoCard extends TailwindStyledElement(style) {
         return this.profileTemplate()
       case 'profile-2':
         return this.profile2Template()
+      case 'profile-3':
+        return this.profile3Template()
       case 'hero':
         return this.heroTemplate()
       case 'dapp':

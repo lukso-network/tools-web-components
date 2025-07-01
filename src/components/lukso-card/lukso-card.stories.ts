@@ -1,4 +1,5 @@
 import { html, nothing } from 'lit-html'
+import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
 import type { Meta } from '@storybook/web-components'
 
@@ -13,7 +14,15 @@ const meta: Meta = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['basic', 'with-header', 'profile', 'profile-2', 'hero', 'dapp'],
+      options: [
+        'basic',
+        'with-header',
+        'profile',
+        'profile-2',
+        'profile-3',
+        'hero',
+        'dapp',
+      ],
       table: {
         category: 'Attributes',
       },
@@ -265,6 +274,8 @@ const ProfileTemplate = ({
   headerClass,
   hasOverlay,
   isEoa,
+  shadow,
+  contentClass = 'px-6 pb-9 break-words',
 }) => html`
   <lukso-card
     variant=${variant}
@@ -275,12 +286,13 @@ const ProfileTemplate = ({
     height=${height ? height : nothing}
     custom-class=${customClass}
     border-radius=${borderRadius}
+    shadow=${shadow ? shadow : nothing}
     ?is-hoverable=${isHoverable}
     header-class=${headerClass}
     ?has-overlay=${hasOverlay}
     ?is-eoa=${isEoa}
   >
-    <div slot="content" class="px-6 pb-9 break-words">${content}</div>
+    <div slot="content" class=${contentClass}>${unsafeHTML(content)}</div>
     <div slot="bottom" class="p-6">${bottom}</div>
   </lukso-card>
 `
@@ -409,6 +421,17 @@ Profile2Card.args = {
   variant: 'profile-2',
   width: 364,
   height: 534,
+}
+
+/** Example of `profile-3` variant.  */
+export const Profile3Card = ProfileTemplate.bind({})
+Profile3Card.args = {
+  variant: 'profile-3',
+  borderRadius: 'small',
+  shadow: 'small',
+  contentClass: 'p-4 pt-0',
+  content: `<lukso-username name="User123" address="0x9671Db683406EE0817B1f5cB6A3b3BD111477457" size="medium"></lukso-username><div class="mt-1 paragraph-inter-10-regular"><b>13.1k</b> Followers <span class="text-neutral-90">|</span> <b>120</b> Assets</div>`,
+  width: 180,
 }
 
 /** Example of `hero` variant.  */

@@ -4,12 +4,12 @@
   * This file contain general styles that should be applied to host page.
   */
 
-@import './colors';
-@import './fonts';
-@import './typography';
-@import './utilities';
-@import './variables';
-@import './tippy';
+@use './colors';
+@use './fonts';
+@use './typography';
+@use './utilities';
+@use './variables';
+@use './tippy';
 
 @tailwind base;
 @tailwind components;

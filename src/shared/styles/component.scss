@@ -6,9 +6,9 @@
   * to pass all styles.
   */
 
-@import './typography';
-@import './utilities';
-@import './variables';
+@use './typography';
+@use './utilities';
+@use './variables';
 
 @tailwind base;
 @tailwind components;

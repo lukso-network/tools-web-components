@@ -274,6 +274,7 @@ const ProfileTemplate = ({
   headerClass,
   hasOverlay,
   isEoa,
+  shadow,
   contentClass = 'px-6 pb-9 break-words',
 }) => html`
   <lukso-card
@@ -285,6 +286,7 @@ const ProfileTemplate = ({
     height=${height ? height : nothing}
     custom-class=${customClass}
     border-radius=${borderRadius}
+    shadow=${shadow ? shadow : nothing}
     ?is-hoverable=${isHoverable}
     header-class=${headerClass}
     ?has-overlay=${hasOverlay}

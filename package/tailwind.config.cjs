@@ -61,7 +61,12 @@ const animationFill = plugin(({ addUtilities, theme, e }) => {
 })
 
 module.exports = {
-  content: ['**/*.{ts,html,css,scss,mdx}'],
+  content: [
+    './src/**/*.{ts,html,css,scss,mdx}',
+    './package/**/*.{ts,html,css,scss,mdx}',
+    './stories/**/*.{ts,html,css,scss,mdx}',
+    './*.{ts,html,css,scss,mdx}'
+  ],
   theme: {
     fontFamily: {
       inter: ['Inter', 'sans-serif'],

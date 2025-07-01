@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.136.0](https://github.com/lukso-network/tools-web-components/compare/v1.135.0...v1.136.0) (2025-07-01)
+
+
+### Features
+
+* New profile card  ([#583](https://github.com/lukso-network/tools-web-components/issues/583)) ([5087642](https://github.com/lukso-network/tools-web-components/commit/50876428ea642f8feac5c6a43ed559a87e0c217b))
+
 ## [1.135.0](https://github.com/lukso-network/tools-web-components/compare/v1.134.2...v1.135.0) (2025-06-12)
 
 

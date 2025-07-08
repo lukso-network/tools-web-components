@@ -434,16 +434,16 @@ const iconMap = {
 
 @customElement('lukso-icon')
 export class LuksoIcon extends TailwindStyledElement(style) {
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   name = ''
 
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   size = 'medium'
 
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   color = 'neutral-20'
 
-  @property({ type: String, attribute: 'secondary-color' })
+  @property({ type: String, attribute: 'secondary-color', reflect: true })
   secondaryColor = ''
 
   private sizes: { [key in IconSize]: IconSizeDef } = {

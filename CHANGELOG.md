@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.137.0](https://github.com/lukso-network/tools-web-components/compare/v1.136.0...v1.137.0) (2025-07-08)
+
+
+### Features
+
+* Add attribute reflect for `lukso-icon` component ([#585](https://github.com/lukso-network/tools-web-components/issues/585)) ([5049e16](https://github.com/lukso-network/tools-web-components/commit/5049e1625d6b11f468b129353b704d55ede6a523))
+
 ## [1.136.0](https://github.com/lukso-network/tools-web-components/compare/v1.135.0...v1.136.0) (2025-07-01)
 
 

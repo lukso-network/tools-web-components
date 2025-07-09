@@ -231,13 +231,5 @@
       "types": "./dist/shared/tailwind-element/index.d.ts"
     }
   },
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "ethereum-blockies-base64": "^1.0.2",
-    "tailwind-merge": "^2.6.0",
-    "tailwind-variants": "^0.3.1",
-    "tippy.js": "^6.3.7",
-    "web3-utils": "^4.3.3"
-  },
   "customElements": "custom-elements.json"
 }

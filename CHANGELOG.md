@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.139.0](https://github.com/lukso-network/tools-web-components/compare/v1.138.0...v1.139.0) (2025-07-09)
+
+
+### Features
+
+* Add username sizes ([#589](https://github.com/lukso-network/tools-web-components/issues/589)) ([5d0aa80](https://github.com/lukso-network/tools-web-components/commit/5d0aa802d65490c34a6e9e716e1fe8f78ce6273c))
+
 ## [1.138.0](https://github.com/lukso-network/tools-web-components/compare/v1.137.0...v1.138.0) (2025-07-09)
 
 

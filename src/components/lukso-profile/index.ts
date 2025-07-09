@@ -7,6 +7,7 @@ import { TailwindElement } from '@/shared/tailwind-element'
 import '@/components/lukso-image'
 
 export type ProfileSize =
+  | '2x-small'
   | 'x-small'
   | 'small'
   | 'medium'
@@ -16,16 +17,16 @@ export type ProfileSize =
 
 @customElement('lukso-profile')
 export class LuksoProfile extends TailwindElement {
-  @property({ type: String, attribute: 'profile-url' })
+  @property({ type: String, attribute: 'profile-url', reflect: true })
   profileUrl = ''
 
-  @property({ type: String, attribute: 'profile-address' })
+  @property({ type: String, attribute: 'profile-address', reflect: true })
   profileAddress = ''
 
-  @property({ type: Boolean, attribute: 'has-identicon' })
+  @property({ type: Boolean, attribute: 'has-identicon', reflect: true })
   hasIdenticon = false
 
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   size: ProfileSize = 'large'
 
   @property({ type: Boolean, attribute: 'is-square' })
@@ -55,6 +56,11 @@ export class LuksoProfile extends TailwindElement {
         },
       },
       size: {
+        '2x-small': {
+          wrapper: 'w-4 h-4',
+          profile: 'w-4 h-4',
+          identicon: 'w-2 h-2 outline-1',
+        },
         'x-small': {
           wrapper: 'w-6 h-6',
           profile: 'w-6 h-6',
@@ -90,7 +96,7 @@ export class LuksoProfile extends TailwindElement {
     compoundVariants: [
       {
         isSquare: true,
-        size: 'x-small',
+        size: ['2x-small', 'x-small'],
         class: {
           wrapper: 'rounded-[2px]',
           profile: 'rounded-[2px]',
@@ -122,7 +128,7 @@ export class LuksoProfile extends TailwindElement {
       },
       {
         isSquare: true,
-        size: 'x-large',
+        size: ['2x-large', 'x-large'],
         class: {
           wrapper: 'rounded-12',
           profile: 'rounded-12',

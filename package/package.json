@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.138.0",
+  "version": "1.139.0",
   "type": "module",
   "files": [
     "dist",
@@ -60,11 +60,6 @@
       "require": "./tools/copy-assets.cjs",
       "import": "./tools/copy-assets.js",
       "types": "./tools/copy-assets.d.ts"
-    },
-    "./tools/cn": {
-      "require": "./tools/cn.cjs",
-      "import": "./tools/cn.js",
-      "types": "./tools/cn.d.ts"
     },
     "./tools/": "./tools/",
     "./tools": {

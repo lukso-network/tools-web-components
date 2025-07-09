@@ -10,7 +10,7 @@ import { customStyleMap } from '@/shared/directives'
 import { cn } from '@/shared/tools'
 import style from './style.scss?inline'
 
-export type UsernameSize = 'x-small' | 'small' | 'medium' | 'large' | 'x-large'
+import type { ProfileSize } from '@/shared/types'
 
 @customElement('lukso-username')
 export class LuksoUsername extends TailwindStyledElement(style) {
@@ -24,7 +24,7 @@ export class LuksoUsername extends TailwindStyledElement(style) {
   maxWidth = 200
 
   @property({ type: 'string' })
-  size: UsernameSize = 'large'
+  size: ProfileSize = 'large'
 
   @property({ type: Number, attribute: 'slice-by' })
   sliceBy = 8
@@ -59,6 +59,9 @@ export class LuksoUsername extends TailwindStyledElement(style) {
     },
     variants: {
       size: {
+        '2x-small': {
+          wrapper: 'paragraph-ptmono-10-bold',
+        },
         'x-small': {
           wrapper: 'paragraph-ptmono-10-bold',
         },
@@ -72,6 +75,9 @@ export class LuksoUsername extends TailwindStyledElement(style) {
           wrapper: 'paragraph-ptmono-16-bold',
         },
         'x-large': {
+          wrapper: 'paragraph-ptmono-24-bold',
+        },
+        '2x-large': {
           wrapper: 'paragraph-ptmono-24-bold',
         },
       },

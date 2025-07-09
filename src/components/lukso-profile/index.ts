@@ -6,14 +6,7 @@ import { tv } from 'tailwind-variants'
 import { TailwindElement } from '@/shared/tailwind-element'
 import '@/components/lukso-image'
 
-export type ProfileSize =
-  | '2x-small'
-  | 'x-small'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'x-large'
-  | '2x-large'
+import type { ProfileSize } from '@/shared/types'
 
 @customElement('lukso-profile')
 export class LuksoProfile extends TailwindElement {

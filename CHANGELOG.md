@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.138.0](https://github.com/lukso-network/tools-web-components/compare/v1.137.0...v1.138.0) (2025-07-09)
+
+
+### Features
+
+* Add `2x-small` size for  `lukso-profile`  ([#587](https://github.com/lukso-network/tools-web-components/issues/587)) ([eb498b2](https://github.com/lukso-network/tools-web-components/commit/eb498b2e4d937f171f1462891035be1779beefae))
+
 ## [1.137.0](https://github.com/lukso-network/tools-web-components/compare/v1.136.0...v1.137.0) (2025-07-08)
 
 

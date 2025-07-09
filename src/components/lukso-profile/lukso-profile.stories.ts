@@ -25,7 +25,15 @@ const meta: Meta = {
       control: {
         type: 'select',
       },
-      options: ['x-small', 'small', 'medium', 'large', 'x-large', '2x-large'],
+      options: [
+        '2x-small',
+        'x-small',
+        'small',
+        'medium',
+        'large',
+        'x-large',
+        '2x-large',
+      ],
       table: {
         category: 'Attributes',
       },
@@ -153,6 +161,12 @@ Small.args = {
 export const XSmall = Template.bind({})
 XSmall.args = {
   size: 'x-small',
+}
+
+/** Example of `2x-small` profile in `16x16` pixel size.*/
+export const XXSmall = Template.bind({})
+XXSmall.args = {
+  size: '2x-small',
 }
 
 /** When image can't be loaded or missing the placeholder is displayed. */

@@ -7,7 +7,7 @@ import { TailwindElement } from '@/shared/tailwind-element'
 
 @customElement('lukso-image')
 export class LuksoImage extends TailwindElement {
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   src = ''
 
   @property({ type: String })

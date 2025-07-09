@@ -15,6 +15,7 @@ import '@/components/lukso-profile'
 import { cn } from '@/shared/tools'
 import { customStyleMap } from '@/shared/directives'
 import '@/components/lukso-image'
+import { backgroundGradient } from '@/shared/tools/background-gradient'
 
 export type CardVariants =
   | 'basic'
@@ -78,19 +79,6 @@ export class LuksoCard extends TailwindStyledElement(style) {
 
   private onBottomSlotChange() {
     this.hasBottom = this.bottomNodes.length > 0
-  }
-
-  private backgroundGradient() {
-    let gradientStart = '#24354210' // bg-neutral-20/10
-    let gradientEnd = '#24354220' // bg-neutral-20/20
-    const opacity = '80' // 50% in hex format
-
-    if (this.profileAddress) {
-      gradientStart = `#${this.profileAddress.slice(2, 8)}${opacity}`
-      gradientEnd = `#${this.profileAddress.slice(36, 42)}${opacity}`
-    }
-
-    return `linear-gradient(90deg, ${gradientStart}, ${gradientEnd})`
   }
 
   private cardStyles = tv({
@@ -204,7 +192,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       >
         <div
           style=${styleMap({
-            backgroundImage: this.backgroundGradient(),
+            backgroundImage: backgroundGradient(this.profileAddress),
           })}
           class=${cn(
             'min-h-[92px] -mb-6 w-full rounded-t-[inherit] rounded-b-0 relative',
@@ -275,7 +263,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       >
         <div
           style=${styleMap({
-            backgroundImage: this.backgroundGradient(),
+            backgroundImage: backgroundGradient(this.profileAddress),
           })}
           class=${cn(
             'min-h-[129px] -mb-6 bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative bg-neutral-100',
@@ -349,7 +337,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       >
         <div
           style=${styleMap({
-            backgroundImage: this.backgroundGradient(),
+            backgroundImage: backgroundGradient(this.profileAddress),
           })}
           class=${cn(
             'min-h-[40px] bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative bg-neutral-100',
@@ -450,7 +438,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       >
         <div
           style=${styleMap({
-            backgroundImage: this.backgroundGradient(),
+            backgroundImage: backgroundGradient(this.profileAddress),
           })}
           class=${cn(
             'min-h-[inherit] bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative',

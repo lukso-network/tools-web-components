@@ -198,11 +198,6 @@ async function writePackage() {
       import: './tools/copy-assets.js',
       types: './tools/copy-assets.d.ts',
     },
-    './tools/cn': {
-      require: './tools/cn.cjs',
-      import: './tools/cn.js',
-      types: './tools/cn.d.ts',
-    },
     './tools/': './tools/',
     './tools': {
       require: './tools/index.cjs',
@@ -226,12 +221,14 @@ async function writePackage() {
   const fullContent = await readFile('./package.json', 'utf-8')
   const fullPack = JSON.parse(fullContent)
   pack.version = fullPack.version
-  for (const key of Object.keys(pack.dependencies)) {
-    const newValue =
-      fullPack.dependencies?.[key] || fullPack.devDependencies[key]
-    if (newValue) {
-      // Update published dependencies to be the same version we have in the workspace
-      pack.dependencies[key] = newValue
+  if (pack.dependencies) {
+    for (const key of Object.keys(pack.dependencies)) {
+      const newValue =
+        fullPack.dependencies?.[key] || fullPack.devDependencies?.[key]
+      if (newValue) {
+        // Update published dependencies to be the same version we have in the workspace
+        pack.dependencies[key] = newValue
+      }
     }
   }
   const newContent = `${JSON.stringify(pack, null, '  ')}\n`

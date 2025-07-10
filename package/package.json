@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.138.0",
+  "version": "1.139.0",
   "type": "module",
   "files": [
     "dist",
@@ -60,11 +60,6 @@
       "require": "./tools/copy-assets.cjs",
       "import": "./tools/copy-assets.js",
       "types": "./tools/copy-assets.d.ts"
-    },
-    "./tools/cn": {
-      "require": "./tools/cn.cjs",
-      "import": "./tools/cn.js",
-      "types": "./tools/cn.d.ts"
     },
     "./tools/": "./tools/",
     "./tools": {
@@ -230,14 +225,6 @@
       "import": "./dist/shared/tailwind-element/index.js",
       "types": "./dist/shared/tailwind-element/index.d.ts"
     }
-  },
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "ethereum-blockies-base64": "^1.0.2",
-    "tailwind-merge": "^2.6.0",
-    "tailwind-variants": "^0.3.1",
-    "tippy.js": "^6.3.7",
-    "web3-utils": "^4.3.3"
   },
   "customElements": "custom-elements.json"
 }

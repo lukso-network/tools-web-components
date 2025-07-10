@@ -47,6 +47,9 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   @property({ type: String })
   trigger: LuksoDropdownTrigger = 'click'
 
+  @property({ type: Number, attribute: 'max-height', reflect: true })
+  maxHeight = undefined
+
   constructor() {
     super()
 
@@ -70,11 +73,11 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       size: {
         small: {
           dropdown:
-            'rounded-8 p-2 mt-1 min-w-[120px] paragraph-inter-12-regular max-h-52',
+            'rounded-8 p-2 mt-1 min-w-[120px] paragraph-inter-12-regular',
         },
         medium: {
           dropdown:
-            'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-14-regular max-h-64',
+            'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-14-regular',
         },
       },
       isRight: {
@@ -84,6 +87,9 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       },
       isFullWidth: {
         true: { wrapper: 'w-full', dropdown: 'w-full' },
+      },
+      hasMaxHeight: {
+        true: {},
       },
     },
     compoundVariants: [
@@ -106,6 +112,16 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         openTop: true,
         size: ['medium'],
         class: { wrapper: 'bottom-12 mb-2' },
+      },
+      {
+        hasMaxHeight: false,
+        size: 'small',
+        class: { dropdown: 'max-h-52' },
+      },
+      {
+        hasMaxHeight: false,
+        size: 'medium',
+        class: { dropdown: 'max-h-64' },
       },
     ],
   })
@@ -209,6 +225,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       size: this.size,
       isRight: this.isRight,
       isFullWidth: this.isFullWidth,
+      hasMaxHeight: this.maxHeight !== undefined,
     })
 
     if (!this.isOpen) {

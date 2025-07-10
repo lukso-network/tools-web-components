@@ -77,6 +77,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    maxHeight: {
+      name: 'max-height',
+      description: 'Set max-height of the dropdown.',
+      control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onChange: {
       name: 'on-change',
       description: 'Fires when dropdown is opened or closed.',
@@ -102,6 +110,9 @@ const meta: Meta = {
     'is-full-width': {
       name: 'isFullWidth',
     },
+    'max-height': {
+      name: 'maxHeight',
+    },
   },
   args: {
     size: 'medium',
@@ -116,6 +127,7 @@ const meta: Meta = {
     trigger: 'click',
     marginTop: 0,
     marginBottom: 0,
+    maxHeight: undefined,
   },
   parameters: {
     controls: {
@@ -135,6 +147,7 @@ const meta: Meta = {
         'handleMouseEnter',
         'handleMouseLeave',
         'handleClick',
+        'maxHeight',
       ],
     },
     design: {
@@ -160,6 +173,7 @@ const Template = ({
   trigger,
   isFullWidth,
   onChange,
+  maxHeight,
 }) => {
   return html`<div
     class="relative"
@@ -176,6 +190,7 @@ const Template = ({
       ?is-open-on-outside-click=${isOpenOnOutsideClick}
       ?is-full-width=${isFullWidth}
       size=${size ? size : nothing}
+      max-height=${maxHeight ? maxHeight : nothing}
       @on-change=${onChange}
     >
       <lukso-dropdown-option size=${size ? size : nothing}

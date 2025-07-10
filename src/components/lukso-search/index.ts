@@ -13,37 +13,25 @@ import '@/components/lukso-username'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { sliceAddress } from '@/shared/tools'
 import style from './style.scss?inline'
+import {
+  SearchResultType,
+  type Address,
+  type InputSize,
+  type Standard,
+} from '@/shared/types'
+import { SEARCH_RESULT_TYPES, STANDARDS } from '@/shared/enums'
 
-import type { Address, InputSize } from '@/shared/types'
-
-export type SearchStringResult = {
-  id?: string
-  value: string
-}
-
-export enum SearchProfileType {
-  UP = 'up',
-  EOA = 'eoa',
-  SmartContract = 'sc',
-}
-
-export type SearchProfileResult = {
-  address: Address
+export type SearchResult = {
+  id: string
+  type: SearchResultType
+  address?: Address
+  value?: string
   image?: string
   name?: string
-  type?: SearchProfileType
+  symbol?: string
+  standard?: Standard
+  status?: boolean
 }
-
-export type SearchUniversalNameResult = {
-  id?: string
-  value: string
-  status: boolean
-}
-
-export type SearchResult =
-  | SearchStringResult
-  | SearchProfileResult
-  | SearchUniversalNameResult
 
 @customElement('lukso-search')
 export class LuksoSearch extends TailwindStyledElement(style) {
@@ -58,6 +46,15 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   @property({ type: String })
   label = ''
+
+  @property({ type: String, attribute: 'group-labels' })
+  groupLabels = JSON.stringify({
+    [SEARCH_RESULT_TYPES.UNIVERSAL_NAME]: 'Universal Names',
+    [SEARCH_RESULT_TYPES.PROFILE]: 'Profiles',
+    [SEARCH_RESULT_TYPES.ASSET]: 'Assets',
+    [SEARCH_RESULT_TYPES.APP]: 'Apps',
+    [SEARCH_RESULT_TYPES.STRING]: 'Other',
+  })
 
   @property({ type: String, attribute: 'available-text' })
   availableText = 'Available'
@@ -127,6 +124,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   @property({ type: String })
   size: InputSize | 'large' | 'x-large' = 'large'
+
+  @property({ type: Number, attribute: 'max-height' })
+  maxHeight = undefined
 
   @state()
   private isDebouncing = false
@@ -204,29 +204,73 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   resultsTemplate() {
     const resultTemplates: TemplateResult<1>[] = []
     this.resultsParsed = JSON.parse(this.results) as SearchResult[]
+    const groupLabelsParsed = JSON.parse(this.groupLabels)
 
+    // check for mixed types
+    const types = this.resultsParsed.map(r => r.type)
+    const isMixedTypes = new Set(types).size > 1
+
+    // for every first element from type we add a group label
     for (const result of Object.entries(this.resultsParsed)) {
       const index = Number(result[0])
 
-      if ('value' in result[1] && 'status' in result[1]) {
-        // UniversalNameResult dropdown
-        resultTemplates.push(
-          this.resultUniversalNameTemplate(
-            result[1] as SearchUniversalNameResult,
-            index
+      if (isMixedTypes) {
+        const currentType = result[1].type
+        const prevType = index > 0 ? this.resultsParsed[index - 1].type : null
+
+        if (index === 0 || currentType !== prevType) {
+          let headerText = ''
+          switch (currentType) {
+            case SEARCH_RESULT_TYPES.UNIVERSAL_NAME:
+              headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.UNIVERSAL_NAME]
+              break
+            case SEARCH_RESULT_TYPES.PROFILE:
+              headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.PROFILE]
+              break
+            case SEARCH_RESULT_TYPES.ASSET:
+              headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.ASSET]
+              break
+            case SEARCH_RESULT_TYPES.APP:
+              headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.APP]
+              break
+            default:
+              headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.STRING]
+              break
+          }
+          resultTemplates.push(
+            html`<div
+              class="py-1 my-1 text-neutral-35 paragraph-inter-12-medium tracking-wider border-b border-b-neutral-95"
+            >
+              ${headerText}
+            </div>`
           )
-        )
-      } else if ('value' in result[1]) {
-        // StringResult dropdown
-        resultTemplates.push(
-          this.resultStringTemplate(result[1] as SearchStringResult, index)
-        )
-      } else if ('address' in result[1]) {
-        // ProfileResult dropdown
-        resultTemplates.push(this.resultProfileTemplate(result[1], index))
-      } else if ('value' in result[1]) {
-      } else {
-        console.error('Unknown result type', result)
+        }
+      }
+
+      // depending on the type we render different result templates
+      switch (result[1].type) {
+        // UniversalName result
+        case SEARCH_RESULT_TYPES.UNIVERSAL_NAME:
+          resultTemplates.push(
+            this.resultUniversalNameTemplate(result[1], index)
+          )
+          break
+        // Profile result
+        case SEARCH_RESULT_TYPES.PROFILE:
+          resultTemplates.push(this.resultProfileTemplate(result[1], index))
+          break
+        // Asset result
+        case SEARCH_RESULT_TYPES.ASSET:
+          resultTemplates.push(this.resultAssetTemplate(result[1], index))
+          break
+        // App result
+        case SEARCH_RESULT_TYPES.APP:
+          resultTemplates.push(this.resultAppTemplate(result[1], index))
+          break
+        // Default string result
+        default:
+          resultTemplates.push(this.resultStringTemplate(result[1], index))
+          break
       }
     }
 
@@ -235,6 +279,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       is-open
       is-open-on-outside-click
       is-full-width
+      max-height=${this.maxHeight || nothing}
       >${resultTemplates}</lukso-dropdown
     >`
   }
@@ -300,7 +345,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     >`
   }
 
-  resultStringTemplate(result: SearchStringResult, index: number) {
+  resultStringTemplate(result: SearchResult, index: number) {
     const dropdownSize =
       this.size === 'large' || this.size === 'x-large' ? 'medium' : this.size
     return html`<lukso-dropdown-option
@@ -314,10 +359,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </lukso-dropdown-option>`
   }
 
-  resultUniversalNameTemplate(
-    result: SearchUniversalNameResult,
-    index: number
-  ) {
+  resultUniversalNameTemplate(result: SearchResult, index: number) {
     const tag = html`<lukso-tag
       is-rounded
       background-color="${result.status ? 'green-95' : 'neutral-95'}"
@@ -338,7 +380,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </lukso-dropdown-option>`
   }
 
-  resultProfileTemplate(result: SearchProfileResult, index: number) {
+  resultProfileTemplate(result: SearchResult, index: number) {
     const eoaProfilePicture = html`<lukso-profile
       profile-address="${result.address}"
       profile-url="${result.address ? makeBlockie(result.address) : ''}"
@@ -352,10 +394,10 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       has-identicon
     ></lukso-profile>`
 
-    const type = result.type || SearchProfileType.UP
+    const standard = result.standard || STANDARDS.LSP3
 
     const profilePicture =
-      type !== SearchProfileType.UP ? eoaProfilePicture : lsp3ProfilePicture
+      standard !== STANDARDS.LSP3 ? eoaProfilePicture : lsp3ProfilePicture
 
     const upProfileUsername = html`<lukso-username
       name="${result.name?.toLowerCase() || 'anonymous-profile'}"
@@ -387,9 +429,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     ></lukso-username>`
 
     let profileName = scUsername
-    if (type === SearchProfileType.EOA) {
+    if (standard === STANDARDS.EOA) {
       profileName = eoaUsername
-    } else if (type === SearchProfileType.UP) {
+    } else if (standard === STANDARDS.LSP3) {
       profileName = upProfileUsername
     }
 
@@ -401,6 +443,46 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       @click=${() => this.handleSelect(result)}
     >
       ${profilePicture} ${profileName}
+    </lukso-dropdown-option>`
+  }
+
+  resultAssetTemplate(result: SearchResult, index: number) {
+    return html`<lukso-dropdown-option
+      data-id="${result.address}"
+      data-index="${index + 1}"
+      ?is-selected=${this.selected === index + 1}
+      size=${this.sizeDropdown()}
+      @click=${() => this.handleSelect(result)}
+    >
+      <lukso-profile
+        profile-address="${result.address}"
+        profile-url="${result.image}"
+        placeholder="/assets/images/token-default.svg"
+        size="x-small"
+      ></lukso-profile>
+      <span class="paragraph-inter-14-semi-bold"
+        >${result.name}
+        <span class="text-neutral-60 paragraph-inter-14-regular"
+          >${result.symbol}</span
+        ></span
+      >
+    </lukso-dropdown-option>`
+  }
+
+  resultAppTemplate(result: SearchResult, index: number) {
+    return html`<lukso-dropdown-option
+      data-id="${result.address}"
+      data-index="${index + 1}"
+      ?is-selected=${this.selected === index + 1}
+      size=${this.sizeDropdown()}
+      @click=${() => this.handleSelect(result)}
+    >
+      <lukso-profile
+        profile-address="${result.address}"
+        profile-url="${result.image}"
+        size="x-small"
+      ></lukso-profile>
+      <span class="paragraph-inter-14-semi-bold">${result.name} </span>
     </lukso-dropdown-option>`
   }
 

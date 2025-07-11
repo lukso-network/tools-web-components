@@ -208,6 +208,15 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    withGroupLabels: {
+      name: 'with-group-labels',
+      description:
+        'If true, the search will display group labels for the results. The labels are defined in the `groupLabels` attribute.',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onSearch: {
       name: 'on-search',
       description: 'Emitted on search.',
@@ -301,6 +310,9 @@ const meta: Meta = {
     'group-labels': {
       name: 'groupLabels',
     },
+    'with-group-labels': {
+      name: 'withGroupLabels',
+    },
   },
   args: {
     value: '',
@@ -324,6 +336,7 @@ const meta: Meta = {
     hasReset: false,
     rightIcon: undefined,
     keepValueOnEscapeHit: false,
+    withGroupLabels: false,
     id: 'search',
     autocomplete: 'off',
     results: [
@@ -372,6 +385,7 @@ const meta: Meta = {
         'keepValueOnEscapeHit',
         'maxHeight',
         'groupLabels',
+        'withGroupLabels',
       ],
     },
     design: {
@@ -413,6 +427,7 @@ const Template = ({
   keepValueOnEscapeHit,
   maxHeight,
   groupLabels,
+  withGroupLabels,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -460,6 +475,7 @@ const Template = ({
     ?hide-loading=${hideLoading}
     ?has-reset=${hasReset}
     ?keep-value-on-escape-hit=${keepValueOnEscapeHit}
+    ?with-group-labels=${withGroupLabels}
     right-icon=${rightIcon ? rightIcon : nothing}
     custom-class=${customClass ? customClass : nothing}
     debounce=${debounce ? debounce : nothing}
@@ -667,6 +683,7 @@ ResultMixed.args = {
     [SEARCH_RESULT_TYPES.ASSET]: 'Trending assets',
     [SEARCH_RESULT_TYPES.APP]: 'Trending apps',
   }),
+  withGroupLabels: true,
 }
 
 /** To indicate when search is processing results you can add `is-searching` attribute. */

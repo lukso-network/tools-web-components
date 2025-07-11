@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.141.0](https://github.com/lukso-network/tools-web-components/compare/v1.140.0...v1.141.0) (2025-07-11)
+
+
+### Features
+
+* Add size mapping for `lukso-select` resuts ([#594](https://github.com/lukso-network/tools-web-components/issues/594)) ([89190f7](https://github.com/lukso-network/tools-web-components/commit/89190f7d6f1e9014bc0277e743d3edc8ad2d44ab))
+
 ## [1.140.0](https://github.com/lukso-network/tools-web-components/compare/v1.139.0...v1.140.0) (2025-07-10)
 
 

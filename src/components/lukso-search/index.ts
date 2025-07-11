@@ -159,6 +159,34 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     },
   })
 
+  private dropdownSize: Record<InputSize | 'large' | 'x-large', string> = {
+    small: 'small',
+    medium: 'medium',
+    large: 'medium',
+    'x-large': 'medium',
+  }
+
+  private profileSize: Record<InputSize | 'large' | 'x-large', string> = {
+    small: '2x-small',
+    medium: 'x-small',
+    large: 'x-small',
+    'x-large': 'small',
+  }
+
+  private usernameSize: Record<InputSize | 'large' | 'x-large', string> = {
+    small: 'small',
+    medium: 'medium',
+    large: 'large',
+    'x-large': 'x-large',
+  }
+
+  private textSize: Record<InputSize | 'large' | 'x-large', string> = {
+    small: 'text-12',
+    medium: 'text-14',
+    large: 'text-16',
+    'x-large': 'text-16',
+  }
+
   connectedCallback() {
     super.connectedCallback()
     window.addEventListener('click', this.handleOutsideDropdownClick.bind(this))
@@ -193,12 +221,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         }
       }
     }
-  }
-
-  sizeDropdown() {
-    const dropdownSize =
-      this.size === 'large' || this.size === 'x-large' ? 'medium' : this.size
-    return dropdownSize
   }
 
   resultsTemplate() {
@@ -275,7 +297,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     }
 
     return html`<lukso-dropdown
-      size=${this.sizeDropdown()}
+      size=${this.dropdownSize[this.size]}
       is-open
       is-open-on-outside-click
       is-full-width
@@ -286,7 +308,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   noResultsTemplate() {
     return html`<lukso-dropdown
-      size=${this.sizeDropdown()}
+      size=${this.dropdownSize[this.size]}
       is-open
       is-open-on-outside-click
       is-full-width
@@ -304,7 +326,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     // when `showNoResults` is enabled we show just one placeholder line
     if (this.showNoResults) {
       return html`<lukso-dropdown
-        size=${this.sizeDropdown()}
+        size=${this.dropdownSize[this.size]}
         is-open
         is-open-on-outside-click
         is-full-width
@@ -319,7 +341,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     // when no results or there is more then dropdown size we show 5 placeholder lines
     if (this.resultsParsed.length === 0 || this.resultsParsed.length > 5) {
       return html`<lukso-dropdown
-        size=${this.sizeDropdown()}
+        size=${this.dropdownSize[this.size]}
         is-open
         is-open-on-outside-click
         is-full-width
@@ -333,7 +355,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
     // when show placeholder lines based on the number of results
     return html`<lukso-dropdown
-      size=${this.sizeDropdown()}
+      size=${this.dropdownSize[this.size]}
       is-open
       is-open-on-outside-click
       is-full-width
@@ -370,7 +392,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       data-id="${result.id}"
       data-index="${index + 1}"
       ?is-selected=${this.selected === index + 1}
-      size=${this.sizeDropdown()}
+      size=${this.dropdownSize[this.size]}
       @click=${() => this.handleSelect(result)}
     >
       <div class="flex flex-row items-center justify-between w-full">
@@ -384,13 +406,13 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     const eoaProfilePicture = html`<lukso-profile
       profile-address="${result.address}"
       profile-url="${result.address ? makeBlockie(result.address) : ''}"
-      size="x-small"
+      size=${this.profileSize[this.size]}
     ></lukso-profile>`
 
     const lsp3ProfilePicture = html`<lukso-profile
       profile-address="${result.address}"
       profile-url="${result.image}"
-      size="x-small"
+      size=${this.profileSize[this.size]}
       has-identicon
     ></lukso-profile>`
 
@@ -404,7 +426,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       address="${result.address}"
       name-color="neutral-20"
       max-width="300"
-      size="medium"
+      size=${this.usernameSize[this.size]}
       ?hide-prefix="${!result.name}"
       class="ml-1"
     ></lukso-username> `
@@ -413,7 +435,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       address="__EOA"
       name-color="neutral-20"
       max-width="300"
-      size="medium"
+      size=${this.usernameSize[this.size]}
       hide-prefix
       class="ml-1"
     ></lukso-username>`
@@ -423,7 +445,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       address="${sliceAddress(result.address, 8)}"
       name-color="neutral-20"
       max-width="300"
-      size="medium"
+      size=${this.usernameSize[this.size]}
       hide-prefix
       class="ml-1"
     ></lukso-username>`
@@ -439,7 +461,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       data-id="${result.address}"
       data-index="${index + 1}"
       ?is-selected=${this.selected === index + 1}
-      size=${this.sizeDropdown()}
+      size=${this.dropdownSize[this.size]}
       @click=${() => this.handleSelect(result)}
     >
       ${profilePicture} ${profileName}
@@ -451,18 +473,21 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       data-id="${result.address}"
       data-index="${index + 1}"
       ?is-selected=${this.selected === index + 1}
-      size=${this.sizeDropdown()}
+      size=${this.dropdownSize[this.size]}
       @click=${() => this.handleSelect(result)}
     >
       <lukso-profile
         profile-address="${result.address}"
         profile-url="${result.image}"
         placeholder="/assets/images/token-default.svg"
-        size="x-small"
+        size=${this.profileSize[this.size]}
       ></lukso-profile>
-      <span class="paragraph-inter-14-semi-bold"
+      <span class="paragraph-inter-14-semi-bold ${this.textSize[this.size]}"
         >${result.name}
-        <span class="text-neutral-60 paragraph-inter-14-regular"
+        <span
+          class="text-neutral-60 paragraph-inter-14-regular ${this.textSize[
+            this.size
+          ]}"
           >${result.symbol}</span
         ></span
       >
@@ -474,15 +499,17 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       data-id="${result.address}"
       data-index="${index + 1}"
       ?is-selected=${this.selected === index + 1}
-      size=${this.sizeDropdown()}
+      size=${this.dropdownSize[this.size]}
       @click=${() => this.handleSelect(result)}
     >
       <lukso-profile
         profile-address="${result.address}"
         profile-url="${result.image}"
-        size="x-small"
+        size=${this.profileSize[this.size]}
       ></lukso-profile>
-      <span class="paragraph-inter-14-semi-bold">${result.name} </span>
+      <span class="paragraph-inter-14-semi-bold ${this.textSize[this.size]}"
+        >${result.name}
+      </span>
     </lukso-dropdown-option>`
   }
 

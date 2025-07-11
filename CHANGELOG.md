@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.142.0](https://github.com/lukso-network/tools-web-components/compare/v1.141.1...v1.142.0) (2025-07-11)
+
+
+### Features
+
+* Add group labels as property ([#599](https://github.com/lukso-network/tools-web-components/issues/599)) ([caac634](https://github.com/lukso-network/tools-web-components/commit/caac63416d79ff314a2f2c2e94b3a70cb4dcc73d))
+
+
+### Bug Fixes
+
+* Max height on dropdown ([#598](https://github.com/lukso-network/tools-web-components/issues/598)) ([1a71902](https://github.com/lukso-network/tools-web-components/commit/1a719028b2dd0a14b4f0d448aeedde834ca930dd))
+
 ## [1.141.1](https://github.com/lukso-network/tools-web-components/compare/v1.141.0...v1.141.1) (2025-07-11)
 
 

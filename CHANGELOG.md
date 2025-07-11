@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.141.1](https://github.com/lukso-network/tools-web-components/compare/v1.141.0...v1.141.1) (2025-07-11)
+
+
+### Bug Fixes
+
+* Export enums ([#596](https://github.com/lukso-network/tools-web-components/issues/596)) ([fce57bf](https://github.com/lukso-network/tools-web-components/commit/fce57bf3bcb9a38cac79564bbd8e7b85dfd4037f))
+
 ## [1.141.0](https://github.com/lukso-network/tools-web-components/compare/v1.140.0...v1.141.0) (2025-07-11)
 
 

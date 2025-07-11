@@ -128,6 +128,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: Number, attribute: 'max-height' })
   maxHeight = undefined
 
+  @property({ type: Boolean, attribute: 'with-group-labels' })
+  withGroupLabels = false
+
   @state()
   private isDebouncing = false
 
@@ -228,15 +231,11 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     this.resultsParsed = JSON.parse(this.results) as SearchResult[]
     const groupLabelsParsed = JSON.parse(this.groupLabels)
 
-    // check for mixed types
-    const types = this.resultsParsed.map(r => r.type)
-    const isMixedTypes = new Set(types).size > 1
-
     // for every first element from type we add a group label
     for (const result of Object.entries(this.resultsParsed)) {
       const index = Number(result[0])
 
-      if (isMixedTypes) {
+      if (this.withGroupLabels) {
         const currentType = result[1].type
         const prevType = index > 0 ? this.resultsParsed[index - 1].type : null
 

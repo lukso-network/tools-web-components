@@ -233,7 +233,10 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     }
 
     return html`<div id=${this.id} class=${wrapper()}>
-      <div class=${dropdown()}>
+      <div
+        class=${dropdown()}
+        style=${this.maxHeight ? `max-height: ${this.maxHeight}px;` : nothing}
+      >
         <slot></slot>
       </div>
     </div>`

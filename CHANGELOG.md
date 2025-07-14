@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.142.1](https://github.com/lukso-network/tools-web-components/compare/v1.142.0...v1.142.1) (2025-07-14)
+
+
+### Bug Fixes
+
+* fix enums of standards and search results export ([#603](https://github.com/lukso-network/tools-web-components/issues/603)) ([c5af338](https://github.com/lukso-network/tools-web-components/commit/c5af338fbdd8591550e390c2b619e3794c4bf611))
+* group label alignment ([#601](https://github.com/lukso-network/tools-web-components/issues/601)) ([0e52adc](https://github.com/lukso-network/tools-web-components/commit/0e52adc55f1f511bc8e7e4fee17fa25f311acd10))
+
 ## [1.142.0](https://github.com/lukso-network/tools-web-components/compare/v1.141.1...v1.142.0) (2025-07-11)
 
 

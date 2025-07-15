@@ -1,4 +1,4 @@
-export const enum STANDARDS {
+export enum STANDARDS {
   EOA = 'EOA',
   LSP3 = 'LSP0ERC725Account',
   LSP7 = 'LSP7DigitalAsset',
@@ -6,7 +6,7 @@ export const enum STANDARDS {
   UNKNOWN = 'UnknownContract',
 }
 
-export const enum SEARCH_RESULT_TYPES {
+export enum SEARCH_RESULT_TYPES {
   STRING = 'string',
   PROFILE = 'profile',
   ASSET = 'asset',

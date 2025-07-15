@@ -179,14 +179,14 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   private usernameSize: Record<InputSize | 'large' | 'x-large', string> = {
     small: 'small',
     medium: 'medium',
-    large: 'large',
+    large: 'medium',
     'x-large': 'x-large',
   }
 
   private textSize: Record<InputSize | 'large' | 'x-large', string> = {
     small: 'text-12',
     medium: 'text-14',
-    large: 'text-16',
+    large: 'text-14',
     'x-large': 'text-16',
   }
 

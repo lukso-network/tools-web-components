@@ -316,7 +316,7 @@ const meta: Meta = {
   },
   args: {
     value: '',
-    size: 'medium',
+    size: 'large',
     name: '',
     label: '',
     description: '',
@@ -541,7 +541,7 @@ ResultProfile.args = {
       standard: STANDARDS.EOA,
     },
   ],
-  margin: 200,
+  margin: 250,
 }
 
 /** Example of search with `universal-name` type results.  */
@@ -562,7 +562,7 @@ ResultUniversalName.args = {
       type: SEARCH_RESULT_TYPES.UNIVERSAL_NAME,
     },
   ],
-  margin: 200,
+  margin: 100,
   size: 'x-large',
 }
 
@@ -626,7 +626,7 @@ ResultApp.args = {
       standard: STANDARDS.LSP3,
     },
   ],
-  margin: 200,
+  margin: 100,
 }
 
 /** Example of search with mixed result types.  */
@@ -676,7 +676,7 @@ ResultMixed.args = {
       standard: STANDARDS.LSP3,
     },
   ],
-  margin: 200,
+  margin: 400,
   maxHeight: 600,
   groupLabels: JSON.stringify({
     [SEARCH_RESULT_TYPES.PROFILE]: 'Trending profiles',
@@ -721,6 +721,6 @@ SelectedOption.args = {
 /** Example of small search.  */
 export const Small = Template.bind({})
 Small.args = {
-  margin: 150,
+  margin: 100,
   size: 'small',
 }

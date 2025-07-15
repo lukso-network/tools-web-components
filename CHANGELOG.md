@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.142.2](https://github.com/lukso-network/tools-web-components/compare/v1.142.1...v1.142.2) (2025-07-15)
+
+
+### Bug Fixes
+
+* font size mapping in dropdown ([#606](https://github.com/lukso-network/tools-web-components/issues/606)) ([d4050af](https://github.com/lukso-network/tools-web-components/commit/d4050af569af8c6f82ca2cf94a6531583a244e4f))
+
 ## [1.142.1](https://github.com/lukso-network/tools-web-components/compare/v1.142.0...v1.142.1) (2025-07-14)
 
 

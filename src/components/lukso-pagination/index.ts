@@ -57,6 +57,12 @@ export class LuksoPagination extends TailwindStyledElement(style) {
           ellipsis: 'min-w-8',
           numbers: 'min-w-8',
         },
+        large: {
+          wrapper: 'paragraph-inter-16-semi-bold',
+          ellipsis: 'min-w-8',
+          numbers: 'min-w-8',
+        },
+        'x-large': {},
       },
     },
   })

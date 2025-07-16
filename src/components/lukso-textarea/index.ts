@@ -63,7 +63,7 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
   keepFocusOnEscape = false
 
   @property({ type: String })
-  size: InputSize = 'medium'
+  size: InputSize = 'large'
 
   @property({ type: Number })
   rows = 4
@@ -116,8 +116,12 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
           input: 'min-h-[28px] px-2 py-1 paragraph-inter-12-regular rounded-8',
         },
         medium: {
+          input: 'min-h-[40px] px-3 py-3 paragraph-inter-14-regular rounded-10',
+        },
+        large: {
           input: 'min-h-[48px] px-4 py-3 paragraph-inter-14-regular rounded-12',
         },
+        'x-large': {},
       },
       isNonResizable: {
         true: {

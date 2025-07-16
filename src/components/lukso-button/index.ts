@@ -30,7 +30,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
   variant: ButtonVariant = 'primary'
 
   @property({ type: String })
-  size: InputSize | 'large' = 'large'
+  size: InputSize = 'large'
 
   @property({ type: Boolean })
   disabled = false
@@ -132,6 +132,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
         small: 'h-7 px-3 paragraph-inter-12-medium rounded-8',
         medium: 'h-10 px-4 paragraph-inter-14-semi-bold rounded-10',
         large: 'h-12 px-6 paragraph-inter-16-semi-bold rounded-12',
+        'x-large': '',
       },
       isLongPress: {
         true: `relative overflow-hidden z-[1] active:outline-0
@@ -223,6 +224,7 @@ export class LuksoButton extends TailwindStyledElement(style) {
         large: {
           text: 'ml-2',
         },
+        'x-large': {},
       },
     },
   })

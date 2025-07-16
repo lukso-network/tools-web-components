@@ -75,7 +75,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
   borderless = false
 
   @property({ type: String })
-  size: InputSize | 'large' | 'x-large' = 'large'
+  size: InputSize = 'large'
 
   @property({ type: String, attribute: 'right-icon' })
   rightIcon = ''

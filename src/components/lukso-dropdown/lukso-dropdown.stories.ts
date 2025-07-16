@@ -13,7 +13,7 @@ const meta: Meta = {
   argTypes: {
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium'],
+      options: ['small', 'medium', 'large'],
       table: {
         category: 'Attributes',
       },
@@ -115,7 +115,7 @@ const meta: Meta = {
     },
   },
   args: {
-    size: 'medium',
+    size: 'large',
     id: '',
     isOpen: true,
     openTop: false,
@@ -195,7 +195,7 @@ const Template = ({
     >
       <lukso-dropdown-option size=${size ? size : nothing}
         ><lukso-icon
-          size=${size ? size : nothing}
+          size=${size === 'small' ? 'small' : 'medium'}
           name="edit"
           class=${size === 'small' ? 'mr-1' : 'mr-2'}
         ></lukso-icon>
@@ -203,7 +203,7 @@ const Template = ({
       >
       <lukso-dropdown-option size=${size ? size : nothing}
         ><lukso-icon
-          size=${size ? size : nothing}
+          size=${size === 'small' ? 'small' : 'medium'}
           name="plus"
           class=${size === 'small' ? 'mr-1' : 'mr-2'}
         ></lukso-icon>
@@ -212,7 +212,7 @@ const Template = ({
       <div class="border-b border-b-neutral-90 my-1"></div>
       <lukso-dropdown-option size=${size ? size : nothing}
         ><lukso-icon
-          size=${size ? size : nothing}
+          size=${size === 'small' ? 'small' : 'medium'}
           name="settings"
           class=${size === 'small' ? 'mr-1' : 'mr-2'}
         ></lukso-icon>
@@ -234,7 +234,15 @@ export const SmallSize = Template.bind({})
 SmallSize.args = {
   marginBottom: 130,
   size: 'small',
-  triggerId: 'dropdown-2',
+  triggerId: 'dropdown-small',
+}
+
+/** Example of `medium` dropdown.  */
+export const MediumSize = Template.bind({})
+MediumSize.args = {
+  marginBottom: 130,
+  size: 'medium',
+  triggerId: 'dropdown-medium',
 }
 
 /** Example of right side dropdown.  */

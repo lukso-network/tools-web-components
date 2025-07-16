@@ -17,7 +17,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium'],
+      options: ['small', 'medium', 'large'],
       table: {
         category: 'Attributes',
       },
@@ -160,7 +160,7 @@ const meta: Meta = {
   },
   args: {
     value: '#2A70C0',
-    size: 'medium',
+    size: 'large',
     isFullWidth: false,
     isDisabled: false,
     isReadonly: false,
@@ -277,7 +277,13 @@ FullWidth.args = {
 }
 
 /** Example of `small` size input. */
-export const Small = Template.bind({})
-Small.args = {
+export const SmallSize = Template.bind({})
+SmallSize.args = {
   size: 'small',
+}
+
+/** Example of `medium` size input. */
+export const MediumSize = Template.bind({})
+MediumSize.args = {
+  size: 'medium',
 }

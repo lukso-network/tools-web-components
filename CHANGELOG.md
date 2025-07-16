@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.142.3](https://github.com/lukso-network/tools-web-components/compare/v1.142.2...v1.142.3) (2025-07-16)
+
+
+### Bug Fixes
+
+* Align input sizes ([#608](https://github.com/lukso-network/tools-web-components/issues/608)) ([74dd45a](https://github.com/lukso-network/tools-web-components/commit/74dd45a98da58ca7a34afacc4f73c9e2ae33b201))
+
 ## [1.142.2](https://github.com/lukso-network/tools-web-components/compare/v1.142.1...v1.142.2) (2025-07-15)
 
 

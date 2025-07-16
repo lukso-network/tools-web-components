@@ -9,7 +9,7 @@
 		"dev": "yarn start",
 		"build": "rm -rf package/dist package/tools && yarn config-prepare && yarn analyze && tsx ./vite.full.config.ts --mode=production && yarn sass --verbose ./src/shared/styles/main.scss ./package/dist/styles/main.css && cp ./package/dist/styles/main.css ./package/tools/styles/main.css && yarn build:list-exports",
 		"build:list-exports": "node ./listExports.cjs",
-		"lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt}'",
+		"lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt,types}'",
 		"lint:eslint": "eslint src --fix",
 		"lint:fmt": "prettier --check --log-level=warn .",
 		"lint:css": "stylelint \"**/*.{scss,css}\"",

@@ -5,6 +5,7 @@ import { tv } from 'tailwind-variants'
 import { TailwindElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-tag'
+import { FunctionMap } from '@/shared/types'
 
 export type NavbarMobileBreakpoint = 'sm' | 'md' | 'lg' | 'xl'
 

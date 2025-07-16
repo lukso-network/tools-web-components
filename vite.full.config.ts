@@ -8,7 +8,7 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import * as url from 'node:url'
 
-import { colorPalette } from './package/tools/tailwind-config.js'
+import { colorPalette } from './src/shared/tools/tailwind-config.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -352,7 +352,7 @@ if (import.meta.url.startsWith('file:')) {
     const { argv } = yargs(hideBin(process.argv))
     run(argv)
       .then(() => {
-        if (argv['mode'] === 'production') {
+        if (argv.mode === 'production') {
           console.log('build finished')
           process.exit(0)
         }

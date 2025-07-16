@@ -82,7 +82,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   isRight = false
 
   @property({ type: String })
-  size: InputSize = 'medium'
+  size: InputSize = 'large'
 
   @property({ type: Boolean, attribute: 'show-selection-counter' })
   showSelectionCounter = false
@@ -123,7 +123,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       size: {
         small: 'h-[28px] px-3 py-2 pr-8 paragraph-inter-12-regular rounded-8',
         medium:
-          'h-[48px] px-4 py-3 pr-11 paragraph-inter-14-regular rounded-12',
+          'h-[40px] px-3 py-3 pr-11 paragraph-inter-14-regular rounded-10',
+        large: 'h-[48px] px-4 py-3 pr-11 paragraph-inter-14-regular rounded-12',
+        'x-large': '',
       },
     },
   })
@@ -139,6 +141,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
           'paragraph-inter-10-semi-bold rounded-4 py-[1px] px-[5px] ml-1.5',
         medium:
           'paragraph-inter-14-semi-bold rounded-8 py-[2px] px-[10px] ml-3',
+        large: 'paragraph-inter-14-semi-bold rounded-8 py-[2px] px-[10px] ml-3',
+        'x-large': '',
       },
     },
   })
@@ -155,6 +159,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       size: {
         small: 'mr-2',
         medium: 'mr-3',
+        large: 'mr-3',
+        'x-large': '',
       },
     },
   })

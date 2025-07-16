@@ -25,7 +25,7 @@ export class LuksoDropdownOption extends TailwindStyledElement(style) {
   isGroup = false
 
   @property({ type: String })
-  size: InputSize = 'medium'
+  size: InputSize = 'large'
 
   private styles = tv({
     base: `text-neutral-20 cursor-pointer select-none
@@ -43,6 +43,8 @@ export class LuksoDropdownOption extends TailwindStyledElement(style) {
       size: {
         small: 'paragraph-inter-12-regular rounded-4 px-2 min-h-[28px]',
         medium: 'paragraph-inter-14-regular rounded-8 px-3 min-h-[38px]',
+        large: 'paragraph-inter-14-regular rounded-8 px-3 min-h-[38px]',
+        'x-large': '',
       },
       isDisabled: {
         true: 'opacity-60 cursor-not-allowed',
@@ -61,6 +63,11 @@ export class LuksoDropdownOption extends TailwindStyledElement(style) {
       {
         isGroup: true,
         size: 'medium',
+        class: 'pl-4',
+      },
+      {
+        isGroup: true,
+        size: 'large',
         class: 'pl-4',
       },
       {

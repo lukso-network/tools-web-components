@@ -123,7 +123,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   selected = undefined
 
   @property({ type: String })
-  size: InputSize | 'large' | 'x-large' = 'large'
+  size: InputSize = 'large'
 
   @property({ type: Number, attribute: 'max-height' })
   maxHeight = undefined

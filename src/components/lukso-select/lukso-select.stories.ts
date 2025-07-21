@@ -1,7 +1,7 @@
 import { html, nothing } from 'lit-html'
-import { useArgs } from '@storybook/client-api'
+import { useArgs } from 'storybook/preview-api'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -231,10 +231,6 @@ const meta: Meta = {
         'counterStyles',
         'float',
       ],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?type=design&node-id=2093-26038&mode=design&t=VUUsUiVc8b9e2Hxb-4',
     },
   },
 }

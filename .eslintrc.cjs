@@ -23,6 +23,7 @@ module.exports = {
     'plugin:json/recommended',
     'plugin:lit/recommended',
     'prettier',
+    'plugin:storybook/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {

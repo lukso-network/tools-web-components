@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.options.json",
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": false,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["node", "@storybook/types"]
+  },
+  "include": ["../src/**/*", "./**/*"],
+  "exclude": ["../node_modules"]
+}

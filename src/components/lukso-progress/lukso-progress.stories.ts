@@ -1,6 +1,6 @@
 import { html } from 'lit-html'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -52,10 +52,6 @@ const meta: Meta = {
   parameters: {
     controls: {
       exclude: [],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1397-20903&t=aKXAGLDsRzDtft3B-4',
     },
   },
 }

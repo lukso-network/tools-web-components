@@ -1,7 +1,7 @@
 import { html, nothing } from 'lit-html'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 import '../lukso-icon'
@@ -115,12 +115,7 @@ const Template = ({
 
 /** By default tag is displayed in `small` size. */
 export const DefaultTag = Template.bind({})
-DefaultTag.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=375%3A3234&t=AGmdbG8fXRENuU3o-4',
-  },
-}
+DefaultTag.parameters = {}
 
 /** You can change tag size with `size` property. This is example of `large` tag. */
 export const LargeTag = Template.bind({})
@@ -128,12 +123,7 @@ LargeTag.args = {
   size: 'large',
   content: 'Large Tag',
 }
-LargeTag.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=375%3A3234&t=AGmdbG8fXRENuU3o-4',
-  },
-}
+LargeTag.parameters = {}
 
 /**  This is example of `x-small` tag. */
 export const ExtraSmallTag = Template.bind({})
@@ -141,24 +131,14 @@ ExtraSmallTag.args = {
   size: 'x-small',
   content: 'Extra Small Tag',
 }
-ExtraSmallTag.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=375%3A3234&t=AGmdbG8fXRENuU3o-4',
-  },
-}
+ExtraSmallTag.parameters = {}
 
 /** You can create "pill" tags when adding `is-rounded` property. */
 export const RoundedTag = Template.bind({})
 RoundedTag.args = {
   isRounded: true,
 }
-RoundedTag.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1083%3A13483&t=AGmdbG8fXRENuU3o-4',
-  },
-}
+RoundedTag.parameters = {}
 
 /** You can change color of the tag to any from the palette with `text-color`, `background-color` and 'border-color` property. */
 export const CustomColorTag = Template.bind({})
@@ -167,12 +147,7 @@ CustomColorTag.args = {
   backgroundColor: 'red-55',
   textColor: 'neutral-100',
 }
-CustomColorTag.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=375%3A3241&t=AGmdbG8fXRENuU3o-4',
-  },
-}
+CustomColorTag.parameters = {}
 
 /** Tags can have icons inside. Please check `lukso-icon` component for more details about using icons. */
 export const IconTag = Template.bind({})
@@ -182,9 +157,4 @@ IconTag.args = {
     `<lukso-icon name="information" size="small" class="mr-1"></lukso-icon>Icon Tag`
   ),
 }
-IconTag.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=375%3A3234&t=mppskGJvpl3LbsWL-4',
-  },
-}
+IconTag.parameters = {}

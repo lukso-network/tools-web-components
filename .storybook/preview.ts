@@ -1,7 +1,7 @@
 import * as jest from 'jest-mock'
 ;(window as any).jest = jest
 
-import { setCustomElementsManifest } from '@storybook/web-components'
+import { setCustomElementsManifest } from '@storybook/web-components-vite'
 import customElements from '../package/custom-elements.json'
 import './styles.scss'
 
@@ -22,3 +22,4 @@ export const parameters = {
     },
   },
 }
+export const tags = ['autodocs']

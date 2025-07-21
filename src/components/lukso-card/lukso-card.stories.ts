@@ -1,7 +1,7 @@
 import { html, nothing } from 'lit-html'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 import '../lukso-profile'
@@ -347,24 +347,12 @@ const HeroTemplate = ({
 
 /** By default card is using `basic` variant.  */
 export const DefaultCard = DefaultTemplate.bind({})
-DefaultCard.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
-  },
-}
 
 /** If you need card with fixed size of `362px` you can add `width` property, otherwise card take 100% width.  */
 export const FixedCard = DefaultTemplate.bind({})
 FixedCard.args = {
   width: 364,
   height: 534,
-}
-FixedCard.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
-  },
 }
 
 /** Example of `with-header` variant. */
@@ -374,12 +362,6 @@ CardWithHeader.args = {
   width: 364,
   height: 534,
 }
-CardWithHeader.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18028&t=AGmdbG8fXRENuU3o-4',
-  },
-}
 
 /** Example of `with-header` variant that has additional background element. */
 export const CardWithCustomHeader = CustomHeaderTemplate.bind({})
@@ -388,12 +370,6 @@ CardWithCustomHeader.args = {
   width: 364,
   height: 534,
 }
-CardWithCustomHeader.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18026&t=AGmdbG8fXRENuU3o-4',
-  },
-}
 
 /** Example of `profile` variant. This variant additionally uses `background-url`, `profile-url` and `profile-address` properties.  */
 export const ProfileCard = ProfileTemplate.bind({})
@@ -401,18 +377,6 @@ ProfileCard.args = {
   variant: 'profile',
   width: 262,
   height: 258,
-  parameters: {
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1096%3A14641&t=AGmdbG8fXRENuU3o-4',
-    },
-  },
-}
-ProfileCard.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18027&t=AGmdbG8fXRENuU3o-4',
-  },
 }
 
 /** Example of `profile-2` variant.  */
@@ -453,12 +417,6 @@ CustomCard.args = {
   width: 364,
   height: 534,
   customClass: 'rounded-12 bg-warm-97',
-}
-CustomCard.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1332%3A18025&t=AGmdbG8fXRENuU3o-4',
-  },
 }
 
 /** You can select card border radius with `borderRadius` property.  */

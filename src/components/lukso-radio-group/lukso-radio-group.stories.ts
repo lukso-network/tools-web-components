@@ -1,7 +1,7 @@
-import { useArgs } from '@storybook/client-api'
+import { useArgs } from 'storybook/preview-api'
 import { html } from 'lit-html'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import '.'
 import '../lukso-radio'
@@ -55,10 +55,6 @@ const meta: Meta = {
   parameters: {
     controls: {
       exclude: [],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?type=design&node-id=376-3984&t=20P0yRhnEEulAelu-0',
     },
   },
 }

@@ -1,6 +1,6 @@
 import { html, nothing } from 'lit-html'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -118,12 +118,7 @@ const Template = ({
 
 /** Example of default pagination. */
 export const Default = Template.bind({})
-Default.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/design/BRSEdfbHv2HIb1YDBB6TRP/UP%3A-Follow?node-id=1-5187&t=fd8nIcn2aqVEY9VZ-4',
-  },
-}
+Default.parameters = {}
 
 /** Example of active page in the middle. */
 export const MiddlePage = Template.bind({})

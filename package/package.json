@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.142.2",
+  "version": "1.142.3",
   "type": "module",
   "files": [
     "dist",
@@ -194,11 +194,6 @@
       "require": "./dist/components/lukso-terms/index.cjs",
       "import": "./dist/components/lukso-terms/index.js",
       "types": "./dist/components/lukso-terms/index.d.ts"
-    },
-    "./dist/components/lukso-test": {
-      "require": "./dist/components/lukso-test/index.cjs",
-      "import": "./dist/components/lukso-test/index.js",
-      "types": "./dist/components/lukso-test/index.d.ts"
     },
     "./dist/components/lukso-textarea": {
       "require": "./dist/components/lukso-textarea/index.cjs",

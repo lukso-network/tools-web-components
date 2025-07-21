@@ -1,5 +1,10 @@
-const { mergeConfig } = require('vite')
-const path = require('path')
+import { createRequire } from 'node:module'
+import { mergeConfig } from 'vite'
+import * as path from 'path'
+import { dirname, join } from 'path'
+import type { StorybookConfig } from '@storybook/web-components-vite'
+
+const require = createRequire(import.meta.url)
 
 const resolve = {
   alias: {
@@ -7,31 +12,27 @@ const resolve = {
   },
 }
 
-module.exports = {
-  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+const config: StorybookConfig = {
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   staticDirs: ['../src/shared', './assets'],
   addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-controls',
-    '@storybook/preset-scss',
-    '@storybook/addon-postcss',
-    'storybook-addon-designs',
+    getAbsolutePath('@storybook/addon-links'),
+    getAbsolutePath('@storybook/preset-scss'),
+    getAbsolutePath('@storybook/addon-docs'),
   ],
   framework: {
-    name: '@storybook/web-components-vite',
-    options: {},
+    name: getAbsolutePath('@storybook/web-components-vite'),
+    options: {
+      builder: {
+        viteConfigPath: undefined,
+      },
+    },
   },
   core: {
-    builder: '@storybook/builder-vite',
+    builder: getAbsolutePath('@storybook/builder-vite'),
   },
-  base: process.env.STORYBOOK_BASE_URL || '/',
   docs: {
-    autodocs: true,
-  },
-  features: {
-    interactionsDebugger: true, // 👈 Enable playback controls
+    defaultName: 'Documentation',
   },
   async viteFinal(config) {
     // Merge custom configuration into the default config
@@ -39,8 +40,14 @@ module.exports = {
       // Add dependencies to pre-optimization
       resolve,
       optimizeDeps: {
-        include: ['storybook-dark-mode'],
+        include: ['storybook-dark-mode', '@mdx-js/react'],
       },
     })
   },
+}
+
+export default config
+
+function getAbsolutePath(value: string): any {
+  return dirname(require.resolve(join(value, 'package.json')))
 }

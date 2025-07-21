@@ -9,8 +9,6 @@ const meta: Meta = {
     docs: {
       description: {
         component: `
-# Animations
-
 Animations can be applied to any element through special CSS classes. For animating icons you pass animation name.
 
 ## Example usage

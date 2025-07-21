@@ -8,8 +8,6 @@ const meta: Meta = {
     docs: {
       description: {
         component: `
-# Drop Shadows
-
 Set of drop shadows for use in the design system.
 
 ## Example Usage

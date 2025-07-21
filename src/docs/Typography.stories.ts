@@ -8,8 +8,6 @@ const meta: Meta = {
     docs: {
       description: {
         component: `
-# Typography
-
 In order to maintain a consistent look and feel with design in terms of the typography,
 we have a set of CSS classes that we use. Using \`font-family\`,
 \`font-weight\` and \`font-size\` directly in your code should be avoided and instead use this set

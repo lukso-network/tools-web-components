@@ -1,7 +1,7 @@
 import { html, nothing } from 'lit-html'
-import { useArgs } from '@storybook/client-api'
+import { useArgs } from 'storybook/preview-api'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -93,10 +93,6 @@ const meta: Meta = {
   parameters: {
     controls: {
       exclude: ['checked', 'isDisabled', 'isChecked'],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?type=design&node-id=376-3984&t=20P0yRhnEEulAelu-0',
     },
   },
 }

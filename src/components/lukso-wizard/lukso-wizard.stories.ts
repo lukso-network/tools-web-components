@@ -1,6 +1,6 @@
 import { html, nothing } from 'lit-html'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import '../index'
 
@@ -62,10 +62,6 @@ LYXe`,
         'activeStep',
         'styles',
       ],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1094%3A13512&t=AGmdbG8fXRENuU3o-4',
     },
   },
 }

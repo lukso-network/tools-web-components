@@ -1,9 +1,7 @@
 import { html, nothing } from 'lit-html'
-import { within } from '@storybook/testing-library'
-import { expect } from '@storybook/jest'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 import '../lukso-icon'
@@ -277,42 +275,17 @@ const Template = ({
 
 /** By default button is using `primary` variant. */
 export const Primary = Template.bind({})
-Primary.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9778&t=AGmdbG8fXRENuU3o-4',
-  },
-}
-
-Primary.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement)
-
-  // 👇 Assert DOM structure
-  expect(canvas.getByText('Hello World')).toBeInTheDocument()
-}
 
 /** Example of `secondary` variant. */
 export const Secondary = Template.bind({})
 Secondary.args = {
   variant: 'secondary',
 }
-Secondary.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9745&t=AGmdbG8fXRENuU3o-4',
-  },
-}
 
 /** Example of `landing` variant.  */
 export const Landing = Template.bind({})
 Landing.args = {
   variant: 'landing',
-}
-Landing.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9912&t=AGmdbG8fXRENuU3o-4',
-  },
 }
 
 /** Example of `success` variant.  */
@@ -337,12 +310,6 @@ Warning.args = {
 export const Text = Template.bind({})
 Text.args = {
   variant: 'text',
-}
-Text.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9912&t=AGmdbG8fXRENuU3o-4',
-  },
 }
 
 /** Example of `nav-button` variant.  */
@@ -386,12 +353,6 @@ export const FullWidth = Template.bind({})
 FullWidth.args = {
   isFullWidth: true,
 }
-FullWidth.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9778&t=AGmdbG8fXRENuU3o-4',
-  },
-}
 
 /** In order to have disabled button add `disabled` property. */
 export const DisabledButton = Template.bind({})
@@ -399,12 +360,6 @@ DisabledButton.args = {
   variant: 'primary',
   text: 'Disabled Button',
   disabled: true,
-}
-DisabledButton.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6%3A1324&t=mppskGJvpl3LbsWL-4',
-  },
 }
 
 /** Buttons can have icons inside. Please check `lukso-icon` component for more details about using icons. */
@@ -416,12 +371,6 @@ IconButton.args = {
     `<lukso-icon name="logo-facebook-mono" size="medium" color="neutral-100"></lukso-icon>`
   ),
 }
-IconButton.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6%3A1324&t=mppskGJvpl3LbsWL-4',
-  },
-}
 
 /** Long press button require to hold press state till animation fully completes. To turn on this effect add  `is-long-press` property.
  * In order to handle long press complete add `@on-long-press-complete` event handler.
@@ -431,12 +380,6 @@ LongPressButton.args = {
   variant: 'primary',
   text: 'Hold to submit',
   isLongPress: true,
-}
-IconButton.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9905&t=JAexoWba0Re3ntDk-4',
-  },
 }
 
 /** If you add `is-link` attribute it will use `<a>` tag instead of `<button>`.
@@ -449,12 +392,6 @@ Link.args = {
   target: '_blank',
   rel: 'noopener noreferrer',
 }
-Link.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=743%3A9822&t=AGmdbG8fXRENuU3o-4',
-  },
-}
 
 /** Loading state button show spinner along with custom text and puts button in disabled state. To turn on this effect add  `is-loading` property. Text can be modified in `loading-text` property.
  */
@@ -465,12 +402,6 @@ LoadingButton.args = {
   isLoading: true,
   loadingText: 'Loading...',
 }
-LoadingButton.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6-1324&t=skBgEdvtZt68G51p-4',
-  },
-}
 
 /** You can pass any custom CSS class using `custom-class` property. */
 export const CustomClassButton = Template.bind({})
@@ -479,12 +410,6 @@ CustomClassButton.args = {
   text: 'Custom Button',
   customClass: 'text-red-55 border-red-55',
 }
-CustomClassButton.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6%3A1324&t=mppskGJvpl3LbsWL-4',
-  },
-}
 
 /** You can add counter with `count` property. */
 export const CounterButton = Template.bind({})
@@ -492,10 +417,4 @@ CounterButton.args = {
   variant: 'secondary',
   text: 'Counter Button',
   count: 8,
-}
-CounterButton.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=6%3A1324&t=mppskGJvpl3LbsWL-4',
-  },
 }

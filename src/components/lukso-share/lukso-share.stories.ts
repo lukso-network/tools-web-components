@@ -1,6 +1,6 @@
 import { html, nothing } from 'lit-html'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -11,7 +11,7 @@ const meta: Meta = {
   argTypes: {
     providers: {
       control: {
-        type: 'array',
+        type: 'object',
       },
       table: {
         category: 'Attributes',
@@ -41,10 +41,6 @@ const meta: Meta = {
         'customStyle',
         'styles',
       ],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?type=design&node-id=3410-25226&mode=design&t=gTZ6PeUlf4UI5Iak-4',
     },
   },
 }

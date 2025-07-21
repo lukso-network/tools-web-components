@@ -1,6 +1,6 @@
 import { html, nothing } from 'lit-html'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 import '../lukso-button/index'
@@ -211,10 +211,6 @@ const meta: Meta = {
         'showDelay',
         'hideDelay',
       ],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?type=design&node-id=3687-17347&mode=design&t=Fgd4u1WVUohLsSdF-4',
     },
   },
 }

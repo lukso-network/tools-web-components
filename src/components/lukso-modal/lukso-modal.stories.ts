@@ -1,7 +1,7 @@
 import { html } from 'lit-html'
-import { useArgs } from '@storybook/client-api'
+import { useArgs } from 'storybook/preview-api'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 import '../lukso-button'
@@ -61,10 +61,6 @@ const meta: Meta = {
         'isOpen',
         'disableAnimations',
       ],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1433%3A18445&t=nSFDgQdJOIWV2fQz-4',
     },
   },
 }

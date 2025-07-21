@@ -1,6 +1,6 @@
 import { html } from 'lit-html'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -119,10 +119,6 @@ const meta: Meta = {
         'onChangeEvent',
         'onChange',
       ],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?type=design&node-id=433-3775&mode=design&t=eIMaDzPGbg85o9rf-0',
     },
   },
 }

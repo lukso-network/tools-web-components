@@ -1,6 +1,6 @@
 import { html, nothing } from 'lit-html'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -285,10 +285,6 @@ const meta: Meta = {
         'isRightIconClickable',
         'keepFocusOnEscape',
       ],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=420%3A3617&t=JAexoWba0Re3ntDk-4',
     },
   },
 }

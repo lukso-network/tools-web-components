@@ -1,6 +1,6 @@
 import { html, nothing } from 'lit-html'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import '../lukso-button/index'
 import '../lukso-dropdown-option/index'
@@ -149,10 +149,6 @@ const meta: Meta = {
         'handleClick',
         'maxHeight',
       ],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?type=design&node-id=2093-26038&mode=design&t=VUUsUiVc8b9e2Hxb-4',
     },
   },
 }

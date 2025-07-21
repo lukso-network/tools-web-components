@@ -349,7 +349,7 @@ if (import.meta.url.startsWith('file:')) {
   const modulePath = url.fileURLToPath(import.meta.url)
   if (process.argv[1] === modulePath) {
     // (B)
-    const { argv } = yargs(hideBin(process.argv))
+    const argv = await yargs(hideBin(process.argv)).argv
     run(argv)
       .then(() => {
         if (argv.mode === 'production') {

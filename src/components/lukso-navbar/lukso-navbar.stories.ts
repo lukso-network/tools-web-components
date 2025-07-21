@@ -1,7 +1,7 @@
 import { html, nothing } from 'lit-html'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 import '../lukso-button/index'
@@ -148,10 +148,6 @@ PROFILES`,
         'mobileBreakpoint',
         'hasMobileDropdownMenu',
       ],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=1097%3A14669&t=AGmdbG8fXRENuU3o-4',
     },
   },
 }

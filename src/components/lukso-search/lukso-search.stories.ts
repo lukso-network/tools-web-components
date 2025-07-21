@@ -1,9 +1,9 @@
-import { useArgs } from '@storybook/client-api'
+import { useArgs } from 'storybook/preview-api'
 import { html, nothing } from 'lit-html'
 
 import { SEARCH_RESULT_TYPES, STANDARDS } from '@/shared/enums'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -387,10 +387,6 @@ const meta: Meta = {
         'groupLabels',
         'withGroupLabels',
       ],
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/NFCh20xAq3Jg2g8A0DNC9I/UI-Library?node-id=420%3A3617&t=JAexoWba0Re3ntDk-4',
     },
   },
 }

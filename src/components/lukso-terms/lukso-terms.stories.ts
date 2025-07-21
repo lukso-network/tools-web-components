@@ -1,6 +1,6 @@
 import { html } from 'lit-html'
 
-import type { Meta } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -42,9 +42,4 @@ const Template = ({ text, onBottomScroll }) =>
 
 /** Component takes max height and width of parent element. */
 export const DefaultTerms = Template.bind({})
-DefaultTerms.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/3aZ5fZKKRqfrbVS6xrLuRR/Create-Universal-Profile?node-id=715-28023&t=XL5nPUwUusG6O5SL-4',
-  },
-}
+DefaultTerms.parameters = {}

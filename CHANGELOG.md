@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.143.0](https://github.com/lukso-network/tools-web-components/compare/v1.142.3...v1.143.0) (2025-07-22)
+
+
+### Features
+
+* Add x-small icon size ([#612](https://github.com/lukso-network/tools-web-components/issues/612)) ([dd131f1](https://github.com/lukso-network/tools-web-components/commit/dd131f1107e014f6821cf9a1af3bdea6bd439671))
+
 ## [1.142.3](https://github.com/lukso-network/tools-web-components/compare/v1.142.2...v1.142.3) (2025-07-16)
 
 

@@ -19,7 +19,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'large', 'x-large', '2x-large'],
+      options: ['x-small', 'small', 'medium', 'large', 'x-large', '2x-large'],
       table: {
         category: 'Attributes',
       },
@@ -81,6 +81,13 @@ const Template = ({ name, size, color, secondaryColor, animation }) =>
 export const DefaultIcon = Template.bind({})
 DefaultIcon.args = {
   name: 'profile-recovery',
+}
+
+/** Example of `x-small` size of `12x12` pixels. */
+export const XSmallIcon = Template.bind({})
+XSmallIcon.args = {
+  name: 'profile-recovery',
+  size: 'x-small',
 }
 
 /** Example of `small` size of `16x16` pixels. */

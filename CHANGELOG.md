@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.144.0](https://github.com/lukso-network/tools-web-components/compare/v1.143.0...v1.144.0) (2025-07-23)
+
+
+### Features
+
+* Add `row-vertical` icon ([#614](https://github.com/lukso-network/tools-web-components/issues/614)) ([b4a41c1](https://github.com/lukso-network/tools-web-components/commit/b4a41c16a963bf079ec5e4bfb8fe354762efd1a1))
+
 ## [1.143.0](https://github.com/lukso-network/tools-web-components/compare/v1.142.3...v1.143.0) (2025-07-22)
 
 

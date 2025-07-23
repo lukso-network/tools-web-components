@@ -207,6 +207,7 @@ import { medalStar } from './icons/medal-star'
 import { editLinear } from './icons/edit-linear'
 import { imageLinear } from './icons/image-linear'
 import { hexagon } from './icons/hexagon'
+import { rowVertical } from './icons/row-vertical'
 
 export type IconOptions = {
   width: number
@@ -436,6 +437,7 @@ const iconMap = {
   'edit-linear': editLinear,
   'image-linear': imageLinear,
   hexagon,
+  'row-vertical': rowVertical,
 }
 
 @customElement('lukso-icon')

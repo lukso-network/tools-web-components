@@ -280,6 +280,7 @@ export const UtilityIcons: Story = {
           'return-left',
           'return-right',
           'return-up',
+          'row-vertical',
           'save-outline',
           'scan',
           'search',

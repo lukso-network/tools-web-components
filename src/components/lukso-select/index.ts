@@ -340,7 +340,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     index: number
   ) {
     return html`<div
-        class="paragraph-inter-10-bold-uppercase text-neutral-20 p-1"
+        class="paragraph-inter-10-bold-uppercase text-neutral-20 p-1 text-left"
       >
         ${option.group}
       </div>

@@ -20,6 +20,7 @@ import {
   type Standard,
 } from '@/shared/types'
 import { SEARCH_RESULT_TYPES, STANDARDS } from '@/shared/enums'
+import { uniqId } from '@/shared/tools/uniq-id'
 
 export type SearchResult = {
   id: string
@@ -139,6 +140,14 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   @state()
   private resultsParsed: SearchResult[] = []
+
+  constructor() {
+    super()
+
+    if (!this.id) {
+      this.id = uniqId()
+    }
+  }
 
   private styles = tv({
     slots: {
@@ -297,7 +306,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
     return html`<lukso-dropdown
       size=${this.dropdownSize[this.size]}
-      is-open
+      is-open=${this.resultsParsed.length > 0}
       is-open-on-outside-click
       is-full-width
       max-height=${this.maxHeight || nothing}
@@ -514,12 +523,30 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   private async handleOutsideDropdownClick(event: Event) {
     const element = event.target as HTMLElement
-
-    if (element?.dataset?.component === 'lukso-search') {
-      return
+    // Check if the clicked element or any of its parents belongs to this lukso-search component
+    let currentElement: HTMLElement | null = element
+    while (currentElement) {
+      // Check if this element is the lukso-search component itself
+      if (currentElement === this) {
+        return
+      }
+      // Check if this element has the lukso-search data-component attribute
+      if (currentElement?.dataset?.component === 'lukso-search') {
+        return
+      }
+      // Move up to the parent element
+      currentElement = currentElement.parentElement
     }
-
     this.results = ''
+
+    const clickEvent = new CustomEvent('on-outside-click', {
+      detail: {
+        event,
+      },
+      bubbles: false,
+      composed: true,
+    })
+    this.dispatchEvent(clickEvent)
   }
 
   private async handleDropdownKeydown(event: KeyboardEvent) {
@@ -679,7 +706,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           description=${this.description}
           error=${this.error}
           custom-class=${this.customClass}
-          id=${this.id}
+          id="search-${this.id}"
           size=${this.size}
           data-component="lukso-search"
           right-icon="${this.hasReset && this.value

@@ -259,6 +259,13 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    onOutsideClick: {
+      name: 'on-outside-click',
+      description: 'Emitted on outside click event.',
+      table: {
+        category: 'Events',
+      },
+    },
     keepValueOnEscapeHit: {
       name: 'keep-value-on-escape-hit',
       description:
@@ -419,6 +426,7 @@ const Template = ({
   hasReset,
   onReset,
   onKeyUp,
+  onOutsideClick,
   rightIcon,
   keepValueOnEscapeHit,
   maxHeight,
@@ -487,6 +495,7 @@ const Template = ({
     @on-input-click=${onInputClick}
     @on-reset=${onReset}
     @on-key-up=${onKeyUp}
+    @on-outside-click=${onOutsideClick}
     style="margin-bottom: ${margin}px;"
   ></lukso-search>`
 }

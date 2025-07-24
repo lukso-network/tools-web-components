@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.145.0](https://github.com/lukso-network/tools-web-components/compare/v1.144.1...v1.145.0) (2025-07-24)
+
+
+### Features
+
+* Add max height to select component ([#618](https://github.com/lukso-network/tools-web-components/issues/618)) ([dbe2680](https://github.com/lukso-network/tools-web-components/commit/dbe26803828bfcf0ca78c31b80bbc4c63669f369))
+
 ## [1.144.1](https://github.com/lukso-network/tools-web-components/compare/v1.144.0...v1.144.1) (2025-07-24)
 
 

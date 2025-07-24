@@ -87,6 +87,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'show-selection-counter' })
   showSelectionCounter = false
 
+  @property({ type: Number, attribute: 'max-height', reflect: true })
+  maxHeight = undefined
+
   @state()
   private optionsParsed: SelectOption[] = []
 
@@ -322,6 +325,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       size=${this.size}
       is-open
       is-open-on-outside-click
+      max-height=${this.maxHeight}
       ?is-right=${this.isRight}
       ?open-top=${this.openTop}
       >${optionTemplates}</lukso-dropdown

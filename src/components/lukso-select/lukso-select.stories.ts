@@ -144,6 +144,14 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    maxHeight: {
+      name: 'max-height',
+      description: 'Set max-height of the dropdown.',
+      control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -167,6 +175,9 @@ const meta: Meta = {
     },
     'is-right': {
       name: 'isRight',
+    },
+    'max-height': {
+      name: 'maxHeight',
     },
   },
   args: {
@@ -205,6 +216,7 @@ const meta: Meta = {
     ],
     selected: undefined,
     float: 'left',
+    maxHeight: undefined,
   },
   parameters: {
     controls: {
@@ -230,6 +242,7 @@ const meta: Meta = {
         'showSelectionCounter',
         'counterStyles',
         'float',
+        'maxHeight',
       ],
     },
   },
@@ -259,6 +272,7 @@ const Template = ({
   float,
   isRight,
   showSelectionCounter,
+  maxHeight,
 }) => {
   const [{ options, value }, updateArgs] = useArgs()
 
@@ -287,6 +301,7 @@ const Template = ({
     @on-blur=${onBlur}
     value=${value ? value : nothing}
     size=${size ? size : nothing}
+    max-height=${maxHeight ? maxHeight : nothing}
     options=${options ? JSON.stringify(options) : nothing}
     style="margin-bottom: ${marginBottom}px; margin-top: ${marginTop}px; float: ${float}"
   ></lukso-select>`

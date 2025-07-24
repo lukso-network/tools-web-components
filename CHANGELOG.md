@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.145.1](https://github.com/lukso-network/tools-web-components/compare/v1.145.0...v1.145.1) (2025-07-24)
+
+
+### Bug Fixes
+
+* dropdown group alignment ([#620](https://github.com/lukso-network/tools-web-components/issues/620)) ([c57dee2](https://github.com/lukso-network/tools-web-components/commit/c57dee26953dd662c54f6bf7cda26756d8269da4))
+
 ## [1.145.0](https://github.com/lukso-network/tools-web-components/compare/v1.144.1...v1.145.0) (2025-07-24)
 
 

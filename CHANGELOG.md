@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.144.1](https://github.com/lukso-network/tools-web-components/compare/v1.144.0...v1.144.1) (2025-07-24)
+
+
+### Bug Fixes
+
+* Search outside click issue ([#616](https://github.com/lukso-network/tools-web-components/issues/616)) ([8f66ea0](https://github.com/lukso-network/tools-web-components/commit/8f66ea07481d7fcd1b655a78a3adc65e69dabd19))
+
 ## [1.144.0](https://github.com/lukso-network/tools-web-components/compare/v1.143.0...v1.144.0) (2025-07-23)
 
 

@@ -34,7 +34,7 @@
     "*.ya?ml": "prettier --list-different",
     "*.{scss,css,vue}": [
       "prettier --list-different",
-      "stylelint"
+      "stylelint --allow-empty-input"
     ]
   },
   "dependencies": {

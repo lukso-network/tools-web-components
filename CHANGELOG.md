@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.146.0](https://github.com/lukso-network/tools-web-components/compare/v1.145.1...v1.146.0) (2025-07-25)
+
+
+### Features
+
+* Add new 'yellow-25' color ([#622](https://github.com/lukso-network/tools-web-components/issues/622)) ([d7dc097](https://github.com/lukso-network/tools-web-components/commit/d7dc09780dede186100ac0755b18eb29177d2366))
+
 ## [1.145.1](https://github.com/lukso-network/tools-web-components/compare/v1.145.0...v1.145.1) (2025-07-24)
 
 

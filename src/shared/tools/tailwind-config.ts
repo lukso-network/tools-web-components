@@ -168,7 +168,7 @@ export const colorPalette = {
   ocean: hslColorMap(209, 38, [38, 75, 88]),
   sky: hslColorMap(209, 64, [64, 75, 85]),
   lukso: hslColorMap(335, 33, [50, 60, 70, 80, 90]),
-  yellow: hslColorMap(36, 100, [55, 65, 75, 85, 95]),
+  yellow: hslColorMap(36, 100, [25, 55, 65, 75, 85, 95]),
   green: hslColorMap(135, 57, [45, 54, 63, 75, 85, 95]),
   blue: hslColorMap(216, 96, [40, 50, 60, 75, 85, 95]),
   red: hslColorMap(0, 75, [55, 65, 75, 85, 95]),

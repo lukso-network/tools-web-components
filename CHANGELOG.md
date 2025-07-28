@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.147.0](https://github.com/lukso-network/tools-web-components/compare/v1.146.0...v1.147.0) (2025-07-28)
+
+
+### Features
+
+* Add TikTok detection ([#625](https://github.com/lukso-network/tools-web-components/issues/625)) ([c78c784](https://github.com/lukso-network/tools-web-components/commit/c78c784455e33aa09522845cec8cd528435b7321))
+* Show gradient in dapp card if no background image ([#624](https://github.com/lukso-network/tools-web-components/issues/624)) ([d25e194](https://github.com/lukso-network/tools-web-components/commit/d25e194732fdb54c6395ab0ab7ff02bdb1c751f6))
+
 ## [1.146.0](https://github.com/lukso-network/tools-web-components/compare/v1.145.1...v1.146.0) (2025-07-25)
 
 

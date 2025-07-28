@@ -87,4 +87,8 @@ describe('detectSocialMedia', () => {
   it('should return warpcast', () => {
     expect(detectSocialMedia('https://www.warpcast.com/')).toBe('warpcast')
   })
+
+  it('should return tiktok', () => {
+    expect(detectSocialMedia('https://www.tiktok.com/')).toBe('tiktok')
+  })
 })

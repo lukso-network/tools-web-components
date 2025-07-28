@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { nothing } from 'lit-html'
 import { tv } from 'tailwind-variants'
 import { toChecksumAddress } from 'web3-utils'
+import { isAddress } from 'viem'
 
 import { sliceAddress } from '@/shared/tools/slice-address'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -104,7 +105,7 @@ export class LuksoUsername extends TailwindStyledElement(style) {
   }
 
   private transformAddress(address?: string) {
-    if (this.noTransform) {
+    if (this.noTransform || !isAddress(address)) {
       return address
     }
 

@@ -445,9 +445,12 @@ export class LuksoCard extends TailwindStyledElement(style) {
             this.headerClass
           )}
         >
-          <div class="rounded-t-[inherit] overflow-hidden absolute inset-0">
-            <lukso-image src=${this.backgroundUrl}></lukso-image>
-          </div>
+          ${this.backgroundUrl &&
+          html`
+            <div class="rounded-t-[inherit] overflow-hidden absolute inset-0">
+              <lukso-image src=${this.backgroundUrl}></lukso-image>
+            </div>
+          `}
           <div class="relative h-full">
             <slot name="header"></slot>
           </div>

@@ -14,6 +14,7 @@ const SOCIAL_MEDIA = {
   spotify: ['spotify.com', 'open.spotify.com'],
   soundcloud: ['soundcloud.com'],
   warpcast: ['warpcast.com'],
+  tiktok: ['tiktok.com'],
 }
 
 /**

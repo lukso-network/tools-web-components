@@ -449,8 +449,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     ></lukso-username>`
 
     const scUsername = html`<lukso-username
-      name=""
-      address="${sliceAddress(result.address, 8)}"
+      name="${sliceAddress(result.address, 8)}"
+      address=""
       name-color="neutral-20"
       max-width="300"
       size=${this.usernameSize[this.size]}

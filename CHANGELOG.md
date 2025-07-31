@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.147.1](https://github.com/lukso-network/tools-web-components/compare/v1.147.0...v1.147.1) (2025-07-31)
+
+
+### Bug Fixes
+
+* checksum address warnings ([#627](https://github.com/lukso-network/tools-web-components/issues/627)) ([16267a5](https://github.com/lukso-network/tools-web-components/commit/16267a53ec4222993b5bafeed07f2842489b3a12))
+
 ## [1.147.0](https://github.com/lukso-network/tools-web-components/compare/v1.146.0...v1.147.0) (2025-07-28)
 
 

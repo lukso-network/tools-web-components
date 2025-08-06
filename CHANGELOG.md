@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.148.0](https://github.com/lukso-network/tools-web-components/compare/v1.147.1...v1.148.0) (2025-08-06)
+
+
+### Features
+
+* Add TikTok logo ([#629](https://github.com/lukso-network/tools-web-components/issues/629)) ([986231a](https://github.com/lukso-network/tools-web-components/commit/986231a56747221d785e52a5443263b85e9bb597))
+
 ## [1.147.1](https://github.com/lukso-network/tools-web-components/compare/v1.147.0...v1.147.1) (2025-07-31)
 
 

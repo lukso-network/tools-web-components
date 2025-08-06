@@ -666,6 +666,14 @@ ResultMixed.args = {
           type: SEARCH_RESULT_TYPES.PROFILE,
           standard: STANDARDS.EOA,
         },
+        {
+          id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+          address: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+          name: 'My Sample App',
+          image: 'images/sample-avatar.jpg',
+          type: SEARCH_RESULT_TYPES.APP,
+          standard: STANDARDS.LSP3,
+        },
       ],
     },
     {

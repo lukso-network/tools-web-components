@@ -10,6 +10,7 @@ import '@/components/lukso-input'
 import '@/components/lukso-profile'
 import '@/components/lukso-tag'
 import '@/components/lukso-username'
+import '@/components/lukso-tooltip'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { sliceAddress } from '@/shared/tools'
 import style from './style.scss?inline'
@@ -446,7 +447,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       size=${this.usernameSize[this.size]}
       ?hide-prefix="${!result.name}"
       class="ml-1"
-    ></lukso-username> `
+    ></lukso-username>`
     const eoaUsername = html`<lukso-username
       name="${sliceAddress(result.address, 8)}"
       address="__EOA"
@@ -536,24 +537,57 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     for (const recentSearch of result.value as SearchResult[]) {
       switch (recentSearch.type) {
         case SEARCH_RESULT_TYPES.PROFILE: {
-          const eoaProfilePicture = html`<lukso-profile
-            profile-address="${recentSearch.address}"
-            profile-url="${recentSearch.address
-              ? makeBlockie(recentSearch.address)
-              : ''}"
-            size=${this.profileSize[this.size]}
-            class="cursor-pointer transition hover:scale-[1.02]"
-            @click=${() => this.handleSelect(recentSearch)}
-          ></lukso-profile>`
+          const eoaProfilePicture = html`<lukso-tooltip
+            show-delay="2000"
+            class="flex"
+          >
+            <div slot="text">
+              <lukso-username
+                name="${sliceAddress(recentSearch.address, 8)}"
+                address="__EOA"
+                name-color="neutral-20"
+                max-width="300"
+                size="x-small"
+                hide-prefix
+                class="ml-1"
+              ></lukso-username>
+            </div>
+            <lukso-profile
+              profile-address="${recentSearch.address}"
+              profile-url="${recentSearch.address
+                ? makeBlockie(recentSearch.address)
+                : ''}"
+              size=${this.profileSize[this.size]}
+              class="cursor-pointer transition hover:scale-[1.02]"
+              @click=${() => this.handleSelect(recentSearch)}
+            ></lukso-profile
+          ></lukso-tooltip>`
 
-          const lsp3ProfilePicture = html`<lukso-profile
-            profile-address="${recentSearch.address}"
-            profile-url="${recentSearch.image}"
-            size=${this.profileSize[this.size]}
-            has-identicon
-            class="cursor-pointer transition hover:scale-[1.02]"
-            @click=${() => this.handleSelect(recentSearch)}
-          ></lukso-profile>`
+          const lsp3ProfilePicture = html`<lukso-tooltip
+            show-delay="2000"
+            class="flex"
+          >
+            <div slot="text">
+              <lukso-username
+                name="${recentSearch.name?.toLowerCase() ||
+                'anonymous-profile'}"
+                address="${recentSearch.address}"
+                name-color="neutral-20"
+                max-width="300"
+                size="x-small"
+                ?hide-prefix="${!recentSearch.name}"
+                class="ml-1"
+              ></lukso-username>
+            </div>
+            <lukso-profile
+              profile-address="${recentSearch.address}"
+              profile-url="${recentSearch.image}"
+              size=${this.profileSize[this.size]}
+              has-identicon
+              class="cursor-pointer transition hover:scale-[1.02]"
+              @click=${() => this.handleSelect(recentSearch)}
+            ></lukso-profile
+          ></lukso-tooltip>`
 
           const standard = recentSearch.standard || STANDARDS.LSP3
 
@@ -563,25 +597,40 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           break
         }
         case SEARCH_RESULT_TYPES.ASSET: {
-          const asset = html`<lukso-profile
-            profile-address="${recentSearch.address}"
-            profile-url="${recentSearch.image}"
-            placeholder="/assets/images/token-default.svg"
-            size=${this.profileSize[this.size]}
-            class="cursor-pointer transition hover:scale-[1.02]"
-            @click=${() => this.handleSelect(recentSearch)}
-          ></lukso-profile>`
+          const asset = html`<lukso-tooltip show-delay="2000" class="flex">
+            <div slot="text">
+              <span class="font-600"
+                >${recentSearch.name}
+                <span class="text-neutral-60"
+                  >${recentSearch.symbol}</span
+                ></span
+              >
+            </div>
+            <lukso-profile
+              profile-address="${recentSearch.address}"
+              profile-url="${recentSearch.image}"
+              placeholder="/assets/images/token-default.svg"
+              size=${this.profileSize[this.size]}
+              class="cursor-pointer transition hover:scale-[1.02]"
+              @click=${() => this.handleSelect(recentSearch)}
+            ></lukso-profile
+          ></lukso-tooltip>`
           recentSearchTemplates.push(asset)
           break
         }
         case SEARCH_RESULT_TYPES.APP: {
-          const app = html`<lukso-profile
-            profile-address="${recentSearch.address}"
-            profile-url="${recentSearch.image}"
-            size=${this.profileSize[this.size]}
-            class="cursor-pointer transition hover:scale-[1.02]"
-            @click=${() => this.handleSelect(recentSearch)}
-          ></lukso-profile>`
+          const app = html`<lukso-tooltip show-delay="2000" class="flex">
+            <div slot="text">
+              <span class="font-600">${recentSearch.name}</span>
+            </div>
+            <lukso-profile
+              profile-address="${recentSearch.address}"
+              profile-url="${recentSearch.image}"
+              size=${this.profileSize[this.size]}
+              class="cursor-pointer transition hover:scale-[1.02]"
+              @click=${() => this.handleSelect(recentSearch)}
+            ></lukso-profile
+          ></lukso-tooltip>`
           recentSearchTemplates.push(app)
           break
         }

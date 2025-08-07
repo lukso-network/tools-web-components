@@ -275,7 +275,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           }
           resultTemplates.push(
             html`<div
-              class="py-1 my-1 text-neutral-35 paragraph-inter-12-medium tracking-wider border-b border-b-neutral-95 text-left"
+              class="${index === 0
+                ? 'mb-1 pb-1'
+                : 'my-1 py-1'} text-neutral-35 paragraph-inter-12-medium tracking-wider border-b border-b-neutral-95 text-left"
             >
               ${headerText}
             </div>`

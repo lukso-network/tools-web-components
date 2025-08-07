@@ -12,4 +12,5 @@ export enum SEARCH_RESULT_TYPES {
   ASSET = 'asset',
   APP = 'app',
   UNIVERSAL_NAME = 'universal-name',
+  RECENT_SEARCH = 'recent-search',
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.149.1](https://github.com/lukso-network/tools-web-components/compare/v1.149.0...v1.149.1) (2025-08-07)
+
+
+### Bug Fixes
+
+* Improve group spacing ([#633](https://github.com/lukso-network/tools-web-components/issues/633)) ([8495fc1](https://github.com/lukso-network/tools-web-components/commit/8495fc15d1bd7b3ba31df4013363287281aab036))
+
 ## [1.149.0](https://github.com/lukso-network/tools-web-components/compare/v1.148.0...v1.149.0) (2025-08-07)
 
 

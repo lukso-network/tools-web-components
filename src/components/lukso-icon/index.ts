@@ -209,6 +209,7 @@ import { imageLinear } from './icons/image-linear'
 import { hexagon } from './icons/hexagon'
 import { rowVertical } from './icons/row-vertical'
 import { logoTiktokMono } from './icons/logo-tiktok-mono'
+import { profileFollowing } from './icons/profile-following'
 
 export type IconOptions = {
   width: number
@@ -440,6 +441,7 @@ const iconMap = {
   hexagon,
   'row-vertical': rowVertical,
   'logo-tiktok-mono': logoTiktokMono,
+  'profile-following': profileFollowing,
 }
 
 @customElement('lukso-icon')

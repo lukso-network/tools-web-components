@@ -265,6 +265,7 @@ export const UtilityIcons: Story = {
           'profile-circle',
           'profile-export',
           'profile-file',
+          'profile-following',
           'profile-import',
           'profile-recovery',
           { name: 'profile-recovery-2', secondaryColor: 'neutral-100' },
@@ -343,27 +344,6 @@ export const ColoredIcons: Story = {
           'logo-farcaster',
         ],
         'Colored Icons'
-      )}
-    </div>
-  `,
-}
-
-/** Profile and user-related icons */
-export const ProfileIcons: Story = {
-  render: () => html`
-    <div class="sb-unstyled">
-      ${createIconSection(
-        [
-          'profile',
-          'profile-add',
-          'profile-circle',
-          'profile-recovery',
-          'profile-export',
-          'profile-import',
-          'people',
-          'user-circle-add',
-        ],
-        'Profile Icons'
       )}
     </div>
   `,

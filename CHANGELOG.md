@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.150.0](https://github.com/lukso-network/tools-web-components/compare/v1.149.1...v1.150.0) (2025-08-08)
+
+
+### Features
+
+* profile-following icon ([#635](https://github.com/lukso-network/tools-web-components/issues/635)) ([4b24be2](https://github.com/lukso-network/tools-web-components/commit/4b24be255814184a95ee23b41997aa7699c03ec5))
+
 ## [1.149.1](https://github.com/lukso-network/tools-web-components/compare/v1.149.0...v1.149.1) (2025-08-07)
 
 

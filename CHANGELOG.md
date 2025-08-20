@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.151.0](https://github.com/lukso-network/tools-web-components/compare/v1.150.0...v1.151.0) (2025-08-20)
+
+
+### Features
+
+* add common ground icon ([#637](https://github.com/lukso-network/tools-web-components/issues/637)) ([39adf44](https://github.com/lukso-network/tools-web-components/commit/39adf44cb2f777cefbad8de53e1f18181898df06))
+
+
+### Bug Fixes
+
+* Release please ([#638](https://github.com/lukso-network/tools-web-components/issues/638)) ([f70248d](https://github.com/lukso-network/tools-web-components/commit/f70248d08ed7590383ddf8f2edc4b7815dabf47b))
+* Release please error in CI - part 2 ([#639](https://github.com/lukso-network/tools-web-components/issues/639)) ([7b00382](https://github.com/lukso-network/tools-web-components/commit/7b003821784cf54cbb3a2ba48218826990b4f517))
+* Release please error in CI - part 3 ([#640](https://github.com/lukso-network/tools-web-components/issues/640)) ([ad0a7ef](https://github.com/lukso-network/tools-web-components/commit/ad0a7efebaf9de35b44509729740c6718cdbc0e3))
+* Release please error in CI - part 4 ([#641](https://github.com/lukso-network/tools-web-components/issues/641)) ([0eeb491](https://github.com/lukso-network/tools-web-components/commit/0eeb491640d99b03680926f3abd5b6cd01191882))
+
 ## [1.150.0](https://github.com/lukso-network/tools-web-components/compare/v1.149.1...v1.150.0) (2025-08-08)
 
 

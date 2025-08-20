@@ -380,6 +380,7 @@ export const MonochromaticIcons: Story = {
           'logo-google-calendar-mono',
           'logo-substack-mono',
           'logo-tiktok-mono',
+          'logo-common-ground-mono',
         ],
         'Monochromatic Icons',
         'Single-color icons that can be customized with the color attribute. Some icons support secondary-color for additional customization.'

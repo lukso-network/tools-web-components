@@ -31,49 +31,14 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install release-please CLI
+      - name: Please release
         if: ${{ github.event.number == '' }}
-        run: npm install -g release-please
-
-      - name: Run release-please via CLI
-        if: ${{ github.event.number == '' }}
+        uses: googleapis/release-please-action@v4
         id: release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Run release-please with explicit retry logic
-          ATTEMPT=1
-          MAX_ATTEMPTS=3
-
-          while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
-            echo "Attempt $ATTEMPT of $MAX_ATTEMPTS"
-
-            if release-please release-pr \
-              --repo-url="${{ github.server_url }}/${{ github.repository }}" \
-              --target-branch=main \
-              --config-file=release-please-config.json \
-              --manifest-file=.release-please-manifest.json; then
-
-              echo "release_created=true" >> $GITHUB_OUTPUT
-              echo "Release PR created successfully"
-              break
-            else
-              if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
-                echo "release_created=false" >> $GITHUB_OUTPUT
-                echo "Failed after $MAX_ATTEMPTS attempts"
-              else
-                echo "Attempt $ATTEMPT failed, retrying in 30 seconds..."
-                sleep 30
-              fi
-            fi
-
-            ATTEMPT=$((ATTEMPT + 1))
-          done
+        with:
+          release-type: ${{ env.PACKAGE_TYPE }}
+          target-branch: main
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - id: version
         name: Detect final version info
@@ -98,9 +63,9 @@ jobs:
             fi
             echo "PR: ${{ github.event.number }}"
           else
-            SHA="${{ github.sha }}"
+            SHA="${{ steps.release.outputs.sha }}"
             RELEASE_CREATED="true"
-            TAG_NAME="v$(node -pe 'require("./.release-please-manifest.json")["."]')"
+            TAG_NAME="${{ steps.release.outputs.tag_name }}"
           fi
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "pr_number=${{ github.event.number }}" >> $GITHUB_OUTPUT

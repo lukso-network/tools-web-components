@@ -26,16 +26,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Please release
         if: ${{ github.event.number == '' }}
-        uses: google-github-actions/release-please-action@v3
+        uses: google-github-actions/release-please-action@v4
         id: release
         with:
           release-type: ${{ env.PACKAGE_TYPE }}
           default-branch: main
+          token: ${{ secrets.GITHUB_TOKEN }}
       - id: version
         name: Detect final version info
         run: |

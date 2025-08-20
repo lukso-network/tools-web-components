@@ -35,38 +35,6 @@ jobs:
         if: ${{ github.event.number == '' }}
         uses: googleapis/release-please-action@v4
         id: release
-        continue-on-error: true
-        with:
-          release-type: ${{ env.PACKAGE_TYPE }}
-          target-branch: main
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Wait and retry release-please on failure
-        if: ${{ github.event.number == '' && steps.release.outcome == 'failure' }}
-        run: |
-          echo "First attempt failed, waiting 60 seconds before retry..."
-          sleep 60
-
-      - name: Please release (retry attempt)
-        if: ${{ github.event.number == '' && steps.release.outcome == 'failure' }}
-        uses: googleapis/release-please-action@v4
-        id: release-retry
-        continue-on-error: true
-        with:
-          release-type: ${{ env.PACKAGE_TYPE }}
-          target-branch: main
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Wait and final retry on failure
-        if: ${{ github.event.number == '' && steps.release.outcome == 'failure' && steps.release-retry.outcome == 'failure' }}
-        run: |
-          echo "Second attempt failed, waiting 120 seconds before final retry..."
-          sleep 120
-
-      - name: Please release (final attempt)
-        if: ${{ github.event.number == '' && steps.release.outcome == 'failure' && steps.release-retry.outcome == 'failure' }}
-        uses: googleapis/release-please-action@v4
-        id: release-final
         with:
           release-type: ${{ env.PACKAGE_TYPE }}
           target-branch: main
@@ -75,22 +43,7 @@ jobs:
       - id: version
         name: Detect final version info
         run: |
-          # Determine which attempt succeeded and use its outputs
-          RELEASE_CREATED="${{ steps.release.outputs.release_created }}"
-          RELEASE_SHA="${{ steps.release.outputs.sha }}"
-          RELEASE_TAG="${{ steps.release.outputs.tag_name }}"
-
-          if [ "${{ steps.release.outcome }}" == "failure" ] && [ "${{ steps.release-retry.outcome }}" == "success" ]; then
-            RELEASE_CREATED="${{ steps.release-retry.outputs.release_created }}"
-            RELEASE_SHA="${{ steps.release-retry.outputs.sha }}"
-            RELEASE_TAG="${{ steps.release-retry.outputs.tag_name }}"
-          elif [ "${{ steps.release.outcome }}" == "failure" ] && [ "${{ steps.release-retry.outcome }}" == "failure" ] && [ "${{ steps.release-final.outcome }}" == "success" ]; then
-            RELEASE_CREATED="${{ steps.release-final.outputs.release_created }}"
-            RELEASE_SHA="${{ steps.release-final.outputs.sha }}"
-            RELEASE_TAG="${{ steps.release-final.outputs.tag_name }}"
-          fi
-
-          if [ "$RELEASE_CREATED" != "true" ]
+          if [ "${{ steps.release.outputs.release_created }}" != "true" ]
           then
             SHA="${{ github.sha }}"
             RELEASE_CREATED="false"
@@ -110,9 +63,9 @@ jobs:
             fi
             echo "PR: ${{ github.event.number }}"
           else
-            SHA="$RELEASE_SHA"
+            SHA="${{ steps.release.outputs.sha }}"
             RELEASE_CREATED="true"
-            TAG_NAME="$RELEASE_TAG"
+            TAG_NAME="${{ steps.release.outputs.tag_name }}"
           fi
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "pr_number=${{ github.event.number }}" >> $GITHUB_OUTPUT

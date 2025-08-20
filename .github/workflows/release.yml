@@ -31,16 +31,37 @@ jobs:
           fetch-depth: 0
       - name: Please release
         if: ${{ github.event.number == '' }}
-        uses: google-github-actions/release-please-action@v4
+        uses: googleapis/release-please-action@v4
         id: release
+        continue-on-error: true
         with:
           release-type: ${{ env.PACKAGE_TYPE }}
-          default-branch: main
+          target-branch: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Retry release-please on failure
+        if: ${{ github.event.number == '' && steps.release.outcome == 'failure' }}
+        uses: googleapis/release-please-action@v4
+        id: release-retry
+        with:
+          release-type: ${{ env.PACKAGE_TYPE }}
+          target-branch: main
           token: ${{ secrets.GITHUB_TOKEN }}
       - id: version
         name: Detect final version info
         run: |
-          if [ "${{ steps.release.outputs.release_created }}" != "true" ]
+          # Use outputs from retry step if original failed
+          RELEASE_CREATED="${{ steps.release.outputs.release_created }}"
+          RELEASE_SHA="${{ steps.release.outputs.sha }}"
+          RELEASE_TAG="${{ steps.release.outputs.tag_name }}"
+          
+          if [ "${{ steps.release.outcome }}" == "failure" ] && [ "${{ steps.release-retry.outcome }}" == "success" ]; then
+            RELEASE_CREATED="${{ steps.release-retry.outputs.release_created }}"
+            RELEASE_SHA="${{ steps.release-retry.outputs.sha }}"
+            RELEASE_TAG="${{ steps.release-retry.outputs.tag_name }}"
+          fi
+          
+          if [ "$RELEASE_CREATED" != "true" ]
           then
             SHA="${{ github.sha }}"
             RELEASE_CREATED="false"
@@ -60,9 +81,9 @@ jobs:
             fi
             echo "PR: ${{ github.event.number }}"
           else
-            SHA="${{ steps.release.outputs.sha }}"
+            SHA="$RELEASE_SHA"
             RELEASE_CREATED="true"
-            TAG_NAME="${{ steps.release.outputs.tag_name }}"
+            TAG_NAME="$RELEASE_TAG"
           fi
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "pr_number=${{ github.event.number }}" >> $GITHUB_OUTPUT

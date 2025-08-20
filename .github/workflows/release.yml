@@ -15,7 +15,7 @@ concurrency:
   group: compile-${{ github.ref }}
   cancel-in-progress: true
 
-name: github release
+name: github release (alternative)
 jobs:
   release-please:
     outputs:
@@ -29,39 +29,56 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Please release
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install release-please CLI
         if: ${{ github.event.number == '' }}
-        uses: googleapis/release-please-action@v4
+        run: npm install -g release-please
+
+      - name: Run release-please via CLI
+        if: ${{ github.event.number == '' }}
         id: release
-        continue-on-error: true
-        with:
-          release-type: ${{ env.PACKAGE_TYPE }}
-          target-branch: main
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Retry release-please on failure
-        if: ${{ github.event.number == '' && steps.release.outcome == 'failure' }}
-        uses: googleapis/release-please-action@v4
-        id: release-retry
-        with:
-          release-type: ${{ env.PACKAGE_TYPE }}
-          target-branch: main
-          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Run release-please with explicit retry logic
+          ATTEMPT=1
+          MAX_ATTEMPTS=3
+
+          while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
+            echo "Attempt $ATTEMPT of $MAX_ATTEMPTS"
+
+            if release-please release-pr \
+              --repo-url="${{ github.server_url }}/${{ github.repository }}" \
+              --target-branch=main \
+              --config-file=release-please-config.json \
+              --manifest-file=.release-please-manifest.json; then
+
+              echo "release_created=true" >> $GITHUB_OUTPUT
+              echo "Release PR created successfully"
+              break
+            else
+              if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
+                echo "release_created=false" >> $GITHUB_OUTPUT
+                echo "Failed after $MAX_ATTEMPTS attempts"
+              else
+                echo "Attempt $ATTEMPT failed, retrying in 30 seconds..."
+                sleep 30
+              fi
+            fi
+
+            ATTEMPT=$((ATTEMPT + 1))
+          done
+
       - id: version
         name: Detect final version info
         run: |
-          # Use outputs from retry step if original failed
-          RELEASE_CREATED="${{ steps.release.outputs.release_created }}"
-          RELEASE_SHA="${{ steps.release.outputs.sha }}"
-          RELEASE_TAG="${{ steps.release.outputs.tag_name }}"
-          
-          if [ "${{ steps.release.outcome }}" == "failure" ] && [ "${{ steps.release-retry.outcome }}" == "success" ]; then
-            RELEASE_CREATED="${{ steps.release-retry.outputs.release_created }}"
-            RELEASE_SHA="${{ steps.release-retry.outputs.sha }}"
-            RELEASE_TAG="${{ steps.release-retry.outputs.tag_name }}"
-          fi
-          
-          if [ "$RELEASE_CREATED" != "true" ]
+          if [ "${{ steps.release.outputs.release_created }}" != "true" ]
           then
             SHA="${{ github.sha }}"
             RELEASE_CREATED="false"
@@ -81,9 +98,9 @@ jobs:
             fi
             echo "PR: ${{ github.event.number }}"
           else
-            SHA="$RELEASE_SHA"
+            SHA="${{ github.sha }}"
             RELEASE_CREATED="true"
-            TAG_NAME="$RELEASE_TAG"
+            TAG_NAME="v$(node -pe 'require("./.release-please-manifest.json")["."]')"
           fi
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "pr_number=${{ github.event.number }}" >> $GITHUB_OUTPUT

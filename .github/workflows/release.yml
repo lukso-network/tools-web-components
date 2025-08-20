@@ -15,7 +15,7 @@ concurrency:
   group: compile-${{ github.ref }}
   cancel-in-progress: true
 
-name: github release (alternative)
+name: github release
 jobs:
   release-please:
     outputs:

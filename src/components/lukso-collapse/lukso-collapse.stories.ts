@@ -1,5 +1,5 @@
 import { html } from 'lit'
-import './index' // Adjust the import path based on your project structure
+import './index'
 import { Meta, StoryObj } from '@storybook/web-components-vite'
 
 const meta: Meta = {
@@ -28,7 +28,7 @@ type Story = StoryObj
 
 export const DefaultClosed: Story = {
   args: {
-    label: 'Advanced',
+    label: 'Open',
     open: false,
     customClass: '',
   },
@@ -38,8 +38,10 @@ export const DefaultClosed: Story = {
       ?open=${args.open}
       custom-class=${args.customClass}
     >
-      This is the default content inside the collapse. It should be hidden
-      initially.
+      <div class="p-4">
+        This is the default content inside the collapse. It should be hidden
+        initially.
+      </div>
     </lukso-collapse>
   `,
 }
@@ -56,8 +58,10 @@ export const DefaultOpen: Story = {
       ?open=${args.open}
       custom-class=${args.customClass}
     >
-      This is the default content inside the collapse. It should be visible
-      initially.
+      <div class="p-4">
+        This is the default content inside the collapse. It should be visible
+        initially.
+      </div>
     </lukso-collapse>
   `,
 }
@@ -74,7 +78,9 @@ export const WithCustomClass: Story = {
       ?open=${args.open}
       custom-class=${args.customClass}
     >
-      This collapse has a custom class applied to change its appearance.
+      <div class="p-4">
+        This collapse has a custom class applied to change its appearance.
+      </div>
     </lukso-collapse>
   `,
 }
@@ -117,10 +123,12 @@ export const WithNestedComponents: Story = {
       ?open=${args.open}
       custom-class=${args.customClass}
     >
-      <p>Outer content.</p>
-      <lukso-collapse label="Inner Collapse" ?open=${false}>
-        This is nested content inside another collapse.
-      </lukso-collapse>
+      <div class="p-4">
+        <p>Outer content.</p>
+        <lukso-collapse label="Inner Collapse" ?open=${false}>
+          This is nested content inside another collapse.
+        </lukso-collapse>
+      </div>
     </lukso-collapse>
   `,
 }

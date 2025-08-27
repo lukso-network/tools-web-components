@@ -4,13 +4,21 @@ import { tv } from 'tailwind-variants'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
+import { InputSize } from '@/shared/types'
+import '@/components/lukso-icon'
 
 @customElement('lukso-collapse')
 export class LuksoCollapse extends TailwindElement {
-  @property({ type: String }) label = 'Advanced'
+  @property({ type: String }) label = 'Open'
   @property({ type: Boolean, reflect: true }) open = false
   @property({ type: String, attribute: 'custom-class' }) customClass = ''
+  @property({ type: Boolean, attribute: 'is-disabled' })
+  isDisabled = false
+  @property({ type: Boolean, attribute: 'is-open' })
+  isOpen = false
 
+  @property({ type: String })
+  size: InputSize = 'large'
   @state() private maxHeight = '0px'
 
   @query('.collapse-container') private collapseContainer!: HTMLElement
@@ -73,8 +81,31 @@ export class LuksoCollapse extends TailwindElement {
     )
   }
 
+  private iconStyles = tv({
+    base: 'absolute right-0 transition cursor-pointer',
+    variants: {
+      isDisabled: {
+        true: 'opacity-60 cursor-not-allowed',
+      },
+      open: {
+        true: 'rotate-180',
+      },
+      size: {
+        small: 'mr-2',
+        medium: 'mr-3',
+        large: 'mr-3',
+        'x-large': '',
+      },
+    },
+  })
+
   render() {
     const collapseClass = this.collapseStyles({ open: this.open })
+    const iconStyles = this.iconStyles({
+      isDisabled: this.isDisabled,
+      open: this.open,
+      size: this.size,
+    })
 
     return html`
       <div
@@ -91,26 +122,22 @@ export class LuksoCollapse extends TailwindElement {
           <span class="text-neutral-60 paragraph-inter-14-semi-bold">
             ${this.label}
           </span>
-
-          <span
-            class="flex items-center gap-1 text-neutral-60 paragraph-inter-14-medium"
-          >
-            ${this.open ? 'Hide' : 'View'}
-            <lukso-icon
-              name="chevron-${this.open ? 'up' : 'down'}"
-              size="small"
-              color="neutral-60"
-            ></lukso-icon>
-          </span>
+          <div class="flex space-x-2 ">
+            <span class="text-neutral-60 paragraph-inter-14-medium">
+              ${this.open ? 'Hide' : 'View'}
+            </span>
+            <div class="flex">
+              <lukso-icon
+                name=${this.open ? 'arrow-down-sm' : 'arrow-down-sm'}
+                class="${iconStyles}"
+              ></lukso-icon>
+            </div>
+          </div>
         </div>
 
         <!-- Content -->
         <div
-          class=${cn(
-            collapseClass,
-            'collapse-container',
-            !this.open ? 'hidden' : ''
-          )}
+          class=${cn(collapseClass, 'collapse-container')}
           style="max-height:${this.maxHeight};"
         >
           <div class="collapse-content">

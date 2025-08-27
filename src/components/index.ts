@@ -2,6 +2,7 @@
 export * from './lukso-button/index'
 export * from './lukso-card/index'
 export * from './lukso-checkbox/index'
+export * from './lukso-collapse/index'
 export * from './lukso-color-picker/index'
 export * from './lukso-dropdown/index'
 export * from './lukso-dropdown-option/index'

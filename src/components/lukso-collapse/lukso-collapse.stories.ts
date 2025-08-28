@@ -25,6 +25,10 @@ const meta: Meta = {
       description: 'Secondary label when open/close',
     },
     icon: { control: 'text', description: 'Icon name to display' },
+    isDisabled: {
+      control: 'boolean',
+      description: 'Whether the collapse is disabled',
+    },
   },
 }
 
@@ -39,6 +43,7 @@ const Template = (args: any) => {
       custom-class=${args.customClass ? args.customClass : nothing}
       .secondaryLabel=${args.secondaryLabel ? args.secondaryLabel : nothing}
       icon=${args.icon ? args.icon : nothing}
+      ?is-disabled=${args.isDisabled}
     >
       <div class="p-4">
         ${args.content ? args.content : 'Default collapse content'}
@@ -62,6 +67,16 @@ DefaultOpen.args = {
   open: true,
   customClass: '',
   icon: 'arrow-down-sm',
+}
+
+export const DefaultDisabled = Template.bind({})
+DefaultDisabled.args = {
+  label: 'Open',
+  open: false,
+  customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
+  secondaryLabel: { open: 'Open', close: 'Close' },
+  icon: 'arrow-down-sm',
+  isDisabled: true,
 }
 
 export const WithCustomClass = Template.bind({})

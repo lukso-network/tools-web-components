@@ -106,6 +106,8 @@ export class LuksoCollapse extends TailwindElement {
       },
       isDisabled: {
         true: {
+          base: 'opacity-60',
+          header: 'cursor-not-allowed',
           icon: 'opacity-60 cursor-not-allowed',
         },
       },
@@ -122,7 +124,10 @@ export class LuksoCollapse extends TailwindElement {
     return html`
       <div class=${cn(base(), this.customClass)}>
         <!-- Header -->
-        <div class=${header()} @click=${this.toggle}>
+        <div
+          class=${header()}
+          @click=${() => !this.isDisabled && this.toggle()}
+        >
           <span class=${label()}>${this.label}</span>
           <div class="flex items-center space-x-2 mr-2">
             ${this.secondaryLabel

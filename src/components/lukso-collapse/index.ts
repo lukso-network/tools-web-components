@@ -9,36 +9,36 @@ import '@/components/lukso-icon'
 
 @customElement('lukso-collapse')
 export class LuksoCollapse extends TailwindElement {
-  @property({ type: String }) label = ''
+  @property({ type: String })
+  label = ''
+
   @property({ type: Object }) secondaryLabel: { open: string; close: string } =
     {
       open: '',
       close: '',
     }
-  @property({ type: Boolean, reflect: true }) open = false
-  @property({ type: String, attribute: 'custom-class' }) customClass = ''
+
+  @property({ type: Boolean, reflect: true })
+  open = false
+
+  @property({ type: String, attribute: 'custom-class' })
+  customClass = ''
+
   @property({ type: Boolean, attribute: 'is-disabled' })
   isDisabled = false
+
   @property({ type: Boolean, attribute: 'is-open' })
   isOpen = false
+
   @property({ type: String, attribute: 'icon' })
   icon = ''
 
   @property({ type: String })
   size: InputSize = 'large'
+
   @state() private maxHeight = '0px'
 
   @query('.collapse-container') private collapseContainer!: HTMLElement
-
-  private collapseStyles = tv({
-    base: 'transition-all duration-300 ease-in-out overflow-hidden',
-    variants: {
-      open: {
-        true: 'opacity-100',
-        false: 'opacity-0',
-      },
-    },
-  })
 
   firstUpdated() {
     if (this.open) {
@@ -88,71 +88,65 @@ export class LuksoCollapse extends TailwindElement {
     )
   }
 
-  private iconStyles = tv({
-    base: 'absolute right-0 transition cursor-pointer',
+  private collapseStyles = tv({
+    slots: {
+      base: '',
+      header: 'flex items-center justify-between cursor-pointer px-4 py-3',
+      label: 'text-neutral-45 paragraph-inter-14-semi-bold',
+      secondary: 'text-neutral-45 paragraph-inter-14-semi-bold',
+      icon: 'transition cursor-pointer',
+      content: 'overflow-hidden transition-all duration-300 ease-in-out',
+    },
     variants: {
-      isDisabled: {
-        true: 'opacity-60 cursor-not-allowed',
-      },
       open: {
-        true: 'rotate-180',
+        true: {
+          icon: 'rotate-180',
+          content: 'opacity-100',
+        },
+        false: {
+          content: 'opacity-0',
+        },
       },
-      size: {
-        small: 'mr-2',
-        medium: 'mr-3',
-        large: 'mr-3',
-        'x-large': '',
+      isDisabled: {
+        true: {
+          icon: 'opacity-60 cursor-not-allowed',
+        },
       },
     },
   })
 
   render() {
-    const collapseClass = this.collapseStyles({ open: this.open })
-    const iconStyles = this.iconStyles({
-      isDisabled: this.isDisabled,
-      open: this.open,
-      size: this.size,
-    })
+    const { base, header, label, secondary, icon, content } =
+      this.collapseStyles({
+        open: this.open,
+        isDisabled: this.isDisabled,
+      })
 
     return html`
-      <div class=${cn(this.customClass)}>
+      <div class=${cn(base(), this.customClass)}>
         <!-- Header -->
-        <div
-          class="flex items-center justify-between cursor-pointer px-4 py-3"
-          @click=${this.toggle}
-        >
-          <span class="text-neutral-45 paragraph-inter-14-semi-bold">
-            ${this.label}
-          </span>
+        <div class=${header()} @click=${this.toggle}>
+          <span class=${label()}>${this.label}</span>
           <div class="flex items-center space-x-2 mr-2">
             ${this.secondaryLabel
-              ? html`<span class="text-neutral-45 paragraph-inter-14-semi-bold">
+              ? html`<span class=${secondary()}>
                   ${this.open
                     ? this.secondaryLabel.close
                     : this.secondaryLabel.open}
                 </span>`
               : null}
             ${this.icon
-              ? html`
-                  <div class="flex items-center">
-                    <lukso-icon
-                      name="${this.icon}"
-                      class=${cn(iconStyles)}
-                    ></lukso-icon>
-                  </div>
-                `
+              ? html`<lukso-icon
+                  name=${this.icon}
+                  class=${icon()}
+                ></lukso-icon>`
               : null}
           </div>
         </div>
 
         <!-- Content -->
-        <div
-          class=${cn(collapseClass, 'collapse-container')}
-          style="max-height:${this.maxHeight};"
-        >
-          <div class="collapse-content">
-            <slot></slot>
-          </div>
+        <div class=${content()} style="max-height:${this.maxHeight};">
+          <div class="collapse-content"><slot></slot></div>
         </div>
       </div>
     `

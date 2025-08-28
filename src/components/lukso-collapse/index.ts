@@ -9,13 +9,20 @@ import '@/components/lukso-icon'
 
 @customElement('lukso-collapse')
 export class LuksoCollapse extends TailwindElement {
-  @property({ type: String }) label = 'Open'
+  @property({ type: String }) label = ''
+  @property({ type: Object }) secondaryLabel: { open: string; close: string } =
+    {
+      open: '',
+      close: '',
+    }
   @property({ type: Boolean, reflect: true }) open = false
   @property({ type: String, attribute: 'custom-class' }) customClass = ''
   @property({ type: Boolean, attribute: 'is-disabled' })
   isDisabled = false
   @property({ type: Boolean, attribute: 'is-open' })
   isOpen = false
+  @property({ type: String, attribute: 'icon' })
+  icon = ''
 
   @property({ type: String })
   size: InputSize = 'large'
@@ -108,30 +115,33 @@ export class LuksoCollapse extends TailwindElement {
     })
 
     return html`
-      <div
-        class=${cn(
-          'border border-neutral-30 rounded-12 overflow-hidden',
-          this.customClass
-        )}
-      >
+      <div class=${cn(this.customClass)}>
         <!-- Header -->
         <div
           class="flex items-center justify-between cursor-pointer px-4 py-3"
           @click=${this.toggle}
         >
-          <span class="text-neutral-60 paragraph-inter-14-semi-bold">
+          <span class="text-neutral-45 paragraph-inter-14-semi-bold">
             ${this.label}
           </span>
-          <div class="flex space-x-2 ">
-            <span class="text-neutral-60 paragraph-inter-14-medium">
-              ${this.open ? 'Hide' : 'View'}
-            </span>
-            <div class="flex">
-              <lukso-icon
-                name=${this.open ? 'arrow-down-sm' : 'arrow-down-sm'}
-                class="${iconStyles}"
-              ></lukso-icon>
-            </div>
+          <div class="flex items-center space-x-2 mr-2">
+            ${this.secondaryLabel
+              ? html`<span class="text-neutral-45 paragraph-inter-14-semi-bold">
+                  ${this.open
+                    ? this.secondaryLabel.close
+                    : this.secondaryLabel.open}
+                </span>`
+              : null}
+            ${this.icon
+              ? html`
+                  <div class="flex items-center">
+                    <lukso-icon
+                      name="${this.icon}"
+                      class=${cn(iconStyles)}
+                    ></lukso-icon>
+                  </div>
+                `
+              : null}
           </div>
         </div>
 

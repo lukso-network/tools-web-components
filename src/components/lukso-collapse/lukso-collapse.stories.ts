@@ -3,9 +3,8 @@ import './index'
 import { Meta, StoryObj } from '@storybook/web-components-vite'
 
 const meta: Meta = {
-  title: 'Components/LuksoCollapse',
+  title: 'Design System/Components/lukso-collapse',
   component: 'lukso-collapse',
-  tags: ['autodocs'],
   argTypes: {
     label: {
       control: 'text',
@@ -30,13 +29,17 @@ export const DefaultClosed: Story = {
   args: {
     label: 'Open',
     open: false,
-    customClass: '',
+    customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
+    secondaryLabel: { open: 'Open', close: 'Close' },
+    icon: 'arrow-down-sm',
   },
   render: args => html`
     <lukso-collapse
       label=${args.label}
       ?open=${args.open}
       custom-class=${args.customClass}
+      .secondaryLabel=${args.secondaryLabel}
+      icon=${args.icon}
     >
       <div class="p-4">
         This is the default content inside the collapse. It should be hidden
@@ -51,12 +54,14 @@ export const DefaultOpen: Story = {
     label: 'Advanced',
     open: true,
     customClass: '',
+    icon: 'arrow-down-sm',
   },
   render: args => html`
     <lukso-collapse
       label=${args.label}
       ?open=${args.open}
       custom-class=${args.customClass}
+      icon=${args.icon}
     >
       <div class="p-4">
         This is the default content inside the collapse. It should be visible
@@ -70,7 +75,7 @@ export const WithCustomClass: Story = {
   args: {
     label: 'Custom Styled',
     open: false,
-    customClass: 'bg-blue-100 border-blue-500',
+    customClass: 'border rounded-12 bg-blue-100 border-blue-500',
   },
   render: args => html`
     <lukso-collapse
@@ -89,7 +94,7 @@ export const WithLongContent: Story = {
   args: {
     label: 'Long Content',
     open: false,
-    customClass: '',
+    customClass: 'border border-neutral-30 rounded-12 ',
   },
   render: args => html`
     <lukso-collapse
@@ -106,28 +111,6 @@ export const WithLongContent: Story = {
           <li>Item 3</li>
         </ul>
         <p>The collapse should smoothly animate the height change.</p>
-      </div>
-    </lukso-collapse>
-  `,
-}
-
-export const WithNestedComponents: Story = {
-  args: {
-    label: 'Nested',
-    open: false,
-    customClass: '',
-  },
-  render: args => html`
-    <lukso-collapse
-      label=${args.label}
-      ?open=${args.open}
-      custom-class=${args.customClass}
-    >
-      <div class="p-4">
-        <p>Outer content.</p>
-        <lukso-collapse label="Inner Collapse" ?open=${false}>
-          This is nested content inside another collapse.
-        </lukso-collapse>
       </div>
     </lukso-collapse>
   `,

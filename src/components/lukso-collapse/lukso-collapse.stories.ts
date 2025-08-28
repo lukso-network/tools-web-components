@@ -1,58 +1,122 @@
-import { html, nothing } from 'lit'
-import './index'
-import { useArgs } from 'storybook/internal/preview-api'
+import { html, nothing } from 'lit-html'
+import { useArgs } from 'storybook/preview-api'
 
 import type { Meta } from '@storybook/web-components-vite'
+import './index'
 
 const meta: Meta = {
-  title: 'Design System/Components/lukso-collapse',
+  title: 'Design System/Forms/lukso-collapse',
   component: 'lukso-collapse',
   argTypes: {
     label: {
-      control: 'text',
+      control: { type: 'text' },
       description: 'The label for the collapse header',
+      table: {
+        category: 'Attributes',
+      },
     },
-    open: {
-      control: 'boolean',
+    isOpen: {
+      name: 'is-open',
+      control: { type: 'boolean' },
       description: 'Whether the collapse is open by default',
+      table: {
+        category: 'Attributes',
+      },
     },
     customClass: {
-      control: 'text',
+      name: 'custom-class',
+      control: { type: 'text' },
       description: 'Custom CSS class for the outer container',
+      table: {
+        category: 'Attributes',
+      },
     },
     secondaryLabel: {
-      control: 'object',
+      name: 'secondary-label',
+      control: { type: 'object' },
       description: 'Secondary label when open/close',
+      table: {
+        category: 'Attributes',
+      },
     },
-    icon: { control: 'text', description: 'Icon name to display' },
+    icon: {
+      control: { type: 'text' },
+      description: 'Icon name to display',
+      table: {
+        category: 'Attributes',
+      },
+    },
     isDisabled: {
-      control: 'boolean',
+      name: 'is-disabled',
+      control: { type: 'boolean' },
       description: 'Whether the collapse is disabled',
+      table: {
+        category: 'Attributes',
+      },
     },
+    'custom-class': {
+      name: 'customClass',
+    },
+    'secondary-label': {
+      name: 'secondaryLabel',
+    },
+    'is-open': {
+      name: 'isOpen',
+    },
+    'is-disabled': {
+      name: 'isDisabled',
+    },
+  },
+  args: {
+    label: '',
+    isOpen: false,
+    customClass: '',
+    secondaryLabel: undefined,
+    icon: '',
+    isDisabled: false,
+    maxHeight: '0px',
+    collapseContainer: undefined,
+    collapseStyles: undefined,
   },
   parameters: {
     controls: {
-      exclude: ['isDisabled', 'customClass', 'secondaryLabel'],
+      exclude: [
+        'customClass',
+        'secondaryLabel',
+        'isDisabled',
+        'isOpen',
+        'maxHeight',
+        'collapseContainer',
+        'collapseStyles',
+      ],
     },
   },
 }
 
 export default meta
 
-const Template = (args: any) => {
+const Template = ({
+  label,
+  isOpen,
+  customClass,
+  secondaryLabel,
+  icon,
+  isDisabled,
+  size,
+  content,
+}) => {
   const [{}] = useArgs()
   return html`
     <lukso-collapse
-      label=${args.label}
-      ?open=${args.open}
-      custom-class=${args.customClass ? args.customClass : nothing}
-      .secondaryLabel=${args.secondaryLabel ? args.secondaryLabel : nothing}
-      icon=${args.icon ? args.icon : nothing}
-      ?is-disabled=${args.isDisabled}
+      label=${label ? label : nothing}
+      ?is-open=${isOpen}
+      custom-class=${customClass ? customClass : nothing}
+      .secondaryLabel=${secondaryLabel ? secondaryLabel : nothing}
+      icon=${icon ? icon : nothing}
+      ?is-disabled=${isDisabled}
+      size=${size ? size : nothing}
     >
-      <div class="p-4">
-        ${args.content ? args.content : 'Default collapse content'}
-      </div>
+      <div class="p-4">${content ? content : 'Default collapse content'}</div>
     </lukso-collapse>
   `
 }
@@ -60,7 +124,7 @@ const Template = (args: any) => {
 export const DefaultClosed = Template.bind({})
 DefaultClosed.args = {
   label: 'Open',
-  open: false,
+  isOpen: false,
   customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
   secondaryLabel: { open: 'Open', close: 'Close' },
   icon: 'arrow-down-sm',
@@ -69,7 +133,7 @@ DefaultClosed.args = {
 export const DefaultOpen = Template.bind({})
 DefaultOpen.args = {
   label: 'Advanced',
-  open: true,
+  isOpen: true,
   customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
   icon: 'arrow-down-sm',
 }
@@ -77,7 +141,7 @@ DefaultOpen.args = {
 export const DefaultDisabled = Template.bind({})
 DefaultDisabled.args = {
   label: 'Open',
-  open: false,
+  isOpen: false,
   customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
   secondaryLabel: { open: 'Open', close: 'Close' },
   icon: 'arrow-down-sm',
@@ -87,14 +151,14 @@ DefaultDisabled.args = {
 export const WithCustomClass = Template.bind({})
 WithCustomClass.args = {
   label: 'Custom Styled',
-  open: false,
+  isOpen: false,
   customClass: 'border rounded-12 bg-blue-100 border-blue-500',
 }
 
 export const WithLongContent = Template.bind({})
 WithLongContent.args = {
   label: 'Long Content',
-  open: false,
+  isOpen: false,
   customClass: 'border border-neutral-30 rounded-12',
   content: html`
     <div>

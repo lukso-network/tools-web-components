@@ -4,7 +4,6 @@ import { tv } from 'tailwind-variants'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
-import { InputSize } from '@/shared/types'
 import '@/components/lukso-icon'
 
 @customElement('lukso-collapse')
@@ -18,8 +17,8 @@ export class LuksoCollapse extends TailwindElement {
     close: '',
   }
 
-  @property({ type: Boolean, reflect: true })
-  open = false
+  @property({ type: Boolean, attribute: 'is-open' })
+  isOpen = false
 
   @property({ type: String, attribute: 'custom-class' })
   customClass = ''
@@ -30,21 +29,18 @@ export class LuksoCollapse extends TailwindElement {
   @property({ type: String, attribute: 'icon' })
   icon = ''
 
-  @property({ type: String })
-  size: InputSize = 'large'
-
   @state() private maxHeight = '0px'
 
   @query('.collapse-container') private collapseContainer!: HTMLElement
 
   firstUpdated() {
-    if (this.open) {
+    if (this.isOpen) {
       this.updateHeight()
     }
   }
 
   updated(changed: Map<string, unknown>) {
-    if (changed.has('open')) {
+    if (changed.has('isOpen')) {
       this.updateHeight()
     }
   }
@@ -56,11 +52,11 @@ export class LuksoCollapse extends TailwindElement {
 
     if (!content) return
 
-    if (this.open) {
+    if (this.isOpen) {
       this.maxHeight = `${content.scrollHeight}px`
 
       const onTransitionEnd = (e: TransitionEvent) => {
-        if (e.propertyName === 'max-height' && this.open) {
+        if (e.propertyName === 'max-height' && this.isOpen) {
           this.maxHeight = 'none'
         }
       }
@@ -79,9 +75,9 @@ export class LuksoCollapse extends TailwindElement {
   }
 
   private toggle() {
-    this.open = !this.open
+    this.isOpen = !this.isOpen
     this.dispatchEvent(
-      new CustomEvent('toggle', { detail: { open: this.open } })
+      new CustomEvent('toggle', { detail: { open: this.isOpen } })
     )
   }
 
@@ -95,7 +91,7 @@ export class LuksoCollapse extends TailwindElement {
       content: 'overflow-hidden transition-all duration-300 ease-in-out',
     },
     variants: {
-      open: {
+      isOpen: {
         true: {
           icon: 'rotate-180',
           content: 'opacity-100',
@@ -117,7 +113,7 @@ export class LuksoCollapse extends TailwindElement {
   render() {
     const { base, header, label, secondary, icon, content } =
       this.collapseStyles({
-        open: this.open,
+        isOpen: this.isOpen,
         isDisabled: this.isDisabled,
       })
 
@@ -132,7 +128,7 @@ export class LuksoCollapse extends TailwindElement {
           <div class="flex items-center space-x-2 mr-2">
             ${this.secondaryLabel
               ? html`<span class=${secondary()}>
-                  ${this.open
+                  ${this.isOpen
                     ? this.secondaryLabel.close
                     : this.secondaryLabel.open}
                 </span>`

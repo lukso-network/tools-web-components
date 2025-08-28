@@ -27,9 +27,6 @@ export class LuksoCollapse extends TailwindElement {
   @property({ type: Boolean, attribute: 'is-disabled' })
   isDisabled = false
 
-  @property({ type: Boolean, attribute: 'is-open' })
-  isOpen = false
-
   @property({ type: String, attribute: 'icon' })
   icon = ''
 

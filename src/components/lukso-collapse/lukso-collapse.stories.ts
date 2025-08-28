@@ -65,7 +65,7 @@ export const DefaultOpen = Template.bind({})
 DefaultOpen.args = {
   label: 'Advanced',
   open: true,
-  customClass: '',
+  customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
   icon: 'arrow-down-sm',
 }
 

@@ -30,6 +30,11 @@ const meta: Meta = {
       description: 'Whether the collapse is disabled',
     },
   },
+  parameters: {
+    controls: {
+      exclude: ['isDisabled', 'customClass'],
+    },
+  },
 }
 
 export default meta

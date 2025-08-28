@@ -32,7 +32,7 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['isDisabled', 'customClass'],
+      exclude: ['isDisabled', 'customClass', 'secondaryLabel'],
     },
   },
 }

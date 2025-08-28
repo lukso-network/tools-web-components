@@ -12,11 +12,11 @@ export class LuksoCollapse extends TailwindElement {
   @property({ type: String })
   label = ''
 
-  @property({ type: Object }) secondaryLabel: { open: string; close: string } =
-    {
-      open: '',
-      close: '',
-    }
+  @property({ type: Object, attribute: 'secondary-label' })
+  secondaryLabel: { open: string; close: string } = {
+    open: '',
+    close: '',
+  }
 
   @property({ type: Boolean, reflect: true })
   open = false

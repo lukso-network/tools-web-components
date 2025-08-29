@@ -1,5 +1,5 @@
 import { html } from 'lit'
-import { customElement, property, state, query } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
 import { TailwindElement } from '@/shared/tailwind-element'
@@ -31,8 +31,6 @@ export class LuksoCollapse extends TailwindElement {
 
   @state() private maxHeight = '0px'
 
-  @query('.collapse-container') private collapseContainer!: HTMLElement
-
   firstUpdated() {
     if (this.isOpen) {
       this.updateHeight()
@@ -54,18 +52,6 @@ export class LuksoCollapse extends TailwindElement {
 
     if (this.isOpen) {
       this.maxHeight = `${content.scrollHeight}px`
-
-      const onTransitionEnd = (e: TransitionEvent) => {
-        if (e.propertyName === 'max-height' && this.isOpen) {
-          this.maxHeight = 'none'
-        }
-      }
-
-      this.collapseContainer.addEventListener(
-        'transitionend',
-        onTransitionEnd,
-        { once: true }
-      )
     } else {
       this.maxHeight = `${content.scrollHeight}px`
       requestAnimationFrame(() => {

@@ -5,7 +5,7 @@ import type { Meta } from '@storybook/web-components-vite'
 import './index'
 
 const meta: Meta = {
-  title: 'Design System/Forms/lukso-collapse',
+  title: 'Design System/Components/lukso-collapse',
   component: 'lukso-collapse',
   argTypes: {
     label: {

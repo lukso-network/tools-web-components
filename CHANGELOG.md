@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.152.0](https://github.com/lukso-network/tools-web-components/compare/v1.151.0...v1.152.0) (2025-09-01)
+
+
+### Features
+
+* lukso collapse ([#643](https://github.com/lukso-network/tools-web-components/issues/643)) ([a37d7a8](https://github.com/lukso-network/tools-web-components/commit/a37d7a88405c4a789e3e985d02df7e19363c873a))
+* lukso collapse update ([2a42daa](https://github.com/lukso-network/tools-web-components/commit/2a42daa96429625c5f024fd9067d3e0e7fbdf4c2))
+* lukso-collapse ([199253a](https://github.com/lukso-network/tools-web-components/commit/199253a8364c71d6ed5ebcf47519233db43c1807))
+
+
+### Bug Fixes
+
+* isDisabled ([add820c](https://github.com/lukso-network/tools-web-components/commit/add820c608d6bed7cca13ba56eb51b3287eb0f6e))
+* label ([748a4de](https://github.com/lukso-network/tools-web-components/commit/748a4dea99a088ebaff23568aaea2c6b7559a388))
+* labels and route of lukso-collapse ([ac21d7e](https://github.com/lukso-network/tools-web-components/commit/ac21d7e4ac27e76718278de020bb3499e4a2cc0e))
+* lukso-collapse route ([706c3d3](https://github.com/lukso-network/tools-web-components/commit/706c3d34450bc1e778cbaf8db549e622658a5392))
+* package-lock ([116f82b](https://github.com/lukso-network/tools-web-components/commit/116f82b2a88ae3d2c2e2198eeaa2ba81c8c270e7))
+* package.json ([2e98bc5](https://github.com/lukso-network/tools-web-components/commit/2e98bc5fcd003beb61593acf5d8dbed10bb913c2))
+* package.json version ([e71cff0](https://github.com/lukso-network/tools-web-components/commit/e71cff0d6a07ad8f486915566188cd2be8d60acd))
+* query ([540aa4d](https://github.com/lukso-network/tools-web-components/commit/540aa4df3a417f1a49591cc514bf0c0feae5f668))
+* reviews ([6f36834](https://github.com/lukso-network/tools-web-components/commit/6f3683405faedd2210c2419b35242d77bab0c9a7))
+* reviews ([6f36834](https://github.com/lukso-network/tools-web-components/commit/6f3683405faedd2210c2419b35242d77bab0c9a7))
+* reviews ([0f6f56c](https://github.com/lukso-network/tools-web-components/commit/0f6f56cf45ef3ef045230b3a8ec7a4474fbdd8e6))
+
 ## [1.151.0](https://github.com/lukso-network/tools-web-components/compare/v1.150.0...v1.151.0) (2025-08-20)
 
 

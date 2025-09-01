@@ -90,6 +90,11 @@
       "import": "./dist/components/lukso-checkbox/index.js",
       "types": "./dist/components/lukso-checkbox/index.d.ts"
     },
+    "./dist/components/lukso-collapse": {
+      "require": "./dist/components/lukso-collapse/index.cjs",
+      "import": "./dist/components/lukso-collapse/index.js",
+      "types": "./dist/components/lukso-collapse/index.d.ts"
+    },
     "./dist/components/lukso-color-picker": {
       "require": "./dist/components/lukso-color-picker/index.cjs",
       "import": "./dist/components/lukso-color-picker/index.js",

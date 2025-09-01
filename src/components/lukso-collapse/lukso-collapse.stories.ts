@@ -3,6 +3,7 @@ import { useArgs } from 'storybook/preview-api'
 
 import type { Meta } from '@storybook/web-components-vite'
 import './index'
+import '../lukso-select/index'
 
 const meta: Meta = {
   title: 'Design System/Components/lukso-collapse',
@@ -125,7 +126,7 @@ export const DefaultClosed = Template.bind({})
 DefaultClosed.args = {
   label: 'Open',
   isOpen: false,
-  customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
+  customClass: 'border border-neutral-90 rounded-12 overflow-hidden',
   secondaryLabel: { open: 'Open', close: 'Close' },
   icon: 'arrow-down-sm',
 }
@@ -170,6 +171,23 @@ WithLongContent.args = {
         <li>Item 3</li>
       </ul>
       <p>The collapse should smoothly animate the height change.</p>
+    </div>
+  `,
+}
+
+export const WithSelector = Template.bind({})
+WithSelector.args = {
+  label: 'With Selector',
+  isOpen: false,
+  customClass: 'border border-neutral-30 rounded-12',
+  content: html`
+    <div class="flex ">
+      <lukso-select
+        value='{"id":"1","value":"First result"}'
+        size="large"
+        max-height="200"
+        options='[{"id":"1","value":"First result"},{"id":"2","value":"Second result"},{"id":"3","value":"Third result"}]'
+      ></lukso-select>
     </div>
   `,
 }

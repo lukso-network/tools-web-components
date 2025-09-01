@@ -69,12 +69,12 @@ export class LuksoCollapse extends TailwindElement {
 
   private collapseStyles = tv({
     slots: {
-      base: '',
-      header: 'flex items-center justify-between cursor-pointer px-4 py-3',
+      base: 'hover:border-neutral-35 ransition transition-all duration-150',
+      header: 'flex items-center justify-between cursor-pointer ml-3 py-2',
       label: 'text-neutral-45 paragraph-inter-14-semi-bold',
       secondary: 'text-neutral-45 paragraph-inter-14-semi-bold',
-      icon: 'transition cursor-pointer',
-      content: 'overflow-hidden transition-all duration-300 ease-in-out',
+      icon: 'transition cursor-pointer mr-3',
+      content: 'transition-all duration-250 ease-in-out',
     },
     variants: {
       isOpen: {
@@ -111,7 +111,7 @@ export class LuksoCollapse extends TailwindElement {
           @click=${() => !this.isDisabled && this.toggle()}
         >
           <span class=${label()}>${this.label}</span>
-          <div class="flex items-center space-x-2 mr-2">
+          <div class="flex items-center">
             ${this.secondaryLabel
               ? html`<span class=${secondary()}>
                   ${this.isOpen

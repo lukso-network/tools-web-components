@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.153.0](https://github.com/lukso-network/tools-web-components/compare/v1.152.0...v1.153.0) (2025-09-02)
+
+
+### Features
+
+* padding updated and try to trigger publish ([#646](https://github.com/lukso-network/tools-web-components/issues/646)) ([2a95498](https://github.com/lukso-network/tools-web-components/commit/2a95498ee73c62b411400b26d9d65a36f09a2cea))
+
 ## [1.152.0](https://github.com/lukso-network/tools-web-components/compare/v1.151.0...v1.152.0) (2025-09-01)
 
 

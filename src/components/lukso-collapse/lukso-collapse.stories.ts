@@ -117,7 +117,7 @@ const Template = ({
       ?is-disabled=${isDisabled}
       size=${size ? size : nothing}
     >
-      <div class="p-4">${content ? content : 'Default collapse content'}</div>
+      <div class="p-3">${content ? content : 'Default collapse content'}</div>
     </lukso-collapse>
   `
 }
@@ -165,11 +165,13 @@ WithLongContent.args = {
     <div>
       <p>This is a longer piece of content to test the height transition.</p>
       <p>It includes multiple paragraphs.</p>
-      <ul>
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-      </ul>
+      <div>
+        <ul>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+        </ul>
+      </div>
       <p>The collapse should smoothly animate the height change.</p>
     </div>
   `,

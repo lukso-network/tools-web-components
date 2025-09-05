@@ -130,7 +130,7 @@ const Template = ({
   `
 }
 
-// Lukso Collapse
+// Example of Lukso Collapse
 export const LuksoCollapse = Template.bind({})
 LuksoCollapse.args = {
   label: 'Open',
@@ -140,7 +140,7 @@ LuksoCollapse.args = {
   icon: 'arrow-down-sm',
 }
 
-// Collapse open by default
+// Example of Lukso Collapse open by default
 export const DefaultOpen = Template.bind({})
 DefaultOpen.args = {
   label: 'Advanced',
@@ -154,7 +154,7 @@ DefaultOpen.args = {
   `,
 }
 
-// Disabled collapse example
+// Example of disabled Lukso Collapse
 export const DefaultDisabled = Template.bind({})
 DefaultDisabled.args = {
   label: 'Open',
@@ -165,7 +165,7 @@ DefaultDisabled.args = {
   isDisabled: true,
 }
 
-// Collapse with a custom CSS class
+// Example of Lukso Collapse with a custom CSS class
 export const WithCustomClass = Template.bind({})
 WithCustomClass.args = {
   label: 'Custom Styled',
@@ -178,7 +178,7 @@ WithCustomClass.args = {
   `,
 }
 
-// Collapse with longer content inside
+// Example of Lukso Collapse with longer content
 export const WithLongContent = Template.bind({})
 WithLongContent.args = {
   label: 'Long Content',
@@ -200,7 +200,7 @@ WithLongContent.args = {
   `,
 }
 
-// Collapse with a selector as content
+// Example of Lukso Collapse with a selector as content
 export const WithSelector = Template.bind({})
 WithSelector.args = {
   label: 'With Selector',

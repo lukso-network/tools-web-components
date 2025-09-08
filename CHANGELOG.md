@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.154.0](https://github.com/lukso-network/tools-web-components/compare/v1.153.0...v1.154.0) (2025-09-08)
+
+
+### Features
+
+* lukso-collapse updated to manage resizable contents ([#648](https://github.com/lukso-network/tools-web-components/issues/648)) ([c529073](https://github.com/lukso-network/tools-web-components/commit/c529073650854ebca55e2b903a68fa71a1e7fb75))
+
 ## [1.153.0](https://github.com/lukso-network/tools-web-components/compare/v1.152.0...v1.153.0) (2025-09-02)
 
 

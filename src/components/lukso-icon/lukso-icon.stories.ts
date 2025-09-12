@@ -1,10 +1,11 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 
 import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
 /**  Documentation and examples of `lukso-icon` component. Icons comes in `small`, `medium`, `large` and `x-large` size that is set in `size` property.
+ *  The component supports multiple icon packs including the default `lukso` pack and the new `vuesax` pack with different variants.
  *  Please check all available icons in Icons Showcase.
  */
 const meta: Meta = {
@@ -30,6 +31,20 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    pack: {
+      control: { type: 'select' },
+      options: ['vuesax'],
+      table: {
+        category: 'Attributes',
+      },
+    },
+    variant: {
+      control: { type: 'select' },
+      options: ['linear', 'bold', 'broken', 'bulk', 'twotone', 'outline'],
+      table: {
+        category: 'Attributes',
+      },
+    },
     secondaryColor: {
       name: 'secondary-color',
       control: { type: 'text' },
@@ -47,81 +62,87 @@ const meta: Meta = {
         'animate-bounce',
         'animate-pulse-resize',
       ],
+      table: {
+        category: 'Attributes',
+      },
     },
     'secondary-color': {
       name: 'secondaryColor',
     },
   },
   args: {
-    name: 'profile-recovery',
+    name: 'link',
     size: 'medium',
-    color: 'neutral-20',
+    color: undefined,
     secondaryColor: '',
     animation: undefined,
+    pack: undefined,
+    variant: undefined,
   },
   parameters: {
     controls: {
-      exclude: ['sizes', 'secondaryColor', 'styles'],
+      exclude: ['sizes', 'secondaryColor', 'styles', 'svgContent'],
     },
   },
 }
 
 export default meta
 
-const Template = ({ name, size, color, secondaryColor, animation }) =>
+const Template = ({
+  name,
+  size,
+  color,
+  secondaryColor,
+  animation,
+  pack,
+  variant,
+}) =>
   html`<lukso-icon
     name=${name}
-    size=${size}
-    color=${color}
-    secondary-color=${secondaryColor}
-    class=${animation}
+    size=${size ? size : nothing}
+    color=${color ? color : nothing}
+    secondary-color=${secondaryColor ? secondaryColor : nothing}
+    pack=${pack ? pack : nothing}
+    variant=${variant ? variant : nothing}
+    class=${animation ? animation : nothing}
   ></lukso-icon>`
 
 /** By default icon comes in `medium` size of `24x24` pixels with `neutral-20` color.  */
 export const DefaultIcon = Template.bind({})
-DefaultIcon.args = {
-  name: 'profile-recovery',
-}
 
 /** Example of `x-small` size of `12x12` pixels. */
 export const XSmallIcon = Template.bind({})
 XSmallIcon.args = {
-  name: 'profile-recovery',
   size: 'x-small',
 }
 
 /** Example of `small` size of `16x16` pixels. */
 export const SmallIcon = Template.bind({})
 SmallIcon.args = {
-  name: 'profile-recovery',
   size: 'small',
 }
 
 /** Example of `large` size of `32x32` pixels. */
 export const LargeIcon = Template.bind({})
 LargeIcon.args = {
-  name: 'profile-recovery',
   size: 'large',
 }
 
 /** Example of `x-large` size of `40x40` pixels. */
 export const XLargeIcon = Template.bind({})
 XLargeIcon.args = {
-  name: 'profile-recovery',
   size: 'x-large',
 }
 
 /** Example of `2x-large` size of `64x64` pixels. */
 export const XXLargeIcon = Template.bind({})
 XXLargeIcon.args = {
-  name: 'profile-recovery',
   size: '2x-large',
 }
 
 /** You can change color to any from the palette with `color` property. */
 export const CustomColorIcon = Template.bind({})
 CustomColorIcon.args = {
-  name: 'profile-recovery',
   color: 'coral-65',
 }
 
@@ -146,3 +167,23 @@ AnimatedIcon.args = {
   secondaryColor: 'neutral-100',
   animation: 'animate-spin',
 }
+
+/** Example of using the Vuesax icon pack. */
+export const VuesaxIconPack = Template.bind({})
+VuesaxIconPack.args = {
+  name: 'text-bold',
+  pack: 'vuesax',
+  variant: 'linear',
+}
+
+/** Example of Vuesax variants for `text-bold` icon. */
+export const VuesaxIconVariants = () => html`
+  <div style="display: flex; gap: 16px; align-items: center;">
+    <lukso-icon name="text-bold" pack="vuesax" variant="linear"></lukso-icon>
+    <lukso-icon name="text-bold" pack="vuesax" variant="bold"></lukso-icon>
+    <lukso-icon name="text-bold" pack="vuesax" variant="broken"></lukso-icon>
+    <lukso-icon name="text-bold" pack="vuesax" variant="bulk"></lukso-icon>
+    <lukso-icon name="text-bold" pack="vuesax" variant="twotone"></lukso-icon>
+    <lukso-icon name="link" pack="vuesax" variant="outline"></lukso-icon>
+  </div>
+`

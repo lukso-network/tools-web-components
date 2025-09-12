@@ -1,5 +1,6 @@
-import { html } from 'lit'
+import { html, type PropertyValueMap } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
@@ -227,6 +228,16 @@ export type IconSize =
   | 'large'
   | 'x-large'
   | '2x-large'
+
+export type IconPack = undefined | 'vuesax'
+
+export type IconVariant =
+  | 'linear'
+  | 'bold'
+  | 'outline'
+  | 'broken'
+  | 'bulk'
+  | 'twotone'
 
 type IconSizeDef = {
   width: number
@@ -460,6 +471,15 @@ export class LuksoIcon extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'secondary-color', reflect: true })
   secondaryColor = ''
 
+  @property({ type: String, reflect: true })
+  pack = undefined
+
+  @property({ type: String, reflect: true })
+  variant = 'linear'
+
+  @property({ type: String })
+  private svgContent = ''
+
   private sizes: { [key in IconSize]: IconSizeDef } = {
     'x-small': {
       width: 12,
@@ -493,14 +513,148 @@ export class LuksoIcon extends TailwindStyledElement(style) {
     },
   }
 
-  render() {
-    const icon = iconMap[this.name]
+  /**
+   * Loads the SVG content for the specified icon from the icon pack.
+   *
+   * @param pack - icon pack name
+   * @param variant- icon variant
+   * @param iconName - name of the icon
+   */
+  private async loadSvg(
+    pack: string,
+    variant: string,
+    iconName: string
+  ): Promise<string> {
+    try {
+      let svgPath: string
 
-    if (!icon) {
-      console.warn(`Icon ${this.name} not found`)
-      return html``
+      // Check if we're in development (source code) or production (built)
+      if (import.meta.url.includes('/src/')) {
+        // Development mode - load from source
+        svgPath = new URL(
+          `./${pack}/${variant}/${iconName}.svg`,
+          import.meta.url
+        ).href
+      } else {
+        // Production mode - load from dist directory with preserved structure
+        const basePath = import.meta.url.replace(/\/index\.js.*$/, '')
+        svgPath = `${basePath}/${pack}/${variant}/${iconName}.svg`
+      }
+
+      const response = await fetch(svgPath)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      return await response.text()
+    } catch (error) {
+      console.warn(
+        `Failed to load SVG: ${pack}/${variant}/${iconName}.svg`,
+        error
+      )
+      return ''
+    }
+  }
+
+  /**
+   * Processes the loaded SVG content from Vuesax pack to apply size and color customizations.
+   *
+   * @param svgContent - raw SVG content as string
+   */
+  private processVuesaxSvg(svgContent: string): string {
+    if (!svgContent) {
+      return ''
     }
 
+    const size = this.sizes[this.size]
+    if (!size) {
+      return svgContent
+    }
+
+    // Update SVG attributes with more robust regex patterns
+    let processedSvg = svgContent
+      // Update dimensions - handle different spacing around = and quotes
+      .replace(/width\s*=\s*["'][^"']*["']/g, `width="${size.width}"`)
+      .replace(/height\s*=\s*["'][^"']*["']/g, `height="${size.height}"`)
+      // Update stroke-width in path elements
+      .replace(
+        /stroke-width\s*=\s*["'][^"']*["']/g,
+        `stroke-width="${size.strokeWidth}"`
+      )
+
+    // Add or update style attribute to ensure sizing
+    const inlineStyles = `width: ${size.width}px; height: ${size.height}px; display: block;`
+    if (processedSvg.includes('style=')) {
+      // Update existing style attribute
+      processedSvg = processedSvg.replace(
+        /style\s*=\s*["']([^"']*)["']/g,
+        `style="${inlineStyles} $1"`
+      )
+    } else {
+      // Add new style attribute to SVG tag
+      processedSvg = processedSvg.replace(
+        /<svg([^>]*)>/,
+        `<svg$1 style="${inlineStyles}">`
+      )
+    }
+
+    // Apply colors - replace the default Vuesax color #0C0507 with CSS variable
+    if (this.color) {
+      // Replace any occurrence of the default Vuesax color #0C0507 with the CSS variable
+      // This works for both stroke and fill attributes regardless of variant (linear, bold, etc.)
+      processedSvg = processedSvg.replace(/#0C0507/g, `var(--${this.color})`)
+
+      // Add a CSS style to set the current color as a fallback for elements without explicit colors
+      if (!processedSvg.includes('<style>')) {
+        processedSvg = processedSvg.replace(
+          /<svg([^>]*)>/,
+          `<svg$1><style>* { color: var(--${this.color}); }</style>`
+        )
+      }
+    }
+
+    // Handle secondary color if specified
+    if (this.secondaryColor) {
+      // Replace any secondary color references if needed (future enhancement)
+      // For now, just add CSS class support
+      if (!processedSvg.includes('<style>')) {
+        processedSvg = processedSvg.replace(
+          /<svg([^>]*)>/,
+          `<svg$1><style>.secondary { color: var(--${this.secondaryColor}); }</style>`
+        )
+      }
+    }
+
+    return processedSvg
+  }
+
+  async updated(changedProperties: PropertyValueMap<this>) {
+    super.updated(changedProperties)
+
+    // Reload SVG if relevant properties changed
+    if (
+      this.pack === 'vuesax' &&
+      (changedProperties.has('name') ||
+        changedProperties.has('pack') ||
+        changedProperties.has('variant'))
+    ) {
+      const svgContent = await this.loadSvg(this.pack, this.variant, this.name)
+      this.svgContent = svgContent
+      this.requestUpdate()
+    }
+
+    // Re-render if color properties changed for vuesax icons
+    if (
+      this.pack === 'vuesax' &&
+      this.svgContent &&
+      (changedProperties.has('color') ||
+        changedProperties.has('secondaryColor') ||
+        changedProperties.has('size'))
+    ) {
+      this.requestUpdate()
+    }
+  }
+
+  render() {
     const size = this.sizes[this.size]
 
     if (!size) {
@@ -508,15 +662,44 @@ export class LuksoIcon extends TailwindStyledElement(style) {
       return html``
     }
 
-    return html`
-      ${icon({
-        width: size.width,
-        height: size.height,
-        color: this.color,
-        strokeWidth: size.strokeWidth,
-        secondaryColor: this.secondaryColor,
-      })}
-    `
+    // Handle vuesax pack - use SVG files
+    if (this.pack === 'vuesax') {
+      if (!this.svgContent) {
+        // Trigger initial load
+        this.loadSvg(this.pack, this.variant, this.name).then(content => {
+          this.svgContent = content
+          this.requestUpdate()
+        })
+        return html`<!-- Loading SVG... -->`
+      }
+
+      const processedSvg = this.processVuesaxSvg(this.svgContent)
+      return processedSvg
+        ? html`${unsafeHTML(processedSvg)}`
+        : html`<!-- SVG not found -->`
+    }
+
+    // Handle lukso pack - use TypeScript icon functions
+    if (!this.pack) {
+      const icon = iconMap[this.name]
+      if (!icon) {
+        console.warn(`Icon ${this.name} not found`)
+        return html``
+      }
+
+      return html`
+        ${icon({
+          width: size.width,
+          height: size.height,
+          color: this.color,
+          strokeWidth: size.strokeWidth,
+          secondaryColor: this.secondaryColor,
+        })}
+      `
+    }
+
+    console.warn(`Icon pack ${this.pack} not found. `)
+    return html``
   }
 }
 

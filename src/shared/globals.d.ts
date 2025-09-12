@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 declare module '*.scss'
 declare module '*.scss?inline'
 declare module '*.css'

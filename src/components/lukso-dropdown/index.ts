@@ -50,6 +50,8 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   @property({ type: Number, attribute: 'max-height', reflect: true })
   maxHeight = undefined
 
+  private boundHandleClick?: (event: Event) => void
+
   constructor() {
     super()
 
@@ -166,7 +168,8 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   connectedCallback() {
     super.connectedCallback()
 
-    window.addEventListener('click', this.handleClick.bind(this))
+    this.boundHandleClick = this.handleClick.bind(this)
+    window.addEventListener('click', this.boundHandleClick)
 
     if (this.trigger === 'hover') {
       const triggerElement = document.getElementById(this.triggerId)
@@ -180,7 +183,9 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   disconnectedCallback() {
     super.disconnectedCallback()
-    window.removeEventListener('click', this.handleClick)
+    if (this.boundHandleClick) {
+      window.removeEventListener('click', this.boundHandleClick)
+    }
 
     if (this.trigger === 'hover') {
       const triggerElement = document.getElementById(this.triggerId)
@@ -212,8 +217,14 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   private handleClick = debounceFunction((event: Event) => {
     const element = event.target as HTMLElement
 
+    // Skip trigger logic if triggerId is empty (manual control mode)
+    const hasValidTriggerId = this.triggerId && this.triggerId.trim() !== ''
+
     // if we click on trigger or dropdown itself we toggle the dropdown
-    if (element.id === this.triggerId || this.id === element.id) {
+    if (
+      (hasValidTriggerId && element.id === this.triggerId) ||
+      this.id === element.id
+    ) {
       this.isOpen = !this.isOpen
       return
     }

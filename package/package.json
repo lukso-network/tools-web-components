@@ -205,6 +205,11 @@
       "import": "./dist/components/lukso-terms/index.js",
       "types": "./dist/components/lukso-terms/index.d.ts"
     },
+    "./dist/components/lukso-text-editor": {
+      "require": "./dist/components/lukso-text-editor/index.cjs",
+      "import": "./dist/components/lukso-text-editor/index.js",
+      "types": "./dist/components/lukso-text-editor/index.d.ts"
+    },
     "./dist/components/lukso-textarea": {
       "require": "./dist/components/lukso-textarea/index.cjs",
       "import": "./dist/components/lukso-textarea/index.js",

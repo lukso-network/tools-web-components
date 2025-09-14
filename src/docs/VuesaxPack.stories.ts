@@ -8,7 +8,7 @@ import '../components/lukso-icon'
  */
 const vuesaxIconModules = import.meta.glob(
   '../components/lukso-icon/vuesax/**/*.svg',
-  { eager: true, query: '?url', import: 'default' }
+  { eager: true, query: '?url' }
 )
 
 // Function to extract icons by variant from the glob imports

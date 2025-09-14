@@ -536,9 +536,19 @@ export class LuksoIcon extends TailwindStyledElement(style) {
           import.meta.url
         ).href
       } else {
-        // Production mode - load from dist directory with preserved structure
-        const basePath = import.meta.url.replace(/\/index\.js.*$/, '')
-        svgPath = `${basePath}/${pack}/${variant}/${iconName}.svg`
+        // Check if we're in Storybook (where vuesax assets are copied to root)
+        if (
+          window.location.pathname.includes('iframe.html') ||
+          document.querySelector('meta[name="storybook"]') ||
+          window.parent !== window
+        ) {
+          // Storybook mode - SVG files are at root level
+          svgPath = `/${variant}/${iconName}.svg`
+        } else {
+          // Production mode - load from dist directory with preserved structure
+          const basePath = import.meta.url.replace(/\/index\.js.*$/, '')
+          svgPath = `${basePath}/${pack}/${variant}/${iconName}.svg`
+        }
       }
 
       const response = await fetch(svgPath)

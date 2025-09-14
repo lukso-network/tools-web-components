@@ -14,7 +14,11 @@ const resolve = {
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  staticDirs: ['../src/shared', './assets'],
+  staticDirs: [
+    '../src/shared',
+    './assets',
+    '../src/components/lukso-icon/vuesax',
+  ],
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/preset-scss'),

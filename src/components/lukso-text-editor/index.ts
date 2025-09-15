@@ -1330,7 +1330,7 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
   }
 
   /**
-   * Handle keydown events for undo/redo shortcuts.
+   * Handle keydown events for undo/redo shortcuts and list continuation.
    */
   private handleKeyDown = (event: KeyboardEvent) => {
     // Handle Cmd+Z (Mac) or Ctrl+Z (Windows/Linux)
@@ -1346,9 +1346,238 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
     } else if (isRedo) {
       event.preventDefault()
       this.redo()
+    } else if (
+      event.key === 'Enter' &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.shiftKey
+    ) {
+      // Handle Enter key for list continuation
+      if (this.handleListContinuation()) {
+        event.preventDefault()
+      }
+    } else if (
+      event.key === 'Backspace' &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.shiftKey
+    ) {
+      // Handle Backspace to remove empty list items
+      if (this.handleListBackspace()) {
+        event.preventDefault()
+      }
     }
   }
 
+  /**
+   * Handle list continuation when Enter is pressed within a list item.
+   * Works against the textarea value/selection.
+   * Returns true if handled.
+   */
+  private handleListContinuation(): boolean {
+    const textarea = this.textareaEl?.shadowRoot?.querySelector(
+      'textarea'
+    ) as HTMLTextAreaElement | null
+    if (!textarea) return false
+
+    const start = textarea.selectionStart ?? 0
+    const end = textarea.selectionEnd ?? 0
+    // Only handle when selection is collapsed (caret)
+    if (start !== end) return false
+
+    const value = this.value
+    const lineStart = value.lastIndexOf('\n', start - 1) + 1
+    let lineEnd = value.indexOf('\n', start)
+    if (lineEnd === -1) lineEnd = value.length
+
+    const currentLine = value.slice(lineStart, lineEnd)
+
+    // Detect list types with indentation
+    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s*(.*)$/)
+    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s*(.*)$/)
+
+    if (!unorderedMatch && !orderedMatch) {
+      return false
+    }
+
+    // Save undo state before making changes
+    this.saveUndoStateBeforeChange()
+
+    // Handle unordered list continuation or exit
+    if (unorderedMatch) {
+      const indent = unorderedMatch[1] ?? ''
+      const marker = unorderedMatch[2] ?? '-'
+      const content = unorderedMatch[3] ?? ''
+
+      // Exit list if item is empty (no content after marker)
+      if (content.trim() === '') {
+        const before = value.slice(0, lineStart)
+        const after = value.slice(lineEnd)
+        // Replace the empty list item with a blank line
+        const newValue = before + (lineEnd === value.length ? '' : '') + after
+        this.value = newValue
+
+        // Also update the textarea element's value directly
+        textarea.value = newValue
+
+        const newCursor = before.length
+        requestAnimationFrame(() => {
+          textarea.setSelectionRange(newCursor, newCursor)
+          this.updateActiveFormats()
+        })
+        this.dispatchChange()
+        return true
+      }
+
+      // Continue list: insert a new line with the same indentation and marker
+      const before = value.slice(0, start)
+      const after = value.slice(start)
+      const prefix = '\n' + indent + marker + ' '
+      const newValue = before + prefix + after
+      this.value = newValue
+
+      // Also update the textarea element's value directly
+      textarea.value = newValue
+
+      const newCursor = start + prefix.length
+      requestAnimationFrame(() => {
+        textarea.setSelectionRange(newCursor, newCursor)
+        this.updateActiveFormats()
+      })
+      this.dispatchChange()
+      return true
+    }
+
+    // Handle ordered list continuation or exit
+    if (orderedMatch) {
+      const indent = orderedMatch[1] ?? ''
+      const numberStr = orderedMatch[2] ?? '1'
+      const content = orderedMatch[3] ?? ''
+
+      // Exit list if item is empty (no content after number.)
+      if (content.trim() === '') {
+        const before = value.slice(0, lineStart)
+        const after = value.slice(lineEnd)
+        const newValue = before + (lineEnd === value.length ? '' : '') + after
+        this.value = newValue
+
+        // Also update the textarea element's value directly
+        textarea.value = newValue
+
+        const newCursor = before.length
+        requestAnimationFrame(() => {
+          textarea.setSelectionRange(newCursor, newCursor)
+          this.updateActiveFormats()
+        })
+        this.dispatchChange()
+        return true
+      }
+
+      // Continue ordered list: increment number
+      const nextNumber = parseInt(numberStr, 10) + 1
+      const before = value.slice(0, start)
+      const after = value.slice(start)
+      const prefix = `\n${indent}${nextNumber}. `
+      const newValue = before + prefix + after
+      this.value = newValue
+
+      // Also update the textarea element's value directly
+      textarea.value = newValue
+
+      const newCursor = start + prefix.length
+      requestAnimationFrame(() => {
+        textarea.setSelectionRange(newCursor, newCursor)
+        this.updateActiveFormats()
+      })
+      this.dispatchChange()
+      return true
+    }
+
+    return false
+  }
+
+  /**
+   * Handle backspace to remove empty list items.
+   * Returns true if handled.
+   */
+  private handleListBackspace(): boolean {
+    const textarea = this.textareaEl?.shadowRoot?.querySelector(
+      'textarea'
+    ) as HTMLTextAreaElement | null
+    if (!textarea) return false
+
+    const start = textarea.selectionStart ?? 0
+    const end = textarea.selectionEnd ?? 0
+    // Only handle when selection is collapsed (caret)
+    if (start !== end) return false
+
+    const value = this.value
+    const lineStart = value.lastIndexOf('\n', start - 1) + 1
+    let lineEnd = value.indexOf('\n', start)
+    if (lineEnd === -1) lineEnd = value.length
+
+    const currentLine = value.slice(lineStart, lineEnd)
+    const cursorPositionInLine = start - lineStart
+
+    // Detect list types with indentation
+    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s*(.*)$/)
+    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s*(.*)$/)
+
+    if (!unorderedMatch && !orderedMatch) {
+      return false
+    }
+
+    let markerEndPosition = 0
+    let hasContent = false
+
+    if (unorderedMatch) {
+      const indent = unorderedMatch[1] ?? ''
+      const marker = unorderedMatch[2] ?? '-'
+      const content = unorderedMatch[3] ?? ''
+      markerEndPosition = indent.length + marker.length + 1 // +1 for space
+      hasContent = content.trim().length > 0
+    } else if (orderedMatch) {
+      const indent = orderedMatch[1] ?? ''
+      const numberStr = orderedMatch[2] ?? '1'
+      const content = orderedMatch[3] ?? ''
+      markerEndPosition = indent.length + numberStr.length + 2 // +2 for ". "
+      hasContent = content.trim().length > 0
+    }
+
+    // Only handle if cursor is at the beginning of the line (right after marker)
+    // and the list item has no content
+    if (cursorPositionInLine === markerEndPosition && !hasContent) {
+      // Save undo state before making changes
+      this.saveUndoStateBeforeChange()
+
+      // Remove the empty list item
+      const before = value.slice(0, lineStart)
+      const after = value.slice(lineEnd)
+
+      // If this is the last line, don't add extra newline
+      const newValue = before + (lineEnd === value.length ? '' : '') + after
+      this.value = newValue
+
+      // Also update the textarea element's value directly
+      textarea.value = newValue
+
+      // Position cursor at the end of the previous line or beginning of document
+      const newCursor = Math.max(
+        0,
+        before.length - (before.endsWith('\n') ? 1 : 0)
+      )
+      requestAnimationFrame(() => {
+        textarea.setSelectionRange(newCursor, newCursor)
+        this.updateActiveFormats()
+      })
+      this.dispatchChange()
+      return true
+    }
+
+    return false
+  }
+
+  /**
   /**
    * Perform an undo operation, reverting to the previous state.
    */
@@ -1375,6 +1604,11 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
     this.isUndoRedoAction = true
     this.value = previousState.value
     this.lastSavedValue = previousState.value
+
+    // Also update the textarea element's value directly
+    if (textarea) {
+      textarea.value = previousState.value
+    }
 
     // Restore selection after value update
     requestAnimationFrame(() => {
@@ -1417,6 +1651,11 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
     this.isUndoRedoAction = true
     this.value = nextState.value
     this.lastSavedValue = nextState.value
+
+    // Also update the textarea element's value directly
+    if (textarea) {
+      textarea.value = nextState.value
+    }
 
     // Restore selection after value update
     requestAnimationFrame(() => {

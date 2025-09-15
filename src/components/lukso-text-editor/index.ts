@@ -1401,6 +1401,7 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
     return html`
       <div class="flex items-center gap-2">
         <div class=${cn(this.styles().headingMenu())}>
+          <!-- Heading -->
           <lukso-tooltip text="Heading options" placement="top">
             <lukso-button
               id=${this.headingTriggerId}
@@ -1484,18 +1485,23 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
           </lukso-dropdown>
         </div>
 
+        <!-- Bold -->
         ${this.buttonTemplate(
           'text-bold',
           () => this.toggleWrap('**'),
           'Bold',
           this.activeFormats.bold
         )}
+
+        <!-- Italic -->
         ${this.buttonTemplate(
           'text-italic',
           () => this.toggleWrap('*'),
           'Italic',
           this.activeFormats.italic
         )}
+
+        <!-- Link -->
         ${this.buttonTemplate(
           'link',
           () => this.insertLink(),
@@ -1503,6 +1509,7 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
           this.activeFormats.link
         )}
 
+        <!-- Color -->
         <div class=${this.styles().colorMenu()}>
           <lukso-tooltip text="Heading options" placement="top">
             <lukso-button

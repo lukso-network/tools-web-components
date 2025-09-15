@@ -139,7 +139,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   private isDebouncing = false
 
   @state()
-  private debounceTimer: NodeJS.Timeout
+  private debounceTimer: ReturnType<typeof setTimeout>
 
   @state()
   private resultsParsed: SearchResult[] = []

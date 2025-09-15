@@ -100,6 +100,18 @@ $font-file-path: '/assets/fonts';
 @import '@lukso/web-components/tools/sass/fonts.scss';
 ```
 
+## Icons
+
+We currently support custom icons and the one from `Vuesax` icon pack. They work almost the same but there is a difference is adding them to library:
+
+#### Custom icons
+
+They are added as Typescript files. Each icon needs to be wrapped in ts file and dynamic parts like `stroke`, `fill`, `stroke-width` needs to be replaced with placeholders. Icons needs to be registered in the icon index file.
+
+#### Vuesax icons
+
+Those icon take more modern approach. All it is needed that the svg files have to be placed in correct folder structure under `src/components/lukso-icon/vuesax`. Then component takes over all the parsing part to make them usable. Since we rely on Figma file the easiest is just to export the whole icon group and [copy into the project](https://share.cleanshot.com/CgthLhSs).
+
 ## Development workflow
 
 Start the watch mode and Storybook preview

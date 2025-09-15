@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.options.json",
   "compilerOptions": {
+    "types": ["vite/client"],
     "target": "esnext",
     "module": "esnext",
     "outDir": "./dist",

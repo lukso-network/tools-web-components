@@ -313,6 +313,10 @@ export async function run(argv) {
               src: ['./LICENSE', './README.md'],
               dest: '..',
             },
+            {
+              src: 'src/components/lukso-icon/vuesax',
+              dest: 'components/lukso-icon',
+            },
           ],
         }),
         dts({

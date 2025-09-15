@@ -5,6 +5,7 @@ import type { Meta } from '@storybook/web-components-vite'
 import './index'
 import '../lukso-select/index'
 
+/**  Documentation and examples of `lukso-collapse` component. */
 const meta: Meta = {
   title: 'Design System/Components/lukso-collapse',
   component: 'lukso-collapse',
@@ -76,8 +77,12 @@ const meta: Meta = {
     icon: '',
     isDisabled: false,
     maxHeight: '0px',
+    observedHeight: 0,
     collapseContainer: undefined,
     collapseStyles: undefined,
+    contentElement: undefined,
+    resizeObserver: undefined,
+    onTransitionEnd: undefined,
   },
   parameters: {
     controls: {
@@ -87,8 +92,12 @@ const meta: Meta = {
         'isDisabled',
         'isOpen',
         'maxHeight',
+        'observedHeight',
         'collapseContainer',
         'collapseStyles',
+        'contentElement',
+        'resizeObserver',
+        'onTransitionEnd',
       ],
     },
   },
@@ -122,8 +131,9 @@ const Template = ({
   `
 }
 
-export const DefaultClosed = Template.bind({})
-DefaultClosed.args = {
+/** Example of `lukso-collapse` */
+export const LuksoCollapse = Template.bind({})
+LuksoCollapse.args = {
   label: 'Open',
   isOpen: false,
   customClass: 'border border-neutral-90 rounded-12 overflow-hidden',
@@ -131,16 +141,23 @@ DefaultClosed.args = {
   icon: 'arrow-down-sm',
 }
 
-export const DefaultOpen = Template.bind({})
-DefaultOpen.args = {
+/** Example of lukso-collapse `open` by default */
+export const CollapseOpen = Template.bind({})
+CollapseOpen.args = {
   label: 'Advanced',
   isOpen: true,
   customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
   icon: 'arrow-down-sm',
+  content: html`
+    <div>
+      <p>Collapse open by default.</p>
+    </div>
+  `,
 }
 
-export const DefaultDisabled = Template.bind({})
-DefaultDisabled.args = {
+/** Example of lukso-collapse `disabled` */
+export const CollapseDisabled = Template.bind({})
+CollapseDisabled.args = {
   label: 'Open',
   isOpen: false,
   customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
@@ -149,15 +166,22 @@ DefaultDisabled.args = {
   isDisabled: true,
 }
 
-export const WithCustomClass = Template.bind({})
-WithCustomClass.args = {
+/** Example of lukso-collapse with a `custom CSS class` */
+export const CollapseWithCustomClass = Template.bind({})
+CollapseWithCustomClass.args = {
   label: 'Custom Styled',
   isOpen: false,
   customClass: 'border rounded-12 bg-blue-100 border-blue-500',
+  content: html`
+    <div>
+      <p>Collapse with custom colors.</p>
+    </div>
+  `,
 }
 
-export const WithLongContent = Template.bind({})
-WithLongContent.args = {
+/** Example of lukso-collapse with `longer content` */
+export const CollapseWithLongContent = Template.bind({})
+CollapseWithLongContent.args = {
   label: 'Long Content',
   isOpen: false,
   customClass: 'border border-neutral-30 rounded-12',
@@ -177,8 +201,9 @@ WithLongContent.args = {
   `,
 }
 
-export const WithSelector = Template.bind({})
-WithSelector.args = {
+/** Example of lukso-collapse with a `selector` as content */
+export const CollapseWithSelector = Template.bind({})
+CollapseWithSelector.args = {
   label: 'With Selector',
   isOpen: false,
   customClass: 'border border-neutral-30 rounded-12',

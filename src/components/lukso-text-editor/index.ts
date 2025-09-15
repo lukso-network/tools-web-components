@@ -482,9 +482,43 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
     const placeholderUrl = ''
 
     this.withSelection((textarea, start, end, value) => {
-      // Block nested links when selection is within the URL part of a link
-      if (this.isSelectionInLinkUrl(start, end, value)) {
-        return // Do nothing - nested links not allowed in link URLs
+      // If cursor/selection is within any part of a link, remove the link
+      if (
+        this.isSelectionInLinkUrl(start, end, value) ||
+        this.isSelectionInLinkText(start, end, value)
+      ) {
+        // Find the link that contains the cursor and remove it
+        const leftBracket = value.lastIndexOf('[', start)
+        const rightParen = value.indexOf(')', Math.max(start, end))
+        const rightBracket = value.indexOf(']', leftBracket)
+        const openParen = value.indexOf('(', rightBracket)
+
+        if (
+          leftBracket !== -1 &&
+          rightBracket !== -1 &&
+          openParen !== -1 &&
+          rightParen !== -1
+        ) {
+          const candidate = value.slice(leftBracket, rightParen + 1)
+          const linkRegex = /^\[([^\]]+)\]\(([^)]*)\)$/
+          const match = candidate.match(linkRegex)
+
+          if (match) {
+            const textOnly = match[1]
+            this.value =
+              value.slice(0, leftBracket) +
+              textOnly +
+              value.slice(rightParen + 1)
+            const newCursor = leftBracket + textOnly.length
+            requestAnimationFrame(() => {
+              textarea.setSelectionRange(newCursor, newCursor)
+              this.updateActiveFormats()
+            })
+            this.dispatchChange()
+            return
+          }
+        }
+        return // Fallback: do nothing if we can't parse the link
       }
 
       const { start: s, end: e } = this.expandSelectionToWord(start, end, value)
@@ -666,6 +700,45 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
 
     const candidate = value.slice(leftBracket, rightParen + 1)
     return /^\[([^\]]+)\]\(([^)]+)\)$/.test(candidate)
+  }
+
+  /**
+   * Check if selection is within the text part [] of a markdown link
+   * @param start - selection start position
+   * @param end - selection end position
+   * @param value - full textarea value
+   */
+  private isSelectionInLinkText(
+    start: number,
+    end: number,
+    value: string
+  ): boolean {
+    // Find the nearest link that could contain this selection
+    const leftBracket = value.lastIndexOf('[', start)
+    const rightParen = value.indexOf(')', Math.max(start, end))
+
+    if (leftBracket === -1 || rightParen === -1) return false
+
+    // Find the corresponding ] and (
+    const rightBracket = value.indexOf(']', leftBracket)
+    const openParen = value.indexOf('(', rightBracket)
+
+    if (rightBracket === -1 || openParen === -1) return false
+    if (
+      !(
+        leftBracket < rightBracket &&
+        rightBracket < openParen &&
+        openParen < rightParen
+      )
+    )
+      return false
+
+    // Check if this forms a valid link
+    const candidate = value.slice(leftBracket, rightParen + 1)
+    if (!/^\[([^\]]+)\]\(([^)]*)\)$/.test(candidate)) return false
+
+    // Check if the selection is within the text part (between square brackets)
+    return start >= leftBracket + 1 && end <= rightBracket
   }
 
   /**

@@ -183,5 +183,6 @@ module.exports = {
     animationIterationPlugin,
     animationDuration,
     animationFill,
+    require('@tailwindcss/typography'),
   ],
 }

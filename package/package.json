@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.151.0",
+  "version": "1.153.0",
   "type": "module",
   "files": [
     "dist",
@@ -129,6 +129,11 @@
       "require": "./dist/components/lukso-input/index.cjs",
       "import": "./dist/components/lukso-input/index.js",
       "types": "./dist/components/lukso-input/index.d.ts"
+    },
+    "./dist/components/lukso-markdown": {
+      "require": "./dist/components/lukso-markdown/index.cjs",
+      "import": "./dist/components/lukso-markdown/index.js",
+      "types": "./dist/components/lukso-markdown/index.d.ts"
     },
     "./dist/components/lukso-modal": {
       "require": "./dist/components/lukso-modal/index.cjs",

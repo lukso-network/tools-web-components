@@ -55,6 +55,12 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-preview', reflect: true })
   isPreview = false
 
+  // State preservation for mode switching
+  @state() private savedSelectionForPreview: {
+    start: number
+    end: number
+  } | null = null
+
   // dropdown
   @state() private isHeadingDropdownOpen = false
   @state() private isColorDropdownOpen = false
@@ -466,7 +472,55 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
    * Toggle preview mode on or off.
    */
   private togglePreview() {
+    if (this.isPreview) {
+      this.exitPreview()
+    } else {
+      this.enterPreview()
+    }
     this.isPreview = !this.isPreview
+  }
+
+  /**
+   * Enter preview mode - save current state and remove keyboard listeners from textarea
+   */
+  private enterPreview() {
+    const textarea = this.textareaEl?.shadowRoot?.querySelector('textarea')
+    if (textarea) {
+      // Save current selection for restoration when exiting preview
+      this.savedSelectionForPreview = {
+        start: textarea.selectionStart ?? 0,
+        end: textarea.selectionEnd ?? 0,
+      }
+
+      // Remove keyboard listeners to prevent conflicts
+      this.removeKeyboardListeners()
+    }
+  }
+
+  /**
+   * Exit preview mode - restore state and reattach keyboard listeners
+   */
+  private exitPreview() {
+    // Schedule restoration after the DOM updates
+    requestAnimationFrame(() => {
+      const textarea = this.textareaEl?.shadowRoot?.querySelector('textarea')
+      if (textarea && this.savedSelectionForPreview) {
+        // Restore focus and selection
+        textarea.focus()
+        textarea.setSelectionRange(
+          this.savedSelectionForPreview.start,
+          this.savedSelectionForPreview.end
+        )
+        this.currentSelection = this.savedSelectionForPreview
+        this.savedSelectionForPreview = null
+
+        // Update active formats based on restored selection
+        this.updateActiveFormats()
+      }
+
+      // Re-add keyboard listeners
+      this.addKeyboardListeners()
+    })
   }
 
   /**
@@ -797,23 +851,19 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
   }
 
   /**
-   * Save the initial state to the undo stack.
+   * Add keyboard event listeners to the textarea for undo/redo functionality.
    */
   private addKeyboardListeners() {
     // Try multiple times to ensure textarea is ready
     const tryAddListener = (attempts = 0) => {
       const textarea = this.textareaEl?.shadowRoot?.querySelector('textarea')
       if (textarea) {
-        console.log('✅ Keyboard listener added to textarea')
+        // Avoid duplicate listeners by removing first
+        textarea.removeEventListener('keydown', this.handleKeyDown)
         textarea.addEventListener('keydown', this.handleKeyDown)
-      } else if (attempts < 10) {
-        console.log(
-          `⏳ Textarea not ready, retrying... (attempt ${attempts + 1})`
-        )
-        // Retry after a short delay
+      } else if (attempts < 15) {
+        // Retry after a short delay - give more attempts for mode switching
         requestAnimationFrame(() => tryAddListener(attempts + 1))
-      } else {
-        console.error('❌ Failed to add keyboard listener - textarea not found')
       }
     }
     tryAddListener()
@@ -1087,12 +1137,6 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
       ? { start: textarea.selectionStart ?? 0, end: textarea.selectionEnd ?? 0 }
       : { start: 0, end: 0 }
 
-    console.log('💾 Saving undo state before change:', {
-      currentValue: this.value,
-      selection,
-      stackLength: this.undoStack.length,
-    })
-
     // Save current state before change
     this.undoStack.push({
       value: this.value,
@@ -1160,20 +1204,6 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
       (event.metaKey || event.ctrlKey) &&
       (event.key === 'y' || (event.key === 'z' && event.shiftKey))
 
-    if (isUndo || isRedo) {
-      console.log(
-        `🎹 Keyboard shortcut detected: ${isUndo ? 'UNDO' : 'REDO'}`,
-        {
-          key: event.key,
-          metaKey: event.metaKey,
-          ctrlKey: event.ctrlKey,
-          shiftKey: event.shiftKey,
-          undoStackLength: this.undoStack.length,
-          redoStackLength: this.redoStack.length,
-        }
-      )
-    }
-
     if (isUndo) {
       event.preventDefault()
       this.undo()
@@ -1187,15 +1217,7 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
    * Perform an undo operation, reverting to the previous state.
    */
   private undo() {
-    console.log('⏪ Undo called', {
-      isReadonly: this.isReadonly,
-      isDisabled: this.isDisabled,
-      undoStackLength: this.undoStack.length,
-      currentValue: this.value,
-    })
-
     if (this.isReadonly || this.isDisabled || this.undoStack.length <= 1) {
-      console.log('❌ Undo blocked - readonly/disabled or empty stack')
       return
     }
 
@@ -1208,7 +1230,6 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
 
     // Get previous state from undo stack
     const previousState = this.undoStack.pop()!
-    console.log('📝 Undoing to:', previousState)
 
     // Apply previous state
     this.isUndoRedoAction = true
@@ -1234,15 +1255,7 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
    * Perform a redo operation, reapplying a previously undone state.
    */
   private redo() {
-    console.log('⏩ Redo called', {
-      isReadonly: this.isReadonly,
-      isDisabled: this.isDisabled,
-      redoStackLength: this.redoStack.length,
-      currentValue: this.value,
-    })
-
     if (this.isReadonly || this.isDisabled || this.redoStack.length === 0) {
-      console.log('❌ Redo blocked - readonly/disabled or empty stack')
       return
     }
 
@@ -1255,7 +1268,6 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
 
     // Get next state from redo stack
     const nextState = this.redoStack.pop()!
-    console.log('📝 Redoing to:', nextState)
 
     // Apply next state
     this.isUndoRedoAction = true
@@ -1300,6 +1312,8 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
       clearTimeout(this.undoTimeout)
     }
     this.removeKeyboardListeners()
+    // Clean up preview mode state
+    this.savedSelectionForPreview = null
   }
 
   private labelTemplate() {

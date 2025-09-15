@@ -1,3 +1,10 @@
 :host {
-  @apply inline-flex;
+  @apply inline-block;
+
+  line-height: 0; // Prevent text line-height from affecting icon size
+
+  // Ensure SVGs render at their specified dimensions
+  svg {
+    display: block !important;
+  }
 }

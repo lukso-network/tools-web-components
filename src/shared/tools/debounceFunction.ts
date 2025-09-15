@@ -5,7 +5,7 @@
  * @param timeout
  */
 export const debounceFunction = (func: unknown, timeout = 100) => {
-  let timer: NodeJS.Timeout
+  let timer: ReturnType<typeof setTimeout>
 
   return (...args) => {
     clearTimeout(timer)

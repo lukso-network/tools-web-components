@@ -6,7 +6,7 @@ import './index'
 
 /**  Documentation and examples of `lukso-text-editor` component.  */
 const meta: Meta = {
-  title: 'Design System/Components/lukso-text-editor',
+  title: 'Design System/Forms/lukso-text-editor',
   component: 'lukso-text-editor',
   argTypes: {
     value: {
@@ -304,7 +304,7 @@ console.log(greeting)
 
 ## Quotes
 
-> This is a blockquote demonstrating 
+> This is a blockquote demonstrating
 > the markdown rendering capabilities.
 
 ---
@@ -323,7 +323,7 @@ SelectionFormatting.args = {
 Try these interactions:
 
 1. **Select this bold text** - notice the B button becomes active
-2. Select *this italic text* - notice the I button becomes active  
+2. Select *this italic text* - notice the I button becomes active
 3. Click in [this link](https://lukso.network) - notice the Link button becomes active
 4. Click on this heading line - notice the H button becomes active and shows H1
 

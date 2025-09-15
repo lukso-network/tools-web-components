@@ -128,7 +128,7 @@ const meta: Meta = {
   },
   args: {
     value:
-      '# Welcome to LUKSO Text Editor\n\nWrite your **markdown** content here and switch to preview mode to see the results!\n\n- Feature 1\n- Feature 2\n- Feature 3\n\nCheck out [LUKSO](https://lukso.network) for more information.',
+      '# Welcome to LUKSO Text Editor\n\nWrite your **markdown** content here and switch to preview mode to see the results!\n\n- Feature 1\n- Feature 2\n- Feature 3\n\n1. Numbered item\n2. Another item\n3. Final item\n\nCheck out [LUKSO](https://lukso.network) for more information.',
     label: 'Text Editor',
     description:
       'Use the toolbar buttons to format text and toggle preview mode',
@@ -326,6 +326,7 @@ Try these interactions:
 2. Select *this italic text* - notice the I button becomes active
 3. Click in [this link](https://lukso.network) - notice the Link button becomes active
 4. Click on this heading line - notice the H button becomes active and shows H1
+- Click on this unordered list item - notice the List button becomes active
 
 ## Instructions:
 - Select text and click formatting buttons to toggle on/off
@@ -333,7 +334,19 @@ Try these interactions:
 - Empty selections expand to current word for smart formatting
 - Link button toggles: creates links or removes them
 - Heading dropdown: click H button to see heading options
-- Heading options work on entire lines
+- List dropdown: click List button to create ordered/unordered lists
+- Heading and list options work on entire lines
+
+### List Examples:
+Unordered list:
+- Item 1
+- Item 2
+- Item 3
+
+Ordered list:
+1. First item
+2. Second item
+3. Third item
 
 Try selecting "example text" and making it **bold** or *italic*!`,
 }

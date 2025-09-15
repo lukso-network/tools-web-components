@@ -64,8 +64,10 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
   // dropdown
   @state() private isHeadingDropdownOpen = false
   @state() private isColorDropdownOpen = false
+  @state() private isListDropdownOpen = false
   private readonly headingTriggerId = 'heading-dropdown-trigger'
   private readonly colorTriggerId = 'color-dropdown-trigger'
+  private readonly listTriggerId = 'list-dropdown-trigger'
 
   // selection
   @state() private currentSelection = { start: 0, end: 0 }
@@ -81,6 +83,8 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
     h3: false,
     color: false,
     activeColor: '',
+    unorderedList: false,
+    orderedList: false,
   }
 
   // Undo/Redo state
@@ -110,12 +114,15 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
       this.contains(target) || this.shadowRoot?.contains(target)
 
     if (!isInsideThisComponent) {
-      // Click is completely outside our component, close both dropdowns
+      // Click is completely outside our component, close all dropdowns
       if (this.isHeadingDropdownOpen) {
         this.isHeadingDropdownOpen = false
       }
       if (this.isColorDropdownOpen) {
         this.isColorDropdownOpen = false
+      }
+      if (this.isListDropdownOpen) {
+        this.isListDropdownOpen = false
       }
       return
     }
@@ -127,11 +134,17 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
     const isInsideColorDropdown = this.shadowRoot
       ?.getElementById('colorDropdown')
       ?.contains(target)
+    const isInsideListDropdown = this.shadowRoot
+      ?.getElementById('listDropdown')
+      ?.contains(target)
     const isHeadingTrigger = this.shadowRoot
       ?.getElementById(this.headingTriggerId)
       ?.contains(target)
     const isColorTrigger = this.shadowRoot
       ?.getElementById(this.colorTriggerId)
+      ?.contains(target)
+    const isListTrigger = this.shadowRoot
+      ?.getElementById(this.listTriggerId)
       ?.contains(target)
 
     // Only close dropdowns if click is not inside them or their triggers
@@ -146,6 +159,10 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
     if (!isInsideColorDropdown && !isColorTrigger && this.isColorDropdownOpen) {
       this.isColorDropdownOpen = false
     }
+
+    if (!isInsideListDropdown && !isListTrigger && this.isListDropdownOpen) {
+      this.isListDropdownOpen = false
+    }
   }
 
   private styles = tv({
@@ -159,6 +176,7 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
       preview: 'p-3',
       colorMenu: 'relative',
       headingMenu: 'relative',
+      listMenu: 'relative',
       label: 'heading-inter-14-bold text-neutral-20',
       description: 'paragraph-inter-12-regular text-neutral-20',
       error: 'paragraph-inter-12-regular text-red-65',
@@ -394,6 +412,116 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
       })
       this.dispatchChange()
     })
+  }
+
+  /**
+   * Apply or toggle list formatting for the current line(s).
+   *
+   * @param listType - 'none' to remove list, 'unordered' for bullet list, 'ordered' for numbered list
+   */
+  private applyList(listType: 'none' | 'unordered' | 'ordered') {
+    if (this.isReadonly || this.isDisabled) return
+
+    // Save undo state before making changes
+    this.saveUndoStateBeforeChange()
+
+    this.withSelection((textarea, start, end, value) => {
+      // Expand to full lines covered by selection
+      const lineStart = value.lastIndexOf('\n', start - 1) + 1
+      let lineEnd = value.indexOf('\n', end)
+      if (lineEnd === -1) lineEnd = value.length
+      const before = value.slice(0, lineStart)
+      const selected = value.slice(lineStart, lineEnd)
+      const after = value.slice(lineEnd)
+
+      const lines = selected.split('\n')
+      const unorderedRegex = /^(\s*)[-*+]\s+/
+      const orderedRegex = /^(\s*)\d+\.\s+/
+
+      let transformed: string
+      if (listType === 'none') {
+        // Remove any list formatting
+        transformed = lines
+          .map(l => l.replace(unorderedRegex, '$1').replace(orderedRegex, '$1'))
+          .join('\n')
+      } else if (listType === 'unordered') {
+        // Check if all lines are already unordered lists
+        const allAlreadyUnordered = lines.every(
+          l => l.trim() === '' || unorderedRegex.test(l)
+        )
+
+        if (allAlreadyUnordered && lines.some(l => unorderedRegex.test(l))) {
+          // Toggle off: remove unordered list formatting
+          transformed = lines
+            .map(l => l.replace(unorderedRegex, '$1'))
+            .join('\n')
+        } else {
+          // Apply unordered list formatting
+          transformed = lines
+            .map(l => {
+              if (l.trim() === '') return l
+              // Remove any existing list formatting first
+              const cleaned = l
+                .replace(unorderedRegex, '$1')
+                .replace(orderedRegex, '$1')
+              const indentMatch = cleaned.match(/^(\s*)/)
+              const indent = indentMatch ? indentMatch[1] : ''
+              const content = cleaned.replace(/^\s*/, '')
+              return `${indent}- ${content}`
+            })
+            .join('\n')
+        }
+      } else if (listType === 'ordered') {
+        // Check if all lines are already ordered lists
+        const allAlreadyOrdered = lines.every(
+          l => l.trim() === '' || orderedRegex.test(l)
+        )
+
+        if (allAlreadyOrdered && lines.some(l => orderedRegex.test(l))) {
+          // Toggle off: remove ordered list formatting
+          transformed = lines.map(l => l.replace(orderedRegex, '$1')).join('\n')
+        } else {
+          // Apply ordered list formatting
+          let counter = 1
+          transformed = lines
+            .map(l => {
+              if (l.trim() === '') return l
+              // Remove any existing list formatting first
+              const cleaned = l
+                .replace(unorderedRegex, '$1')
+                .replace(orderedRegex, '$1')
+              const indentMatch = cleaned.match(/^(\s*)/)
+              const indent = indentMatch ? indentMatch[1] : ''
+              const content = cleaned.replace(/^\s*/, '')
+              return `${indent}${counter++}. ${content}`
+            })
+            .join('\n')
+        }
+      }
+
+      this.value = before + transformed + after
+
+      // Position cursor at the end of the first line
+      const firstLineEnd = transformed.indexOf('\n')
+      const cursorPosition =
+        before.length +
+        (firstLineEnd === -1 ? transformed.length : firstLineEnd)
+
+      requestAnimationFrame(() => {
+        textarea.setSelectionRange(cursorPosition, cursorPosition)
+        this.updateActiveFormats()
+      })
+      this.dispatchChange()
+    })
+  }
+
+  /**
+   * Get the current active list type based on activeFormats.
+   */
+  private getActiveListType(): 'none' | 'unordered' | 'ordered' {
+    if (this.activeFormats.unorderedList) return 'unordered'
+    if (this.activeFormats.orderedList) return 'ordered'
+    return 'none'
   }
 
   /**
@@ -710,6 +838,12 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
     const headingMatch = currentLine.match(/^(#{1,6})\s/)
     const headingLevel = headingMatch ? headingMatch[1].length : 0
 
+    // Check for lists (look at line start)
+    const unorderedListMatch = currentLine.match(/^\s*[-*+]\s/)
+    const orderedListMatch = currentLine.match(/^\s*\d+\.\s/)
+    const hasUnorderedList = !!unorderedListMatch
+    const hasOrderedList = !!orderedListMatch
+
     // Check for color formatting
     const colorRegex = /<span style="color: ([^"]+)">/
     const hasColorWrap = !!(
@@ -739,6 +873,8 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
       h3: headingLevel === 3,
       color: hasColorWrap,
       activeColor,
+      unorderedList: hasUnorderedList,
+      orderedList: hasOrderedList,
     }
   }
 
@@ -1407,8 +1543,9 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
               id=${this.headingTriggerId}
               @click=${(e: Event) => {
                 e.stopPropagation()
-                // Close color dropdown if open
+                // Close other dropdowns if open
                 this.isColorDropdownOpen = false
+                this.isListDropdownOpen = false
                 this.isHeadingDropdownOpen = !this.isHeadingDropdownOpen
               }}
               aria-expanded=${this.isHeadingDropdownOpen ? 'true' : 'false'}
@@ -1501,6 +1638,83 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
           this.activeFormats.italic
         )}
 
+        <!-- List -->
+        <div class=${this.styles().listMenu()}>
+          <lukso-tooltip text="List options" placement="top">
+            <lukso-button
+              id=${this.listTriggerId}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                // Close other dropdowns if open
+                this.isHeadingDropdownOpen = false
+                this.isColorDropdownOpen = false
+                this.isListDropdownOpen = !this.isListDropdownOpen
+              }}
+              aria-expanded=${this.isListDropdownOpen ? 'true' : 'false'}
+              aria-label="List options"
+              variant="secondary"
+              size="small"
+              custom-class=${this.toolbarButton({
+                active:
+                  this.activeFormats.unorderedList ||
+                  this.activeFormats.orderedList,
+              })}
+              is-icon
+            >
+              <lukso-icon
+                name="task"
+                size="small"
+                pack="vuesax"
+                variant="linear"
+              ></lukso-icon>
+            </lukso-button>
+          </lukso-tooltip>
+          <lukso-dropdown
+            id="listDropdown"
+            trigger-id=""
+            size="medium"
+            ?is-open=${this.isListDropdownOpen}
+          >
+            <lukso-dropdown-option
+              ?is-selected=${this.getActiveListType() === 'none'}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyList('none')
+                this.isListDropdownOpen = false
+              }}
+              size="medium"
+            >
+              No list
+            </lukso-dropdown-option>
+            <lukso-dropdown-option
+              ?is-selected=${this.getActiveListType() === 'unordered'}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyList('unordered')
+                this.isListDropdownOpen = false
+              }}
+              size="medium"
+            >
+              Unordered
+            </lukso-dropdown-option>
+            <lukso-dropdown-option
+              ?is-selected=${this.getActiveListType() === 'ordered'}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyList('ordered')
+                this.isListDropdownOpen = false
+              }}
+              size="medium"
+            >
+              Ordered
+            </lukso-dropdown-option>
+          </lukso-dropdown>
+        </div>
+
         <!-- Link -->
         ${this.buttonTemplate(
           'link',
@@ -1517,8 +1731,9 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
               @click=${(e: Event) => {
                 e.stopPropagation()
                 this.restoreFocusAndSelection()
-                // Close heading dropdown if open
+                // Close other dropdowns if open
                 this.isHeadingDropdownOpen = false
+                this.isListDropdownOpen = false
                 // Save current selection when opening color dropdown
                 if (!this.isColorDropdownOpen) {
                   const ta =

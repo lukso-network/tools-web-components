@@ -4,10 +4,10 @@ import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 
-/**  Documentation and examples of `lukso-text-editor` component.  */
+/**  Documentation and examples of `lukso-markdown-editor` component.  */
 const meta: Meta = {
-  title: 'Design System/Forms/lukso-text-editor',
-  component: 'lukso-text-editor',
+  title: 'Design System/Forms/lukso-markdown-editor',
+  component: 'lukso-markdown-editor',
   argTypes: {
     value: {
       control: { type: 'text' },
@@ -146,8 +146,8 @@ const meta: Meta = {
   },
   args: {
     value:
-      '# Welcome to LUKSO Text Editor\n\nWrite your **markdown** content here and switch to preview mode to see the results!\n\n- Feature 1\n- Feature 2\n- Feature 3\n\n1. Numbered item\n2. Another item\n3. Final item\n\nCheck out [LUKSO](https://lukso.network) for more information.',
-    label: 'Text Editor',
+      '# Welcome to LUKSO Markdown Editor\n\nWrite your **markdown** content here and switch to preview mode to see the results!\n\n- Feature 1\n- Feature 2\n- Feature 3\n\n1. Numbered item\n2. Another item\n3. Final item\n\nCheck out [LUKSO](https://lukso.network) for more information.',
+    label: 'Markdown Editor',
     description:
       'Use the toolbar buttons to format text and toggle preview mode',
     name: 'editor',
@@ -223,7 +223,7 @@ const Template = ({
   colorGroupsJson,
   onChange,
 }) =>
-  html`<lukso-text-editor
+  html`<lukso-markdown-editor
     .value=${value}
     name=${name}
     label=${label}
@@ -239,7 +239,7 @@ const Template = ({
     ?is-non-resizable=${isNonResizable}
     ?autofocus=${autofocus}
     @on-change=${onChange}
-  ></lukso-text-editor>`
+  ></lukso-markdown-editor>`
 
 /** Example of default text editor with sample content.  */
 export const Default = Template.bind({})

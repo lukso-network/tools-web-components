@@ -17,8 +17,8 @@ import '@/components/lukso-tooltip'
 
 import type { InputSize } from '@/shared/types'
 
-@customElement('lukso-text-editor')
-export class LuksoTextEditor extends TailwindStyledElement(style) {
+@customElement('lukso-markdown-editor')
+export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''
 
@@ -2104,6 +2104,6 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lukso-text-editor': LuksoTextEditor
+    'lukso-markdown-editor': LuksoMarkdownEditor
   }
 }

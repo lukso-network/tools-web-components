@@ -1654,12 +1654,13 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       // Save undo state before making changes
       this.saveUndoStateBeforeChange()
 
-      // Remove the empty list item
+      // Remove the empty list item and its newline
       const before = value.slice(0, lineStart)
-      const after = value.slice(lineEnd)
+      const after = value.slice(
+        lineEnd === value.length ? lineEnd : lineEnd + 1
+      ) // Include newline unless it's the last line
 
-      // If this is the last line, don't add extra newline
-      let newValue = before + (lineEnd === value.length ? '' : '') + after
+      let newValue = before + after
 
       // If we're removing an ordered list item, renumber the subsequent items
       if (orderedMatch) {
@@ -1677,10 +1678,12 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       textarea.value = newValue
 
       // Position cursor at the end of the previous line or beginning of document
-      const newCursor = Math.max(
-        0,
-        before.length - (before.endsWith('\n') ? 1 : 0)
-      )
+      // Since we removed the entire line including newline, cursor should be at the end of the previous line
+      let newCursor = before.length
+      // If there's a previous line, position cursor at its end (before the newline)
+      if (before.endsWith('\n') && before.length > 1) {
+        newCursor = before.length - 1
+      }
       requestAnimationFrame(() => {
         textarea.setSelectionRange(newCursor, newCursor)
         this.updateActiveFormats()

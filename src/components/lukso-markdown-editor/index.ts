@@ -177,8 +177,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       header:
         'flex items-center justify-between gap-2 border border-neutral-90 rounded-12 px-3 py-2',
       toolbar: 'flex flex-wrap items-center gap-1',
-      area: 'border border-neutral-90 rounded-12 overflow-hidden',
-      editor: 'p-3',
+      area: '',
+      editor: '',
       preview: 'p-3',
       colorMenu: 'relative',
       headingMenu: 'relative',
@@ -2187,14 +2187,6 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       : nothing
   }
 
-  private errorTemplate() {
-    return this.error
-      ? html`<div class="paragraph-inter-12-regular text-red-65">
-          ${this.error}
-        </div>`
-      : nothing
-  }
-
   /**
    * Restore focus and selection to the textarea after toolbar interactions.
    */
@@ -2553,6 +2545,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                   size=${this.size ? this.size : nothing}
                   rows=${this.rows ? this.rows : nothing}
                   placeholder=${this.placeholder ? this.placeholder : nothing}
+                  error=${this.error ? this.error : nothing}
                   ?is-full-width=${true}
                   ?is-disabled=${this.isDisabled}
                   ?is-readonly=${this.isReadonly}
@@ -2569,8 +2562,6 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                 ></lukso-markdown>
               </div>`}
         </div>
-
-        ${this.errorTemplate()}
       </div>
     `
   }

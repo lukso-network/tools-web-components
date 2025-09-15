@@ -44,7 +44,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   isDisabled = false
 
   @property({ type: Boolean, attribute: 'is-non-resizable' }) isNonResizable =
-    true
+    false
 
   @property({ type: Boolean })
   autofocus = false
@@ -54,6 +54,12 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
   @property({ type: Boolean, attribute: 'is-preview', reflect: true })
   isPreview = false
+
+  @property({ type: Number })
+  rows = 6
+
+  @property({ type: String })
+  placeholder = ''
 
   // State preservation for mode switching
   @state() private savedSelectionForPreview: {
@@ -1457,6 +1463,19 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       if (this.handleListBackspace()) {
         event.preventDefault()
       }
+    } else if (event.key === 'Tab' && !event.metaKey && !event.ctrlKey) {
+      // Handle Tab for list indentation/outdentation
+      if (event.shiftKey) {
+        // Shift+Tab: outdent list item
+        if (this.handleListOutdent()) {
+          event.preventDefault()
+        }
+      } else {
+        // Tab: indent list item
+        if (this.handleListIndent()) {
+          event.preventDefault()
+        }
+      }
     }
   }
 
@@ -1564,8 +1583,35 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         return true
       }
 
-      // Continue ordered list: increment number and renumber subsequent items
-      const nextNumber = parseInt(numberStr, 10) + 1
+      // Continue ordered list: find the appropriate next number for this indentation level
+      let nextNumber = parseInt(numberStr, 10) + 1
+
+      // Look backwards to ensure we're using the correct number for this indentation level
+      const beforeText = value.slice(0, lineStart)
+      const beforeLines = beforeText.split('\n')
+      let lastNumberAtThisLevel = 0
+
+      for (let i = beforeLines.length - 1; i >= 0; i--) {
+        const line = beforeLines[i]
+        const match = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+        if (match && match[1] === indent) {
+          lastNumberAtThisLevel = parseInt(match[2], 10)
+          break
+        } else if (
+          line.trim() !== '' &&
+          !line.match(/^\s*[-*+]\s+/) &&
+          !match
+        ) {
+          // Hit non-list content, stop looking
+          break
+        }
+      }
+
+      // Use the last number at this level + 1, or fall back to the current item's number + 1
+      if (lastNumberAtThisLevel > 0) {
+        nextNumber = lastNumberAtThisLevel + 1
+      }
+
       const before = value.slice(0, start)
       const after = value.slice(start)
       const prefix = `\n${indent}${nextNumber}. `
@@ -1592,6 +1638,193 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     }
 
     return false
+  }
+
+  /**
+   * Handle Tab key to indent a list item (increase nesting level).
+   * Returns true if handled.
+   */
+  private handleListIndent(): boolean {
+    const textarea = this.textareaEl?.shadowRoot?.querySelector(
+      'textarea'
+    ) as HTMLTextAreaElement | null
+    if (!textarea) return false
+
+    const start = textarea.selectionStart ?? 0
+    const end = textarea.selectionEnd ?? 0
+    // Only handle when selection is collapsed (caret)
+    if (start !== end) return false
+
+    const value = this.value
+    const lineStart = value.lastIndexOf('\n', start - 1) + 1
+    let lineEnd = value.indexOf('\n', start)
+    if (lineEnd === -1) lineEnd = value.length
+
+    const currentLine = value.slice(lineStart, lineEnd)
+
+    // Detect list types with indentation
+    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s*(.*)$/)
+    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s*(.*)$/)
+
+    if (!unorderedMatch && !orderedMatch) {
+      return false
+    }
+
+    // Save undo state before making changes
+    this.saveUndoStateBeforeChange()
+
+    const before = value.slice(0, lineStart)
+    const after = value.slice(lineEnd)
+    const indent = '  ' // 2 spaces for indentation
+
+    let newLine: string
+    let newCursorOffset = 0
+
+    if (unorderedMatch) {
+      const currentIndent = unorderedMatch[1] ?? ''
+      const marker = unorderedMatch[2] ?? '-'
+      const content = unorderedMatch[3] ?? ''
+      newLine = `${currentIndent}${indent}${marker} ${content}`
+      newCursorOffset = indent.length
+    } else if (orderedMatch) {
+      const currentIndent = orderedMatch[1] ?? ''
+      const content = orderedMatch[3] ?? ''
+      // When indenting an ordered list item, start numbering from 1 at the new level
+      newLine = `${currentIndent}${indent}1. ${content}`
+      newCursorOffset = indent.length
+    } else {
+      return false
+    }
+
+    const newValue = before + newLine + after
+    this.value = newValue
+    textarea.value = newValue
+
+    // Position cursor at the same relative position within the line
+    const cursorInLine = start - lineStart
+    const newCursor = lineStart + cursorInLine + newCursorOffset
+
+    requestAnimationFrame(() => {
+      textarea.setSelectionRange(newCursor, newCursor)
+      this.updateActiveFormats()
+    })
+
+    this.dispatchChange()
+    return true
+  }
+
+  /**
+   * Handle Shift+Tab key to outdent a list item (decrease nesting level).
+   * Returns true if handled.
+   */
+  private handleListOutdent(): boolean {
+    const textarea = this.textareaEl?.shadowRoot?.querySelector(
+      'textarea'
+    ) as HTMLTextAreaElement | null
+    if (!textarea) return false
+
+    const start = textarea.selectionStart ?? 0
+    const end = textarea.selectionEnd ?? 0
+    // Only handle when selection is collapsed (caret)
+    if (start !== end) return false
+
+    const value = this.value
+    const lineStart = value.lastIndexOf('\n', start - 1) + 1
+    let lineEnd = value.indexOf('\n', start)
+    if (lineEnd === -1) lineEnd = value.length
+
+    const currentLine = value.slice(lineStart, lineEnd)
+
+    // Detect list types with indentation
+    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s*(.*)$/)
+    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s*(.*)$/)
+
+    if (!unorderedMatch && !orderedMatch) {
+      return false
+    }
+
+    // Check if there's indentation to remove
+    const currentIndent = (unorderedMatch || orderedMatch)?.[1] ?? ''
+    if (currentIndent.length < 2) {
+      return false // No indentation to remove
+    }
+
+    // Save undo state before making changes
+    this.saveUndoStateBeforeChange()
+
+    const before = value.slice(0, lineStart)
+    const after = value.slice(lineEnd)
+    const outdent = '  ' // Remove 2 spaces
+
+    let newLine: string
+    let newCursorOffset = 0
+
+    if (unorderedMatch) {
+      const marker = unorderedMatch[2] ?? '-'
+      const content = unorderedMatch[3] ?? ''
+      const newIndent = currentIndent.slice(outdent.length)
+      newLine = `${newIndent}${marker} ${content}`
+      newCursorOffset = -outdent.length
+    } else if (orderedMatch) {
+      const content = orderedMatch[3] ?? ''
+      const newIndent = currentIndent.slice(outdent.length)
+
+      // When outdenting, we need to find the appropriate number for this level
+      let newNumber = 1
+
+      // Look backwards to find the last ordered list item at the new indentation level
+      const beforeLines = before.split('\n')
+      for (let i = beforeLines.length - 1; i >= 0; i--) {
+        const line = beforeLines[i]
+        const match = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+        if (match && match[1] === newIndent) {
+          newNumber = parseInt(match[2], 10) + 1
+          break
+        } else if (
+          line.trim() !== '' &&
+          !line.match(/^\s*[-*+]\s+/) &&
+          !match
+        ) {
+          // Hit non-list content, stop looking
+          break
+        }
+      }
+
+      newLine = `${newIndent}${newNumber}. ${content}`
+      newCursorOffset = -outdent.length
+    } else {
+      return false
+    }
+
+    let newValue = before + newLine + after
+
+    // If this was an ordered list item, renumber subsequent items at the same level
+    if (orderedMatch) {
+      const newIndent = currentIndent.slice(outdent.length)
+      newValue = this.renumberOrderedListItems(
+        newValue,
+        lineStart + newLine.length,
+        newIndent
+      )
+    }
+
+    this.value = newValue
+    textarea.value = newValue
+
+    // Position cursor at the same relative position within the line
+    const cursorInLine = start - lineStart
+    const newCursor = Math.max(
+      lineStart,
+      lineStart + cursorInLine + newCursorOffset
+    )
+
+    requestAnimationFrame(() => {
+      textarea.setSelectionRange(newCursor, newCursor)
+      this.updateActiveFormats()
+    })
+
+    this.dispatchChange()
+    return true
   }
 
   /**
@@ -2317,11 +2550,13 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                 <lukso-textarea
                   .value=${this.value}
                   name=${this.name ? this.name : nothing}
+                  size=${this.size ? this.size : nothing}
+                  rows=${this.rows ? this.rows : nothing}
+                  placeholder=${this.placeholder ? this.placeholder : nothing}
                   ?is-full-width=${true}
                   ?is-disabled=${this.isDisabled}
                   ?is-readonly=${this.isReadonly}
                   ?is-non-resizable=${this.isNonResizable}
-                  size=${this.size}
                   @on-input=${this.handleTextareaInput}
                   @on-key-up=${this.handleTextareaKeyUp}
                   @on-input-click=${this.handleTextareaClick}

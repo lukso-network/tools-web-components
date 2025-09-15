@@ -74,32 +74,6 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    textColor: {
-      name: 'text-color',
-      control: { type: 'select' },
-      options: [
-        '',
-        'neutral-20',
-        'neutral-35',
-        'purple-51',
-        'green-54',
-        'blue-50',
-        'red-55',
-        'honey-72',
-      ],
-      table: {
-        category: 'Attributes',
-      },
-    },
-    colorGroupsJson: {
-      name: 'color-groups',
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-      },
-      description:
-        'JSON string defining custom color groups for the color picker',
-    },
     isNonResizable: {
       name: 'is-non-resizable',
       control: { type: 'boolean' },
@@ -115,6 +89,18 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    placeholder: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    rows: {
+      control: { type: 'number' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -126,12 +112,6 @@ const meta: Meta = {
     },
     'is-preview': {
       name: 'isPreview',
-    },
-    'text-color': {
-      name: 'textColor',
-    },
-    'color-groups': {
-      name: 'colorGroupsJson',
     },
     'is-non-resizable': {
       name: 'isNonResizable',
@@ -158,9 +138,9 @@ const meta: Meta = {
     isPreview: false,
     isNonResizable: false,
     autofocus: false,
-    textColor: '',
-    colorGroupsJson: '',
     error: '',
+    placeholder: '',
+    rows: 6,
   },
   parameters: {
     controls: {
@@ -169,8 +149,6 @@ const meta: Meta = {
         'isReadonly',
         'isDisabled',
         'isPreview',
-        'textColor',
-        'colorGroupsJson',
         'isNonResizable',
         'savedSelectionForPreview',
         'isHeadingDropdownOpen',
@@ -219,19 +197,19 @@ const Template = ({
   isPreview,
   isNonResizable,
   autofocus,
-  textColor,
-  colorGroupsJson,
   onChange,
+  placeholder,
+  rows,
 }) =>
   html`<lukso-markdown-editor
     .value=${value}
-    name=${name}
-    label=${label}
-    description=${description}
-    error=${error}
+    name=${name ? name : nothing}
+    label=${label ? label : nothing}
+    description=${description ? description : nothing}
+    error=${error ? error : nothing}
     size=${size ? size : nothing}
-    text-color=${textColor ? textColor : nothing}
-    color-groups=${colorGroupsJson ? colorGroupsJson : nothing}
+    placeholder=${placeholder ? placeholder : nothing}
+    rows=${rows ? rows : nothing}
     ?is-full-width=${isFullWidth}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
@@ -258,15 +236,6 @@ export const PreviewMode = Template.bind({})
 PreviewMode.args = {
   isPreview: true,
   label: 'Preview Mode',
-}
-
-/** Example with custom text color. */
-export const ColoredText = Template.bind({})
-ColoredText.args = {
-  textColor: 'purple-51',
-  label: 'Purple Text Editor',
-  value:
-    '# Purple Heading\n\nThis text will appear in **purple color** in both edit and preview modes.',
 }
 
 /** Example of full width editor. */
@@ -436,32 +405,4 @@ Here's some <span style="color: var(--purple-51)">purple text</span> that you ca
 **Instructions**: Select the word "awesome" below and try different colors!
 
 LUKSO is awesome and supports many great features.`,
-}
-
-/** Example with custom color groups for the color picker. */
-export const CustomColorGroups = Template.bind({})
-CustomColorGroups.args = {
-  label: 'Custom Color Groups',
-  description:
-    'This editor uses a custom set of colors in the color picker palette',
-  colorGroupsJson: JSON.stringify({
-    neutral: ['20', '60', '90'],
-    purple: ['51', '31'],
-    green: ['54', '85'],
-    blue: ['50', '85'],
-    red: ['55', '85'],
-    honey: ['72'],
-    coral: ['74'],
-    lukso: ['50', '70', '90'],
-    measure: ['50', '80'],
-  }),
-  value: `# Custom Color Picker Demo
-
-This editor uses custom color groups defined via the \`color-groups\` attribute.
-
-The color picker now includes LUKSO brand colors and measure colors, with a reduced neutral palette.
-
-**Try selecting text and see the custom color options!**
-
-You can customize the color picker by providing a JSON string with your desired color groups and shades.`,
 }

@@ -13,6 +13,7 @@ import '@/components/lukso-icon'
 import '@/components/lukso-sanitize'
 import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
+import '@/components/lukso-tooltip'
 
 import type { InputSize } from '@/shared/types'
 
@@ -144,7 +145,8 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
   private styles = tv({
     slots: {
       wrapper: 'w-[inherit] grid gap-3',
-      header: 'flex items-center justify-between gap-2',
+      header:
+        'flex items-center justify-between gap-2 border border-neutral-90 rounded-12 px-3 py-2',
       toolbar: 'flex flex-wrap items-center gap-1',
       area: 'border border-neutral-90 rounded-12 overflow-hidden',
       editor: 'p-3',
@@ -165,9 +167,9 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
   })
 
   private toolbarButton = tv({
-    base: 'h-8 px-2 rounded-8 border border-neutral-90 bg-neutral-100 text-neutral-20 paragraph-inter-12-medium hover:border-neutral-35 active:scale-98 transition',
+    base: 'hover:bg-neutral-95 transition border-0 !shadow-none',
     variants: {
-      active: { true: 'bg-neutral-95 border-neutral-35' },
+      active: { true: 'bg-neutral-95' },
       disabled: { true: 'opacity-50 cursor-not-allowed' },
     },
   })
@@ -439,6 +441,13 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
   }
 
   /**
+   * Toggle preview mode on or off.
+   */
+  private togglePreview() {
+    this.isPreview = !this.isPreview
+  }
+
+  /**
    * Insert or edit a markdown link [text](url).
    */
   private insertLink() {
@@ -674,15 +683,6 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
 
     // Check if the selection is within the URL part (between parentheses)
     return start >= openParen + 1 && end <= rightParen
-  }
-
-  /**
-   * Preview mode toggle handler
-   *
-   * @param event
-   */
-  private handleSwitchChange = (event: CustomEvent) => {
-    this.isPreview = !!event.detail?.value
   }
 
   /**
@@ -968,14 +968,6 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
   }
 
   /**
-   * Get the text to display on the heading button based on active heading level.
-   */
-  private getHeadingButtonText(): string {
-    const level = this.getActiveHeadingLevel()
-    return level > 0 ? `H${level}` : 'H'
-  }
-
-  /**
    * Save the initial state to the undo stack.
    */
   private saveInitialUndoState() {
@@ -1239,64 +1231,85 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
       : nothing
   }
 
-  private toolbarTemplate() {
-    const restoreFocusAndSelection = () => {
-      const ta = this.textareaEl?.shadowRoot?.querySelector(
-        'textarea'
-      ) as HTMLTextAreaElement | null
-      if (ta) {
-        ta.focus()
-        const sel = this.currentSelection
-        // Guard against NaN/undefined
-        const start =
-          typeof sel.start === 'number' ? sel.start : (ta.selectionStart ?? 0)
-        const end =
-          typeof sel.end === 'number' ? sel.end : (ta.selectionEnd ?? 0)
-        ta.setSelectionRange(start, end)
-      }
+  /**
+   * Restore focus and selection to the textarea after toolbar interactions.
+   */
+  private restoreFocusAndSelection() {
+    const ta = this.textareaEl?.shadowRoot?.querySelector(
+      'textarea'
+    ) as HTMLTextAreaElement | null
+    if (ta) {
+      ta.focus()
+      const sel = this.currentSelection
+      // Guard against NaN/undefined
+      const start =
+        typeof sel.start === 'number' ? sel.start : (ta.selectionStart ?? 0)
+      const end = typeof sel.end === 'number' ? sel.end : (ta.selectionEnd ?? 0)
+      ta.setSelectionRange(start, end)
     }
+  }
 
-    const btn = (
-      label: string,
-      handler: () => void,
-      aria: string,
-      isActive = false
-    ) => html`
-      <lukso-button
-        class=${this.toolbarButton({ active: isActive })}
-        @click=${() => {
-          restoreFocusAndSelection()
-          handler()
-        }}
-        aria-label=${aria}
-        aria-pressed=${isActive ? 'true' : 'false'}
-        type="button"
-        is-icon
-      >
-        ${label}
-      </button>
+  private buttonTemplate(
+    icon: string,
+    handler: () => void,
+    name: string,
+    isActive = false
+  ) {
+    return html`
+      <lukso-tooltip text=${name} placement="top">
+        <lukso-button
+          @click=${() => {
+            this.restoreFocusAndSelection()
+            handler()
+          }}
+          aria-label=${name}
+          aria-pressed=${isActive ? 'true' : 'false'}
+          type="button"
+          variant="secondary"
+          size="small"
+          custom-class=${this.toolbarButton({ active: isActive })}
+          is-icon
+        >
+          <lukso-icon
+            name=${icon}
+            size="small"
+            pack="vuesax"
+            variant="linear"
+          ></lukso-icon></lukso-button
+      ></lukso-tooltip>
     `
+  }
 
+  private toolbarTemplate() {
     return html`
       <div class="flex items-center gap-2">
         <div class=${cn(this.styles().headingMenu())}>
-          <button
-            id=${this.headingTriggerId}
-            class=${this.toolbarButton({
-              active: this.getActiveHeadingLevel() > 0,
-            })}
-            @click=${(e: Event) => {
-              e.stopPropagation()
-              // Close color dropdown if open
-              this.isColorDropdownOpen = false
-              this.isHeadingDropdownOpen = !this.isHeadingDropdownOpen
-            }}
-            aria-expanded=${this.isHeadingDropdownOpen ? 'true' : 'false'}
-            aria-label="Heading options"
-            type="button"
-          >
-            ${this.getHeadingButtonText()}
-          </button>
+          <lukso-tooltip text="Heading options" placement="top">
+            <lukso-button
+              id=${this.headingTriggerId}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                // Close color dropdown if open
+                this.isColorDropdownOpen = false
+                this.isHeadingDropdownOpen = !this.isHeadingDropdownOpen
+              }}
+              aria-expanded=${this.isHeadingDropdownOpen ? 'true' : 'false'}
+              aria-label="Heading options"
+              variant="secondary"
+              size="small"
+              custom-class=${this.toolbarButton({
+                active: this.getActiveHeadingLevel() > 0,
+              })}
+              is-icon
+            >
+              <lukso-icon
+                name="smallcaps"
+                size="small"
+                pack="vuesax"
+                variant="linear"
+              ></lukso-icon>
+            </lukso-button>
+          </lukso-tooltip>
           <lukso-dropdown
             id="headingDropdown"
             trigger-id=""
@@ -1307,7 +1320,7 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
               ?is-selected=${this.getActiveHeadingLevel() === 0}
               @click=${(e: Event) => {
                 e.stopPropagation()
-                restoreFocusAndSelection()
+                this.restoreFocusAndSelection()
                 this.applyHeading(0)
                 this.isHeadingDropdownOpen = false
               }}
@@ -1319,7 +1332,7 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
               ?is-selected=${this.getActiveHeadingLevel() === 1}
               @click=${(e: Event) => {
                 e.stopPropagation()
-                restoreFocusAndSelection()
+                this.restoreFocusAndSelection()
                 this.applyHeading(1)
                 this.isHeadingDropdownOpen = false
               }}
@@ -1331,7 +1344,7 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
               ?is-selected=${this.getActiveHeadingLevel() === 2}
               @click=${(e: Event) => {
                 e.stopPropagation()
-                restoreFocusAndSelection()
+                this.restoreFocusAndSelection()
                 this.applyHeading(2)
                 this.isHeadingDropdownOpen = false
               }}
@@ -1343,7 +1356,7 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
               ?is-selected=${this.getActiveHeadingLevel() === 3}
               @click=${(e: Event) => {
                 e.stopPropagation()
-                restoreFocusAndSelection()
+                this.restoreFocusAndSelection()
                 this.applyHeading(3)
                 this.isHeadingDropdownOpen = false
               }}
@@ -1354,57 +1367,63 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
           </lukso-dropdown>
         </div>
 
-        ${btn(
-          'B',
+        ${this.buttonTemplate(
+          'text-bold',
           () => this.toggleWrap('**'),
-          'Toggle bold',
+          'Bold',
           this.activeFormats.bold
         )}
-        ${btn(
-          'I',
+        ${this.buttonTemplate(
+          'text-italic',
           () => this.toggleWrap('*'),
-          'Toggle italic',
+          'Italic',
           this.activeFormats.italic
         )}
-        ${btn(
-          'Link',
+        ${this.buttonTemplate(
+          'link',
           () => this.insertLink(),
-          'Toggle link',
+          'Link',
           this.activeFormats.link
         )}
 
-        <div class=${cn('ml-2', this.styles().colorMenu())}>
-          <button
-            id=${this.colorTriggerId}
-            class=${this.toolbarButton({ active: this.activeFormats.color })}
-            @click=${(e: Event) => {
-              e.stopPropagation()
-              restoreFocusAndSelection()
-              // Close heading dropdown if open
-              this.isHeadingDropdownOpen = false
-              // Save current selection when opening color dropdown
-              if (!this.isColorDropdownOpen) {
-                const ta =
-                  this.textareaEl?.shadowRoot?.querySelector('textarea')
-                if (ta) {
-                  this.savedSelection = {
-                    start: ta.selectionStart ?? 0,
-                    end: ta.selectionEnd ?? 0,
+        <div class=${this.styles().colorMenu()}>
+          <lukso-tooltip text="Heading options" placement="top">
+            <lukso-button
+              id=${this.colorTriggerId}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                // Close heading dropdown if open
+                this.isHeadingDropdownOpen = false
+                // Save current selection when opening color dropdown
+                if (!this.isColorDropdownOpen) {
+                  const ta =
+                    this.textareaEl?.shadowRoot?.querySelector('textarea')
+                  if (ta) {
+                    this.savedSelection = {
+                      start: ta.selectionStart ?? 0,
+                      end: ta.selectionEnd ?? 0,
+                    }
                   }
                 }
-              }
-              this.isColorDropdownOpen = !this.isColorDropdownOpen
-            }}
-            aria-expanded=${this.isColorDropdownOpen ? 'true' : 'false'}
-            aria-pressed=${this.activeFormats.color ? 'true' : 'false'}
-            aria-label="Text color"
-            type="button"
-          >
-            <div
-              class="size-5 rounded-full"
-              style="background-color: ${this.activeFormats.activeColor};"
-            ></div>
-          </button>
+                this.isColorDropdownOpen = !this.isColorDropdownOpen
+              }}
+              aria-expanded=${this.isColorDropdownOpen ? 'true' : 'false'}
+              aria-pressed=${this.activeFormats.color ? 'true' : 'false'}
+              aria-label="Text color"
+              variant="secondary"
+              size="small"
+              custom-class=${this.toolbarButton({
+                active: this.activeFormats.color,
+              })}
+              is-icon
+            >
+              <div
+                class="size-4 rounded-full"
+                style="background-color: ${this.activeFormats.activeColor};"
+              ></div>
+            </lukso-button>
+          </lukso-tooltip>
           <lukso-dropdown
             id="colorDropdown"
             trigger-id=""
@@ -1467,18 +1486,12 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
 
         <div class=${header()}>
           <div class=${toolbar()}>${this.toolbarTemplate()}</div>
-          <div class="flex items-center gap-2">
-            <lukso-icon
-              name="eye-show"
-              color="neutral-70"
-              class="cursor-pointer"
-            ></lukso-icon>
-            <lukso-switch
-              color="purple-51"
-              ?is-checked=${this.isPreview}
-              @on-change=${this.handleSwitchChange}
-            ></lukso-switch>
-          </div>
+          ${this.buttonTemplate(
+            'eye',
+            () => this.togglePreview(),
+            'Toggle preview',
+            this.isPreview
+          )}
         </div>
 
         <div class=${area()}>

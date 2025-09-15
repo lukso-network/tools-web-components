@@ -510,7 +510,27 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         }
       }
 
-      this.value = before + transformed + after
+      let finalValue = before + transformed + after
+
+      // If we applied ordered list formatting, renumber any subsequent ordered list items
+      if (listType === 'ordered' && !allAlreadyOrdered) {
+        // Find the indentation level of the last line we just transformed
+        const transformedLines = transformed.split('\n')
+        const lastTransformedLine =
+          transformedLines[transformedLines.length - 1]
+        const indentMatch = lastTransformedLine.match(/^(\s*)/)
+        const indent = indentMatch ? indentMatch[1] : ''
+
+        // Renumber items that come after our transformation
+        const endPosition = before.length + transformed.length
+        finalValue = this.renumberOrderedListItems(
+          finalValue,
+          endPosition,
+          indent
+        )
+      }
+
+      this.value = finalValue
 
       // Position cursor at the end of the first line
       const firstLineEnd = transformed.indexOf('\n')
@@ -1484,16 +1504,23 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         return true
       }
 
-      // Continue ordered list: increment number
+      // Continue ordered list: increment number and renumber subsequent items
       const nextNumber = parseInt(numberStr, 10) + 1
       const before = value.slice(0, start)
       const after = value.slice(start)
       const prefix = `\n${indent}${nextNumber}. `
       const newValue = before + prefix + after
-      this.value = newValue
+
+      // Renumber all subsequent ordered list items with the same indentation
+      const renumberedValue = this.renumberOrderedListItems(
+        newValue,
+        start + prefix.length,
+        indent
+      )
+      this.value = renumberedValue
 
       // Also update the textarea element's value directly
-      textarea.value = newValue
+      textarea.value = renumberedValue
 
       const newCursor = start + prefix.length
       requestAnimationFrame(() => {
@@ -1505,6 +1532,72 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     }
 
     return false
+  }
+
+  /**
+   * Renumber ordered list items that come after the given position with the same indentation level.
+   *
+   * @param value - The text content to process
+   * @param fromPosition - Start looking for list items from this position
+   * @param targetIndent - Only renumber items with this exact indentation
+   * @returns The text with renumbered list items
+   */
+  private renumberOrderedListItems(
+    value: string,
+    fromPosition: number,
+    targetIndent: string
+  ): string {
+    const lines = value.split('\n')
+    const fromLineIndex = Math.max(
+      0,
+      value.slice(0, fromPosition).split('\n').length - 1
+    )
+
+    // Find the number that should be used for the next item by looking backwards
+    let nextExpectedNumber = 1
+
+    // Look backwards from the current position to find the last ordered list item with same indentation
+    for (let i = fromLineIndex; i >= 0; i--) {
+      const line = lines[i]
+      const orderedMatch = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+      if (orderedMatch && orderedMatch[1] === targetIndent) {
+        nextExpectedNumber = parseInt(orderedMatch[2], 10) + 1
+        break
+      }
+    }
+
+    // Now renumber all subsequent lines with the same indentation
+    let currentNumber = nextExpectedNumber
+    const orderedRegex = /^(\s*)(\d+)\.\s*(.*)$/
+
+    // Start renumbering from the line after fromLineIndex
+    for (let i = fromLineIndex + 1; i < lines.length; i++) {
+      const line = lines[i]
+      const orderedMatch = line.match(orderedRegex)
+
+      if (orderedMatch && orderedMatch[1] === targetIndent) {
+        // This is an ordered list item with the same indentation - renumber it
+        const indent = orderedMatch[1]
+        const content = orderedMatch[3]
+        lines[i] = `${indent}${currentNumber}. ${content}`
+        currentNumber++
+      } else if (orderedMatch && orderedMatch[1].length < targetIndent.length) {
+        // We've hit a list item with less indentation, stop renumbering
+        break
+      } else if (
+        line.trim() !== '' &&
+        !orderedMatch &&
+        !line.match(/^\s*[-*+]\s+/)
+      ) {
+        // We've hit non-empty non-list content at root level, stop renumbering
+        if (targetIndent === '') {
+          break
+        }
+      }
+      // For lines with more indentation, unordered lists, or empty lines, continue without renumbering
+    }
+
+    return lines.join('\n')
   }
 
   /**
@@ -1566,7 +1659,18 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const after = value.slice(lineEnd)
 
       // If this is the last line, don't add extra newline
-      const newValue = before + (lineEnd === value.length ? '' : '') + after
+      let newValue = before + (lineEnd === value.length ? '' : '') + after
+
+      // If we're removing an ordered list item, renumber the subsequent items
+      if (orderedMatch) {
+        const indent = orderedMatch[1] ?? ''
+        newValue = this.renumberOrderedListItems(
+          newValue,
+          before.length,
+          indent
+        )
+      }
+
       this.value = newValue
 
       // Also update the textarea element's value directly

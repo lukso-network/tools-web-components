@@ -135,6 +135,11 @@
       "import": "./dist/components/lukso-markdown/index.js",
       "types": "./dist/components/lukso-markdown/index.d.ts"
     },
+    "./dist/components/lukso-markdown-editor": {
+      "require": "./dist/components/lukso-markdown-editor/index.cjs",
+      "import": "./dist/components/lukso-markdown-editor/index.js",
+      "types": "./dist/components/lukso-markdown-editor/index.d.ts"
+    },
     "./dist/components/lukso-modal": {
       "require": "./dist/components/lukso-modal/index.cjs",
       "import": "./dist/components/lukso-modal/index.js",
@@ -204,11 +209,6 @@
       "require": "./dist/components/lukso-terms/index.cjs",
       "import": "./dist/components/lukso-terms/index.js",
       "types": "./dist/components/lukso-terms/index.d.ts"
-    },
-    "./dist/components/lukso-text-editor": {
-      "require": "./dist/components/lukso-text-editor/index.cjs",
-      "import": "./dist/components/lukso-text-editor/index.js",
-      "types": "./dist/components/lukso-text-editor/index.d.ts"
     },
     "./dist/components/lukso-textarea": {
       "require": "./dist/components/lukso-textarea/index.cjs",

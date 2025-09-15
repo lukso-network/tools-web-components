@@ -464,7 +464,12 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         if (allAlreadyUnordered && lines.some(l => unorderedRegex.test(l))) {
           // Toggle off: remove unordered list formatting
           transformed = lines
-            .map(l => l.replace(unorderedRegex, '$1'))
+            .map(l => {
+              if (unorderedRegex.test(l)) {
+                return l.replace(unorderedRegex, '$1')
+              }
+              return l
+            })
             .join('\n')
         } else {
           // Apply unordered list formatting
@@ -472,9 +477,12 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
             .map(l => {
               if (l.trim() === '') return l
               // Remove any existing list formatting first
-              const cleaned = l
-                .replace(unorderedRegex, '$1')
-                .replace(orderedRegex, '$1')
+              let cleaned = l
+              if (unorderedRegex.test(l)) {
+                cleaned = l.replace(unorderedRegex, '$1')
+              } else if (orderedRegex.test(l)) {
+                cleaned = l.replace(orderedRegex, '$1')
+              }
               const indentMatch = cleaned.match(/^(\s*)/)
               const indent = indentMatch ? indentMatch[1] : ''
               const content = cleaned.replace(/^\s*/, '')
@@ -490,7 +498,14 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
         if (allAlreadyOrdered && lines.some(l => orderedRegex.test(l))) {
           // Toggle off: remove ordered list formatting
-          transformed = lines.map(l => l.replace(orderedRegex, '$1')).join('\n')
+          transformed = lines
+            .map(l => {
+              if (orderedRegex.test(l)) {
+                return l.replace(orderedRegex, '$1')
+              }
+              return l
+            })
+            .join('\n')
         } else {
           // Apply ordered list formatting
           let counter = 1
@@ -498,9 +513,12 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
             .map(l => {
               if (l.trim() === '') return l
               // Remove any existing list formatting first
-              const cleaned = l
-                .replace(unorderedRegex, '$1')
-                .replace(orderedRegex, '$1')
+              let cleaned = l
+              if (unorderedRegex.test(l)) {
+                cleaned = l.replace(unorderedRegex, '$1')
+              } else if (orderedRegex.test(l)) {
+                cleaned = l.replace(orderedRegex, '$1')
+              }
               const indentMatch = cleaned.match(/^(\s*)/)
               const indent = indentMatch ? indentMatch[1] : ''
               const content = cleaned.replace(/^\s*/, '')
@@ -512,22 +530,28 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
       let finalValue = before + transformed + after
 
-      // If we applied ordered list formatting, renumber any subsequent ordered list items
-      if (listType === 'ordered' && !allAlreadyOrdered) {
-        // Find the indentation level of the last line we just transformed
-        const transformedLines = transformed.split('\n')
-        const lastTransformedLine =
-          transformedLines[transformedLines.length - 1]
-        const indentMatch = lastTransformedLine.match(/^(\s*)/)
-        const indent = indentMatch ? indentMatch[1] : ''
-
-        // Renumber items that come after our transformation
-        const endPosition = before.length + transformed.length
-        finalValue = this.renumberOrderedListItems(
-          finalValue,
-          endPosition,
-          indent
+      // If we applied ordered list formatting (and it wasn't already all ordered), renumber any subsequent ordered list items
+      if (listType === 'ordered') {
+        const allAlreadyOrdered = lines.every(
+          l => l.trim() === '' || orderedRegex.test(l)
         )
+
+        if (!allAlreadyOrdered || !lines.some(l => orderedRegex.test(l))) {
+          // Find the indentation level of the last line we just transformed
+          const transformedLines = transformed.split('\n')
+          const lastTransformedLine =
+            transformedLines[transformedLines.length - 1]
+          const indentMatch = lastTransformedLine.match(/^(\s*)/)
+          const indent = indentMatch ? indentMatch[1] : ''
+
+          // Renumber items that come after our transformation
+          const endPosition = before.length + transformed.length
+          finalValue = this.renumberOrderedListItems(
+            finalValue,
+            endPosition,
+            indent
+          )
+        }
       }
 
       this.value = finalValue

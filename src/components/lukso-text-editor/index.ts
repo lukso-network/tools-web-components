@@ -1229,7 +1229,11 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
     this.redoStack.push({ value: this.value, selection: currentSelection })
 
     // Get previous state from undo stack
-    const previousState = this.undoStack.pop()!
+    const previousState = this.undoStack.pop()
+
+    if (!previousState) {
+      return
+    }
 
     // Apply previous state
     this.isUndoRedoAction = true

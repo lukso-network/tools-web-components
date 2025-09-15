@@ -100,6 +100,21 @@ const meta: Meta = {
       description:
         'JSON string defining custom color groups for the color picker',
     },
+    isNonResizable: {
+      name: 'is-non-resizable',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+      description:
+        'If true, the text editor height will be fixed and not user-resizable',
+    },
+    autofocus: {
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -117,6 +132,9 @@ const meta: Meta = {
     },
     'color-groups': {
       name: 'colorGroupsJson',
+    },
+    'is-non-resizable': {
+      name: 'isNonResizable',
     },
     onChange: {
       name: 'on-change',
@@ -138,6 +156,8 @@ const meta: Meta = {
     isReadonly: false,
     isDisabled: false,
     isPreview: false,
+    isNonResizable: false,
+    autofocus: false,
     textColor: '',
     colorGroupsJson: '',
     error: '',
@@ -151,6 +171,34 @@ const meta: Meta = {
         'isPreview',
         'textColor',
         'colorGroupsJson',
+        'isNonResizable',
+        'savedSelectionForPreview',
+        'isHeadingDropdownOpen',
+        'isColorDropdownOpen',
+        'isListDropdownOpen',
+        'headingTriggerId',
+        'colorTriggerId',
+        'listTriggerId',
+        'currentSelection',
+        'savedSelection',
+        'activeFormats',
+        'undoStack',
+        'redoStack',
+        'isUndoRedoAction',
+        'lastSavedValue',
+        'undoTimeout',
+        'MAX_UNDO_STACK_SIZE',
+        'UNDO_SAVE_DELAY',
+        'textareaEl',
+        'handleOutsideClick',
+        'toolbarButton',
+        'defaultColor',
+        'colorSamples',
+        'handleTextareaInput',
+        'handleTextareaKeyUp',
+        'handleTextareaClick',
+        'handleKeyDown',
+        'styles',
       ],
     },
   },
@@ -169,6 +217,8 @@ const Template = ({
   isReadonly,
   isDisabled,
   isPreview,
+  isNonResizable,
+  autofocus,
   textColor,
   colorGroupsJson,
   onChange,
@@ -186,6 +236,8 @@ const Template = ({
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
     ?is-preview=${isPreview}
+    ?is-non-resizable=${isNonResizable}
+    ?autofocus=${autofocus}
     @on-change=${onChange}
   ></lukso-text-editor>`
 

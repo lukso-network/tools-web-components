@@ -442,7 +442,18 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       if (listType === 'none') {
         // Remove any list formatting
         transformed = lines
-          .map(l => l.replace(unorderedRegex, '$1').replace(orderedRegex, '$1'))
+          .map(l => {
+            // Check for unordered list first
+            if (unorderedRegex.test(l)) {
+              return l.replace(unorderedRegex, '$1')
+            }
+            // Check for ordered list
+            if (orderedRegex.test(l)) {
+              return l.replace(orderedRegex, '$1')
+            }
+            // No list formatting found, return as is
+            return l
+          })
           .join('\n')
       } else if (listType === 'unordered') {
         // Check if all lines are already unordered lists

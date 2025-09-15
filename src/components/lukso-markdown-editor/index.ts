@@ -381,6 +381,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
       this.value = before + transformed + after
 
+      // Also update the textarea element's value directly to ensure sync
+      textarea.value = before + transformed + after
+
       // Position cursor appropriately based on content
       let cursorPosition = before.length
       if (level > 0 && !allAlreadyLevel) {
@@ -508,7 +511,24 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
             .join('\n')
         } else {
           // Apply ordered list formatting
+          // Find the starting counter by looking backwards from the selection
           let counter = 1
+
+          // Look backwards from the selection to find any existing ordered list items
+          const beforeLines = before.split('\n')
+          for (let i = beforeLines.length - 1; i >= 0; i--) {
+            const line = beforeLines[i]
+            const orderedMatch = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+            if (orderedMatch) {
+              // Found an ordered list item, continue from its number
+              counter = parseInt(orderedMatch[2], 10) + 1
+              break
+            } else if (line.trim() !== '' && !line.match(/^\s*[-*+]\s+/)) {
+              // Hit non-list content, stop looking
+              break
+            }
+          }
+
           transformed = lines
             .map(l => {
               if (l.trim() === '') return l
@@ -554,7 +574,23 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         }
       }
 
+      // Handle renumbering for list removal
+      if (listType === 'none') {
+        // Check if we removed any ordered list items, and renumber subsequent items if needed
+        const removedOrderedItems = lines.some(l => orderedRegex.test(l))
+        if (removedOrderedItems) {
+          // Find any subsequent ordered lists and renumber them starting from 1
+          finalValue = this.renumberSubsequentOrderedLists(
+            finalValue,
+            before.length + transformed.length
+          )
+        }
+      }
+
       this.value = finalValue
+
+      // Also update the textarea element's value directly to ensure sync
+      textarea.value = finalValue
 
       // Position cursor at the end of the first line
       const firstLineEnd = transformed.indexOf('\n')
@@ -1577,16 +1613,24 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       value.slice(0, fromPosition).split('\n').length - 1
     )
 
-    // Find the number that should be used for the next item by looking backwards
+    // Find the current line and determine the starting number for subsequent items
     let nextExpectedNumber = 1
+    const currentLine = lines[fromLineIndex]
+    const currentMatch = currentLine?.match(/^(\s*)(\d+)\.\s*(.*)$/)
 
-    // Look backwards from the current position to find the last ordered list item with same indentation
-    for (let i = fromLineIndex; i >= 0; i--) {
-      const line = lines[i]
-      const orderedMatch = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
-      if (orderedMatch && orderedMatch[1] === targetIndent) {
-        nextExpectedNumber = parseInt(orderedMatch[2], 10) + 1
-        break
+    if (currentMatch && currentMatch[1] === targetIndent) {
+      // If the current line is an ordered list item with matching indentation,
+      // the next item should be one number higher
+      nextExpectedNumber = parseInt(currentMatch[2], 10) + 1
+    } else {
+      // Look backwards to find the most recent ordered list item with same indentation
+      for (let i = fromLineIndex - 1; i >= 0; i--) {
+        const line = lines[i]
+        const orderedMatch = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+        if (orderedMatch && orderedMatch[1] === targetIndent) {
+          nextExpectedNumber = parseInt(orderedMatch[2], 10) + 1
+          break
+        }
       }
     }
 
@@ -1619,6 +1663,59 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         }
       }
       // For lines with more indentation, unordered lists, or empty lines, continue without renumbering
+    }
+
+    return lines.join('\n')
+  }
+
+  /**
+   * Renumber any ordered lists that come after the given position, starting each new sequence from 1.
+   * This is used when removing list formatting breaks the continuity of a list.
+   *
+   * @param value - The text content to process
+   * @param fromPosition - Start looking for list items from this position
+   * @returns The text with renumbered list sequences
+   */
+  private renumberSubsequentOrderedLists(
+    value: string,
+    fromPosition: number
+  ): string {
+    const lines = value.split('\n')
+    const fromLineIndex = Math.max(
+      0,
+      value.slice(0, fromPosition).split('\n').length - 1
+    )
+
+    const orderedRegex = /^(\s*)(\d+)\.\s*(.*)$/
+    let currentSequenceNumber = 1
+    let inSequence = false
+    let currentIndent = ''
+
+    // Start checking from the line after fromLineIndex
+    for (let i = fromLineIndex + 1; i < lines.length; i++) {
+      const line = lines[i]
+      const orderedMatch = line.match(orderedRegex)
+
+      if (orderedMatch) {
+        const indent = orderedMatch[1]
+        const content = orderedMatch[3]
+
+        // Check if we're starting a new sequence
+        if (!inSequence || indent !== currentIndent) {
+          // Starting a new sequence
+          currentSequenceNumber = 1
+          inSequence = true
+          currentIndent = indent
+        }
+
+        lines[i] = `${indent}${currentSequenceNumber}. ${content}`
+        currentSequenceNumber++
+      } else if (line.trim() !== '' && !line.match(/^\s*[-*+]\s+/)) {
+        // Hit non-list content, break the sequence
+        inSequence = false
+        // Don't reset currentSequenceNumber here - let it reset when we start a new sequence
+      }
+      // Empty lines and unordered lists don't break sequences
     }
 
     return lines.join('\n')

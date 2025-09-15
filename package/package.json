@@ -1,240 +1,240 @@
 {
-	"name": "@lukso/web-components",
-	"version": "1.154.0",
-	"type": "module",
-	"files": [
-		"dist",
-		"tools",
-		"tailwind.config.cjs",
-		"postcss.config.cjs",
-		"README.md",
-		"LICENSE"
-	],
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.js",
-			"types": "./dist/index.d.ts"
-		},
-		"./tailwind.config": "./tailwind.config.cjs",
-		"./postcss.config": "./postcss.config.cjs",
-		"./tools/assets/fonts/": "./tools/assets/fonts/",
-		"./tools/assets/fonts": {
-			"require": "./tools/assets/fonts/index.cjs",
-			"import": "./tools/assets/fonts/index.js",
-			"types": "./tools/assets/fonts/index.d.ts"
-		},
-		"./tools/assets/images/": "./tools/assets/images/",
-		"./tools/assets/images": {
-			"require": "./tools/assets/images/index.cjs",
-			"import": "./tools/assets/images/index.js",
-			"types": "./tools/assets/images/index.d.ts"
-		},
-		"./tools/assets/": "./tools/assets/",
-		"./tools/assets": {
-			"require": "./tools/assets/index.cjs",
-			"import": "./tools/assets/index.js",
-			"types": "./tools/assets/index.d.ts"
-		},
-		"./tools/styles/": "./tools/styles/",
-		"./tools/styles": {
-			"require": "./tools/styles/index.cjs",
-			"import": "./tools/styles/index.js",
-			"types": "./tools/styles/index.d.ts"
-		},
-		"./tools/sass/": "./tools/sass/",
-		"./tools/sass": {
-			"require": "./tools/sass/index.cjs",
-			"import": "./tools/sass/index.js",
-			"types": "./tools/sass/index.d.ts"
-		},
-		"./tools/tailwind-config": {
-			"require": "./tools/tailwind-config.cjs",
-			"import": "./tools/tailwind-config.js",
-			"types": "./tools/tailwind-config.d.ts"
-		},
-		"./tools/copy-assets": {
-			"require": "./tools/copy-assets.cjs",
-			"import": "./tools/copy-assets.js",
-			"types": "./tools/copy-assets.d.ts"
-		},
-		"./tools/": "./tools/",
-		"./tools": {
-			"require": "./tools/index.cjs",
-			"import": "./tools/index.js",
-			"types": "./tools/index.d.ts"
-		},
-		"./custom-elements": "./custom-elements.json",
-		"./custom-elements.json": "./custom-elements.json",
-		"./package.json": "./package.json",
-		"./dist/components": {
-			"require": "./dist/components/index.cjs",
-			"import": "./dist/components/index.js",
-			"types": "./dist/components/index.d.ts"
-		},
-		"./dist/components/lukso-button": {
-			"require": "./dist/components/lukso-button/index.cjs",
-			"import": "./dist/components/lukso-button/index.js",
-			"types": "./dist/components/lukso-button/index.d.ts"
-		},
-		"./dist/components/lukso-card": {
-			"require": "./dist/components/lukso-card/index.cjs",
-			"import": "./dist/components/lukso-card/index.js",
-			"types": "./dist/components/lukso-card/index.d.ts"
-		},
-		"./dist/components/lukso-checkbox": {
-			"require": "./dist/components/lukso-checkbox/index.cjs",
-			"import": "./dist/components/lukso-checkbox/index.js",
-			"types": "./dist/components/lukso-checkbox/index.d.ts"
-		},
-		"./dist/components/lukso-collapse": {
-			"require": "./dist/components/lukso-collapse/index.cjs",
-			"import": "./dist/components/lukso-collapse/index.js",
-			"types": "./dist/components/lukso-collapse/index.d.ts"
-		},
-		"./dist/components/lukso-color-picker": {
-			"require": "./dist/components/lukso-color-picker/index.cjs",
-			"import": "./dist/components/lukso-color-picker/index.js",
-			"types": "./dist/components/lukso-color-picker/index.d.ts"
-		},
-		"./dist/components/lukso-dropdown": {
-			"require": "./dist/components/lukso-dropdown/index.cjs",
-			"import": "./dist/components/lukso-dropdown/index.js",
-			"types": "./dist/components/lukso-dropdown/index.d.ts"
-		},
-		"./dist/components/lukso-dropdown-option": {
-			"require": "./dist/components/lukso-dropdown-option/index.cjs",
-			"import": "./dist/components/lukso-dropdown-option/index.js",
-			"types": "./dist/components/lukso-dropdown-option/index.d.ts"
-		},
-		"./dist/components/lukso-footer": {
-			"require": "./dist/components/lukso-footer/index.cjs",
-			"import": "./dist/components/lukso-footer/index.js",
-			"types": "./dist/components/lukso-footer/index.d.ts"
-		},
-		"./dist/components/lukso-icon": {
-			"require": "./dist/components/lukso-icon/index.cjs",
-			"import": "./dist/components/lukso-icon/index.js",
-			"types": "./dist/components/lukso-icon/index.d.ts"
-		},
-		"./dist/components/lukso-image": {
-			"require": "./dist/components/lukso-image/index.cjs",
-			"import": "./dist/components/lukso-image/index.js",
-			"types": "./dist/components/lukso-image/index.d.ts"
-		},
-		"./dist/components/lukso-input": {
-			"require": "./dist/components/lukso-input/index.cjs",
-			"import": "./dist/components/lukso-input/index.js",
-			"types": "./dist/components/lukso-input/index.d.ts"
-		},
-		"./dist/components/lukso-markdown": {
-			"require": "./dist/components/lukso-markdown/index.cjs",
-			"import": "./dist/components/lukso-markdown/index.js",
-			"types": "./dist/components/lukso-markdown/index.d.ts"
-		},
-		"./dist/components/lukso-modal": {
-			"require": "./dist/components/lukso-modal/index.cjs",
-			"import": "./dist/components/lukso-modal/index.js",
-			"types": "./dist/components/lukso-modal/index.d.ts"
-		},
-		"./dist/components/lukso-navbar": {
-			"require": "./dist/components/lukso-navbar/index.cjs",
-			"import": "./dist/components/lukso-navbar/index.js",
-			"types": "./dist/components/lukso-navbar/index.d.ts"
-		},
-		"./dist/components/lukso-pagination": {
-			"require": "./dist/components/lukso-pagination/index.cjs",
-			"import": "./dist/components/lukso-pagination/index.js",
-			"types": "./dist/components/lukso-pagination/index.d.ts"
-		},
-		"./dist/components/lukso-profile": {
-			"require": "./dist/components/lukso-profile/index.cjs",
-			"import": "./dist/components/lukso-profile/index.js",
-			"types": "./dist/components/lukso-profile/index.d.ts"
-		},
-		"./dist/components/lukso-progress": {
-			"require": "./dist/components/lukso-progress/index.cjs",
-			"import": "./dist/components/lukso-progress/index.js",
-			"types": "./dist/components/lukso-progress/index.d.ts"
-		},
-		"./dist/components/lukso-radio": {
-			"require": "./dist/components/lukso-radio/index.cjs",
-			"import": "./dist/components/lukso-radio/index.js",
-			"types": "./dist/components/lukso-radio/index.d.ts"
-		},
-		"./dist/components/lukso-radio-group": {
-			"require": "./dist/components/lukso-radio-group/index.cjs",
-			"import": "./dist/components/lukso-radio-group/index.js",
-			"types": "./dist/components/lukso-radio-group/index.d.ts"
-		},
-		"./dist/components/lukso-sanitize": {
-			"require": "./dist/components/lukso-sanitize/index.cjs",
-			"import": "./dist/components/lukso-sanitize/index.js",
-			"types": "./dist/components/lukso-sanitize/index.d.ts"
-		},
-		"./dist/components/lukso-search": {
-			"require": "./dist/components/lukso-search/index.cjs",
-			"import": "./dist/components/lukso-search/index.js",
-			"types": "./dist/components/lukso-search/index.d.ts"
-		},
-		"./dist/components/lukso-select": {
-			"require": "./dist/components/lukso-select/index.cjs",
-			"import": "./dist/components/lukso-select/index.js",
-			"types": "./dist/components/lukso-select/index.d.ts"
-		},
-		"./dist/components/lukso-share": {
-			"require": "./dist/components/lukso-share/index.cjs",
-			"import": "./dist/components/lukso-share/index.js",
-			"types": "./dist/components/lukso-share/index.d.ts"
-		},
-		"./dist/components/lukso-switch": {
-			"require": "./dist/components/lukso-switch/index.cjs",
-			"import": "./dist/components/lukso-switch/index.js",
-			"types": "./dist/components/lukso-switch/index.d.ts"
-		},
-		"./dist/components/lukso-tag": {
-			"require": "./dist/components/lukso-tag/index.cjs",
-			"import": "./dist/components/lukso-tag/index.js",
-			"types": "./dist/components/lukso-tag/index.d.ts"
-		},
-		"./dist/components/lukso-terms": {
-			"require": "./dist/components/lukso-terms/index.cjs",
-			"import": "./dist/components/lukso-terms/index.js",
-			"types": "./dist/components/lukso-terms/index.d.ts"
-		},
-		"./dist/components/lukso-text-editor": {
-			"require": "./dist/components/lukso-text-editor/index.cjs",
-			"import": "./dist/components/lukso-text-editor/index.js",
-			"types": "./dist/components/lukso-text-editor/index.d.ts"
-		},
-		"./dist/components/lukso-textarea": {
-			"require": "./dist/components/lukso-textarea/index.cjs",
-			"import": "./dist/components/lukso-textarea/index.js",
-			"types": "./dist/components/lukso-textarea/index.d.ts"
-		},
-		"./dist/components/lukso-tooltip": {
-			"require": "./dist/components/lukso-tooltip/index.cjs",
-			"import": "./dist/components/lukso-tooltip/index.js",
-			"types": "./dist/components/lukso-tooltip/index.d.ts"
-		},
-		"./dist/components/lukso-username": {
-			"require": "./dist/components/lukso-username/index.cjs",
-			"import": "./dist/components/lukso-username/index.js",
-			"types": "./dist/components/lukso-username/index.d.ts"
-		},
-		"./dist/components/lukso-wizard": {
-			"require": "./dist/components/lukso-wizard/index.cjs",
-			"import": "./dist/components/lukso-wizard/index.js",
-			"types": "./dist/components/lukso-wizard/index.d.ts"
-		},
-		"./dist/shared/tailwind-element": {
-			"require": "./dist/shared/tailwind-element/index.cjs",
-			"import": "./dist/shared/tailwind-element/index.js",
-			"types": "./dist/shared/tailwind-element/index.d.ts"
-		}
-	},
-	"customElements": "custom-elements.json"
+  "name": "@lukso/web-components",
+  "version": "1.154.0",
+  "type": "module",
+  "files": [
+    "dist",
+    "tools",
+    "tailwind.config.cjs",
+    "postcss.config.cjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./tailwind.config": "./tailwind.config.cjs",
+    "./postcss.config": "./postcss.config.cjs",
+    "./tools/assets/fonts/": "./tools/assets/fonts/",
+    "./tools/assets/fonts": {
+      "require": "./tools/assets/fonts/index.cjs",
+      "import": "./tools/assets/fonts/index.js",
+      "types": "./tools/assets/fonts/index.d.ts"
+    },
+    "./tools/assets/images/": "./tools/assets/images/",
+    "./tools/assets/images": {
+      "require": "./tools/assets/images/index.cjs",
+      "import": "./tools/assets/images/index.js",
+      "types": "./tools/assets/images/index.d.ts"
+    },
+    "./tools/assets/": "./tools/assets/",
+    "./tools/assets": {
+      "require": "./tools/assets/index.cjs",
+      "import": "./tools/assets/index.js",
+      "types": "./tools/assets/index.d.ts"
+    },
+    "./tools/styles/": "./tools/styles/",
+    "./tools/styles": {
+      "require": "./tools/styles/index.cjs",
+      "import": "./tools/styles/index.js",
+      "types": "./tools/styles/index.d.ts"
+    },
+    "./tools/sass/": "./tools/sass/",
+    "./tools/sass": {
+      "require": "./tools/sass/index.cjs",
+      "import": "./tools/sass/index.js",
+      "types": "./tools/sass/index.d.ts"
+    },
+    "./tools/tailwind-config": {
+      "require": "./tools/tailwind-config.cjs",
+      "import": "./tools/tailwind-config.js",
+      "types": "./tools/tailwind-config.d.ts"
+    },
+    "./tools/copy-assets": {
+      "require": "./tools/copy-assets.cjs",
+      "import": "./tools/copy-assets.js",
+      "types": "./tools/copy-assets.d.ts"
+    },
+    "./tools/": "./tools/",
+    "./tools": {
+      "require": "./tools/index.cjs",
+      "import": "./tools/index.js",
+      "types": "./tools/index.d.ts"
+    },
+    "./custom-elements": "./custom-elements.json",
+    "./custom-elements.json": "./custom-elements.json",
+    "./package.json": "./package.json",
+    "./dist/components": {
+      "require": "./dist/components/index.cjs",
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts"
+    },
+    "./dist/components/lukso-button": {
+      "require": "./dist/components/lukso-button/index.cjs",
+      "import": "./dist/components/lukso-button/index.js",
+      "types": "./dist/components/lukso-button/index.d.ts"
+    },
+    "./dist/components/lukso-card": {
+      "require": "./dist/components/lukso-card/index.cjs",
+      "import": "./dist/components/lukso-card/index.js",
+      "types": "./dist/components/lukso-card/index.d.ts"
+    },
+    "./dist/components/lukso-checkbox": {
+      "require": "./dist/components/lukso-checkbox/index.cjs",
+      "import": "./dist/components/lukso-checkbox/index.js",
+      "types": "./dist/components/lukso-checkbox/index.d.ts"
+    },
+    "./dist/components/lukso-collapse": {
+      "require": "./dist/components/lukso-collapse/index.cjs",
+      "import": "./dist/components/lukso-collapse/index.js",
+      "types": "./dist/components/lukso-collapse/index.d.ts"
+    },
+    "./dist/components/lukso-color-picker": {
+      "require": "./dist/components/lukso-color-picker/index.cjs",
+      "import": "./dist/components/lukso-color-picker/index.js",
+      "types": "./dist/components/lukso-color-picker/index.d.ts"
+    },
+    "./dist/components/lukso-dropdown": {
+      "require": "./dist/components/lukso-dropdown/index.cjs",
+      "import": "./dist/components/lukso-dropdown/index.js",
+      "types": "./dist/components/lukso-dropdown/index.d.ts"
+    },
+    "./dist/components/lukso-dropdown-option": {
+      "require": "./dist/components/lukso-dropdown-option/index.cjs",
+      "import": "./dist/components/lukso-dropdown-option/index.js",
+      "types": "./dist/components/lukso-dropdown-option/index.d.ts"
+    },
+    "./dist/components/lukso-footer": {
+      "require": "./dist/components/lukso-footer/index.cjs",
+      "import": "./dist/components/lukso-footer/index.js",
+      "types": "./dist/components/lukso-footer/index.d.ts"
+    },
+    "./dist/components/lukso-icon": {
+      "require": "./dist/components/lukso-icon/index.cjs",
+      "import": "./dist/components/lukso-icon/index.js",
+      "types": "./dist/components/lukso-icon/index.d.ts"
+    },
+    "./dist/components/lukso-image": {
+      "require": "./dist/components/lukso-image/index.cjs",
+      "import": "./dist/components/lukso-image/index.js",
+      "types": "./dist/components/lukso-image/index.d.ts"
+    },
+    "./dist/components/lukso-input": {
+      "require": "./dist/components/lukso-input/index.cjs",
+      "import": "./dist/components/lukso-input/index.js",
+      "types": "./dist/components/lukso-input/index.d.ts"
+    },
+    "./dist/components/lukso-markdown": {
+      "require": "./dist/components/lukso-markdown/index.cjs",
+      "import": "./dist/components/lukso-markdown/index.js",
+      "types": "./dist/components/lukso-markdown/index.d.ts"
+    },
+    "./dist/components/lukso-modal": {
+      "require": "./dist/components/lukso-modal/index.cjs",
+      "import": "./dist/components/lukso-modal/index.js",
+      "types": "./dist/components/lukso-modal/index.d.ts"
+    },
+    "./dist/components/lukso-navbar": {
+      "require": "./dist/components/lukso-navbar/index.cjs",
+      "import": "./dist/components/lukso-navbar/index.js",
+      "types": "./dist/components/lukso-navbar/index.d.ts"
+    },
+    "./dist/components/lukso-pagination": {
+      "require": "./dist/components/lukso-pagination/index.cjs",
+      "import": "./dist/components/lukso-pagination/index.js",
+      "types": "./dist/components/lukso-pagination/index.d.ts"
+    },
+    "./dist/components/lukso-profile": {
+      "require": "./dist/components/lukso-profile/index.cjs",
+      "import": "./dist/components/lukso-profile/index.js",
+      "types": "./dist/components/lukso-profile/index.d.ts"
+    },
+    "./dist/components/lukso-progress": {
+      "require": "./dist/components/lukso-progress/index.cjs",
+      "import": "./dist/components/lukso-progress/index.js",
+      "types": "./dist/components/lukso-progress/index.d.ts"
+    },
+    "./dist/components/lukso-radio": {
+      "require": "./dist/components/lukso-radio/index.cjs",
+      "import": "./dist/components/lukso-radio/index.js",
+      "types": "./dist/components/lukso-radio/index.d.ts"
+    },
+    "./dist/components/lukso-radio-group": {
+      "require": "./dist/components/lukso-radio-group/index.cjs",
+      "import": "./dist/components/lukso-radio-group/index.js",
+      "types": "./dist/components/lukso-radio-group/index.d.ts"
+    },
+    "./dist/components/lukso-sanitize": {
+      "require": "./dist/components/lukso-sanitize/index.cjs",
+      "import": "./dist/components/lukso-sanitize/index.js",
+      "types": "./dist/components/lukso-sanitize/index.d.ts"
+    },
+    "./dist/components/lukso-search": {
+      "require": "./dist/components/lukso-search/index.cjs",
+      "import": "./dist/components/lukso-search/index.js",
+      "types": "./dist/components/lukso-search/index.d.ts"
+    },
+    "./dist/components/lukso-select": {
+      "require": "./dist/components/lukso-select/index.cjs",
+      "import": "./dist/components/lukso-select/index.js",
+      "types": "./dist/components/lukso-select/index.d.ts"
+    },
+    "./dist/components/lukso-share": {
+      "require": "./dist/components/lukso-share/index.cjs",
+      "import": "./dist/components/lukso-share/index.js",
+      "types": "./dist/components/lukso-share/index.d.ts"
+    },
+    "./dist/components/lukso-switch": {
+      "require": "./dist/components/lukso-switch/index.cjs",
+      "import": "./dist/components/lukso-switch/index.js",
+      "types": "./dist/components/lukso-switch/index.d.ts"
+    },
+    "./dist/components/lukso-tag": {
+      "require": "./dist/components/lukso-tag/index.cjs",
+      "import": "./dist/components/lukso-tag/index.js",
+      "types": "./dist/components/lukso-tag/index.d.ts"
+    },
+    "./dist/components/lukso-terms": {
+      "require": "./dist/components/lukso-terms/index.cjs",
+      "import": "./dist/components/lukso-terms/index.js",
+      "types": "./dist/components/lukso-terms/index.d.ts"
+    },
+    "./dist/components/lukso-text-editor": {
+      "require": "./dist/components/lukso-text-editor/index.cjs",
+      "import": "./dist/components/lukso-text-editor/index.js",
+      "types": "./dist/components/lukso-text-editor/index.d.ts"
+    },
+    "./dist/components/lukso-textarea": {
+      "require": "./dist/components/lukso-textarea/index.cjs",
+      "import": "./dist/components/lukso-textarea/index.js",
+      "types": "./dist/components/lukso-textarea/index.d.ts"
+    },
+    "./dist/components/lukso-tooltip": {
+      "require": "./dist/components/lukso-tooltip/index.cjs",
+      "import": "./dist/components/lukso-tooltip/index.js",
+      "types": "./dist/components/lukso-tooltip/index.d.ts"
+    },
+    "./dist/components/lukso-username": {
+      "require": "./dist/components/lukso-username/index.cjs",
+      "import": "./dist/components/lukso-username/index.js",
+      "types": "./dist/components/lukso-username/index.d.ts"
+    },
+    "./dist/components/lukso-wizard": {
+      "require": "./dist/components/lukso-wizard/index.cjs",
+      "import": "./dist/components/lukso-wizard/index.js",
+      "types": "./dist/components/lukso-wizard/index.d.ts"
+    },
+    "./dist/shared/tailwind-element": {
+      "require": "./dist/shared/tailwind-element/index.cjs",
+      "import": "./dist/shared/tailwind-element/index.js",
+      "types": "./dist/shared/tailwind-element/index.d.ts"
+    }
+  },
+  "customElements": "custom-elements.json"
 }

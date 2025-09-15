@@ -335,13 +335,13 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
 
       const lines = selected.split('\n')
       const headingRegex = /^(#{1,6})\s+/
+      const allAlreadyLevel = lines.every(l => l.startsWith(desiredPrefix))
 
       let transformed: string
       if (level === 0) {
         // Remove any heading formatting
         transformed = lines.map(l => l.replace(headingRegex, '')).join('\n')
       } else {
-        const allAlreadyLevel = lines.every(l => l.startsWith(desiredPrefix))
         transformed = lines
           .map(l => {
             const withoutAny = l.replace(headingRegex, '')
@@ -357,11 +357,33 @@ export class LuksoTextEditor extends TailwindStyledElement(style) {
 
       this.value = before + transformed + after
 
-      // Compute new selection: cover transformed lines
-      const newStart = before.length
-      const newEnd = before.length + transformed.length
+      // Position cursor appropriately based on content
+      let cursorPosition = before.length
+      if (level > 0 && !allAlreadyLevel) {
+        // If we added a heading prefix, check if there's text content
+        const firstLine = lines[0] || ''
+        const contentAfterHeading = firstLine.replace(headingRegex, '')
+
+        if (contentAfterHeading.trim()) {
+          // There's text content, position cursor at the end of the first line
+          const firstLineEnd = transformed.indexOf('\n')
+          cursorPosition =
+            before.length +
+            (firstLineEnd === -1 ? transformed.length : firstLineEnd)
+        } else {
+          // No text content, position cursor after "# " or "## " etc.
+          cursorPosition = before.length + desiredPrefix.length
+        }
+      } else if (level === 0 || allAlreadyLevel) {
+        // If we removed heading formatting or toggled off, position at end of first line
+        const firstLineEnd = transformed.indexOf('\n')
+        cursorPosition =
+          before.length +
+          (firstLineEnd === -1 ? transformed.length : firstLineEnd)
+      }
+
       requestAnimationFrame(() => {
-        textarea.setSelectionRange(newStart, newEnd)
+        textarea.setSelectionRange(cursorPosition, cursorPosition)
         this.updateActiveFormats()
       })
       this.dispatchChange()

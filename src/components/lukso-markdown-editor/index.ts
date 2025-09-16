@@ -353,7 +353,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     // Save undo state before making changes
     this.saveUndoStateBeforeChange()
 
-    const desiredPrefix = level > 0 ? '#'.repeat(level) + ' ' : ''
+    const desiredPrefix = level > 0 ? `${'#'.repeat(level)} ` : ''
     this.withSelection((textarea, start, end, value) => {
       // Expand to full lines covered by selection
       const lineStart = value.lastIndexOf('\n', start - 1) + 1
@@ -1542,7 +1542,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       // Continue list: insert a new line with the same indentation and marker
       const before = value.slice(0, start)
       const after = value.slice(start)
-      const prefix = '\n' + indent + marker + ' '
+      const prefix = `\n${indent}${marker} `
       const newValue = before + prefix + after
       this.value = newValue
 

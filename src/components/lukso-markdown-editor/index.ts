@@ -2428,7 +2428,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
         <!-- Color -->
         <div class=${this.styles().colorMenu()}>
-          <lukso-tooltip text="Heading options" placement="top">
+          <lukso-tooltip text="Text color" placement="top">
             <lukso-button
               id=${this.colorTriggerId}
               @click=${(e: Event) => {

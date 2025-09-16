@@ -185,7 +185,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       listMenu: 'relative',
       label: 'heading-inter-14-bold text-neutral-20',
       description: 'paragraph-inter-12-regular text-neutral-20',
-      error: 'paragraph-inter-12-regular text-red-65',
+      divider: 'w-[1px] h-4 bg-neutral-90',
     },
     variants: {
       isFullWidth: {
@@ -2513,6 +2513,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
             </div>
           </lukso-dropdown>
         </div>
+
+        <div class=${this.styles().divider()}></div>
       </div>
     `
   }

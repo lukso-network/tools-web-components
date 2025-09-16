@@ -1675,7 +1675,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
     const before = value.slice(0, lineStart)
     const after = value.slice(lineEnd)
-    const indent = '  ' // 2 spaces for indentation
+    const indent = '    ' // 4 spaces for indentation (CommonMark standard)
 
     let newLine: string
     let newCursorOffset = 0
@@ -1745,7 +1745,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
     // Check if there's indentation to remove
     const currentIndent = (unorderedMatch || orderedMatch)?.[1] ?? ''
-    if (currentIndent.length < 2) {
+    if (currentIndent.length < 4) {
       return false // No indentation to remove
     }
 
@@ -1754,7 +1754,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
     const before = value.slice(0, lineStart)
     const after = value.slice(lineEnd)
-    const outdent = '  ' // Remove 2 spaces
+    const outdent = '    ' // Remove 4 spaces
 
     let newLine: string
     let newCursorOffset = 0

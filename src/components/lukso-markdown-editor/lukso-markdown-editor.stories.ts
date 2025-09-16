@@ -294,13 +294,15 @@ This editor supports **bold text**, *italic text*, and even ***bold italic***.
 ### Unordered Lists
 - Item 1
 - Item 2
-  - Nested item
-  - Another nested item
+    - Nested item
+    - Another nested item
 - Item 3
 
 ### Ordered Lists
 1. First item
 2. Second item
+    1. Nested item
+    2. Another nested item
 3. Third item
 
 ## Links and Code

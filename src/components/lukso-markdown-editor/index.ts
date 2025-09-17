@@ -79,6 +79,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @state() private currentSelection = { start: 0, end: 0 }
   @state() private savedSelection: { start: number; end: number } | null = null
 
+  private defaultColor = '#374151' // prose gray
+
   // formatting
   @state() private activeFormats = {
     bold: false,
@@ -88,7 +90,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     h2: false,
     h3: false,
     color: false,
-    activeColor: '',
+    activeColor: this.defaultColor,
     unorderedList: false,
     orderedList: false,
   }
@@ -203,8 +205,6 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       disabled: { true: 'opacity-50 cursor-not-allowed' },
     },
   })
-
-  private defaultColor = '#374151' // prose gray
 
   /**
    * Hex color palette for the color picker.

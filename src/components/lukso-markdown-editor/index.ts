@@ -1312,7 +1312,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       }
     }
 
-    this.withSelection((ta, start, end, value) => {
+    this.withSelection((textarea, start, end, value) => {
       // Block formatting if selection is within the URL part of a link
       if (this.isSelectionInLinkUrl(start, end, value)) {
         return // Do nothing - formatting not allowed in link URLs
@@ -1358,13 +1358,13 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
             value.slice(0, matchStart) + newContent + value.slice(matchEnd)
 
           // Also update the textarea element's value directly to ensure sync
-          ta.value =
+          textarea.value =
             value.slice(0, matchStart) + newContent + value.slice(matchEnd)
 
           const selStart = matchStart + beforeContent.length
           const selEnd = selStart + selected.length
           requestAnimationFrame(() => {
-            ta.setSelectionRange(selStart, selEnd)
+            textarea.setSelectionRange(selStart, selEnd)
             this.updateActiveFormats()
           })
           this.dispatchChange()
@@ -1379,12 +1379,12 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         this.value = before + selected + after
 
         // Also update the textarea element's value directly to ensure sync
-        ta.value = before + selected + after
+        textarea.value = before + selected + after
 
         const selStart = before.length
         const selEnd = selStart + selected.length
         requestAnimationFrame(() => {
-          ta.setSelectionRange(selStart, selEnd)
+          textarea.setSelectionRange(selStart, selEnd)
           this.updateActiveFormats()
         })
         this.dispatchChange()

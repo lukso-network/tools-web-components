@@ -46,6 +46,11 @@ const config: StorybookConfig = {
       optimizeDeps: {
         include: ['storybook-dark-mode', '@mdx-js/react'],
       },
+      // Define environment variables for Storybook detection
+      define: {
+        'process.env.STORYBOOK': JSON.stringify(true),
+        'import.meta.env.STORYBOOK': JSON.stringify(true),
+      },
     })
   },
 }

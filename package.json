@@ -13,6 +13,7 @@
 		"lint:eslint": "eslint src --fix",
 		"lint:fmt": "prettier --check --log-level=warn .",
 		"lint:css": "stylelint \"**/*.{scss,css}\"",
+		"lint:css:fix": "stylelint \"**/*.{scss,css}\" --fix",
 		"lint:fmt:fix": "prettier --write .",
 		"lint:types": "tsc --noEmit --project tsconfig.json",
 		"analyze": "cem analyze --litelement --outdir ./package --globs 'src/**/index.ts' --exclude 'src/**/*.stories.ts'",

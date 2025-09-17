@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.155.0](https://github.com/lukso-network/tools-web-components/compare/v1.154.0...v1.155.0) (2025-09-17)
+
+
+### Features
+
+* Add lukso-markdown component ([#650](https://github.com/lukso-network/tools-web-components/issues/650)) ([6d1b17e](https://github.com/lukso-network/tools-web-components/commit/6d1b17e6d1f215b86023d6841238f52df677d595))
+* markdown editor ([#653](https://github.com/lukso-network/tools-web-components/issues/653)) ([ced406c](https://github.com/lukso-network/tools-web-components/commit/ced406ccd794aa072873308f59ffdae121f13ae2))
+* Support Vuesax icon pack ([#651](https://github.com/lukso-network/tools-web-components/issues/651)) ([3e58b13](https://github.com/lukso-network/tools-web-components/commit/3e58b13b68bd26e79ef76038a22298af3083714f))
+
 ## [1.154.0](https://github.com/lukso-network/tools-web-components/compare/v1.153.0...v1.154.0) (2025-09-08)
 
 

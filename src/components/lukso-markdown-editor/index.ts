@@ -177,7 +177,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     slots: {
       wrapper: 'w-[inherit] grid gap-3',
       header:
-        'flex items-center justify-between gap-2 border border-neutral-90 rounded-12 px-3 py-2',
+        'flex items-center justify-between gap-2 border border-neutral-90 rounded-12 px-3 py-2 bg-neutral-100',
       toolbar: 'flex flex-wrap items-center gap-1',
       area: '',
       editor: '',

@@ -651,6 +651,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         before = before.slice(0, before.length - wrapper.length)
         after = after.slice(wrapper.length)
         this.value = before + selected + after
+
+        // Also update the textarea element's value directly to ensure sync
+        textarea.value = before + selected + after
+
         const selStart = before.length
         const selEnd = selStart + selected.length
         requestAnimationFrame(() => {
@@ -670,6 +674,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           selected.length - wrapper.length
         )
         this.value = before + selected + after
+
+        // Also update the textarea element's value directly to ensure sync
+        textarea.value = before + selected + after
+
         const selStart = before.length
         const selEnd = selStart + selected.length
         requestAnimationFrame(() => {
@@ -683,6 +691,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       // Otherwise, wrap
       const wrapped = `${wrapper}${selected || ''}${wrapper}`
       this.value = before + wrapped + after
+
+      // Also update the textarea element's value directly to ensure sync
+      textarea.value = before + wrapped + after
+
       const selStart = before.length + wrapper.length
       const selEnd = selStart + (selected ? selected.length : 0)
       requestAnimationFrame(() => {

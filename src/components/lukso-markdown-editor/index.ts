@@ -800,6 +800,13 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
               value.slice(0, leftBracket) +
               textOnly +
               value.slice(rightParen + 1)
+
+            // Also update the textarea element's value directly to ensure sync
+            textarea.value =
+              value.slice(0, leftBracket) +
+              textOnly +
+              value.slice(rightParen + 1)
+
             const newCursor = leftBracket + textOnly.length
             requestAnimationFrame(() => {
               textarea.setSelectionRange(newCursor, newCursor)
@@ -823,6 +830,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const match = selected.match(linkRegex)
         const textOnly = match?.[1] ?? selected
         this.value = before + textOnly + after
+
+        // Also update the textarea element's value directly to ensure sync
+        textarea.value = before + textOnly + after
+
         const newStart = before.length
         const newEnd = newStart + textOnly.length
         requestAnimationFrame(() => {
@@ -855,6 +866,11 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           const textOnly = match?.[1] ?? candidate
           this.value =
             value.slice(0, leftBracket) + textOnly + value.slice(rightParen + 1)
+
+          // Also update the textarea element's value directly to ensure sync
+          textarea.value =
+            value.slice(0, leftBracket) + textOnly + value.slice(rightParen + 1)
+
           const newCursor = leftBracket + textOnly.length
           requestAnimationFrame(() => {
             textarea.setSelectionRange(newCursor, newCursor)
@@ -869,6 +885,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const text = selected || placeholderText
       const md = `[${text}](${placeholderUrl})`
       this.value = before + md + after
+
+      // Also update the textarea element's value directly to ensure sync
+      textarea.value = before + md + after
+
       // Position cursor inside parentheses for immediate URL entry
       // Calculation: before + '[' + text + '](' = cursor position inside ()
       const cursorPosition = before.length + 1 + text.length + 2 // [text](|
@@ -1163,6 +1183,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           before = before.slice(0, before.length - beforeColorMatch[0].length)
           after = after.slice(colorTagClose.length)
           this.value = before + selected + after
+
+          // Also update the textarea element's value directly to ensure sync
+          textarea.value = before + selected + after
+
           selStart = before.length
           selEnd = selStart + selected.length
         } else {
@@ -1172,6 +1196,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
             before.slice(0, before.length - beforeColorMatch[0].length) +
             newColorTagOpen
           this.value = before + selected + after
+
+          // Also update the textarea element's value directly to ensure sync
+          textarea.value = before + selected + after
+
           selStart = before.length
           selEnd = selStart + selected.length
         }
@@ -1200,6 +1228,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         }
 
         this.value = before + selected + after
+
+        // Also update the textarea element's value directly to ensure sync
+        textarea.value = before + selected + after
+
         const selStart = before.length
         const selEnd =
           selStart +
@@ -1216,6 +1248,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const newColorTagOpen = `<span style="color: ${color}">`
       const wrapped = `${newColorTagOpen}${selected || ''}${colorTagClose}`
       this.value = before + wrapped + after
+
+      // Also update the textarea element's value directly to ensure sync
+      textarea.value = before + wrapped + after
+
       const selStart = before.length + newColorTagOpen.length
       const selEnd = selStart + (selected ? selected.length : 4)
       requestAnimationFrame(() => {
@@ -1320,6 +1356,11 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
           this.value =
             value.slice(0, matchStart) + newContent + value.slice(matchEnd)
+
+          // Also update the textarea element's value directly to ensure sync
+          ta.value =
+            value.slice(0, matchStart) + newContent + value.slice(matchEnd)
+
           const selStart = matchStart + beforeContent.length
           const selEnd = selStart + selected.length
           requestAnimationFrame(() => {
@@ -1336,6 +1377,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       if (!foundMatch) {
         // Simple case - just replace the selected text
         this.value = before + selected + after
+
+        // Also update the textarea element's value directly to ensure sync
+        ta.value = before + selected + after
+
         const selStart = before.length
         const selEnd = selStart + selected.length
         requestAnimationFrame(() => {

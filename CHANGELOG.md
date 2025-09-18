@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.155.1](https://github.com/lukso-network/tools-web-components/compare/v1.155.0...v1.155.1) (2025-09-18)
+
+
+### Bug Fixes
+
+* Can't load vueasax icons from npm install ([#654](https://github.com/lukso-network/tools-web-components/issues/654)) ([fa77f07](https://github.com/lukso-network/tools-web-components/commit/fa77f0793ae8c622feea5663310f8c821f11fcbf))
+
 ## [1.155.0](https://github.com/lukso-network/tools-web-components/compare/v1.154.0...v1.155.0) (2025-09-17)
 
 

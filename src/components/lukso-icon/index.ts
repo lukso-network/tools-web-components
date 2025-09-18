@@ -513,11 +513,20 @@ export class LuksoIcon extends TailwindStyledElement(style) {
     },
   }
 
+  // Import all SVG files using Vite's import.meta.glob for proper bundling
+  // This creates a mapping of file paths to their content that works in both dev and production
+  private svgModules = import.meta.glob('./vuesax/**/*.svg', {
+    query: '?raw',
+    import: 'default',
+  })
+
   /**
    * Loads the SVG content for the specified icon from the icon pack.
+   * Uses bundled assets for production and dynamic imports for development.
+   * Falls back to static file fetch for Storybook environment.
    *
    * @param pack - icon pack name
-   * @param variant- icon variant
+   * @param variant - icon variant
    * @param iconName - name of the icon
    */
   private async loadSvg(
@@ -526,36 +535,29 @@ export class LuksoIcon extends TailwindStyledElement(style) {
     iconName: string
   ): Promise<string> {
     try {
-      let svgPath: string
+      // First, try to use bundled SVG modules (works in dev and production)
+      const svgKey = `./${pack}/${variant}/${iconName}.svg`
+      const svgModule = this.svgModules[svgKey]
 
-      // Check if we're in development (source code) or production (built)
-      if (import.meta.url.includes('/src/')) {
-        // Development mode - load from source
-        svgPath = new URL(
-          `./${pack}/${variant}/${iconName}.svg`,
-          import.meta.url
-        ).href
-      } else {
-        // Check if we're in Storybook (where vuesax assets are copied to root)
-        if (
-          window.location.pathname.includes('iframe.html') ||
-          document.querySelector('meta[name="storybook"]') ||
-          window.parent !== window
-        ) {
-          // Storybook mode - SVG files are at root level
-          svgPath = `/${variant}/${iconName}.svg`
-        } else {
-          // Production mode - load from dist directory with preserved structure
-          const basePath = import.meta.url.replace(/\/index\.js.*$/, '')
-          svgPath = `${basePath}/${pack}/${variant}/${iconName}.svg`
+      if (svgModule) {
+        // Dynamic import the SVG content
+        const svgContent = await svgModule()
+        return svgContent as string
+      }
+
+      // Fallback: Check if we're in Storybook (where vuesax assets are copied to root)
+      // This happens when bundled modules aren't available (e.g., in Storybook)
+      if (import.meta.env.STORYBOOK) {
+        // Storybook mode - SVG files are at root level
+        const svgPath = `/${variant}/${iconName}.svg`
+        const response = await fetch(svgPath)
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
+        return await response.text()
       }
 
-      const response = await fetch(svgPath)
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      return await response.text()
+      throw new Error(`SVG module not found: ${svgKey}`)
     } catch (error) {
       console.warn(
         `Failed to load SVG: ${pack}/${variant}/${iconName}.svg`,

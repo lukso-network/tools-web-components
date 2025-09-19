@@ -449,6 +449,18 @@ const getEditorElements = (canvasElement: HTMLElement) => {
   }
 }
 
+const getMarkdown = (editor: HTMLElement) => {
+  const markdownElement = editor?.shadowRoot?.querySelector('lukso-markdown')
+  const sanitizeElement =
+    markdownElement?.shadowRoot?.querySelector('lukso-sanitize')
+  const html = sanitizeElement?.shadowRoot?.querySelector('div.prose')
+
+  return {
+    html,
+    innerHtml: html?.innerHTML,
+  }
+}
+
 /** Test story for bold formatting functionality. */
 export const TestBoldFormatting: StoryObj = {
   name: 'Test: Bold Formatting',
@@ -458,11 +470,15 @@ export const TestBoldFormatting: StoryObj = {
     description: 'This story tests the bold formatting functionality.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, boldButton } = getEditorElements(canvasElement)
+    const { textarea, boldButton, previewButton, editor } =
+      getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('test')
     await userEvent.click(boldButton)
     expect(textarea.value).toBe('**test**')
+    await userEvent.click(previewButton)
+    const { innerHtml } = getMarkdown(editor)
+    expect(innerHtml).toBe('<p><strong>test</strong></p>\n')
   },
 }
 
@@ -475,11 +491,15 @@ export const TestItalicFormatting: StoryObj = {
     description: 'This story tests the italic formatting functionality.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, italicButton } = getEditorElements(canvasElement)
+    const { textarea, italicButton, previewButton, editor } =
+      getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('test')
     await userEvent.click(italicButton)
     expect(textarea.value).toBe('*test*')
+    await userEvent.click(previewButton)
+    const { innerHtml } = getMarkdown(editor)
+    expect(innerHtml).toBe('<p><em>test</em></p>\n')
   },
 }
 
@@ -492,27 +512,14 @@ export const TestLinkCreation: StoryObj = {
     description: 'This story tests the link creation functionality.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, linkButton } = getEditorElements(canvasElement)
+    const { textarea, linkButton, previewButton, editor } =
+      getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('click')
     await userEvent.click(linkButton)
     expect(textarea.value).toBe('[click]()')
-  },
-}
-
-/** Test story for preview mode toggle functionality. */
-export const TestPreviewModeToggle: StoryObj = {
-  name: 'Test: Preview Mode Toggle',
-  args: {
-    value: '**Text**',
-    label: 'Test: Preview Mode Toggle',
-    description: 'This story tests the preview mode toggle functionality.',
-  },
-  play: async ({ canvasElement }) => {
-    const { editor, previewButton } = getEditorElements(canvasElement)
-
-    expect(editor?.shadowRoot?.querySelector('lukso-markdown')).toBeNull()
     await userEvent.click(previewButton)
-    expect(editor?.shadowRoot?.querySelector('lukso-markdown')).toBeTruthy()
+    const { innerHtml } = getMarkdown(editor)
+    expect(innerHtml).toBe('<p><a href="">click</a></p>\n')
   },
 }

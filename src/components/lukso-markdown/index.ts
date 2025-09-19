@@ -2,11 +2,12 @@ import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { marked } from 'marked'
 
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-sanitize'
+import style from './style.scss?inline'
 
 @customElement('lukso-markdown')
-export class LuksoMarkdown extends TailwindElement {
+export class LuksoMarkdown extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''
 
@@ -14,7 +15,10 @@ export class LuksoMarkdown extends TailwindElement {
   isPre = false
 
   @property({ type: String, attribute: 'prose-classes', reflect: true })
-  proseClasses = 'prose prose-base prose-gray'
+  proseClasses = 'prose prose-base prose-inherit'
+
+  @property({ type: String, attribute: 'custom-style', reflect: true })
+  customStyle = ''
 
   /**
    * Convert markdown to HTML using marked library
@@ -86,7 +90,8 @@ export class LuksoMarkdown extends TailwindElement {
 
     return html`
       <lukso-sanitize
-        html-content="<div class='${this.proseClasses}'>${htmlContent}</div>"
+        html-content="<div class='${this.proseClasses}' style='${this
+          .customStyle}'>${htmlContent}</div>"
         ?is-pre="${this.isPre}"
       ></lukso-sanitize>
     `

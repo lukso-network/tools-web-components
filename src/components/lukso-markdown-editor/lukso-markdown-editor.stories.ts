@@ -410,28 +410,37 @@ LUKSO is awesome and supports many great features.`,
 
 const getEditorElements = (canvasElement: HTMLElement) => {
   const editor = canvasElement.querySelector('lukso-markdown-editor')
+
   const textarea = editor?.shadowRoot
     ?.querySelector('lukso-textarea')
     ?.shadowRoot?.querySelector('textarea')
+
   const preview = editor?.shadowRoot?.querySelector('lukso-markdown')
+
   const boldButton = editor?.shadowRoot?.querySelector('[aria-label="Bold"]')
+
   const italicButton = editor?.shadowRoot?.querySelector(
     '[aria-label="Italic"]'
   )
   const linkButton = editor?.shadowRoot?.querySelector('[aria-label="Link"]')
+
   const previewButton = editor?.shadowRoot?.querySelector(
     '[aria-label="Toggle preview"]'
   )
-  const headingOptions = editor?.shadowRoot?.querySelector(
+
+  const headerDropdown = editor?.shadowRoot?.querySelector(
     '[aria-label="Heading options"]'
   )
-  const listOptions = editor?.shadowRoot?.querySelector(
+
+  const listDropdown = editor?.shadowRoot?.querySelector(
     '[aria-label="List options"]'
   )
-  const colorOptions = editor?.shadowRoot?.querySelector(
+
+  const colorDropdown = editor?.shadowRoot?.querySelector(
     '[aria-label="Text color"]'
   )
-  const headerOption = (_editor: HTMLElement, number: number) =>
+
+  const selectHeader = (_editor: HTMLElement, number: number) =>
     _editor?.shadowRoot?.querySelector(
       `#headingDropdown lukso-dropdown-option:nth-child(${number})`
     )
@@ -446,12 +455,10 @@ const getEditorElements = (canvasElement: HTMLElement) => {
       ?.querySelector('#colorDropdown')
       ?.querySelector('button[aria-label="Clear color"]')
 
-  const selectText = (textarea: HTMLTextAreaElement, text: string) => {
-    const start = textarea.value.indexOf(text)
-    const end = start + text.length
-    textarea.setSelectionRange(start, end)
-    textarea.focus()
-  }
+  const selectList = (_editor: HTMLElement, number: number) =>
+    _editor?.shadowRoot?.querySelector(
+      `#listDropdown lukso-dropdown-option:nth-child(${number})`
+    )
 
   return {
     editor,
@@ -461,13 +468,13 @@ const getEditorElements = (canvasElement: HTMLElement) => {
     italicButton,
     linkButton,
     previewButton,
-    headingOptions,
-    listOptions,
-    colorOptions,
-    headerOption,
+    headerDropdown,
+    listDropdown,
+    colorDropdown,
+    selectHeader,
     selectColor,
     clearColor,
-    selectText,
+    selectList,
   }
 }
 
@@ -481,6 +488,13 @@ const getMarkdown = (editor: HTMLElement) => {
     html,
     innerHtml: html?.innerHTML,
   }
+}
+
+const selectText = (textarea: HTMLTextAreaElement, text: string) => {
+  const start = textarea.value.indexOf(text)
+  const end = start + text.length
+  textarea.setSelectionRange(start, end)
+  textarea.focus()
 }
 
 /** Test story for preview functionality. */
@@ -717,12 +731,12 @@ export const TestAddH1Header: StoryObj = {
     description: 'This story tests adding an H1 header.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, headingOptions, editor, headerOption } =
+    const { textarea, headerDropdown, editor, selectHeader } =
       getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('Header')
-    await userEvent.click(headingOptions)
-    const h1Option = headerOption(editor, 2)
+    await userEvent.click(headerDropdown)
+    const h1Option = selectHeader(editor, 2)
     await userEvent.click(h1Option)
     expect(textarea.value).toBe('# Header')
   },
@@ -737,12 +751,12 @@ export const TestAddH2Header: StoryObj = {
     description: 'This story tests adding an H2 header.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, headingOptions, editor, headerOption } =
+    const { textarea, headerDropdown, editor, selectHeader } =
       getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('Header')
-    await userEvent.click(headingOptions)
-    const h2Option = headerOption(editor, 3)
+    await userEvent.click(headerDropdown)
+    const h2Option = selectHeader(editor, 3)
     await userEvent.click(h2Option)
     expect(textarea.value).toBe('## Header')
   },
@@ -757,12 +771,12 @@ export const TestAddH3Header: StoryObj = {
     description: 'This story tests adding an H3 header.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, headingOptions, editor, headerOption } =
+    const { textarea, headerDropdown, editor, selectHeader } =
       getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('Header')
-    await userEvent.click(headingOptions)
-    const h3Option = headerOption(editor, 4)
+    await userEvent.click(headerDropdown)
+    const h3Option = selectHeader(editor, 4)
     await userEvent.click(h3Option)
     expect(textarea.value).toBe('### Header')
   },
@@ -777,12 +791,12 @@ export const TestAddH4Header: StoryObj = {
     description: 'This story tests adding an H4 header.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, headingOptions, editor, headerOption } =
+    const { textarea, headerDropdown, editor, selectHeader } =
       getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('Header')
-    await userEvent.click(headingOptions)
-    const h4Option = headerOption(editor, 5)
+    await userEvent.click(headerDropdown)
+    const h4Option = selectHeader(editor, 5)
     await userEvent.click(h4Option)
     expect(textarea.value).toBe('#### Header')
   },
@@ -797,12 +811,12 @@ export const TestRemoveHeader: StoryObj = {
     description: 'This story tests removing an header.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, headingOptions, editor, headerOption } =
+    const { textarea, headerDropdown, editor, selectHeader } =
       getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('# Header')
-    await userEvent.click(headingOptions)
-    const noHeaderOption = headerOption(editor, 1)
+    await userEvent.click(headerDropdown)
+    const noHeaderOption = selectHeader(editor, 1)
     await userEvent.click(noHeaderOption)
     expect(textarea.value).toBe('Header')
   },
@@ -817,12 +831,12 @@ export const TestApplyTextColor: StoryObj = {
     description: 'This story tests applying text color formatting.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, colorOptions, editor, selectColor, selectText } =
+    const { textarea, colorDropdown, editor, selectColor } =
       getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('This is Color text.')
     selectText(textarea, 'Color')
-    await userEvent.click(colorOptions)
+    await userEvent.click(colorDropdown)
     const redOption = selectColor(editor, '#FF4D4D')
     await userEvent.click(redOption)
     expect(textarea.value).toBe(
@@ -840,15 +854,179 @@ export const TestRemoveTextColor: StoryObj = {
     description: 'This story tests removing text color formatting.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, colorOptions, editor, clearColor, selectText } =
+    const { textarea, colorDropdown, editor, clearColor } =
       getEditorElements(canvasElement)
 
     expect(textarea.value).toBe(
       'This is <span style="color: #FF4D4D">Color</span> text.'
     )
     selectText(textarea, 'Color')
-    await userEvent.click(colorOptions)
+    await userEvent.click(colorDropdown)
     await userEvent.click(clearColor(editor))
     expect(textarea.value).toBe('This is Color text.')
+  },
+}
+
+/** Test story for creating unordered list */
+export const TestCreateUnorderedList: StoryObj = {
+  name: 'Test: Create Unordered List',
+  args: {
+    value: 'Item',
+    label: 'Test: Create Unordered List',
+    description: 'This story tests creating an unordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, listDropdown, editor, selectList } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Item')
+    await userEvent.click(listDropdown)
+    const unorderedOption = selectList(editor, 2)
+    await userEvent.click(unorderedOption)
+    expect(textarea.value).toBe('- Item')
+  },
+}
+
+/** Test story for adding next item to unordered list */
+export const TestAddNextItemUnorderedList: StoryObj = {
+  name: 'Test: Add Next Item to Unordered List',
+  args: {
+    value: '- Item',
+    label: 'Test: Add Next Item to Unordered List',
+    description: 'This story tests adding the next item to an unordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('- Item')
+    textarea.focus()
+    textarea.setSelectionRange(6, 6) // Place cursor at end
+    await userEvent.keyboard('{Enter}')
+    expect(textarea.value).toBe('- Item\n- ')
+    await userEvent.keyboard('Next item')
+    expect(textarea.value).toBe('- Item\n- Next item')
+  },
+}
+
+/** Test story for removing item from unordered list */
+export const TestRemoveItemUnorderedList: StoryObj = {
+  name: 'Test: Remove Item from Unordered List',
+  args: {
+    value: '- Item\n- Next item',
+    label: 'Test: Remove Item from Unordered List',
+    description: 'This story tests removing an item from an unordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('- Item\n- Next item')
+    selectText(textarea, 'Next item')
+    await userEvent.keyboard('{Backspace}') // Remove selection
+    await userEvent.keyboard('{Backspace}') // Remove list item
+    expect(textarea.value).toBe('- Item\n')
+  },
+}
+
+/** Test story for adding nested item from unordered list */
+export const TestAddNestedItemUnorderedList: StoryObj = {
+  name: 'Test: Add Nested Item to Unordered List',
+  args: {
+    value: '- Item',
+    label: 'Test: Add Nested Item to Unordered List',
+    description: 'This story tests adding a nested item to an unordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('- Item')
+    textarea.focus()
+    textarea.setSelectionRange(6, 6) // Place cursor at end
+    await userEvent.keyboard('{Enter}')
+    await userEvent.keyboard('{Tab}')
+    await userEvent.keyboard('Next item')
+    expect(textarea.value).toBe('- Item\n    - Next item')
+  },
+}
+
+/** Test story for creating ordered list */
+export const TestCreateOrderedList: StoryObj = {
+  name: 'Test: Create Ordered List',
+  args: {
+    value: 'Item',
+    label: 'Test: Create Ordered List',
+    description: 'This story tests creating an ordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, listDropdown, editor, selectList } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Item')
+    await userEvent.click(listDropdown)
+    const orderedOption = selectList(editor, 3)
+    await userEvent.click(orderedOption)
+    expect(textarea.value).toBe('1. Item')
+  },
+}
+
+/** Test story for adding next item to ordered list */
+export const TestAddNextItemOrderedList: StoryObj = {
+  name: 'Test: Add Next Item to Ordered List',
+  args: {
+    value: '1. Item\n2. Next item',
+    label: 'Test: Add Next Item to Ordered List',
+    description: 'This story tests adding the next item to an ordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('1. Item\n2. Next item')
+    textarea.focus()
+    textarea.setSelectionRange(7, 7) // Place cursor at end of first item
+    await userEvent.keyboard('{Enter}')
+    expect(textarea.value).toBe('1. Item\n2. \n3. Next item')
+    await userEvent.keyboard('New item')
+    expect(textarea.value).toBe('1. Item\n2. New item\n3. Next item')
+  },
+}
+
+/** Test story for removing item from ordered list */
+export const TestRemoveItemOrderedList: StoryObj = {
+  name: 'Test: Remove Item from Ordered List',
+  args: {
+    value: '1. Item\n2. Next item\n3. Another item',
+    label: 'Test: Remove Item from Ordered List',
+    description: 'This story tests removing an item from an ordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('1. Item\n2. Next item\n3. Another item')
+    selectText(textarea, 'Next item')
+    await userEvent.keyboard('{Backspace}') // Remove selection
+    await userEvent.keyboard('{Backspace}') // Remove list item
+    expect(textarea.value).toBe('1. Item\n2. Another item')
+  },
+}
+
+/** Test story for adding nested item from ordered list */
+export const TestAddNestedItemOrderedList: StoryObj = {
+  name: 'Test: Add Nested Item to Ordered List',
+  args: {
+    value: '1. Item\n2. Next item',
+    label: 'Test: Add Nested Item to Ordered List',
+    description: 'This story tests adding a nested item to an ordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('1. Item\n2. Next item')
+    textarea.focus()
+    textarea.setSelectionRange(7, 7) // Place cursor at end of first item
+    await userEvent.keyboard('{Enter}')
+    await userEvent.keyboard('{Tab}')
+    await userEvent.keyboard('Nested item')
+    expect(textarea.value).toBe(
+      '1. Item\n2. \n    1. Nested item\n2. Next item'
+    )
   },
 }

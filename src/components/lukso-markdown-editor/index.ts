@@ -1571,75 +1571,87 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       }
 
       const { start: s, end: e } = this.expandSelectionToWord(start, end, value)
-      const before = value.slice(0, s)
-      let selected = value.slice(s, e)
-      const after = value.slice(e)
 
-      // Remove any color formatting from the selection
-      const colorRegex = /<span style="color: ([^"]+)">(.*?)<\/span>/gs
-      selected = selected.replace(colorRegex, '$2')
-
-      // Also check if we're inside a color block that extends outside selection
-      const fullColorRegex = /<span style="color: ([^"]+)">(.*?)<\/span>/g
+      // Look for color spans that contain our selection
+      const colorRegex = /<span style="color: ([^"]+)">(.*?)<\/span>/g
       let match: RegExpExecArray | null
-      let foundMatch = false
+      let newValue = value
+      let foundSpan = false
 
-      // Search for color blocks that might contain our selection
-      const searchText = value.slice(
-        Math.max(0, s - 100),
-        Math.min(value.length, e + 100)
-      )
-      const searchOffset = Math.max(0, s - 100)
+      // Reset regex index
+      colorRegex.lastIndex = 0
 
-      match = fullColorRegex.exec(searchText)
-      while (match !== null) {
-        const matchStart = searchOffset + match.index
-        const matchEnd = searchOffset + match.index + match[0].length
+      while ((match = colorRegex.exec(value)) !== null) {
+        const fullMatchStart = match.index
+        const fullMatchEnd = match.index + match[0].length
         const spanOpenTag = `<span style="color: ${match[1]}">`
-        const contentStart = searchOffset + match.index + spanOpenTag.length
-        const contentEnd = matchEnd - 7 // '</span>'.length
+        const contentStart = fullMatchStart + spanOpenTag.length
+        const contentEnd = fullMatchEnd - 7 // '</span>'.length
+        const innerContent = match[2]
 
-        // Check if our selection is within this color block
-        if (contentStart <= s && e <= contentEnd) {
-          // We're inside a color block - need to split it
-          const beforeContent = value.slice(contentStart, s)
-          const afterContent = value.slice(e, contentEnd)
-          const newContent = beforeContent + selected + afterContent
+        // Check if our selection overlaps with this color span
+        const selectionOverlaps =
+          (s >= contentStart && s <= contentEnd) ||
+          (e >= contentStart && e <= contentEnd) ||
+          (s <= contentStart && e >= contentEnd)
 
-          this.value =
-            value.slice(0, matchStart) + newContent + value.slice(matchEnd)
+        if (selectionOverlaps) {
+          // Selection overlaps with this color span - remove the entire span
+          newValue =
+            value.slice(0, fullMatchStart) +
+            innerContent +
+            value.slice(fullMatchEnd)
+          foundSpan = true
 
-          // Also update the textarea element's value directly to ensure sync
-          textarea.value =
-            value.slice(0, matchStart) + newContent + value.slice(matchEnd)
+          // Update the value
+          this.value = newValue
+          textarea.value = newValue
 
-          const selStart = matchStart + beforeContent.length
-          const selEnd = selStart + selected.length
+          // Calculate new selection position
+          // If the selection started before the span, keep it there
+          // If the selection started within the span, adjust it
+          let newStart = s
+          let newEnd = e
+
+          if (s >= fullMatchStart) {
+            // Selection started at or after the span start
+            const spanOpenTagLength = spanOpenTag.length
+            if (s >= contentStart) {
+              // Selection started within the content
+              newStart = s - spanOpenTagLength
+            }
+          }
+
+          if (e >= fullMatchStart) {
+            // Selection ended at or after the span start
+            const spanOpenTagLength = spanOpenTag.length
+            if (e >= contentStart) {
+              // Selection ended within or after the content
+              newEnd = e - spanOpenTagLength
+              if (e > contentEnd) {
+                // Selection ended after the span content, also subtract closing tag
+                newEnd = newEnd - 7 // '</span>'.length
+              }
+            }
+          }
+
           requestAnimationFrame(() => {
-            textarea.setSelectionRange(selStart, selEnd)
+            textarea.setSelectionRange(
+              Math.max(0, newStart),
+              Math.max(0, newEnd)
+            )
             this.updateActiveFormats()
           })
           this.dispatchChange()
-          foundMatch = true
-          break
+          return
         }
-        match = fullColorRegex.exec(searchText)
       }
 
-      if (!foundMatch) {
-        // Simple case - just replace the selected text
-        this.value = before + selected + after
-
-        // Also update the textarea element's value directly to ensure sync
-        textarea.value = before + selected + after
-
-        const selStart = before.length
-        const selEnd = selStart + selected.length
+      // If no span was found or removed, do nothing
+      if (!foundSpan) {
         requestAnimationFrame(() => {
-          textarea.setSelectionRange(selStart, selEnd)
           this.updateActiveFormats()
         })
-        this.dispatchChange()
       }
     })
   }
@@ -1868,11 +1880,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const newCursor = start + prefix.length
       textarea.setSelectionRange(newCursor, newCursor)
 
-      // Update active formats and dispatch change in next frame
-      requestAnimationFrame(() => {
-        this.updateActiveFormats()
-        this.dispatchChange()
-      })
+      // Update active formats and dispatch change synchronously
+      this.updateActiveFormats()
+      this.dispatchChange()
       return true
     }
 
@@ -1908,28 +1918,46 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const before = value.slice(0, start)
       const after = value.slice(start)
       const prefix = `\n${indent}${nextNumber}. `
-      const newValue = before + prefix + after
+      let newValue = before + prefix + after
 
       // Renumber all subsequent ordered list items with the same indentation
-      const renumberedValue = this.renumberOrderedListItems(
-        newValue,
-        start + prefix.length,
-        indent
-      )
+      // First, we need to renumber everything after the insertion point
+      const lines = newValue.split('\n')
+      const insertLineIndex = before.split('\n').length // This is where we inserted
+      const renumberStartIndex = insertLineIndex + 1 // Start renumbering from after the inserted line
+      let currentNum = nextNumber + 1 // The line after our insertion should be +1
+
+      const orderedRegex = /^(\s*)(\d+)\.\s+(.*)$/
+
+      for (let i = renumberStartIndex; i < lines.length; i++) {
+        const line = lines[i]
+        const match = line.match(orderedRegex)
+
+        if (match && match[1] === indent) {
+          // This is an ordered list item with the same indentation - renumber it
+          const content = match[3]
+          lines[i] = `${indent}${currentNum}. ${content}`
+          currentNum++
+        } else if (match && match[1].length < indent.length) {
+          // We've hit a list item with less indentation, stop renumbering
+          break
+        }
+        // For items with more indentation or non-list lines, continue without renumbering
+      }
+
+      newValue = lines.join('\n')
 
       // Update both component value and textarea synchronously
-      this.value = renumberedValue
-      textarea.value = renumberedValue
+      this.value = newValue
+      textarea.value = newValue
 
       // Calculate cursor position after renumbering and set synchronously
       const newCursor = start + prefix.length
       textarea.setSelectionRange(newCursor, newCursor)
 
-      // Update active formats and dispatch change in next frame
-      requestAnimationFrame(() => {
-        this.updateActiveFormats()
-        this.dispatchChange()
-      })
+      // Update active formats and dispatch change synchronously
+      this.updateActiveFormats()
+      this.dispatchChange()
       return true
     }
 
@@ -2119,11 +2147,11 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const cursorInLine = start - lineStart
     const newCursor = lineStart + cursorInLine + newCursorOffset
 
-    requestAnimationFrame(() => {
-      textarea.setSelectionRange(newCursor, newCursor)
-      this.updateActiveFormats()
-    })
+    // Set selection synchronously to ensure tests can immediately see the change
+    textarea.setSelectionRange(newCursor, newCursor)
 
+    // Update active formats and dispatch change synchronously
+    this.updateActiveFormats()
     this.dispatchChange()
     return true
   }

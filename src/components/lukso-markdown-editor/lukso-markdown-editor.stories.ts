@@ -508,6 +508,23 @@ const selectText = (textarea: HTMLTextAreaElement, text: string) => {
   textarea.focus()
 }
 
+const waitForValue = async (
+  textarea: HTMLTextAreaElement,
+  expectedValue: string,
+  timeout = 1000
+) => {
+  const start = Date.now()
+  while (Date.now() - start < timeout) {
+    if (textarea.value === expectedValue) {
+      return
+    }
+    await new Promise(resolve => setTimeout(resolve, 10))
+  }
+  throw new Error(
+    `Timeout waiting for value "${expectedValue}", got "${textarea.value}"`
+  )
+}
+
 /** Test story for preview functionality. */
 export const TestPreviewFunctionality: StoryObj = {
   name: 'Test: Preview Functionality',
@@ -953,7 +970,11 @@ export const TestAddNestedItemUnorderedList: StoryObj = {
     textarea.focus()
     textarea.setSelectionRange(6, 6) // Place cursor at end
     await userEvent.keyboard('{Enter}')
+    // Wait for Enter to create new list item
+    await waitForValue(textarea, '- Item\n- ', 2000)
     await userEvent.keyboard('{Tab}')
+    // Wait for Tab to indent
+    await waitForValue(textarea, '- Item\n    - ', 2000)
     await userEvent.keyboard('Next item')
     expect(textarea.value).toBe('- Item\n    - Next item')
   },
@@ -1014,7 +1035,11 @@ export const TestRemoveItemOrderedList: StoryObj = {
     expect(textarea.value).toBe('1. Item\n2. Next item\n3. Another item')
     selectText(textarea, 'Next item')
     await userEvent.keyboard('{Backspace}') // Remove selection
+    // Wait for backspace processing
+    await new Promise(resolve => setTimeout(resolve, 50))
     await userEvent.keyboard('{Backspace}') // Remove list item
+    // Wait for list processing and renumbering
+    await new Promise(resolve => setTimeout(resolve, 100))
     expect(textarea.value).toBe('1. Item\n2. Another item')
   },
 }
@@ -1034,6 +1059,8 @@ export const TestAddNestedItemOrderedList: StoryObj = {
     textarea.focus()
     textarea.setSelectionRange(10, 10) // Place cursor at second item
     await userEvent.keyboard('{Tab}')
+    // Wait for tab indentation and list renumbering to complete
+    await new Promise(resolve => setTimeout(resolve, 100))
     expect(textarea.value).toBe('1. Item\n    1. Next item\n2. Another item')
   },
 }
@@ -1052,8 +1079,10 @@ export const TestConvertUnnestedToNestedItem: StoryObj = {
 
     expect(textarea.value).toBe('1. Item\n    1. Next item\n2. Another item')
     textarea.focus()
-    textarea.setSelectionRange(30, 30) // Place cursor at second item
+    textarea.setSelectionRange(29, 29) // Place cursor at second item
     await userEvent.keyboard('{Tab}')
+    // Wait for tab indentation and list renumbering to complete
+    await new Promise(resolve => setTimeout(resolve, 100))
     expect(textarea.value).toBe(
       '1. Item\n    1. Next item\n    2. Another item'
     )

@@ -1548,12 +1548,16 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const textarea = this.textareaEl?.shadowRoot?.querySelector(
       'textarea'
     ) as HTMLTextAreaElement | null
-    if (!textarea) return false
+    if (!textarea) {
+      return false
+    }
 
     const start = textarea.selectionStart ?? 0
     const end = textarea.selectionEnd ?? 0
     // Only handle when selection is collapsed (caret)
-    if (start !== end) return false
+    if (start !== end) {
+      return false
+    }
 
     const value = this.value
     const lineStart = value.lastIndexOf('\n', start - 1) + 1
@@ -1604,17 +1608,19 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const after = value.slice(start)
       const prefix = `\n${indent}${marker} `
       const newValue = before + prefix + after
-      this.value = newValue
 
-      // Also update the textarea element's value directly
+      // Update both component value and textarea synchronously
+      this.value = newValue
       textarea.value = newValue
 
       const newCursor = start + prefix.length
+      textarea.setSelectionRange(newCursor, newCursor)
+
+      // Update active formats and dispatch change in next frame
       requestAnimationFrame(() => {
-        textarea.setSelectionRange(newCursor, newCursor)
         this.updateActiveFormats()
+        this.dispatchChange()
       })
-      this.dispatchChange()
       return true
     }
 
@@ -1643,34 +1649,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         return true
       }
 
-      // Continue ordered list: find the appropriate next number for this indentation level
-      let nextNumber = parseInt(numberStr, 10) + 1
-
-      // Look backwards to ensure we're using the correct number for this indentation level
-      const beforeText = value.slice(0, lineStart)
-      const beforeLines = beforeText.split('\n')
-      let lastNumberAtThisLevel = 0
-
-      for (let i = beforeLines.length - 1; i >= 0; i--) {
-        const line = beforeLines[i]
-        const match = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
-        if (match && match[1] === indent) {
-          lastNumberAtThisLevel = parseInt(match[2], 10)
-          break
-        } else if (
-          line.trim() !== '' &&
-          !line.match(/^\s*[-*+]\s+/) &&
-          !match
-        ) {
-          // Hit non-list content, stop looking
-          break
-        }
-      }
-
-      // Use the last number at this level + 1, or fall back to the current item's number + 1
-      if (lastNumberAtThisLevel > 0) {
-        nextNumber = lastNumberAtThisLevel + 1
-      }
+      // For ordered lists, we need to determine the next number based on the current item's number
+      const currentNumber = parseInt(numberStr, 10)
+      const nextNumber = currentNumber + 1
 
       const before = value.slice(0, start)
       const after = value.slice(start)
@@ -1683,17 +1664,20 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         start + prefix.length,
         indent
       )
-      this.value = renumberedValue
 
-      // Also update the textarea element's value directly
+      // Update both component value and textarea synchronously
+      this.value = renumberedValue
       textarea.value = renumberedValue
 
+      // Calculate cursor position after renumbering and set synchronously
       const newCursor = start + prefix.length
+      textarea.setSelectionRange(newCursor, newCursor)
+
+      // Update active formats and dispatch change in next frame
       requestAnimationFrame(() => {
-        textarea.setSelectionRange(newCursor, newCursor)
         this.updateActiveFormats()
+        this.dispatchChange()
       })
-      this.dispatchChange()
       return true
     }
 
@@ -1708,12 +1692,16 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const textarea = this.textareaEl?.shadowRoot?.querySelector(
       'textarea'
     ) as HTMLTextAreaElement | null
-    if (!textarea) return false
+    if (!textarea) {
+      return false
+    }
 
     const start = textarea.selectionStart ?? 0
     const end = textarea.selectionEnd ?? 0
     // Only handle when selection is collapsed (caret)
-    if (start !== end) return false
+    if (start !== end) {
+      return false
+    }
 
     const value = this.value
     const lineStart = value.lastIndexOf('\n', start - 1) + 1
@@ -1749,14 +1737,127 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     } else if (orderedMatch) {
       const currentIndent = orderedMatch[1] ?? ''
       const content = orderedMatch[3] ?? ''
-      // When indenting an ordered list item, start numbering from 1 at the new level
-      newLine = `${currentIndent}${indent}1. ${content}`
-      newCursorOffset = indent.length
+
+      // Special case: For empty ordered list items, insert a nested item instead of indenting the current line
+      if (content.trim() === '') {
+        // Keep the current line as-is, but insert a nested item after it
+        newLine = currentLine // Keep current line unchanged
+        const nestedLine = `${currentIndent}${indent}1. `
+        let newValue = before + newLine + '\n' + nestedLine + after
+
+        // Need to renumber the parent level items after the nested insertion
+        const parentIndent = currentIndent
+
+        // Find the next expected number for parent level by looking at the current line
+        const lines = newValue.split('\n')
+        const currentLineIndex =
+          Math.floor(lineStart / (newValue.indexOf('\n') + 1)) ||
+          newValue.slice(0, lineStart).split('\n').length - 1
+        const currentLineMatch = lines[currentLineIndex]?.match(
+          /^(\s*)(\d+)\.\s*(.*)$/
+        )
+        // After inserting a nested item under an empty parent, the next parent-level item
+        // should continue from the current parent's number (not increment it)
+        // because the empty parent becomes a "container" for nested items
+        const nextExpectedNumber = currentLineMatch
+          ? parseInt(currentLineMatch[2], 10)
+          : 1
+
+        // Renumber all lines after the nested insertion at the parent level
+        const orderedRegex = /^(\s*)(\d+)\.\s*(.*)$/
+        let currentNumber = nextExpectedNumber
+
+        // Start from the line after the nested line we just inserted
+        for (let i = currentLineIndex + 2; i < lines.length; i++) {
+          // +2 to skip current and nested lines
+          const line = lines[i]
+          const orderedMatch = line.match(orderedRegex)
+
+          if (orderedMatch && orderedMatch[1] === parentIndent) {
+            // This is a parent-level ordered list item - renumber it
+            const content = orderedMatch[3]
+            lines[i] = `${parentIndent}${currentNumber}. ${content}`
+            currentNumber++
+          } else if (
+            orderedMatch &&
+            orderedMatch[1].length < parentIndent.length
+          ) {
+            // We've hit a list item with less indentation, stop renumbering
+            break
+          }
+        }
+
+        newValue = lines.join('\n')
+
+        // Set cursor at the end of the new nested line
+        const newCursor = lineStart + newLine.length + 1 + nestedLine.length // +1 for newline
+
+        // Update the component's value and textarea
+        this.value = newValue
+        textarea.value = newValue
+
+        requestAnimationFrame(() => {
+          textarea.setSelectionRange(newCursor, newCursor)
+          this.updateActiveFormats()
+        })
+
+        this.dispatchChange()
+        return true
+      } else {
+        // Regular indentation for non-empty items
+        const newIndent = currentIndent + indent
+
+        // Find the appropriate number for the new indentation level
+        let newNumber = 1
+        const beforeText = value.slice(0, lineStart)
+
+        // Look backwards through the text to find the last ordered list item at the new indentation level
+        const lines = beforeText.split('\n')
+        for (let i = lines.length - 1; i >= 0; i--) {
+          const line = lines[i]
+          const match = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+
+          if (match && match[1] === newIndent) {
+            // Found an item at the same indentation level, continue the sequence
+            newNumber = parseInt(match[2], 10) + 1
+            break
+          } else if (match && match[1].length < newIndent.length) {
+            // Found an item with less indentation, this is a parent level, stop looking
+            break
+          }
+        }
+
+        newLine = `${newIndent}${newNumber}. ${content}`
+        newCursorOffset = indent.length
+      }
     } else {
       return false
     }
 
-    const newValue = before + newLine + after
+    // Update the value with the new indented line
+    let newValue = before + newLine + after
+
+    // For ordered lists, we need to renumber subsequent items after the current line
+    if (orderedMatch) {
+      // Renumber at the new indentation level
+      const newIndent = (orderedMatch[1] ?? '') + indent
+      newValue = this.renumberOrderedListItems(
+        newValue,
+        lineStart + newLine.length, // Start renumbering after the current line
+        newIndent // Use the new indentation level
+      )
+
+      // Also renumber the parent level if we just created a nested list
+      const parentIndent = orderedMatch[1] ?? ''
+      // Always renumber parent level (parentIndent can be empty string for root level)
+      newValue = this.renumberOrderedListItems(
+        newValue,
+        lineStart, // Start from this line for parent level
+        parentIndent // Use the parent level indentation
+      )
+    }
+
+    // Update the component's value and textarea
     this.value = newValue
     textarea.value = newValue
 
@@ -2062,28 +2163,52 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       hasContent = content.trim().length > 0
     }
 
-    // Only handle if cursor is at the beginning of the line (right after marker)
-    // and the list item has no content
-    if (cursorPositionInLine === markerEndPosition && !hasContent) {
+    // Handle if cursor is at the end of the marker and the list item has no content,
+    // or if cursor is anywhere after the marker on an empty list item
+    const isAtOrAfterMarker = cursorPositionInLine >= markerEndPosition
+    if (isAtOrAfterMarker && !hasContent) {
       // Save undo state before making changes
       this.saveUndoStateBeforeChange()
 
-      // Remove the empty list item and its newline
+      // Remove the empty list item
       const before = value.slice(0, lineStart)
-      const after = value.slice(
-        lineEnd === value.length ? lineEnd : lineEnd + 1
-      ) // Include newline unless it's the last line
-
+      // If this is the last line, don't include a newline
+      const after = lineEnd === value.length ? '' : value.slice(lineEnd + 1)
       let newValue = before + after
 
       // If we're removing an ordered list item, renumber the subsequent items
       if (orderedMatch) {
         const indent = orderedMatch[1] ?? ''
-        newValue = this.renumberOrderedListItems(
-          newValue,
-          before.length,
-          indent
-        )
+        // After removing the line, we need to renumber all items at this indentation level
+        // starting from where the removed line was
+        const lines = newValue.split('\n')
+        const startLineIndex = Math.max(0, before.split('\n').length - 1)
+
+        // Find the correct starting number by looking backwards
+        let nextNumber = 1
+        for (let i = startLineIndex - 1; i >= 0; i--) {
+          const line = lines[i]
+          const match = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+          if (match && match[1] === indent) {
+            nextNumber = parseInt(match[2], 10) + 1
+            break
+          }
+        }
+
+        // Renumber all subsequent items with the same indentation
+        for (let i = startLineIndex; i < lines.length; i++) {
+          const line = lines[i]
+          const match = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+          if (match && match[1] === indent) {
+            lines[i] = `${indent}${nextNumber}. ${match[3]}`
+            nextNumber++
+          } else if (match && match[1].length < indent.length) {
+            // Hit item with less indentation, stop renumbering
+            break
+          }
+        }
+
+        newValue = lines.join('\n')
       }
 
       this.value = newValue
@@ -2091,11 +2216,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       // Also update the textarea element's value directly
       textarea.value = newValue
 
-      // Position cursor at the end of the previous line or beginning of document
-      // Since we removed the entire line including newline, cursor should be at the end of the previous line
+      // Position cursor at the end of the previous line
       let newCursor = before.length
-      // If there's a previous line, position cursor at its end (before the newline)
-      if (before.endsWith('\n') && before.length > 1) {
+      // If we're not at the beginning and the previous character is a newline, move before it
+      if (newCursor > 0 && before.endsWith('\n')) {
         newCursor = before.length - 1
       }
       requestAnimationFrame(() => {

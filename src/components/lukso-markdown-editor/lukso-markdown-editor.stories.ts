@@ -1012,21 +1012,39 @@ export const TestRemoveItemOrderedList: StoryObj = {
 export const TestAddNestedItemOrderedList: StoryObj = {
   name: 'Test: Add Nested Item to Ordered List',
   args: {
-    value: '1. Item\n2. Next item',
+    value: '1. Item\n2. Next item\n3. Another item',
     label: 'Test: Add Nested Item to Ordered List',
     description: 'This story tests adding a nested item to an ordered list.',
   },
   play: async ({ canvasElement }) => {
     const { textarea } = getEditorElements(canvasElement)
 
-    expect(textarea.value).toBe('1. Item\n2. Next item')
+    expect(textarea.value).toBe('1. Item\n2. Next item\n3. Another item')
     textarea.focus()
-    textarea.setSelectionRange(7, 7) // Place cursor at end of first item
-    await userEvent.keyboard('{Enter}')
+    textarea.setSelectionRange(10, 10) // Place cursor at second item
     await userEvent.keyboard('{Tab}')
-    await userEvent.keyboard('Nested item')
+    expect(textarea.value).toBe('1. Item\n    1. Next item\n2. Another item')
+  },
+}
+
+/** Test story for converting unnested item to another nested item */
+export const TestConvertUnnestedToNestedItem: StoryObj = {
+  name: 'Test: Convert Unnested to Nested Item',
+  args: {
+    value: '1. Item\n    1. Next item\n2. Another item',
+    label: 'Test: Convert Unnested to Nested Item',
+    description:
+      'This story tests converting an unnested item to a nested item.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('1. Item\n    1. Next item\n2. Another item')
+    textarea.focus()
+    textarea.setSelectionRange(30, 30) // Place cursor at second item
+    await userEvent.keyboard('{Tab}')
     expect(textarea.value).toBe(
-      '1. Item\n2. \n    1. Nested item\n2. Next item'
+      '1. Item\n    1. Next item\n    2. Another item'
     )
   },
 }

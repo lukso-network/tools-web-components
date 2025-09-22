@@ -548,7 +548,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           const beforeLines = before.split('\n')
           for (let i = beforeLines.length - 1; i >= 0; i--) {
             const line = beforeLines[i]
-            const orderedMatch = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+            const orderedMatch = line.match(/^(\s*)(\d+)\.\s+(.*)$/)
             if (orderedMatch) {
               // Found an ordered list item, continue from its number
               counter = parseInt(orderedMatch[2], 10) + 1
@@ -1193,8 +1193,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const headingLevel = headingMatch ? headingMatch[1].length : 0
 
     // Check for lists (look at line start)
-    const unorderedListMatch = currentLine.match(/^\s*[-*+]\s/)
-    const orderedListMatch = currentLine.match(/^\s*\d+\.\s/)
+    // Note: The \s+ ensures there's at least one space after the list marker,
+    // which prevents false matches with formatting like **bold** or *italic*
+    const unorderedListMatch = currentLine.match(/^\s*[-*+]\s+/)
+    const orderedListMatch = currentLine.match(/^\s*\d+\.\s+/)
     const hasUnorderedList = !!unorderedListMatch
     const hasOrderedList = !!orderedListMatch
 
@@ -1815,8 +1817,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const currentLine = value.slice(lineStart, lineEnd)
 
     // Detect list types with indentation
-    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s*(.*)$/)
-    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s*(.*)$/)
+    // Note: The \s+ ensures there's at least one space after the list marker,
+    // which prevents false matches with formatting like **bold** or *italic*
+    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s+(.*)$/)
+    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s+(.*)$/)
 
     if (!unorderedMatch && !orderedMatch) {
       return false
@@ -1959,8 +1963,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const currentLine = value.slice(lineStart, lineEnd)
 
     // Detect list types with indentation
-    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s*(.*)$/)
-    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s*(.*)$/)
+    // Note: The \s+ ensures there's at least one space after the list marker,
+    // which prevents false matches with formatting like **bold** or *italic*
+    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s+(.*)$/)
+    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s+(.*)$/)
 
     if (!unorderedMatch && !orderedMatch) {
       return false
@@ -2145,8 +2151,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const currentLine = value.slice(lineStart, lineEnd)
 
     // Detect list types with indentation
-    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s*(.*)$/)
-    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s*(.*)$/)
+    // Note: The \s+ ensures there's at least one space after the list marker,
+    // which prevents false matches with formatting like **bold** or *italic*
+    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s+(.*)$/)
+    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s+(.*)$/)
 
     if (!unorderedMatch && !orderedMatch) {
       return false
@@ -2185,7 +2193,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const beforeLines = before.split('\n')
       for (let i = beforeLines.length - 1; i >= 0; i--) {
         const line = beforeLines[i]
-        const match = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+        const match = line.match(/^(\s*)(\d+)\.\s+(.*)$/)
         if (match && match[1] === newIndent) {
           newNumber = parseInt(match[2], 10) + 1
           break
@@ -2258,7 +2266,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     // Find the current line and determine the starting number for subsequent items
     let nextExpectedNumber = 1
     const currentLine = lines[fromLineIndex]
-    const currentMatch = currentLine?.match(/^(\s*)(\d+)\.\s*(.*)$/)
+    const currentMatch = currentLine?.match(/^(\s*)(\d+)\.\s+(.*)$/)
 
     if (currentMatch && currentMatch[1] === targetIndent) {
       // If the current line is an ordered list item with matching indentation,
@@ -2268,7 +2276,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       // Look backwards to find the most recent ordered list item with same indentation
       for (let i = fromLineIndex - 1; i >= 0; i--) {
         const line = lines[i]
-        const orderedMatch = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+        const orderedMatch = line.match(/^(\s*)(\d+)\.\s+(.*)$/)
         if (orderedMatch && orderedMatch[1] === targetIndent) {
           nextExpectedNumber = parseInt(orderedMatch[2], 10) + 1
           break
@@ -2278,7 +2286,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
     // Now renumber all subsequent lines with the same indentation
     let currentNumber = nextExpectedNumber
-    const orderedRegex = /^(\s*)(\d+)\.\s*(.*)$/
+    const orderedRegex = /^(\s*)(\d+)\.\s+(.*)$/
 
     // Start renumbering from the line after fromLineIndex
     for (let i = fromLineIndex + 1; i < lines.length; i++) {
@@ -2328,7 +2336,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       value.slice(0, fromPosition).split('\n').length - 1
     )
 
-    const orderedRegex = /^(\s*)(\d+)\.\s*(.*)$/
+    const orderedRegex = /^(\s*)(\d+)\.\s+(.*)$/
     let currentSequenceNumber = 1
     let inSequence = false
     let currentIndent = ''
@@ -2387,8 +2395,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const cursorPositionInLine = start - lineStart
 
     // Detect list types with indentation
-    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s*(.*)$/)
-    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s*(.*)$/)
+    // Note: The \s+ ensures there's at least one space after the list marker,
+    // which prevents false matches with formatting like **bold** or *italic*
+    const unorderedMatch = currentLine.match(/^(\s*)([-*+])\s+(.*)$/)
+    const orderedMatch = currentLine.match(/^(\s*)(\d+)\.\s+(.*)$/)
 
     if (!unorderedMatch && !orderedMatch) {
       return false

@@ -175,7 +175,20 @@ module.exports = {
         both: 'both',
       },
       borderRadius,
-      spacing
+      spacing,
+      typography: () => ({
+        inherit: {
+          css: {
+            '--tw-prose-body': 'inherit',
+            '--tw-prose-headings': 'inherit',
+            '--tw-prose-lead': 'inherit',
+            '--tw-prose-links': 'inherit',
+            '--tw-prose-bold': 'inherit',
+            '--tw-prose-counters': 'inherit',
+            '--tw-prose-bullets': 'inherit',
+          },
+        },
+      }),
     },
   },
   plugins: [

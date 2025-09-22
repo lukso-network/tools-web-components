@@ -299,6 +299,7 @@ export const UtilityIcons: Story = {
           'switched',
           'tick',
           'timer-outline',
+          'token-create',
           'token-id',
           'transaction-receive',
           'transaction-send',
@@ -342,6 +343,7 @@ export const ColoredIcons: Story = {
           'progress-complete',
           'logo-linkedin',
           'logo-farcaster',
+          'logo-hyperlane',
         ],
         'Colored Icons'
       )}
@@ -381,6 +383,7 @@ export const MonochromaticIcons: Story = {
           'logo-substack-mono',
           'logo-tiktok-mono',
           'logo-common-ground-mono',
+          'logo-hyperlane-mono',
         ],
         'Monochromatic Icons',
         'Single-color icons that can be customized with the color attribute. Some icons support secondary-color for additional customization.'

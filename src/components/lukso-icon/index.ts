@@ -212,6 +212,9 @@ import { rowVertical } from './icons/row-vertical'
 import { logoTiktokMono } from './icons/logo-tiktok-mono'
 import { profileFollowing } from './icons/profile-following'
 import { logoCommonGroundMono } from './icons/logo-common-ground-mono'
+import { logoHyperlaneMono } from './icons/logo-hyperlane-mono'
+import { logoHyperlane } from './icons/logo-hyperlane'
+import { tokenCreate } from './icons/token-create'
 
 export type IconOptions = {
   width: number
@@ -455,6 +458,9 @@ const iconMap = {
   'logo-tiktok-mono': logoTiktokMono,
   'profile-following': profileFollowing,
   'logo-common-ground-mono': logoCommonGroundMono,
+  'logo-hyperlane-mono': logoHyperlaneMono,
+  'logo-hyperlane': logoHyperlane,
+  'token-create': tokenCreate,
 }
 
 @customElement('lukso-icon')

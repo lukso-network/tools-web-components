@@ -2557,6 +2557,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                         this.isColorDropdownOpen = false
                       }}
                       type="button"
+                      aria-label="Clear color"
                     >
                       Clear
                     </button>`
@@ -2574,6 +2575,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                     aria-pressed=${this.activeFormats.activeColor === color
                       ? 'true'
                       : 'false'}
+                    aria-label="Color ${color}"
                     @click=${(e: Event) => {
                       e.stopPropagation()
                       this.selectColor(color)

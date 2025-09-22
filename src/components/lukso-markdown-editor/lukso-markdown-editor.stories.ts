@@ -436,6 +436,23 @@ const getEditorElements = (canvasElement: HTMLElement) => {
       `#headingDropdown lukso-dropdown-option:nth-child(${number})`
     )
 
+  const selectColor = (_editor: HTMLElement, color: string) =>
+    _editor?.shadowRoot
+      ?.querySelector('#colorDropdown')
+      ?.querySelector(`[aria-label="Color ${color}"]`)
+
+  const clearColor = (_editor: HTMLElement) =>
+    _editor?.shadowRoot
+      ?.querySelector('#colorDropdown')
+      ?.querySelector('button[aria-label="Clear color"]')
+
+  const selectText = (textarea: HTMLTextAreaElement, text: string) => {
+    const start = textarea.value.indexOf(text)
+    const end = start + text.length
+    textarea.setSelectionRange(start, end)
+    textarea.focus()
+  }
+
   return {
     editor,
     textarea,
@@ -448,6 +465,9 @@ const getEditorElements = (canvasElement: HTMLElement) => {
     listOptions,
     colorOptions,
     headerOption,
+    selectColor,
+    clearColor,
+    selectText,
   }
 }
 
@@ -785,5 +805,50 @@ export const TestRemoveHeader: StoryObj = {
     const noHeaderOption = headerOption(editor, 1)
     await userEvent.click(noHeaderOption)
     expect(textarea.value).toBe('Header')
+  },
+}
+
+/** Test story for applying text color */
+export const TestApplyTextColor: StoryObj = {
+  name: 'Test: Apply Text Color',
+  args: {
+    value: 'This is Color text.',
+    label: 'Test: Apply Text Color',
+    description: 'This story tests applying text color formatting.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, colorOptions, editor, selectColor, selectText } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('This is Color text.')
+    selectText(textarea, 'Color')
+    await userEvent.click(colorOptions)
+    const redOption = selectColor(editor, '#FF4D4D')
+    await userEvent.click(redOption)
+    expect(textarea.value).toBe(
+      'This is <span style="color: #FF4D4D">Color</span> text.'
+    )
+  },
+}
+
+/** Test story for removing text color */
+export const TestRemoveTextColor: StoryObj = {
+  name: 'Test: Remove Text Color',
+  args: {
+    value: 'This is <span style="color: #FF4D4D">Color</span> text.',
+    label: 'Test: Remove Text Color',
+    description: 'This story tests removing text color formatting.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, colorOptions, editor, clearColor, selectText } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe(
+      'This is <span style="color: #FF4D4D">Color</span> text.'
+    )
+    selectText(textarea, 'Color')
+    await userEvent.click(colorOptions)
+    await userEvent.click(clearColor(editor))
+    expect(textarea.value).toBe('This is Color text.')
   },
 }

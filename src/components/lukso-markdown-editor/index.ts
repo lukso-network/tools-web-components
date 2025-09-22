@@ -89,6 +89,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     h1: false,
     h2: false,
     h3: false,
+    h4: false,
     color: false,
     activeColor: this.defaultColor,
     unorderedList: false,
@@ -345,9 +346,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   /**
    * Apply or toggle heading formatting for the current line(s).
    *
-   * @param level - 0 to remove heading, 1-3 for heading levels
+   * @param level - 0 to remove heading, 1-4 for heading levels
    */
-  private applyHeading(level: 0 | 1 | 2 | 3) {
+  private applyHeading(level: 0 | 1 | 2 | 3 | 4) {
     if (this.isReadonly || this.isDisabled) return
 
     // Save undo state before making changes
@@ -1000,6 +1001,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       h1: headingLevel === 1,
       h2: headingLevel === 2,
       h3: headingLevel === 3,
+      h4: headingLevel === 4,
       color: hasColorWrap,
       activeColor,
       unorderedList: hasUnorderedList,
@@ -1399,6 +1401,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     if (this.activeFormats.h1) return 1
     if (this.activeFormats.h2) return 2
     if (this.activeFormats.h3) return 3
+    if (this.activeFormats.h4) return 4
     return 0
   }
 
@@ -2378,6 +2381,18 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
               size="medium"
             >
               Heading 3
+            </lukso-dropdown-option>
+            <lukso-dropdown-option
+              ?is-selected=${this.getActiveHeadingLevel() === 4}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyHeading(4)
+                this.isHeadingDropdownOpen = false
+              }}
+              size="medium"
+            >
+              Heading 4
             </lukso-dropdown-option>
           </lukso-dropdown>
         </div>

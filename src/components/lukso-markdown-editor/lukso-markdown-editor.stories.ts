@@ -331,10 +331,7 @@ console.log(greeting)
 
 > This is a blockquote demonstrating
 > the markdown rendering capabilities.
-
----
-
-*Use the toolbar buttons above to add these elements easily!*`,
+`,
 }
 
 /** Example demonstrating smart selection-aware formatting. */
@@ -425,15 +422,19 @@ const getEditorElements = (canvasElement: HTMLElement) => {
   const previewButton = editor?.shadowRoot?.querySelector(
     '[aria-label="Toggle preview"]'
   )
-  const headingOptions = editor?.shadowRoot?.querySelectorAll(
+  const headingOptions = editor?.shadowRoot?.querySelector(
     '[aria-label="Heading options"]'
   )
-  const listOptions = editor?.shadowRoot?.querySelectorAll(
+  const listOptions = editor?.shadowRoot?.querySelector(
     '[aria-label="List options"]'
   )
-  const colorOptions = editor?.shadowRoot?.querySelectorAll(
+  const colorOptions = editor?.shadowRoot?.querySelector(
     '[aria-label="Text color"]'
   )
+  const headerOption = (_editor: HTMLElement, number: number) =>
+    _editor?.shadowRoot?.querySelector(
+      `#headingDropdown lukso-dropdown-option:nth-child(${number})`
+    )
 
   return {
     editor,
@@ -446,6 +447,7 @@ const getEditorElements = (canvasElement: HTMLElement) => {
     headingOptions,
     listOptions,
     colorOptions,
+    headerOption,
   }
 }
 
@@ -461,6 +463,180 @@ const getMarkdown = (editor: HTMLElement) => {
   }
 }
 
+/** Test story for preview functionality. */
+export const TestPreviewFunctionality: StoryObj = {
+  name: 'Test: Preview Functionality',
+  args: {
+    value: `# Advanced Markdown Features
+
+## Typography
+
+This editor supports **bold text**, *italic text*, and even ***bold italic***.
+
+## Lists
+
+### Unordered Lists
+- Item 1
+- Item 2
+    - Nested item
+    - Another nested item
+- Item 3
+
+### Ordered Lists
+1. First item
+2. Second item
+    1. Nested item
+    2. Another nested item
+3. Third item
+
+## Links and Code
+
+Visit [LUKSO Network](https://lukso.network) for more information.
+
+Here's some \`inline code\` and a code block:
+
+\`\`\`javascript
+const greeting = "Hello, LUKSO!"
+console.log(greeting)
+\`\`\`
+
+## Tables
+
+| Feature | Status | Notes |
+|---------|--------|--------|
+| Headings | ✅ | H1, H2, H3 |
+| Formatting | ✅ | Bold, Italic |
+| Links | ✅ | Auto-generated |
+| Colors | ✅ | Tailwind palette |
+
+## Quotes
+
+> This is a blockquote demonstrating
+> the markdown rendering capabilities.
+`,
+    label: 'Test: Preview Functionality',
+    description: 'This story tests the preview functionality.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, previewButton, editor } = getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe(`# Advanced Markdown Features
+
+## Typography
+
+This editor supports **bold text**, *italic text*, and even ***bold italic***.
+
+## Lists
+
+### Unordered Lists
+- Item 1
+- Item 2
+    - Nested item
+    - Another nested item
+- Item 3
+
+### Ordered Lists
+1. First item
+2. Second item
+    1. Nested item
+    2. Another nested item
+3. Third item
+
+## Links and Code
+
+Visit [LUKSO Network](https://lukso.network) for more information.
+
+Here's some \`inline code\` and a code block:
+
+\`\`\`javascript
+const greeting = "Hello, LUKSO!"
+console.log(greeting)
+\`\`\`
+
+## Tables
+
+| Feature | Status | Notes |
+|---------|--------|--------|
+| Headings | ✅ | H1, H2, H3 |
+| Formatting | ✅ | Bold, Italic |
+| Links | ✅ | Auto-generated |
+| Colors | ✅ | Tailwind palette |
+
+## Quotes
+
+> This is a blockquote demonstrating
+> the markdown rendering capabilities.
+`)
+    await userEvent.click(previewButton)
+    const { innerHtml } = getMarkdown(editor)
+    expect(innerHtml).toBe(`<h1>Advanced Markdown Features</h1>
+<h2>Typography</h2>
+<p>This editor supports <strong>bold text</strong>, <em>italic text</em>, and even <em><strong>bold italic</strong></em>.</p>
+<h2>Lists</h2>
+<h3>Unordered Lists</h3>
+<ul>
+<li>Item 1</li>
+<li>Item 2<ul>
+<li>Nested item</li>
+<li>Another nested item</li>
+</ul>
+</li>
+<li>Item 3</li>
+</ul>
+<h3>Ordered Lists</h3>
+<ol>
+<li>First item</li>
+<li>Second item<ol>
+<li>Nested item</li>
+<li>Another nested item</li>
+</ol>
+</li>
+<li>Third item</li>
+</ol>
+<h2>Links and Code</h2>
+<p>Visit <a href="https://lukso.network">LUKSO Network</a> for more information.</p>
+<p>Here's some <code>inline code</code> and a code block:</p>
+<pre><code class="language-javascript">const greeting = "Hello, LUKSO!"
+console.log(greeting)
+</code></pre>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Headings</td>
+<td>✅</td>
+<td>H1, H2, H3</td>
+</tr>
+<tr>
+<td>Formatting</td>
+<td>✅</td>
+<td>Bold, Italic</td>
+</tr>
+<tr>
+<td>Links</td>
+<td>✅</td>
+<td>Auto-generated</td>
+</tr>
+<tr>
+<td>Colors</td>
+<td>✅</td>
+<td>Tailwind palette</td>
+</tr>
+</tbody></table>
+<h2>Quotes</h2>
+<blockquote>
+<p>This is a blockquote demonstrating
+the markdown rendering capabilities.</p>
+</blockquote>\n`)
+  },
+}
+
 /** Test story for bold formatting functionality. */
 export const TestBoldFormatting: StoryObj = {
   name: 'Test: Bold Formatting',
@@ -470,15 +646,11 @@ export const TestBoldFormatting: StoryObj = {
     description: 'This story tests the bold formatting functionality.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, boldButton, previewButton, editor } =
-      getEditorElements(canvasElement)
+    const { textarea, boldButton } = getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('test')
     await userEvent.click(boldButton)
     expect(textarea.value).toBe('**test**')
-    await userEvent.click(previewButton)
-    const { innerHtml } = getMarkdown(editor)
-    expect(innerHtml).toBe('<p><strong>test</strong></p>\n')
   },
 }
 
@@ -491,15 +663,11 @@ export const TestItalicFormatting: StoryObj = {
     description: 'This story tests the italic formatting functionality.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, italicButton, previewButton, editor } =
-      getEditorElements(canvasElement)
+    const { textarea, italicButton } = getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('test')
     await userEvent.click(italicButton)
     expect(textarea.value).toBe('*test*')
-    await userEvent.click(previewButton)
-    const { innerHtml } = getMarkdown(editor)
-    expect(innerHtml).toBe('<p><em>test</em></p>\n')
   },
 }
 
@@ -512,14 +680,110 @@ export const TestLinkCreation: StoryObj = {
     description: 'This story tests the link creation functionality.',
   },
   play: async ({ canvasElement }) => {
-    const { textarea, linkButton, previewButton, editor } =
-      getEditorElements(canvasElement)
+    const { textarea, linkButton } = getEditorElements(canvasElement)
 
     expect(textarea.value).toBe('click')
     await userEvent.click(linkButton)
     expect(textarea.value).toBe('[click]()')
-    await userEvent.click(previewButton)
-    const { innerHtml } = getMarkdown(editor)
-    expect(innerHtml).toBe('<p><a href="">click</a></p>\n')
+  },
+}
+
+/** Test story for adding h1 header. */
+export const TestAddH1Header: StoryObj = {
+  name: 'Test: Add H1 Header',
+  args: {
+    value: 'Header',
+    label: 'Test: Add H1 Header',
+    description: 'This story tests adding an H1 header.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, headingOptions, editor, headerOption } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Header')
+    await userEvent.click(headingOptions)
+    const h1Option = headerOption(editor, 2)
+    await userEvent.click(h1Option)
+    expect(textarea.value).toBe('# Header')
+  },
+}
+
+/** Test story for adding h2 header. */
+export const TestAddH2Header: StoryObj = {
+  name: 'Test: Add H2 Header',
+  args: {
+    value: 'Header',
+    label: 'Test: Add H2 Header',
+    description: 'This story tests adding an H2 header.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, headingOptions, editor, headerOption } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Header')
+    await userEvent.click(headingOptions)
+    const h2Option = headerOption(editor, 3)
+    await userEvent.click(h2Option)
+    expect(textarea.value).toBe('## Header')
+  },
+}
+
+/** Test story for adding h3 header. */
+export const TestAddH3Header: StoryObj = {
+  name: 'Test: Add H3 Header',
+  args: {
+    value: 'Header',
+    label: 'Test: Add H3 Header',
+    description: 'This story tests adding an H3 header.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, headingOptions, editor, headerOption } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Header')
+    await userEvent.click(headingOptions)
+    const h3Option = headerOption(editor, 4)
+    await userEvent.click(h3Option)
+    expect(textarea.value).toBe('### Header')
+  },
+}
+
+/** Test story for adding h4 header. */
+export const TestAddH4Header: StoryObj = {
+  name: 'Test: Add H4 Header',
+  args: {
+    value: 'Header',
+    label: 'Test: Add H4 Header',
+    description: 'This story tests adding an H4 header.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, headingOptions, editor, headerOption } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Header')
+    await userEvent.click(headingOptions)
+    const h4Option = headerOption(editor, 5)
+    await userEvent.click(h4Option)
+    expect(textarea.value).toBe('#### Header')
+  },
+}
+
+/** Test story for removing header. */
+export const TestRemoveHeader: StoryObj = {
+  name: 'Test: Remove Header',
+  args: {
+    value: '# Header',
+    label: 'Test: Remove Header',
+    description: 'This story tests removing an header.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, headingOptions, editor, headerOption } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('# Header')
+    await userEvent.click(headingOptions)
+    const noHeaderOption = headerOption(editor, 1)
+    await userEvent.click(noHeaderOption)
+    expect(textarea.value).toBe('Header')
   },
 }

@@ -440,6 +440,10 @@ const getEditorElements = (canvasElement: HTMLElement) => {
     '[aria-label="Text color"]'
   )
 
+  const alignmentDropdown = editor?.shadowRoot?.querySelector(
+    '[aria-label="Text alignment"]'
+  )
+
   const selectHeader = (_editor: HTMLElement, number: number) =>
     _editor?.shadowRoot?.querySelector(
       `#headingDropdown lukso-dropdown-option:nth-child(${number})`
@@ -460,6 +464,11 @@ const getEditorElements = (canvasElement: HTMLElement) => {
       `#listDropdown lukso-dropdown-option:nth-child(${number})`
     )
 
+  const selectAlignment = (_editor: HTMLElement, alignment: string) =>
+    _editor?.shadowRoot
+      ?.querySelector('#alignmentDropdown')
+      ?.querySelector(`[aria-label="Align ${alignment}"]`)
+
   return {
     editor,
     textarea,
@@ -475,6 +484,8 @@ const getEditorElements = (canvasElement: HTMLElement) => {
     selectColor,
     clearColor,
     selectList,
+    alignmentDropdown,
+    selectAlignment,
   }
 }
 
@@ -1045,6 +1056,117 @@ export const TestConvertUnnestedToNestedItem: StoryObj = {
     await userEvent.keyboard('{Tab}')
     expect(textarea.value).toBe(
       '1. Item\n    1. Next item\n    2. Another item'
+    )
+  },
+}
+
+/** Test story for aligning text in center */
+export const TestAlignTextCenter: StoryObj = {
+  name: 'Test: Align Text Center',
+  args: {
+    value: 'Center',
+    label: 'Test: Align Text Center',
+    description: 'This story tests aligning text to the center.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Center')
+    selectText(textarea, 'Center')
+    await userEvent.click(alignmentDropdown)
+    const centerOption = selectAlignment(editor, 'center')
+    await userEvent.click(centerOption)
+    expect(textarea.value).toBe('<div style="text-align: center;">Center</div>')
+  },
+}
+
+/** Test story for aligning text to the right */
+export const TestAlignTextRight: StoryObj = {
+  name: 'Test: Align Text Right',
+  args: {
+    value: 'Right',
+    label: 'Test: Align Text Right',
+    description: 'This story tests aligning text to the right.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Right')
+    selectText(textarea, 'Right')
+    await userEvent.click(alignmentDropdown)
+    const rightOption = selectAlignment(editor, 'right')
+    await userEvent.click(rightOption)
+    expect(textarea.value).toBe('<div style="text-align: right;">Right</div>')
+  },
+}
+
+/** Test story for aligning bold text */
+export const TestAlignBoldText: StoryObj = {
+  name: 'Test: Align Bold Text',
+  args: {
+    value: '**Bold**',
+    label: 'Test: Align Bold Text',
+    description: 'This story tests aligning bold text.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('**Bold**')
+    selectText(textarea, 'Bold')
+    await userEvent.click(alignmentDropdown)
+    const centerOption = selectAlignment(editor, 'center')
+    await userEvent.click(centerOption)
+    expect(textarea.value).toBe(
+      '**<div style="text-align: center;">Bold</div>**'
+    )
+  },
+}
+
+/** Test story for aligning italic text */
+export const TestAlignItalicText: StoryObj = {
+  name: 'Test: Align Italic Text',
+  args: {
+    value: '*Italic*',
+    label: 'Test: Align Italic Text',
+    description: 'This story tests aligning italic text.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('*Italic*')
+    selectText(textarea, 'Italic')
+    await userEvent.click(alignmentDropdown)
+    const centerOption = selectAlignment(editor, 'center')
+    await userEvent.click(centerOption)
+    expect(textarea.value).toBe(
+      '*<div style="text-align: center;">Italic</div>*'
+    )
+  },
+}
+
+/** Test story for aligning header text */
+export const TestAlignHeaderText: StoryObj = {
+  name: 'Test: Align Header Text',
+  args: {
+    value: '# Header',
+    label: 'Test: Align Header Text',
+    description: 'This story tests aligning header text.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('# Header')
+    selectText(textarea, 'Header')
+    await userEvent.click(alignmentDropdown)
+    const centerOption = selectAlignment(editor, 'center')
+    await userEvent.click(centerOption)
+    expect(textarea.value).toBe(
+      '# <div style="text-align: center;">Header</div>'
     )
   },
 }

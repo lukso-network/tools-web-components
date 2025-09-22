@@ -71,9 +71,11 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @state() private isHeadingDropdownOpen = false
   @state() private isColorDropdownOpen = false
   @state() private isListDropdownOpen = false
+  @state() private isAlignmentDropdownOpen = false
   private readonly headingTriggerId = 'heading-dropdown-trigger'
   private readonly colorTriggerId = 'color-dropdown-trigger'
   private readonly listTriggerId = 'list-dropdown-trigger'
+  private readonly alignmentTriggerId = 'alignment-dropdown-trigger'
 
   // selection
   @state() private currentSelection = { start: 0, end: 0 }
@@ -94,6 +96,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     activeColor: this.defaultColor,
     unorderedList: false,
     orderedList: false,
+    alignment: 'left',
   }
 
   // Undo/Redo state
@@ -133,6 +136,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       if (this.isListDropdownOpen) {
         this.isListDropdownOpen = false
       }
+      if (this.isAlignmentDropdownOpen) {
+        this.isAlignmentDropdownOpen = false
+      }
       return
     }
 
@@ -146,6 +152,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const isInsideListDropdown = this.shadowRoot
       ?.getElementById('listDropdown')
       ?.contains(target)
+    const isInsideAlignmentDropdown = this.shadowRoot
+      ?.getElementById('alignmentDropdown')
+      ?.contains(target)
     const isHeadingTrigger = this.shadowRoot
       ?.getElementById(this.headingTriggerId)
       ?.contains(target)
@@ -154,6 +163,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       ?.contains(target)
     const isListTrigger = this.shadowRoot
       ?.getElementById(this.listTriggerId)
+      ?.contains(target)
+    const isAlignmentTrigger = this.shadowRoot
+      ?.getElementById(this.alignmentTriggerId)
       ?.contains(target)
 
     // Only close dropdowns if click is not inside them or their triggers
@@ -172,6 +184,14 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     if (!isInsideListDropdown && !isListTrigger && this.isListDropdownOpen) {
       this.isListDropdownOpen = false
     }
+
+    if (
+      !isInsideAlignmentDropdown &&
+      !isAlignmentTrigger &&
+      this.isAlignmentDropdownOpen
+    ) {
+      this.isAlignmentDropdownOpen = false
+    }
   }
 
   private styles = tv({
@@ -186,6 +206,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       colorMenu: 'relative',
       headingMenu: 'relative',
       listMenu: 'relative',
+      alignmentMenu: 'relative',
       label: 'heading-inter-14-bold text-neutral-20',
       description: 'paragraph-inter-12-regular text-neutral-20',
       divider: 'w-[1px] h-4 bg-neutral-90',
@@ -623,6 +644,84 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   }
 
   /**
+   * Get the current alignment icon name based on activeFormats.
+   */
+  private getAlignmentIcon(): string {
+    switch (this.activeFormats.alignment) {
+      case 'center':
+        return 'textalign-center'
+      case 'right':
+        return 'textalign-right'
+      default:
+        return 'textalign-left'
+    }
+  }
+
+  /**
+   * Apply or toggle text alignment for the current line(s).
+   *
+   * @param alignment - 'left', 'center', or 'right'
+   */
+  private applyAlignment(alignment: 'left' | 'center' | 'right') {
+    if (this.isReadonly || this.isDisabled) return
+
+    // Save undo state before making changes
+    this.saveUndoStateBeforeChange()
+
+    this.withSelection((textarea, start, end, value) => {
+      // Expand to full lines covered by selection
+      const lineStart = value.lastIndexOf('\n', start - 1) + 1
+      let lineEnd = value.indexOf('\n', end)
+      if (lineEnd === -1) lineEnd = value.length
+      const before = value.slice(0, lineStart)
+      const selected = value.slice(lineStart, lineEnd)
+      const after = value.slice(lineEnd)
+
+      const alignmentTag =
+        `<div style="text-align: ${alignment};">` + selected + '</div>'
+      const currentAlignmentRegex =
+        /<div style="text-align: (left|center|right);">(.*?)<\/div>/s
+
+      let transformed: string
+      const existingMatch = selected.match(currentAlignmentRegex)
+
+      if (existingMatch) {
+        const existingAlignment = existingMatch[1]
+        const innerContent = existingMatch[2]
+
+        if (existingAlignment === alignment) {
+          // Same alignment: remove alignment formatting
+          transformed = innerContent
+        } else {
+          // Different alignment: change to new alignment
+          transformed = `<div style="text-align: ${alignment};">${innerContent}</div>`
+        }
+      } else {
+        // No existing alignment: apply new alignment
+        if (alignment === 'left') {
+          // Left alignment is default, so just use the content without wrapper
+          transformed = selected
+        } else {
+          transformed = alignmentTag
+        }
+      }
+
+      this.value = before + transformed + after
+
+      // Also update the textarea element's value directly to ensure sync
+      textarea.value = before + transformed + after
+
+      // Position cursor at the end of the content
+      const cursorPosition = before.length + transformed.length
+      requestAnimationFrame(() => {
+        textarea.setSelectionRange(cursorPosition, cursorPosition)
+        this.updateActiveFormats()
+      })
+      this.dispatchChange()
+    })
+  }
+
+  /**
    * Toggle inline formatting by wrapping/unwrapping selection or current word.
    *
    * @param wrapper - the markdown wrapper to toggle, e.g. '**' for bold, '*' for italic
@@ -994,6 +1093,29 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       activeColor = beforeColorMatch?.[1] || selectedColorMatch?.[1] || ''
     }
 
+    // Check for text alignment
+    const alignmentRegex = /<div style="text-align: (left|center|right);">/
+    let alignment: 'left' | 'center' | 'right' = 'left' // default alignment
+
+    // Check if current line is wrapped in an alignment div
+    const alignmentMatch = currentLine.match(alignmentRegex)
+    if (alignmentMatch) {
+      alignment = alignmentMatch[1] as 'left' | 'center' | 'right'
+    } else {
+      // Check if we're inside an alignment block that spans multiple lines
+      const beforeCurrentLine = this.value.slice(0, lineStart)
+      const alignmentStartMatch = beforeCurrentLine.match(
+        /.*<div style="text-align: (left|center|right);">[^<]*$/s
+      )
+      if (alignmentStartMatch) {
+        const afterCurrentLine = this.value.slice(lineEnd)
+        // Check if there's a closing div tag after the current line
+        if (afterCurrentLine.includes('</div>')) {
+          alignment = alignmentStartMatch[1] as 'left' | 'center' | 'right'
+        }
+      }
+    }
+
     this.activeFormats = {
       bold: hasBoldWrap,
       italic: hasItalicWrap,
@@ -1006,6 +1128,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       activeColor,
       unorderedList: hasUnorderedList,
       orderedList: hasOrderedList,
+      alignment,
     }
   }
 
@@ -2433,6 +2556,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                 // Close other dropdowns if open
                 this.isColorDropdownOpen = false
                 this.isListDropdownOpen = false
+                this.isAlignmentDropdownOpen = false
                 this.isHeadingDropdownOpen = !this.isHeadingDropdownOpen
               }}
               aria-expanded=${this.isHeadingDropdownOpen ? 'true' : 'false'}
@@ -2548,6 +2672,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                 // Close other dropdowns if open
                 this.isHeadingDropdownOpen = false
                 this.isColorDropdownOpen = false
+                this.isAlignmentDropdownOpen = false
                 this.isListDropdownOpen = !this.isListDropdownOpen
               }}
               aria-expanded=${this.isListDropdownOpen ? 'true' : 'false'}
@@ -2622,6 +2747,109 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           this.activeFormats.link
         )}
 
+        <!-- Text Alignment -->
+        <div class=${this.styles().alignmentMenu()}>
+          <lukso-tooltip text="Text alignment" placement="top">
+            <lukso-button
+              id=${this.alignmentTriggerId}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                // Close other dropdowns if open
+                this.isHeadingDropdownOpen = false
+                this.isColorDropdownOpen = false
+                this.isListDropdownOpen = false
+                this.isAlignmentDropdownOpen = !this.isAlignmentDropdownOpen
+              }}
+              aria-expanded=${this.isAlignmentDropdownOpen ? 'true' : 'false'}
+              aria-label="Text alignment"
+              variant="secondary"
+              size="small"
+              custom-class=${this.toolbarButton({
+                active: this.activeFormats.alignment !== 'left',
+              })}
+              is-icon
+            >
+              <lukso-icon
+                name=${this.getAlignmentIcon()}
+                size="small"
+                pack="vuesax"
+                variant="linear"
+              ></lukso-icon>
+            </lukso-button>
+          </lukso-tooltip>
+          <lukso-dropdown
+            id="alignmentDropdown"
+            trigger-id=""
+            size="medium"
+            ?is-open=${this.isAlignmentDropdownOpen}
+          >
+            <lukso-dropdown-option
+              ?is-selected=${this.activeFormats.alignment === 'left'}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyAlignment('left')
+                this.isAlignmentDropdownOpen = false
+              }}
+              size="medium"
+              aria-label="Align left"
+            >
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <lukso-icon
+                  name="textalign-left"
+                  size="small"
+                  pack="vuesax"
+                  variant="linear"
+                ></lukso-icon>
+                Left
+              </div>
+            </lukso-dropdown-option>
+            <lukso-dropdown-option
+              ?is-selected=${this.activeFormats.alignment === 'center'}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyAlignment('center')
+                this.isAlignmentDropdownOpen = false
+              }}
+              size="medium"
+              aria-label="Align center"
+            >
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <lukso-icon
+                  name="textalign-center"
+                  size="small"
+                  pack="vuesax"
+                  variant="linear"
+                ></lukso-icon>
+                Center
+              </div>
+            </lukso-dropdown-option>
+            <lukso-dropdown-option
+              ?is-selected=${this.activeFormats.alignment === 'right'}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyAlignment('right')
+                this.isAlignmentDropdownOpen = false
+              }}
+              size="medium"
+              aria-label="Align right"
+            >
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <lukso-icon
+                  name="textalign-right"
+                  size="small"
+                  pack="vuesax"
+                  variant="linear"
+                ></lukso-icon>
+                Right
+              </div>
+            </lukso-dropdown-option>
+          </lukso-dropdown>
+        </div>
+
         <!-- Color -->
         <div class=${this.styles().colorMenu()}>
           <lukso-tooltip text="Text color" placement="top">
@@ -2633,6 +2861,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                 // Close other dropdowns if open
                 this.isHeadingDropdownOpen = false
                 this.isListDropdownOpen = false
+                this.isAlignmentDropdownOpen = false
                 // Save current selection when opening color dropdown
                 if (!this.isColorDropdownOpen) {
                   const ta =

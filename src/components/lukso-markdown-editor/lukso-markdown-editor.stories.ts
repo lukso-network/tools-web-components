@@ -1170,3 +1170,26 @@ export const TestAlignHeaderText: StoryObj = {
     )
   },
 }
+
+/** Test story for aligning link text */
+export const TestAlignLinkText: StoryObj = {
+  name: 'Test: Align Link Text',
+  args: {
+    value: '[LUKSO](https://lukso.network)',
+    label: 'Test: Align Link Text',
+    description: 'This story tests aligning link text.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('[LUKSO](https://lukso.network)')
+    selectText(textarea, 'LUKSO')
+    await userEvent.click(alignmentDropdown)
+    const centerOption = selectAlignment(editor, 'center')
+    await userEvent.click(centerOption)
+    expect(textarea.value).toBe(
+      '[<div style="text-align: center;">LUKSO</div>](https://lukso.network)'
+    )
+  },
+}

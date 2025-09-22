@@ -17,6 +17,8 @@ import '@/components/lukso-tooltip'
 
 import type { InputSize } from '@/shared/types'
 
+type TextAlignment = 'left' | 'center' | 'right'
+
 @customElement('lukso-markdown-editor')
 export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @property({ type: String })
@@ -662,7 +664,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
    *
    * @param alignment - 'left', 'center', or 'right'
    */
-  private applyAlignment(alignment: 'left' | 'center' | 'right') {
+  private applyAlignment(alignment: TextAlignment) {
     if (this.isReadonly || this.isDisabled) return
 
     // Save undo state before making changes
@@ -677,24 +679,34 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const selected = value.slice(lineStart, lineEnd)
       const after = value.slice(lineEnd)
 
-      const alignmentTag =
-        `<div style="text-align: ${alignment};">` + selected + '</div>'
+      let transformed: string
       const currentAlignmentRegex =
         /<div style="text-align: (left|center|right);">(.*?)<\/div>/s
-
-      let transformed: string
       const existingMatch = selected.match(currentAlignmentRegex)
 
-      if (existingMatch) {
-        const existingAlignment = existingMatch[1]
-        const innerContent = existingMatch[2]
+      if (existingMatch || this.hasNestedAlignment(selected)) {
+        // Handle existing alignment (either simple or nested)
+        if (existingMatch) {
+          // Simple case: alignment div is at the top level
+          const existingAlignment = existingMatch[1]
+          const innerContent = existingMatch[2]
 
-        if (existingAlignment === alignment) {
-          // Same alignment: remove alignment formatting
-          transformed = innerContent
+          if (existingAlignment === alignment) {
+            // Same alignment: remove alignment formatting
+            transformed = innerContent
+          } else {
+            // Different alignment: change to new alignment
+            transformed = `<div style="text-align: ${alignment};">${innerContent}</div>`
+          }
         } else {
-          // Different alignment: change to new alignment
-          transformed = `<div style="text-align: ${alignment};">${innerContent}</div>`
+          // Nested case: alignment div is inside formatting markers
+          if (this.getNestedAlignment(selected) === alignment) {
+            // Same alignment: remove alignment formatting
+            transformed = this.removeNestedAlignment(selected)
+          } else {
+            // Different alignment: change to new alignment
+            transformed = this.replaceNestedAlignment(selected, alignment)
+          }
         }
       } else {
         // No existing alignment: apply new alignment
@@ -702,7 +714,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           // Left alignment is default, so just use the content without wrapper
           transformed = selected
         } else {
-          transformed = alignmentTag
+          // Apply alignment by wrapping the content inside formatting markers
+          transformed = this.wrapContentWithAlignment(selected, alignment)
         }
       }
 
@@ -719,6 +732,118 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       })
       this.dispatchChange()
     })
+  }
+
+  /**
+   * Check if content has nested alignment divs inside formatting markers.
+   */
+  private hasNestedAlignment(content: string): boolean {
+    const alignmentRegex = /<div style="text-align: (left|center|right);">/
+    return alignmentRegex.test(content)
+  }
+
+  /**
+   * Get the alignment from nested alignment divs.
+   */
+  private getNestedAlignment(content: string): TextAlignment | null {
+    const alignmentMatch = content.match(
+      /<div style="text-align: (left|center|right);">/
+    )
+    return alignmentMatch ? (alignmentMatch[1] as TextAlignment) : null
+  }
+
+  /**
+   * Remove nested alignment divs from content.
+   */
+  private removeNestedAlignment(content: string): string {
+    return content.replace(
+      /<div style="text-align: (left|center|right);">([^<]*?)<\/div>/g,
+      '$2'
+    )
+  }
+
+  /**
+   * Replace nested alignment with a new alignment.
+   */
+  private replaceNestedAlignment(
+    content: string,
+    newAlignment: TextAlignment
+  ): string {
+    return content.replace(
+      /<div style="text-align: (left|center|right);">([^<]*?)<\/div>/g,
+      `<div style="text-align: ${newAlignment};">$2</div>`
+    )
+  }
+
+  /**
+   * Wrap content with alignment div, ensuring proper nesting inside formatting markers.
+   * Examples:
+   * - **text** becomes **<div style="text-align: center;">text</div>**
+   * - *text* becomes *<div style="text-align: center;">text</div>*
+   * - # text becomes # <div style="text-align: center;">text</div>
+   *
+   * @param content - the content to wrap
+   * @param alignment - 'left', 'center' or 'right'
+   */
+  private wrapContentWithAlignment(
+    content: string,
+    alignment: TextAlignment
+  ): string {
+    const alignmentDiv = (innerContent: string) =>
+      `<div style="text-align: ${alignment};">${innerContent}</div>`
+
+    // Handle headings (must come first to avoid conflicts with other patterns)
+    const headingMatch = content.match(/^(#{1,6}\s+)(.*)$/)
+    if (headingMatch) {
+      const headingPrefix = headingMatch[1]
+      const headingText = headingMatch[2]
+      return headingPrefix + alignmentDiv(headingText)
+    }
+
+    // Handle bold text (**text**)
+    const boldMatch = content.match(/^(\*\*)(.+?)(\*\*)$/s)
+    if (boldMatch) {
+      const innerText = boldMatch[2]
+      return `**${alignmentDiv(innerText)}**`
+    }
+
+    // Handle italic text (*text*) - must come after bold to avoid conflict
+    const italicMatch = content.match(/^(\*)(.+?)(\*)$/s)
+    if (italicMatch) {
+      const innerText = italicMatch[2]
+      return `*${alignmentDiv(innerText)}*`
+    }
+
+    // Handle links [text](url)
+    const linkMatch = content.match(/^(\[)(.+?)(\]\([^)]+\))$/s)
+    if (linkMatch) {
+      const linkStart = linkMatch[1]
+      const linkText = linkMatch[2]
+      const linkEnd = linkMatch[3]
+      return linkStart + alignmentDiv(linkText) + linkEnd
+    }
+
+    // Handle colored text <span style="color: ...">text</span>
+    const colorMatch = content.match(
+      /^(<span style="color: [^"]+;">)(.+?)(<\/span>)$/s
+    )
+    if (colorMatch) {
+      const colorStart = colorMatch[1]
+      const colorText = colorMatch[2]
+      const colorEnd = colorMatch[3]
+      return colorStart + alignmentDiv(colorText) + colorEnd
+    }
+
+    // Handle list items (unordered: - * +, ordered: 1. 2. etc.)
+    const listMatch = content.match(/^(\s*(?:[-*+]|\d+\.)\s+)(.*)$/)
+    if (listMatch) {
+      const listPrefix = listMatch[1]
+      const listText = listMatch[2]
+      return listPrefix + alignmentDiv(listText)
+    }
+
+    // Default: wrap the entire content
+    return alignmentDiv(content)
   }
 
   /**
@@ -1093,14 +1218,14 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       activeColor = beforeColorMatch?.[1] || selectedColorMatch?.[1] || ''
     }
 
-    // Check for text alignment
+    // Check for text alignment (both simple and nested cases)
     const alignmentRegex = /<div style="text-align: (left|center|right);">/
-    let alignment: 'left' | 'center' | 'right' = 'left' // default alignment
+    let alignment: TextAlignment = 'left' // default alignment
 
-    // Check if current line is wrapped in an alignment div
+    // Check if current line contains an alignment div anywhere (including nested)
     const alignmentMatch = currentLine.match(alignmentRegex)
     if (alignmentMatch) {
-      alignment = alignmentMatch[1] as 'left' | 'center' | 'right'
+      alignment = alignmentMatch[1] as TextAlignment
     } else {
       // Check if we're inside an alignment block that spans multiple lines
       const beforeCurrentLine = this.value.slice(0, lineStart)
@@ -1111,7 +1236,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const afterCurrentLine = this.value.slice(lineEnd)
         // Check if there's a closing div tag after the current line
         if (afterCurrentLine.includes('</div>')) {
-          alignment = alignmentStartMatch[1] as 'left' | 'center' | 'right'
+          alignment = alignmentStartMatch[1] as TextAlignment
         }
       }
     }

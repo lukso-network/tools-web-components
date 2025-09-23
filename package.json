@@ -24,7 +24,6 @@
 		"test:components": "yarn analyze && yarn config-prepare && yarn build && yarn build-storybook && concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'http-server storybook-static --port 6007' 'wait-on -v tcp:127.0.0.1:6007 && yarn test-storybook --url http://127.0.0.1:6007'",
 		"test": "yarn test:unit && yarn test:storybook",
 		"test:unit": "vitest run",
-		"test:ci": "yarn test",
 		"test:storybook": "test-storybook",
 		"prepare": "husky install"
 	},

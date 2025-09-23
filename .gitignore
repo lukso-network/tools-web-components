@@ -23,3 +23,4 @@
 
 /.vscode
 tools-web-components.code-workspace
+coverage/

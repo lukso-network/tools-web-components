@@ -143,10 +143,36 @@ jobs:
       - name: ⚙️ Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: 🎭 Install Playwright browsers
-        run: npx playwright install --with-deps
+      # Cache Playwright browsers to avoid downloading them every time
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
+
+      - name: 🎭 Install Playwright browsers (Chromium only)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: 🎭 Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      # Cache Storybook build for faster rebuilds
+      - name: Cache Storybook build
+        uses: actions/cache@v4
+        id: storybook-cache
+        with:
+          path: storybook-static
+          key: storybook-${{ runner.os }}-${{ hashFiles('src/**', '.storybook/**', 'package.json') }}
+          restore-keys: |
+            storybook-${{ runner.os }}-
 
       - name: 🏗️ Build Storybook
+        if: steps.storybook-cache.outputs.cache-hit != 'true'
         run: yarn storybook:build
 
       - name: 🧪 Storybook Tests

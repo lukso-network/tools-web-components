@@ -41,11 +41,15 @@ jobs:
         with:
           path: ./.node-version
 
-      - name: 🎛 Setup Node
+      - name: 🏛 Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.nodeversion.outputs.content }}
           cache: 'yarn'
+
+      # Ensure we use the correct Yarn version
+      - name: Enable Yarn
+        run: corepack enable
 
       # Cache node_modules for faster subsequent runs
       - name: Cache node_modules
@@ -69,6 +73,8 @@ jobs:
           path: |
             node_modules
             .yarn
+            .yarnrc.yml
+            yarn.lock
           retention-days: 1
           compression-level: 6
 
@@ -94,6 +100,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dependencies
+
+      # Ensure we use the correct Yarn version
+      - name: Enable Yarn
+        run: corepack enable
 
       - name: 🎨 Lint JS
         run: yarn lint
@@ -133,6 +143,10 @@ jobs:
         with:
           name: dependencies
 
+      # Ensure we use the correct Yarn version
+      - name: Enable Yarn
+        run: corepack enable
+
       - name: 🧪 Unit Tests
         run: yarn test:unit:ci
 
@@ -165,6 +179,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dependencies
+
+      # Ensure we use the correct Yarn version
+      - name: Enable Yarn
+        run: corepack enable
 
       - name: 🎭 Install Playwright browsers
         run: npx playwright install --with-deps
@@ -281,6 +299,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dependencies
+
+      # Ensure we use the correct Yarn version
+      - name: Enable Yarn
+        run: corepack enable
 
       - name: Download Build Assets
         uses: actions/download-artifact@v4

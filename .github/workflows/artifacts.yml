@@ -72,7 +72,9 @@ jobs:
           name: dependencies
           path: |
             node_modules
-            .yarn
+            .yarn/install-state.gz
+            .yarn/releases
+            .yarn/plugins
             .yarnrc.yml
             yarn.lock
           retention-days: 1

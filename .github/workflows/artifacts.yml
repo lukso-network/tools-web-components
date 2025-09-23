@@ -149,17 +149,36 @@ jobs:
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            playwright-${{ runner.os }}-
+            playwright-browsers-${{ runner.os }}-
 
-      - name: 🎭 Install Playwright browsers (Chromium only)
+      # Cache system dependencies separately (they change less frequently)
+      - name: Cache Playwright system dependencies
+        uses: actions/cache@v4
+        id: playwright-deps-cache
+        with:
+          path: |
+            /var/cache/apt
+            /var/lib/apt
+            ~/.cache/pip
+          key: playwright-deps-${{ runner.os }}-chromium-v1
+          restore-keys: |
+            playwright-deps-${{ runner.os }}-chromium-
+
+      - name: 🎭 Install Playwright browsers and dependencies
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
-      - name: 🎭 Install Playwright system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium
+      - name: 🎭 Install Playwright browsers only (deps cached)
+        if: steps.playwright-cache.outputs.cache-hit == 'true' && steps.playwright-deps-cache.outputs.cache-hit != 'true'
+        run: |
+          npx playwright install chromium
+          npx playwright install-deps chromium
+
+      - name: 🎭 Playwright already ready (both cached)
+        if: steps.playwright-cache.outputs.cache-hit == 'true' && steps.playwright-deps-cache.outputs.cache-hit == 'true'
+        run: echo "Playwright browsers and system dependencies restored from cache"
 
       # Cache Storybook build for faster rebuilds
       - name: Cache Storybook build

@@ -1581,18 +1581,20 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       // Reset regex index
       colorRegex.lastIndex = 0
 
-      while ((match = colorRegex.exec(value)) !== null) {
+      match = colorRegex.exec(value)
+      while (match !== null) {
         const fullMatchStart = match.index
         const fullMatchEnd = match.index + match[0].length
         const spanOpenTag = `<span style="color: ${match[1]}">`
         const contentStart = fullMatchStart + spanOpenTag.length
         const contentEnd = fullMatchEnd - 7 // '</span>'.length
         const innerContent = match[2]
+        match = colorRegex.exec(value)
 
-        // Check if our selection overlaps with this color span
+        // Check if our selection overlaps with this color span's content
         const selectionOverlaps =
-          (s >= contentStart && s <= contentEnd) ||
-          (e >= contentStart && e <= contentEnd) ||
+          (s >= contentStart && s < contentEnd) ||
+          (e > contentStart && e <= contentEnd) ||
           (s <= contentStart && e >= contentEnd)
 
         if (selectionOverlaps) {
@@ -1607,31 +1609,30 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           this.value = newValue
           textarea.value = newValue
 
-          // Calculate new selection position
-          // If the selection started before the span, keep it there
-          // If the selection started within the span, adjust it
+          // Calculate new selection position after removing the span tags
           let newStart = s
           let newEnd = e
 
+          // Adjust selection positions based on where the span was removed
           if (s >= fullMatchStart) {
-            // Selection started at or after the span start
             const spanOpenTagLength = spanOpenTag.length
             if (s >= contentStart) {
-              // Selection started within the content
+              // Selection started within the content - adjust by removing open tag
               newStart = s - spanOpenTagLength
+            } else if (s >= fullMatchStart) {
+              // Selection started within the open tag - move to content start
+              newStart = fullMatchStart
             }
           }
 
           if (e >= fullMatchStart) {
-            // Selection ended at or after the span start
             const spanOpenTagLength = spanOpenTag.length
-            if (e >= contentStart) {
-              // Selection ended within or after the content
+            if (e <= contentEnd) {
+              // Selection ended within the content - adjust by removing open tag
               newEnd = e - spanOpenTagLength
-              if (e > contentEnd) {
-                // Selection ended after the span content, also subtract closing tag
-                newEnd = newEnd - 7 // '</span>'.length
-              }
+            } else {
+              // Selection ended after the content - adjust by removing both tags
+              newEnd = e - spanOpenTagLength - 7 // 7 = '</span>'.length
             }
           }
 
@@ -2456,11 +2457,19 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       // Save undo state before making changes
       this.saveUndoStateBeforeChange()
 
-      // Remove the empty list item
+      // Remove the empty list item completely
       const before = value.slice(0, lineStart)
-      // If this is the last line, don't include a newline
-      const after = lineEnd === value.length ? '' : value.slice(lineEnd + 1)
-      let newValue = before + after
+      const after = value.slice(lineEnd)
+
+      // If we're removing the last line and it has a newline, remove the newline too
+      let newValue: string
+      if (lineEnd === value.length) {
+        // This is the last line - remove it completely including any preceding newline
+        newValue = before.endsWith('\n') ? before.slice(0, -1) : before
+      } else {
+        // This is not the last line - remove this line and its newline
+        newValue = before + after.slice(1) // Skip the newline after this line
+      }
 
       // If we're removing an ordered list item, renumber the subsequent items
       if (orderedMatch) {

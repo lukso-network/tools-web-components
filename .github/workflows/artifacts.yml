@@ -20,73 +20,118 @@ on:
         type: string
 
 name: build artifacts
+
 jobs:
-  install:
-    name: Install and Lint
+  # Single setup job that handles all Node.js setup and dependency installation
+  setup:
+    name: Setup Dependencies
+    runs-on: ubuntu-latest
     outputs:
       node_version: ${{ steps.nodeversion.outputs.content }}
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout ${{ inputs.sha }}
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.sha }}
+          fetch-depth: 1 # Shallow clone for speed
+
       - name: Read .node-version
         id: nodeversion
         uses: juliangruber/read-file-action@v1.1.6
         with:
           path: ./.node-version
+
       - name: 🎛 Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.nodeversion.outputs.content }}
           cache: 'yarn'
 
-      - name: ⚙️ Install
-        run: yarn
+      # Cache node_modules for faster subsequent runs
+      - name: Cache node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node-${{ steps.nodeversion.outputs.content }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            deps-${{ runner.os }}-node-${{ steps.nodeversion.outputs.content }}-
 
+      - name: ⚙️ Install Dependencies
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+
+      # Upload node_modules as artifact for jobs in this workflow run
+      - name: Upload Dependencies Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependencies
+          path: |
+            node_modules
+            .yarn
+          retention-days: 1
+          compression-level: 6
+
+  # Build job - runs in parallel with tests after setup
   build:
     runs-on: ubuntu-latest
-    needs: install
-    name: Build
-    if: ${{ inputs.release_created != 'true' }}
+    needs: setup
+    name: Build & Lint
     steps:
       - name: 🛎️ Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.sha }}
+          fetch-depth: 1
 
       - name: 🎛 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ needs.install.outputs.node_version }}
+          node-version: ${{ needs.setup.outputs.node_version }}
           cache: 'yarn'
 
-      - name: ⚙️ Install
-        run: yarn
+      - name: Download Dependencies
+        uses: actions/download-artifact@v4
+        with:
+          name: dependencies
 
       - name: 🎨 Lint JS
         run: yarn lint
 
-      - name: 🏗️ Build (for publish)
-        if: ${{ inputs.release_created == 'true' }}
+      - name: 🏗️ Build
         run: yarn build
 
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-assets
+          path: |
+            package/dist
+            package/tools
+            package/custom-elements.json
+          retention-days: 7
+
+  # Unit tests - runs in parallel with build after setup
   test-unit:
     runs-on: ubuntu-latest
-    needs: install
+    needs: setup
     name: Unit Tests
-
     steps:
       - name: Checkout ${{ inputs.sha }}
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.sha }}
+          fetch-depth: 1
+
       - name: 🎛 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ needs.install.outputs.node_version }}
-          cache: 'yarn'
-      - name: ⚙️ Install
-        run: yarn
+          node-version: ${{ needs.setup.outputs.node_version }}
+
+      - name: Download Dependencies
+        uses: actions/download-artifact@v4
+        with:
+          name: dependencies
 
       - name: 🧪 Unit Tests
         run: yarn test:unit:ci
@@ -99,23 +144,27 @@ jobs:
           path: coverage/
           retention-days: 30
 
+  # Storybook tests - runs in parallel with build and unit tests after setup
   test-storybook:
     runs-on: ubuntu-latest
-    needs: install
+    needs: setup
     name: Storybook Tests
-
     steps:
       - name: Checkout ${{ inputs.sha }}
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.sha }}
+          fetch-depth: 1
+
       - name: 🎛 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ needs.install.outputs.node_version }}
-          cache: 'yarn'
-      - name: ⚙️ Install
-        run: yarn
+          node-version: ${{ needs.setup.outputs.node_version }}
+
+      - name: Download Dependencies
+        uses: actions/download-artifact@v4
+        with:
+          name: dependencies
 
       - name: 🎭 Install Playwright browsers
         run: npx playwright install --with-deps
@@ -134,13 +183,12 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
+  # Review job - depends on build completion, reuses build artifacts
   review:
     runs-on: ubuntu-latest
-    needs:
-      - test-unit
-      - test-storybook
+    needs: [build, test-unit, test-storybook]
     name: Review
-
+    if: ${{ inputs.release_created != 'true' }}
     steps:
       - name: 🔍 Get Pull Request Info
         id: pr-info
@@ -210,29 +258,35 @@ jobs:
               labels: ['review-requested']
             });
 
+  # Publish job - only runs on releases, depends on all tests passing
   publish:
-    needs:
-      - test-unit
-      - test-storybook
-      - install
+    needs: [setup, build, test-unit, test-storybook]
     name: Publish
     runs-on: ubuntu-latest
     if: ${{ inputs.release_created == 'true' }}
     steps:
       - name: 🛎️ Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.sha }}
+          fetch-depth: 1
 
       - name: 🎛 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ needs.install.outputs.node_version }}
-          cache: 'yarn'
+          node-version: ${{ needs.setup.outputs.node_version }}
+          registry-url: 'https://registry.npmjs.org'
 
-      - name: ⚙️ Install
-        run: yarn
+      - name: Download Dependencies
+        uses: actions/download-artifact@v4
+        with:
+          name: dependencies
 
-      - name: 🏗️ Build
-        run: yarn build
+      - name: Download Build Assets
+        uses: actions/download-artifact@v4
+        with:
+          name: build-assets
+          path: package
 
       - name: 📢 Publish NPM
         run: |

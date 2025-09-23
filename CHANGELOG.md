@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.156.0](https://github.com/lukso-network/tools-web-components/compare/v1.155.1...v1.156.0) (2025-09-22)
+
+
+### Features
+
+* Add "custom-style" attribute to "lukso-markdown" component ([#656](https://github.com/lukso-network/tools-web-components/issues/656)) ([719284c](https://github.com/lukso-network/tools-web-components/commit/719284c5bb9de359dc91a7d541ccffdb86ea65c7))
+* token create and hyperlane icon ([9f42832](https://github.com/lukso-network/tools-web-components/commit/9f428325104037410edab83ee217e62375a3bcf9))
+* token create and hyperlane icon ([#659](https://github.com/lukso-network/tools-web-components/issues/659)) ([41c0c2b](https://github.com/lukso-network/tools-web-components/commit/41c0c2bcbdf3dc82f24f39dce961da3a4e7f2ca9))
+
+
+### Bug Fixes
+
+* ordering list issue ([#657](https://github.com/lukso-network/tools-web-components/issues/657)) ([e598a9d](https://github.com/lukso-network/tools-web-components/commit/e598a9dc95dd681930662dfc3137b6ab5b578c9a))
+
 ## [1.155.1](https://github.com/lukso-network/tools-web-components/compare/v1.155.0...v1.155.1) (2025-09-18)
 
 

@@ -333,6 +333,12 @@ console.log(greeting)
 
 > This is a blockquote demonstrating
 > the markdown rendering capabilities.
+
+## Alignment
+
+<div style="text-align: center;">Center</div>
+
+<div style="text-align: right;">Right</div>
 `,
 }
 
@@ -598,6 +604,12 @@ console.log(greeting)
 
 > This is a blockquote demonstrating
 > the markdown rendering capabilities.
+
+## Alignment
+
+<div style="text-align: center;">Center</div>
+
+<div style="text-align: right;">Right</div>
 `,
     label: 'Test: Preview Functionality',
     description: 'This story tests the preview functionality.',
@@ -655,6 +667,12 @@ console.log(greeting)
 
 > This is a blockquote demonstrating
 > the markdown rendering capabilities.
+
+## Alignment
+
+<div style="text-align: center;">Center</div>
+
+<div style="text-align: right;">Right</div>
 `)
     await userEvent.click(previewButton)
     const { innerHtml } = getMarkdown(editor)
@@ -722,7 +740,11 @@ console.log(greeting)
 <blockquote>
 <p>This is a blockquote demonstrating
 the markdown rendering capabilities.</p>
-</blockquote>\n`)
+</blockquote>
+<h2>Alignment</h2>
+<div style="text-align: center;">Center</div>
+
+<div style="text-align: right;">Right</div>\n`)
   },
 }
 

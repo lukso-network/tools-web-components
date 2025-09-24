@@ -463,25 +463,28 @@ const iconMap = {
   'token-create': tokenCreate,
 }
 
+const DEFAULT_COLOR = 'neutral-20'
+const DEFAULT_SIZE: IconSize = 'medium'
+
 @customElement('lukso-icon')
 export class LuksoIcon extends TailwindStyledElement(style) {
   @property({ type: String, reflect: true })
-  name = ''
+  name = undefined
 
   @property({ type: String, reflect: true })
-  size = 'medium'
+  size = DEFAULT_SIZE
 
   @property({ type: String, reflect: true })
-  color = 'neutral-20'
+  color = DEFAULT_COLOR
 
   @property({ type: String, attribute: 'secondary-color', reflect: true })
-  secondaryColor = ''
+  secondaryColor = undefined
 
   @property({ type: String, reflect: true })
   pack = undefined
 
   @property({ type: String, reflect: true })
-  variant = 'linear'
+  variant = undefined
 
   @property({ type: String })
   private svgContent = ''
@@ -648,31 +651,57 @@ export class LuksoIcon extends TailwindStyledElement(style) {
   async updated(changedProperties: PropertyValueMap<this>) {
     super.updated(changedProperties)
 
-    // Reload SVG if relevant properties changed
-    if (
-      this.pack === 'vuesax' &&
-      (changedProperties.has('name') ||
-        changedProperties.has('pack') ||
-        changedProperties.has('variant'))
-    ) {
-      const svgContent = await this.loadSvg(this.pack, this.variant, this.name)
-      this.svgContent = svgContent
-      this.requestUpdate()
+    // custom icons related logic
+    if (this.pack === undefined) {
+      // Clear variant if pack is not set and we use custom icons
+      if (this.variant) {
+        this.variant = undefined
+      }
     }
 
-    // Re-render if color properties changed for vuesax icons
-    if (
-      this.pack === 'vuesax' &&
-      this.svgContent &&
-      (changedProperties.has('color') ||
-        changedProperties.has('secondaryColor') ||
-        changedProperties.has('size'))
-    ) {
-      this.requestUpdate()
+    // vuesax pack related logic
+    if (this.pack === 'vuesax') {
+      // Default to 'linear' variant if not set
+      if (!this.variant) {
+        this.variant = 'linear'
+      }
+
+      // Load SVG if name, pack, or variant changed
+      if (
+        changedProperties.has('name') ||
+        changedProperties.has('pack') ||
+        changedProperties.has('variant')
+      ) {
+        const svgContent = await this.loadSvg(
+          this.pack,
+          this.variant,
+          this.name
+        )
+        this.svgContent = svgContent
+        this.requestUpdate()
+      }
+
+      // Re-render if color properties changed for vuesax icons
+      if (
+        this.svgContent &&
+        (changedProperties.has('color') ||
+          changedProperties.has('secondaryColor') ||
+          changedProperties.has('size'))
+      ) {
+        this.requestUpdate()
+      }
     }
   }
 
   render() {
+    // Ensure default values are applied
+    if (!this.color) {
+      this.color = DEFAULT_COLOR
+    }
+    if (!this.size) {
+      this.size = DEFAULT_SIZE
+    }
+
     const size = this.sizes[this.size]
 
     if (!size) {

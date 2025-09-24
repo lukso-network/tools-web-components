@@ -17,6 +17,8 @@ import '@/components/lukso-tooltip'
 
 import type { InputSize } from '@/shared/types'
 
+type TextAlignment = 'left' | 'center' | 'right'
+
 @customElement('lukso-markdown-editor')
 export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @property({ type: String })
@@ -71,9 +73,11 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @state() private isHeadingDropdownOpen = false
   @state() private isColorDropdownOpen = false
   @state() private isListDropdownOpen = false
+  @state() private isAlignmentDropdownOpen = false
   private readonly headingTriggerId = 'heading-dropdown-trigger'
   private readonly colorTriggerId = 'color-dropdown-trigger'
   private readonly listTriggerId = 'list-dropdown-trigger'
+  private readonly alignmentTriggerId = 'alignment-dropdown-trigger'
 
   // selection
   @state() private currentSelection = { start: 0, end: 0 }
@@ -89,10 +93,12 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     h1: false,
     h2: false,
     h3: false,
+    h4: false,
     color: false,
     activeColor: this.defaultColor,
     unorderedList: false,
     orderedList: false,
+    alignment: 'left',
   }
 
   // Undo/Redo state
@@ -132,6 +138,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       if (this.isListDropdownOpen) {
         this.isListDropdownOpen = false
       }
+      if (this.isAlignmentDropdownOpen) {
+        this.isAlignmentDropdownOpen = false
+      }
       return
     }
 
@@ -145,6 +154,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const isInsideListDropdown = this.shadowRoot
       ?.getElementById('listDropdown')
       ?.contains(target)
+    const isInsideAlignmentDropdown = this.shadowRoot
+      ?.getElementById('alignmentDropdown')
+      ?.contains(target)
     const isHeadingTrigger = this.shadowRoot
       ?.getElementById(this.headingTriggerId)
       ?.contains(target)
@@ -153,6 +165,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       ?.contains(target)
     const isListTrigger = this.shadowRoot
       ?.getElementById(this.listTriggerId)
+      ?.contains(target)
+    const isAlignmentTrigger = this.shadowRoot
+      ?.getElementById(this.alignmentTriggerId)
       ?.contains(target)
 
     // Only close dropdowns if click is not inside them or their triggers
@@ -171,6 +186,14 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     if (!isInsideListDropdown && !isListTrigger && this.isListDropdownOpen) {
       this.isListDropdownOpen = false
     }
+
+    if (
+      !isInsideAlignmentDropdown &&
+      !isAlignmentTrigger &&
+      this.isAlignmentDropdownOpen
+    ) {
+      this.isAlignmentDropdownOpen = false
+    }
   }
 
   private styles = tv({
@@ -185,6 +208,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       colorMenu: 'relative',
       headingMenu: 'relative',
       listMenu: 'relative',
+      alignmentMenu: 'relative',
       label: 'heading-inter-14-bold text-neutral-20',
       description: 'paragraph-inter-12-regular text-neutral-20',
       divider: 'w-[1px] h-4 bg-neutral-90',
@@ -345,9 +369,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   /**
    * Apply or toggle heading formatting for the current line(s).
    *
-   * @param level - 0 to remove heading, 1-3 for heading levels
+   * @param level - 0 to remove heading, 1-4 for heading levels
    */
-  private applyHeading(level: 0 | 1 | 2 | 3) {
+  private applyHeading(level: 0 | 1 | 2 | 3 | 4) {
     if (this.isReadonly || this.isDisabled) return
 
     // Save undo state before making changes
@@ -619,6 +643,207 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     if (this.activeFormats.unorderedList) return 'unordered'
     if (this.activeFormats.orderedList) return 'ordered'
     return 'none'
+  }
+
+  /**
+   * Get the current alignment icon name based on activeFormats.
+   */
+  private getAlignmentIcon(): string {
+    switch (this.activeFormats.alignment) {
+      case 'center':
+        return 'textalign-center'
+      case 'right':
+        return 'textalign-right'
+      default:
+        return 'textalign-left'
+    }
+  }
+
+  /**
+   * Apply or toggle text alignment for the current line(s).
+   *
+   * @param alignment - 'left', 'center', or 'right'
+   */
+  private applyAlignment(alignment: TextAlignment) {
+    if (this.isReadonly || this.isDisabled) return
+
+    // Save undo state before making changes
+    this.saveUndoStateBeforeChange()
+
+    this.withSelection((textarea, start, end, value) => {
+      // Expand to full lines covered by selection
+      const lineStart = value.lastIndexOf('\n', start - 1) + 1
+      let lineEnd = value.indexOf('\n', end)
+      if (lineEnd === -1) lineEnd = value.length
+      const before = value.slice(0, lineStart)
+      const selected = value.slice(lineStart, lineEnd)
+      const after = value.slice(lineEnd)
+
+      let transformed: string
+      const currentAlignmentRegex =
+        /<div style="text-align: (left|center|right);">(.*?)<\/div>/s
+      const existingMatch = selected.match(currentAlignmentRegex)
+
+      if (existingMatch || this.hasNestedAlignment(selected)) {
+        // Handle existing alignment (either simple or nested)
+        if (existingMatch) {
+          // Simple case: alignment div is at the top level
+          const existingAlignment = existingMatch[1]
+          const innerContent = existingMatch[2]
+
+          if (existingAlignment === alignment) {
+            // Same alignment: remove alignment formatting
+            transformed = innerContent
+          } else {
+            // Different alignment: change to new alignment
+            transformed = `<div style="text-align: ${alignment};">${innerContent}</div>`
+          }
+        } else {
+          // Nested case: alignment div is inside formatting markers
+          if (this.getNestedAlignment(selected) === alignment) {
+            // Same alignment: remove alignment formatting
+            transformed = this.removeNestedAlignment(selected)
+          } else {
+            // Different alignment: change to new alignment
+            transformed = this.replaceNestedAlignment(selected, alignment)
+          }
+        }
+      } else {
+        // No existing alignment: apply new alignment
+        if (alignment === 'left') {
+          // Left alignment is default, so just use the content without wrapper
+          transformed = selected
+        } else {
+          // Apply alignment by wrapping the content inside formatting markers
+          transformed = this.wrapContentWithAlignment(selected, alignment)
+        }
+      }
+
+      this.value = before + transformed + after
+
+      // Also update the textarea element's value directly to ensure sync
+      textarea.value = before + transformed + after
+
+      // Position cursor at the end of the content
+      const cursorPosition = before.length + transformed.length
+      requestAnimationFrame(() => {
+        textarea.setSelectionRange(cursorPosition, cursorPosition)
+        this.updateActiveFormats()
+      })
+      this.dispatchChange()
+    })
+  }
+
+  /**
+   * Check if content has nested alignment divs inside formatting markers.
+   */
+  private hasNestedAlignment(content: string): boolean {
+    const alignmentRegex = /<div style="text-align: (left|center|right);">/
+    return alignmentRegex.test(content)
+  }
+
+  /**
+   * Get the alignment from nested alignment divs.
+   */
+  private getNestedAlignment(content: string): TextAlignment | null {
+    const alignmentMatch = content.match(
+      /<div style="text-align: (left|center|right);">/
+    )
+    return alignmentMatch ? (alignmentMatch[1] as TextAlignment) : null
+  }
+
+  /**
+   * Remove nested alignment divs from content.
+   */
+  private removeNestedAlignment(content: string): string {
+    return content.replace(
+      /<div style="text-align: (left|center|right);">([^<]*?)<\/div>/g,
+      '$2'
+    )
+  }
+
+  /**
+   * Replace nested alignment with a new alignment.
+   */
+  private replaceNestedAlignment(
+    content: string,
+    newAlignment: TextAlignment
+  ): string {
+    return content.replace(
+      /<div style="text-align: (left|center|right);">([^<]*?)<\/div>/g,
+      `<div style="text-align: ${newAlignment};">$2</div>`
+    )
+  }
+
+  /**
+   * Wrap content with alignment div, ensuring proper nesting inside formatting markers.
+   * Examples:
+   * - **text** becomes **<div style="text-align: center;">text</div>**
+   * - *text* becomes *<div style="text-align: center;">text</div>*
+   * - # text becomes # <div style="text-align: center;">text</div>
+   *
+   * @param content - the content to wrap
+   * @param alignment - 'left', 'center' or 'right'
+   */
+  private wrapContentWithAlignment(
+    content: string,
+    alignment: TextAlignment
+  ): string {
+    const alignmentDiv = (innerContent: string) =>
+      `<div style="text-align: ${alignment};">${innerContent}</div>`
+
+    // Handle headings (must come first to avoid conflicts with other patterns)
+    const headingMatch = content.match(/^(#{1,6}\s+)(.*)$/)
+    if (headingMatch) {
+      const headingPrefix = headingMatch[1]
+      const headingText = headingMatch[2]
+      return headingPrefix + alignmentDiv(headingText)
+    }
+
+    // Handle bold text (**text**)
+    const boldMatch = content.match(/^(\*\*)(.+?)(\*\*)$/s)
+    if (boldMatch) {
+      const innerText = boldMatch[2]
+      return `**${alignmentDiv(innerText)}**`
+    }
+
+    // Handle italic text (*text*) - must come after bold to avoid conflict
+    const italicMatch = content.match(/^(\*)(.+?)(\*)$/s)
+    if (italicMatch) {
+      const innerText = italicMatch[2]
+      return `*${alignmentDiv(innerText)}*`
+    }
+
+    // Handle links [text](url)
+    const linkMatch = content.match(/^(\[)(.+?)(\]\([^)]+\))$/s)
+    if (linkMatch) {
+      const linkStart = linkMatch[1]
+      const linkText = linkMatch[2]
+      const linkEnd = linkMatch[3]
+      return linkStart + alignmentDiv(linkText) + linkEnd
+    }
+
+    // Handle colored text <span style="color: ...">text</span>
+    const colorMatch = content.match(
+      /^(<span style="color: [^"]+;">)(.+?)(<\/span>)$/s
+    )
+    if (colorMatch) {
+      const colorStart = colorMatch[1]
+      const colorText = colorMatch[2]
+      const colorEnd = colorMatch[3]
+      return colorStart + alignmentDiv(colorText) + colorEnd
+    }
+
+    // Handle list items (unordered: - * +, ordered: 1. 2. etc.)
+    const listMatch = content.match(/^(\s*(?:[-*+]|\d+\.)\s+)(.*)$/)
+    if (listMatch) {
+      const listPrefix = listMatch[1]
+      const listText = listMatch[2]
+      return listPrefix + alignmentDiv(listText)
+    }
+
+    // Default: wrap the entire content
+    return alignmentDiv(content)
   }
 
   /**
@@ -995,6 +1220,29 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       activeColor = beforeColorMatch?.[1] || selectedColorMatch?.[1] || ''
     }
 
+    // Check for text alignment (both simple and nested cases)
+    const alignmentRegex = /<div style="text-align: (left|center|right);">/
+    let alignment: TextAlignment = 'left' // default alignment
+
+    // Check if current line contains an alignment div anywhere (including nested)
+    const alignmentMatch = currentLine.match(alignmentRegex)
+    if (alignmentMatch) {
+      alignment = alignmentMatch[1] as TextAlignment
+    } else {
+      // Check if we're inside an alignment block that spans multiple lines
+      const beforeCurrentLine = this.value.slice(0, lineStart)
+      const alignmentStartMatch = beforeCurrentLine.match(
+        /.*<div style="text-align: (left|center|right);">[^<]*$/s
+      )
+      if (alignmentStartMatch) {
+        const afterCurrentLine = this.value.slice(lineEnd)
+        // Check if there's a closing div tag after the current line
+        if (afterCurrentLine.includes('</div>')) {
+          alignment = alignmentStartMatch[1] as TextAlignment
+        }
+      }
+    }
+
     this.activeFormats = {
       bold: hasBoldWrap,
       italic: hasItalicWrap,
@@ -1002,10 +1250,12 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       h1: headingLevel === 1,
       h2: headingLevel === 2,
       h3: headingLevel === 3,
+      h4: headingLevel === 4,
       color: hasColorWrap,
       activeColor,
       unorderedList: hasUnorderedList,
       orderedList: hasOrderedList,
+      alignment,
     }
   }
 
@@ -1321,75 +1571,88 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       }
 
       const { start: s, end: e } = this.expandSelectionToWord(start, end, value)
-      const before = value.slice(0, s)
-      let selected = value.slice(s, e)
-      const after = value.slice(e)
 
-      // Remove any color formatting from the selection
-      const colorRegex = /<span style="color: ([^"]+)">(.*?)<\/span>/gs
-      selected = selected.replace(colorRegex, '$2')
-
-      // Also check if we're inside a color block that extends outside selection
-      const fullColorRegex = /<span style="color: ([^"]+)">(.*?)<\/span>/g
+      // Look for color spans that contain our selection
+      const colorRegex = /<span style="color: ([^"]+)">(.*?)<\/span>/g
       let match: RegExpExecArray | null
-      let foundMatch = false
+      let newValue = value
+      let foundSpan = false
 
-      // Search for color blocks that might contain our selection
-      const searchText = value.slice(
-        Math.max(0, s - 100),
-        Math.min(value.length, e + 100)
-      )
-      const searchOffset = Math.max(0, s - 100)
+      // Reset regex index
+      colorRegex.lastIndex = 0
 
-      match = fullColorRegex.exec(searchText)
+      match = colorRegex.exec(value)
       while (match !== null) {
-        const matchStart = searchOffset + match.index
-        const matchEnd = searchOffset + match.index + match[0].length
+        const fullMatchStart = match.index
+        const fullMatchEnd = match.index + match[0].length
         const spanOpenTag = `<span style="color: ${match[1]}">`
-        const contentStart = searchOffset + match.index + spanOpenTag.length
-        const contentEnd = matchEnd - 7 // '</span>'.length
+        const contentStart = fullMatchStart + spanOpenTag.length
+        const contentEnd = fullMatchEnd - 7 // '</span>'.length
+        const innerContent = match[2]
+        match = colorRegex.exec(value)
 
-        // Check if our selection is within this color block
-        if (contentStart <= s && e <= contentEnd) {
-          // We're inside a color block - need to split it
-          const beforeContent = value.slice(contentStart, s)
-          const afterContent = value.slice(e, contentEnd)
-          const newContent = beforeContent + selected + afterContent
+        // Check if our selection overlaps with this color span's content
+        const selectionOverlaps =
+          (s >= contentStart && s < contentEnd) ||
+          (e > contentStart && e <= contentEnd) ||
+          (s <= contentStart && e >= contentEnd)
 
-          this.value =
-            value.slice(0, matchStart) + newContent + value.slice(matchEnd)
+        if (selectionOverlaps) {
+          // Selection overlaps with this color span - remove the entire span
+          newValue =
+            value.slice(0, fullMatchStart) +
+            innerContent +
+            value.slice(fullMatchEnd)
+          foundSpan = true
 
-          // Also update the textarea element's value directly to ensure sync
-          textarea.value =
-            value.slice(0, matchStart) + newContent + value.slice(matchEnd)
+          // Update the value
+          this.value = newValue
+          textarea.value = newValue
 
-          const selStart = matchStart + beforeContent.length
-          const selEnd = selStart + selected.length
+          // Calculate new selection position after removing the span tags
+          let newStart = s
+          let newEnd = e
+
+          // Adjust selection positions based on where the span was removed
+          if (s >= fullMatchStart) {
+            const spanOpenTagLength = spanOpenTag.length
+            if (s >= contentStart) {
+              // Selection started within the content - adjust by removing open tag
+              newStart = s - spanOpenTagLength
+            } else if (s >= fullMatchStart) {
+              // Selection started within the open tag - move to content start
+              newStart = fullMatchStart
+            }
+          }
+
+          if (e >= fullMatchStart) {
+            const spanOpenTagLength = spanOpenTag.length
+            if (e <= contentEnd) {
+              // Selection ended within the content - adjust by removing open tag
+              newEnd = e - spanOpenTagLength
+            } else {
+              // Selection ended after the content - adjust by removing both tags
+              newEnd = e - spanOpenTagLength - 7 // 7 = '</span>'.length
+            }
+          }
+
           requestAnimationFrame(() => {
-            textarea.setSelectionRange(selStart, selEnd)
+            textarea.setSelectionRange(
+              Math.max(0, newStart),
+              Math.max(0, newEnd)
+            )
             this.updateActiveFormats()
           })
           this.dispatchChange()
-          foundMatch = true
-          break
+          return
         }
-        match = fullColorRegex.exec(searchText)
       }
 
-      if (!foundMatch) {
-        // Simple case - just replace the selected text
-        this.value = before + selected + after
-
-        // Also update the textarea element's value directly to ensure sync
-        textarea.value = before + selected + after
-
-        const selStart = before.length
-        const selEnd = selStart + selected.length
+      // If no span was found or removed, do nothing
+      if (!foundSpan) {
         requestAnimationFrame(() => {
-          textarea.setSelectionRange(selStart, selEnd)
           this.updateActiveFormats()
         })
-        this.dispatchChange()
       }
     })
   }
@@ -1401,6 +1664,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     if (this.activeFormats.h1) return 1
     if (this.activeFormats.h2) return 2
     if (this.activeFormats.h3) return 3
+    if (this.activeFormats.h4) return 4
     return 0
   }
 
@@ -1547,12 +1811,16 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const textarea = this.textareaEl?.shadowRoot?.querySelector(
       'textarea'
     ) as HTMLTextAreaElement | null
-    if (!textarea) return false
+    if (!textarea) {
+      return false
+    }
 
     const start = textarea.selectionStart ?? 0
     const end = textarea.selectionEnd ?? 0
     // Only handle when selection is collapsed (caret)
-    if (start !== end) return false
+    if (start !== end) {
+      return false
+    }
 
     const value = this.value
     const lineStart = value.lastIndexOf('\n', start - 1) + 1
@@ -1605,16 +1873,16 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const after = value.slice(start)
       const prefix = `\n${indent}${marker} `
       const newValue = before + prefix + after
-      this.value = newValue
 
-      // Also update the textarea element's value directly
+      // Update both component value and textarea synchronously
+      this.value = newValue
       textarea.value = newValue
 
       const newCursor = start + prefix.length
-      requestAnimationFrame(() => {
-        textarea.setSelectionRange(newCursor, newCursor)
-        this.updateActiveFormats()
-      })
+      textarea.setSelectionRange(newCursor, newCursor)
+
+      // Update active formats and dispatch change synchronously
+      this.updateActiveFormats()
       this.dispatchChange()
       return true
     }
@@ -1644,30 +1912,52 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         return true
       }
 
-      // Continue ordered list: use the current item's number + 1
-      const nextNumber = parseInt(numberStr, 10) + 1
+      // For ordered lists, we need to determine the next number based on the current item's number
+      const currentNumber = parseInt(numberStr, 10)
+      const nextNumber = currentNumber + 1
 
       const before = value.slice(0, start)
       const after = value.slice(start)
       const prefix = `\n${indent}${nextNumber}. `
-      const newValue = before + prefix + after
+      let newValue = before + prefix + after
 
       // Renumber all subsequent ordered list items with the same indentation
-      const renumberedValue = this.renumberOrderedListItems(
-        newValue,
-        start + prefix.length,
-        indent
-      )
-      this.value = renumberedValue
+      // First, we need to renumber everything after the insertion point
+      const lines = newValue.split('\n')
+      const insertLineIndex = before.split('\n').length // This is where we inserted
+      const renumberStartIndex = insertLineIndex + 1 // Start renumbering from after the inserted line
+      let currentNum = nextNumber + 1 // The line after our insertion should be +1
 
-      // Also update the textarea element's value directly
-      textarea.value = renumberedValue
+      const orderedRegex = /^(\s*)(\d+)\.\s+(.*)$/
 
+      for (let i = renumberStartIndex; i < lines.length; i++) {
+        const line = lines[i]
+        const match = line.match(orderedRegex)
+
+        if (match && match[1] === indent) {
+          // This is an ordered list item with the same indentation - renumber it
+          const content = match[3]
+          lines[i] = `${indent}${currentNum}. ${content}`
+          currentNum++
+        } else if (match && match[1].length < indent.length) {
+          // We've hit a list item with less indentation, stop renumbering
+          break
+        }
+        // For items with more indentation or non-list lines, continue without renumbering
+      }
+
+      newValue = lines.join('\n')
+
+      // Update both component value and textarea synchronously
+      this.value = newValue
+      textarea.value = newValue
+
+      // Calculate cursor position after renumbering and set synchronously
       const newCursor = start + prefix.length
-      requestAnimationFrame(() => {
-        textarea.setSelectionRange(newCursor, newCursor)
-        this.updateActiveFormats()
-      })
+      textarea.setSelectionRange(newCursor, newCursor)
+
+      // Update active formats and dispatch change synchronously
+      this.updateActiveFormats()
       this.dispatchChange()
       return true
     }
@@ -1683,12 +1973,16 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const textarea = this.textareaEl?.shadowRoot?.querySelector(
       'textarea'
     ) as HTMLTextAreaElement | null
-    if (!textarea) return false
+    if (!textarea) {
+      return false
+    }
 
     const start = textarea.selectionStart ?? 0
     const end = textarea.selectionEnd ?? 0
     // Only handle when selection is collapsed (caret)
-    if (start !== end) return false
+    if (start !== end) {
+      return false
+    }
 
     const value = this.value
     const lineStart = value.lastIndexOf('\n', start - 1) + 1
@@ -1726,14 +2020,127 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     } else if (orderedMatch) {
       const currentIndent = orderedMatch[1] ?? ''
       const content = orderedMatch[3] ?? ''
-      // When indenting an ordered list item, start numbering from 1 at the new level
-      newLine = `${currentIndent}${indent}1. ${content}`
-      newCursorOffset = indent.length
+
+      // Special case: For empty ordered list items, insert a nested item instead of indenting the current line
+      if (content.trim() === '') {
+        // Keep the current line as-is, but insert a nested item after it
+        newLine = currentLine // Keep current line unchanged
+        const nestedLine = `${currentIndent}${indent}1. `
+        let newValue = before + newLine + '\n' + nestedLine + after
+
+        // Need to renumber the parent level items after the nested insertion
+        const parentIndent = currentIndent
+
+        // Find the next expected number for parent level by looking at the current line
+        const lines = newValue.split('\n')
+        const currentLineIndex =
+          Math.floor(lineStart / (newValue.indexOf('\n') + 1)) ||
+          newValue.slice(0, lineStart).split('\n').length - 1
+        const currentLineMatch = lines[currentLineIndex]?.match(
+          /^(\s*)(\d+)\.\s*(.*)$/
+        )
+        // After inserting a nested item under an empty parent, the next parent-level item
+        // should continue from the current parent's number (not increment it)
+        // because the empty parent becomes a "container" for nested items
+        const nextExpectedNumber = currentLineMatch
+          ? parseInt(currentLineMatch[2], 10)
+          : 1
+
+        // Renumber all lines after the nested insertion at the parent level
+        const orderedRegex = /^(\s*)(\d+)\.\s*(.*)$/
+        let currentNumber = nextExpectedNumber
+
+        // Start from the line after the nested line we just inserted
+        for (let i = currentLineIndex + 2; i < lines.length; i++) {
+          // +2 to skip current and nested lines
+          const line = lines[i]
+          const orderedMatch = line.match(orderedRegex)
+
+          if (orderedMatch && orderedMatch[1] === parentIndent) {
+            // This is a parent-level ordered list item - renumber it
+            const content = orderedMatch[3]
+            lines[i] = `${parentIndent}${currentNumber}. ${content}`
+            currentNumber++
+          } else if (
+            orderedMatch &&
+            orderedMatch[1].length < parentIndent.length
+          ) {
+            // We've hit a list item with less indentation, stop renumbering
+            break
+          }
+        }
+
+        newValue = lines.join('\n')
+
+        // Set cursor at the end of the new nested line
+        const newCursor = lineStart + newLine.length + 1 + nestedLine.length // +1 for newline
+
+        // Update the component's value and textarea
+        this.value = newValue
+        textarea.value = newValue
+
+        requestAnimationFrame(() => {
+          textarea.setSelectionRange(newCursor, newCursor)
+          this.updateActiveFormats()
+        })
+
+        this.dispatchChange()
+        return true
+      } else {
+        // Regular indentation for non-empty items
+        const newIndent = currentIndent + indent
+
+        // Find the appropriate number for the new indentation level
+        let newNumber = 1
+        const beforeText = value.slice(0, lineStart)
+
+        // Look backwards through the text to find the last ordered list item at the new indentation level
+        const lines = beforeText.split('\n')
+        for (let i = lines.length - 1; i >= 0; i--) {
+          const line = lines[i]
+          const match = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+
+          if (match && match[1] === newIndent) {
+            // Found an item at the same indentation level, continue the sequence
+            newNumber = parseInt(match[2], 10) + 1
+            break
+          } else if (match && match[1].length < newIndent.length) {
+            // Found an item with less indentation, this is a parent level, stop looking
+            break
+          }
+        }
+
+        newLine = `${newIndent}${newNumber}. ${content}`
+        newCursorOffset = indent.length
+      }
     } else {
       return false
     }
 
-    const newValue = before + newLine + after
+    // Update the value with the new indented line
+    let newValue = before + newLine + after
+
+    // For ordered lists, we need to renumber subsequent items after the current line
+    if (orderedMatch) {
+      // Renumber at the new indentation level
+      const newIndent = (orderedMatch[1] ?? '') + indent
+      newValue = this.renumberOrderedListItems(
+        newValue,
+        lineStart + newLine.length, // Start renumbering after the current line
+        newIndent // Use the new indentation level
+      )
+
+      // Also renumber the parent level if we just created a nested list
+      const parentIndent = orderedMatch[1] ?? ''
+      // Always renumber parent level (parentIndent can be empty string for root level)
+      newValue = this.renumberOrderedListItems(
+        newValue,
+        lineStart, // Start from this line for parent level
+        parentIndent // Use the parent level indentation
+      )
+    }
+
+    // Update the component's value and textarea
     this.value = newValue
     textarea.value = newValue
 
@@ -1741,11 +2148,11 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     const cursorInLine = start - lineStart
     const newCursor = lineStart + cursorInLine + newCursorOffset
 
-    requestAnimationFrame(() => {
-      textarea.setSelectionRange(newCursor, newCursor)
-      this.updateActiveFormats()
-    })
+    // Set selection synchronously to ensure tests can immediately see the change
+    textarea.setSelectionRange(newCursor, newCursor)
 
+    // Update active formats and dispatch change synchronously
+    this.updateActiveFormats()
     this.dispatchChange()
     return true
   }
@@ -2043,28 +2450,60 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       hasContent = content.trim().length > 0
     }
 
-    // Only handle if cursor is at the beginning of the line (right after marker)
-    // and the list item has no content
-    if (cursorPositionInLine === markerEndPosition && !hasContent) {
+    // Handle if cursor is at the end of the marker and the list item has no content,
+    // or if cursor is anywhere after the marker on an empty list item
+    const isAtOrAfterMarker = cursorPositionInLine >= markerEndPosition
+    if (isAtOrAfterMarker && !hasContent) {
       // Save undo state before making changes
       this.saveUndoStateBeforeChange()
 
-      // Remove the empty list item and its newline
+      // Remove the empty list item completely
       const before = value.slice(0, lineStart)
-      const after = value.slice(
-        lineEnd === value.length ? lineEnd : lineEnd + 1
-      ) // Include newline unless it's the last line
+      const after = value.slice(lineEnd)
 
-      let newValue = before + after
+      // If we're removing the last line and it has a newline, remove the newline too
+      let newValue: string
+      if (lineEnd === value.length) {
+        // This is the last line - remove it completely including any preceding newline
+        newValue = before.endsWith('\n') ? before.slice(0, -1) : before
+      } else {
+        // This is not the last line - remove this line and its newline
+        newValue = before + after.slice(1) // Skip the newline after this line
+      }
 
       // If we're removing an ordered list item, renumber the subsequent items
       if (orderedMatch) {
         const indent = orderedMatch[1] ?? ''
-        newValue = this.renumberOrderedListItems(
-          newValue,
-          before.length,
-          indent
-        )
+        // After removing the line, we need to renumber all items at this indentation level
+        // starting from where the removed line was
+        const lines = newValue.split('\n')
+        const startLineIndex = Math.max(0, before.split('\n').length - 1)
+
+        // Find the correct starting number by looking backwards
+        let nextNumber = 1
+        for (let i = startLineIndex - 1; i >= 0; i--) {
+          const line = lines[i]
+          const match = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+          if (match && match[1] === indent) {
+            nextNumber = parseInt(match[2], 10) + 1
+            break
+          }
+        }
+
+        // Renumber all subsequent items with the same indentation
+        for (let i = startLineIndex; i < lines.length; i++) {
+          const line = lines[i]
+          const match = line.match(/^(\s*)(\d+)\.\s*(.*)$/)
+          if (match && match[1] === indent) {
+            lines[i] = `${indent}${nextNumber}. ${match[3]}`
+            nextNumber++
+          } else if (match && match[1].length < indent.length) {
+            // Hit item with less indentation, stop renumbering
+            break
+          }
+        }
+
+        newValue = lines.join('\n')
       }
 
       this.value = newValue
@@ -2072,11 +2511,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       // Also update the textarea element's value directly
       textarea.value = newValue
 
-      // Position cursor at the end of the previous line or beginning of document
-      // Since we removed the entire line including newline, cursor should be at the end of the previous line
+      // Position cursor at the end of the previous line
       let newCursor = before.length
-      // If there's a previous line, position cursor at its end (before the newline)
-      if (before.endsWith('\n') && before.length > 1) {
+      // If we're not at the beginning and the previous character is a newline, move before it
+      if (newCursor > 0 && before.endsWith('\n')) {
         newCursor = before.length - 1
       }
       requestAnimationFrame(() => {
@@ -2290,6 +2728,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                 // Close other dropdowns if open
                 this.isColorDropdownOpen = false
                 this.isListDropdownOpen = false
+                this.isAlignmentDropdownOpen = false
                 this.isHeadingDropdownOpen = !this.isHeadingDropdownOpen
               }}
               aria-expanded=${this.isHeadingDropdownOpen ? 'true' : 'false'}
@@ -2363,6 +2802,18 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
             >
               Heading 3
             </lukso-dropdown-option>
+            <lukso-dropdown-option
+              ?is-selected=${this.getActiveHeadingLevel() === 4}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyHeading(4)
+                this.isHeadingDropdownOpen = false
+              }}
+              size="medium"
+            >
+              Heading 4
+            </lukso-dropdown-option>
           </lukso-dropdown>
         </div>
 
@@ -2393,6 +2844,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                 // Close other dropdowns if open
                 this.isHeadingDropdownOpen = false
                 this.isColorDropdownOpen = false
+                this.isAlignmentDropdownOpen = false
                 this.isListDropdownOpen = !this.isListDropdownOpen
               }}
               aria-expanded=${this.isListDropdownOpen ? 'true' : 'false'}
@@ -2467,6 +2919,109 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           this.activeFormats.link
         )}
 
+        <!-- Text Alignment -->
+        <div class=${this.styles().alignmentMenu()}>
+          <lukso-tooltip text="Text alignment" placement="top">
+            <lukso-button
+              id=${this.alignmentTriggerId}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                // Close other dropdowns if open
+                this.isHeadingDropdownOpen = false
+                this.isColorDropdownOpen = false
+                this.isListDropdownOpen = false
+                this.isAlignmentDropdownOpen = !this.isAlignmentDropdownOpen
+              }}
+              aria-expanded=${this.isAlignmentDropdownOpen ? 'true' : 'false'}
+              aria-label="Text alignment"
+              variant="secondary"
+              size="small"
+              custom-class=${this.toolbarButton({
+                active: this.activeFormats.alignment !== 'left',
+              })}
+              is-icon
+            >
+              <lukso-icon
+                name=${this.getAlignmentIcon()}
+                size="small"
+                pack="vuesax"
+                variant="linear"
+              ></lukso-icon>
+            </lukso-button>
+          </lukso-tooltip>
+          <lukso-dropdown
+            id="alignmentDropdown"
+            trigger-id=""
+            size="medium"
+            ?is-open=${this.isAlignmentDropdownOpen}
+          >
+            <lukso-dropdown-option
+              ?is-selected=${this.activeFormats.alignment === 'left'}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyAlignment('left')
+                this.isAlignmentDropdownOpen = false
+              }}
+              size="medium"
+              aria-label="Align left"
+            >
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <lukso-icon
+                  name="textalign-left"
+                  size="small"
+                  pack="vuesax"
+                  variant="linear"
+                ></lukso-icon>
+                Left
+              </div>
+            </lukso-dropdown-option>
+            <lukso-dropdown-option
+              ?is-selected=${this.activeFormats.alignment === 'center'}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyAlignment('center')
+                this.isAlignmentDropdownOpen = false
+              }}
+              size="medium"
+              aria-label="Align center"
+            >
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <lukso-icon
+                  name="textalign-center"
+                  size="small"
+                  pack="vuesax"
+                  variant="linear"
+                ></lukso-icon>
+                Center
+              </div>
+            </lukso-dropdown-option>
+            <lukso-dropdown-option
+              ?is-selected=${this.activeFormats.alignment === 'right'}
+              @click=${(e: Event) => {
+                e.stopPropagation()
+                this.restoreFocusAndSelection()
+                this.applyAlignment('right')
+                this.isAlignmentDropdownOpen = false
+              }}
+              size="medium"
+              aria-label="Align right"
+            >
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <lukso-icon
+                  name="textalign-right"
+                  size="small"
+                  pack="vuesax"
+                  variant="linear"
+                ></lukso-icon>
+                Right
+              </div>
+            </lukso-dropdown-option>
+          </lukso-dropdown>
+        </div>
+
         <!-- Color -->
         <div class=${this.styles().colorMenu()}>
           <lukso-tooltip text="Text color" placement="top">
@@ -2478,6 +3033,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                 // Close other dropdowns if open
                 this.isHeadingDropdownOpen = false
                 this.isListDropdownOpen = false
+                this.isAlignmentDropdownOpen = false
                 // Save current selection when opening color dropdown
                 if (!this.isColorDropdownOpen) {
                   const ta =
@@ -2526,6 +3082,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                         this.isColorDropdownOpen = false
                       }}
                       type="button"
+                      aria-label="Clear color"
                     >
                       Clear
                     </button>`
@@ -2543,6 +3100,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                     aria-pressed=${this.activeFormats.activeColor === color
                       ? 'true'
                       : 'false'}
+                    aria-label="Color ${color}"
                     @click=${(e: Event) => {
                       e.stopPropagation()
                       this.selectColor(color)

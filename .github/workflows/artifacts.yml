@@ -20,80 +20,197 @@ on:
         type: string
 
 name: build artifacts
+
 jobs:
-  install:
-    name: Install and Lint
+  # Single setup job that handles Node.js version detection
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
     outputs:
       node_version: ${{ steps.nodeversion.outputs.content }}
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout ${{ inputs.sha }}
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.sha }}
+          fetch-depth: 1 # Shallow clone for speed
+
       - name: Read .node-version
         id: nodeversion
         uses: juliangruber/read-file-action@v1.1.6
         with:
           path: ./.node-version
-      - name: 🎛 Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ steps.nodeversion.outputs.content }}
-          cache: 'yarn'
 
-      - name: ⚙️ Install
-        run: yarn
-
+  # Build job - runs in parallel with tests after setup
   build:
     runs-on: ubuntu-latest
-    needs: install
-    if: ${{ inputs.release_created != 'true' }}
+    needs: setup
+    name: Build & Lint
     steps:
-      - name: 🛎️ Checkout
+      - name: 🛏️ Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.sha }}
+          fetch-depth: 1
 
       - name: 🎛 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ needs.install.outputs.node_version }}
+          node-version: ${{ needs.setup.outputs.node_version }}
           cache: 'yarn'
 
-      - name: ⚙️ Install
-        run: yarn
+      # Ensure we use the correct Yarn version
+      - name: Enable Yarn
+        run: corepack enable
+
+      - name: ⚙️ Install Dependencies
+        run: yarn install --frozen-lockfile
 
       - name: 🎨 Lint JS
         run: yarn lint
 
-      - name: 🏗️ Build (for publish)
-        if: ${{ inputs.release_created == 'true' }}
+      - name: 🏗️ Build
         run: yarn build
 
-  test:
-    runs-on: ubuntu-latest
-    needs: install
-    name: App Unit Tests
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-assets
+          path: |
+            package/dist
+            package/tools
+            package/custom-elements.json
+          retention-days: 7
 
+  # Unit tests - runs in parallel with build after setup
+  test-unit:
+    runs-on: ubuntu-latest
+    needs: setup
+    name: Unit Tests
     steps:
       - name: Checkout ${{ inputs.sha }}
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.sha }}
+          fetch-depth: 1
+
       - name: 🎛 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ needs.install.outputs.node_version }}
+          node-version: ${{ needs.setup.outputs.node_version }}
           cache: 'yarn'
-      - name: ⚙️ Install
-        run: yarn
 
-      - name: 🧪 Testing
-        run: yarn test:ci
+      # Ensure we use the correct Yarn version
+      - name: Enable Yarn
+        run: corepack enable
 
+      - name: ⚙️ Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🧪 Unit Tests
+        run: yarn test:unit:ci
+
+      - name: 📊 Upload Coverage Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 30
+
+  # Storybook tests - runs in parallel with build and unit tests after setup
+  test-storybook:
+    runs-on: ubuntu-latest
+    needs: setup
+    name: Storybook Tests
+    steps:
+      - name: Checkout ${{ inputs.sha }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.sha }}
+          fetch-depth: 1
+
+      - name: 🎛 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ needs.setup.outputs.node_version }}
+          cache: 'yarn'
+
+      # Ensure we use the correct Yarn version
+      - name: Enable Yarn
+        run: corepack enable
+
+      - name: ⚙️ Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      # Cache Playwright browsers to avoid downloading them every time
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            playwright-browsers-${{ runner.os }}-
+
+      # Cache system dependencies separately (they change less frequently)
+      - name: Cache Playwright system dependencies
+        uses: actions/cache@v4
+        id: playwright-deps-cache
+        with:
+          path: |
+            /var/cache/apt
+            /var/lib/apt
+            ~/.cache/pip
+          key: playwright-deps-${{ runner.os }}-chromium-v1
+          restore-keys: |
+            playwright-deps-${{ runner.os }}-chromium-
+
+      - name: 🎭 Install Playwright browsers and dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: 🎭 Install Playwright browsers only (deps cached)
+        if: steps.playwright-cache.outputs.cache-hit == 'true' && steps.playwright-deps-cache.outputs.cache-hit != 'true'
+        run: |
+          npx playwright install chromium
+          npx playwright install-deps chromium
+
+      - name: 🎭 Playwright already ready (both cached)
+        if: steps.playwright-cache.outputs.cache-hit == 'true' && steps.playwright-deps-cache.outputs.cache-hit == 'true'
+        run: echo "Playwright browsers and system dependencies restored from cache"
+
+      # Cache Storybook build for faster rebuilds
+      - name: Cache Storybook build
+        uses: actions/cache@v4
+        id: storybook-cache
+        with:
+          path: storybook-static
+          key: storybook-${{ runner.os }}-${{ hashFiles('src/**', '.storybook/**', 'package.json') }}
+          restore-keys: |
+            storybook-${{ runner.os }}-
+
+      - name: 🏗️ Build Storybook
+        if: steps.storybook-cache.outputs.cache-hit != 'true'
+        run: yarn storybook:build
+
+      - name: 🧪 Storybook Tests
+        run: yarn test:storybook:ci
+
+      - name: 📤 Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+  # Review job - depends on build completion, reuses build artifacts
   review:
     runs-on: ubuntu-latest
-    needs: test
-
+    needs: [build, test-unit, test-storybook]
+    name: Review
+    if: ${{ inputs.release_created != 'true' }}
     steps:
       - name: 🔍 Get Pull Request Info
         id: pr-info
@@ -163,27 +280,38 @@ jobs:
               labels: ['review-requested']
             });
 
+  # Publish job - only runs on releases, depends on all tests passing
   publish:
-    needs:
-      - test
-      - install
+    needs: [setup, build, test-unit, test-storybook]
+    name: Publish
     runs-on: ubuntu-latest
     if: ${{ inputs.release_created == 'true' }}
     steps:
-      - name: 🛎️ Checkout
+      - name: 🛏️ Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.sha }}
+          fetch-depth: 1
 
       - name: 🎛 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ needs.install.outputs.node_version }}
+          node-version: ${{ needs.setup.outputs.node_version }}
+          registry-url: 'https://registry.npmjs.org'
           cache: 'yarn'
 
-      - name: ⚙️ Install
-        run: yarn
+      # Ensure we use the correct Yarn version
+      - name: Enable Yarn
+        run: corepack enable
 
-      - name: 🏗️ Build
-        run: yarn build
+      - name: ⚙️ Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Download Build Assets
+        uses: actions/download-artifact@v4
+        with:
+          name: build-assets
+          path: package
 
       - name: 📢 Publish NPM
         run: |

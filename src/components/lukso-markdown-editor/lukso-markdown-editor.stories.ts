@@ -1,6 +1,7 @@
 import { html, nothing } from 'lit-html'
+import { expect, fn, userEvent } from '@storybook/test'
 
-import type { Meta } from '@storybook/web-components-vite'
+import type { Meta, StoryObj } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -141,6 +142,7 @@ const meta: Meta = {
     error: '',
     placeholder: '',
     rows: 6,
+    onChange: fn(),
   },
   parameters: {
     controls: {
@@ -329,10 +331,7 @@ console.log(greeting)
 
 > This is a blockquote demonstrating
 > the markdown rendering capabilities.
-
----
-
-*Use the toolbar buttons above to add these elements easily!*`,
+`,
 }
 
 /** Example demonstrating smart selection-aware formatting. */
@@ -407,4 +406,829 @@ Here's some <span style="color: var(--purple-51)">purple text</span> that you ca
 **Instructions**: Select the word "awesome" below and try different colors!
 
 LUKSO is awesome and supports many great features.`,
+}
+
+const getEditorElements = async (canvasElement: HTMLElement) => {
+  // Wait for the editor element to be present
+  const editor = canvasElement.querySelector('lukso-markdown-editor')
+  if (!editor) {
+    throw new Error('lukso-markdown-editor not found in canvas element')
+  }
+
+  // Wait for shadow DOM to be ready
+  await new Promise(resolve => {
+    const checkShadowDOM = () => {
+      if (editor.shadowRoot) {
+        const textareaComponent =
+          editor.shadowRoot.querySelector('lukso-textarea')
+        if (textareaComponent && textareaComponent.shadowRoot) {
+          const textarea =
+            textareaComponent.shadowRoot.querySelector('textarea')
+          if (textarea) {
+            resolve(undefined)
+          } else {
+            setTimeout(checkShadowDOM, 50)
+          }
+        } else {
+          setTimeout(checkShadowDOM, 50)
+        }
+      } else {
+        setTimeout(checkShadowDOM, 50)
+      }
+    }
+    checkShadowDOM()
+  })
+
+  const textarea = editor.shadowRoot
+    ?.querySelector('lukso-textarea')
+    ?.shadowRoot?.querySelector('textarea')
+
+  const preview = editor?.shadowRoot?.querySelector('lukso-markdown')
+
+  const boldButton = editor?.shadowRoot?.querySelector('[aria-label="Bold"]')
+
+  const italicButton = editor?.shadowRoot?.querySelector(
+    '[aria-label="Italic"]'
+  )
+  const linkButton = editor?.shadowRoot?.querySelector('[aria-label="Link"]')
+
+  const previewButton = editor?.shadowRoot?.querySelector(
+    '[aria-label="Toggle preview"]'
+  )
+
+  const headerDropdown = editor?.shadowRoot?.querySelector(
+    '[aria-label="Heading options"]'
+  )
+
+  const listDropdown = editor?.shadowRoot?.querySelector(
+    '[aria-label="List options"]'
+  )
+
+  const colorDropdown = editor?.shadowRoot?.querySelector(
+    '[aria-label="Text color"]'
+  )
+
+  const alignmentDropdown = editor?.shadowRoot?.querySelector(
+    '[aria-label="Text alignment"]'
+  )
+
+  const selectHeader = (_editor: HTMLElement, number: number) =>
+    _editor?.shadowRoot?.querySelector(
+      `#headingDropdown lukso-dropdown-option:nth-child(${number})`
+    )
+
+  const selectColor = (_editor: HTMLElement, color: string) =>
+    _editor?.shadowRoot
+      ?.querySelector('#colorDropdown')
+      ?.querySelector(`[aria-label="Color ${color}"]`)
+
+  const clearColor = (_editor: HTMLElement) =>
+    _editor?.shadowRoot
+      ?.querySelector('#colorDropdown')
+      ?.querySelector('button[aria-label="Clear color"]')
+
+  const selectList = (_editor: HTMLElement, number: number) =>
+    _editor?.shadowRoot?.querySelector(
+      `#listDropdown lukso-dropdown-option:nth-child(${number})`
+    )
+
+  const selectAlignment = (_editor: HTMLElement, alignment: string) =>
+    _editor?.shadowRoot
+      ?.querySelector('#alignmentDropdown')
+      ?.querySelector(`[aria-label="Align ${alignment}"]`)
+
+  return {
+    editor,
+    textarea,
+    preview,
+    boldButton,
+    italicButton,
+    linkButton,
+    previewButton,
+    headerDropdown,
+    listDropdown,
+    colorDropdown,
+    selectHeader,
+    selectColor,
+    clearColor,
+    selectList,
+    alignmentDropdown,
+    selectAlignment,
+  }
+}
+
+const getMarkdown = (editor: HTMLElement) => {
+  const markdownElement = editor?.shadowRoot?.querySelector('lukso-markdown')
+  const sanitizeElement =
+    markdownElement?.shadowRoot?.querySelector('lukso-sanitize')
+  const html = sanitizeElement?.shadowRoot?.querySelector('div.prose')
+
+  return {
+    html,
+    innerHtml: html?.innerHTML,
+  }
+}
+
+const selectText = async (textarea: HTMLTextAreaElement, text: string) => {
+  const start = textarea.value.indexOf(text)
+  const end = start + text.length
+  textarea.setSelectionRange(start, end)
+  textarea.focus()
+  await wait(500)
+}
+
+const selectAtCharacter = async (
+  textarea: HTMLTextAreaElement,
+  place: number
+) => {
+  textarea.setSelectionRange(place, place)
+  textarea.focus()
+  await wait(500)
+}
+
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+/** Test story for preview functionality. */
+export const TestPreviewFunctionality: StoryObj = {
+  name: 'Test: Preview Functionality',
+  args: {
+    value: `# Advanced Markdown Features
+
+## Typography
+
+This editor supports **bold text**, *italic text*, and even ***bold italic***.
+
+## Lists
+
+### Unordered Lists
+- Item 1
+- Item 2
+    - Nested item
+    - Another nested item
+- Item 3
+
+### Ordered Lists
+1. First item
+2. Second item
+    1. Nested item
+    2. Another nested item
+3. Third item
+
+## Links and Code
+
+Visit [LUKSO Network](https://lukso.network) for more information.
+
+Here's some \`inline code\` and a code block:
+
+\`\`\`javascript
+const greeting = "Hello, LUKSO!"
+console.log(greeting)
+\`\`\`
+
+## Tables
+
+| Feature | Status | Notes |
+|---------|--------|--------|
+| Headings | ✅ | H1, H2, H3 |
+| Formatting | ✅ | Bold, Italic |
+| Links | ✅ | Auto-generated |
+| Colors | ✅ | Tailwind palette |
+
+## Quotes
+
+> This is a blockquote demonstrating
+> the markdown rendering capabilities.
+`,
+    label: 'Test: Preview Functionality',
+    description: 'This story tests the preview functionality.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, previewButton, editor } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe(`# Advanced Markdown Features
+
+## Typography
+
+This editor supports **bold text**, *italic text*, and even ***bold italic***.
+
+## Lists
+
+### Unordered Lists
+- Item 1
+- Item 2
+    - Nested item
+    - Another nested item
+- Item 3
+
+### Ordered Lists
+1. First item
+2. Second item
+    1. Nested item
+    2. Another nested item
+3. Third item
+
+## Links and Code
+
+Visit [LUKSO Network](https://lukso.network) for more information.
+
+Here's some \`inline code\` and a code block:
+
+\`\`\`javascript
+const greeting = "Hello, LUKSO!"
+console.log(greeting)
+\`\`\`
+
+## Tables
+
+| Feature | Status | Notes |
+|---------|--------|--------|
+| Headings | ✅ | H1, H2, H3 |
+| Formatting | ✅ | Bold, Italic |
+| Links | ✅ | Auto-generated |
+| Colors | ✅ | Tailwind palette |
+
+## Quotes
+
+> This is a blockquote demonstrating
+> the markdown rendering capabilities.
+`)
+    await userEvent.click(previewButton)
+    const { innerHtml } = getMarkdown(editor)
+    expect(innerHtml).toBe(`<h1>Advanced Markdown Features</h1>
+<h2>Typography</h2>
+<p>This editor supports <strong>bold text</strong>, <em>italic text</em>, and even <em><strong>bold italic</strong></em>.</p>
+<h2>Lists</h2>
+<h3>Unordered Lists</h3>
+<ul>
+<li>Item 1</li>
+<li>Item 2<ul>
+<li>Nested item</li>
+<li>Another nested item</li>
+</ul>
+</li>
+<li>Item 3</li>
+</ul>
+<h3>Ordered Lists</h3>
+<ol>
+<li>First item</li>
+<li>Second item<ol>
+<li>Nested item</li>
+<li>Another nested item</li>
+</ol>
+</li>
+<li>Third item</li>
+</ol>
+<h2>Links and Code</h2>
+<p>Visit <a href="https://lukso.network">LUKSO Network</a> for more information.</p>
+<p>Here's some <code>inline code</code> and a code block:</p>
+<pre><code class="language-javascript">const greeting = "Hello, LUKSO!"
+console.log(greeting)
+</code></pre>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Headings</td>
+<td>✅</td>
+<td>H1, H2, H3</td>
+</tr>
+<tr>
+<td>Formatting</td>
+<td>✅</td>
+<td>Bold, Italic</td>
+</tr>
+<tr>
+<td>Links</td>
+<td>✅</td>
+<td>Auto-generated</td>
+</tr>
+<tr>
+<td>Colors</td>
+<td>✅</td>
+<td>Tailwind palette</td>
+</tr>
+</tbody></table>
+<h2>Quotes</h2>
+<blockquote>
+<p>This is a blockquote demonstrating
+the markdown rendering capabilities.</p>
+</blockquote>\n`)
+  },
+}
+
+/** Test story for bold formatting functionality. */
+export const TestBoldFormatting: StoryObj = {
+  name: 'Test: Bold Formatting',
+  args: {
+    value: 'test',
+    label: 'Test: Bold Formatting',
+    description: 'This story tests the bold formatting functionality.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, boldButton } = await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('test')
+    await userEvent.click(boldButton)
+    expect(textarea.value).toBe('**test**')
+  },
+}
+
+/** Test story for italic formatting functionality. */
+export const TestItalicFormatting: StoryObj = {
+  name: 'Test: Italic Formatting',
+  args: {
+    value: 'test',
+    label: 'Test: Italic Formatting',
+    description: 'This story tests the italic formatting functionality.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, italicButton } = await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('test')
+    await userEvent.click(italicButton)
+    expect(textarea.value).toBe('*test*')
+  },
+}
+
+/** Test story for link creation functionality. */
+export const TestLinkCreation: StoryObj = {
+  name: 'Test: Link Creation',
+  args: {
+    value: 'click',
+    label: 'Test: Link Creation',
+    description: 'This story tests the link creation functionality.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, linkButton } = await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('click')
+    await userEvent.click(linkButton)
+    expect(textarea.value).toBe('[click]()')
+  },
+}
+
+/** Test story for adding h1 header. */
+export const TestAddH1Header: StoryObj = {
+  name: 'Test: Add H1 Header',
+  args: {
+    value: 'Header',
+    label: 'Test: Add H1 Header',
+    description: 'This story tests adding an H1 header.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, headerDropdown, editor, selectHeader } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Header')
+    await userEvent.click(headerDropdown)
+    const h1Option = selectHeader(editor, 2)
+    await userEvent.click(h1Option)
+    expect(textarea.value).toBe('# Header')
+  },
+}
+
+/** Test story for adding h2 header. */
+export const TestAddH2Header: StoryObj = {
+  name: 'Test: Add H2 Header',
+  args: {
+    value: 'Header',
+    label: 'Test: Add H2 Header',
+    description: 'This story tests adding an H2 header.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, headerDropdown, editor, selectHeader } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Header')
+    await userEvent.click(headerDropdown)
+    const h2Option = selectHeader(editor, 3)
+    await userEvent.click(h2Option)
+    expect(textarea.value).toBe('## Header')
+  },
+}
+
+/** Test story for adding h3 header. */
+export const TestAddH3Header: StoryObj = {
+  name: 'Test: Add H3 Header',
+  args: {
+    value: 'Header',
+    label: 'Test: Add H3 Header',
+    description: 'This story tests adding an H3 header.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, headerDropdown, editor, selectHeader } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Header')
+    await userEvent.click(headerDropdown)
+    const h3Option = selectHeader(editor, 4)
+    await userEvent.click(h3Option)
+    expect(textarea.value).toBe('### Header')
+  },
+}
+
+/** Test story for adding h4 header. */
+export const TestAddH4Header: StoryObj = {
+  name: 'Test: Add H4 Header',
+  args: {
+    value: 'Header',
+    label: 'Test: Add H4 Header',
+    description: 'This story tests adding an H4 header.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, headerDropdown, editor, selectHeader } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Header')
+    await userEvent.click(headerDropdown)
+    const h4Option = selectHeader(editor, 5)
+    await userEvent.click(h4Option)
+    expect(textarea.value).toBe('#### Header')
+  },
+}
+
+/** Test story for removing header. */
+export const TestRemoveHeader: StoryObj = {
+  name: 'Test: Remove Header',
+  args: {
+    value: '# Header',
+    label: 'Test: Remove Header',
+    description: 'This story tests removing an header.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, headerDropdown, editor, selectHeader } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('# Header')
+    await userEvent.click(headerDropdown)
+    const noHeaderOption = selectHeader(editor, 1)
+    await userEvent.click(noHeaderOption)
+    expect(textarea.value).toBe('Header')
+  },
+}
+
+/** Test story for applying text color */
+export const TestApplyTextColor: StoryObj = {
+  name: 'Test: Apply Text Color',
+  args: {
+    value: 'This is Color text.',
+    label: 'Test: Apply Text Color',
+    description: 'This story tests applying text color formatting.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, colorDropdown, editor, selectColor } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('This is Color text.')
+    await selectText(textarea, 'Color')
+    await userEvent.click(colorDropdown)
+    const redOption = selectColor(editor, '#FF4D4D')
+    await userEvent.click(redOption)
+    expect(textarea.value).toBe(
+      'This is <span style="color: #FF4D4D">Color</span> text.'
+    )
+  },
+}
+
+/** Test story for removing text color */
+export const TestRemoveTextColor: StoryObj = {
+  name: 'Test: Remove Text Color',
+  args: {
+    value: 'This is <span style="color: #FF4D4D">Color</span> text.',
+    label: 'Test: Remove Text Color',
+    description: 'This story tests removing text color formatting.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, colorDropdown, editor, clearColor } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe(
+      'This is <span style="color: #FF4D4D">Color</span> text.'
+    )
+    await selectText(textarea, 'Color')
+    await userEvent.click(colorDropdown)
+    await userEvent.click(clearColor(editor))
+    expect(textarea.value).toBe('This is Color text.')
+  },
+}
+
+/** Test story for creating unordered list */
+export const TestCreateUnorderedList: StoryObj = {
+  name: 'Test: Create Unordered List',
+  args: {
+    value: 'Item',
+    label: 'Test: Create Unordered List',
+    description: 'This story tests creating an unordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, listDropdown, editor, selectList } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Item')
+    await userEvent.click(listDropdown)
+    const unorderedOption = selectList(editor, 2)
+    await userEvent.click(unorderedOption)
+    expect(textarea.value).toBe('- Item')
+  },
+}
+
+/** Test story for adding next item to unordered list */
+export const TestAddNextItemUnorderedList: StoryObj = {
+  name: 'Test: Add Next Item to Unordered List',
+  args: {
+    value: '- Item',
+    label: 'Test: Add Next Item to Unordered List',
+    description: 'This story tests adding the next item to an unordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('- Item')
+    await selectAtCharacter(textarea, 6)
+    await userEvent.keyboard('{Enter}')
+    expect(textarea.value).toBe('- Item\n- ')
+    await userEvent.keyboard('Next item')
+    expect(textarea.value).toBe('- Item\n- Next item')
+  },
+}
+
+/** Test story for removing item from unordered list */
+export const TestRemoveItemUnorderedList: StoryObj = {
+  name: 'Test: Remove Item from Unordered List',
+  args: {
+    value: '- Item\n- Next item',
+    label: 'Test: Remove Item from Unordered List',
+    description: 'This story tests removing an item from an unordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('- Item\n- Next item')
+    await selectText(textarea, 'Next item')
+    await userEvent.keyboard('{Backspace}') // Remove selection
+    await userEvent.keyboard('{Backspace}') // Remove list item
+    expect(textarea.value).toBe('- Item')
+  },
+}
+
+/** Test story for adding nested item from unordered list */
+export const TestAddNestedItemUnorderedList: StoryObj = {
+  name: 'Test: Add Nested Item to Unordered List',
+  args: {
+    value: '- Item',
+    label: 'Test: Add Nested Item to Unordered List',
+    description: 'This story tests adding a nested item to an unordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('- Item')
+    await selectAtCharacter(textarea, 6)
+    await userEvent.keyboard('{Enter}')
+    await selectAtCharacter(textarea, 10)
+    await userEvent.keyboard('{Tab}')
+    await userEvent.keyboard('Next item')
+    expect(textarea.value).toBe('- Item\n    - Next item')
+  },
+}
+
+/** Test story for creating ordered list */
+export const TestCreateOrderedList: StoryObj = {
+  name: 'Test: Create Ordered List',
+  args: {
+    value: 'Item',
+    label: 'Test: Create Ordered List',
+    description: 'This story tests creating an ordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, listDropdown, editor, selectList } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Item')
+    await userEvent.click(listDropdown)
+    const orderedOption = selectList(editor, 3)
+    await userEvent.click(orderedOption)
+    expect(textarea.value).toBe('1. Item')
+  },
+}
+
+/** Test story for adding next item to ordered list */
+export const TestAddNextItemOrderedList: StoryObj = {
+  name: 'Test: Add Next Item to Ordered List',
+  args: {
+    value: '1. Item\n2. Next item',
+    label: 'Test: Add Next Item to Ordered List',
+    description: 'This story tests adding the next item to an ordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('1. Item\n2. Next item')
+    await selectAtCharacter(textarea, 7)
+    await userEvent.keyboard('{Enter}')
+    expect(textarea.value).toBe('1. Item\n2. \n3. Next item')
+    await userEvent.keyboard('New item')
+    expect(textarea.value).toBe('1. Item\n2. New item\n3. Next item')
+  },
+}
+
+/** Test story for removing item from ordered list */
+export const TestRemoveItemOrderedList: StoryObj = {
+  name: 'Test: Remove Item from Ordered List',
+  args: {
+    value: '1. Item\n2. Next item\n3. Another item',
+    label: 'Test: Remove Item from Ordered List',
+    description: 'This story tests removing an item from an ordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('1. Item\n2. Next item\n3. Another item')
+    await selectText(textarea, 'Next item')
+    await userEvent.keyboard('{Backspace}') // Remove selection
+    await userEvent.keyboard('{Backspace}') // Remove list item
+    expect(textarea.value).toBe('1. Item\n2. Another item')
+  },
+}
+
+/** Test story for adding nested item from ordered list */
+export const TestAddNestedItemOrderedList: StoryObj = {
+  name: 'Test: Add Nested Item to Ordered List',
+  args: {
+    value: '1. Item\n2. Next item\n3. Another item',
+    label: 'Test: Add Nested Item to Ordered List',
+    description: 'This story tests adding a nested item to an ordered list.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('1. Item\n2. Next item\n3. Another item')
+    await selectAtCharacter(textarea, 10) // Place cursor at second item
+    await userEvent.keyboard('{Tab}')
+    // Wait for tab - doesn't create nesting in this context
+    expect(textarea.value).toBe('1. Item\n    1. Next item\n2. Another item')
+  },
+}
+
+/** Test story for converting unnested item to another nested item */
+export const TestConvertUnnestedToNestedItem: StoryObj = {
+  name: 'Test: Convert Unnested to Nested Item',
+  args: {
+    value: '1. Item\n    1. Next item\n2. Another item',
+    label: 'Test: Convert Unnested to Nested Item',
+    description:
+      'This story tests converting an unnested item to a nested item.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea } = await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('1. Item\n    1. Next item\n2. Another item')
+    await selectAtCharacter(textarea, 29) // Place cursor at second item
+    await userEvent.keyboard('{Tab}')
+    // Wait for tab indentation - affects both items
+    expect(textarea.value).toBe(
+      '1. Item\n    1. Next item\n    2. Another item'
+    )
+  },
+}
+
+/** Test story for aligning text in center */
+export const TestAlignTextCenter: StoryObj = {
+  name: 'Test: Align Text Center',
+  args: {
+    value: 'Center',
+    label: 'Test: Align Text Center',
+    description: 'This story tests aligning text to the center.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Center')
+    await selectText(textarea, 'Center')
+    await userEvent.click(alignmentDropdown)
+    const centerOption = selectAlignment(editor, 'center')
+    await userEvent.click(centerOption)
+    expect(textarea.value).toBe('<div style="text-align: center;">Center</div>')
+  },
+}
+
+/** Test story for aligning text to the right */
+export const TestAlignTextRight: StoryObj = {
+  name: 'Test: Align Text Right',
+  args: {
+    value: 'Right',
+    label: 'Test: Align Text Right',
+    description: 'This story tests aligning text to the right.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('Right')
+    await selectText(textarea, 'Right')
+    await userEvent.click(alignmentDropdown)
+    const rightOption = selectAlignment(editor, 'right')
+    await userEvent.click(rightOption)
+    expect(textarea.value).toBe('<div style="text-align: right;">Right</div>')
+  },
+}
+
+/** Test story for aligning bold text */
+export const TestAlignBoldText: StoryObj = {
+  name: 'Test: Align Bold Text',
+  args: {
+    value: '**Bold**',
+    label: 'Test: Align Bold Text',
+    description: 'This story tests aligning bold text.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('**Bold**')
+    await selectText(textarea, 'Bold')
+    await userEvent.click(alignmentDropdown)
+    const centerOption = selectAlignment(editor, 'center')
+    await userEvent.click(centerOption)
+    expect(textarea.value).toBe(
+      '**<div style="text-align: center;">Bold</div>**'
+    )
+  },
+}
+
+/** Test story for aligning italic text */
+export const TestAlignItalicText: StoryObj = {
+  name: 'Test: Align Italic Text',
+  args: {
+    value: '*Italic*',
+    label: 'Test: Align Italic Text',
+    description: 'This story tests aligning italic text.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('*Italic*')
+    await selectText(textarea, 'Italic')
+    await userEvent.click(alignmentDropdown)
+    const centerOption = selectAlignment(editor, 'center')
+    await userEvent.click(centerOption)
+    expect(textarea.value).toBe(
+      '*<div style="text-align: center;">Italic</div>*'
+    )
+  },
+}
+
+/** Test story for aligning header text */
+export const TestAlignHeaderText: StoryObj = {
+  name: 'Test: Align Header Text',
+  args: {
+    value: '# Header',
+    label: 'Test: Align Header Text',
+    description: 'This story tests aligning header text.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('# Header')
+    await selectText(textarea, 'Header')
+    await userEvent.click(alignmentDropdown)
+    const centerOption = selectAlignment(editor, 'center')
+    await userEvent.click(centerOption)
+    expect(textarea.value).toBe(
+      '# <div style="text-align: center;">Header</div>'
+    )
+  },
+}
+
+/** Test story for aligning link text */
+export const TestAlignLinkText: StoryObj = {
+  name: 'Test: Align Link Text',
+  args: {
+    value: '[LUKSO](https://lukso.network)',
+    label: 'Test: Align Link Text',
+    description: 'This story tests aligning link text.',
+  },
+  play: async ({ canvasElement }) => {
+    const { textarea, alignmentDropdown, editor, selectAlignment } =
+      await getEditorElements(canvasElement)
+
+    expect(textarea.value).toBe('[LUKSO](https://lukso.network)')
+    await selectText(textarea, 'LUKSO')
+    await userEvent.click(alignmentDropdown)
+    const centerOption = selectAlignment(editor, 'center')
+    await userEvent.click(centerOption)
+    expect(textarea.value).toBe(
+      '[<div style="text-align: center;">LUKSO</div>](https://lukso.network)'
+    )
+  },
 }

@@ -1,6 +1,7 @@
 import { html, nothing } from 'lit-html'
+import { expect } from '@storybook/test'
 
-import type { Meta } from '@storybook/web-components-vite'
+import type { Meta, StoryObj } from '@storybook/web-components-vite'
 
 import './index'
 
@@ -74,7 +75,7 @@ const meta: Meta = {
     name: 'link',
     size: 'medium',
     color: undefined,
-    secondaryColor: '',
+    secondaryColor: undefined,
     animation: undefined,
     pack: undefined,
     variant: undefined,
@@ -187,3 +188,30 @@ export const VuesaxIconVariants = () => html`
     <lukso-icon name="link" pack="vuesax" variant="outline"></lukso-icon>
   </div>
 `
+/** Test story for icon with just name */
+export const IconName: StoryObj = {
+  name: 'Test: Icon with only name',
+  args: {
+    name: 'link',
+  },
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('lukso-icon')
+    expect(icon.outerHTML).toBe(
+      '<lukso-icon size="medium" color="neutral-20" name="link"></lukso-icon>'
+    )
+    expect(icon.shadowRoot.innerHTML)
+      .toContain(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px;">
+    <g stroke-linecap="round" stroke-linejoin="round" stroke="var(--neutral-20)" stroke-width="1.5">
+      <path d="m9.75 16.5h-3c-1.19347 0-2.33807-.4741-3.18198-1.318s-1.31802-1.9885-1.31802-3.182.47411-2.33807 1.31802-3.18198 1.98851-1.31802 3.18198-1.31802h3"></path>
+      <path d="m14.25 7.5h3c1.1935 0 2.3381.47411 3.182 1.31802s1.318 1.98848 1.318 3.18198-.4741 2.3381-1.318 3.182-1.9885 1.318-3.182 1.318h-3"></path>
+      <path d="m7.6543 12h8.7853"></path>
+    </g>
+  </svg>`)
+  },
+}
+
+/** Test story for icon with custom color */
+
+/** Test story for icon with different size */
+
+/** Test story for Vuesax icon */

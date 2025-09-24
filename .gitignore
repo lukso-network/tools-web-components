@@ -24,3 +24,7 @@
 /.vscode
 tools-web-components.code-workspace
 coverage/
+
+# Test results
+test-results/
+playwright-report/

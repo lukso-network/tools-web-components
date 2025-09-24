@@ -84,7 +84,13 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['sizes', 'secondaryColor', 'styles', 'svgContent'],
+      exclude: [
+        'sizes',
+        'secondaryColor',
+        'styles',
+        'svgContent',
+        'svgModules',
+      ],
     },
   },
 }

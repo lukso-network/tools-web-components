@@ -80,7 +80,6 @@ jobs:
             package/dist/
             package/tools/
             package/custom-elements.json
-            package/package.json
           retention-days: 7
           if-no-files-found: error
 

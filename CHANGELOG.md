@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.156.1](https://github.com/lukso-network/tools-web-components/compare/v1.156.0...v1.156.1) (2025-09-24)
+
+
+### Bug Fixes
+
+* Don't use variant attribute for default icons ([#662](https://github.com/lukso-network/tools-web-components/issues/662)) ([4ee8e91](https://github.com/lukso-network/tools-web-components/commit/4ee8e91c51e3cbee4778171906fd09316afc1b4e))
+
 ## [1.156.0](https://github.com/lukso-network/tools-web-components/compare/v1.155.1...v1.156.0) (2025-09-22)
 
 

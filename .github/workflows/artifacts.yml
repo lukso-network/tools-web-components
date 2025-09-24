@@ -150,37 +150,27 @@ jobs:
         uses: actions/cache@v4
         id: playwright-cache
         with:
-          path: ~/.cache/ms-playwright
+          path: /home/runner/.cache/ms-playwright
           key: playwright-browsers-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             playwright-browsers-${{ runner.os }}-
 
-      # Cache system dependencies separately (they change less frequently)
-      - name: Cache Playwright system dependencies
-        uses: actions/cache@v4
-        id: playwright-deps-cache
-        with:
-          path: |
-            /var/cache/apt
-            /var/lib/apt
-            ~/.cache/pip
-          key: playwright-deps-${{ runner.os }}-chromium-v1
-          restore-keys: |
-            playwright-deps-${{ runner.os }}-chromium-
-
-      - name: 🎭 Install Playwright browsers and dependencies
+      # Install Playwright browsers
+      - name: 🎭 Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
-      - name: 🎭 Install Playwright browsers only (deps cached)
-        if: steps.playwright-cache.outputs.cache-hit == 'true' && steps.playwright-deps-cache.outputs.cache-hit != 'true'
-        run: |
-          npx playwright install chromium
-          npx playwright install-deps chromium
+      - name: 🎭 Install Playwright system dependencies (browsers cached)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
 
-      - name: 🎭 Playwright already ready (both cached)
-        if: steps.playwright-cache.outputs.cache-hit == 'true' && steps.playwright-deps-cache.outputs.cache-hit == 'true'
-        run: echo "Playwright browsers and system dependencies restored from cache"
+      - name: 🔍 Verify Playwright installation
+        run: |
+          echo "Playwright browsers path: $PLAYWRIGHT_BROWSERS_PATH"
+          ls -la /home/runner/.cache/ms-playwright/ || echo "Playwright cache directory does not exist"
+          npx playwright --version
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: /home/runner/.cache/ms-playwright
 
       # Cache Storybook build for faster rebuilds
       - name: Cache Storybook build
@@ -206,7 +196,7 @@ jobs:
         run: yarn test:storybook:ci
         env:
           # Playwright environment variables for CI
-          PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
+          PLAYWRIGHT_BROWSERS_PATH: /home/runner/.cache/ms-playwright
           # Force Jest to exit properly in CI
           FORCE_COLOR: 1
           CI: true

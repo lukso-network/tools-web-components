@@ -196,6 +196,9 @@ export const IconName: StoryObj = {
   args: {
     name: 'link',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const icon = canvasElement.querySelector('lukso-icon')
     expect(icon.outerHTML).toBe(
@@ -219,6 +222,9 @@ export const IconCustomColor: StoryObj = {
     name: 'link',
     color: 'coral-65',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const icon = canvasElement.querySelector('lukso-icon')
     expect(icon.outerHTML).toBe(
@@ -241,6 +247,9 @@ export const IconLargeSize: StoryObj = {
   args: {
     name: 'link',
     size: 'large',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const icon = canvasElement.querySelector('lukso-icon')
@@ -266,6 +275,9 @@ export const VuesaxLinearIcon: StoryObj = {
     pack: 'vuesax',
     variant: 'linear',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const icon = canvasElement.querySelector('lukso-icon')
     expect(icon.outerHTML).toBe(
@@ -288,6 +300,9 @@ export const VuesaxBoldIcon: StoryObj = {
     name: 'link',
     pack: 'vuesax',
     variant: 'bold',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const icon = canvasElement.querySelector('lukso-icon')
@@ -313,6 +328,9 @@ export const VuesaxColoredIcon: StoryObj = {
     pack: 'vuesax',
     color: 'coral-65',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const icon = canvasElement.querySelector('lukso-icon')
     expect(icon.outerHTML).toBe(
@@ -336,6 +354,9 @@ export const VuesaxLargeIcon: StoryObj = {
     name: 'link',
     pack: 'vuesax',
     size: 'large',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const icon = canvasElement.querySelector('lukso-icon')

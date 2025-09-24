@@ -602,6 +602,9 @@ console.log(greeting)
     label: 'Test: Preview Functionality',
     description: 'This story tests the preview functionality.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, previewButton, editor } =
       await getEditorElements(canvasElement)
@@ -731,6 +734,9 @@ export const TestBoldFormatting: StoryObj = {
     label: 'Test: Bold Formatting',
     description: 'This story tests the bold formatting functionality.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, boldButton } = await getEditorElements(canvasElement)
 
@@ -747,6 +753,9 @@ export const TestItalicFormatting: StoryObj = {
     value: 'test',
     label: 'Test: Italic Formatting',
     description: 'This story tests the italic formatting functionality.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea, italicButton } = await getEditorElements(canvasElement)
@@ -765,6 +774,9 @@ export const TestLinkCreation: StoryObj = {
     label: 'Test: Link Creation',
     description: 'This story tests the link creation functionality.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, linkButton } = await getEditorElements(canvasElement)
 
@@ -781,6 +793,9 @@ export const TestAddH1Header: StoryObj = {
     value: 'Header',
     label: 'Test: Add H1 Header',
     description: 'This story tests adding an H1 header.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea, headerDropdown, editor, selectHeader } =
@@ -802,6 +817,9 @@ export const TestAddH2Header: StoryObj = {
     label: 'Test: Add H2 Header',
     description: 'This story tests adding an H2 header.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, headerDropdown, editor, selectHeader } =
       await getEditorElements(canvasElement)
@@ -821,6 +839,9 @@ export const TestAddH3Header: StoryObj = {
     value: 'Header',
     label: 'Test: Add H3 Header',
     description: 'This story tests adding an H3 header.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea, headerDropdown, editor, selectHeader } =
@@ -842,6 +863,9 @@ export const TestAddH4Header: StoryObj = {
     label: 'Test: Add H4 Header',
     description: 'This story tests adding an H4 header.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, headerDropdown, editor, selectHeader } =
       await getEditorElements(canvasElement)
@@ -862,6 +886,9 @@ export const TestRemoveHeader: StoryObj = {
     label: 'Test: Remove Header',
     description: 'This story tests removing an header.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, headerDropdown, editor, selectHeader } =
       await getEditorElements(canvasElement)
@@ -881,6 +908,9 @@ export const TestApplyTextColor: StoryObj = {
     value: 'This is Color text.',
     label: 'Test: Apply Text Color',
     description: 'This story tests applying text color formatting.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea, colorDropdown, editor, selectColor } =
@@ -905,6 +935,9 @@ export const TestRemoveTextColor: StoryObj = {
     label: 'Test: Remove Text Color',
     description: 'This story tests removing text color formatting.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, colorDropdown, editor, clearColor } =
       await getEditorElements(canvasElement)
@@ -927,6 +960,9 @@ export const TestCreateUnorderedList: StoryObj = {
     label: 'Test: Create Unordered List',
     description: 'This story tests creating an unordered list.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, listDropdown, editor, selectList } =
       await getEditorElements(canvasElement)
@@ -946,6 +982,9 @@ export const TestAddNextItemUnorderedList: StoryObj = {
     value: '- Item',
     label: 'Test: Add Next Item to Unordered List',
     description: 'This story tests adding the next item to an unordered list.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea } = await getEditorElements(canvasElement)
@@ -967,6 +1006,9 @@ export const TestRemoveItemUnorderedList: StoryObj = {
     label: 'Test: Remove Item from Unordered List',
     description: 'This story tests removing an item from an unordered list.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea } = await getEditorElements(canvasElement)
 
@@ -985,6 +1027,9 @@ export const TestAddNestedItemUnorderedList: StoryObj = {
     value: '- Item',
     label: 'Test: Add Nested Item to Unordered List',
     description: 'This story tests adding a nested item to an unordered list.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea } = await getEditorElements(canvasElement)
@@ -1007,6 +1052,9 @@ export const TestCreateOrderedList: StoryObj = {
     label: 'Test: Create Ordered List',
     description: 'This story tests creating an ordered list.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, listDropdown, editor, selectList } =
       await getEditorElements(canvasElement)
@@ -1026,6 +1074,9 @@ export const TestAddNextItemOrderedList: StoryObj = {
     value: '1. Item\n2. Next item',
     label: 'Test: Add Next Item to Ordered List',
     description: 'This story tests adding the next item to an ordered list.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea } = await getEditorElements(canvasElement)
@@ -1047,6 +1098,9 @@ export const TestRemoveItemOrderedList: StoryObj = {
     label: 'Test: Remove Item from Ordered List',
     description: 'This story tests removing an item from an ordered list.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea } = await getEditorElements(canvasElement)
 
@@ -1065,6 +1119,9 @@ export const TestAddNestedItemOrderedList: StoryObj = {
     value: '1. Item\n2. Next item\n3. Another item',
     label: 'Test: Add Nested Item to Ordered List',
     description: 'This story tests adding a nested item to an ordered list.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea } = await getEditorElements(canvasElement)
@@ -1085,6 +1142,9 @@ export const TestConvertUnnestedToNestedItem: StoryObj = {
     label: 'Test: Convert Unnested to Nested Item',
     description:
       'This story tests converting an unnested item to a nested item.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea } = await getEditorElements(canvasElement)
@@ -1107,6 +1167,9 @@ export const TestAlignTextCenter: StoryObj = {
     label: 'Test: Align Text Center',
     description: 'This story tests aligning text to the center.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, alignmentDropdown, editor, selectAlignment } =
       await getEditorElements(canvasElement)
@@ -1128,6 +1191,9 @@ export const TestAlignTextRight: StoryObj = {
     label: 'Test: Align Text Right',
     description: 'This story tests aligning text to the right.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, alignmentDropdown, editor, selectAlignment } =
       await getEditorElements(canvasElement)
@@ -1148,6 +1214,9 @@ export const TestAlignBoldText: StoryObj = {
     value: '**Bold**',
     label: 'Test: Align Bold Text',
     description: 'This story tests aligning bold text.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea, alignmentDropdown, editor, selectAlignment } =
@@ -1172,6 +1241,9 @@ export const TestAlignItalicText: StoryObj = {
     label: 'Test: Align Italic Text',
     description: 'This story tests aligning italic text.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, alignmentDropdown, editor, selectAlignment } =
       await getEditorElements(canvasElement)
@@ -1195,6 +1267,9 @@ export const TestAlignHeaderText: StoryObj = {
     label: 'Test: Align Header Text',
     description: 'This story tests aligning header text.',
   },
+  parameters: {
+    docs: { disable: true },
+  },
   play: async ({ canvasElement }) => {
     const { textarea, alignmentDropdown, editor, selectAlignment } =
       await getEditorElements(canvasElement)
@@ -1217,6 +1292,9 @@ export const TestAlignLinkText: StoryObj = {
     value: '[LUKSO](https://lukso.network)',
     label: 'Test: Align Link Text',
     description: 'This story tests aligning link text.',
+  },
+  parameters: {
+    docs: { disable: true },
   },
   play: async ({ canvasElement }) => {
     const { textarea, alignmentDropdown, editor, selectAlignment } =

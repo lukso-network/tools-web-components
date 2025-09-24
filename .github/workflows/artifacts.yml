@@ -77,10 +77,12 @@ jobs:
         with:
           name: build-assets
           path: |
-            package/dist
-            package/tools
+            package/dist/
+            package/tools/
             package/custom-elements.json
+            package/package.json
           retention-days: 7
+          if-no-files-found: error
 
   # Unit tests - runs in parallel with build after setup
   test-unit:
@@ -117,6 +119,7 @@ jobs:
           name: coverage-report
           path: coverage/
           retention-days: 30
+          if-no-files-found: ignore
 
   # Storybook tests - runs in parallel with build and unit tests after setup
   test-storybook:
@@ -190,20 +193,48 @@ jobs:
           restore-keys: |
             storybook-${{ runner.os }}-
 
-      - name: 🏗️ Build Storybook
+      - name: 🏭 Build Storybook
         if: steps.storybook-cache.outputs.cache-hit != 'true'
         run: yarn storybook:build
 
+      - name: 📁 Create test directories
+        run: |
+          mkdir -p test-results
+          mkdir -p playwright-report
+          mkdir -p coverage/storybook
+
       - name: 🧪 Storybook Tests
         run: yarn test:storybook:ci
+        env:
+          # Playwright environment variables for CI
+          PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
+          # Force Jest to exit properly in CI
+          FORCE_COLOR: 1
+          CI: true
 
-      - name: 📤 Upload Playwright report
+      - name: 🔍 Debug test outputs
+        if: always()
+        run: |
+          echo "Contents of current directory:"
+          find . -maxdepth 2 -name "test-results" -o -name "playwright-report" -o -name "coverage" -type d 2>/dev/null || echo "No test directories found"
+          echo "Files in test-results (if exists):"
+          ls -la test-results/ 2>/dev/null || echo "test-results directory doesn't exist"
+          echo "Files in playwright-report (if exists):"
+          ls -la playwright-report/ 2>/dev/null || echo "playwright-report directory doesn't exist"
+          echo "Files in coverage/storybook (if exists):"
+          ls -la coverage/storybook/ 2>/dev/null || echo "coverage/storybook directory doesn't exist"
+
+      - name: 📤 Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: storybook-test-results
+          path: |
+            test-results/
+            coverage/storybook/
+            playwright-report/
           retention-days: 30
+          if-no-files-found: ignore
 
   # Review job - depends on build completion, reuses build artifacts
   review:

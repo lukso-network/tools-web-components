@@ -12827,6 +12827,7 @@ __metadata:
     ethereum-blockies-base64: ^1.0.2
     http-server: ^14.1.1
     husky: ^9.1.7
+    jest-junit: ^16.0.0
     lint-staged: ^16.1.0
     list-exports: ^1.1.0
     lit: ^3.3.0

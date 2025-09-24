@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.157.0](https://github.com/lukso-network/tools-web-components/compare/v1.156.1...v1.157.0) (2025-09-24)
+
+
+### Features
+
+* Add name reflect ([#665](https://github.com/lukso-network/tools-web-components/issues/665)) ([d3c41e5](https://github.com/lukso-network/tools-web-components/commit/d3c41e537d58a26f6c538d78f7fac48101dc3140))
+
 ## [1.156.1](https://github.com/lukso-network/tools-web-components/compare/v1.156.0...v1.156.1) (2025-09-24)
 
 

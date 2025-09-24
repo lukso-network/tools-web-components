@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.157.1](https://github.com/lukso-network/tools-web-components/compare/v1.157.0...v1.157.1) (2025-09-24)
+
+
+### Bug Fixes
+
+* artifact warning + release issue ([#667](https://github.com/lukso-network/tools-web-components/issues/667)) ([9dbb238](https://github.com/lukso-network/tools-web-components/commit/9dbb23897036bf8470e3ad53b346e1cedf06d027))
+
 ## [1.157.0](https://github.com/lukso-network/tools-web-components/compare/v1.156.1...v1.157.0) (2025-09-24)
 
 

@@ -24,7 +24,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''
 
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   name = ''
 
   @property({ type: String })

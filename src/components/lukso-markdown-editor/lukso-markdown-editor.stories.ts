@@ -1,6 +1,8 @@
 import { html, nothing } from 'lit-html'
 import { expect, fn, userEvent } from '@storybook/test'
 
+import { wait } from '../../../.storybook/test-helpers'
+
 import type { Meta, StoryObj } from '@storybook/web-components-vite'
 
 import './index'
@@ -545,8 +547,6 @@ const selectAtCharacter = async (
   textarea.focus()
   await wait(500)
 }
-
-const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 /** Test story for preview functionality. */
 export const TestPreviewFunctionality: StoryObj = {

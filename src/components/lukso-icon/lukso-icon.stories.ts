@@ -1,6 +1,8 @@
 import { html, nothing } from 'lit-html'
 import { expect } from '@storybook/test'
 
+import { wait } from '../../../.storybook/test-helpers'
+
 import type { Meta, StoryObj } from '@storybook/web-components-vite'
 
 import './index'
@@ -211,7 +213,142 @@ export const IconName: StoryObj = {
 }
 
 /** Test story for icon with custom color */
+export const IconCustomColor: StoryObj = {
+  name: 'Test: Icon with custom color',
+  args: {
+    name: 'link',
+    color: 'coral-65',
+  },
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('lukso-icon')
+    expect(icon.outerHTML).toBe(
+      '<lukso-icon size="medium" color="coral-65" name="link"></lukso-icon>'
+    )
+    expect(icon.shadowRoot.innerHTML)
+      .toContain(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px;">
+    <g stroke-linecap="round" stroke-linejoin="round" stroke="var(--coral-65)" stroke-width="1.5">
+      <path d="m9.75 16.5h-3c-1.19347 0-2.33807-.4741-3.18198-1.318s-1.31802-1.9885-1.31802-3.182.47411-2.33807 1.31802-3.18198 1.98851-1.31802 3.18198-1.31802h3"></path>
+      <path d="m14.25 7.5h3c1.1935 0 2.3381.47411 3.182 1.31802s1.318 1.98848 1.318 3.18198-.4741 2.3381-1.318 3.182-1.9885 1.318-3.182 1.318h-3"></path>
+      <path d="m7.6543 12h8.7853"></path>
+    </g>
+  </svg>`)
+  },
+}
 
-/** Test story for icon with different size */
+/** Test story for icon with large size */
+export const IconLargeSize: StoryObj = {
+  name: 'Test: Icon with large size',
+  args: {
+    name: 'link',
+    size: 'large',
+  },
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('lukso-icon')
+    expect(icon.outerHTML).toBe(
+      '<lukso-icon size="large" color="neutral-20" name="link"></lukso-icon>'
+    )
+    expect(icon.shadowRoot.innerHTML)
+      .toContain(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+    <g stroke-linecap="round" stroke-linejoin="round" stroke="var(--neutral-20)" stroke-width="1.5">
+      <path d="m9.75 16.5h-3c-1.19347 0-2.33807-.4741-3.18198-1.318s-1.31802-1.9885-1.31802-3.182.47411-2.33807 1.31802-3.18198 1.98851-1.31802 3.18198-1.31802h3"></path>
+      <path d="m14.25 7.5h3c1.1935 0 2.3381.47411 3.182 1.31802s1.318 1.98848 1.318 3.18198-.4741 2.3381-1.318 3.182-1.9885 1.318-3.182 1.318h-3"></path>
+      <path d="m7.6543 12h8.7853"></path>
+    </g>
+  </svg>`)
+  },
+}
 
-/** Test story for Vuesax icon */
+/** Test story for Vuesax linear icon */
+export const VuesaxLinearIcon: StoryObj = {
+  name: 'Test: Vuesax linear icon',
+  args: {
+    name: 'link',
+    pack: 'vuesax',
+    variant: 'linear',
+  },
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('lukso-icon')
+    expect(icon.outerHTML).toBe(
+      '<lukso-icon size="medium" color="neutral-20" name="link" pack="vuesax" variant="linear"></lukso-icon>'
+    )
+    await wait(100) // wait for the SVG to load
+    expect(icon.shadowRoot.innerHTML)
+      .toContain(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; display: block;"><style>* { color: var(--neutral-20); }</style>
+<path d="M14.9915 17.5H16.5015C19.5215 17.5 22.0015 15.03 22.0015 12C22.0015 8.98 19.5315 6.5 16.5015 6.5H14.9915" stroke="var(--neutral-20)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M9.00146 6.5H7.50146C4.47146 6.5 2.00146 8.97 2.00146 12C2.00146 15.02 4.47146 17.5 7.50146 17.5H9.00146" stroke="var(--neutral-20)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M8.00146 12H16.0015" stroke="var(--neutral-20)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>`)
+  },
+}
+
+/** Test story for Vuesax bold icon */
+export const VuesaxBoldIcon: StoryObj = {
+  name: 'Test: Vuesax bold icon',
+  args: {
+    name: 'link',
+    pack: 'vuesax',
+    variant: 'bold',
+  },
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('lukso-icon')
+    expect(icon.outerHTML).toBe(
+      '<lukso-icon size="medium" color="neutral-20" name="link" pack="vuesax" variant="bold"></lukso-icon>'
+    )
+    await wait(100) // wait for the SVG to load
+    expect(icon.shadowRoot.innerHTML).toContain(
+      `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; display: block;"><style>* { color: var(--neutral-20); }</style>
+<path d="M7.25148 12C7.25148 11.59 7.59148 11.25 8.00148 11.25H11.0015V7.5C11.0015 6.95 10.5515 6.5 10.0015 6.5H7.77148C4.62148 6.5 1.88148 9.08 2.00148 12.22C2.06148 13.65 2.66148 14.94 3.61148 15.89C4.61148 16.88 5.98148 17.5 7.50148 17.5H10.0015C10.5515 17.5 11.0015 17.05 11.0015 16.5V12.75H8.00148C7.59148 12.75 7.25148 12.41 7.25148 12Z" fill="var(--neutral-20)"></path>
+<path d="M20.3915 8.11C19.3915 7.12 18.0215 6.5 16.5015 6.5H14.0015C13.4515 6.5 13.0015 6.95 13.0015 7.5V11.25H16.0015C16.4115 11.25 16.7515 11.59 16.7515 12C16.7515 12.41 16.4115 12.75 16.0015 12.75H13.0015V16.5C13.0015 17.05 13.4515 17.5 14.0015 17.5H16.2315C19.3815 17.5 22.1215 14.92 21.9915 11.78C21.9415 10.35 21.3315 9.06 20.3915 8.11Z" fill="var(--neutral-20)"></path>
+<path d="M13.0015 11.25H11.0015V12.75H13.0015V11.25Z" fill="var(--neutral-20)"></path>
+</svg>`
+    )
+  },
+}
+
+/** Test story for Vuesax colored icon */
+export const VuesaxColoredIcon: StoryObj = {
+  name: 'Test: Vuesax colored icon',
+  args: {
+    name: 'link',
+    pack: 'vuesax',
+    color: 'coral-65',
+  },
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('lukso-icon')
+    expect(icon.outerHTML).toBe(
+      '<lukso-icon size="medium" color="coral-65" name="link" pack="vuesax" variant="linear"></lukso-icon>'
+    )
+    await wait(100) // wait for the SVG to load
+    expect(icon.shadowRoot.innerHTML).toContain(
+      `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; display: block;"><style>* { color: var(--coral-65); }</style>
+<path d="M14.9915 17.5H16.5015C19.5215 17.5 22.0015 15.03 22.0015 12C22.0015 8.98 19.5315 6.5 16.5015 6.5H14.9915" stroke="var(--coral-65)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M9.00146 6.5H7.50146C4.47146 6.5 2.00146 8.97 2.00146 12C2.00146 15.02 4.47146 17.5 7.50146 17.5H9.00146" stroke="var(--coral-65)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M8.00146 12H16.0015" stroke="var(--coral-65)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>`
+    )
+  },
+}
+
+/** Test story for Vuesax large icon */
+export const VuesaxLargeIcon: StoryObj = {
+  name: 'Test: Vuesax large icon',
+  args: {
+    name: 'link',
+    pack: 'vuesax',
+    size: 'large',
+  },
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('lukso-icon')
+    expect(icon.outerHTML).toBe(
+      '<lukso-icon size="large" color="neutral-20" name="link" pack="vuesax" variant="linear"></lukso-icon>'
+    )
+    await wait(100) // wait for the SVG to load
+    expect(icon.shadowRoot.innerHTML).toContain(
+      `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 32px; display: block;"><style>* { color: var(--neutral-20); }</style>
+<path d="M14.9915 17.5H16.5015C19.5215 17.5 22.0015 15.03 22.0015 12C22.0015 8.98 19.5315 6.5 16.5015 6.5H14.9915" stroke="var(--neutral-20)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M9.00146 6.5H7.50146C4.47146 6.5 2.00146 8.97 2.00146 12C2.00146 15.02 4.47146 17.5 7.50146 17.5H9.00146" stroke="var(--neutral-20)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M8.00146 12H16.0015" stroke="var(--neutral-20)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>`
+    )
+  },
+}

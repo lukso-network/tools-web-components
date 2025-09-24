@@ -93,6 +93,7 @@ export class LuksoMarkdown extends TailwindStyledElement(style) {
         html-content="<div class='${this.proseClasses}' style='${this
           .customStyle}'>${htmlContent}</div>"
         ?is-pre="${this.isPre}"
+        class="w-full"
       ></lukso-sanitize>
     `
   }

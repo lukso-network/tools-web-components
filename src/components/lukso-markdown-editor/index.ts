@@ -303,13 +303,25 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
   private dispatchChange(event?: Event) {
     this.updateComplete.then(() => {
-      const changeEvent = new CustomEvent('on-change', {
+      const changeEvent = new CustomEvent('on-markdown-change', {
         detail: { value: this.value, event },
         bubbles: false,
         composed: true,
       })
       this.dispatchEvent(changeEvent)
     })
+  }
+
+  /**
+   * Unified helper that ensures both active format state and change events are properly
+   * emitted after any value mutation. This replaces the scattered updateActiveFormats()
+   * and dispatchChange() calls throughout the codebase.
+   *
+   * @param event - Optional event that triggered the change
+   */
+  private emitChangeAndRefresh(event?: Event) {
+    this.updateActiveFormats()
+    this.dispatchChange(event)
   }
 
   /**
@@ -441,9 +453,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
       requestAnimationFrame(() => {
         textarea.setSelectionRange(cursorPosition, cursorPosition)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -630,9 +641,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
       requestAnimationFrame(() => {
         textarea.setSelectionRange(cursorPosition, cursorPosition)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -728,9 +738,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const cursorPosition = before.length + transformed.length
       requestAnimationFrame(() => {
         textarea.setSelectionRange(cursorPosition, cursorPosition)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -884,9 +893,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const selEnd = selStart + selected.length
         requestAnimationFrame(() => {
           textarea.setSelectionRange(selStart, selEnd)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return
       }
 
@@ -907,9 +915,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const selEnd = selStart + selected.length
         requestAnimationFrame(() => {
           textarea.setSelectionRange(selStart, selEnd)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return
       }
 
@@ -924,9 +931,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const selEnd = selStart + (selected ? selected.length : 0)
       requestAnimationFrame(() => {
         textarea.setSelectionRange(selStart, selEnd)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -1035,9 +1041,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
             const newCursor = leftBracket + textOnly.length
             requestAnimationFrame(() => {
               textarea.setSelectionRange(newCursor, newCursor)
-              this.updateActiveFormats()
+              this.emitChangeAndRefresh()
             })
-            this.dispatchChange()
             return
           }
         }
@@ -1063,9 +1068,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const newEnd = newStart + textOnly.length
         requestAnimationFrame(() => {
           textarea.setSelectionRange(newStart, newEnd)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return
       }
 
@@ -1099,9 +1103,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           const newCursor = leftBracket + textOnly.length
           requestAnimationFrame(() => {
             textarea.setSelectionRange(newCursor, newCursor)
-            this.updateActiveFormats()
+            this.emitChangeAndRefresh()
           })
-          this.dispatchChange()
           return
         }
       }
@@ -1120,9 +1123,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       requestAnimationFrame(() => {
         textarea.focus()
         textarea.setSelectionRange(cursorPosition, cursorPosition)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -1139,7 +1141,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     }
 
     this.value = newValue
-    this.updateActiveFormats()
+    this.emitChangeAndRefresh(event)
   }
 
   /**
@@ -1458,9 +1460,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
         requestAnimationFrame(() => {
           textarea.setSelectionRange(selStart, selEnd)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return
       }
 
@@ -1490,9 +1491,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           (existingColor === color ? innerText.length : innerText.length)
         requestAnimationFrame(() => {
           textarea.setSelectionRange(selStart, selEnd)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return
       }
 
@@ -1508,9 +1508,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const selEnd = selStart + (selected ? selected.length : 4)
       requestAnimationFrame(() => {
         textarea.setSelectionRange(selStart, selEnd)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -1641,9 +1640,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
               Math.max(0, newStart),
               Math.max(0, newEnd)
             )
-            this.updateActiveFormats()
+            this.emitChangeAndRefresh()
           })
-          this.dispatchChange()
           return
         }
       }
@@ -1862,9 +1860,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const newCursor = before.length
         requestAnimationFrame(() => {
           textarea.setSelectionRange(newCursor, newCursor)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return true
       }
 
@@ -1882,8 +1879,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       textarea.setSelectionRange(newCursor, newCursor)
 
       // Update active formats and dispatch change synchronously
-      this.updateActiveFormats()
-      this.dispatchChange()
+      this.emitChangeAndRefresh()
       return true
     }
 
@@ -1906,9 +1902,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const newCursor = before.length
         requestAnimationFrame(() => {
           textarea.setSelectionRange(newCursor, newCursor)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return true
       }
 
@@ -1957,8 +1952,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       textarea.setSelectionRange(newCursor, newCursor)
 
       // Update active formats and dispatch change synchronously
-      this.updateActiveFormats()
-      this.dispatchChange()
+      this.emitChangeAndRefresh()
       return true
     }
 
@@ -2081,10 +2075,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
         requestAnimationFrame(() => {
           textarea.setSelectionRange(newCursor, newCursor)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-
-        this.dispatchChange()
         return true
       } else {
         // Regular indentation for non-empty items
@@ -2152,8 +2144,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     textarea.setSelectionRange(newCursor, newCursor)
 
     // Update active formats and dispatch change synchronously
-    this.updateActiveFormats()
-    this.dispatchChange()
+    this.emitChangeAndRefresh()
     return true
   }
 
@@ -2266,10 +2257,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
     requestAnimationFrame(() => {
       textarea.setSelectionRange(newCursor, newCursor)
-      this.updateActiveFormats()
+      this.emitChangeAndRefresh()
     })
-
-    this.dispatchChange()
     return true
   }
 
@@ -2519,9 +2508,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       }
       requestAnimationFrame(() => {
         textarea.setSelectionRange(newCursor, newCursor)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
       return true
     }
 
@@ -2569,11 +2557,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           previousState.selection.end
         )
       }
-      this.updateActiveFormats()
+      this.emitChangeAndRefresh()
       this.isUndoRedoAction = false
     })
-
-    this.dispatchChange()
   }
 
   /**
@@ -2616,11 +2602,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           nextState.selection.end
         )
       }
-      this.updateActiveFormats()
+      this.emitChangeAndRefresh()
       this.isUndoRedoAction = false
     })
-
-    this.dispatchChange()
   }
 
   connectedCallback() {
@@ -2633,7 +2617,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     // Initialize undo state and keyboard listeners after first render
     requestAnimationFrame(() => {
       this.saveInitialUndoState()
-      this.updateActiveFormats()
+      this.updateActiveFormats() // Initial setup - no need to emit change event
       this.addKeyboardListeners()
     })
   }

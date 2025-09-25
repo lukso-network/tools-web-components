@@ -119,8 +119,8 @@ const meta: Meta = {
     'is-non-resizable': {
       name: 'isNonResizable',
     },
-    onChange: {
-      name: 'on-change',
+    onMarkdownChange: {
+      name: 'on-markdown-change',
       description: 'Emitted on text editor value change.',
       table: {
         category: 'Events',
@@ -200,7 +200,7 @@ const Template = ({
   isPreview,
   isNonResizable,
   autofocus,
-  onChange,
+  onMarkdownChange,
   placeholder,
   rows,
 }) =>
@@ -219,7 +219,7 @@ const Template = ({
     ?is-preview=${isPreview}
     ?is-non-resizable=${isNonResizable}
     ?autofocus=${autofocus}
-    @on-change=${onChange}
+    @on-markdown-change=${onMarkdownChange}
   ></lukso-markdown-editor>`
 
 /** Example of default text editor with sample content.  */

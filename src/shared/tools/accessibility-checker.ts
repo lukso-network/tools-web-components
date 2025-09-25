@@ -62,51 +62,6 @@ export async function checkAccessibility(
   }
 
   try {
-    // Ensure elements with color styles have explicit background colors for axe-core
-    const elementsWithColor = element.querySelectorAll('*[style*="color:"]')
-
-    elementsWithColor.forEach(el => {
-      const coloredElement = el as HTMLElement
-      const computedStyle = window.getComputedStyle(coloredElement)
-      const currentBg = computedStyle.backgroundColor
-
-      // If background is transparent, try to inherit from parent
-      if (currentBg === 'rgba(0, 0, 0, 0)' || currentBg === 'transparent') {
-        let inheritedBg = 'white' // default fallback
-
-        // Try to get background from parent element
-        if (coloredElement.parentElement) {
-          const parentComputedStyle = window.getComputedStyle(
-            coloredElement.parentElement
-          )
-          const parentBg = parentComputedStyle.backgroundColor
-
-          if (parentBg !== 'rgba(0, 0, 0, 0)' && parentBg !== 'transparent') {
-            inheritedBg = parentBg
-          } else {
-            // Check parent element's inline style for background
-            const parentStyle =
-              coloredElement.parentElement.getAttribute('style') || ''
-            const bgMatch = parentStyle.match(
-              /background(?:-color)?:\s*([^;]+)/
-            )
-            if (bgMatch) {
-              inheritedBg = bgMatch[1].trim()
-            }
-          }
-        }
-
-        // Set explicit background color
-        const currentStyle = coloredElement.getAttribute('style') || ''
-        if (!currentStyle.includes('background')) {
-          coloredElement.setAttribute(
-            'style',
-            `${currentStyle}; background-color: ${inheritedBg};`
-          )
-        }
-      }
-    })
-
     // Run axe-core on the live preview content
     const results = await axe.run(element, {
       resultTypes: ['violations'],

@@ -1,5 +1,5 @@
 import { html, nothing } from 'lit-html'
-import { expect, fn, userEvent } from '@storybook/test'
+import { expect, userEvent } from '@storybook/test'
 
 import { wait } from '../../../.storybook/test-helpers'
 
@@ -144,7 +144,6 @@ const meta: Meta = {
     error: '',
     placeholder: '',
     rows: 6,
-    onChange: fn(),
   },
   parameters: {
     controls: {
@@ -429,7 +428,7 @@ const getEditorElements = async (canvasElement: HTMLElement) => {
       if (editor.shadowRoot) {
         const textareaComponent =
           editor.shadowRoot.querySelector('lukso-textarea')
-        if (textareaComponent && textareaComponent.shadowRoot) {
+        if (textareaComponent?.shadowRoot) {
           const textarea =
             textareaComponent.shadowRoot.querySelector('textarea')
           if (textarea) {

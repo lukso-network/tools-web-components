@@ -185,7 +185,7 @@ export const formatViolationsForTooltip = (
   const summary = getViolationSummary(violations)
 
   let tooltip = `
-    <div class="max-w-sm leading-relaxed">
+    <div class="max-w-sm leading-relaxed p-1">
       <div class="font-bold text-sm mb-1">
         Accessibility Issues Found
       </div>
@@ -252,6 +252,7 @@ export const formatViolationsForTooltip = (
   // footer
   tooltip += `
     </div>
+    <div class="text-10 text-gray-500 mt-2">Check out the <a target="_blank" class="underline" href="https://www.w3.org/TR/WCAG21/">WCAG</a> guidelines why this is important.</div>
     </div>
   `
 

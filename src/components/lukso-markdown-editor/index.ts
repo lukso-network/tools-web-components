@@ -224,7 +224,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       toolbar: 'flex flex-wrap items-center gap-1',
       area: 'relative',
       editor: '',
-      preview: 'p-3 border border-neutral-90 rounded-12',
+      preview: 'p-3 border border-neutral-90 rounded-12 min-h-[158px]',
       colorMenu: 'relative',
       headingMenu: 'relative',
       listMenu: 'relative',

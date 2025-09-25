@@ -2724,6 +2724,19 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     })
   }
 
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties)
+
+    // If preview background color changed and we're in preview mode, re-run accessibility check
+    if (
+      changedProperties.has('previewBackgroundColor') &&
+      this.isPreview &&
+      this.value.trim()
+    ) {
+      this.scheduleAccessibilityCheck()
+    }
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback()
     document.removeEventListener('click', this.handleOutsideClick)

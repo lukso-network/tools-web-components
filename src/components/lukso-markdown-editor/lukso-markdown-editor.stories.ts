@@ -104,6 +104,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    previewBackgroundColor: {
+      name: 'preview-background-color',
+      control: { type: 'color' },
+      table: {
+        category: 'Styles',
+        defaultValue: { summary: '#ffffff' },
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -118,6 +126,9 @@ const meta: Meta = {
     },
     'is-non-resizable': {
       name: 'isNonResizable',
+    },
+    'preview-background-color': {
+      name: 'previewBackgroundColor',
     },
     onMarkdownChange: {
       name: 'on-markdown-change',
@@ -144,6 +155,7 @@ const meta: Meta = {
     error: '',
     placeholder: '',
     rows: 6,
+    previewBackgroundColor: undefined,
   },
   parameters: {
     controls: {
@@ -180,6 +192,7 @@ const meta: Meta = {
         'handleTextareaClick',
         'handleKeyDown',
         'styles',
+        'previewBackgroundColor',
       ],
     },
   },
@@ -203,6 +216,7 @@ const Template = ({
   onMarkdownChange,
   placeholder,
   rows,
+  previewBackgroundColor,
 }) =>
   html`<lukso-markdown-editor
     .value=${value}
@@ -213,6 +227,9 @@ const Template = ({
     size=${size ? size : nothing}
     placeholder=${placeholder ? placeholder : nothing}
     rows=${rows ? rows : nothing}
+    preview-background-color=${previewBackgroundColor
+      ? previewBackgroundColor
+      : nothing}
     ?is-full-width=${isFullWidth}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
@@ -413,6 +430,15 @@ Here's some <span style="color: var(--purple-51)">purple text</span> that you ca
 **Instructions**: Select the word "awesome" below and try different colors!
 
 LUKSO is awesome and supports many great features.`,
+}
+
+/** Example of custom preview background color */
+export const CustomPreviewBackground = Template.bind({})
+CustomPreviewBackground.args = {
+  label: 'Custom Preview Background',
+  description: 'Select a background color for the preview area.',
+  previewBackgroundColor: '#f0f0f0',
+  isPreview: true,
 }
 
 const getEditorElements = async (canvasElement: HTMLElement) => {

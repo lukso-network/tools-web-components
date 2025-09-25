@@ -1,4 +1,4 @@
-import { html, nothing, PropertyValues } from 'lit'
+import { html, nothing, type PropertyValues } from 'lit'
 import { customElement, property, state, query } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -18,6 +18,8 @@ import '@/components/lukso-tooltip'
 import type { InputSize } from '@/shared/types'
 
 type TextAlignment = 'left' | 'center' | 'right'
+
+const DEFAULT_PREVIEW_BACKGROUND_COLOR = 'transparent'
 
 @customElement('lukso-markdown-editor')
 export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
@@ -62,6 +64,13 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
   @property({ type: String })
   placeholder = ''
+
+  @property({
+    type: String,
+    attribute: 'preview-background-color',
+    reflect: true,
+  })
+  previewBackgroundColor = DEFAULT_PREVIEW_BACKGROUND_COLOR
 
   // State preservation for mode switching
   @state() private savedSelectionForPreview: {
@@ -3107,6 +3116,11 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       isFullWidth: this.isFullWidth,
     })
 
+    // ensure a default preview background color is applied
+    if (!this.previewBackgroundColor) {
+      this.previewBackgroundColor = DEFAULT_PREVIEW_BACKGROUND_COLOR
+    }
+
     return html`
       <div class=${wrapper()}>
         ${this.labelTemplate()} ${this.descriptionTemplate()}
@@ -3141,7 +3155,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                     @on-input-click=${this.handleTextareaClick}
                   ></lukso-textarea>
                 </div>`
-              : html`<div class=${preview()}>
+              : html`<div
+                  class=${preview()}
+                  style="background-color: ${this.previewBackgroundColor};"
+                >
                   <lukso-markdown
                     value=${this.value}
                     prose-classes="prose prose-base prose-gray"

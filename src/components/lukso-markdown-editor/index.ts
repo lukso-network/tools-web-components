@@ -204,7 +204,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       toolbar: 'flex flex-wrap items-center gap-1',
       area: '',
       editor: '',
-      preview: 'p-3',
+      preview: 'p-3 border border-neutral-90 rounded-12',
       colorMenu: 'relative',
       headingMenu: 'relative',
       listMenu: 'relative',
@@ -2701,7 +2701,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
   private toolbarTemplate() {
     return html`
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1">
         <div class=${cn(this.styles().headingMenu())}>
           <!-- Heading -->
           <lukso-tooltip text="Heading options" placement="top">
@@ -3111,41 +3111,43 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       <div class=${wrapper()}>
         ${this.labelTemplate()} ${this.descriptionTemplate()}
 
-        <div class=${header()}>
-          <div class=${toolbar()}>${this.toolbarTemplate()}</div>
-          ${this.buttonTemplate(
-            'eye',
-            () => this.togglePreview(),
-            'Toggle preview',
-            this.isPreview
-          )}
-        </div>
+        <div class="flex flex-col gap-2">
+          <div class=${header()}>
+            <div class=${toolbar()}>${this.toolbarTemplate()}</div>
+            ${this.buttonTemplate(
+              'eye',
+              () => this.togglePreview(),
+              'Toggle preview',
+              this.isPreview
+            )}
+          </div>
 
-        <div class=${area()}>
-          ${!this.isPreview
-            ? html`<div class=${editor()}>
-                <lukso-textarea
-                  .value=${this.value}
-                  name=${this.name ? this.name : nothing}
-                  size=${this.size ? this.size : nothing}
-                  rows=${this.rows ? this.rows : nothing}
-                  placeholder=${this.placeholder ? this.placeholder : nothing}
-                  error=${this.error ? this.error : nothing}
-                  ?is-full-width=${true}
-                  ?is-disabled=${this.isDisabled}
-                  ?is-readonly=${this.isReadonly}
-                  ?is-non-resizable=${this.isNonResizable}
-                  @on-input=${this.handleTextareaInput}
-                  @on-key-up=${this.handleTextareaKeyUp}
-                  @on-input-click=${this.handleTextareaClick}
-                ></lukso-textarea>
-              </div>`
-            : html`<div class=${preview()}>
-                <lukso-markdown
-                  value=${this.value}
-                  prose-classes="prose prose-base prose-gray"
-                ></lukso-markdown>
-              </div>`}
+          <div class=${area()}>
+            ${!this.isPreview
+              ? html`<div class=${editor()}>
+                  <lukso-textarea
+                    .value=${this.value}
+                    name=${this.name ? this.name : nothing}
+                    size=${this.size ? this.size : nothing}
+                    rows=${this.rows ? this.rows : nothing}
+                    placeholder=${this.placeholder ? this.placeholder : nothing}
+                    error=${this.error ? this.error : nothing}
+                    ?is-full-width=${true}
+                    ?is-disabled=${this.isDisabled}
+                    ?is-readonly=${this.isReadonly}
+                    ?is-non-resizable=${this.isNonResizable}
+                    @on-input=${this.handleTextareaInput}
+                    @on-key-up=${this.handleTextareaKeyUp}
+                    @on-input-click=${this.handleTextareaClick}
+                  ></lukso-textarea>
+                </div>`
+              : html`<div class=${preview()}>
+                  <lukso-markdown
+                    value=${this.value}
+                    prose-classes="prose prose-base prose-gray"
+                  ></lukso-markdown>
+                </div>`}
+          </div>
         </div>
       </div>
     `

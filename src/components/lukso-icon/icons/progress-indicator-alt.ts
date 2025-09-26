@@ -87,7 +87,7 @@ export const progressIndicatorAlt = (options: IconOptions) => {
         width: `${options.width}px`,
         height: `${options.height}px`,
       })}
-      class="absolute animate-spin"
+      class="absolute animate-spin top-0 left-0"
     >
       <g clip-path="url(#${uniqueId}_clip0_2235_25110)">
         <g filter="url(#${uniqueId}_filter0_i_2235_25110)">

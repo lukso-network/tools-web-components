@@ -1,9 +1,14 @@
-import { html, nothing, PropertyValues } from 'lit'
+import { html, nothing, type PropertyValues } from 'lit'
 import { customElement, property, state, query } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
+import {
+  checkAccessibility,
+  formatViolationsForTooltip,
+  type AccessibilityViolation,
+} from '@/shared/tools/accessibility-checker'
 import style from './style.scss?inline'
 import '@/components/lukso-textarea'
 import '@/components/lukso-markdown'
@@ -18,6 +23,8 @@ import '@/components/lukso-tooltip'
 import type { InputSize } from '@/shared/types'
 
 type TextAlignment = 'left' | 'center' | 'right'
+
+const DEFAULT_PREVIEW_BACKGROUND_COLOR = '#f9f9f9'
 
 @customElement('lukso-markdown-editor')
 export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
@@ -62,6 +69,13 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
   @property({ type: String })
   placeholder = ''
+
+  @property({
+    type: String,
+    attribute: 'preview-background-color',
+    reflect: true,
+  })
+  previewBackgroundColor = DEFAULT_PREVIEW_BACKGROUND_COLOR
 
   // State preservation for mode switching
   @state() private savedSelectionForPreview: {
@@ -115,6 +129,12 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   private undoTimeout: number | null = null
   private readonly MAX_UNDO_STACK_SIZE = 100
   private readonly UNDO_SAVE_DELAY = 500 // ms
+
+  // Accessibility checking state
+  @state() private accessibilityViolations: AccessibilityViolation[] = []
+  @state() private hasAccessibilityViolations = false
+  private accessibilityCheckTimeout: number | null = null
+  private readonly ACCESSIBILITY_CHECK_DELAY = 1000 // ms - debounce checking
 
   @query('lukso-textarea') private textareaEl?: HTMLElement & {
     shadowRoot: ShadowRoot
@@ -202,9 +222,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       header:
         'flex items-center justify-between gap-2 border border-neutral-90 rounded-12 px-3 py-2 bg-neutral-100',
       toolbar: 'flex flex-wrap items-center gap-1',
-      area: '',
+      area: 'relative',
       editor: '',
-      preview: 'p-3',
+      preview: 'p-3 border border-neutral-90 rounded-12 min-h-[158px]',
       colorMenu: 'relative',
       headingMenu: 'relative',
       listMenu: 'relative',
@@ -303,13 +323,94 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
   private dispatchChange(event?: Event) {
     this.updateComplete.then(() => {
-      const changeEvent = new CustomEvent('on-change', {
+      const changeEvent = new CustomEvent('on-markdown-change', {
         detail: { value: this.value, event },
         bubbles: false,
         composed: true,
       })
       this.dispatchEvent(changeEvent)
     })
+  }
+
+  /**
+   * Check accessibility violations on the live preview content
+   */
+  private async performAccessibilityCheck(): Promise<void> {
+    if (!this.value.trim()) {
+      this.accessibilityViolations = []
+      this.hasAccessibilityViolations = false
+      return
+    }
+
+    try {
+      // Only check accessibility in preview mode when content is actually rendered
+      if (this.isPreview) {
+        const markdownEl = this.shadowRoot?.querySelector('lukso-markdown')
+
+        if (markdownEl) {
+          // Wait a bit for the markdown to be fully rendered
+          await new Promise(resolve => setTimeout(resolve, 200))
+
+          // Get the rendered content element (the actual DOM we want to check)
+          const sanitizeEl =
+            markdownEl.shadowRoot?.querySelector('lukso-sanitize')
+          const proseDiv = sanitizeEl?.shadowRoot?.querySelector(
+            'div.prose'
+          ) as HTMLElement
+
+          if (proseDiv) {
+            // Run accessibility check directly on the live, rendered content
+            const result = await checkAccessibility(proseDiv)
+            this.accessibilityViolations = result.violations
+            this.hasAccessibilityViolations = result.hasViolations
+          } else {
+            // If we can't find the preview content, clear violations
+            this.accessibilityViolations = []
+            this.hasAccessibilityViolations = false
+          }
+        }
+      } else {
+        // In edit mode, clear any existing violations
+        this.accessibilityViolations = []
+        this.hasAccessibilityViolations = false
+      }
+    } catch (error) {
+      console.warn('Accessibility checking failed:', error)
+      this.accessibilityViolations = []
+      this.hasAccessibilityViolations = false
+    }
+
+    // Force a re-render to ensure the indicator updates
+    this.requestUpdate()
+  }
+
+  /**
+   * Schedule accessibility check with debouncing
+   */
+  private scheduleAccessibilityCheck(): void {
+    // Clear existing timeout
+    if (this.accessibilityCheckTimeout) {
+      clearTimeout(this.accessibilityCheckTimeout)
+    }
+
+    // Schedule check after delay (to avoid checking on every keystroke)
+    this.accessibilityCheckTimeout = window.setTimeout(() => {
+      this.performAccessibilityCheck()
+      this.accessibilityCheckTimeout = null
+    }, this.ACCESSIBILITY_CHECK_DELAY)
+  }
+
+  /**
+   * Unified helper that ensures both active format state and change events are properly
+   * emitted after any value mutation. This replaces the scattered updateActiveFormats()
+   * and dispatchChange() calls throughout the codebase.
+   *
+   * @param event - Optional event that triggered the change
+   */
+  private emitChangeAndRefresh(event?: Event) {
+    this.updateActiveFormats()
+    this.dispatchChange(event)
+    this.scheduleAccessibilityCheck()
   }
 
   /**
@@ -441,9 +542,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
       requestAnimationFrame(() => {
         textarea.setSelectionRange(cursorPosition, cursorPosition)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -630,9 +730,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
       requestAnimationFrame(() => {
         textarea.setSelectionRange(cursorPosition, cursorPosition)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -728,9 +827,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const cursorPosition = before.length + transformed.length
       requestAnimationFrame(() => {
         textarea.setSelectionRange(cursorPosition, cursorPosition)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -884,9 +982,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const selEnd = selStart + selected.length
         requestAnimationFrame(() => {
           textarea.setSelectionRange(selStart, selEnd)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return
       }
 
@@ -907,9 +1004,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const selEnd = selStart + selected.length
         requestAnimationFrame(() => {
           textarea.setSelectionRange(selStart, selEnd)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return
       }
 
@@ -924,9 +1020,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const selEnd = selStart + (selected ? selected.length : 0)
       requestAnimationFrame(() => {
         textarea.setSelectionRange(selStart, selEnd)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -940,6 +1035,14 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       this.enterPreview()
     }
     this.isPreview = !this.isPreview
+
+    // Trigger accessibility check when entering preview mode
+    if (this.isPreview) {
+      // Schedule check after render
+      requestAnimationFrame(() => {
+        this.scheduleAccessibilityCheck()
+      })
+    }
   }
 
   /**
@@ -1035,9 +1138,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
             const newCursor = leftBracket + textOnly.length
             requestAnimationFrame(() => {
               textarea.setSelectionRange(newCursor, newCursor)
-              this.updateActiveFormats()
+              this.emitChangeAndRefresh()
             })
-            this.dispatchChange()
             return
           }
         }
@@ -1063,9 +1165,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const newEnd = newStart + textOnly.length
         requestAnimationFrame(() => {
           textarea.setSelectionRange(newStart, newEnd)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return
       }
 
@@ -1099,9 +1200,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           const newCursor = leftBracket + textOnly.length
           requestAnimationFrame(() => {
             textarea.setSelectionRange(newCursor, newCursor)
-            this.updateActiveFormats()
+            this.emitChangeAndRefresh()
           })
-          this.dispatchChange()
           return
         }
       }
@@ -1120,9 +1220,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       requestAnimationFrame(() => {
         textarea.focus()
         textarea.setSelectionRange(cursorPosition, cursorPosition)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -1139,7 +1238,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     }
 
     this.value = newValue
-    this.updateActiveFormats()
+    this.emitChangeAndRefresh(event)
   }
 
   /**
@@ -1458,9 +1557,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
         requestAnimationFrame(() => {
           textarea.setSelectionRange(selStart, selEnd)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return
       }
 
@@ -1490,9 +1588,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           (existingColor === color ? innerText.length : innerText.length)
         requestAnimationFrame(() => {
           textarea.setSelectionRange(selStart, selEnd)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return
       }
 
@@ -1508,9 +1605,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       const selEnd = selStart + (selected ? selected.length : 4)
       requestAnimationFrame(() => {
         textarea.setSelectionRange(selStart, selEnd)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
     })
   }
 
@@ -1641,9 +1737,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
               Math.max(0, newStart),
               Math.max(0, newEnd)
             )
-            this.updateActiveFormats()
+            this.emitChangeAndRefresh()
           })
-          this.dispatchChange()
           return
         }
       }
@@ -1862,9 +1957,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const newCursor = before.length
         requestAnimationFrame(() => {
           textarea.setSelectionRange(newCursor, newCursor)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return true
       }
 
@@ -1882,8 +1976,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       textarea.setSelectionRange(newCursor, newCursor)
 
       // Update active formats and dispatch change synchronously
-      this.updateActiveFormats()
-      this.dispatchChange()
+      this.emitChangeAndRefresh()
       return true
     }
 
@@ -1906,9 +1999,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
         const newCursor = before.length
         requestAnimationFrame(() => {
           textarea.setSelectionRange(newCursor, newCursor)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-        this.dispatchChange()
         return true
       }
 
@@ -1957,8 +2049,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       textarea.setSelectionRange(newCursor, newCursor)
 
       // Update active formats and dispatch change synchronously
-      this.updateActiveFormats()
-      this.dispatchChange()
+      this.emitChangeAndRefresh()
       return true
     }
 
@@ -2081,10 +2172,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
         requestAnimationFrame(() => {
           textarea.setSelectionRange(newCursor, newCursor)
-          this.updateActiveFormats()
+          this.emitChangeAndRefresh()
         })
-
-        this.dispatchChange()
         return true
       } else {
         // Regular indentation for non-empty items
@@ -2152,8 +2241,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     textarea.setSelectionRange(newCursor, newCursor)
 
     // Update active formats and dispatch change synchronously
-    this.updateActiveFormats()
-    this.dispatchChange()
+    this.emitChangeAndRefresh()
     return true
   }
 
@@ -2266,10 +2354,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
     requestAnimationFrame(() => {
       textarea.setSelectionRange(newCursor, newCursor)
-      this.updateActiveFormats()
+      this.emitChangeAndRefresh()
     })
-
-    this.dispatchChange()
     return true
   }
 
@@ -2519,9 +2605,8 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       }
       requestAnimationFrame(() => {
         textarea.setSelectionRange(newCursor, newCursor)
-        this.updateActiveFormats()
+        this.emitChangeAndRefresh()
       })
-      this.dispatchChange()
       return true
     }
 
@@ -2569,11 +2654,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           previousState.selection.end
         )
       }
-      this.updateActiveFormats()
+      this.emitChangeAndRefresh()
       this.isUndoRedoAction = false
     })
-
-    this.dispatchChange()
   }
 
   /**
@@ -2616,11 +2699,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
           nextState.selection.end
         )
       }
-      this.updateActiveFormats()
+      this.emitChangeAndRefresh()
       this.isUndoRedoAction = false
     })
-
-    this.dispatchChange()
   }
 
   connectedCallback() {
@@ -2633,9 +2714,27 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     // Initialize undo state and keyboard listeners after first render
     requestAnimationFrame(() => {
       this.saveInitialUndoState()
-      this.updateActiveFormats()
+      this.updateActiveFormats() // Initial setup - no need to emit change event
       this.addKeyboardListeners()
+
+      // If component is initially in preview mode, schedule accessibility check
+      if (this.isPreview && this.value.trim()) {
+        this.scheduleAccessibilityCheck()
+      }
     })
+  }
+
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties)
+
+    // If preview background color changed and we're in preview mode, re-run accessibility check
+    if (
+      changedProperties.has('previewBackgroundColor') &&
+      this.isPreview &&
+      this.value.trim()
+    ) {
+      this.scheduleAccessibilityCheck()
+    }
   }
 
   disconnectedCallback() {
@@ -2644,6 +2743,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     // Clean up
     if (this.undoTimeout) {
       clearTimeout(this.undoTimeout)
+    }
+    if (this.accessibilityCheckTimeout) {
+      clearTimeout(this.accessibilityCheckTimeout)
     }
     this.removeKeyboardListeners()
     // Clean up preview mode state
@@ -2717,7 +2819,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
   private toolbarTemplate() {
     return html`
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1">
         <div class=${cn(this.styles().headingMenu())}>
           <!-- Heading -->
           <lukso-tooltip text="Heading options" placement="top">
@@ -3118,50 +3220,101 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     `
   }
 
+  private accessibilityIndicatorTemplate() {
+    // Only show indicator when there are actual violations
+    if (
+      !this.hasAccessibilityViolations ||
+      this.accessibilityViolations.length === 0 ||
+      !this.isPreview
+    ) {
+      return nothing
+    }
+
+    const tooltipText = formatViolationsForTooltip(this.accessibilityViolations)
+
+    return html`
+      <div
+        class="accessibility-indicator has-violations absolute top-2 right-2 z-10"
+        style="pointer-events: auto;"
+      >
+        <lukso-tooltip placement="left">
+          <div slot="text">
+            <div .innerHTML=${tooltipText}></div>
+          </div>
+          <div
+            class="flex cursor-help"
+            role="alert"
+            aria-label="Accessibility violations found"
+          >
+            <lukso-icon
+              name="warning-2"
+              size="small"
+              color="red-65"
+              pack="vuesax"
+              variant="linear"
+            ></lukso-icon>
+          </div>
+        </lukso-tooltip>
+      </div>
+    `
+  }
+
   render() {
     const { wrapper, header, toolbar, area, editor, preview } = this.styles({
       isFullWidth: this.isFullWidth,
     })
 
+    // ensure a default preview background color is applied
+    if (!this.previewBackgroundColor) {
+      this.previewBackgroundColor = DEFAULT_PREVIEW_BACKGROUND_COLOR
+    }
+
     return html`
       <div class=${wrapper()}>
         ${this.labelTemplate()} ${this.descriptionTemplate()}
 
-        <div class=${header()}>
-          <div class=${toolbar()}>${this.toolbarTemplate()}</div>
-          ${this.buttonTemplate(
-            'eye',
-            () => this.togglePreview(),
-            'Toggle preview',
-            this.isPreview
-          )}
-        </div>
+        <div class="flex flex-col gap-2">
+          <div class=${header()}>
+            <div class=${toolbar()}>${this.toolbarTemplate()}</div>
+            ${this.buttonTemplate(
+              'eye',
+              () => this.togglePreview(),
+              'Toggle preview',
+              this.isPreview
+            )}
+          </div>
 
-        <div class=${area()}>
-          ${!this.isPreview
-            ? html`<div class=${editor()}>
-                <lukso-textarea
-                  .value=${this.value}
-                  name=${this.name ? this.name : nothing}
-                  size=${this.size ? this.size : nothing}
-                  rows=${this.rows ? this.rows : nothing}
-                  placeholder=${this.placeholder ? this.placeholder : nothing}
-                  error=${this.error ? this.error : nothing}
-                  ?is-full-width=${true}
-                  ?is-disabled=${this.isDisabled}
-                  ?is-readonly=${this.isReadonly}
-                  ?is-non-resizable=${this.isNonResizable}
-                  @on-input=${this.handleTextareaInput}
-                  @on-key-up=${this.handleTextareaKeyUp}
-                  @on-input-click=${this.handleTextareaClick}
-                ></lukso-textarea>
-              </div>`
-            : html`<div class=${preview()}>
-                <lukso-markdown
-                  value=${this.value}
-                  prose-classes="prose prose-base prose-gray"
-                ></lukso-markdown>
-              </div>`}
+          <div class=${area()}>
+            ${!this.isPreview
+              ? html`<div class=${editor()}>
+                  <lukso-textarea
+                    .value=${this.value}
+                    name=${this.name ? this.name : nothing}
+                    size=${this.size ? this.size : nothing}
+                    rows=${this.rows ? this.rows : nothing}
+                    placeholder=${this.placeholder ? this.placeholder : nothing}
+                    error=${this.error ? this.error : nothing}
+                    ?is-full-width=${true}
+                    ?is-disabled=${this.isDisabled}
+                    ?is-readonly=${this.isReadonly}
+                    ?is-non-resizable=${this.isNonResizable}
+                    @on-input=${this.handleTextareaInput}
+                    @on-key-up=${this.handleTextareaKeyUp}
+                    @on-input-click=${this.handleTextareaClick}
+                  ></lukso-textarea>
+                  ${this.accessibilityIndicatorTemplate()}
+                </div>`
+              : html`<div
+                  class=${preview()}
+                  style="background-color: ${this.previewBackgroundColor};"
+                >
+                  <lukso-markdown
+                    value=${this.value}
+                    prose-classes="prose prose-base prose-gray"
+                  ></lukso-markdown>
+                  ${this.accessibilityIndicatorTemplate()}
+                </div>`}
+          </div>
         </div>
       </div>
     `

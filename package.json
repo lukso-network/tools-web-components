@@ -30,7 +30,8 @@
 		"test:unit:ci": "vitest run --coverage",
 		"test:storybook": "test-storybook",
 		"test:storybook:ci": "start-server-and-test storybook:serve http://127.0.0.1:6006 test:storybook",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"playwright:install": "playwright install --with-deps"
 	},
 	"lint-staged": {
 		"*.{ts,js,vue}": [
@@ -46,6 +47,7 @@
 	},
 	"dependencies": {
 		"@tailwindcss/typography": "^0.5.16",
+		"axe-core": "4.10.3",
 		"clsx": "^2.1.1",
 		"ethereum-blockies-base64": "^1.0.2",
 		"marked": "16.2.1",
@@ -61,6 +63,7 @@
 		"@babel/preset-react": "^7.27.1",
 		"@custom-elements-manifest/analyzer": "^0.10.4",
 		"@lit-labs/motion": "^1.0.8",
+		"@playwright/test": "^1.55.1",
 		"@storybook/addon-docs": "9.0.17",
 		"@storybook/addon-links": "9.0.17",
 		"@storybook/builder-vite": "9.0.17",
@@ -69,6 +72,7 @@
 		"@storybook/test-runner": "^0.23.0",
 		"@storybook/web-components-vite": "9.0.17",
 		"@testing-library/user-event": "^14.6.1",
+		"@types/axe-core": "2.0.2",
 		"@types/marked": "5.0.2",
 		"@types/node": "^20.12.7",
 		"@typescript-eslint/eslint-plugin": "^6.21.0",
@@ -88,6 +92,7 @@
 		"http-server": "^14.1.1",
 		"husky": "^9.1.7",
 		"jest-junit": "^16.0.0",
+		"jsdom": "27.0.0",
 		"lint-staged": "^16.1.0",
 		"list-exports": "^1.1.0",
 		"lit": "^3.3.0",

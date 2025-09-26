@@ -1,5 +1,5 @@
 import { html, nothing } from 'lit-html'
-import { expect, fn, userEvent } from '@storybook/test'
+import { expect, userEvent } from '@storybook/test'
 
 import { wait } from '../../../.storybook/test-helpers'
 
@@ -104,6 +104,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    previewBackgroundColor: {
+      name: 'preview-background-color',
+      control: { type: 'color' },
+      table: {
+        category: 'Styles',
+        defaultValue: { summary: '#ffffff' },
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -119,8 +127,11 @@ const meta: Meta = {
     'is-non-resizable': {
       name: 'isNonResizable',
     },
-    onChange: {
-      name: 'on-change',
+    'preview-background-color': {
+      name: 'previewBackgroundColor',
+    },
+    onMarkdownChange: {
+      name: 'on-markdown-change',
       description: 'Emitted on text editor value change.',
       table: {
         category: 'Events',
@@ -144,7 +155,7 @@ const meta: Meta = {
     error: '',
     placeholder: '',
     rows: 6,
-    onChange: fn(),
+    previewBackgroundColor: undefined,
   },
   parameters: {
     controls: {
@@ -181,6 +192,7 @@ const meta: Meta = {
         'handleTextareaClick',
         'handleKeyDown',
         'styles',
+        'previewBackgroundColor',
       ],
     },
   },
@@ -201,9 +213,10 @@ const Template = ({
   isPreview,
   isNonResizable,
   autofocus,
-  onChange,
+  onMarkdownChange,
   placeholder,
   rows,
+  previewBackgroundColor,
 }) =>
   html`<lukso-markdown-editor
     .value=${value}
@@ -214,13 +227,16 @@ const Template = ({
     size=${size ? size : nothing}
     placeholder=${placeholder ? placeholder : nothing}
     rows=${rows ? rows : nothing}
+    preview-background-color=${previewBackgroundColor
+      ? previewBackgroundColor
+      : nothing}
     ?is-full-width=${isFullWidth}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
     ?is-preview=${isPreview}
     ?is-non-resizable=${isNonResizable}
     ?autofocus=${autofocus}
-    @on-change=${onChange}
+    @on-markdown-change=${onMarkdownChange}
   ></lukso-markdown-editor>`
 
 /** Example of default text editor with sample content.  */
@@ -333,6 +349,12 @@ console.log(greeting)
 
 > This is a blockquote demonstrating
 > the markdown rendering capabilities.
+
+## Alignment
+
+<div style="text-align: center;">Center</div>
+
+<div style="text-align: right;">Right</div>
 `,
 }
 
@@ -410,6 +432,61 @@ Here's some <span style="color: var(--purple-51)">purple text</span> that you ca
 LUKSO is awesome and supports many great features.`,
 }
 
+/** Example of custom preview background color */
+export const CustomPreviewBackground = Template.bind({})
+CustomPreviewBackground.args = {
+  label: 'Custom Preview Background',
+  description: 'Select a background color for the preview area.',
+  previewBackgroundColor: '#f0f0f0',
+  isPreview: true,
+}
+
+/** Example of accessibility checker in preview mode */
+export const AccessibilityChecker = Template.bind({})
+AccessibilityChecker.args = {
+  label: 'Accessibility Checker Demo',
+  description:
+    'This story demonstrates the accessibility checker with content containing violations',
+  isPreview: true,
+  value: `# Welcome to Accessibility Testing
+
+This content has some accessibility issues that should trigger the checker:
+
+## Images without alt text
+![](https://example.com/image.jpg)
+
+<img src="https://example.com/another.jpg">
+
+## Table without headers
+| Data | Values |
+|------|--------|
+| Item | 100 |
+| Test | 200 |
+
+## Proper content (no violations)
+
+**Bold text** works fine, *italic text* too.
+
+[Links with text](https://lukso.network) are good.
+
+![Proper image](https://example.com/good.jpg)
+
+## Color contrast issues
+<span style="color: #cccccc;">Light gray text that might be hard to read</span>
+
+## Form elements without labels
+<input type="text" placeholder="Enter your name">
+
+<select>
+  <option value="1">Option 1</option>
+  <option value="2">Option 2</option>
+</select>
+
+Switch to preview mode to see the accessibility violations indicator!`,
+}
+
+/***************** */
+
 const getEditorElements = async (canvasElement: HTMLElement) => {
   // Wait for the editor element to be present
   const editor = canvasElement.querySelector('lukso-markdown-editor')
@@ -423,7 +500,7 @@ const getEditorElements = async (canvasElement: HTMLElement) => {
       if (editor.shadowRoot) {
         const textareaComponent =
           editor.shadowRoot.querySelector('lukso-textarea')
-        if (textareaComponent && textareaComponent.shadowRoot) {
+        if (textareaComponent?.shadowRoot) {
           const textarea =
             textareaComponent.shadowRoot.querySelector('textarea')
           if (textarea) {
@@ -499,10 +576,14 @@ const getEditorElements = async (canvasElement: HTMLElement) => {
       ?.querySelector('#alignmentDropdown')
       ?.querySelector(`[aria-label="Align ${alignment}"]`)
 
+  const accessibilityIndicator = (_editor: HTMLElement) =>
+    _editor?.shadowRoot?.querySelector('.accessibility-indicator')
+
   return {
     editor,
     textarea,
     preview,
+    accessibilityIndicator,
     boldButton,
     italicButton,
     linkButton,
@@ -546,6 +627,29 @@ const selectAtCharacter = async (
   textarea.setSelectionRange(place, place)
   textarea.focus()
   await wait(500)
+}
+
+const waitForAccessibilityCheck = async (editor: HTMLElement) => {
+  let attempts = 0
+  const maxAttempts = 10
+  while (attempts < maxAttempts) {
+    await wait(500)
+    const _accessibilityIndicator = editor?.shadowRoot?.querySelector(
+      '.accessibility-indicator'
+    )
+    if (_accessibilityIndicator) break
+    attempts++
+  }
+}
+
+const getAccessabilityTooltipText = (accessibilityIndicator: Element) => {
+  const tooltipElement = accessibilityIndicator?.querySelector('lukso-tooltip')
+  expect(tooltipElement).toBeTruthy()
+
+  const tooltipSlot = tooltipElement?.querySelector('[slot="text"]')
+  const tooltipText = tooltipSlot?.textContent
+
+  return tooltipText
 }
 
 /** Test story for preview functionality. */
@@ -598,6 +702,12 @@ console.log(greeting)
 
 > This is a blockquote demonstrating
 > the markdown rendering capabilities.
+
+## Alignment
+
+<div style="text-align: center;">Center</div>
+
+<div style="text-align: right;">Right</div>
 `,
     label: 'Test: Preview Functionality',
     description: 'This story tests the preview functionality.',
@@ -655,6 +765,12 @@ console.log(greeting)
 
 > This is a blockquote demonstrating
 > the markdown rendering capabilities.
+
+## Alignment
+
+<div style="text-align: center;">Center</div>
+
+<div style="text-align: right;">Right</div>
 `)
     await userEvent.click(previewButton)
     const { innerHtml } = getMarkdown(editor)
@@ -722,7 +838,11 @@ console.log(greeting)
 <blockquote>
 <p>This is a blockquote demonstrating
 the markdown rendering capabilities.</p>
-</blockquote>\n`)
+</blockquote>
+<h2>Alignment</h2>
+<div style="text-align: center;">Center</div>
+
+<div style="text-align: right;">Right</div>\n`)
   },
 }
 
@@ -1308,5 +1428,144 @@ export const TestAlignLinkText: StoryObj = {
     expect(textarea.value).toBe(
       '[<div style="text-align: center;">LUKSO</div>](https://lukso.network)'
     )
+  },
+}
+
+/** Test story for accessibility checker contrast issues */
+export const TestAccessibilityContrast: StoryObj = {
+  name: 'Test: Accessibility Contrast',
+  args: {
+    value: `# Accessibility Test
+
+## Color Contrast Issues
+<div style="background: white; padding: 10px;">
+  <p style="color: #ccc;">Light gray text on white (poor contrast)</p>
+  <p style="color: #ddd;">Very light gray text (poor contrast)</p>
+  <span style="color: yellow;">Yellow text on white background</span>
+</div>
+
+<div style="background: #f8f8f8; padding: 10px;">
+  <p style="color: white;">White text on very light gray</p>
+  <small style="color: #bbb;">Light text in small size</small>
+</div>`,
+    label: 'Test: Accessibility Contrast',
+    description: 'This story tests the accessibility contrast issues.',
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const { accessibilityIndicator, editor, previewButton } =
+      await getEditorElements(canvasElement)
+    await userEvent.click(previewButton)
+    const accessibilityIndicatorElement = accessibilityIndicator(editor)
+    expect(accessibilityIndicatorElement).toBeFalsy()
+    await waitForAccessibilityCheck(editor)
+    expect(accessibilityIndicator).toBeTruthy()
+    const tooltipText = getAccessabilityTooltipText(
+      accessibilityIndicator(editor)
+    )
+    expect(tooltipText).toContain('Accessibility Issues Found')
+    expect(tooltipText).toContain('5 elements affected')
+    expect(tooltipText).toContain(
+      'Elements must meet minimum color contrast ratio thresholds'
+    )
+  },
+}
+
+/** Test story for accessibility checker image alt issues */
+export const TestAccessibilityImageAlt: StoryObj = {
+  name: 'Test: Accessibility Image Alt',
+  args: {
+    value: `# Accessibility Test
+
+## Images Without Alt Text
+<img src="missing-alt.jpg">
+<img src="another-image.png">`,
+    label: 'Test: Accessibility Image Alt',
+    description: 'This story tests the accessibility image alt issues.',
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const { accessibilityIndicator, editor, previewButton } =
+      await getEditorElements(canvasElement)
+    await userEvent.click(previewButton)
+    const accessibilityIndicatorElement = accessibilityIndicator(editor)
+    expect(accessibilityIndicatorElement).toBeFalsy()
+    await waitForAccessibilityCheck(editor)
+    expect(accessibilityIndicator).toBeTruthy()
+    const tooltipText = getAccessabilityTooltipText(
+      accessibilityIndicator(editor)
+    )
+    expect(tooltipText).toContain('Accessibility Issues Found')
+    expect(tooltipText).toContain('2 elements affected')
+    expect(tooltipText).toContain('Images must have alternative text')
+  },
+}
+
+/** Test story for accessibility checker link issues */
+export const TestAccessibilityLinkIssues: StoryObj = {
+  name: 'Test: Accessibility Link Issues',
+  args: {
+    value: `# Accessibility Test
+
+## Links Without Text
+<a href="#"></a>
+<a href="https://example.com"><img src="icon.png"></a>`,
+    label: 'Test: Accessibility Link Issues',
+    description: 'This story tests the accessibility link issues.',
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const { accessibilityIndicator, editor, previewButton } =
+      await getEditorElements(canvasElement)
+    await userEvent.click(previewButton)
+    const accessibilityIndicatorElement = accessibilityIndicator(editor)
+    expect(accessibilityIndicatorElement).toBeFalsy()
+    await waitForAccessibilityCheck(editor)
+    expect(accessibilityIndicator).toBeTruthy()
+    const tooltipText = getAccessabilityTooltipText(
+      accessibilityIndicator(editor)
+    )
+    expect(tooltipText).toContain('Accessibility Issues Found')
+    expect(tooltipText).toContain('2 elements affected')
+    expect(tooltipText).toContain('Links must have discernible text')
+  },
+}
+
+/** Test story for accessibility checker header issues */
+export const TestAccessibilityHeaderIssues: StoryObj = {
+  name: 'Test: Accessibility Header Issues',
+  args: {
+    value: `# Accessibility Test
+
+## Missing Headings Structure
+<h1>Main Title</h1>
+<h3>Skipped H2 - goes straight to H3</h3>
+<h5>Skipped H4 - goes to H5</h5>`,
+    label: 'Test: Accessibility Header Issues',
+    description: 'This story tests the accessibility header issues.',
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const { accessibilityIndicator, editor, previewButton } =
+      await getEditorElements(canvasElement)
+    await userEvent.click(previewButton)
+    const accessibilityIndicatorElement = accessibilityIndicator(editor)
+    expect(accessibilityIndicatorElement).toBeFalsy()
+    await waitForAccessibilityCheck(editor)
+    expect(accessibilityIndicator).toBeTruthy()
+    const tooltipText = getAccessabilityTooltipText(
+      accessibilityIndicator(editor)
+    )
+    expect(tooltipText).toContain('Accessibility Issues Found')
+    expect(tooltipText).toContain('2 elements affected')
+    expect(tooltipText).toContain('Heading levels should only increase by one')
   },
 }

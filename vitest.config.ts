@@ -5,6 +5,7 @@ export default defineConfig({
     include: ['src/shared/tools/**/*.spec.ts'],
     exclude: ['**/node_modules/**'],
     globals: true,
+    environment: 'jsdom',
     coverage: {
       provider: 'v8',
       include: ['src/shared/tools/**'],

@@ -1,5 +1,5 @@
 :host {
-  @apply inline-block;
+  @apply inline-block relative;
 
   line-height: 0; // Prevent text line-height from affecting icon size
 

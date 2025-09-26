@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.158.0](https://github.com/lukso-network/tools-web-components/compare/v1.157.1...v1.158.0) (2025-09-26)
+
+
+### Features
+
+* Duplicate Apax font as Inter ([#671](https://github.com/lukso-network/tools-web-components/issues/671)) ([604c282](https://github.com/lukso-network/tools-web-components/commit/604c282f5f2e53c0297a03ee597d0a6e50faad3b))
+* markdown improvements ([#669](https://github.com/lukso-network/tools-web-components/issues/669)) ([5cc530b](https://github.com/lukso-network/tools-web-components/commit/5cc530b72a50eb3fc0377344be4b1622acac0cc3))
+
+
+### Bug Fixes
+
+* Loader icon is incorrect after latest component update ([#670](https://github.com/lukso-network/tools-web-components/issues/670)) ([a2bc91c](https://github.com/lukso-network/tools-web-components/commit/a2bc91c348295f1ec4c1de38d8f2bac756e999ac))
+
 ## [1.157.1](https://github.com/lukso-network/tools-web-components/compare/v1.157.0...v1.157.1) (2025-09-24)
 
 

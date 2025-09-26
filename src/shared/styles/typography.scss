@@ -10,6 +10,42 @@
 @layer base {
   // Headers - Inter
 
+  .heading-inter-48-regular {
+    @apply text-48 not-italic font-400 leading-58 font-inter;
+  }
+
+  .heading-inter-48-bold {
+    @apply text-48 not-italic font-500 leading-58 font-inter;
+  }
+
+  .heading-inter-44-regular {
+    @apply text-44 not-italic font-400 leading-40 font-inter;
+  }
+
+  .heading-inter-44-medium {
+    @apply text-44 not-italic font-500 leading-40 font-inter;
+  }
+
+  .heading-inter-40-regular {
+    @apply text-40 not-italic font-400 leading-48 font-inter;
+  }
+
+  .heading-inter-40-bold {
+    @apply text-40 not-italic font-500 leading-48 font-inter;
+  }
+
+  .heading-inter-32-regular {
+    @apply text-32 not-italic font-400 leading-38 font-inter;
+  }
+
+  .heading-inter-32-medium {
+    @apply text-32 not-italic font-500 leading-38 font-inter;
+  }
+
+  .heading-inter-24-medium {
+    @apply text-24 not-italic font-500 leading-28 font-inter;
+  }
+
   .heading-inter-26-semi-bold {
     @apply text-26 not-italic font-600 leading-31 font-inter;
   }
@@ -68,7 +104,25 @@
     @apply text-24 not-italic font-500 leading-28 font-apax;
   }
 
-  // Navbar
+  // Navbar - Inter
+
+  .nav-inter-14-medium-uppercase {
+    @apply text-14 not-italic font-500 leading-17 font-inter uppercase tracking-[.08em];
+  }
+
+  .nav-inter-12-medium-uppercase {
+    @apply text-12 not-italic font-500 leading-14 font-inter uppercase tracking-[.08em];
+  }
+
+  .nav-inter-10-regular {
+    @apply text-10 not-italic font-400 leading-12 font-inter;
+  }
+
+  .nav-inter-8-medium-uppercase {
+    @apply text-8 not-italic font-500 leading-10 font-inter uppercase tracking-[.08em];
+  }
+
+  // Navbar - Apax
 
   .nav-apax-14-medium-uppercase {
     @apply text-14 not-italic font-500 leading-17 font-apax uppercase tracking-[.08em];

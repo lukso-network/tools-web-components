@@ -38,6 +38,15 @@ export default meta
 type Story = StoryObj
 
 const headingClasses = [
+  'heading-inter-48-regular',
+  'heading-inter-48-bold',
+  'heading-inter-44-regular',
+  'heading-inter-44-medium',
+  'heading-inter-40-regular',
+  'heading-inter-40-bold',
+  'heading-inter-32-regular',
+  'heading-inter-32-medium',
+  'heading-inter-24-medium',
   'heading-inter-26-semi-bold',
   'heading-inter-21-semi-bold',
   'heading-inter-17-semi-bold',
@@ -55,6 +64,10 @@ const headingClasses = [
 ]
 
 const navClasses = [
+  'nav-inter-14-medium-uppercase',
+  'nav-inter-12-medium-uppercase',
+  'nav-inter-10-regular',
+  'nav-inter-8-medium-uppercase',
   'nav-apax-14-medium-uppercase',
   'nav-apax-12-medium-uppercase',
   'nav-apax-10-regular',

@@ -5,9 +5,9 @@ import type { IconOptions } from '@/components/lukso-icon/index.js'
 
 export const tokenCreate = (options: IconOptions) => {
   return html` <svg
-    width="25"
+    width="24"
     height="24"
-    viewBox="0 0 25 24"
+    viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style=${styleMap({

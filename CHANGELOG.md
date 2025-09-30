@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.160.1](https://github.com/lukso-network/tools-web-components/compare/v1.160.0...v1.160.1) (2025-09-30)
+
+
+### Bug Fixes
+
+* Align version ([#677](https://github.com/lukso-network/tools-web-components/issues/677)) ([0c64300](https://github.com/lukso-network/tools-web-components/commit/0c643001b63ecf8c42abb7f27407348927fbbcb8))
+
 ## [1.160.0](https://github.com/lukso-network/tools-web-components/compare/v1.159.0...v1.160.0) (2025-09-30)
 
 

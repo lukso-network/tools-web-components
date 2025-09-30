@@ -333,10 +333,52 @@ jobs:
           name: build-assets
           path: package
 
-      - name: 📢 Publish NPM
-        run: |
-          echo "npmAuthToken: $NODE_AUTH_TOKEN" >> ./.yarnrc.yml
-          (cd package && yarn npm publish)
-          git checkout -f ./.yarnrc.yml
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: 📢 Publish NPM with Retry
+      run: |
+        echo "npmAuthToken: $NODE_AUTH_TOKEN" >> ./.yarnrc.yml
+
+        # Get version from package.json
+        VERSION=$(node -pe "require('./package/package.json').version")
+        echo "Publishing version: $VERSION"
+
+        # Check if version already exists (skip if already published)
+        if npm view @lukso/web-components@$VERSION version 2>/dev/null; then
+          echo "Version $VERSION already exists on npm, skipping publish"
+          exit 0
+        fi
+
+        # Retry npm publish up to 3 times due to intermittent 404 errors
+        for i in {1..3}; do
+          echo "Publish attempt $i..."
+          if (cd package && yarn npm publish); then
+            echo "Publish succeeded on attempt $i"
+
+            # Verify publish succeeded
+            echo "Verifying publish..."
+            sleep 10  # Wait for npm propagation
+            if npm view @lukso/web-components@$VERSION version 2>/dev/null; then
+              echo "✅ Version $VERSION successfully published and verified"
+              break
+            else
+              echo "⚠️ Publish command succeeded but version not found on registry yet, waiting..."
+              sleep 20
+              if npm view @lukso/web-components@$VERSION version 2>/dev/null; then
+                echo "✅ Version $VERSION verified after delay"
+                break
+              fi
+            fi
+          fi
+
+          if [ $i -lt 3 ]; then
+            echo "Attempt $i failed, retrying in 30 seconds..."
+            sleep 30
+          else
+            echo "❌ All 3 publish attempts failed"
+            git checkout -f ./.yarnrc.yml
+            exit 1
+          fi
+        done
+
+        git checkout -f ./.yarnrc.yml
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

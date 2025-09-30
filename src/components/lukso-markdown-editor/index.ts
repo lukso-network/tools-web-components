@@ -25,6 +25,7 @@ import type { InputSize } from '@/shared/types'
 type TextAlignment = 'left' | 'center' | 'right'
 
 const DEFAULT_PREVIEW_BACKGROUND_COLOR = '#f9f9f9'
+const DEFAULT_PREVIEW_TEXT_COLOR = '#374151' // prose gray
 
 @customElement('lukso-markdown-editor')
 export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
@@ -77,6 +78,9 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   })
   previewBackgroundColor = DEFAULT_PREVIEW_BACKGROUND_COLOR
 
+  @property({ type: String, attribute: 'preview-text-color', reflect: true })
+  previewTextColor = DEFAULT_PREVIEW_TEXT_COLOR
+
   // State preservation for mode switching
   @state() private savedSelectionForPreview: {
     start: number
@@ -97,8 +101,6 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @state() private currentSelection = { start: 0, end: 0 }
   @state() private savedSelection: { start: number; end: number } | null = null
 
-  private defaultColor = '#374151' // prose gray
-
   // formatting
   @state() private activeFormats = {
     bold: false,
@@ -109,7 +111,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     h3: false,
     h4: false,
     color: false,
-    activeColor: this.defaultColor,
+    activeColor: DEFAULT_PREVIEW_TEXT_COLOR,
     unorderedList: false,
     orderedList: false,
     alignment: 'left',
@@ -318,7 +320,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     '#BDBDBD', // medium gray
     '#757575', // dark gray
     '#000000', // black
-    this.defaultColor,
+    DEFAULT_PREVIEW_TEXT_COLOR,
   ]
 
   private dispatchChange(event?: Event) {
@@ -1307,7 +1309,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       selectedText.match(/^<span style="color: ([^"]+)">(.*)<\/span>$/s)
     )
 
-    let activeColor = this.defaultColor
+    let activeColor = DEFAULT_PREVIEW_TEXT_COLOR
     if (hasColorWrap) {
       // Try to extract the active color
       const beforeColorMatch = beforeSelection.match(
@@ -2727,9 +2729,10 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   updated(changedProperties: PropertyValues) {
     super.updated(changedProperties)
 
-    // If preview background color changed and we're in preview mode, re-run accessibility check
+    // If preview background or text color changed and we're in preview mode, re-run accessibility check
     if (
-      changedProperties.has('previewBackgroundColor') &&
+      (changedProperties.has('previewBackgroundColor') ||
+        changedProperties.has('previewTextColor')) &&
       this.isPreview &&
       this.value.trim()
     ) {
@@ -3269,6 +3272,11 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       this.previewBackgroundColor = DEFAULT_PREVIEW_BACKGROUND_COLOR
     }
 
+    // ensure a default preview text color is applied
+    if (!this.previewTextColor) {
+      this.previewTextColor = DEFAULT_PREVIEW_TEXT_COLOR
+    }
+
     return html`
       <div class=${wrapper()}>
         ${this.labelTemplate()} ${this.descriptionTemplate()}
@@ -3310,7 +3318,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                 >
                   <lukso-markdown
                     value=${this.value}
-                    prose-classes="prose prose-base prose-gray"
+                    custom-style=${`color: ${this.previewTextColor};`}
                   ></lukso-markdown>
                   ${this.accessibilityIndicatorTemplate()}
                 </div>`}

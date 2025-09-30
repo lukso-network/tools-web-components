@@ -112,6 +112,14 @@ const meta: Meta = {
         defaultValue: { summary: '#ffffff' },
       },
     },
+    previewTextColor: {
+      name: 'preview-text-color',
+      control: { type: 'color' },
+      table: {
+        category: 'Styles',
+        defaultValue: { summary: '#374151' },
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -129,6 +137,9 @@ const meta: Meta = {
     },
     'preview-background-color': {
       name: 'previewBackgroundColor',
+    },
+    'preview-text-color': {
+      name: 'previewTextColor',
     },
     onMarkdownChange: {
       name: 'on-markdown-change',
@@ -193,6 +204,7 @@ const meta: Meta = {
         'handleKeyDown',
         'styles',
         'previewBackgroundColor',
+        'previewTextColor',
       ],
     },
   },
@@ -217,6 +229,7 @@ const Template = ({
   placeholder,
   rows,
   previewBackgroundColor,
+  previewTextColor,
 }) =>
   html`<lukso-markdown-editor
     .value=${value}
@@ -230,6 +243,7 @@ const Template = ({
     preview-background-color=${previewBackgroundColor
       ? previewBackgroundColor
       : nothing}
+    preview-text-color=${previewTextColor ? previewTextColor : nothing}
     ?is-full-width=${isFullWidth}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
@@ -432,12 +446,13 @@ Here's some <span style="color: var(--purple-51)">purple text</span> that you ca
 LUKSO is awesome and supports many great features.`,
 }
 
-/** Example of custom preview background color */
-export const CustomPreviewBackground = Template.bind({})
-CustomPreviewBackground.args = {
+/** Example of custom preview background and text color */
+export const CustomPreviewBackgroundAndText = Template.bind({})
+CustomPreviewBackgroundAndText.args = {
   label: 'Custom Preview Background',
   description: 'Select a background color for the preview area.',
-  previewBackgroundColor: '#f0f0f0',
+  previewBackgroundColor: '#000000',
+  previewTextColor: '#7cbff2',
   isPreview: true,
 }
 

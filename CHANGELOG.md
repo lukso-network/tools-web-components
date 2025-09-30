@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.160.0](https://github.com/lukso-network/tools-web-components/compare/v1.159.0...v1.160.0) (2025-09-30)
+
+
+### Features
+
+* Add preview text color in lukso-maarkdown-editor ([#675](https://github.com/lukso-network/tools-web-components/issues/675)) ([c051314](https://github.com/lukso-network/tools-web-components/commit/c051314bb7f48653618157ebf883d18c72f1e32d))
+
 ## [1.159.0](https://github.com/lukso-network/tools-web-components/compare/v1.158.0...v1.159.0) (2025-09-30)
 
 

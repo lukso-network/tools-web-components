@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.159.0](https://github.com/lukso-network/tools-web-components/compare/v1.158.0...v1.159.0) (2025-09-30)
+
+
+### Features
+
+* change token-create icon ([52a4587](https://github.com/lukso-network/tools-web-components/commit/52a4587bfef9f7a83f447598b0a5fc8cb0af8bbc))
+* change token-create icon ([#673](https://github.com/lukso-network/tools-web-components/issues/673)) ([e76cf5d](https://github.com/lukso-network/tools-web-components/commit/e76cf5d7eb571308d4b062aaa7245de4c2007c68))
+
+
+### Bug Fixes
+
+* review ([4ba59e9](https://github.com/lukso-network/tools-web-components/commit/4ba59e938aef2c82c60fca2eb846f7ed7ab7dd4f))
+
 ## [1.158.0](https://github.com/lukso-network/tools-web-components/compare/v1.157.1...v1.158.0) (2025-09-26)
 
 

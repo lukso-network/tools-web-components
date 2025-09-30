@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.160.2](https://github.com/lukso-network/tools-web-components/compare/v1.160.1...v1.160.2) (2025-09-30)
+
+
+### Bug Fixes
+
+* add npm publish retry logic and reset release-please manifest ([f7260ef](https://github.com/lukso-network/tools-web-components/commit/f7260ef91863eb4984a3b92690e71bafc864631a))
+* release please versioning ([#679](https://github.com/lukso-network/tools-web-components/issues/679)) ([78a25b6](https://github.com/lukso-network/tools-web-components/commit/78a25b650fcc61b27b2b7b7e74949f3dc8c5fa32))
+
 ## [1.160.1](https://github.com/lukso-network/tools-web-components/compare/v1.160.0...v1.160.1) (2025-09-30)
 
 

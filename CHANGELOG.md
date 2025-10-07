@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.160.3](https://github.com/lukso-network/tools-web-components/compare/v1.160.2...v1.160.3) (2025-10-07)
+
+
+### Bug Fixes
+
+* Icon positioning is incorrect ([#681](https://github.com/lukso-network/tools-web-components/issues/681)) ([7162463](https://github.com/lukso-network/tools-web-components/commit/716246394079dd82873622ca91756518aa44eddc))
+
 ## [1.160.2](https://github.com/lukso-network/tools-web-components/compare/v1.160.1...v1.160.2) (2025-09-30)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.161.0](https://github.com/lukso-network/tools-web-components/compare/v1.160.4...v1.161.0) (2025-10-20)
+
+
+### Features
+
+* Add new icons ([#685](https://github.com/lukso-network/tools-web-components/issues/685)) ([5fa1355](https://github.com/lukso-network/tools-web-components/commit/5fa13556b8c70983d9f59543c5f3e794dd624cd3))
+
 ## [1.160.4](https://github.com/lukso-network/tools-web-components/compare/v1.160.3...v1.160.4) (2025-10-07)
 
 

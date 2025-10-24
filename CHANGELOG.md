@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.161.1](https://github.com/lukso-network/tools-web-components/compare/v1.161.0...v1.161.1) (2025-10-24)
+
+
+### Bug Fixes
+
+* Text alignment and color selection issues in markdown editor ([#687](https://github.com/lukso-network/tools-web-components/issues/687)) ([c102128](https://github.com/lukso-network/tools-web-components/commit/c102128f1214b20bc100916cb150118349314e51))
+
 ## [1.161.0](https://github.com/lukso-network/tools-web-components/compare/v1.160.4...v1.161.0) (2025-10-20)
 
 

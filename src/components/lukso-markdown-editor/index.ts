@@ -403,6 +403,29 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   }
 
   /**
+   * Clean up empty color spans from the value.
+   * This removes spans like <span style="color: #xxx"></span> with no content.
+   */
+  private cleanupEmptyColorSpans() {
+    // Match color spans without content (no semicolon in our format)
+    const emptyColorSpanRegex = /<span style="color: [^"]+"><\/span>/g
+    const cleanedValue = this.value.replace(emptyColorSpanRegex, '')
+
+    if (cleanedValue !== this.value) {
+      this.value = cleanedValue
+      const textarea = this.textareaEl?.shadowRoot?.querySelector('textarea')
+      if (textarea) {
+        const currentPos = textarea.selectionStart ?? 0
+        textarea.value = cleanedValue
+
+        // Adjust cursor position if needed
+        const newPos = Math.min(currentPos, cleanedValue.length)
+        textarea.setSelectionRange(newPos, newPos)
+      }
+    }
+  }
+
+  /**
    * Unified helper that ensures both active format state and change events are properly
    * emitted after any value mutation. This replaces the scattered updateActiveFormats()
    * and dispatchChange() calls throughout the codebase.
@@ -410,6 +433,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
    * @param event - Optional event that triggered the change
    */
   private emitChangeAndRefresh(event?: Event) {
+    this.cleanupEmptyColorSpans()
     this.updateActiveFormats()
     this.dispatchChange(event)
     this.scheduleAccessibilityCheck()
@@ -825,10 +849,38 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       // Also update the textarea element's value directly to ensure sync
       textarea.value = before + transformed + after
 
-      // Position cursor at the end of the content
-      const cursorPosition = before.length + transformed.length
+      // Select the text content (similar to color formatting)
+      // Calculate the position of the actual content inside the alignment div
+      let selStart: number
+      let selEnd: number
+
+      if (
+        alignment === 'left' ||
+        (existingMatch && existingMatch[1] === alignment) ||
+        this.getNestedAlignment(selected) === alignment
+      ) {
+        // When removing alignment or it's left-aligned, select the unwrapped content
+        selStart = before.length
+        selEnd = before.length + transformed.length
+      } else {
+        // When applying center/right alignment, select the inner content
+        const openTagMatch = transformed.match(
+          /<div style="text-align: (center|right);">([^<]*)<\/div>/
+        )
+        if (openTagMatch) {
+          const innerContent = openTagMatch[2]
+          const tagStart = transformed.indexOf('>') + 1
+          selStart = before.length + tagStart
+          selEnd = selStart + innerContent.length
+        } else {
+          // Fallback for nested case - select the whole transformed content
+          selStart = before.length
+          selEnd = before.length + transformed.length
+        }
+      }
+
       requestAnimationFrame(() => {
-        textarea.setSelectionRange(cursorPosition, cursorPosition)
+        textarea.setSelectionRange(selStart, selEnd)
         this.emitChangeAndRefresh()
       })
     })
@@ -1604,7 +1656,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       textarea.value = before + wrapped + after
 
       const selStart = before.length + newColorTagOpen.length
-      const selEnd = selStart + (selected ? selected.length : 4)
+      const selEnd = selStart + (selected ? selected.length : 0)
       requestAnimationFrame(() => {
         textarea.setSelectionRange(selStart, selEnd)
         this.emitChangeAndRefresh()

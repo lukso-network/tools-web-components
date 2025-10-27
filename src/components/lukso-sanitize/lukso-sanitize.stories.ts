@@ -26,11 +26,21 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    stripHtmlTags: {
+      name: 'strip-html-tags',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'html-content': {
       name: 'htmlContent',
     },
     'is-pre': {
       name: 'isPre',
+    },
+    'strip-html-tags': {
+      name: 'stripHtmlTags',
     },
   },
   args: {
@@ -39,17 +49,25 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: ['sanitize', 'htmlContent', 'options', 'isPre'],
+      exclude: [
+        'sanitize',
+        'htmlContent',
+        'defaultOptions',
+        'isPre',
+        'stripHtmlTags',
+        'noHtmlTagsOptions',
+      ],
     },
   },
 }
 
 export default meta
 
-const Template = ({ htmlContent, isPre }) =>
+const Template = ({ htmlContent, isPre, stripHtmlTags }) =>
   html`<lukso-sanitize
     html-content=${htmlContent}
     ?is-pre=${isPre}
+    ?strip-html-tags=${stripHtmlTags}
   ></lukso-sanitize>`
 
 /** This is example if text containing HTML tags. */
@@ -59,11 +77,18 @@ export const Sanitize = Template.bind({})
 export const PreText = Template.bind({})
 PreText.args = {
   isPre: true,
-  htmlContent: `
-This is sample
+  htmlContent: `This is sample
 text that contains
 white characters
 `,
+}
+
+/** You can strip HTML tags using `strip-html-tags` property. */
+export const StripHtmlTags = Template.bind({})
+StripHtmlTags.args = {
+  stripHtmlTags: true,
+  htmlContent:
+    '<div>This is <b>bold</b> and this is a <a href="/">link</a>.</div>',
 }
 
 /*** TESTS ***/
@@ -79,6 +104,24 @@ const getElement = async (canvasElement: HTMLElement) => {
     .replace(/<!--[\s\S]*?-->/g, '') // remove comments
 
   return { element, innerHtml }
+}
+
+/** Test story for allowing HTML content. */
+export const TestAllowHtmlContent: StoryObj = {
+  name: 'Test: Allow HTML content',
+  args: {
+    htmlContent:
+      '<div>This is <b>bold</b> and this is a <a href="/">link</a>.</div>',
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const { innerHtml } = await getElement(canvasElement)
+    expect(innerHtml).toBe(
+      '<div>This is <b>bold</b> and this is a <a href="/">link</a>.</div>'
+    )
+  },
 }
 
 /** Test story for sanitize XSS content. */
@@ -142,5 +185,47 @@ export const TestAllowTargetInATags: StoryObj = {
     expect(innerHtml).toBe(
       '<a href="/" target="_blank" rel="noopener noreferrer">Link</a>'
     )
+  },
+}
+
+/** Test story for allowing pre text. */
+export const TestAllowPreText: StoryObj = {
+  name: 'Test: Allow pre text',
+  args: {
+    isPre: true,
+    htmlContent: `This is sample
+text that contains
+white characters
+`,
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const { innerHtml } = await getElement(canvasElement)
+    expect(innerHtml).toBe(
+      `
+          <div class="whitespace-pre-wrap">This is sample
+text that contains
+white characters
+</div>`
+    )
+  },
+}
+
+/** Test story for stripping all HTML tags. */
+export const TestStripAllHtmlTags: StoryObj = {
+  name: 'Test: Strip all HTML tags',
+  args: {
+    htmlContent:
+      '<div>This is <b>bold</b> and this is a <a href="/">link</a>.</div>',
+    stripHtmlTags: true,
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const { innerHtml } = await getElement(canvasElement)
+    expect(innerHtml).toBe('This is bold and this is a link.')
   },
 }

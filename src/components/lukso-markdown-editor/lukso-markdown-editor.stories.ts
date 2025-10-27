@@ -500,7 +500,7 @@ This content has some accessibility issues that should trigger the checker:
 Switch to preview mode to see the accessibility violations indicator!`,
 }
 
-/***************** */
+/*** TESTS ***/
 
 const getEditorElements = async (canvasElement: HTMLElement) => {
   // Wait for the editor element to be present

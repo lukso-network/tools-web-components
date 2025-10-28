@@ -101,8 +101,8 @@ export class LuksoMarkdown extends TailwindStyledElement(style) {
 
     return html`
       <lukso-sanitize
-        html-content="<div class='flex ${this.proseClasses}' style='${this
-          .customStyle}'>${htmlContent}</div>"
+        html-content="<div class='flex flex-col ${this
+          .proseClasses}' style='${this.customStyle}'>${htmlContent}</div>"
         ?is-pre="${this.isPre}"
         class="w-full"
       ></lukso-sanitize>

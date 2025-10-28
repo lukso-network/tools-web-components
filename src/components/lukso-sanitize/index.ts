@@ -5,6 +5,22 @@ import DOMPurify from 'dompurify'
 
 import { TailwindElement } from '@/shared/tailwind-element'
 
+/**
+ * Default DOMPurify options for lukso-sanitize component.
+ */
+export const DEFAULT_OPTIONS = {
+  ADD_ATTR: ['target'], // allow target attribute on anchor tags
+  CUSTOM_ELEMENT_HANDLING: {
+    tagNameCheck: /^lukso-/,
+    attributeNameCheck: /.*/,
+  },
+}
+
+/**
+ * Options to strip all HTML tags.
+ */
+export const NO_HTML_TAGS_OPTIONS = { ALLOWED_TAGS: [] }
+
 @customElement('lukso-sanitize')
 export class LuksoSanitize extends TailwindElement {
   @property({ type: String, attribute: 'html-content' })
@@ -16,22 +32,12 @@ export class LuksoSanitize extends TailwindElement {
   @property({ type: Boolean, attribute: 'strip-html-tags' })
   stripHtmlTags = false
 
-  private defaultOptions = {
-    ADD_ATTR: ['target'], // allow target attribute on anchor tags
-    CUSTOM_ELEMENT_HANDLING: {
-      tagNameCheck: /^lukso-/,
-      attributeNameCheck: /.*/,
-    },
-  }
-
-  private noHtmlTagsOptions = { ALLOWED_TAGS: [] }
-
   sanitize() {
     if (this.stripHtmlTags) {
-      return DOMPurify.sanitize(this.htmlContent, this.noHtmlTagsOptions)
+      return DOMPurify.sanitize(this.htmlContent, NO_HTML_TAGS_OPTIONS)
     }
 
-    return DOMPurify.sanitize(this.htmlContent, this.defaultOptions)
+    return DOMPurify.sanitize(this.htmlContent, DEFAULT_OPTIONS)
   }
 
   // in order to show HTML we  need to use unsafeHTML directive.

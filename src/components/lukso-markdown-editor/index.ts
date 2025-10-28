@@ -26,6 +26,7 @@ type TextAlignment = 'left' | 'center' | 'right'
 
 const DEFAULT_PREVIEW_BACKGROUND_COLOR = '#f9f9f9'
 const DEFAULT_PREVIEW_TEXT_COLOR = '#374151' // prose gray
+const ACCESSIBILITY_CHECK_DELAY = 1000 // ms - debounce checking
 
 @customElement('lukso-markdown-editor')
 export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
@@ -80,6 +81,24 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
   @property({ type: String, attribute: 'preview-text-color', reflect: true })
   previewTextColor = DEFAULT_PREVIEW_TEXT_COLOR
+
+  @property({ type: Boolean, attribute: 'strip-html-tags' })
+  stripHtmlTags = false
+
+  @property({ type: String })
+  tools = undefined
+
+  // State for tools
+  @state() private toolsState: string[] = []
+  private defaultTools: string[] = [
+    'heading',
+    'bold',
+    'italic',
+    'list',
+    'link',
+    'alignment',
+    'color',
+  ]
 
   // State preservation for mode switching
   @state() private savedSelectionForPreview: {
@@ -136,7 +155,6 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @state() private accessibilityViolations: AccessibilityViolation[] = []
   @state() private hasAccessibilityViolations = false
   private accessibilityCheckTimeout: number | null = null
-  private readonly ACCESSIBILITY_CHECK_DELAY = 1000 // ms - debounce checking
 
   @query('lukso-textarea') private textareaEl?: HTMLElement & {
     shadowRoot: ShadowRoot
@@ -399,7 +417,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     this.accessibilityCheckTimeout = window.setTimeout(() => {
       this.performAccessibilityCheck()
       this.accessibilityCheckTimeout = null
-    }, this.ACCESSIBILITY_CHECK_DELAY)
+    }, ACCESSIBILITY_CHECK_DELAY)
   }
 
   /**
@@ -2875,402 +2893,432 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   private toolbarTemplate() {
     return html`
       <div class="flex items-center gap-1">
-        <div class=${cn(this.styles().headingMenu())}>
-          <!-- Heading -->
-          <lukso-tooltip text="Heading options" placement="top">
-            <lukso-button
-              id=${this.headingTriggerId}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                // Close other dropdowns if open
-                this.isColorDropdownOpen = false
-                this.isListDropdownOpen = false
-                this.isAlignmentDropdownOpen = false
-                this.isHeadingDropdownOpen = !this.isHeadingDropdownOpen
-              }}
-              aria-expanded=${this.isHeadingDropdownOpen ? 'true' : 'false'}
-              aria-label="Heading options"
-              variant="secondary"
-              size="small"
-              custom-class=${this.toolbarButton({
-                active: this.getActiveHeadingLevel() > 0,
-              })}
-              is-icon
-            >
-              <lukso-icon
-                name="smallcaps"
-                size="small"
-                pack="vuesax"
-                variant="linear"
-              ></lukso-icon>
-            </lukso-button>
-          </lukso-tooltip>
-          <lukso-dropdown
-            id="headingDropdown"
-            trigger-id=""
-            size="medium"
-            ?is-open=${this.isHeadingDropdownOpen}
-          >
-            <lukso-dropdown-option
-              ?is-selected=${this.getActiveHeadingLevel() === 0}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyHeading(0)
-                this.isHeadingDropdownOpen = false
-              }}
-              size="medium"
-            >
-              Normal text
-            </lukso-dropdown-option>
-            <lukso-dropdown-option
-              ?is-selected=${this.getActiveHeadingLevel() === 1}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyHeading(1)
-                this.isHeadingDropdownOpen = false
-              }}
-              size="medium"
-            >
-              Heading 1
-            </lukso-dropdown-option>
-            <lukso-dropdown-option
-              ?is-selected=${this.getActiveHeadingLevel() === 2}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyHeading(2)
-                this.isHeadingDropdownOpen = false
-              }}
-              size="medium"
-            >
-              Heading 2
-            </lukso-dropdown-option>
-            <lukso-dropdown-option
-              ?is-selected=${this.getActiveHeadingLevel() === 3}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyHeading(3)
-                this.isHeadingDropdownOpen = false
-              }}
-              size="medium"
-            >
-              Heading 3
-            </lukso-dropdown-option>
-            <lukso-dropdown-option
-              ?is-selected=${this.getActiveHeadingLevel() === 4}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyHeading(4)
-                this.isHeadingDropdownOpen = false
-              }}
-              size="medium"
-            >
-              Heading 4
-            </lukso-dropdown-option>
-          </lukso-dropdown>
-        </div>
+        <!-- Heading -->
+        ${this.toolsState.includes('heading')
+          ? html`<div class=${cn(this.styles().headingMenu())}>
+              <lukso-tooltip text="Heading options" placement="top">
+                <lukso-button
+                  id=${this.headingTriggerId}
+                  @click=${(e: Event) => {
+                    e.stopPropagation()
+                    // Close other dropdowns if open
+                    this.isColorDropdownOpen = false
+                    this.isListDropdownOpen = false
+                    this.isAlignmentDropdownOpen = false
+                    this.isHeadingDropdownOpen = !this.isHeadingDropdownOpen
+                  }}
+                  aria-expanded=${this.isHeadingDropdownOpen ? 'true' : 'false'}
+                  aria-label="Heading options"
+                  variant="secondary"
+                  size="small"
+                  custom-class=${this.toolbarButton({
+                    active: this.getActiveHeadingLevel() > 0,
+                  })}
+                  is-icon
+                >
+                  <lukso-icon
+                    name="smallcaps"
+                    size="small"
+                    pack="vuesax"
+                    variant="linear"
+                  ></lukso-icon>
+                </lukso-button>
+              </lukso-tooltip>
+              <lukso-dropdown
+                id="headingDropdown"
+                trigger-id=""
+                size="medium"
+                ?is-open=${this.isHeadingDropdownOpen}
+              >
+                <lukso-dropdown-option
+                  ?is-selected=${this.getActiveHeadingLevel() === 0}
+                  @click=${(e: Event) => {
+                    e.stopPropagation()
+                    this.restoreFocusAndSelection()
+                    this.applyHeading(0)
+                    this.isHeadingDropdownOpen = false
+                  }}
+                  size="medium"
+                >
+                  Normal text
+                </lukso-dropdown-option>
+                <lukso-dropdown-option
+                  ?is-selected=${this.getActiveHeadingLevel() === 1}
+                  @click=${(e: Event) => {
+                    e.stopPropagation()
+                    this.restoreFocusAndSelection()
+                    this.applyHeading(1)
+                    this.isHeadingDropdownOpen = false
+                  }}
+                  size="medium"
+                >
+                  Heading 1
+                </lukso-dropdown-option>
+                <lukso-dropdown-option
+                  ?is-selected=${this.getActiveHeadingLevel() === 2}
+                  @click=${(e: Event) => {
+                    e.stopPropagation()
+                    this.restoreFocusAndSelection()
+                    this.applyHeading(2)
+                    this.isHeadingDropdownOpen = false
+                  }}
+                  size="medium"
+                >
+                  Heading 2
+                </lukso-dropdown-option>
+                <lukso-dropdown-option
+                  ?is-selected=${this.getActiveHeadingLevel() === 3}
+                  @click=${(e: Event) => {
+                    e.stopPropagation()
+                    this.restoreFocusAndSelection()
+                    this.applyHeading(3)
+                    this.isHeadingDropdownOpen = false
+                  }}
+                  size="medium"
+                >
+                  Heading 3
+                </lukso-dropdown-option>
+                <lukso-dropdown-option
+                  ?is-selected=${this.getActiveHeadingLevel() === 4}
+                  @click=${(e: Event) => {
+                    e.stopPropagation()
+                    this.restoreFocusAndSelection()
+                    this.applyHeading(4)
+                    this.isHeadingDropdownOpen = false
+                  }}
+                  size="medium"
+                >
+                  Heading 4
+                </lukso-dropdown-option>
+              </lukso-dropdown>
+            </div>`
+          : nothing}
 
         <!-- Bold -->
-        ${this.buttonTemplate(
-          'text-bold',
-          () => this.toggleWrap('**'),
-          'Bold',
-          this.activeFormats.bold
-        )}
+        ${this.toolsState.includes('bold')
+          ? this.buttonTemplate(
+              'text-bold',
+              () => this.toggleWrap('**'),
+              'Bold',
+              this.activeFormats.bold
+            )
+          : nothing}
 
         <!-- Italic -->
-        ${this.buttonTemplate(
-          'text-italic',
-          () => this.toggleWrap('*'),
-          'Italic',
-          this.activeFormats.italic
-        )}
+        ${this.toolsState.includes('italic')
+          ? this.buttonTemplate(
+              'text-italic',
+              () => this.toggleWrap('*'),
+              'Italic',
+              this.activeFormats.italic
+            )
+          : nothing}
 
         <!-- List -->
-        <div class=${this.styles().listMenu()}>
-          <lukso-tooltip text="List options" placement="top">
-            <lukso-button
-              id=${this.listTriggerId}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                // Close other dropdowns if open
-                this.isHeadingDropdownOpen = false
-                this.isColorDropdownOpen = false
-                this.isAlignmentDropdownOpen = false
-                this.isListDropdownOpen = !this.isListDropdownOpen
-              }}
-              aria-expanded=${this.isListDropdownOpen ? 'true' : 'false'}
-              aria-label="List options"
-              variant="secondary"
-              size="small"
-              custom-class=${this.toolbarButton({
-                active:
-                  this.activeFormats.unorderedList ||
-                  this.activeFormats.orderedList,
-              })}
-              is-icon
-            >
-              <lukso-icon
-                name="task"
-                size="small"
-                pack="vuesax"
-                variant="linear"
-              ></lukso-icon>
-            </lukso-button>
-          </lukso-tooltip>
-          <lukso-dropdown
-            id="listDropdown"
-            trigger-id=""
-            size="medium"
-            ?is-open=${this.isListDropdownOpen}
-          >
-            <lukso-dropdown-option
-              ?is-selected=${this.getActiveListType() === 'none'}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyList('none')
-                this.isListDropdownOpen = false
-              }}
-              size="medium"
-            >
-              No list
-            </lukso-dropdown-option>
-            <lukso-dropdown-option
-              ?is-selected=${this.getActiveListType() === 'unordered'}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyList('unordered')
-                this.isListDropdownOpen = false
-              }}
-              size="medium"
-            >
-              Unordered
-            </lukso-dropdown-option>
-            <lukso-dropdown-option
-              ?is-selected=${this.getActiveListType() === 'ordered'}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyList('ordered')
-                this.isListDropdownOpen = false
-              }}
-              size="medium"
-            >
-              Ordered
-            </lukso-dropdown-option>
-          </lukso-dropdown>
-        </div>
-
-        <!-- Link -->
-        ${this.buttonTemplate(
-          'link',
-          () => this.insertLink(),
-          'Link',
-          this.activeFormats.link
-        )}
-
-        <!-- Text Alignment -->
-        <div class=${this.styles().alignmentMenu()}>
-          <lukso-tooltip text="Text alignment" placement="top">
-            <lukso-button
-              id=${this.alignmentTriggerId}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                // Close other dropdowns if open
-                this.isHeadingDropdownOpen = false
-                this.isColorDropdownOpen = false
-                this.isListDropdownOpen = false
-                this.isAlignmentDropdownOpen = !this.isAlignmentDropdownOpen
-              }}
-              aria-expanded=${this.isAlignmentDropdownOpen ? 'true' : 'false'}
-              aria-label="Text alignment"
-              variant="secondary"
-              size="small"
-              custom-class=${this.toolbarButton({
-                active: this.activeFormats.alignment !== 'left',
-              })}
-              is-icon
-            >
-              <lukso-icon
-                name=${this.getAlignmentIcon()}
-                size="small"
-                pack="vuesax"
-                variant="linear"
-              ></lukso-icon>
-            </lukso-button>
-          </lukso-tooltip>
-          <lukso-dropdown
-            id="alignmentDropdown"
-            trigger-id=""
-            size="medium"
-            ?is-open=${this.isAlignmentDropdownOpen}
-          >
-            <lukso-dropdown-option
-              ?is-selected=${this.activeFormats.alignment === 'left'}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyAlignment('left')
-                this.isAlignmentDropdownOpen = false
-              }}
-              size="medium"
-              aria-label="Align left"
-            >
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <lukso-icon
-                  name="textalign-left"
-                  size="small"
-                  pack="vuesax"
-                  variant="linear"
-                ></lukso-icon>
-                Left
-              </div>
-            </lukso-dropdown-option>
-            <lukso-dropdown-option
-              ?is-selected=${this.activeFormats.alignment === 'center'}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyAlignment('center')
-                this.isAlignmentDropdownOpen = false
-              }}
-              size="medium"
-              aria-label="Align center"
-            >
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <lukso-icon
-                  name="textalign-center"
-                  size="small"
-                  pack="vuesax"
-                  variant="linear"
-                ></lukso-icon>
-                Center
-              </div>
-            </lukso-dropdown-option>
-            <lukso-dropdown-option
-              ?is-selected=${this.activeFormats.alignment === 'right'}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                this.applyAlignment('right')
-                this.isAlignmentDropdownOpen = false
-              }}
-              size="medium"
-              aria-label="Align right"
-            >
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <lukso-icon
-                  name="textalign-right"
-                  size="small"
-                  pack="vuesax"
-                  variant="linear"
-                ></lukso-icon>
-                Right
-              </div>
-            </lukso-dropdown-option>
-          </lukso-dropdown>
-        </div>
-
-        <!-- Color -->
-        <div class=${this.styles().colorMenu()}>
-          <lukso-tooltip text="Text color" placement="top">
-            <lukso-button
-              id=${this.colorTriggerId}
-              @click=${(e: Event) => {
-                e.stopPropagation()
-                this.restoreFocusAndSelection()
-                // Close other dropdowns if open
-                this.isHeadingDropdownOpen = false
-                this.isListDropdownOpen = false
-                this.isAlignmentDropdownOpen = false
-                // Save current selection when opening color dropdown
-                if (!this.isColorDropdownOpen) {
-                  const ta =
-                    this.textareaEl?.shadowRoot?.querySelector('textarea')
-                  if (ta) {
-                    this.savedSelection = {
-                      start: ta.selectionStart ?? 0,
-                      end: ta.selectionEnd ?? 0,
-                    }
-                  }
-                }
-                this.isColorDropdownOpen = !this.isColorDropdownOpen
-              }}
-              aria-expanded=${this.isColorDropdownOpen ? 'true' : 'false'}
-              aria-pressed=${this.activeFormats.color ? 'true' : 'false'}
-              aria-label="Text color"
-              variant="secondary"
-              size="small"
-              custom-class=${this.toolbarButton({
-                active: this.activeFormats.color,
-              })}
-              is-icon
-            >
-              <div
-                class="size-4 rounded-full"
-                style="background-color: ${this.activeFormats.activeColor};"
-              ></div>
-            </lukso-button>
-          </lukso-tooltip>
-          <lukso-dropdown
-            id="colorDropdown"
-            trigger-id=""
-            size="medium"
-            max-height="300"
-            ?is-open=${this.isColorDropdownOpen}
-          >
-            <div class="grid grid-cols-8 gap-2 p-2 w-[260px]">
-              <div class="col-span-8 mb-2 flex items-center justify-between">
-                <span class="text-xs text-neutral-60">Text Color</span>
-                ${this.activeFormats.color
-                  ? html`<button
-                      class="text-xs text-neutral-60 hover:text-neutral-20 underline"
-                      @click=${(e: Event) => {
-                        e.stopPropagation()
-                        this.clearColor()
-                        this.isColorDropdownOpen = false
-                      }}
-                      type="button"
-                      aria-label="Clear color"
-                    >
-                      Clear
-                    </button>`
-                  : nothing}
-              </div>
-              ${this.colorSamples.map(
-                color => html`
-                  <button
-                    class="w-6 h-6 rounded-4 border transition-all ${this
-                      .activeFormats.activeColor === color
-                      ? 'border-neutral-20 ring-2 ring-purple-51'
-                      : 'border-neutral-90 hover:border-neutral-60'}"
-                    style="background-color: ${color}"
-                    title=${color}
-                    aria-pressed=${this.activeFormats.activeColor === color
-                      ? 'true'
-                      : 'false'}
-                    aria-label="Color ${color}"
+        ${this.toolsState.includes('list')
+          ? html`
+              <div class=${this.styles().listMenu()}>
+                <lukso-tooltip text="List options" placement="top">
+                  <lukso-button
+                    id=${this.listTriggerId}
                     @click=${(e: Event) => {
                       e.stopPropagation()
-                      this.selectColor(color)
+                      this.restoreFocusAndSelection()
+                      // Close other dropdowns if open
+                      this.isHeadingDropdownOpen = false
                       this.isColorDropdownOpen = false
+                      this.isAlignmentDropdownOpen = false
+                      this.isListDropdownOpen = !this.isListDropdownOpen
                     }}
-                  ></button>
-                `
-              )}
-            </div>
-          </lukso-dropdown>
-        </div>
+                    aria-expanded=${this.isListDropdownOpen ? 'true' : 'false'}
+                    aria-label="List options"
+                    variant="secondary"
+                    size="small"
+                    custom-class=${this.toolbarButton({
+                      active:
+                        this.activeFormats.unorderedList ||
+                        this.activeFormats.orderedList,
+                    })}
+                    is-icon
+                  >
+                    <lukso-icon
+                      name="task"
+                      size="small"
+                      pack="vuesax"
+                      variant="linear"
+                    ></lukso-icon>
+                  </lukso-button>
+                </lukso-tooltip>
+                <lukso-dropdown
+                  id="listDropdown"
+                  trigger-id=""
+                  size="medium"
+                  ?is-open=${this.isListDropdownOpen}
+                >
+                  <lukso-dropdown-option
+                    ?is-selected=${this.getActiveListType() === 'none'}
+                    @click=${(e: Event) => {
+                      e.stopPropagation()
+                      this.restoreFocusAndSelection()
+                      this.applyList('none')
+                      this.isListDropdownOpen = false
+                    }}
+                    size="medium"
+                  >
+                    No list
+                  </lukso-dropdown-option>
+                  <lukso-dropdown-option
+                    ?is-selected=${this.getActiveListType() === 'unordered'}
+                    @click=${(e: Event) => {
+                      e.stopPropagation()
+                      this.restoreFocusAndSelection()
+                      this.applyList('unordered')
+                      this.isListDropdownOpen = false
+                    }}
+                    size="medium"
+                  >
+                    Unordered
+                  </lukso-dropdown-option>
+                  <lukso-dropdown-option
+                    ?is-selected=${this.getActiveListType() === 'ordered'}
+                    @click=${(e: Event) => {
+                      e.stopPropagation()
+                      this.restoreFocusAndSelection()
+                      this.applyList('ordered')
+                      this.isListDropdownOpen = false
+                    }}
+                    size="medium"
+                  >
+                    Ordered
+                  </lukso-dropdown-option>
+                </lukso-dropdown>
+              </div>
+            `
+          : nothing}
 
-        <div class=${this.styles().divider()}></div>
+        <!-- Link -->
+        ${this.toolsState.includes('link')
+          ? this.buttonTemplate(
+              'link',
+              () => this.insertLink(),
+              'Link',
+              this.activeFormats.link
+            )
+          : nothing}
+
+        <!-- Text Alignment -->
+        ${this.toolsState.includes('alignment')
+          ? html`
+              <div class=${this.styles().alignmentMenu()}>
+                <lukso-tooltip text="Text alignment" placement="top">
+                  <lukso-button
+                    id=${this.alignmentTriggerId}
+                    @click=${(e: Event) => {
+                      e.stopPropagation()
+                      this.restoreFocusAndSelection()
+                      // Close other dropdowns if open
+                      this.isHeadingDropdownOpen = false
+                      this.isColorDropdownOpen = false
+                      this.isListDropdownOpen = false
+                      this.isAlignmentDropdownOpen =
+                        !this.isAlignmentDropdownOpen
+                    }}
+                    aria-expanded=${this.isAlignmentDropdownOpen
+                      ? 'true'
+                      : 'false'}
+                    aria-label="Text alignment"
+                    variant="secondary"
+                    size="small"
+                    custom-class=${this.toolbarButton({
+                      active: this.activeFormats.alignment !== 'left',
+                    })}
+                    is-icon
+                  >
+                    <lukso-icon
+                      name=${this.getAlignmentIcon()}
+                      size="small"
+                      pack="vuesax"
+                      variant="linear"
+                    ></lukso-icon>
+                  </lukso-button>
+                </lukso-tooltip>
+                <lukso-dropdown
+                  id="alignmentDropdown"
+                  trigger-id=""
+                  size="medium"
+                  ?is-open=${this.isAlignmentDropdownOpen}
+                >
+                  <lukso-dropdown-option
+                    ?is-selected=${this.activeFormats.alignment === 'left'}
+                    @click=${(e: Event) => {
+                      e.stopPropagation()
+                      this.restoreFocusAndSelection()
+                      this.applyAlignment('left')
+                      this.isAlignmentDropdownOpen = false
+                    }}
+                    size="medium"
+                    aria-label="Align left"
+                  >
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <lukso-icon
+                        name="textalign-left"
+                        size="small"
+                        pack="vuesax"
+                        variant="linear"
+                      ></lukso-icon>
+                      Left
+                    </div>
+                  </lukso-dropdown-option>
+                  <lukso-dropdown-option
+                    ?is-selected=${this.activeFormats.alignment === 'center'}
+                    @click=${(e: Event) => {
+                      e.stopPropagation()
+                      this.restoreFocusAndSelection()
+                      this.applyAlignment('center')
+                      this.isAlignmentDropdownOpen = false
+                    }}
+                    size="medium"
+                    aria-label="Align center"
+                  >
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <lukso-icon
+                        name="textalign-center"
+                        size="small"
+                        pack="vuesax"
+                        variant="linear"
+                      ></lukso-icon>
+                      Center
+                    </div>
+                  </lukso-dropdown-option>
+                  <lukso-dropdown-option
+                    ?is-selected=${this.activeFormats.alignment === 'right'}
+                    @click=${(e: Event) => {
+                      e.stopPropagation()
+                      this.restoreFocusAndSelection()
+                      this.applyAlignment('right')
+                      this.isAlignmentDropdownOpen = false
+                    }}
+                    size="medium"
+                    aria-label="Align right"
+                  >
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <lukso-icon
+                        name="textalign-right"
+                        size="small"
+                        pack="vuesax"
+                        variant="linear"
+                      ></lukso-icon>
+                      Right
+                    </div>
+                  </lukso-dropdown-option>
+                </lukso-dropdown>
+              </div>
+            `
+          : nothing}
+
+        <!-- Color -->
+        ${this.toolsState.includes('color')
+          ? html`
+              <div class=${this.styles().colorMenu()}>
+                <lukso-tooltip text="Text color" placement="top">
+                  <lukso-button
+                    id=${this.colorTriggerId}
+                    @click=${(e: Event) => {
+                      e.stopPropagation()
+                      this.restoreFocusAndSelection()
+                      // Close other dropdowns if open
+                      this.isHeadingDropdownOpen = false
+                      this.isListDropdownOpen = false
+                      this.isAlignmentDropdownOpen = false
+                      // Save current selection when opening color dropdown
+                      if (!this.isColorDropdownOpen) {
+                        const ta =
+                          this.textareaEl?.shadowRoot?.querySelector('textarea')
+                        if (ta) {
+                          this.savedSelection = {
+                            start: ta.selectionStart ?? 0,
+                            end: ta.selectionEnd ?? 0,
+                          }
+                        }
+                      }
+                      this.isColorDropdownOpen = !this.isColorDropdownOpen
+                    }}
+                    aria-expanded=${this.isColorDropdownOpen ? 'true' : 'false'}
+                    aria-pressed=${this.activeFormats.color ? 'true' : 'false'}
+                    aria-label="Text color"
+                    variant="secondary"
+                    size="small"
+                    custom-class=${this.toolbarButton({
+                      active: this.activeFormats.color,
+                    })}
+                    is-icon
+                  >
+                    <div
+                      class="size-4 rounded-full"
+                      style="background-color: ${this.activeFormats
+                        .activeColor};"
+                    ></div>
+                  </lukso-button>
+                </lukso-tooltip>
+                <lukso-dropdown
+                  id="colorDropdown"
+                  trigger-id=""
+                  size="medium"
+                  max-height="300"
+                  ?is-open=${this.isColorDropdownOpen}
+                >
+                  <div class="grid grid-cols-8 gap-2 p-2 w-[260px]">
+                    <div
+                      class="col-span-8 mb-2 flex items-center justify-between"
+                    >
+                      <span class="text-xs text-neutral-60">Text Color</span>
+                      ${this.activeFormats.color
+                        ? html`<button
+                            class="text-xs text-neutral-60 hover:text-neutral-20 underline"
+                            @click=${(e: Event) => {
+                              e.stopPropagation()
+                              this.clearColor()
+                              this.isColorDropdownOpen = false
+                            }}
+                            type="button"
+                            aria-label="Clear color"
+                          >
+                            Clear
+                          </button>`
+                        : nothing}
+                    </div>
+                    ${this.colorSamples.map(
+                      color => html`
+                        <button
+                          class="w-6 h-6 rounded-4 border transition-all ${this
+                            .activeFormats.activeColor === color
+                            ? 'border-neutral-20 ring-2 ring-purple-51'
+                            : 'border-neutral-90 hover:border-neutral-60'}"
+                          style="background-color: ${color}"
+                          title=${color}
+                          aria-pressed=${this.activeFormats.activeColor ===
+                          color
+                            ? 'true'
+                            : 'false'}
+                          aria-label="Color ${color}"
+                          @click=${(e: Event) => {
+                            e.stopPropagation()
+                            this.selectColor(color)
+                            this.isColorDropdownOpen = false
+                          }}
+                        ></button>
+                      `
+                    )}
+                  </div>
+                </lukso-dropdown>
+              </div>
+            `
+          : nothing}
+
+        <!-- Divider -->
+        ${this.toolsState.length > 0
+          ? html`<div class=${this.styles().divider()}></div>`
+          : nothing}
       </div>
     `
   }
@@ -3329,6 +3377,20 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
       this.previewTextColor = DEFAULT_PREVIEW_TEXT_COLOR
     }
 
+    this.toolsState = this.defaultTools
+
+    try {
+      if (this.tools) {
+        this.toolsState = JSON.parse(this.tools)
+      }
+    } catch (error) {
+      console.warn(
+        'Invalid JSON for tools property in lukso-markdown-editor. Using default tools.',
+        error
+      )
+      // do nothing
+    }
+
     return html`
       <div class=${wrapper()}>
         ${this.labelTemplate()} ${this.descriptionTemplate()}
@@ -3370,6 +3432,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
                 >
                   <lukso-markdown
                     value=${this.value}
+                    ?strip-html-tags=${this.stripHtmlTags}
                     custom-style=${`color: ${this.previewTextColor};`}
                   ></lukso-markdown>
                   ${this.accessibilityIndicatorTemplate()}

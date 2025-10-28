@@ -1,10 +1,12 @@
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { marked } from 'marked'
+import DOMPurify from 'dompurify'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-sanitize'
 import style from './style.scss?inline'
+import { NO_HTML_TAGS_OPTIONS } from '@/components/lukso-sanitize'
 
 @customElement('lukso-markdown')
 export class LuksoMarkdown extends TailwindStyledElement(style) {
@@ -20,6 +22,9 @@ export class LuksoMarkdown extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'custom-style', reflect: true })
   customStyle = ''
 
+  @property({ type: Boolean, attribute: 'strip-html-tags' })
+  stripHtmlTags = false
+
   /**
    * Convert markdown to HTML using marked library
    */
@@ -29,8 +34,14 @@ export class LuksoMarkdown extends TailwindStyledElement(style) {
     }
 
     try {
+      let content = this.value
+
+      if (this.stripHtmlTags) {
+        content = DOMPurify.sanitize(this.value, NO_HTML_TAGS_OPTIONS)
+      }
+
       // Preprocess the markdown to handle nested lists properly
-      const processedMarkdown = this.preprocessNestedLists(this.value)
+      const processedMarkdown = this.preprocessNestedLists(content)
 
       // Configure marked for better list handling
       marked.setOptions({

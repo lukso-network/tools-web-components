@@ -49,14 +49,7 @@ const meta: Meta = {
   },
   parameters: {
     controls: {
-      exclude: [
-        'sanitize',
-        'htmlContent',
-        'defaultOptions',
-        'isPre',
-        'stripHtmlTags',
-        'noHtmlTagsOptions',
-      ],
+      exclude: ['sanitize', 'htmlContent', 'isPre', 'stripHtmlTags'],
     },
   },
 }

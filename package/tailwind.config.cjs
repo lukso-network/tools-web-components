@@ -192,7 +192,7 @@ module.exports = {
     },
   },
   // styles that will be always included in the build
-  safeList: [
+  safelist: [
     {
       pattern: /^prose(-[a-z0-9]+)?$/,
     },

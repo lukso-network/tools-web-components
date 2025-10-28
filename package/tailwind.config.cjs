@@ -191,6 +191,12 @@ module.exports = {
       }),
     },
   },
+  // styles that will be always included in the build
+  safeList: [
+    {
+      pattern: /^prose(-[a-z0-9]+)?$/,
+    },
+  ],
   plugins: [
     animationDelayPlugin,
     animationIterationPlugin,

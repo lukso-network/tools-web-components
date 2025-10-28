@@ -13,7 +13,10 @@ export class LuksoSanitize extends TailwindElement {
   @property({ type: Boolean, attribute: 'is-pre' })
   isPre = false
 
-  private options = {
+  @property({ type: Boolean, attribute: 'strip-html-tags' })
+  stripHtmlTags = false
+
+  private defaultOptions = {
     ADD_ATTR: ['target'], // allow target attribute on anchor tags
     CUSTOM_ELEMENT_HANDLING: {
       tagNameCheck: /^lukso-/,
@@ -21,8 +24,14 @@ export class LuksoSanitize extends TailwindElement {
     },
   }
 
+  private noHtmlTagsOptions = { ALLOWED_TAGS: [] }
+
   sanitize() {
-    return DOMPurify.sanitize(this.htmlContent, this.options)
+    if (this.stripHtmlTags) {
+      return DOMPurify.sanitize(this.htmlContent, this.noHtmlTagsOptions)
+    }
+
+    return DOMPurify.sanitize(this.htmlContent, this.defaultOptions)
   }
 
   // in order to show HTML we  need to use unsafeHTML directive.

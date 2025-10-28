@@ -4,9 +4,8 @@ import { marked } from 'marked'
 import DOMPurify from 'dompurify'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import '@/components/lukso-sanitize'
-import style from './style.scss?inline'
 import { NO_HTML_TAGS_OPTIONS } from '@/components/lukso-sanitize'
+import style from './style.scss?inline'
 
 @customElement('lukso-markdown')
 export class LuksoMarkdown extends TailwindStyledElement(style) {

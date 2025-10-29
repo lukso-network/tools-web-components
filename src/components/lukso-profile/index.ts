@@ -1,14 +1,15 @@
 import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import makeBlockie from 'ethereum-blockies-base64'
 import { tv } from 'tailwind-variants'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 import '@/components/lukso-image'
 
 import type { ProfileSize } from '@/shared/types'
 
-@customElement('lukso-profile')
+@safeCustomElement('lukso-profile')
 export class LuksoProfile extends TailwindElement {
   @property({ type: String, attribute: 'profile-url', reflect: true })
   profileUrl = ''

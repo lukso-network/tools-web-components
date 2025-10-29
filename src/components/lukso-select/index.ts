@@ -1,8 +1,9 @@
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 import makeBlockie from 'ethereum-blockies-base64'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
@@ -31,7 +32,7 @@ export type SelectProfileOption = {
 
 export type SelectOption = SelectStringOption | SelectProfileOption
 
-@customElement('lukso-select')
+@safeCustomElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''

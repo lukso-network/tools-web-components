@@ -1,13 +1,14 @@
 import { html } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 import style from './style.scss?inline'
 import '@/components/lukso-icon'
 import '@/components/lukso-sanitize'
 
-@customElement('lukso-terms')
+@safeCustomElement('lukso-terms')
 export class LuksoTerms extends TailwindStyledElement(style) {
   @property({ type: String })
   text = ''

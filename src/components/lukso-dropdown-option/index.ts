@@ -1,13 +1,14 @@
 import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
 
-@customElement('lukso-dropdown-option')
+@safeCustomElement('lukso-dropdown-option')
 export class LuksoDropdownOption extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-readonly' })
   isReadonly = false

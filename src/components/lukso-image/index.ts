@@ -1,11 +1,12 @@
 import { type PropertyValues, html } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { tv } from 'tailwind-variants'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 
-@customElement('lukso-image')
+@safeCustomElement('lukso-image')
 export class LuksoImage extends TailwindElement {
   @property({ type: String, reflect: true })
   src = ''

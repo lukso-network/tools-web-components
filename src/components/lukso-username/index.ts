@@ -1,10 +1,11 @@
 import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { nothing } from 'lit-html'
 import { tv } from 'tailwind-variants'
 import { toChecksumAddress } from 'web3-utils'
 import { isAddress } from 'viem'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { sliceAddress } from '@/shared/tools/slice-address'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customStyleMap } from '@/shared/directives'
@@ -13,7 +14,7 @@ import style from './style.scss?inline'
 
 import type { ProfileSize } from '@/shared/types'
 
-@customElement('lukso-username')
+@safeCustomElement('lukso-username')
 export class LuksoUsername extends TailwindStyledElement(style) {
   @property({ type: String })
   name = ''

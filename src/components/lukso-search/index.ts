@@ -1,8 +1,9 @@
 import makeBlockie from 'ethereum-blockies-base64'
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
 import '@/components/lukso-icon'
@@ -36,7 +37,7 @@ export type SearchResult = {
   status?: boolean
 }
 
-@customElement('lukso-search')
+@safeCustomElement('lukso-search')
 export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''

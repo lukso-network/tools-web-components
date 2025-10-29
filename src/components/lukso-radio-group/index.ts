@@ -1,6 +1,7 @@
 import { html } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 
 import type { LuksoRadio } from '../lukso-radio'
@@ -11,7 +12,7 @@ type HTMLRadioElement = HTMLInputElement & {
   isReadonly: boolean
 }
 
-@customElement('lukso-radio-group')
+@safeCustomElement('lukso-radio-group')
 export class LuksoRadioGroup extends TailwindElement {
   @property({ type: String })
   name = ''

@@ -1,7 +1,8 @@
 import { html, nothing } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import style from './style.scss?inline'
@@ -24,7 +25,7 @@ export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
 
 const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
 
-@customElement('lukso-button')
+@safeCustomElement('lukso-button')
 export class LuksoButton extends TailwindStyledElement(style) {
   @property({ type: String })
   variant: ButtonVariant = 'primary'

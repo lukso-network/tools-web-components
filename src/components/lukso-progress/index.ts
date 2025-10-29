@@ -1,13 +1,14 @@
 import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { styleMap } from 'lit-html/directives/style-map.js'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 
 export type ProgressVariant = 'success' | 'error' | 'warning'
 
-@customElement('lukso-progress')
+@safeCustomElement('lukso-progress')
 export class LuksoProgress extends TailwindElement {
   @property({ type: Number })
   min = 0

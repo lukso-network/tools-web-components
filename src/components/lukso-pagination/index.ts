@@ -1,7 +1,8 @@
 import { html, type PropertyValues, type TemplateResult } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
 
@@ -20,7 +21,7 @@ type Pagination = {
   items: (string | number)[]
 }
 
-@customElement('lukso-pagination')
+@safeCustomElement('lukso-pagination')
 export class LuksoPagination extends TailwindStyledElement(style) {
   @property({ type: String })
   variant: ButtonVariant = 'primary'

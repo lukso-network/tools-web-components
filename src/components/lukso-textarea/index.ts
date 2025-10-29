@@ -1,7 +1,8 @@
 import { html, nothing } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
@@ -12,7 +13,7 @@ import type { InputSize } from '@/shared/types'
 
 const FOCUS_DELAY_MS = 10
 
-@customElement('lukso-textarea')
+@safeCustomElement('lukso-textarea')
 export class LuksoTextarea extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''

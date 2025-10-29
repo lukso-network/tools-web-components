@@ -229,3 +229,76 @@ export const grey2 = splitColor(
   8,
   Object.keys(colorPalette.grey).length
 )
+
+/**
+ * Prose styles for Tailwind Typography plugin
+ */
+export const proseSpacing = {
+  // Paragraphs
+  p: {
+    marginTop: '0.5em',
+    marginBottom: '0.5em',
+    lineHeight: '1.5', // slightly tighter
+  },
+
+  // Horizontal rule
+  hr: { marginTop: '2em', marginBottom: '2em' },
+
+  // Headings
+  h1: { marginTop: '0.75em', marginBottom: '0.5em', lineHeight: '1.2' },
+  h2: { marginTop: '0.65em', marginBottom: '0.45em', lineHeight: '1.25' },
+  h3: { marginTop: '0.6em', marginBottom: '0.4em', lineHeight: '1.3' },
+  h4: { marginTop: '0.5em', marginBottom: '0.35em', lineHeight: '1.35' },
+  h5: { marginTop: '0.45em', marginBottom: '0.3em', lineHeight: '1.4' },
+  h6: { marginTop: '0.4em', marginBottom: '0.25em', lineHeight: '1.45' },
+
+  // Lists
+  ul: {
+    marginTop: '0.5em',
+    marginBottom: '0.5em',
+    paddingLeft: '1.25em',
+  },
+  ol: {
+    marginTop: '0.5em',
+    marginBottom: '0.5em',
+    paddingLeft: '1.25em',
+  },
+  'ul ul, ul ol, ol ul, ol ol': {
+    marginTop: '0.25em',
+    marginBottom: '0.25em',
+  },
+  li: {
+    marginTop: '0.25em',
+    marginBottom: '0.25em',
+  },
+
+  // Blockquotes
+  blockquote: {
+    marginTop: '0.5em',
+    marginBottom: '0.5em',
+    paddingLeft: '1em',
+    borderLeftWidth: '0.25rem',
+    fontStyle: 'italic',
+    color: 'inherit',
+  },
+
+  // Links (restore default link look)
+  a: {
+    color: 'var(--tw-prose-links)',
+    textDecoration: 'underline',
+    fontWeight: '500',
+    '&:hover': {
+      color: 'var(--tw-prose-links-hover, var(--tw-prose-links))',
+      textDecoration: 'none',
+    },
+  },
+
+  // Code blocks
+  pre: {
+    marginTop: '0.5em',
+    marginBottom: '0.5em',
+    lineHeight: '1.45',
+  },
+}
+
+export const proseVariants = ['sm', 'base', 'lg', 'xl']

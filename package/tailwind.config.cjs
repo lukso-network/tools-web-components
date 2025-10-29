@@ -10,6 +10,8 @@ const {
 	heights,
 	borderRadius,
 	spacing,
+	proseSpacing,
+	proseVariants,
 } = require("./tools/tailwind-config.cjs");
 
 /**
@@ -186,12 +188,19 @@ module.exports = {
 			},
 			borderRadius,
 			spacing,
-			typography: () => ({
-				DEFAULT: {
-					css: {
-						maxWidth: "none", // Make prose full-width by default
-					},
-				},
+			typography: {
+				...Object.fromEntries(
+					proseVariants.map((variant) => [
+						variant,
+						{
+							css: {
+								maxWidth: "none",
+								lineHeight: "1.6", // general baseline line-height for prose content
+								...proseSpacing,
+							},
+						},
+					]),
+				),
 				inherit: {
 					css: {
 						"--tw-prose-body": "inherit",
@@ -203,7 +212,7 @@ module.exports = {
 						"--tw-prose-bullets": "inherit",
 					},
 				},
-			}),
+			},
 		},
 	},
 	// styles that will be always included in the build

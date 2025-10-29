@@ -26,7 +26,7 @@ import type { InputSize } from '@/shared/types'
 type TextAlignment = 'left' | 'center' | 'right'
 
 const DEFAULT_PREVIEW_BACKGROUND_COLOR = '#f9f9f9'
-const DEFAULT_PREVIEW_TEXT_COLOR = '#374151' // prose gray
+const DEFAULT_PREVIEW_TEXT_COLOR = '#243542' // neutral-20
 const ACCESSIBILITY_CHECK_DELAY = 1000 // ms - debounce checking
 
 @safeCustomElement('lukso-markdown-editor')

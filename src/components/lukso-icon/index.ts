@@ -1,4 +1,5 @@
 import { html, type PropertyValueMap } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property } from 'lit/decorators.js'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
@@ -466,7 +467,7 @@ const iconMap = {
 const DEFAULT_COLOR = 'neutral-20'
 const DEFAULT_SIZE: IconSize = 'medium'
 
-@customElement('lukso-icon')
+@safeCustomElement('lukso-icon')
 export class LuksoIcon extends TailwindStyledElement(style) {
   @property({ type: String, reflect: true })
   name = undefined

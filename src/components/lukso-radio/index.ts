@@ -1,4 +1,5 @@
 import { html, nothing } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -7,7 +8,7 @@ import { cn } from '@/shared/tools'
 
 export type RadioSize = 'x-small' | 'small' | 'medium'
 
-@customElement('lukso-radio')
+@safeCustomElement('lukso-radio')
 export class LuksoRadio extends TailwindElement {
   @property({ type: String })
   name = ''

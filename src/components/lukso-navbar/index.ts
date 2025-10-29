@@ -1,4 +1,5 @@
 import { html, nothing } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -20,7 +21,7 @@ type Styles = FunctionMap<
   string
 >
 
-@customElement('lukso-navbar')
+@safeCustomElement('lukso-navbar')
 export class LuksoNavbar extends TailwindElement {
   @property({ type: String })
   title = ''

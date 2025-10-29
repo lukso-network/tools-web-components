@@ -1,4 +1,5 @@
 import { html } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property } from 'lit/decorators.js'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -25,7 +26,7 @@ export type ProviderObject = {
   url: Url
 }
 
-@customElement('lukso-share')
+@safeCustomElement('lukso-share')
 export class LuksoShare extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'custom-style' })
   customStyle = ''

@@ -1,4 +1,5 @@
 import { html } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property, query, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -6,7 +7,7 @@ import { TailwindElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
 
-@customElement('lukso-collapse')
+@safeCustomElement('lukso-collapse')
 export class LuksoCollapse extends TailwindElement {
   @property({ type: String })
   label = ''

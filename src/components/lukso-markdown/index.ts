@@ -1,4 +1,5 @@
 import { html } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property } from 'lit/decorators.js'
 import { marked } from 'marked'
 import DOMPurify from 'dompurify'
@@ -7,7 +8,7 @@ import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { NO_HTML_TAGS_OPTIONS } from '@/components/lukso-sanitize'
 import style from './style.scss?inline'
 
-@customElement('lukso-markdown')
+@safeCustomElement('lukso-markdown')
 export class LuksoMarkdown extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''

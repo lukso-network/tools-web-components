@@ -1,4 +1,5 @@
 import { html, nothing } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 import { styleMap } from 'lit/directives/style-map.js'
@@ -13,7 +14,7 @@ import type { InputSize } from '@/shared/types'
 
 const FOCUS_DELAY_MS = 10
 
-@customElement('lukso-color-picker')
+@safeCustomElement('lukso-color-picker')
 export class LuksoColorPicker extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''

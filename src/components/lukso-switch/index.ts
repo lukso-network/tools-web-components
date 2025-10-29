@@ -1,4 +1,5 @@
 import { html, nothing } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { tv } from 'tailwind-variants'
@@ -9,7 +10,7 @@ import '@/components/lukso-sanitize'
 
 const DEFAULT_COLOR = 'green-54'
 
-@customElement('lukso-switch')
+@safeCustomElement('lukso-switch')
 export class LuksoSwitch extends TailwindElement {
   @property({ type: String })
   color = DEFAULT_COLOR

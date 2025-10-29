@@ -1,4 +1,5 @@
 import { html, nothing, type PropertyValues } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property, state, query } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -28,7 +29,7 @@ const DEFAULT_PREVIEW_BACKGROUND_COLOR = '#f9f9f9'
 const DEFAULT_PREVIEW_TEXT_COLOR = '#374151' // prose gray
 const ACCESSIBILITY_CHECK_DELAY = 1000 // ms - debounce checking
 
-@customElement('lukso-markdown-editor')
+@safeCustomElement('lukso-markdown-editor')
 export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @property({ type: String })
   value = ''

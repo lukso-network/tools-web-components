@@ -1,4 +1,5 @@
 import makeBlockie from 'ethereum-blockies-base64'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { html, nothing } from 'lit'
 import {
   customElement,
@@ -30,7 +31,7 @@ export type CardBorderRadius = 'small' | 'medium' | 'none'
 
 export type CardShadows = 'small' | 'medium' | 'large'
 
-@customElement('lukso-card')
+@safeCustomElement('lukso-card')
 export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: String })
   variant: CardVariants = 'basic'

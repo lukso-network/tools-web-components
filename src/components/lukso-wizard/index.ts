@@ -1,4 +1,5 @@
 import { html } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property } from 'lit/decorators.js'
 import { repeat } from 'lit/directives/repeat.js'
 import { tv } from 'tailwind-variants'
@@ -12,7 +13,7 @@ export type WizardStep = {
 
 export type WizardSize = 'small' | 'medium' | 'large' | 'full-width'
 
-@customElement('lukso-wizard')
+@safeCustomElement('lukso-wizard')
 export class LuksoWizard extends TailwindStyledElement(style) {
   @property({ type: String })
   steps = ''

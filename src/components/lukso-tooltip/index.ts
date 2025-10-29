@@ -1,4 +1,5 @@
 import { type PropertyValues, html } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property, state } from 'lit/decorators.js'
 import tippy from 'tippy.js'
 import { tv } from 'tailwind-variants'
@@ -33,7 +34,7 @@ export type TooltipOption = {
   text: string
 }
 
-@customElement('lukso-tooltip')
+@safeCustomElement('lukso-tooltip')
 export class LuksoTooltip extends TailwindStyledElement(style) {
   @property({ type: String })
   variant: TooltipVariant = 'light'

@@ -1,4 +1,5 @@
 import { html } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -8,7 +9,7 @@ import style from './style.scss?inline'
 
 export type TagSizes = 'x-small' | 'small' | 'large'
 
-@customElement('lukso-tag')
+@safeCustomElement('lukso-tag')
 export class LuksoTag extends TailwindStyledElement(style) {
   @property({ type: String })
   size: TagSizes = 'small'

@@ -1,4 +1,5 @@
 import { html } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -6,7 +7,7 @@ import { TailwindElement } from '@/shared/tailwind-element'
 
 export type ModalSizes = 'small' | 'medium' | 'full' | 'auto'
 
-@customElement('lukso-modal')
+@safeCustomElement('lukso-modal')
 export class LuksoModal extends TailwindElement {
   @property({ type: Boolean, attribute: 'is-open' })
   isOpen = false

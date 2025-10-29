@@ -1,4 +1,5 @@
 import { html } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property } from 'lit/decorators.js'
 import { nothing } from 'lit-html'
 import { tv } from 'tailwind-variants'
@@ -13,7 +14,7 @@ import style from './style.scss?inline'
 
 import type { ProfileSize } from '@/shared/types'
 
-@customElement('lukso-username')
+@safeCustomElement('lukso-username')
 export class LuksoUsername extends TailwindStyledElement(style) {
   @property({ type: String })
   name = ''

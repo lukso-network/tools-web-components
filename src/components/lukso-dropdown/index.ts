@@ -1,4 +1,5 @@
 import { html, nothing, type PropertyValues } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -18,7 +19,7 @@ export type LuksoDropdownOnChangeEventDetail = {
 
 export type LuksoDropdownTrigger = 'click' | 'hover'
 
-@customElement('lukso-dropdown')
+@safeCustomElement('lukso-dropdown')
 export class LuksoDropdown extends TailwindStyledElement(style) {
   @property({ type: String })
   id = ''

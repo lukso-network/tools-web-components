@@ -1,4 +1,5 @@
 import { html, nothing } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property, state } from 'lit/decorators.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
@@ -7,7 +8,7 @@ import { customClassMap } from '@/shared/directives'
 export type CheckboxSize = 'x-small' | 'small' | 'medium'
 export type CheckboxType = 'text' | 'profile'
 
-@customElement('lukso-checkbox')
+@safeCustomElement('lukso-checkbox')
 export class LuksoCheckbox extends TailwindElement {
   @property({ type: String })
   name = ''

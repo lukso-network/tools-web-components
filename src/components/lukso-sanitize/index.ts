@@ -1,4 +1,5 @@
 import { html } from 'lit'
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { customElement, property } from 'lit/decorators.js'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 import DOMPurify from 'dompurify'
@@ -21,7 +22,7 @@ export const DEFAULT_OPTIONS = {
  */
 export const NO_HTML_TAGS_OPTIONS = { ALLOWED_TAGS: [] }
 
-@customElement('lukso-sanitize')
+@safeCustomElement('lukso-sanitize')
 export class LuksoSanitize extends TailwindElement {
   @property({ type: String, attribute: 'html-content' })
   htmlContent = ''

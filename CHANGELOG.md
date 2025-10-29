@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.162.0](https://github.com/lukso-network/tools-web-components/compare/v1.161.2...v1.162.0) (2025-10-29)
+
+
+### Features
+
+* Allow to strip all HTML tags in lukso-sanitize ([#691](https://github.com/lukso-network/tools-web-components/issues/691)) ([a6c60c8](https://github.com/lukso-network/tools-web-components/commit/a6c60c88a3e96f755041e1596f2e9477da2e84e4))
+* Configureable editor tool list, strip HTML option ([#693](https://github.com/lukso-network/tools-web-components/issues/693)) ([2444db9](https://github.com/lukso-network/tools-web-components/commit/2444db9423f4724a4edf0a8fc80bdbc41ae0a0b0))
+
 ## [1.161.2](https://github.com/lukso-network/tools-web-components/compare/v1.161.1...v1.161.2) (2025-10-24)
 
 

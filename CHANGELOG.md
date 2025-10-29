@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.163.0](https://github.com/lukso-network/tools-web-components/compare/v1.162.0...v1.163.0) (2025-10-29)
+
+
+### Features
+
+* Use neutral-20 color instead of prose default color in markdown editor ([#696](https://github.com/lukso-network/tools-web-components/issues/696)) ([caecb76](https://github.com/lukso-network/tools-web-components/commit/caecb7636a81e946d557b1c950d9f1c6ac3a8a6b))
+
+
+### Bug Fixes
+
+* Add safeCustomElement decorator ([#695](https://github.com/lukso-network/tools-web-components/issues/695)) ([e6b08fd](https://github.com/lukso-network/tools-web-components/commit/e6b08fddb7d739e551d235d62e9e98b7212ab768))
+
 ## [1.162.0](https://github.com/lukso-network/tools-web-components/compare/v1.161.2...v1.162.0) (2025-10-29)
 
 

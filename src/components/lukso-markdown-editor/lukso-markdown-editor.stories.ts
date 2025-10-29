@@ -117,7 +117,7 @@ const meta: Meta = {
       control: { type: 'color' },
       table: {
         category: 'Attributes',
-        defaultValue: { summary: '#374151' },
+        defaultValue: { summary: '#243542' },
       },
     },
     tools: {

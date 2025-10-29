@@ -1,11 +1,11 @@
 import { html } from 'lit'
-import { safeCustomElement } from '@/shared/safe-custom-element'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { nothing } from 'lit-html'
 import { tv } from 'tailwind-variants'
 import { toChecksumAddress } from 'web3-utils'
 import { isAddress } from 'viem'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { sliceAddress } from '@/shared/tools/slice-address'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customStyleMap } from '@/shared/directives'

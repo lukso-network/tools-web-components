@@ -1,7 +1,7 @@
 import { html } from 'lit'
-import { safeCustomElement } from '@/shared/safe-custom-element'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 
 import type { LuksoRadio } from '../lukso-radio'

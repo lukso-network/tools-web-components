@@ -1,15 +1,10 @@
 import makeBlockie from 'ethereum-blockies-base64'
-import { safeCustomElement } from '@/shared/safe-custom-element'
 import { html, nothing } from 'lit'
-import {
-  customElement,
-  property,
-  state,
-  queryAssignedElements,
-} from 'lit/decorators.js'
+import { property, state, queryAssignedElements } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { tv } from 'tailwind-variants'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
 import '@/components/lukso-profile'

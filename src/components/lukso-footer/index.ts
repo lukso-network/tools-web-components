@@ -1,7 +1,7 @@
 import { html } from 'lit'
-import { safeCustomElement } from '@/shared/safe-custom-element'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 
 import type { ProviderName, ProviderObject } from '@/components/lukso-share'

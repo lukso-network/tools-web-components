@@ -1,8 +1,8 @@
 import { html } from 'lit'
-import { safeCustomElement } from '@/shared/safe-custom-element'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 
 export type ModalSizes = 'small' | 'medium' | 'full' | 'auto'

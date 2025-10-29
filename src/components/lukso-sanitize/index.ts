@@ -1,9 +1,9 @@
 import { html } from 'lit'
-import { safeCustomElement } from '@/shared/safe-custom-element'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 import DOMPurify from 'dompurify'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 
 /**

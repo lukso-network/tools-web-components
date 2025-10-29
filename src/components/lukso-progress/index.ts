@@ -1,8 +1,8 @@
 import { html } from 'lit'
-import { safeCustomElement } from '@/shared/safe-custom-element'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { styleMap } from 'lit-html/directives/style-map.js'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 

@@ -1,8 +1,8 @@
 import { html, nothing } from 'lit'
-import { safeCustomElement } from '@/shared/safe-custom-element'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'

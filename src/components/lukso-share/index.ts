@@ -1,7 +1,7 @@
 import { html } from 'lit'
-import { safeCustomElement } from '@/shared/safe-custom-element'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 
+import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.scss?inline'
 

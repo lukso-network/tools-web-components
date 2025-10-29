@@ -4,8 +4,8 @@ import {
   mkdirSync,
   readdirSync,
   copyFileSync as fsCopyFileSync,
-} from 'fs'
-import { basename, extname, join } from 'path'
+} from 'node:fs'
+import { basename, extname, join } from 'node:path'
 
 /**
  * List of allowed file extensions

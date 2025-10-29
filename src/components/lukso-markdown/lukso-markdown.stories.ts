@@ -39,6 +39,16 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    stripHtmlTags: {
+      name: 'strip-html-tags',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    'strip-html-tags': {
+      name: 'stripHtmlTags',
+    },
     'is-pre': {
       name: 'isPre',
     },
@@ -51,6 +61,8 @@ const meta: Meta = {
   },
   args: {
     value: '## Hello World!\nThis is **markdown** with a [link](/).',
+    isPre: false,
+    stripHtmlTags: false,
   },
   parameters: {
     controls: {
@@ -59,6 +71,8 @@ const meta: Meta = {
         'isPre',
         'proseClasses',
         'customStyle',
+        'stripHtmlTags',
+        'styles',
       ],
     },
   },
@@ -66,10 +80,11 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ value, isPre, proseClasses, customStyle }) =>
+const Template = ({ value, isPre, proseClasses, customStyle, stripHtmlTags }) =>
   html`<lukso-markdown
     value=${value}
     ?is-pre=${isPre}
+    ?strip-html-tags=${stripHtmlTags}
     prose-classes=${proseClasses ? proseClasses : nothing}
     custom-style=${customStyle ? customStyle : nothing}
   ></lukso-markdown>`
@@ -217,4 +232,13 @@ console.log(greet('World'))
 |----------|----------|
 | Cell 1   | Cell 2   |`,
   customStyle: 'color: green; background-color: #f0f0f0; padding: 1rem;',
+}
+
+/** You can strip HTML tags using `strip-html-tags` property. */
+export const StripHtmlTags = Template.bind({})
+StripHtmlTags.args = {
+  value: `<div style="color: blue;">HTML Tags Stripping Demo</div>
+  <br><br><br>
+  <b>bold</b>, <a class="text-sky-64" href="/">link</a>, <i>italic</i>, <script>alert('XSS');</script>`,
+  stripHtmlTags: true,
 }

@@ -2,7 +2,8 @@ import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
 import { TailwindElement } from '@/shared/tailwind-element'
-import { ProviderName, ProviderObject } from '@/components/lukso-share'
+
+import type { ProviderName, ProviderObject } from '@/components/lukso-share'
 
 @customElement('lukso-footer')
 export class LuksoFooter extends TailwindElement {
@@ -26,6 +27,7 @@ export class LuksoFooter extends TailwindElement {
     try {
       providers = JSON.parse(this.providers)
     } catch (error) {
+      console.warn('Invalid providers format, using default providers.', error)
       // do nothing
     }
 

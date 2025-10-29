@@ -108,7 +108,7 @@ const meta: Meta = {
       name: 'preview-background-color',
       control: { type: 'color' },
       table: {
-        category: 'Styles',
+        category: 'Attributes',
         defaultValue: { summary: '#ffffff' },
       },
     },
@@ -116,9 +116,25 @@ const meta: Meta = {
       name: 'preview-text-color',
       control: { type: 'color' },
       table: {
-        category: 'Styles',
+        category: 'Attributes',
         defaultValue: { summary: '#374151' },
       },
+    },
+    tools: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    stripHtmlTags: {
+      name: 'strip-html-tags',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    'strip-html-tags': {
+      name: 'stripHtmlTags',
     },
     'is-full-width': {
       name: 'isFullWidth',
@@ -163,10 +179,12 @@ const meta: Meta = {
     isPreview: false,
     isNonResizable: false,
     autofocus: false,
+    stripHtmlTags: false,
     error: '',
     placeholder: '',
     rows: 6,
     previewBackgroundColor: undefined,
+    tools: undefined,
   },
   parameters: {
     controls: {
@@ -205,6 +223,14 @@ const meta: Meta = {
         'styles',
         'previewBackgroundColor',
         'previewTextColor',
+        'toolsState',
+        'defaultTools',
+        'stripHtmlTags',
+        'isAlignmentDropdownOpen',
+        'alignmentTriggerId',
+        'accessibilityViolations',
+        'hasAccessibilityViolations',
+        'accessibilityCheckTimeout',
       ],
     },
   },
@@ -230,6 +256,8 @@ const Template = ({
   rows,
   previewBackgroundColor,
   previewTextColor,
+  tools,
+  stripHtmlTags,
 }) =>
   html`<lukso-markdown-editor
     .value=${value}
@@ -244,12 +272,14 @@ const Template = ({
       ? previewBackgroundColor
       : nothing}
     preview-text-color=${previewTextColor ? previewTextColor : nothing}
+    tools=${tools ? tools : nothing}
     ?is-full-width=${isFullWidth}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
     ?is-preview=${isPreview}
     ?is-non-resizable=${isNonResizable}
     ?autofocus=${autofocus}
+    ?strip-html-tags=${stripHtmlTags}
     @on-markdown-change=${onMarkdownChange}
   ></lukso-markdown-editor>`
 
@@ -498,6 +528,26 @@ This content has some accessibility issues that should trigger the checker:
 </select>
 
 Switch to preview mode to see the accessibility violations indicator!`,
+}
+
+/** Example of editor with predefined tool bar */
+export const CustomTools = Template.bind({})
+CustomTools.args = {
+  label: 'Custom Tools',
+  description: 'This editor has a custom tool set.',
+  tools: '["bold"]',
+}
+
+/** Example of stripping HTML tags */
+export const StripHtmlTags = Template.bind({})
+StripHtmlTags.args = {
+  label: 'Strip HTML Tags',
+  description: 'This editor can strip HTML tags from the content.',
+  stripHtmlTags: true,
+  isPreview: true,
+  value: `<div style="color: blue;">HTML Tags Stripping Demo</div>
+  <br><br><br>
+  <b>bold</b>, <a class="text-sky-64" href="/">link</a>, <i>italic</i>, <script>alert('XSS');</script>`,
 }
 
 /*** TESTS ***/
@@ -1582,5 +1632,29 @@ export const TestAccessibilityHeaderIssues: StoryObj = {
     expect(tooltipText).toContain('Accessibility Issues Found')
     expect(tooltipText).toContain('2 elements affected')
     expect(tooltipText).toContain('Heading levels should only increase by one')
+  },
+}
+
+/** Test story for stripping HTML tags */
+export const TestStripHtmlTags: StoryObj = {
+  name: 'Test: Strip HTML Tags',
+  args: {
+    value: `<div style="color: blue;">HTML Tags Stripping Demo</div>
+  <br><br><br>
+  <b>bold</b>, <a class="text-sky-64" href="/">link</a>, <i>italic</i>, <script>alert('XSS');</script>`,
+    label: 'Test: Strip HTML Tags',
+    description: 'This story tests the stripping of HTML tags.',
+    stripHtmlTags: true,
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const { editor, previewButton } = await getEditorElements(canvasElement)
+    await userEvent.click(previewButton)
+    const { innerHtml } = getMarkdown(editor)
+    expect(innerHtml).toBe(`<p>HTML Tags Stripping Demo</p>
+<p>  bold, link, italic, </p>
+`)
   },
 }

@@ -85,7 +85,7 @@ export class LuksoWizard extends TailwindStyledElement(style) {
     })
     return html`<li class="${base()}">
       <div
-        class="text-purple-51 nav-apax-8-medium-uppercase whitespace-pre-line flex text-center break-words uppercase"
+        class="text-purple-51 nav-inter-8-medium-uppercase whitespace-pre-line flex text-center break-words uppercase"
       >
         ${step.label}
       </div>

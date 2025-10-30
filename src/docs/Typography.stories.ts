@@ -52,15 +52,6 @@ const headingClasses = [
   'heading-inter-17-semi-bold',
   'heading-inter-14-bold',
   'heading-inter-12-bold-uppercase',
-  'heading-apax-48-regular',
-  'heading-apax-48-bold',
-  'heading-apax-44-regular',
-  'heading-apax-44-medium',
-  'heading-apax-40-regular',
-  'heading-apax-40-bold',
-  'heading-apax-32-regular',
-  'heading-apax-32-medium',
-  'heading-apax-24-medium',
 ]
 
 const navClasses = [
@@ -68,10 +59,6 @@ const navClasses = [
   'nav-inter-12-medium-uppercase',
   'nav-inter-10-regular',
   'nav-inter-8-medium-uppercase',
-  'nav-apax-14-medium-uppercase',
-  'nav-apax-12-medium-uppercase',
-  'nav-apax-10-regular',
-  'nav-apax-8-medium-uppercase',
 ]
 
 const paragraphClasses = [

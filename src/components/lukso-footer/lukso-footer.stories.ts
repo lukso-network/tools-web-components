@@ -43,13 +43,13 @@ const Template = ({ providers }) =>
       <div class="flex gap-10">
         <a
           href=""
-          class="nav-apax-12-medium-uppercase text-purple-41 hover:underline hover:text-purple-31"
+          class="nav-inter-12-medium-uppercase text-purple-41 hover:underline hover:text-purple-31"
         >
           FAQs
         </a>
         <a
           href=""
-          class="nav-apax-12-medium-uppercase text-purple-41 hover:underline hover:text-purple-31"
+          class="nav-inter-12-medium-uppercase text-purple-41 hover:underline hover:text-purple-31"
         >
           NEED HELP?
         </a>
@@ -58,7 +58,7 @@ const Template = ({ providers }) =>
       <div class="flex gap-10">
         <a
           href=""
-          class="nav-apax-12-medium-uppercase text-purple-41/70 hover:underline hover:text-purple-31/70"
+          class="nav-inter-12-medium-uppercase text-purple-41/70 hover:underline hover:text-purple-31/70"
         >
           TERMs
         </a>

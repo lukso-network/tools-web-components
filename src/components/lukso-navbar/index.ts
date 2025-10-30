@@ -220,7 +220,7 @@ export class LuksoNavbar extends TailwindElement {
             alt="${this.title}"
           />
           <div
-            class="text-purple-51 nav-apax-14-medium-uppercase
+            class="text-purple-51 nav-inter-14-medium-uppercase
                 whitespace-pre-line flex leading-none transition group-hover:text-purple-41"
           >
             <span>${this.title}</span>

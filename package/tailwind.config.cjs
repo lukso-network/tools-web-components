@@ -82,7 +82,6 @@ module.exports = {
 	theme: {
 		fontFamily: {
 			inter: ["Inter", "sans-serif"],
-			apax: ["Apax", "sans-serif"],
 			mono: ['"PT Mono"', "sans-serif"],
 		},
 		extend: {

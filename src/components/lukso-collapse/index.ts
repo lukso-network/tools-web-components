@@ -106,7 +106,7 @@ export class LuksoCollapse extends TailwindElement {
 
   private collapseStyles = tv({
     slots: {
-      base: 'transition transition-all duration-150 border',
+      base: 'transition transition-all duration-150 border bg-neutral-100',
       header:
         'flex items-center justify-between cursor-pointer overflow-hidden',
       triggerLabel: '',

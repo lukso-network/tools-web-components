@@ -42,7 +42,7 @@ export class LuksoDropdownOption extends TailwindStyledElement(style) {
         true: '',
       },
       size: {
-        small: 'paragraph-inter-12-regular rounded-4 px-2 min-h-[28px]',
+        small: 'paragraph-inter-12-regular rounded-4 px-2 min-h-7',
         medium: 'paragraph-inter-14-regular rounded-8 px-3 min-h-[38px]',
         large: 'paragraph-inter-14-regular rounded-8 px-3 min-h-[38px]',
         'x-large': '',

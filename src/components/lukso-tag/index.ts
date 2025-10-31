@@ -32,7 +32,7 @@ export class LuksoTag extends TailwindStyledElement(style) {
       size: {
         'x-small':
           'font-inter text-8 font-500 leading-20 h-[20px] px-1 rounded-4',
-        small: 'paragraph-inter-12-medium h-[28px] px-2 rounded-8',
+        small: 'paragraph-inter-12-medium h-7 px-2 rounded-8',
         large: 'paragraph-inter-14-medium h-[34px] px-4 rounded-8',
       },
       isRounded: {

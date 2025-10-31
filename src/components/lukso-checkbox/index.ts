@@ -91,9 +91,9 @@ export class LuksoCheckbox extends TailwindElement {
           [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
             this.hasHighlight,
           ['border-neutral-60']: this.isDisabled,
-          ['h-[40px] w-[40px]']: this.size === 'medium',
+          ['h-10 w-[40px]']: this.size === 'medium',
           ['h-[32px] w-[32px]']: this.size === 'small',
-          ['h-[28px] w-[28px]']: this.size === 'x-small',
+          ['h-7 w-[28px]']: this.size === 'x-small',
           [this.customClass]: !!this.customClass,
         })}
       >

@@ -130,16 +130,20 @@ export const heights = {
 
 export const borderRadius = {
   0: '0',
+  2: '2px',
   4: '4px',
+  6: '6px',
   8: '8px',
   10: '10px',
   12: '12px',
+  14: '14px',
   16: '16px',
   24: '24px',
 }
 
 export const spacing = {
-  18: '4,5rem', // 72px
+  17: '4.25rem', // 68px
+  18: '4.5rem', // 72px
   22: '5.5rem', // 88px
   30: '7.5rem', // 120px
 }

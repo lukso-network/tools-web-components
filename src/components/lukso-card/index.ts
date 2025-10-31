@@ -230,7 +230,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
             class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center -mb-3"
           >
             <div
-              class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]"
+              class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-12"
             ></div>
           </div>
           <slot name="content"></slot>
@@ -298,7 +298,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
               class="overflow-hidden w-[153px] h-[70px] -top-[70px] relative mx-auto flex items-end justify-center -mb-2"
             >
               <div
-                class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-[48px]"
+                class="bg-neutral-100 rounded-[103px_103px_0_0] w-[96px] h-12"
               ></div>
             </div>
             <slot name="content"></slot>
@@ -336,7 +336,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
             backgroundImage: backgroundGradient(this.profileAddress),
           })}
           class=${cn(
-            'min-h-[40px] bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative bg-neutral-100',
+            'min-h-10 bg-center bg-cover rounded-t-[inherit] rounded-b-0 relative bg-neutral-100',
             this.headerClass
           )}
         >

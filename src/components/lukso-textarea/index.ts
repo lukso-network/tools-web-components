@@ -114,13 +114,13 @@ export class LuksoTextarea extends TailwindStyledElement(style) {
       },
       size: {
         small: {
-          input: 'min-h-[28px] px-2 py-1 paragraph-inter-12-regular rounded-8',
+          input: 'min-h-7 px-2 py-1 paragraph-inter-12-regular rounded-8',
         },
         medium: {
-          input: 'min-h-[40px] px-3 py-3 paragraph-inter-14-regular rounded-10',
+          input: 'min-h-10 px-3 py-3 paragraph-inter-14-regular rounded-10',
         },
         large: {
-          input: 'min-h-[48px] px-4 py-3 paragraph-inter-14-regular rounded-12',
+          input: 'min-h-12 px-4 py-3 paragraph-inter-14-regular rounded-12',
         },
         'x-large': {},
       },

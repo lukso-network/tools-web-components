@@ -67,7 +67,7 @@ export class LuksoRadio extends TailwindElement {
     variants: {
       size: {
         medium: {
-          radio: 'h-[40px] w-[40px]',
+          radio: 'h-10 w-[40px]',
           indicator: 'w-[26px] h-[26px]',
           content: 'paragraph-inter-16-regular',
         },
@@ -77,7 +77,7 @@ export class LuksoRadio extends TailwindElement {
           content: 'paragraph-inter-16-regular',
         },
         'x-small': {
-          radio: 'h-[28px] w-[28px]',
+          radio: 'h-7 w-[28px]',
           indicator: 'w-[17px] h-[17px]',
           content: 'paragraph-inter-12-semi-bold',
         },

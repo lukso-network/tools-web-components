@@ -1,4 +1,4 @@
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 import { property, query, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -7,13 +7,24 @@ import { TailwindElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
 
+import type { InputSize } from '@/shared/types'
+
 @safeCustomElement('lukso-collapse')
 export class LuksoCollapse extends TailwindElement {
   @property({ type: String })
   label = ''
 
-  @property({ type: Object, attribute: 'secondary-label' })
-  secondaryLabel: { open: string; close: string } = {
+  @property({ type: String })
+  description = ''
+
+  @property({ type: String })
+  error = ''
+
+  @property({ type: String, attribute: 'trigger-label' })
+  triggerLabel = ''
+
+  @property({ type: Object, attribute: 'toggle-label' })
+  toggleLabel: { open: string; close: string } = {
     open: '',
     close: '',
   }
@@ -29,6 +40,9 @@ export class LuksoCollapse extends TailwindElement {
 
   @property({ type: String, attribute: 'icon' })
   icon = ''
+
+  @property({ type: String })
+  size: InputSize = 'large'
 
   @state() private maxHeight = '0px'
   @state() private observedHeight = 0
@@ -70,7 +84,9 @@ export class LuksoCollapse extends TailwindElement {
       }
     } else {
       this.maxHeight = `${height}px`
-      requestAnimationFrame(() => (this.maxHeight = '0px'))
+      requestAnimationFrame(() => {
+        this.maxHeight = '0px'
+      })
     }
   }
 
@@ -90,11 +106,12 @@ export class LuksoCollapse extends TailwindElement {
 
   private collapseStyles = tv({
     slots: {
-      base: 'hover:border-neutral-35 transition transition-all duration-150',
-      header: 'flex items-center justify-between cursor-pointer ml-3 py-2',
-      label: 'text-neutral-45 paragraph-inter-14-semi-bold',
-      secondary: 'text-neutral-45 paragraph-inter-14-semi-bold',
-      icon: 'transition cursor-pointer mr-3',
+      base: 'transition transition-all duration-150 border bg-neutral-100',
+      header:
+        'flex items-center justify-between cursor-pointer overflow-hidden',
+      triggerLabel: '',
+      toggleLabel: '',
+      icon: 'transition cursor-pointer',
       content: 'transition-all duration-250 ease-in-out',
     },
     variants: {
@@ -114,51 +131,131 @@ export class LuksoCollapse extends TailwindElement {
           icon: 'opacity-60 cursor-not-allowed',
         },
       },
+      size: {
+        small: {
+          base: 'rounded-8',
+          header: 'h-7 pl-2',
+          triggerLabel: 'paragraph-inter-12-semi-bold',
+          toggleLabel: 'paragraph-inter-12-semi-bold',
+          icon: 'mr-1',
+        },
+        medium: {
+          base: 'rounded-10',
+          header: 'h-10 pl-3',
+          triggerLabel: 'paragraph-inter-14-semi-bold',
+          toggleLabel: 'paragraph-inter-14-semi-bold',
+          icon: 'mr-2',
+        },
+        large: {
+          base: 'rounded-12',
+          header: 'h-12 pl-4',
+          triggerLabel: 'paragraph-inter-14-semi-bold',
+          toggleLabel: 'paragraph-inter-14-semi-bold',
+          icon: 'mr-3',
+        },
+        'x-large': {
+          base: 'rounded-14',
+          header: 'h-17 pl-5',
+          triggerLabel: 'paragraph-inter-16-semi-bold',
+          toggleLabel: 'paragraph-inter-16-semi-bold',
+          icon: 'mr-4',
+        },
+      },
+      hasError: {
+        true: {
+          base: 'border-red-85 hover:border-red-65',
+          triggerLabel: 'text-red-65',
+          toggleLabel: 'text-red-65',
+        },
+        false: {
+          base: 'border-neutral-90',
+          triggerLabel: 'text-neutral-45',
+          toggleLabel: 'text-neutral-45',
+        },
+      },
     },
+    compoundVariants: [
+      {
+        isDisabled: false,
+        hasError: false,
+        class: {
+          base: 'hover:border-neutral-35',
+        },
+      },
+    ],
   })
 
+  labelTemplate() {
+    return html`
+      <label class="heading-inter-14-bold text-neutral-20 pb-2 block"
+        >${this.label}</label
+      >
+    `
+  }
+
+  descriptionTemplate() {
+    return html`
+      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
+        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
+      </div>
+    `
+  }
+
+  errorTemplate() {
+    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
+      ${this.error}
+    </div>`
+  }
+
   render() {
-    const { base, header, label, secondary, icon, content } =
+    const { base, header, triggerLabel, toggleLabel, icon, content } =
       this.collapseStyles({
         isOpen: this.isOpen,
         isDisabled: this.isDisabled,
+        size: this.size,
+        hasError: this.error !== '',
       })
 
     return html`
-      <div class=${cn(base(), this.customClass)}>
-        <!-- Header -->
-        <div
-          class=${header()}
-          @click=${() => !this.isDisabled && this.toggle()}
-        >
-          <span class=${label()}>${this.label}</span>
-          <div class="flex items-center">
-            ${this.secondaryLabel
-              ? html`<span class=${secondary()}>
-                  ${this.isOpen
-                    ? this.secondaryLabel.close
-                    : this.secondaryLabel.open}
-                </span>`
-              : null}
-            ${this.icon
-              ? html`<lukso-icon
-                  name=${this.icon}
-                  class=${icon()}
-                ></lukso-icon>`
-              : null}
+      <div class="w-[inherit]">
+        ${this.label ? this.labelTemplate() : nothing}
+        ${this.description ? this.descriptionTemplate() : nothing}
+        <div class=${cn(base(), this.customClass)}>
+          <!-- Header -->
+          <div
+            class=${header()}
+            @click=${() => !this.isDisabled && this.toggle()}
+          >
+            <span class=${triggerLabel()}>${this.triggerLabel}</span>
+            <div class="flex items-center">
+              ${this.toggleLabel
+                ? html`<span class=${toggleLabel()}>
+                    ${this.isOpen
+                      ? this.toggleLabel?.close
+                      : this.toggleLabel?.open}
+                  </span>`
+                : nothing}
+              ${this.icon
+                ? html`<lukso-icon
+                    name=${this.icon}
+                    class=${icon()}
+                  ></lukso-icon>`
+                : nothing}
+            </div>
           </div>
-        </div>
 
-        <!-- Content -->
-        <div
-          class=${content()}
-          style="max-height:${this.maxHeight};"
-          @transitionend=${this.onTransitionEnd}
-        >
-          <div class="collapse-content">
-            <slot @slotchange=${() => this.syncHeight()}></slot>
+          <!-- Content -->
+          <div
+            class=${content()}
+            style="max-height:${this.maxHeight};"
+            @transitionend=${this.onTransitionEnd}
+          >
+            <div class="collapse-content">
+              <slot @slotchange=${() => this.syncHeight()}></slot>
+            </div>
           </div>
         </div>
+        ${this.error ? this.errorTemplate() : nothing}
       </div>
     `
   }

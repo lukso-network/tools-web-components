@@ -1,5 +1,4 @@
 import { html, nothing } from 'lit-html'
-import { useArgs } from 'storybook/preview-api'
 
 import type { Meta } from '@storybook/web-components-vite'
 import './index'
@@ -7,12 +6,20 @@ import '../lukso-select/index'
 
 /**  Documentation and examples of `lukso-collapse` component. */
 const meta: Meta = {
-  title: 'Design System/Components/lukso-collapse',
+  title: 'Design System/Forms/lukso-collapse',
   component: 'lukso-collapse',
   argTypes: {
-    label: {
+    triggerLabel: {
+      name: 'trigger-label',
       control: { type: 'text' },
-      description: 'The label for the collapse header',
+      description: 'The label for the collapse trigger',
+      table: {
+        category: 'Attributes',
+      },
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium', 'large', 'x-large'],
       table: {
         category: 'Attributes',
       },
@@ -33,8 +40,8 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    secondaryLabel: {
-      name: 'secondary-label',
+    toggleLabel: {
+      name: 'toggle-label',
       control: { type: 'object' },
       description: 'Secondary label when open/close',
       table: {
@@ -56,11 +63,32 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    label: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    description: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    error: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    'trigger-label': {
+      name: 'triggerLabel',
+    },
     'custom-class': {
       name: 'customClass',
     },
-    'secondary-label': {
-      name: 'secondaryLabel',
+    'toggle-label': {
+      name: 'toggleLabel',
     },
     'is-open': {
       name: 'isOpen',
@@ -70,25 +98,23 @@ const meta: Meta = {
     },
   },
   args: {
-    label: '',
-    isOpen: false,
-    customClass: '',
-    secondaryLabel: undefined,
+    size: 'large',
+    triggerLabel: 'Open',
+    toggleLabel: undefined,
     icon: '',
+    label: '',
+    description: '',
+    error: '',
+    isOpen: false,
     isDisabled: false,
-    maxHeight: '0px',
-    observedHeight: 0,
-    collapseContainer: undefined,
-    collapseStyles: undefined,
-    contentElement: undefined,
-    resizeObserver: undefined,
-    onTransitionEnd: undefined,
+    customClass: '',
   },
   parameters: {
     controls: {
       exclude: [
         'customClass',
-        'secondaryLabel',
+        'toggleLabel',
+        'toggleLabel',
         'isDisabled',
         'isOpen',
         'maxHeight',
@@ -98,6 +124,7 @@ const meta: Meta = {
         'contentElement',
         'resizeObserver',
         'onTransitionEnd',
+        'triggerLabel',
       ],
     },
   },
@@ -106,48 +133,90 @@ const meta: Meta = {
 export default meta
 
 const Template = ({
-  label,
+  triggerLabel,
   isOpen,
   customClass,
-  secondaryLabel,
+  toggleLabel,
   icon,
   isDisabled,
   size,
   content,
+  label,
+  description,
+  error,
 }) => {
-  const [{}] = useArgs()
   return html`
     <lukso-collapse
-      label=${label ? label : nothing}
-      ?is-open=${isOpen}
-      custom-class=${customClass ? customClass : nothing}
-      .secondaryLabel=${secondaryLabel ? secondaryLabel : nothing}
+      trigger-label=${triggerLabel ? triggerLabel : nothing}
+      toggle-label=${toggleLabel ? toggleLabel : nothing}
       icon=${icon ? icon : nothing}
+      label=${label ? label : nothing}
+      description=${description ? description : nothing}
+      error=${error ? error : nothing}
+      ?is-open=${isOpen}
       ?is-disabled=${isDisabled}
       size=${size ? size : nothing}
+      custom-class=${customClass ? customClass : nothing}
     >
       <div class="p-3">${content ? content : 'Default collapse content'}</div>
     </lukso-collapse>
   `
 }
 
-/** Example of `lukso-collapse` */
-export const LuksoCollapse = Template.bind({})
-LuksoCollapse.args = {
-  label: 'Open',
-  isOpen: false,
-  customClass: 'border border-neutral-90 rounded-12 overflow-hidden',
-  secondaryLabel: { open: 'Open', close: 'Close' },
+/** Example of `small` size */
+export const CollapseSmall = Template.bind({})
+CollapseSmall.args = {
+  size: 'small',
+}
+
+/** Example of `medium` size */
+export const CollapseMedium = Template.bind({})
+CollapseMedium.args = {
+  size: 'medium',
+}
+
+/** Example of `large` size */
+export const CollapseLarge = Template.bind({})
+CollapseLarge.args = {
+  size: 'large',
+}
+
+/** Example of `x-large` size */
+export const CollapseXLarge = Template.bind({})
+CollapseXLarge.args = {
+  size: 'x-large',
+}
+
+/** Example of custom labels and icon */
+export const CustomLabels = Template.bind({})
+CustomLabels.args = {
+  triggerLabel: 'Toggle Collapse',
+  toggleLabel: { open: 'Open', close: 'Close' },
   icon: 'arrow-down-sm',
+}
+
+/** Example of collapse with `label` */
+export const CollapseLabel = Template.bind({})
+CollapseLabel.args = {
+  label: 'Collapse Label',
+}
+
+/** Example of collapse with `description` */
+export const CollapseDescription = Template.bind({})
+CollapseDescription.args = {
+  description: 'This is a description for the collapse component.',
+}
+
+/** Example of collapse with `error` */
+export const CollapseError = Template.bind({})
+CollapseError.args = {
+  error: 'This is an error message for the collapse component.',
 }
 
 /** Example of lukso-collapse `open` by default */
 export const CollapseOpen = Template.bind({})
 CollapseOpen.args = {
-  label: 'Advanced',
   isOpen: true,
-  customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
-  icon: 'arrow-down-sm',
   content: html`
     <div>
       <p>Collapse open by default.</p>
@@ -158,20 +227,13 @@ CollapseOpen.args = {
 /** Example of lukso-collapse `disabled` */
 export const CollapseDisabled = Template.bind({})
 CollapseDisabled.args = {
-  label: 'Open',
-  isOpen: false,
-  customClass: 'border border-neutral-30 rounded-12 overflow-hidden',
-  secondaryLabel: { open: 'Open', close: 'Close' },
-  icon: 'arrow-down-sm',
   isDisabled: true,
 }
 
 /** Example of lukso-collapse with a `custom CSS class` */
 export const CollapseWithCustomClass = Template.bind({})
 CollapseWithCustomClass.args = {
-  label: 'Custom Styled',
-  isOpen: false,
-  customClass: 'border rounded-12 bg-blue-100 border-blue-500',
+  customClass: 'border-0',
   content: html`
     <div>
       <p>Collapse with custom colors.</p>
@@ -182,9 +244,6 @@ CollapseWithCustomClass.args = {
 /** Example of lukso-collapse with `longer content` */
 export const CollapseWithLongContent = Template.bind({})
 CollapseWithLongContent.args = {
-  label: 'Long Content',
-  isOpen: false,
-  customClass: 'border border-neutral-30 rounded-12',
   content: html`
     <div>
       <p>This is a longer piece of content to test the height transition.</p>
@@ -204,9 +263,6 @@ CollapseWithLongContent.args = {
 /** Example of lukso-collapse with a `selector` as content */
 export const CollapseWithSelector = Template.bind({})
 CollapseWithSelector.args = {
-  label: 'With Selector',
-  isOpen: false,
-  customClass: 'border border-neutral-30 rounded-12',
   content: html`
     <div class="flex ">
       <lukso-select

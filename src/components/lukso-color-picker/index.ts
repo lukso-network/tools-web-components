@@ -111,18 +111,18 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
       size: {
         small: {
           wrapper: 'grid-cols-[28px,auto] rounded-8',
-          input: 'h-[28px] px-2 py-1 paragraph-inter-12-regular rounded-r-8',
-          color: 'h-[28px] w-[28px]',
+          input: 'h-7 px-2 py-1 paragraph-inter-12-regular rounded-r-8',
+          color: 'h-7 w-[28px]',
         },
         medium: {
           wrapper: 'grid-cols-[40px,auto] rounded-12',
-          input: 'h-[40px] px-3 py-2 paragraph-inter-14-regular rounded-r-10',
-          color: 'h-[40px] w-[40px]',
+          input: 'h-10 px-3 py-2 paragraph-inter-14-regular rounded-r-10',
+          color: 'h-10 w-[40px]',
         },
         large: {
           wrapper: 'grid-cols-[48px,auto] rounded-12',
-          input: 'h-[48px] px-4 py-3 paragraph-inter-14-regular rounded-r-12',
-          color: 'h-[48px] w-[48px]',
+          input: 'h-12 px-4 py-3 paragraph-inter-14-regular rounded-r-12',
+          color: 'h-12 w-[48px]',
         },
         'x-large': {},
       },

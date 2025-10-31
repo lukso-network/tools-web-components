@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.164.0](https://github.com/lukso-network/tools-web-components/compare/v1.163.0...v1.164.0) (2025-10-31)
+
+
+### Features
+
+* collapse widget improvements ([#700](https://github.com/lukso-network/tools-web-components/issues/700)) ([569f052](https://github.com/lukso-network/tools-web-components/commit/569f05293e4562311997cfa85baf33b8d3aa293e))
+* Remove Apax font from web-components ([#698](https://github.com/lukso-network/tools-web-components/issues/698)) ([e150eb9](https://github.com/lukso-network/tools-web-components/commit/e150eb963db3e81f8e5d57ebb54e4cd11ebde74c))
+
 ## [1.163.0](https://github.com/lukso-network/tools-web-components/compare/v1.162.0...v1.163.0) (2025-10-29)
 
 

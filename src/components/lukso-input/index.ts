@@ -98,7 +98,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
       wrapper: 'group flex',
       input: `bg-neutral-100 border-solid placeholder:text-neutral-70 w-full
         outline-none transition transition-all duration-150 appearance-none`,
-      unit: `text-neutral-60 flex items-center relative border-solid transition
+      unit: `bg-neutral-100 text-neutral-60 flex items-center relative border-solid transition
         transition-all duration-150 before:bg-neutral-90 before:absolute
         before:left-0 before:w-[1px] whitespace-nowrap cursor-pointer`,
       rightIcon: 'absolute top-1/2 transform -translate-y-1/2',

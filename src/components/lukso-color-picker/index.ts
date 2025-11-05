@@ -8,6 +8,7 @@ import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
 import '@/components/lukso-sanitize'
+import '@/components/lukso-form-label'
 import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
@@ -214,16 +215,6 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
     </div>`
   }
 
-  labelTemplate() {
-    return html`
-      <label
-        for=${this.name}
-        class="heading-inter-14-bold text-neutral-20 pb-2 block"
-        >${this.label}</label
-      >
-    `
-  }
-
   descriptionTemplate() {
     return html`
       <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
@@ -336,7 +327,11 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
 
     return html`
       <div class="w-[inherit]">
-        ${this.label ? this.labelTemplate() : nothing}
+        ${this.label
+          ? html`<lukso-form-label for-name=${this.name}
+              >${this.label}</lukso-form-label
+            >`
+          : nothing}
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class=${wrapper()}>
           ${this.colorPickerTemplate(color(), colorInput())}

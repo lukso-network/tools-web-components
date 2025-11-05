@@ -6,6 +6,7 @@ import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
+import '@/components/lukso-form-label'
 
 import type { InputSize } from '@/shared/types'
 
@@ -185,14 +186,6 @@ export class LuksoCollapse extends TailwindElement {
     ],
   })
 
-  labelTemplate() {
-    return html`
-      <label class="heading-inter-14-bold text-neutral-20 pb-2 block"
-        >${this.label}</label
-      >
-    `
-  }
-
   descriptionTemplate() {
     return html`
       <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
@@ -218,7 +211,9 @@ export class LuksoCollapse extends TailwindElement {
 
     return html`
       <div class="w-[inherit]">
-        ${this.label ? this.labelTemplate() : nothing}
+        ${this.label
+          ? html`<lukso-form-label>${this.label}</lukso-form-label>`
+          : nothing}
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class=${cn(base(), this.customClass)}>
           <!-- Header -->

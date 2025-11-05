@@ -313,6 +313,21 @@ DefaultSelect.args = {
   marginBottom: 160,
 }
 
+/** Example of select with `label` and `description`.  */
+export const LabelAndDescription = Template.bind({})
+LabelAndDescription.args = {
+  marginBottom: 160,
+  label: 'Select an option',
+  description: 'This is a description for the select component.',
+}
+
+/** Example of full width select.  */
+export const FullWidthSelect = Template.bind({})
+FullWidthSelect.args = {
+  marginBottom: 160,
+  isFullWidth: true,
+}
+
 /** With `placeholder` value you can set fixed text in selection trigger.  */
 export const Placeholder = Template.bind({})
 Placeholder.args = {

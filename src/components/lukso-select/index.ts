@@ -11,6 +11,7 @@ import '@/components/lukso-username'
 import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
 import '@/components/lukso-sanitize'
+import '@/components/lukso-form-label'
 import style from './style.scss?inline'
 import { uniqId } from '@/shared/tools/uniq-id'
 
@@ -110,11 +111,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       border border-solid placeholder:text-neutral-70 select-none whitespace-nowrap
       outline-none transition transition-all duration-150 appearance-none
       text-neutral-20 cursor-pointer border-neutral-90 group-hover:border-neutral-35
-      flex items-center`,
+      flex items-center w-full`,
     variants: {
-      isFullWidth: {
-        true: 'w-full',
-      },
       isDisabled: {
         true: 'cursor-not-allowed text-neutral-60 group-hover:border-neutral-90',
       },
@@ -224,7 +222,6 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
   inputTemplate() {
     const inputStyles = this.inputStyles({
-      isFullWidth: this.isFullWidth,
       isDisabled: this.isDisabled,
       hasError: !!this.error,
       borderless: this.borderless,
@@ -257,14 +254,6 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     })
 
     return html`<div class=${counterStyles}>${this.valueParsed?.length}</div>`
-  }
-
-  labelTemplate() {
-    return html`
-      <div class="heading-inter-14-bold text-neutral-20 pb-2 block">
-        ${this.label}
-      </div>
-    `
   }
 
   descriptionTemplate() {
@@ -325,6 +314,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       size=${this.size}
       is-open
       is-open-on-outside-click
+      is-full-width=${this.isFullWidth}
       max-height=${this.maxHeight}
       ?is-right=${this.isRight}
       ?open-top=${this.openTop}
@@ -548,7 +538,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
     return html`
       <div class="relative w-[inherit]">
-        ${this.label ? this.labelTemplate() : nothing}
+        ${this.label
+          ? html`<lukso-form-label>${this.label}</lukso-form-label>`
+          : nothing}
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class="group">
           <div class="flex relative items-center">

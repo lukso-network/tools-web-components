@@ -7,6 +7,7 @@ import { safeCustomElement } from '@/shared/safe-custom-element'
 import { uniqId } from '@/shared/tools/uniq-id'
 import { TailwindElement } from '@/shared/tailwind-element'
 import '@/components/lukso-sanitize'
+import '@/components/lukso-form-label'
 
 const DEFAULT_COLOR = 'green-54'
 
@@ -97,15 +98,6 @@ export class LuksoSwitch extends TailwindElement {
     },
   })
 
-  labelTemplate() {
-    return html`
-      <div
-        class="heading-inter-14-bold text-neutral-20 pb-2 block"
-        >${this.label}</label
-      >
-    `
-  }
-
   descriptionTemplate() {
     return html`
       <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
@@ -133,7 +125,13 @@ export class LuksoSwitch extends TailwindElement {
 
     return html`
       <label for=${this.id} class="w-[inherit]">
-        ${this.label ? this.labelTemplate() : nothing}
+        ${
+          this.label
+            ? html`<lukso-form-label for-name=${this.name}
+                >${this.label}</lukso-form-label
+              >`
+            : nothing
+        }
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class="flex">
           <div

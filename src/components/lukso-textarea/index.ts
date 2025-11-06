@@ -340,11 +340,10 @@ ${this.value}</textarea
 
     return html`
       <div class="w-[inherit]">
-        ${this.label
-          ? html`<lukso-form-label for-name=${this.name}
-              >${this.label}</lukso-form-label
-            >`
-          : nothing}
+        <lukso-form-label
+          for-name=${this.name}
+          label=${this.label}
+        ></lukso-form-label>
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class=${wrapper()}>
           <div class="relative w-[inherit] flex">

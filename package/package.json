@@ -115,6 +115,16 @@
       "import": "./dist/components/lukso-footer/index.js",
       "types": "./dist/components/lukso-footer/index.d.ts"
     },
+    "./dist/components/lukso-form-description": {
+      "require": "./dist/components/lukso-form-description/index.cjs",
+      "import": "./dist/components/lukso-form-description/index.js",
+      "types": "./dist/components/lukso-form-description/index.d.ts"
+    },
+    "./dist/components/lukso-form-label": {
+      "require": "./dist/components/lukso-form-label/index.cjs",
+      "import": "./dist/components/lukso-form-label/index.js",
+      "types": "./dist/components/lukso-form-label/index.d.ts"
+    },
     "./dist/components/lukso-icon": {
       "require": "./dist/components/lukso-icon/index.cjs",
       "import": "./dist/components/lukso-icon/index.js",

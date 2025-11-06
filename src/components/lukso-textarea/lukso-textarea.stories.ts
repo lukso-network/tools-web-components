@@ -291,17 +291,11 @@ PlaceholderText.args = {
   placeholder: 'Placeholder Text',
 }
 
-/** Example of textarea with `label`. */
-export const Label = Template.bind({})
-Label.args = {
-  label: 'Title',
-}
-
-/** Example of textarea with `label` and `description`. */
+/** Example with `label` and `description`. */
 export const LabelAndDescription = Template.bind({})
 LabelAndDescription.args = {
   label: 'Title',
-  description: 'Description',
+  description: 'My <i>description</i>',
 }
 
 /** Example of textarea with `error`. */

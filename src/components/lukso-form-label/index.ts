@@ -7,17 +7,22 @@ import style from './style.scss?inline'
 
 @safeCustomElement('lukso-form-label')
 export class LuksoFormLabel extends TailwindStyledElement(style) {
+  @property({ type: String, reflect: true })
+  label: string
+
   @property({ type: String, attribute: 'for-name', reflect: true })
   forName: string
 
   render() {
-    return html`
-      <label
-        for=${this.forName ? this.forName : nothing}
-        class="heading-inter-14-bold text-neutral-20 pb-2 block"
-        ><slot></slot
-      ></label>
-    `
+    return this.label
+      ? html`
+          <label
+            for=${this.forName ? this.forName : nothing}
+            class="heading-inter-14-bold text-neutral-20 pb-2 block"
+            >${this.label}</label
+          >
+        `
+      : nothing
   }
 }
 

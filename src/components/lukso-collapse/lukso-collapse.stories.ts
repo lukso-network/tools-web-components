@@ -195,16 +195,11 @@ CustomLabels.args = {
   icon: 'arrow-down-sm',
 }
 
-/** Example of collapse with `label` */
-export const CollapseLabel = Template.bind({})
-CollapseLabel.args = {
-  label: 'Collapse Label',
-}
-
-/** Example of collapse with `description` */
-export const CollapseDescription = Template.bind({})
-CollapseDescription.args = {
-  description: 'This is a description for the collapse component.',
+/** Example with `label` and `description`. */
+export const LabelAndDescription = Template.bind({})
+LabelAndDescription.args = {
+  label: 'Title',
+  description: 'My <i>description</i>',
 }
 
 /** Example of collapse with `error` */

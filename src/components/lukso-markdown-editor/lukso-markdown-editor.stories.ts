@@ -327,6 +327,13 @@ Disabled.args = {
   description: 'This editor is currently disabled',
 }
 
+/** Example with `label` and `description`. */
+export const LabelAndDescription = Template.bind({})
+LabelAndDescription.args = {
+  label: 'Title',
+  description: 'My <i>description</i>',
+}
+
 /** Example with error state. */
 export const WithError = Template.bind({})
 WithError.args = {

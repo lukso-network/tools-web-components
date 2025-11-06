@@ -211,9 +211,7 @@ export class LuksoCollapse extends TailwindElement {
 
     return html`
       <div class="w-[inherit]">
-        ${this.label
-          ? html`<lukso-form-label>${this.label}</lukso-form-label>`
-          : nothing}
+        <lukso-form-label label=${this.label}></lukso-form-label>
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class=${cn(base(), this.customClass)}>
           <!-- Header -->

@@ -9,6 +9,12 @@ const meta: Meta = {
   title: 'Design System/Forms/lukso-form-label',
   component: 'lukso-form-label',
   argTypes: {
+    label: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     forName: {
       name: 'for-name',
       control: { type: 'text' },
@@ -21,6 +27,7 @@ const meta: Meta = {
     },
   },
   args: {
+    label: 'Some label',
     forName: 'label',
   },
   parameters: {
@@ -32,10 +39,11 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ forName }) =>
-  html`<lukso-form-label for-name=${forName ? forName : nothing}
-    >Some label</lukso-form-label
-  >`
+const Template = ({ label, forName }) =>
+  html`<lukso-form-label
+    label=${label ? label : nothing}
+    for-name=${forName ? forName : nothing}
+  ></lukso-form-label>`
 
 /** Example of default label  */
 export const DefaultFormLabel = Template.bind({})

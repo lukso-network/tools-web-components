@@ -125,13 +125,10 @@ export class LuksoSwitch extends TailwindElement {
 
     return html`
       <label for=${this.id} class="w-[inherit]">
-        ${
-          this.label
-            ? html`<lukso-form-label for-name=${this.name}
-                >${this.label}</lukso-form-label
-              >`
-            : nothing
-        }
+        <lukso-form-label
+          for-name=${this.name}
+          label=${this.label}
+        ></lukso-form-label>
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class="flex">
           <div

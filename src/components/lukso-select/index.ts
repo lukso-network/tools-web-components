@@ -538,9 +538,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
     return html`
       <div class="relative w-[inherit]">
-        ${this.label
-          ? html`<lukso-form-label>${this.label}</lukso-form-label>`
-          : nothing}
+        <lukso-form-label label=${this.label}></lukso-form-label>
         ${this.description ? this.descriptionTemplate() : nothing}
         <div class="group">
           <div class="flex relative items-center">

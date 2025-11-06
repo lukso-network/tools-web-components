@@ -313,12 +313,11 @@ DefaultSelect.args = {
   marginBottom: 160,
 }
 
-/** Example of select with `label` and `description`.  */
+/** Example with `label` and `description`. */
 export const LabelAndDescription = Template.bind({})
 LabelAndDescription.args = {
-  marginBottom: 160,
-  label: 'Select an option',
-  description: 'This is a description for the select component.',
+  label: 'Title',
+  description: 'My <i>description</i>',
 }
 
 /** Example of full width select.  */

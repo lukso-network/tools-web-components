@@ -8,6 +8,7 @@ import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
 import '@/components/lukso-sanitize'
 import '@/components/lukso-form-label'
+import '@/components/lukso-form-description'
 import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
@@ -187,14 +188,6 @@ ${this.value}</textarea
     `
   }
 
-  descriptionTemplate() {
-    return html`
-      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
-      </div>
-    `
-  }
-
   errorTemplate() {
     return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
       ${this.error}
@@ -344,7 +337,9 @@ ${this.value}</textarea
           for-name=${this.name}
           label=${this.label}
         ></lukso-form-label>
-        ${this.description ? this.descriptionTemplate() : nothing}
+        <lukso-form-description
+          description=${this.description}
+        ></lukso-form-description>
         <div class=${wrapper()}>
           <div class="relative w-[inherit] flex">
             ${this.inputTemplate(input())}

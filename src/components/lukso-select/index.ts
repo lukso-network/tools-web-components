@@ -12,6 +12,7 @@ import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
 import '@/components/lukso-sanitize'
 import '@/components/lukso-form-label'
+import '@/components/lukso-form-description'
 import style from './style.scss?inline'
 import { uniqId } from '@/shared/tools/uniq-id'
 
@@ -254,14 +255,6 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     })
 
     return html`<div class=${counterStyles}>${this.valueParsed?.length}</div>`
-  }
-
-  descriptionTemplate() {
-    return html`
-      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
-      </div>
-    `
   }
 
   errorTemplate() {
@@ -539,7 +532,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     return html`
       <div class="relative w-[inherit]">
         <lukso-form-label label=${this.label}></lukso-form-label>
-        ${this.description ? this.descriptionTemplate() : nothing}
+        <lukso-form-description
+          description=${this.description}
+        ></lukso-form-description>
         <div class="group">
           <div class="flex relative items-center">
             ${this.inputTemplate()}<lukso-icon

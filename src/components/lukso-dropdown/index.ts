@@ -63,9 +63,9 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   private styles = tv({
     slots: {
-      wrapper: 'absolute z-50',
+      wrapper: 'absolute z-50 w-full',
       dropdown: `bg-neutral-100 border border-neutral-90 shadow-1xl
-        flex flex-col gap-1 overflow-y-auto w-[max-content] animate-fade-in animation-duration-200`,
+        flex flex-col gap-1 overflow-y-auto w-full animate-fade-in animation-duration-200`,
     },
     variants: {
       openTop: {
@@ -94,7 +94,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         },
       },
       isFullWidth: {
-        true: { wrapper: 'w-full', dropdown: 'w-full' },
+        true: { wrapper: 'w-full', dropdown: 'max-w-full' },
       },
       hasMaxHeight: {
         true: {},

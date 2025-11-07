@@ -98,6 +98,7 @@ const meta: Meta = {
       table: {
         category: 'Attributes',
       },
+      type: { name: 'number' },
     },
     openTop: {
       name: 'open-top',
@@ -151,6 +152,7 @@ const meta: Meta = {
       table: {
         category: 'Attributes',
       },
+      type: { name: 'number' },
     },
     'is-full-width': {
       name: 'isFullWidth',
@@ -214,9 +216,9 @@ const meta: Meta = {
         value: 'Third result',
       },
     ],
-    selected: undefined,
+    selected: '',
     float: 'left',
-    maxHeight: undefined,
+    maxHeight: '',
   },
   parameters: {
     controls: {
@@ -311,6 +313,22 @@ const Template = ({
 export const DefaultSelect = Template.bind({})
 DefaultSelect.args = {
   marginBottom: 160,
+}
+
+/** Example with form decorators: `label`, `description` and `error`. */
+export const FormDecorators = Template.bind({})
+FormDecorators.args = {
+  label: 'Title label',
+  description: 'My component <i>description</i> text',
+  error: 'Error <i>message</i>',
+  isOpen: false,
+}
+
+/** Example of full width select.  */
+export const FullWidthSelect = Template.bind({})
+FullWidthSelect.args = {
+  marginBottom: 160,
+  isFullWidth: true,
 }
 
 /** With `placeholder` value you can set fixed text in selection trigger.  */

@@ -147,23 +147,10 @@ ColoredInput.args = {
   isChecked: true,
 }
 
-/** Example of switch with `label`. */
-export const Label = Template.bind({})
-Label.args = {
-  label: 'Title',
-}
-
-/** Example of switch with `label` and `description`. */
-export const LabelAndDescription = Template.bind({})
-LabelAndDescription.args = {
-  label: 'Title',
-  description: 'Description',
-}
-
-/** Example of switch with `error`. */
-export const ErrorInput = Template.bind({})
-ErrorInput.args = {
-  label: 'Title',
-  description: 'Description',
-  error: 'Error message',
+/** Example with form decorators: `label`, `description` and `error`. */
+export const FormDecorators = Template.bind({})
+FormDecorators.args = {
+  label: 'Title label',
+  description: 'My component <i>description</i> text',
+  error: 'Error <i>message</i>',
 }

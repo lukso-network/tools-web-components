@@ -63,6 +63,18 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    label: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    description: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     error: {
       control: { type: 'text' },
       table: {
@@ -105,6 +117,9 @@ const meta: Meta = {
     value: 'option1',
     error: '',
     id: '',
+    label: '',
+    description: '',
+    customClass: '',
   },
   parameters: {
     controls: {
@@ -133,6 +148,9 @@ const Template = ({
   id,
   children,
   onChange,
+  label,
+  description,
+  customClass,
 }) => {
   const [{ checked }, updateArgs] = useArgs()
 
@@ -150,6 +168,9 @@ const Template = ({
     value=${value ? value : nothing}
     size=${size}
     error=${error ? error : nothing}
+    label=${label ? label : nothing}
+    description=${description ? description : nothing}
+    custom-class=${customClass ? customClass : nothing}
     ?is-disabled=${isDisabled}
     ?is-readonly=${isReadonly}
     ?checked=${checked}
@@ -181,10 +202,12 @@ ReadonlyInput.args = {
   isReadonly: true,
 }
 
-/** Example of radio with error.  */
-export const ErrorInput = Template.bind({})
-ErrorInput.args = {
-  error: 'This field is required',
+/** Example with form decorators: `label`, `description` and `error`. */
+export const FormDecorators = Template.bind({})
+FormDecorators.args = {
+  label: 'Title label',
+  description: 'My component <i>description</i> text',
+  error: 'Error <i>message</i>',
 }
 
 /** Example of small size radio.  */

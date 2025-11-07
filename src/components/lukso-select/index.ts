@@ -11,6 +11,9 @@ import '@/components/lukso-username'
 import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
 import '@/components/lukso-sanitize'
+import '@/components/lukso-form-label'
+import '@/components/lukso-form-description'
+import '@/components/lukso-form-error'
 import style from './style.scss?inline'
 import { uniqId } from '@/shared/tools/uniq-id'
 
@@ -35,22 +38,22 @@ export type SelectOption = SelectStringOption | SelectProfileOption
 @safeCustomElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
   @property({ type: String })
-  value = ''
+  value: string | undefined = undefined
 
   @property({ type: String })
-  placeholder = ''
+  placeholder: string | undefined = undefined
 
   @property({ type: String })
-  label = ''
+  label: string | undefined = undefined
 
   @property({ type: String })
-  id = ''
+  id: string | undefined = undefined
 
   @property({ type: String })
-  description = ''
+  description: string | undefined = undefined
 
   @property({ type: String })
-  error = ''
+  error: string | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
@@ -65,10 +68,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   borderless = false
 
   @property({ type: String })
-  options = ''
+  options: string | undefined = undefined
 
   @property({ type: Number })
-  selected = undefined
+  selected: number | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-open' })
   isOpen = false
@@ -89,7 +92,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   showSelectionCounter = false
 
   @property({ type: Number, attribute: 'max-height', reflect: true })
-  maxHeight = undefined
+  maxHeight: number | undefined = undefined
 
   @state()
   private optionsParsed: SelectOption[] = []
@@ -110,11 +113,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       border border-solid placeholder:text-neutral-70 select-none whitespace-nowrap
       outline-none transition transition-all duration-150 appearance-none
       text-neutral-20 cursor-pointer border-neutral-90 group-hover:border-neutral-35
-      flex items-center`,
+      flex items-center w-full`,
     variants: {
-      isFullWidth: {
-        true: 'w-full',
-      },
       isDisabled: {
         true: 'cursor-not-allowed text-neutral-60 group-hover:border-neutral-90',
       },
@@ -224,7 +224,6 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
   inputTemplate() {
     const inputStyles = this.inputStyles({
-      isFullWidth: this.isFullWidth,
       isDisabled: this.isDisabled,
       hasError: !!this.error,
       borderless: this.borderless,
@@ -257,28 +256,6 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     })
 
     return html`<div class=${counterStyles}>${this.valueParsed?.length}</div>`
-  }
-
-  labelTemplate() {
-    return html`
-      <div class="heading-inter-14-bold text-neutral-20 pb-2 block">
-        ${this.label}
-      </div>
-    `
-  }
-
-  descriptionTemplate() {
-    return html`
-      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
-      </div>
-    `
-  }
-
-  errorTemplate() {
-    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
-      ${this.error}
-    </div>`
   }
 
   optionsTemplate() {
@@ -325,6 +302,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       size=${this.size}
       is-open
       is-open-on-outside-click
+      is-full-width=${this.isFullWidth}
       max-height=${this.maxHeight}
       ?is-right=${this.isRight}
       ?open-top=${this.openTop}
@@ -548,8 +526,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
     return html`
       <div class="relative w-[inherit]">
-        ${this.label ? this.labelTemplate() : nothing}
-        ${this.description ? this.descriptionTemplate() : nothing}
+        <lukso-form-label label=${this.label}></lukso-form-label>
+        <lukso-form-description
+          description=${this.description}
+        ></lukso-form-description>
         <div class="group">
           <div class="flex relative items-center">
             ${this.inputTemplate()}<lukso-icon
@@ -563,8 +543,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
             ? this.optionsTemplate()
             : nothing}
         </div>
-        <!-- error -->
-        ${this.error ? this.errorTemplate() : nothing}
+        <lukso-form-error error=${this.error}></lukso-form-error>
       </div>
     `
   }

@@ -172,6 +172,7 @@ const meta: Meta = {
     error: '',
     customClass: '',
     placeholder: '#000000',
+    id: '',
   },
   parameters: {
     controls: {
@@ -245,25 +246,12 @@ PlaceholderText.args = {
   value: '',
 }
 
-/** Example of input with `label`. */
-export const Label = Template.bind({})
-Label.args = {
-  label: 'Title',
-}
-
-/** Example of input with `label` and `description`. */
-export const LabelAndDescription = Template.bind({})
-LabelAndDescription.args = {
-  label: 'Title',
-  description: 'Description',
-}
-
-/** Example of input with `error`. */
-export const ErrorInput = Template.bind({})
-ErrorInput.args = {
-  label: 'Title',
-  description: 'Description',
-  error: 'Error message',
+/** Example with form decorators: `label`, `description` and `error`. */
+export const FormDecorators = Template.bind({})
+FormDecorators.args = {
+  label: 'Title label',
+  description: 'My component <i>description</i> text',
+  error: 'Error <i>message</i>',
 }
 
 /** If you need input to take full width of the parent element add `is-full-width` property. */

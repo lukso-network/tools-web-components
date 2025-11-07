@@ -6,22 +6,25 @@ import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
+import '@/components/lukso-form-label'
+import '@/components/lukso-form-description'
+import '@/components/lukso-form-error'
 
 import type { InputSize } from '@/shared/types'
 
 @safeCustomElement('lukso-collapse')
 export class LuksoCollapse extends TailwindElement {
   @property({ type: String })
-  label = ''
+  label: string | undefined = undefined
 
   @property({ type: String })
-  description = ''
+  description: string | undefined = undefined
 
   @property({ type: String })
-  error = ''
+  error: string | undefined = undefined
 
   @property({ type: String, attribute: 'trigger-label' })
-  triggerLabel = ''
+  triggerLabel: string | undefined = undefined
 
   @property({ type: Object, attribute: 'toggle-label' })
   toggleLabel: { open: string; close: string } = {
@@ -33,13 +36,13 @@ export class LuksoCollapse extends TailwindElement {
   isOpen = false
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass = ''
+  customClass: string | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-disabled' })
   isDisabled = false
 
   @property({ type: String, attribute: 'icon' })
-  icon = ''
+  icon: string | undefined = undefined
 
   @property({ type: String })
   size: InputSize = 'large'
@@ -185,41 +188,21 @@ export class LuksoCollapse extends TailwindElement {
     ],
   })
 
-  labelTemplate() {
-    return html`
-      <label class="heading-inter-14-bold text-neutral-20 pb-2 block"
-        >${this.label}</label
-      >
-    `
-  }
-
-  descriptionTemplate() {
-    return html`
-      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
-      </div>
-    `
-  }
-
-  errorTemplate() {
-    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
-      ${this.error}
-    </div>`
-  }
-
   render() {
     const { base, header, triggerLabel, toggleLabel, icon, content } =
       this.collapseStyles({
         isOpen: this.isOpen,
         isDisabled: this.isDisabled,
         size: this.size,
-        hasError: this.error !== '',
+        hasError: !!this.error,
       })
 
     return html`
       <div class="w-[inherit]">
-        ${this.label ? this.labelTemplate() : nothing}
-        ${this.description ? this.descriptionTemplate() : nothing}
+        <lukso-form-label label=${this.label}></lukso-form-label>
+        <lukso-form-description
+          description=${this.description}
+        ></lukso-form-description>
         <div class=${cn(base(), this.customClass)}>
           <!-- Header -->
           <div
@@ -255,7 +238,7 @@ export class LuksoCollapse extends TailwindElement {
             </div>
           </div>
         </div>
-        ${this.error ? this.errorTemplate() : nothing}
+        <lukso-form-error error=${this.error}></lukso-form-error>
       </div>
     `
   }

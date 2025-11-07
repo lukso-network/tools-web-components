@@ -100,7 +100,7 @@ const meta: Meta = {
   args: {
     size: 'large',
     triggerLabel: 'Open',
-    toggleLabel: undefined,
+    toggleLabel: { open: '', close: '' },
     icon: '',
     label: '',
     description: '',
@@ -195,22 +195,12 @@ CustomLabels.args = {
   icon: 'arrow-down-sm',
 }
 
-/** Example of collapse with `label` */
-export const CollapseLabel = Template.bind({})
-CollapseLabel.args = {
-  label: 'Collapse Label',
-}
-
-/** Example of collapse with `description` */
-export const CollapseDescription = Template.bind({})
-CollapseDescription.args = {
-  description: 'This is a description for the collapse component.',
-}
-
-/** Example of collapse with `error` */
-export const CollapseError = Template.bind({})
-CollapseError.args = {
-  error: 'This is an error message for the collapse component.',
+/** Example with form decorators: `label`, `description` and `error`. */
+export const FormDecorators = Template.bind({})
+FormDecorators.args = {
+  label: 'Title label',
+  description: 'My component <i>description</i> text',
+  error: 'Error <i>message</i>',
 }
 
 /** Example of lukso-collapse `open` by default */

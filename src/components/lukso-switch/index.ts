@@ -1,4 +1,4 @@
-import { html, nothing } from 'lit'
+import { html } from 'lit'
 import { property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { tv } from 'tailwind-variants'
@@ -7,6 +7,9 @@ import { safeCustomElement } from '@/shared/safe-custom-element'
 import { uniqId } from '@/shared/tools/uniq-id'
 import { TailwindElement } from '@/shared/tailwind-element'
 import '@/components/lukso-sanitize'
+import '@/components/lukso-form-label'
+import '@/components/lukso-form-description'
+import '@/components/lukso-form-error'
 
 const DEFAULT_COLOR = 'green-54'
 
@@ -16,19 +19,19 @@ export class LuksoSwitch extends TailwindElement {
   color = DEFAULT_COLOR
 
   @property({ type: String })
-  id = ''
+  id: string | undefined = undefined
 
   @property({ type: String })
   name = 'switch'
 
   @property({ type: String })
-  label = ''
+  label: string | undefined = undefined
 
   @property({ type: String })
-  description = ''
+  description: string | undefined = undefined
 
   @property({ type: String })
-  error = ''
+  error: string | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-checked' })
   isChecked = false
@@ -97,34 +100,11 @@ export class LuksoSwitch extends TailwindElement {
     },
   })
 
-  labelTemplate() {
-    return html`
-      <div
-        class="heading-inter-14-bold text-neutral-20 pb-2 block"
-        >${this.label}</label
-      >
-    `
-  }
-
-  descriptionTemplate() {
-    return html`
-      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
-      </div>
-    `
-  }
-
-  errorTemplate() {
-    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
-      ${this.error}
-    </div>`
-  }
-
   render() {
     const { label, input } = this.styles({
       isChecked: this.isChecked,
       isDisabled: this.isDisabled,
-      hasError: this.error !== '',
+      hasError: !!this.error,
     })
 
     if (!this.color) {
@@ -132,35 +112,42 @@ export class LuksoSwitch extends TailwindElement {
     }
 
     return html`
-      <label for=${this.id} class="w-[inherit]">
-        ${this.label ? this.labelTemplate() : nothing}
-        ${this.description ? this.descriptionTemplate() : nothing}
-        <div class="flex">
-          <div
-            class=${label()}
-            style=${styleMap({
-              backgroundColor: `var(--${
-                this.isChecked ? this.color : 'neutral-90'
-              })`,
-            })}
-          >
-            <input
-              type="checkbox"
-              id=${this.id}
-              name=${this.name}
-              ?checked=${this.isChecked}
-              ?disabled=${this.isDisabled}
-              class=${input()}
+      <div>
+        <lukso-form-label
+          for-name=${this.name}
+          label=${this.label}
+        ></lukso-form-label>
+        <lukso-form-description
+          description=${this.description}
+        ></lukso-form-description>
+        <label for=${this.id} class="w-[inherit]">
+          <div class="flex">
+            <div
+              class=${label()}
               style=${styleMap({
-                borderColor: `var(--${
+                backgroundColor: `var(--${
                   this.isChecked ? this.color : 'neutral-90'
                 })`,
               })}
-              @change=${this.handleChange}
-            />
-          </label>
-        </div>
-        ${this.error ? this.errorTemplate() : nothing}
+            >
+              <input
+                type="checkbox"
+                id=${this.id}
+                name=${this.name}
+                ?checked=${this.isChecked}
+                ?disabled=${this.isDisabled}
+                class=${input()}
+                style=${styleMap({
+                  borderColor: `var(--${
+                    this.isChecked ? this.color : 'neutral-90'
+                  })`,
+                })}
+                @change=${this.handleChange}
+              />
+            </div>
+          </div>
+        </label>
+        <lukso-form-error error=${this.error}></lukso-form-error>
       </div>
     `
   }

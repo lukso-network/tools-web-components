@@ -1,9 +1,12 @@
-import { html, nothing } from 'lit'
+import { html } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
+import '@/components/lukso-form-label'
+import '@/components/lukso-form-description'
+import '@/components/lukso-form-error'
 import { cn } from '@/shared/tools'
 
 export type RadioSize = 'x-small' | 'small' | 'medium'
@@ -11,25 +14,31 @@ export type RadioSize = 'x-small' | 'small' | 'medium'
 @safeCustomElement('lukso-radio')
 export class LuksoRadio extends TailwindElement {
   @property({ type: String })
-  name = ''
+  name: string | undefined = undefined
 
   @property({ type: String })
-  id = ''
+  id: string | undefined = undefined
 
   @property({ type: String })
-  value = ''
+  value: string | undefined = undefined
 
   @property({ type: String })
   size: RadioSize = 'medium'
 
   @property({ type: String })
-  error = ''
+  label: string | undefined = undefined
+
+  @property({ type: String })
+  description: string | undefined = undefined
+
+  @property({ type: String })
+  error: string | undefined = undefined
 
   @property({ type: Boolean })
   checked = false
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass = ''
+  customClass: string | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-readonly' })
   isReadonly = false
@@ -161,11 +170,6 @@ export class LuksoRadio extends TailwindElement {
     `
   }
 
-  errorTemplate() {
-    const { errorText } = this.radioStyles()
-    return html` <div class=${errorText()}>${this.error}</div> `
-  }
-
   contentTemplate() {
     const { content } = this.radioStyles({
       size: this.size,
@@ -188,6 +192,10 @@ export class LuksoRadio extends TailwindElement {
 
     return html`
       <div>
+        <lukso-form-label label=${this.label}></lukso-form-label>
+        <lukso-form-description
+          description=${this.description}
+        ></lukso-form-description>
         <div
           class=${container()}
           @mouseenter=${this.handleMouseOver}
@@ -209,7 +217,7 @@ export class LuksoRadio extends TailwindElement {
         >
           ${this.radioTemplate()} ${this.contentTemplate()}
         </div>
-        ${this.error ? this.errorTemplate() : nothing}
+        <lukso-form-error error=${this.error}></lukso-form-error>
       </div>
     `
   }

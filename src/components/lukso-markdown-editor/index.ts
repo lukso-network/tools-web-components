@@ -20,6 +20,8 @@ import '@/components/lukso-sanitize'
 import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
 import '@/components/lukso-tooltip'
+import '@/components/lukso-form-label'
+import '@/components/lukso-form-description'
 
 import type { InputSize } from '@/shared/types'
 
@@ -239,7 +241,7 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
   private styles = tv({
     slots: {
-      wrapper: 'w-[inherit] grid gap-3',
+      wrapper: 'w-[inherit]',
       header:
         'flex items-center justify-between gap-2 border border-neutral-90 rounded-12 px-3 py-2 bg-neutral-100',
       toolbar: 'flex flex-wrap items-center gap-1',
@@ -2826,22 +2828,6 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
     this.savedSelectionForPreview = null
   }
 
-  private labelTemplate() {
-    return this.label
-      ? html`<label class="heading-inter-14-bold text-neutral-20 block"
-          >${this.label}</label
-        >`
-      : nothing
-  }
-
-  private descriptionTemplate() {
-    return this.description
-      ? html`<div class="paragraph-inter-12-regular text-neutral-20">
-          <lukso-sanitize html-content=${this.description}></lukso-sanitize>
-        </div>`
-      : nothing
-  }
-
   /**
    * Restore focus and selection to the textarea after toolbar interactions.
    */
@@ -3394,7 +3380,15 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
     return html`
       <div class=${wrapper()}>
-        ${this.labelTemplate()} ${this.descriptionTemplate()}
+        <div>
+          <lukso-form-label
+            for-name=${this.name}
+            label=${this.label}
+          ></lukso-form-label>
+          <lukso-form-description
+            description=${this.description}
+          ></lukso-form-description>
+        </div>
 
         <div class="flex flex-col gap-2">
           <div class=${header()}>

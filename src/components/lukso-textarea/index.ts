@@ -7,6 +7,9 @@ import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
 import '@/components/lukso-sanitize'
+import '@/components/lukso-form-label'
+import '@/components/lukso-form-description'
+import '@/components/lukso-form-error'
 import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
@@ -16,31 +19,31 @@ const FOCUS_DELAY_MS = 10
 @safeCustomElement('lukso-textarea')
 export class LuksoTextarea extends TailwindStyledElement(style) {
   @property({ type: String })
-  value = ''
+  value: string | undefined = undefined
 
   @property({ type: String })
-  name = ''
+  name: string | undefined = undefined
 
   @property({ type: String })
-  placeholder = ''
+  placeholder: string | undefined = undefined
 
   @property({ type: String })
-  label = ''
+  label: string | undefined = undefined
 
   @property({ type: String })
-  id = ''
+  id: string | undefined = undefined
 
   @property({ type: String })
   ref: string | undefined = undefined
 
   @property({ type: String })
-  description = ''
+  description: string | undefined = undefined
 
   @property({ type: String })
-  error = ''
+  error: string | undefined = undefined
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass = ''
+  customClass: string | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
@@ -186,30 +189,6 @@ ${this.value}</textarea
     `
   }
 
-  labelTemplate() {
-    return html`
-      <label
-        for=${this.name}
-        class="heading-inter-14-bold text-neutral-20 pb-2 block"
-        >${this.label}</label
-      >
-    `
-  }
-
-  descriptionTemplate() {
-    return html`
-      <div class="paragraph-inter-12-regular text-neutral-20 pb-2">
-        <lukso-sanitize html-content=${this.description}></lukso-sanitize>
-      </div>
-    `
-  }
-
-  errorTemplate() {
-    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
-      ${this.error}
-    </div>`
-  }
-
   private handleFocus() {
     if (!this.isReadonly && !this.isDisabled) {
       this.hasFocus = true
@@ -337,7 +316,7 @@ ${this.value}</textarea
 
   render() {
     const { wrapper, input } = this.styles({
-      hasError: this.error !== '',
+      hasError: !!this.error,
       hasHighlight: this.hasHighlight,
       borderless: this.borderless,
       isReadonly: this.isReadonly,
@@ -349,14 +328,19 @@ ${this.value}</textarea
 
     return html`
       <div class="w-[inherit]">
-        ${this.label ? this.labelTemplate() : nothing}
-        ${this.description ? this.descriptionTemplate() : nothing}
+        <lukso-form-label
+          for-name=${this.name}
+          label=${this.label}
+        ></lukso-form-label>
+        <lukso-form-description
+          description=${this.description}
+        ></lukso-form-description>
         <div class=${wrapper()}>
           <div class="relative w-[inherit] flex">
             ${this.inputTemplate(input())}
           </div>
         </div>
-        ${this.error ? this.errorTemplate() : nothing}
+        <lukso-form-error error=${this.error}></lukso-form-error>
       </div>
     `
   }

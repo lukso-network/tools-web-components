@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.165.0](https://github.com/lukso-network/tools-web-components/compare/v1.164.0...v1.165.0) (2025-11-07)
+
+
+### Features
+
+* Move redundant `label`, `description` and `error` templates to sharable component ([#701](https://github.com/lukso-network/tools-web-components/issues/701)) ([2d59212](https://github.com/lukso-network/tools-web-components/commit/2d59212a619eb11dab37eef96f7f5c011803dcb2))
+
 ## [1.164.0](https://github.com/lukso-network/tools-web-components/compare/v1.163.0...v1.164.0) (2025-10-31)
 
 

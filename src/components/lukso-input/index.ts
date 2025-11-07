@@ -7,6 +7,7 @@ import '@/components/lukso-icon'
 import '@/components/lukso-sanitize'
 import '@/components/lukso-form-label'
 import '@/components/lukso-form-description'
+import '@/components/lukso-form-error'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import style from './style.scss?inline'
@@ -18,25 +19,25 @@ const FOCUS_DELAY_MS = 10
 @safeCustomElement('lukso-input')
 export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: String })
-  value = ''
+  value: string | undefined = undefined
 
   @property({ type: String })
-  name = ''
+  name: string | undefined = undefined
 
   @property({ type: String })
   type = 'text'
 
   @property({ type: String })
-  placeholder = ''
+  placeholder: string | undefined = undefined
 
   @property({ type: String })
-  label = ''
+  label: string | undefined = undefined
 
   @property({ type: String })
   autocomplete = 'on'
 
   @property({ type: String })
-  id = ''
+  id: string | undefined = undefined
 
   @property({ type: String })
   ref: string | undefined = undefined
@@ -45,16 +46,16 @@ export class LuksoInput extends TailwindStyledElement(style) {
   accept: string | undefined = undefined
 
   @property({ type: String })
-  description = ''
+  description: string | undefined = undefined
 
   @property({ type: String })
-  error = ''
+  error: string | undefined = undefined
 
   @property({ type: String })
-  unit = ''
+  unit: string | undefined = undefined
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass = ''
+  customClass: string | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
@@ -81,7 +82,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
   size: InputSize = 'large'
 
   @property({ type: String, attribute: 'right-icon' })
-  rightIcon = ''
+  rightIcon: string | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-right-icon-clickable' })
   isRightIconClickable = false
@@ -253,12 +254,6 @@ export class LuksoInput extends TailwindStyledElement(style) {
         @click=${this.handleInputClick}
       />
     `
-  }
-
-  errorTemplate() {
-    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
-      ${this.error}
-    </div>`
   }
 
   unitTemplate(styles: string) {
@@ -434,15 +429,15 @@ export class LuksoInput extends TailwindStyledElement(style) {
 
   render() {
     const { wrapper, input, unit, rightIcon } = this.inputStyles({
-      hasError: this.error !== '',
+      hasError: !!this.error,
       hasHighlight: this.hasHighlight,
       borderless: this.borderless,
       isReadonly: this.isReadonly,
       isDisabled: this.isDisabled,
       isFullWidth: this.isFullWidth,
-      hasUnit: this.unit !== '',
+      hasUnit: !!this.unit,
       size: this.size,
-      hasRightIcon: this.rightIcon !== '',
+      hasRightIcon: !!this.rightIcon,
       isRightIconClickable: this.isRightIconClickable,
     })
 
@@ -462,7 +457,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
           </div>
           ${this.unit ? this.unitTemplate(unit()) : nothing}
         </div>
-        ${this.error ? this.errorTemplate() : nothing}
+        <lukso-form-error error=${this.error}></lukso-form-error>
       </div>
     `
   }

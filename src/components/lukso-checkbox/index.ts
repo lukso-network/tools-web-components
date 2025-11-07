@@ -5,16 +5,19 @@ import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
 
+import '@/components/lukso-form-description'
+import '@/components/lukso-form-error'
+
 export type CheckboxSize = 'x-small' | 'small' | 'medium'
 export type CheckboxType = 'text' | 'profile'
 
 @safeCustomElement('lukso-checkbox')
 export class LuksoCheckbox extends TailwindElement {
   @property({ type: String })
-  name = ''
+  name: string | undefined = undefined
 
   @property({ type: String })
-  id = ''
+  id: string | undefined = undefined
 
   @property({ type: String })
   ref: string | undefined = undefined
@@ -26,13 +29,19 @@ export class LuksoCheckbox extends TailwindElement {
   size: CheckboxSize = 'medium'
 
   @property({ type: String })
-  error = ''
+  label: string | undefined = undefined
+
+  @property({ type: String })
+  description: string | undefined = undefined
+
+  @property({ type: String })
+  error: string | undefined = undefined
 
   @property({ type: Boolean })
   checked: boolean = false
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass = ''
+  customClass: string | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-readonly' })
   isReadonly = false
@@ -86,14 +95,14 @@ export class LuksoCheckbox extends TailwindElement {
       <div
         class=${customClassMap({
           [this.defaultCheckboxStyles]: true,
-          [this.error === '' ? 'border-neutral-90' : 'border-red-85']:
+          [!this.error ? 'border-neutral-90' : 'border-red-85']:
             !this.hasHighlight,
-          [this.error === '' ? 'border-neutral-35' : 'border-red-65']:
+          [!this.error ? 'border-neutral-35' : 'border-red-65']:
             this.hasHighlight,
-          ['border-neutral-60']: this.isDisabled,
-          ['h-10 w-[40px]']: this.size === 'medium',
-          ['h-[32px] w-[32px]']: this.size === 'small',
-          ['h-7 w-[28px]']: this.size === 'x-small',
+          'border-neutral-60': this.isDisabled,
+          'h-10 w-[40px]': this.size === 'medium',
+          'h-[32px] w-[32px]': this.size === 'small',
+          'h-7 w-[28px]': this.size === 'x-small',
           [this.customClass]: !!this.customClass,
         })}
       >
@@ -123,24 +132,16 @@ export class LuksoCheckbox extends TailwindElement {
     `
   }
 
-  errorTemplate() {
-    return html`
-      <div class="paragraph-inter-12-regular text-red-65 pt-2">
-        ${this.error}
-      </div>
-    `
-  }
-
   labelTemplate() {
     return html`
       <span
         class=${customClassMap({
           [this.defaultLabelStyles]: true,
-          ['paragraph-inter-16-regular']:
+          'paragraph-inter-16-regular':
             this.size === 'medium' || this.size === 'small',
-          ['paragraph-inter-12-semi-bold']: this.size === 'x-small',
-          ['text-red-65']: this.error !== '',
-          ['text-neutral-60']: this.isDisabled,
+          'paragraph-inter-12-semi-bold': this.size === 'x-small',
+          'text-red-65': !!this.error,
+          'text-neutral-60': this.isDisabled,
         })}
       >
         <slot></slot>
@@ -159,6 +160,10 @@ export class LuksoCheckbox extends TailwindElement {
   render() {
     return html`
       <div>
+        <lukso-form-label label=${this.label}></lukso-form-label>
+        <lukso-form-description
+          description=${this.description}
+        ></lukso-form-description>
         <label
           for=${this.name}
           class=${customClassMap({
@@ -172,6 +177,7 @@ export class LuksoCheckbox extends TailwindElement {
           ${this.type === 'text' ? this.labelTemplate() : nothing}
           ${this.type === 'profile' ? this.profileUsernameTemplate() : nothing}
         </label>
+        <lukso-form-error error=${this.error}></lukso-form-error>
       </div>
     `
   }

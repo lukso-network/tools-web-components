@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 
 import type { Meta } from '@storybook/web-components-vite'
 
@@ -9,7 +9,7 @@ const meta: Meta = {
   title: 'Design System/Forms/lukso-checkbox',
   component: 'lukso-checkbox',
   argTypes: {
-    label: {
+    text: {
       control: { type: 'text' },
       table: {
         category: 'Attributes',
@@ -34,6 +34,18 @@ const meta: Meta = {
       },
     },
     id: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    label: {
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
+    description: {
       control: { type: 'text' },
       table: {
         category: 'Attributes',
@@ -96,12 +108,17 @@ const meta: Meta = {
   },
   args: {
     checked: false,
-    label: 'Label',
+    text: 'checkbox text',
     type: 'text',
     name: 'input',
     isReadonly: false,
     isDisabled: false,
     customClass: '',
+    error: '',
+    description: '',
+    label: '',
+    ref: '',
+    id: '',
   },
   parameters: {
     controls: {
@@ -109,7 +126,7 @@ const meta: Meta = {
         'defaultInputStyles',
         'defaultCheckboxStyles',
         'defaultContainerStyles',
-        'defaultLabelStyles',
+        'defaulttextStyles',
         'hasFocus',
         'hasHighlight',
         'customClass',
@@ -128,7 +145,7 @@ export default meta
 const Template = ({
   name,
   type,
-  label,
+  text,
   error,
   size,
   isReadonly,
@@ -136,45 +153,50 @@ const Template = ({
   checked,
   customClass,
   onChange,
+  description,
+  label,
 }) =>
   html` <lukso-checkbox
-    name=${name}
-    type=${type}
-    error=${error}
-    size=${size}
+    name=${name ? name : nothing}
+    type=${type ? type : nothing}
+    label=${label ? label : nothing}
+    description=${description ? description : nothing}
+    error=${error ? error : nothing}
+    size=${size ? size : nothing}
+    custom-class=${customClass ? customClass : nothing}
     ?is-readonly=${isReadonly}
     ?is-disabled=${isDisabled}
     ?checked=${checked}
-    custom-class=${customClass}
     @on-change=${onChange}
   >
-    ${label}
+    ${text}
   </lukso-checkbox>`
 
 /** Example of default input with `value`.  */
 export const DefaultInput = Template.bind({})
 DefaultInput.args = {
   checked: true,
-  label: 'Checkbox',
   size: 'medium',
 }
 
-/** Example of input with `error`. */
-export const Error = Template.bind({})
-Error.args = {
-  error: 'Error message',
-  size: 'medium',
+/** Example with form decorators: `label`, `description` and `error`. */
+export const FormDecorators = Template.bind({})
+FormDecorators.args = {
+  label: 'Title label',
+  description: 'My component <i>description</i> text',
+  error: 'Error <i>message</i>',
 }
+
 export const Small = Template.bind({})
 Small.args = {
   size: 'small',
-  label: 'Small',
+  text: 'Small',
 }
 
 export const XSmall = Template.bind({})
 XSmall.args = {
   size: 'x-small',
-  label: 'XSmall',
+  text: 'XSmall',
 }
 
 const ProfileCheckboxTemplate = ({

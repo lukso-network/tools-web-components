@@ -10,6 +10,7 @@ import '@/components/lukso-icon'
 import '@/components/lukso-sanitize'
 import '@/components/lukso-form-label'
 import '@/components/lukso-form-description'
+import '@/components/lukso-form-error'
 import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
@@ -19,28 +20,28 @@ const FOCUS_DELAY_MS = 10
 @safeCustomElement('lukso-color-picker')
 export class LuksoColorPicker extends TailwindStyledElement(style) {
   @property({ type: String })
-  value = ''
+  value: string | undefined = undefined
 
   @property({ type: String })
-  name = ''
+  name: string | undefined = undefined
 
   @property({ type: String })
   placeholder = '#000000'
 
   @property({ type: String })
-  label = ''
+  label: string | undefined = undefined
 
   @property({ type: String })
-  id = ''
+  id: string | undefined = undefined
 
   @property({ type: String })
-  description = ''
+  description: string | undefined = undefined
 
   @property({ type: String })
-  error = ''
+  error: string | undefined = undefined
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass = ''
+  customClass: string | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
@@ -216,12 +217,6 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
     </div>`
   }
 
-  errorTemplate() {
-    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
-      ${this.error}
-    </div>`
-  }
-
   private handleFocus() {
     if (!this.isReadonly && !this.isDisabled) {
       this.hasFocus = true
@@ -310,7 +305,7 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
 
   render() {
     const { wrapper, input, color, colorInput } = this.styles({
-      hasError: this.error !== '',
+      hasError: !!this.error,
       hasHighlight: this.hasHighlight,
       isReadonly: this.isReadonly,
       isDisabled: this.isDisabled,
@@ -331,7 +326,7 @@ export class LuksoColorPicker extends TailwindStyledElement(style) {
           ${this.colorPickerTemplate(color(), colorInput())}
           <div class="relative w-full">${this.inputTemplate(input())}</div>
         </div>
-        ${this.error ? this.errorTemplate() : nothing}
+        <lukso-form-error error=${this.error}></lukso-form-error>
       </div>
     `
   }

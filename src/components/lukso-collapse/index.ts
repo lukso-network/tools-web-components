@@ -8,22 +8,23 @@ import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
 import '@/components/lukso-form-label'
 import '@/components/lukso-form-description'
+import '@/components/lukso-form-error'
 
 import type { InputSize } from '@/shared/types'
 
 @safeCustomElement('lukso-collapse')
 export class LuksoCollapse extends TailwindElement {
   @property({ type: String })
-  label = ''
+  label: string | undefined = undefined
 
   @property({ type: String })
-  description = ''
+  description: string | undefined = undefined
 
   @property({ type: String })
-  error = ''
+  error: string | undefined = undefined
 
   @property({ type: String, attribute: 'trigger-label' })
-  triggerLabel = ''
+  triggerLabel: string | undefined = undefined
 
   @property({ type: Object, attribute: 'toggle-label' })
   toggleLabel: { open: string; close: string } = {
@@ -35,13 +36,13 @@ export class LuksoCollapse extends TailwindElement {
   isOpen = false
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass = ''
+  customClass: string | undefined = undefined
 
   @property({ type: Boolean, attribute: 'is-disabled' })
   isDisabled = false
 
   @property({ type: String, attribute: 'icon' })
-  icon = ''
+  icon: string | undefined = undefined
 
   @property({ type: String })
   size: InputSize = 'large'
@@ -187,19 +188,13 @@ export class LuksoCollapse extends TailwindElement {
     ],
   })
 
-  errorTemplate() {
-    return html`<div class="paragraph-inter-12-regular text-red-65 pt-2">
-      ${this.error}
-    </div>`
-  }
-
   render() {
     const { base, header, triggerLabel, toggleLabel, icon, content } =
       this.collapseStyles({
         isOpen: this.isOpen,
         isDisabled: this.isDisabled,
         size: this.size,
-        hasError: this.error !== '',
+        hasError: !!this.error,
       })
 
     return html`
@@ -243,7 +238,7 @@ export class LuksoCollapse extends TailwindElement {
             </div>
           </div>
         </div>
-        ${this.error ? this.errorTemplate() : nothing}
+        <lukso-form-error error=${this.error}></lukso-form-error>
       </div>
     `
   }

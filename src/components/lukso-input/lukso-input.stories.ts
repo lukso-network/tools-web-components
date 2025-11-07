@@ -126,13 +126,17 @@ const meta: Meta = {
       control: { type: 'number' },
       table: {
         category: 'Attributes',
+        defaultValue: { summary: 'undefined' },
       },
+      type: 'number',
     },
     max: {
       control: { type: 'number' },
       table: {
         category: 'Attributes',
+        defaultValue: { summary: 'undefined' },
       },
+      type: 'number',
     },
     borderless: {
       control: { type: 'boolean' },
@@ -267,8 +271,11 @@ const meta: Meta = {
     accept: 'image',
     customClass: '',
     placeholder: '',
-    min: undefined,
-    max: undefined,
+    autocomplete: '',
+    ref: '',
+    id: '',
+    min: '',
+    max: '',
   },
   parameters: {
     controls: {
@@ -366,17 +373,12 @@ PlaceholderText.args = {
   placeholder: 'Placeholder Text',
 }
 
-/** Example with `label` and `description`. */
-export const LabelAndDescription = Template.bind({})
-LabelAndDescription.args = {
-  label: 'Title',
-  description: 'My <i>description</i>',
-}
-
-/** Example of input with `error`. */
-export const ErrorInput = Template.bind({})
-ErrorInput.args = {
-  error: 'Error message',
+/** Example with form decorators: `label`, `description` and `error`. */
+export const FormDecorators = Template.bind({})
+FormDecorators.args = {
+  label: 'Title label',
+  description: 'My component <i>description</i> text',
+  error: 'Error <i>message</i>',
 }
 
 /** Example of input with `unit`. */
@@ -389,12 +391,6 @@ Unit.args = {
 export const FullWidth = Template.bind({})
 FullWidth.args = {
   isFullWidth: true,
-}
-
-/** If you need input to be focused add `autofocus` property. */
-export const Autofocus = Template.bind({})
-Autofocus.args = {
-  autofocus: true,
 }
 
 /** With `min` and `max` property you can specify minimum or maximum value that can be entered. It works with `number`, `range`, `date`, `datetime-local`, `month`, `time` and `week` input types */

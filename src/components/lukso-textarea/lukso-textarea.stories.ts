@@ -210,6 +210,8 @@ const meta: Meta = {
     customClass: '',
     placeholder: '',
     rows: 4,
+    ref: '',
+    id: '',
   },
   parameters: {
     controls: {
@@ -291,19 +293,12 @@ PlaceholderText.args = {
   placeholder: 'Placeholder Text',
 }
 
-/** Example with `label` and `description`. */
-export const LabelAndDescription = Template.bind({})
-LabelAndDescription.args = {
-  label: 'Title',
-  description: 'My <i>description</i>',
-}
-
-/** Example of textarea with `error`. */
-export const ErrorInput = Template.bind({})
-ErrorInput.args = {
-  label: 'Title',
-  description: 'Description',
-  error: 'Error message',
+/** Example with form decorators: `label`, `description` and `error`. */
+export const FormDecorators = Template.bind({})
+FormDecorators.args = {
+  label: 'Title label',
+  description: 'My component <i>description</i> text',
+  error: 'Error <i>message</i>',
 }
 
 /** If you need textarea to take full width of the parent element add `is-full-width` property. */

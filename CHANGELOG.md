@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.165.1](https://github.com/lukso-network/tools-web-components/compare/v1.165.0...v1.165.1) (2025-11-13)
+
+
+### Bug Fixes
+
+* markdown code block push content on mobile ([#704](https://github.com/lukso-network/tools-web-components/issues/704)) ([a28eead](https://github.com/lukso-network/tools-web-components/commit/a28eeadbe09a5d811cc60e24369141e96d181959))
+* Repair by removing css source mappings. ([#703](https://github.com/lukso-network/tools-web-components/issues/703)) ([4c985ee](https://github.com/lukso-network/tools-web-components/commit/4c985eee5b6a1fbb3124034a9dd76cef4015968d))
+
 ## [1.165.0](https://github.com/lukso-network/tools-web-components/compare/v1.164.0...v1.165.0) (2025-11-07)
 
 

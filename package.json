@@ -7,7 +7,7 @@
 		"config-prepare": "tsx ./vite.tools.config.ts --mode=production",
 		"start": "yarn config-prepare && concurrently 'tsx ./vite.full.config.ts --mode=develop' 'yarn storybook' 'yarn analyze:watch'",
 		"dev": "yarn start",
-		"build": "rm -rf package/dist package/tools && yarn config-prepare && yarn analyze && tsx ./vite.full.config.ts --mode=production && yarn sass --verbose ./src/shared/styles/main.scss ./package/dist/styles/main.css && cp ./package/dist/styles/main.css ./package/tools/styles/main.css && yarn build:list-exports",
+		"build": "rm -rf package/dist package/tools && yarn config-prepare && yarn analyze && tsx ./vite.full.config.ts --mode=production && yarn sass --verbose ./src/shared/styles/main.scss ./package/dist/styles/main.css && sed -i '$ {/\\/\\*# sourceMappingURL=.*\\*\\/$/d;}' ./package/dist/styles/main.css && cp ./package/dist/styles/main.css ./package/tools/styles/main.css && yarn build:list-exports",
 		"build:list-exports": "node ./listExports.cjs",
 		"lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt,types}'",
 		"lint:eslint": "eslint src --fix",

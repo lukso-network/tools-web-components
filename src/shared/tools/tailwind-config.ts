@@ -302,6 +302,11 @@ export const proseSpacing = {
     marginTop: '0.5em',
     marginBottom: '0.5em',
     lineHeight: '1.45',
+    boxSizing: 'border-box',
+    maxWidth: '100%',
+    overflowX: 'auto',
+    whiteSpace: 'pre-wrap',
+    overflowWrap: 'break-word',
   },
 }
 

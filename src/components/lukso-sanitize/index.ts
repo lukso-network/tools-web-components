@@ -4,7 +4,8 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 import DOMPurify from 'dompurify'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
+import style from './style.scss?inline'
 
 /**
  * Default DOMPurify options for lukso-sanitize component.
@@ -23,7 +24,7 @@ export const DEFAULT_OPTIONS = {
 export const NO_HTML_TAGS_OPTIONS = { ALLOWED_TAGS: [] }
 
 @safeCustomElement('lukso-sanitize')
-export class LuksoSanitize extends TailwindElement {
+export class LuksoSanitize extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'html-content' })
   htmlContent = ''
 

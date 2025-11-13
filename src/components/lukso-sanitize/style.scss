@@ -1,0 +1,8 @@
+:host {
+  @apply flex;
+}
+
+// fix issue with code block pushing the content on mobile
+.prose pre {
+  @apply box-border max-w-full overflow-x-auto whitespace-pre-wrap break-words;
+}

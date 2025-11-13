@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.165.3](https://github.com/lukso-network/tools-web-components/compare/v1.165.2...v1.165.3) (2025-11-13)
+
+
+### Bug Fixes
+
+* Move prose pre styling to config ([#708](https://github.com/lukso-network/tools-web-components/issues/708)) ([72545c3](https://github.com/lukso-network/tools-web-components/commit/72545c313ed8676277ef27506bb62c53208b525e))
+
 ## [1.165.2](https://github.com/lukso-network/tools-web-components/compare/v1.165.1...v1.165.2) (2025-11-13)
 
 

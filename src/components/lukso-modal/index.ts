@@ -21,7 +21,7 @@ export class LuksoModal extends TailwindElement {
   private styles = tv({
     slots: {
       wrapper:
-        'opacity-0 fixed z-[1011] transition-opacity inset-0 w-screen h-screen overflow-y-auto overscroll-none touch-none',
+        'opacity-0 fixed z-[1011] transition-opacity inset-0 w-screen h-screen overflow-y-auto overscroll-none scrolling-touch touch-pan-y',
       overlay:
         'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed inset-0 w-[100vw] h-[100vh] z-[1010]',
       dialog:

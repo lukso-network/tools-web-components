@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.166.3](https://github.com/lukso-network/tools-web-components/compare/v1.166.2...v1.166.3) (2025-11-17)
+
+
+### Bug Fixes
+
+* Align npm version ([#718](https://github.com/lukso-network/tools-web-components/issues/718)) ([9c11def](https://github.com/lukso-network/tools-web-components/commit/9c11def41f22d9bbc837261380127f9e41ef8d1b))
+
 ## [1.166.2](https://github.com/lukso-network/tools-web-components/compare/v1.166.1...v1.166.2) (2025-11-17)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.166.2](https://github.com/lukso-network/tools-web-components/compare/v1.166.1...v1.166.2) (2025-11-17)
+
+
+### Bug Fixes
+
+* Rollback default to empty string ([#716](https://github.com/lukso-network/tools-web-components/issues/716)) ([9f0c632](https://github.com/lukso-network/tools-web-components/commit/9f0c632a28908aebcd4ee8c6af16c0fd68696774))
+
 ## [1.166.1](https://github.com/lukso-network/tools-web-components/compare/v1.166.0...v1.166.1) (2025-11-17)
 
 

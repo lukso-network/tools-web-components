@@ -15,16 +15,16 @@ import type { InputSize } from '@/shared/types'
 @safeCustomElement('lukso-collapse')
 export class LuksoCollapse extends TailwindElement {
   @property({ type: String })
-  label: string | undefined = undefined
+  label: string | undefined = ''
 
   @property({ type: String })
-  description: string | undefined = undefined
+  description: string | undefined = ''
 
   @property({ type: String })
-  error: string | undefined = undefined
+  error: string | undefined = ''
 
   @property({ type: String, attribute: 'trigger-label' })
-  triggerLabel: string | undefined = undefined
+  triggerLabel: string | undefined = ''
 
   @property({ type: Object, attribute: 'toggle-label' })
   toggleLabel: { open: string; close: string } = {
@@ -36,13 +36,13 @@ export class LuksoCollapse extends TailwindElement {
   isOpen = false
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass: string | undefined = undefined
+  customClass: string | undefined = ''
 
   @property({ type: Boolean, attribute: 'is-disabled' })
   isDisabled = false
 
   @property({ type: String, attribute: 'icon' })
-  icon: string | undefined = undefined
+  icon: string | undefined = ''
 
   @property({ type: String })
   size: InputSize = 'large'

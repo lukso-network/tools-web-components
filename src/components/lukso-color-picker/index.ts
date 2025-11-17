@@ -20,28 +20,28 @@ const FOCUS_DELAY_MS = 10
 @safeCustomElement('lukso-color-picker')
 export class LuksoColorPicker extends TailwindStyledElement(style) {
   @property({ type: String })
-  value: string | undefined = undefined
+  value: string | undefined = ''
 
   @property({ type: String })
-  name: string | undefined = undefined
+  name: string | undefined = ''
 
   @property({ type: String })
   placeholder = '#000000'
 
   @property({ type: String })
-  label: string | undefined = undefined
+  label: string | undefined = ''
 
   @property({ type: String })
-  id: string | undefined = undefined
+  id: string | undefined = ''
 
   @property({ type: String })
-  description: string | undefined = undefined
+  description: string | undefined = ''
 
   @property({ type: String })
-  error: string | undefined = undefined
+  error: string | undefined = ''
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass: string | undefined = undefined
+  customClass: string | undefined = ''
 
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false

@@ -19,43 +19,43 @@ const FOCUS_DELAY_MS = 10
 @safeCustomElement('lukso-input')
 export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: String })
-  value: string | undefined = undefined
+  value: string | undefined = ''
 
   @property({ type: String })
-  name: string | undefined = undefined
+  name: string | undefined
 
   @property({ type: String })
   type = 'text'
 
   @property({ type: String })
-  placeholder: string | undefined = undefined
+  placeholder: string | undefined
 
   @property({ type: String })
-  label: string | undefined = undefined
+  label: string | undefined
 
   @property({ type: String })
   autocomplete = 'on'
 
   @property({ type: String })
-  id: string | undefined = undefined
+  id: string | undefined
 
   @property({ type: String })
-  ref: string | undefined = undefined
+  ref: string | undefined
 
   @property({ type: String })
-  accept: string | undefined = undefined
+  accept: string | undefined
 
   @property({ type: String })
-  description: string | undefined = undefined
+  description: string | undefined
 
   @property({ type: String })
-  error: string | undefined = undefined
+  error: string | undefined
 
   @property({ type: String })
-  unit: string | undefined = undefined
+  unit: string | undefined
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass: string | undefined = undefined
+  customClass: string | undefined
 
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
@@ -70,10 +70,10 @@ export class LuksoInput extends TailwindStyledElement(style) {
   autofocus = false
 
   @property({ type: Number })
-  max: number | undefined = undefined
+  max: number | undefined
 
   @property({ type: Number })
-  min: number | undefined = undefined
+  min: number | undefined
 
   @property({ type: Boolean })
   borderless = false
@@ -82,7 +82,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
   size: InputSize = 'large'
 
   @property({ type: String, attribute: 'right-icon' })
-  rightIcon: string | undefined = undefined
+  rightIcon: string | undefined = ''
 
   @property({ type: Boolean, attribute: 'is-right-icon-clickable' })
   isRightIconClickable = false

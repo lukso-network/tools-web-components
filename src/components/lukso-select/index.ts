@@ -38,22 +38,22 @@ export type SelectOption = SelectStringOption | SelectProfileOption
 @safeCustomElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
   @property({ type: String })
-  value: string | undefined = undefined
+  value: string | undefined = ''
 
   @property({ type: String })
-  placeholder: string | undefined = undefined
+  placeholder: string | undefined = ''
 
   @property({ type: String })
-  label: string | undefined = undefined
+  label: string | undefined = ''
 
   @property({ type: String })
-  id: string | undefined = undefined
+  id: string | undefined = ''
 
   @property({ type: String })
-  description: string | undefined = undefined
+  description: string | undefined = ''
 
   @property({ type: String })
-  error: string | undefined = undefined
+  error: string | undefined = ''
 
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
@@ -68,10 +68,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   borderless = false
 
   @property({ type: String })
-  options: string | undefined = undefined
+  options: string | undefined = ''
 
   @property({ type: Number })
-  selected: number | undefined = undefined
+  selected: number | undefined
 
   @property({ type: Boolean, attribute: 'is-open' })
   isOpen = false
@@ -92,7 +92,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   showSelectionCounter = false
 
   @property({ type: Number, attribute: 'max-height', reflect: true })
-  maxHeight: number | undefined = undefined
+  maxHeight: number | undefined
 
   @state()
   private optionsParsed: SelectOption[] = []

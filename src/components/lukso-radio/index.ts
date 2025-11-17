@@ -14,31 +14,31 @@ export type RadioSize = 'x-small' | 'small' | 'medium'
 @safeCustomElement('lukso-radio')
 export class LuksoRadio extends TailwindElement {
   @property({ type: String })
-  name: string | undefined = undefined
+  name: string | undefined = ''
 
   @property({ type: String })
-  id: string | undefined = undefined
+  id: string | undefined = ''
 
   @property({ type: String })
-  value: string | undefined = undefined
+  value: string | undefined = ''
 
   @property({ type: String })
   size: RadioSize = 'medium'
 
   @property({ type: String })
-  label: string | undefined = undefined
+  label: string | undefined = ''
 
   @property({ type: String })
-  description: string | undefined = undefined
+  description: string | undefined = ''
 
   @property({ type: String })
-  error: string | undefined = undefined
+  error: string | undefined = ''
 
   @property({ type: Boolean })
   checked = false
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass: string | undefined = undefined
+  customClass: string | undefined = ''
 
   @property({ type: Boolean, attribute: 'is-readonly' })
   isReadonly = false

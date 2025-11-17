@@ -14,13 +14,13 @@ export type CheckboxType = 'text' | 'profile'
 @safeCustomElement('lukso-checkbox')
 export class LuksoCheckbox extends TailwindElement {
   @property({ type: String })
-  name: string | undefined = undefined
+  name: string | undefined = ''
 
   @property({ type: String })
-  id: string | undefined = undefined
+  id: string | undefined = ''
 
   @property({ type: String })
-  ref: string | undefined = undefined
+  ref: string | undefined = ''
 
   @property({ type: String })
   type: CheckboxType = 'text'
@@ -29,19 +29,19 @@ export class LuksoCheckbox extends TailwindElement {
   size: CheckboxSize = 'medium'
 
   @property({ type: String })
-  label: string | undefined = undefined
+  label: string | undefined = ''
 
   @property({ type: String })
-  description: string | undefined = undefined
+  description: string | undefined = ''
 
   @property({ type: String })
-  error: string | undefined = undefined
+  error: string | undefined = ''
 
   @property({ type: Boolean })
   checked: boolean = false
 
   @property({ type: String, attribute: 'custom-class' })
-  customClass: string | undefined = undefined
+  customClass: string | undefined = ''
 
   @property({ type: Boolean, attribute: 'is-readonly' })
   isReadonly = false

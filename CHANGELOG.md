@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.165.4](https://github.com/lukso-network/tools-web-components/compare/v1.165.3...v1.165.4) (2025-11-17)
+
+
+### Bug Fixes
+
+* Can't scroll modal on mobile ([#710](https://github.com/lukso-network/tools-web-components/issues/710)) ([4958015](https://github.com/lukso-network/tools-web-components/commit/4958015980dcdfc31524f83fca7d7608f871d2d3))
+
 ## [1.165.3](https://github.com/lukso-network/tools-web-components/compare/v1.165.2...v1.165.3) (2025-11-13)
 
 

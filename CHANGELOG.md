@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.166.0](https://github.com/lukso-network/tools-web-components/compare/v1.165.4...v1.166.0) (2025-11-17)
+
+
+### Features
+
+* Add vuesax icon files ([#712](https://github.com/lukso-network/tools-web-components/issues/712)) ([6e6d647](https://github.com/lukso-network/tools-web-components/commit/6e6d647e77b2555643fb4d107f2f02852f0f353a))
+
 ## [1.165.4](https://github.com/lukso-network/tools-web-components/compare/v1.165.3...v1.165.4) (2025-11-17)
 
 

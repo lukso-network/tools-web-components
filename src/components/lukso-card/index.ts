@@ -41,10 +41,10 @@ export class LuksoCard extends TailwindStyledElement(style) {
   profileAddress = ''
 
   @property({ type: Number })
-  width: number | undefined = undefined
+  width: number | undefined
 
   @property({ type: Number })
-  height: number | undefined = undefined
+  height: number | undefined
 
   @property({ type: String, attribute: 'custom-class' })
   customClass = ''

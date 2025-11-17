@@ -19,19 +19,19 @@ export class LuksoSwitch extends TailwindElement {
   color = DEFAULT_COLOR
 
   @property({ type: String })
-  id: string | undefined = undefined
+  id: string | undefined = ''
 
   @property({ type: String })
   name = 'switch'
 
   @property({ type: String })
-  label: string | undefined = undefined
+  label: string | undefined = ''
 
   @property({ type: String })
-  description: string | undefined = undefined
+  description: string | undefined = ''
 
   @property({ type: String })
-  error: string | undefined = undefined
+  error: string | undefined = ''
 
   @property({ type: Boolean, attribute: 'is-checked' })
   isChecked = false

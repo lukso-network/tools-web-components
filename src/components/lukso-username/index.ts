@@ -137,7 +137,7 @@ export class LuksoUsername extends TailwindStyledElement(style) {
     return html`<div
       class=${styles}
       style=${customStyleMap({
-        [`max-width: ${this.maxWidth - this.bytesWidth}px`]: true,
+        [`max-width: ${this.maxWidth - (this.address ? this.bytesWidth : 0)}px`]: true,
         [`color: var(--${this.nameColor})`]: this.nameColor !== '',
       })}
     >

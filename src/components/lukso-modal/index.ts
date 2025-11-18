@@ -89,9 +89,7 @@ export class LuksoModal extends TailwindElement {
 
     return html`
       <div data-testid="modal" class=${wrapper()}>
-        <div
-          class="min-h-screen flex items-center justify-center pt-6 pb-[120px] sm:pb-6 px-6 w-full"
-        >
+        <div class="min-h-screen flex items-center justify-center p-6 w-full">
           <div class=${overlay()} @click=${this.handleBackdropClick}></div>
           <div class=${dialog()}>
             <slot></slot>

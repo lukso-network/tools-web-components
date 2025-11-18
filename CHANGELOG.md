@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.166.4](https://github.com/lukso-network/tools-web-components/compare/v1.166.3...v1.166.4) (2025-11-18)
+
+
+### Bug Fixes
+
+* name length calculation when no address ([#721](https://github.com/lukso-network/tools-web-components/issues/721)) ([ecf53cb](https://github.com/lukso-network/tools-web-components/commit/ecf53cb185aa132abf954df01aed9795564ee52f))
+* Remove large space in bottom of the modal on mobile ([#720](https://github.com/lukso-network/tools-web-components/issues/720)) ([694b912](https://github.com/lukso-network/tools-web-components/commit/694b91209a124aa5573fff5ebaa319bf25ba41ba))
+
 ## [1.166.3](https://github.com/lukso-network/tools-web-components/compare/v1.166.2...v1.166.3) (2025-11-17)
 
 

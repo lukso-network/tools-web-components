@@ -57,7 +57,7 @@ const meta: Meta = {
     variant: 'info',
     title: 'This is an info alert',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus.',
+      'Lorem ipsum dolor sit amet, <i>consectetur adipiscing</i> elit. Urna, tortor tempus.',
     hasIcon: true,
   },
   parameters: {

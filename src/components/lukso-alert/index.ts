@@ -5,6 +5,7 @@ import { tv } from 'tailwind-variants'
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
+import '@/components/lukso-sanitize'
 import style from './style.scss?inline'
 
 export type AlertVariant = 'info' | 'warning' | 'error' | 'success'
@@ -62,14 +63,15 @@ export class LuksoAlert extends TailwindStyledElement(style) {
               color="${this.icon.color}"
             ></lukso-icon>`
           : nothing}
-        <div>
+        <div class="flex flex-col gap-1">
           ${this.title
-            ? html`<div class="heading-inter-14-bold pb-1">${this.title}</div>`
+            ? html`<div class="heading-inter-14-bold">${this.title}</div>`
             : nothing}
           ${this.description
-            ? html`<div class="paragraph-inter-12-regular">
-                ${this.description}
-              </div>`
+            ? html`<lukso-sanitize
+                class="paragraph-inter-12-regular"
+                html-content="${this.description}"
+              ></lukso-sanitize>`
             : nothing}
         </div>
       </div>

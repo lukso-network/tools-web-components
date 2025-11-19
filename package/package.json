@@ -1,6 +1,6 @@
 {
   "name": "@lukso/web-components",
-  "version": "1.166.4",
+  "version": "1.166.5",
   "type": "module",
   "files": [
     "dist",
@@ -74,6 +74,11 @@
       "require": "./dist/components/index.cjs",
       "import": "./dist/components/index.js",
       "types": "./dist/components/index.d.ts"
+    },
+    "./dist/components/lukso-alert": {
+      "require": "./dist/components/lukso-alert/index.cjs",
+      "import": "./dist/components/lukso-alert/index.js",
+      "types": "./dist/components/lukso-alert/index.d.ts"
     },
     "./dist/components/lukso-button": {
       "require": "./dist/components/lukso-button/index.cjs",

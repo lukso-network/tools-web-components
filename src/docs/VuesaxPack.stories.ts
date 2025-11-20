@@ -55,13 +55,35 @@ const meta: Meta = {
         component: `
 The Vuesax icon pack provides a comprehensive set of icons across multiple variants. Each variant offers a different visual style for the same icon concept.
 
+## Usage
+
+Icons can be used with the \`lukso-icon\` component:
+
+\`\`\`html
+<lukso-icon name="link" size="medium" pack="vuesax" variant="linear"></lukso-icon>
+\`\`\`
+
+## Available Sizes
+
+- \`x-small\` - 12x12px
+- \`small\` - 16x16px
+- \`medium\` - 24x24px
+- \`large\` - 32x32px
+- \`x-large\` - 40x40px
+- \`2x-large\` - 64x64px
+
 ## Available Variants
-- **Linear**: Clean line-based icons
-- **Bold**: Filled thick icons
-- **Broken**: Broken line style icons
-- **Bulk**: Filled with light backgrounds
-- **Outline**: Outlined style icons
-- **TwoTone**: Two-tone color icons
+- \`linear\` - Clean line-based icons
+- \`bold\` - Filled thick icons
+- \`broken\` - Broken line style icons
+- \`bulk\` - Filled with light backgrounds
+- \`outline\` - Outlined style icons
+- \`twotone\` - Two-tone color icons
+
+## Adding icons
+
+- Copy SVG files into \`src/components/lukso-icon/vuesax/{variant}/\` directory.
+- That's it! New icons will be automatically included in the documentation.
         `,
       },
     },

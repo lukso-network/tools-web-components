@@ -473,7 +473,7 @@ export class LuksoIcon extends TailwindStyledElement(style) {
   name = undefined
 
   @property({ type: String, reflect: true })
-  size = DEFAULT_SIZE
+  size: IconSize = DEFAULT_SIZE
 
   @property({ type: String, reflect: true })
   color = DEFAULT_COLOR
@@ -482,10 +482,10 @@ export class LuksoIcon extends TailwindStyledElement(style) {
   secondaryColor = undefined
 
   @property({ type: String, reflect: true })
-  pack = undefined
+  pack: IconPack | undefined = undefined
 
   @property({ type: String, reflect: true })
-  variant = undefined
+  variant: IconVariant | undefined = undefined
 
   @property({ type: String })
   private svgContent = ''

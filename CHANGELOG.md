@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.167.0](https://github.com/lukso-network/tools-web-components/compare/v1.166.5...v1.167.0) (2025-11-21)
+
+
+### Features
+
+* Add alert component ([#725](https://github.com/lukso-network/tools-web-components/issues/725)) ([c144cf6](https://github.com/lukso-network/tools-web-components/commit/c144cf605210e5d28644a9862b9281f60d853d63))
+
+
+### Bug Fixes
+
+* Prevent infinite loop when vuesax icon is missing ([#728](https://github.com/lukso-network/tools-web-components/issues/728)) ([a068374](https://github.com/lukso-network/tools-web-components/commit/a068374eb900622d2bfb5862b113db5106f0974b))
+
 ## [1.166.5](https://github.com/lukso-network/tools-web-components/compare/v1.166.4...v1.166.5) (2025-11-18)
 
 

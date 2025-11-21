@@ -88,11 +88,11 @@ const meta: Meta = {
   args: {
     name: 'link',
     size: 'medium',
-    color: '',
-    secondaryColor: '',
-    animation: '',
-    pack: '',
-    variant: '',
+    color: undefined,
+    secondaryColor: undefined,
+    animation: undefined,
+    pack: undefined,
+    variant: undefined,
   },
   parameters: {
     controls: {

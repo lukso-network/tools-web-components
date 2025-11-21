@@ -78,7 +78,7 @@ const meta: Meta = {
         'animate-pulse-resize',
       ],
       table: {
-        category: 'Attributes',
+        category: 'Custom',
       },
     },
     'secondary-color': {

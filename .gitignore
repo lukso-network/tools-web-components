@@ -11,6 +11,7 @@
 /.work
 /package/custom-elements.json
 .DS_Store
+.claude
 
 # Yarn
 .pnp.*

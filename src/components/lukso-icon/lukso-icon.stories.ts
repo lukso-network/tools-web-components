@@ -19,6 +19,8 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'undefined' },
       },
     },
     size: {
@@ -26,12 +28,16 @@ const meta: Meta = {
       options: ['x-small', 'small', 'medium', 'large', 'x-large', '2x-large'],
       table: {
         category: 'Attributes',
+        type: { summary: 'IconSize' },
+        defaultValue: { summary: 'medium' },
       },
     },
     color: {
       control: { type: 'text' },
       table: {
         category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'neutral-20' },
       },
     },
     pack: {
@@ -39,6 +45,8 @@ const meta: Meta = {
       options: ['vuesax'],
       table: {
         category: 'Attributes',
+        type: { summary: 'IconPack' },
+        defaultValue: { summary: 'undefined' },
       },
     },
     variant: {
@@ -46,6 +54,8 @@ const meta: Meta = {
       options: ['linear', 'bold', 'broken', 'bulk', 'twotone', 'outline'],
       table: {
         category: 'Attributes',
+        type: { summary: 'IconVariant' },
+        defaultValue: { summary: 'undefined' },
       },
     },
     secondaryColor: {
@@ -53,6 +63,8 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'undefined' },
       },
     },
     animation: {
@@ -66,7 +78,7 @@ const meta: Meta = {
         'animate-pulse-resize',
       ],
       table: {
-        category: 'Attributes',
+        category: 'Custom',
       },
     },
     'secondary-color': {

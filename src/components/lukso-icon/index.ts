@@ -473,7 +473,7 @@ export class LuksoIcon extends TailwindStyledElement(style) {
   name = undefined
 
   @property({ type: String, reflect: true })
-  size = DEFAULT_SIZE
+  size: IconSize = DEFAULT_SIZE
 
   @property({ type: String, reflect: true })
   color = DEFAULT_COLOR
@@ -482,13 +482,16 @@ export class LuksoIcon extends TailwindStyledElement(style) {
   secondaryColor = undefined
 
   @property({ type: String, reflect: true })
-  pack = undefined
+  pack: IconPack | undefined = undefined
 
   @property({ type: String, reflect: true })
-  variant = undefined
+  variant: IconVariant | undefined = undefined
 
   @property({ type: String })
   private svgContent = ''
+
+  private lastAttemptedKey = ''
+  private failedLoadAttempt = false
 
   private sizes: { [key in IconSize]: IconSizeDef } = {
     'x-small': {
@@ -649,6 +652,15 @@ export class LuksoIcon extends TailwindStyledElement(style) {
     return processedSvg
   }
 
+  willUpdate(changedProperties: PropertyValueMap<this>) {
+    super.willUpdate(changedProperties)
+
+    // Default to 'linear' variant for vuesax pack if not set
+    if (this.pack === 'vuesax' && !this.variant) {
+      this.variant = 'linear'
+    }
+  }
+
   async updated(changedProperties: PropertyValueMap<this>) {
     super.updated(changedProperties)
 
@@ -662,23 +674,24 @@ export class LuksoIcon extends TailwindStyledElement(style) {
 
     // vuesax pack related logic
     if (this.pack === 'vuesax') {
-      // Default to 'linear' variant if not set
-      if (!this.variant) {
-        this.variant = 'linear'
-      }
-
       // Load SVG if name, pack, or variant changed
       if (
         changedProperties.has('name') ||
         changedProperties.has('pack') ||
         changedProperties.has('variant')
       ) {
+        const currentKey = `${this.pack}/${this.variant}/${this.name}`
+        this.lastAttemptedKey = currentKey
+        this.failedLoadAttempt = false
         const svgContent = await this.loadSvg(
           this.pack,
           this.variant,
           this.name
         )
         this.svgContent = svgContent
+        if (!svgContent) {
+          this.failedLoadAttempt = true
+        }
         this.requestUpdate()
       }
 
@@ -713,12 +726,23 @@ export class LuksoIcon extends TailwindStyledElement(style) {
     // Handle vuesax pack - use SVG files
     if (this.pack === 'vuesax') {
       if (!this.svgContent) {
-        // Trigger initial load
-        this.loadSvg(this.pack, this.variant, this.name).then(content => {
-          this.svgContent = content
-          this.requestUpdate()
-        })
-        return html`<!-- Loading SVG... -->`
+        // Only attempt to load if we haven't already failed for this icon
+        if (!this.failedLoadAttempt) {
+          // Trigger initial load
+          this.loadSvg(this.pack, this.variant, this.name).then(content => {
+            this.svgContent = content
+
+            if (!content) {
+              this.failedLoadAttempt = true
+            }
+            this.requestUpdate()
+          })
+
+          return html`<!-- Loading SVG... -->`
+        }
+
+        // Icon failed to load, show placeholder
+        return html`<!-- Failed to load SVG. -->`
       }
 
       const processedSvg = this.processVuesaxSvg(this.svgContent)

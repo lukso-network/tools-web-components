@@ -652,6 +652,15 @@ export class LuksoIcon extends TailwindStyledElement(style) {
     return processedSvg
   }
 
+  willUpdate(changedProperties: PropertyValueMap<this>) {
+    super.willUpdate(changedProperties)
+
+    // Default to 'linear' variant for vuesax pack if not set
+    if (this.pack === 'vuesax' && !this.variant) {
+      this.variant = 'linear'
+    }
+  }
+
   async updated(changedProperties: PropertyValueMap<this>) {
     super.updated(changedProperties)
 
@@ -665,11 +674,6 @@ export class LuksoIcon extends TailwindStyledElement(style) {
 
     // vuesax pack related logic
     if (this.pack === 'vuesax') {
-      // Default to 'linear' variant if not set
-      if (!this.variant) {
-        this.variant = 'linear'
-      }
-
       // Load SVG if name, pack, or variant changed
       if (
         changedProperties.has('name') ||

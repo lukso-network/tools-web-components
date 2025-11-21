@@ -490,6 +490,9 @@ export class LuksoIcon extends TailwindStyledElement(style) {
   @property({ type: String })
   private svgContent = ''
 
+  private lastAttemptedKey = ''
+  private failedLoadAttempt = false
+
   private sizes: { [key in IconSize]: IconSizeDef } = {
     'x-small': {
       width: 12,
@@ -673,12 +676,18 @@ export class LuksoIcon extends TailwindStyledElement(style) {
         changedProperties.has('pack') ||
         changedProperties.has('variant')
       ) {
+        const currentKey = `${this.pack}/${this.variant}/${this.name}`
+        this.lastAttemptedKey = currentKey
+        this.failedLoadAttempt = false
         const svgContent = await this.loadSvg(
           this.pack,
           this.variant,
           this.name
         )
         this.svgContent = svgContent
+        if (!svgContent) {
+          this.failedLoadAttempt = true
+        }
         this.requestUpdate()
       }
 
@@ -713,12 +722,23 @@ export class LuksoIcon extends TailwindStyledElement(style) {
     // Handle vuesax pack - use SVG files
     if (this.pack === 'vuesax') {
       if (!this.svgContent) {
-        // Trigger initial load
-        this.loadSvg(this.pack, this.variant, this.name).then(content => {
-          this.svgContent = content
-          this.requestUpdate()
-        })
-        return html`<!-- Loading SVG... -->`
+        // Only attempt to load if we haven't already failed for this icon
+        if (!this.failedLoadAttempt) {
+          // Trigger initial load
+          this.loadSvg(this.pack, this.variant, this.name).then(content => {
+            this.svgContent = content
+
+            if (!content) {
+              this.failedLoadAttempt = true
+            }
+            this.requestUpdate()
+          })
+
+          return html`<!-- Loading SVG... -->`
+        }
+
+        // Icon failed to load, show placeholder
+        return html`<!-- Failed to load SVG. -->`
       }
 
       const processedSvg = this.processVuesaxSvg(this.svgContent)

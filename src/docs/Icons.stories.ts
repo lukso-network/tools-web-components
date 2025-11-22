@@ -3,28 +3,9 @@ import { html } from 'lit'
 import type { Meta, StoryObj } from '@storybook/web-components-vite'
 import '../components/lukso-icon/index'
 
-/**
- * Icons are used throughout the design system to provide visual cues and improve usability.
- * This showcase demonstrates the available icon set with consistent sizing and styling.
- *
- * ## Usage
- *
- * Icons can be used with the `lukso-icon` component:
- *
- * ```html
- * <lukso-icon name="icon-name" size="medium"></lukso-icon>
- * ```
- *
- * ## Available Sizes
- *
- * - `small` (16x16px)
- * - `medium` (24x24px)
- * - `large` (32x32px)
- * - `x-large` (40x40px)
- * - `2x-large` (64x64px)
- */
+/** */
 const meta: Meta = {
-  title: 'Design System/Icons',
+  title: 'Design System/Custom Icons',
   parameters: {
     docs: {
       description: {
@@ -42,11 +23,18 @@ Icons can be used with the \`lukso-icon\` component:
 
 ## Available Sizes
 
-- \`small\` (16x16px)
-- \`medium\` (24x24px)
-- \`large\` (32x32px)
-- \`x-large\` (40x40px)
-- \`2x-large\` (64x64px)
+- \`small\` - 16x16px
+- \`medium\` - 24x24px
+- \`large\` - 32x32px
+- \`x-large\` - 40x40px
+- \`2x-large\` - 64x64px
+
+## Adding icons
+
+- Wrap SVG in ts file and place in \`src/components/lukso-icon/icons\` directory.
+- Replace original stroke color with \`stroke="var(--\${options.color})"\`, fill color with \`fill="var(--\${options.color})"\` and stroke-width with \`stroke-width="var(--\${options.strokeWidth})"\` to support theming.
+- Update the icon registry in the \`src/components/lukso-icon/index.ts\` component to include the new icons.
+- Add new icon to this documentation.
         `,
       },
     },

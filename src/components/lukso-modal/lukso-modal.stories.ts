@@ -41,14 +41,27 @@ const meta: Meta = {
         category: 'Events',
       },
     },
+    hasBottomPadding: {
+      name: 'has-bottom-padding',
+      control: { type: 'boolean' },
+      description:
+        'Adds extra bottom padding to the modal to prevent modal overlap on mobile devices.',
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-open': {
       name: 'isOpen',
+    },
+    'has-bottom-padding': {
+      name: 'hasBottomPadding',
     },
   },
   args: {
     isOpen: false,
     size: 'small',
     disableAnimations: false,
+    hasBottomPadding: false,
   },
   parameters: {
     controls: {
@@ -60,6 +73,7 @@ const meta: Meta = {
         'dialogStyles',
         'isOpen',
         'disableAnimations',
+        'hasBottomPadding',
       ],
     },
   },
@@ -67,7 +81,7 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ size, disableAnimations }) => {
+const Template = ({ size, disableAnimations, hasBottomPadding }) => {
   const [{ isOpen }, updateArgs] = useArgs()
 
   const handleClose = () => {
@@ -78,13 +92,15 @@ const Template = ({ size, disableAnimations }) => {
     updateArgs({ isOpen: true })
   }
 
-  return html` <lukso-button variant="primary" @click=${handleOpen}
+  return html`<div class="h-[600px]">
+    <lukso-button variant="primary" @click=${handleOpen}
       >Show modal</lukso-button
     >
     <lukso-modal
-      ?is-open=${isOpen}
       size=${size}
+      ?is-open=${isOpen}
       ?disable-animations=${disableAnimations}
+      ?has-bottom-padding=${hasBottomPadding}
     >
       <div class="p-6">
         <h1 class="heading-inter-26-semi-bold pb-4">Lorem ipsum</h1>
@@ -99,7 +115,8 @@ const Template = ({ size, disableAnimations }) => {
           >
         </p>
       </div>
-    </lukso-modal>`
+    </lukso-modal>
+  </div>`
 }
 
 export const DefaultModal = Template.bind({})

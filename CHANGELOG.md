@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.168.0](https://github.com/lukso-network/tools-web-components/compare/v1.167.0...v1.168.0) (2025-11-24)
+
+
+### Features
+
+* Add bottom padding flag to modal ([#729](https://github.com/lukso-network/tools-web-components/issues/729)) ([68b3215](https://github.com/lukso-network/tools-web-components/commit/68b321526e391b32fa9ddb792a820202fe0a4be0))
+
 ## [1.167.0](https://github.com/lukso-network/tools-web-components/compare/v1.166.5...v1.167.0) (2025-11-21)
 
 

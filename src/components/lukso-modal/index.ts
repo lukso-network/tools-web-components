@@ -18,10 +18,14 @@ export class LuksoModal extends TailwindElement {
   @property({ type: String })
   size: ModalSizes = 'small'
 
+  @property({ type: Boolean, attribute: 'has-bottom-padding' })
+  hasBottomPadding = false
+
   private styles = tv({
     slots: {
       wrapper:
         'opacity-0 fixed z-[1011] transition-opacity inset-0 w-screen h-screen overflow-y-auto overscroll-none scrolling-touch touch-pan-y',
+      inner: 'min-h-screen flex items-center justify-center px-6 pt-6 w-full',
       overlay:
         'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed inset-0 w-[100vw] h-[100vh] z-[1010]',
       dialog:
@@ -54,6 +58,14 @@ export class LuksoModal extends TailwindElement {
           overlay: 'animation-duration-300',
         },
       },
+      hasBottomPadding: {
+        true: {
+          inner: 'pb-[120px]',
+        },
+        false: {
+          inner: 'pb-6',
+        },
+      },
     },
     compoundVariants: [
       {
@@ -81,15 +93,16 @@ export class LuksoModal extends TailwindElement {
   }
 
   render() {
-    const { wrapper, overlay, dialog } = this.styles({
+    const { wrapper, overlay, dialog, inner } = this.styles({
       isOpen: this.isOpen,
       size: this.size,
       disableAnimations: this.disableAnimations,
+      hasBottomPadding: this.hasBottomPadding,
     })
 
     return html`
       <div data-testid="modal" class=${wrapper()}>
-        <div class="min-h-screen flex items-center justify-center p-6 w-full">
+        <div class=${inner()}>
           <div class=${overlay()} @click=${this.handleBackdropClick}></div>
           <div class=${dialog()}>
             <slot></slot>

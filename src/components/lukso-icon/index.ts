@@ -254,6 +254,43 @@ import { transactionActivated } from './icons/transaction-activated'
 import { transferActivated } from './icons/transfer-activated'
 import { transferInactive } from './icons/transfer-inactive'
 import { logoHyperlaneOutline } from './icons/logo-hyperlane-outline'
+import { addcontrollerActivated } from './icons/addcontroller-activated'
+import { addcontrollerInactive } from './icons/addcontroller-inactive'
+import { addextensionsActivated } from './icons/addextensions-activated'
+import { addextensionsInactive } from './icons/addextensions-inactive'
+import { adduniversalreceiverdelegateActivated } from './icons/adduniversalreceiverdelegate-activated'
+import { adduniversalreceiverdelegateInactive } from './icons/adduniversalreceiverdelegate-inactive'
+import { callActivated } from './icons/call-activated'
+import { callInactive } from './icons/call-inactive'
+import { changeextensionsActivated } from './icons/changeextensions-activated'
+import { changeextensionsInactive } from './icons/changeextensions-inactive'
+import { changeownerActivated } from './icons/changeowner-activated'
+import { changeownerInactive } from './icons/changeowner-inactive'
+import { changepermissionsActivated } from './icons/changepermissions-activated'
+import { changepermissionsInactive } from './icons/changepermissions-inactive'
+import { changeuniversalreceiverdelegateActivated } from './icons/changeuniversalreceiverdelegate-activated'
+import { changeuniversalreceiverdelegateInactive } from './icons/changeuniversalreceiverdelegate-inactive'
+import { decryptActivated } from './icons/decrypt-activated'
+import { decryptInactive } from './icons/decrypt-inactive'
+import { delegatecallActivated } from './icons/delegatecall-activated'
+import { delegatecallInactive } from './icons/delegatecall-inactive'
+import { deployActivated } from './icons/deploy-activated'
+import { deployInactive } from './icons/deploy-inactive'
+import { editpermissionsActivated } from './icons/editpermissions-activated'
+import { editpermissionsInactive } from './icons/editpermissions-inactive'
+import { encryptActivated } from './icons/encrypt-activated'
+import { encryptInactive } from './icons/encrypt-inactive'
+import { executeRelayCallActivated } from './icons/execute_relay_call-activated'
+import { executeRelayCallInactive } from './icons/execute_relay_call-inactive'
+import { reentrancyActivated } from './icons/reentrancy-activated'
+import { reentrancyInactive } from './icons/reentrancy-inactive'
+import { setdataActivated } from './icons/setdata-activated'
+import { setdataInactive } from './icons/setdata-inactive'
+import { signActivated } from './icons/sign-activated'
+import { signInactive } from './icons/sign-inactive'
+import { transactionActivated } from './icons/transaction-activated'
+import { transferActivated } from './icons/transfer-activated'
+import { transferInactive } from './icons/transfer-inactive'
 
 export type IconOptions = {
   width: number
@@ -541,6 +578,46 @@ const iconMap = {
   'transfer-activated': transferActivated,
   'transfer-inactive': transferInactive,
   'logo-hyperlane-outline': logoHyperlaneOutline,
+  'addcontroller-activated': addcontrollerActivated,
+  'addcontroller-inactive': addcontrollerInactive,
+  'addextensions-activated': addextensionsActivated,
+  'addextensions-inactive': addextensionsInactive,
+  'adduniversalreceiverdelegate-activated':
+    adduniversalreceiverdelegateActivated,
+  'adduniversalreceiverdelegate-inactive': adduniversalreceiverdelegateInactive,
+  'call-activated': callActivated,
+  'call-inactive': callInactive,
+  'changeextensions-activated': changeextensionsActivated,
+  'changeextensions-inactive': changeextensionsInactive,
+  'changeowner-activated': changeownerActivated,
+  'changeowner-inactive': changeownerInactive,
+  'changepermissions-activated': changepermissionsActivated,
+  'changepermissions-inactive': changepermissionsInactive,
+  'changeuniversalreceiverdelegate-activated':
+    changeuniversalreceiverdelegateActivated,
+  'changeuniversalreceiverdelegate-inactive':
+    changeuniversalreceiverdelegateInactive,
+  'decrypt-activated': decryptActivated,
+  'decrypt-inactive': decryptInactive,
+  'delegatecall-activated': delegatecallActivated,
+  'delegatecall-inactive': delegatecallInactive,
+  'deploy-activated': deployActivated,
+  'deploy-inactive': deployInactive,
+  'editpermissions-activated': editpermissionsActivated,
+  'editpermissions-inactive': editpermissionsInactive,
+  'encrypt-activated': encryptActivated,
+  'encrypt-inactive': encryptInactive,
+  'execute_relay_call-activated': executeRelayCallActivated,
+  'execute_relay_call-inactive': executeRelayCallInactive,
+  'reentrancy-activated': reentrancyActivated,
+  'reentrancy-inactive': reentrancyInactive,
+  'setdata-activated': setdataActivated,
+  'setdata-inactive': setdataInactive,
+  'sign-activated': signActivated,
+  'sign-inactive': signInactive,
+  'transaction-activated': transactionActivated,
+  'transfer-activated': transferActivated,
+  'transfer-inactive': transferInactive,
 }
 
 const DEFAULT_COLOR = 'neutral-20'

@@ -49,7 +49,14 @@ type Story = StoryObj
 const createIconSection = (
   iconData: (string | { name: string; secondaryColor?: string })[],
   title: string,
-  description?: string
+  description?: string,
+  size:
+    | 'x-small'
+    | 'small'
+    | 'medium'
+    | 'large'
+    | 'x-large'
+    | '2x-large' = 'medium'
 ) => html`
   <div class="icon-section">
     <h3>${title}</h3>
@@ -67,7 +74,7 @@ const createIconSection = (
           <div class="icon-item">
             <lukso-icon
               name="${iconConfig.name}"
-              size="medium"
+              size="${size}"
               secondary-color="${iconConfig.secondaryColor || ''}"
             ></lukso-icon>
             <span class="icon-name">${iconConfig.name}</span>
@@ -308,6 +315,58 @@ export const UtilityIcons: Story = {
           'video-outline',
         ],
         'Utility Icons'
+      )}
+    </div>
+  `,
+}
+
+/** Permissions icons used to improve permissions pages */
+export const PermissionsIcons: Story = {
+  render: () => html`
+    <div class="sb-unstyled">
+      ${createIconSection(
+        [
+          'addcontroller-activated',
+          'addcontroller-inactive',
+          'addextensions-activated',
+          'addextensions-inactive',
+          'adduniversalreceiverdelegate-activated',
+          'adduniversalreceiverdelegate-inactive',
+          'call-activated',
+          'call-inactive',
+          'changeextensions-activated',
+          'changeextensions-inactive',
+          'changeowner-activated',
+          'changeowner-inactive',
+          'changepermissions-activated',
+          'changepermissions-inactive',
+          'changeuniversalreceiverdelegate-activated',
+          'changeuniversalreceiverdelegate-inactive',
+          'decrypt-activated',
+          'decrypt-inactive',
+          'delegatecall-activated',
+          'delegatecall-inactive',
+          'deploy-activated',
+          'deploy-inactive',
+          'editpermissions-activated',
+          'editpermissions-inactive',
+          'encrypt-activated',
+          'encrypt-inactive',
+          'execute-relay-call-activated',
+          'execute-relay-call-inactive',
+          'reentrancy-activated',
+          'reentrancy-inactive',
+          'setdata-activated',
+          'setdata-inactive',
+          'sign-activated',
+          'sign-inactive',
+          'transaction-activated',
+          'transfer-activated',
+          'transfer-inactive',
+        ],
+        'Permissions Icons',
+        '',
+        'large'
       )}
     </div>
   `,

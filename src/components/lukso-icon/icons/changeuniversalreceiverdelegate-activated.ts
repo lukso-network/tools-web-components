@@ -3,7 +3,9 @@ import { styleMap } from 'lit/directives/style-map.js'
 
 import type { IconOptions } from '@/components/lukso-icon/index.js'
 
-export const changeuniversalreceiverdelegateActivated = (options: IconOptions) => {
+export const changeuniversalreceiverdelegateActivated = (
+  options: IconOptions
+) => {
   return html`<svg
     width="24"
     height="24"

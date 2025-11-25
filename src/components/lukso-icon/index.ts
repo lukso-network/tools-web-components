@@ -230,8 +230,8 @@ import { changeownerActivated } from './icons/changeowner-activated'
 import { changeownerInactive } from './icons/changeowner-inactive'
 import { changepermissionsActivated } from './icons/changepermissions-activated'
 import { changepermissionsInactive } from './icons/changepermissions-inactive'
-import { changeuniversalreceiverdelegateActivated } from './icons/changeuniversalreceiverdelegate-activated'
-import { changeuniversalreceiverdelegateInactive } from './icons/changeuniversalreceiverdelegate-inactive'
+import { changeUniversalReceiverDelegateActivated } from './icons/changeuniversalreceiverdelegate-activated'
+import { changeUniversalReceiverDelegateInactive } from './icons/changeuniversalreceiverdelegate-inactive'
 import { decryptActivated } from './icons/decrypt-activated'
 import { decryptInactive } from './icons/decrypt-inactive'
 import { delegatecallActivated } from './icons/delegatecall-activated'
@@ -515,9 +515,9 @@ const iconMap = {
   'changepermissions-activated': changepermissionsActivated,
   'changepermissions-inactive': changepermissionsInactive,
   'changeuniversalreceiverdelegate-activated':
-    changeuniversalreceiverdelegateActivated,
+    changeUniversalReceiverDelegateActivated,
   'changeuniversalreceiverdelegate-inactive':
-    changeuniversalreceiverdelegateInactive,
+    changeUniversalReceiverDelegateInactive,
   'decrypt-activated': decryptActivated,
   'decrypt-inactive': decryptInactive,
   'delegatecall-activated': delegatecallActivated,

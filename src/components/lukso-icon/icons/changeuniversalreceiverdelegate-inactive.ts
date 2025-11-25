@@ -3,7 +3,7 @@ import { styleMap } from 'lit/directives/style-map.js'
 
 import type { IconOptions } from '@/components/lukso-icon/index.js'
 
-export const changeuniversalreceiverdelegateInactive = (
+export const changeUniversalReceiverDelegateInactive = (
   options: IconOptions
 ) => {
   return html`<svg

@@ -7,7 +7,7 @@ export const changepermissionsInactive = (options: IconOptions) => {
   return html`<svg
     width="24"
     height="24"
-    viewBox="0 0 80 80"
+    viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style=${styleMap({
@@ -15,7 +15,8 @@ export const changepermissionsInactive = (options: IconOptions) => {
       height: `${options.height}px`,
     })}
   >
-    <g id="Group 207">
+    <rect width="40" height="40" rx="12" fill="#E1E7EB" />
+    <g id="Group 207" transform="translate(8, 8)">
       <g id="Rectangle 125" filter="url(#filter0_bi_780_544)">
         <rect width="24" height="24" rx="8" fill="white" fill-opacity="0.3" />
       </g>

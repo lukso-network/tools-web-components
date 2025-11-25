@@ -242,8 +242,8 @@ import { editpermissionsActivated } from './icons/editpermissions-activated'
 import { editpermissionsInactive } from './icons/editpermissions-inactive'
 import { encryptActivated } from './icons/encrypt-activated'
 import { encryptInactive } from './icons/encrypt-inactive'
-import { executeRelayCallActivated } from './icons/execute_relay_call-activated'
-import { executeRelayCallInactive } from './icons/execute_relay_call-inactive'
+import { executeRelayCallActivated } from './icons/execute-relay-call-activated'
+import { executeRelayCallInactive } from './icons/execute-relay-call-inactive'
 import { reentrancyActivated } from './icons/reentrancy-activated'
 import { reentrancyInactive } from './icons/reentrancy-inactive'
 import { setdataActivated } from './icons/setdata-activated'
@@ -528,8 +528,8 @@ const iconMap = {
   'editpermissions-inactive': editpermissionsInactive,
   'encrypt-activated': encryptActivated,
   'encrypt-inactive': encryptInactive,
-  'execute_relay_call-activated': executeRelayCallActivated,
-  'execute_relay_call-inactive': executeRelayCallInactive,
+  'execute-relay-call-activated': executeRelayCallActivated,
+  'execute-relay-call-inactive': executeRelayCallInactive,
   'reentrancy-activated': reentrancyActivated,
   'reentrancy-inactive': reentrancyInactive,
   'setdata-activated': setdataActivated,

@@ -372,6 +372,7 @@ export const MonochromaticIcons: Story = {
           'logo-tiktok-mono',
           'logo-common-ground-mono',
           'logo-hyperlane-mono',
+          'logo-hyperlane-outline',
         ],
         'Monochromatic Icons',
         'Single-color icons that can be customized with the color attribute. Some icons support secondary-color for additional customization.'

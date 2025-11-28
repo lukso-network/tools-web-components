@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.169.0](https://github.com/lukso-network/tools-web-components/compare/v1.168.0...v1.169.0) (2025-11-28)
+
+
+### Features
+
+* Add hyperlane outlined icon ([#732](https://github.com/lukso-network/tools-web-components/issues/732)) ([a173e4b](https://github.com/lukso-network/tools-web-components/commit/a173e4b65e625332572db28518198eeec3552cbe))
+
 ## [1.168.0](https://github.com/lukso-network/tools-web-components/compare/v1.167.0...v1.168.0) (2025-11-24)
 
 

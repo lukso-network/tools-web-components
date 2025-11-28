@@ -216,6 +216,7 @@ import { logoCommonGroundMono } from './icons/logo-common-ground-mono'
 import { logoHyperlaneMono } from './icons/logo-hyperlane-mono'
 import { logoHyperlane } from './icons/logo-hyperlane'
 import { tokenCreate } from './icons/token-create'
+import { logoHyperlaneOutline } from './icons/logo-hyperlane-outline'
 
 export type IconOptions = {
   width: number
@@ -462,6 +463,7 @@ const iconMap = {
   'logo-hyperlane-mono': logoHyperlaneMono,
   'logo-hyperlane': logoHyperlane,
   'token-create': tokenCreate,
+  'logo-hyperlane-outline': logoHyperlaneOutline,
 }
 
 const DEFAULT_COLOR = 'neutral-20'

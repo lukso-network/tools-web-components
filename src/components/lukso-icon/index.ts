@@ -253,6 +253,7 @@ import { signInactive } from './icons/sign-inactive'
 import { transactionActivated } from './icons/transaction-activated'
 import { transferActivated } from './icons/transfer-activated'
 import { transferInactive } from './icons/transfer-inactive'
+import { logoHyperlaneOutline } from './icons/logo-hyperlane-outline'
 
 export type IconOptions = {
   width: number
@@ -539,6 +540,7 @@ const iconMap = {
   'transaction-activated': transactionActivated,
   'transfer-activated': transferActivated,
   'transfer-inactive': transferInactive,
+  'logo-hyperlane-outline': logoHyperlaneOutline,
 }
 
 const DEFAULT_COLOR = 'neutral-20'

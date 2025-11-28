@@ -215,27 +215,37 @@ async function writePackage() {
       types,
     }
   }
-  const oldContent = await readFile('./package/package.json', 'utf-8')
-  const pack = JSON.parse(oldContent)
-  pack.exports = exp
+
+  // Read the root package.json
   const fullContent = await readFile('./package.json', 'utf-8')
   const fullPack = JSON.parse(fullContent)
-  pack.version = fullPack.version
-  if (pack.dependencies) {
-    for (const key of Object.keys(pack.dependencies)) {
-      const newValue =
-        fullPack.dependencies?.[key] || fullPack.devDependencies?.[key]
-      if (newValue) {
-        // Update published dependencies to be the same version we have in the workspace
-        pack.dependencies[key] = newValue
-      }
-    }
+
+  // Generate package.json from scratch
+  const pack = {
+    name: '@lukso/web-components',
+    version: fullPack.version,
+    type: 'module',
+    files: [
+      'dist',
+      'tools',
+      'templates',
+      'tailwind.config.cjs',
+      'postcss.config.cjs',
+      'README.md',
+      'LICENSE',
+    ],
+    main: './dist/index.cjs',
+    module: './dist/index.js',
+    types: './dist/index.d.ts',
+    exports: exp,
+    dependencies: fullPack.dependencies || {},
+    customElements: 'custom-elements.json',
   }
-  const newContent = `${JSON.stringify(pack, null, '  ')}\n`
-  if (newContent !== oldContent) {
-    console.log('writing ./package.json')
-    await writeFile('./package/package.json', newContent)
-  }
+
+  const newContent = `${JSON.stringify(pack, null, '\t')}\n`
+  console.log('writing ./package/package.json')
+  await writeFile('./package/package.json', newContent)
+
   return exp
 }
 
@@ -316,6 +326,10 @@ export async function run(argv) {
             {
               src: 'src/components/lukso-icon/vuesax',
               dest: 'components/lukso-icon',
+            },
+            {
+              src: './templates',
+              dest: '..',
             },
           ],
         }),

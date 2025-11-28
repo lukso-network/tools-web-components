@@ -55,6 +55,76 @@ See example below:
 
 > Under the hood you use Web Components which styles are encapsulated within own shadow DOM (host page doesn't have access to it styles and vice versa). The only thing that components share from are fonts, colors and variables, see more on [CSS inheritance](https://lit.dev/docs/components/styles/#inheritance).
 
+### React TypeScript Support
+
+When using these web components in React projects with TypeScript, you'll need to add type definitions to get proper IntelliSense and type checking for the custom elements.
+
+#### Method 1: Using the provided template
+
+Copy the `templates/react-types.d.ts` file to your React project (e.g., as `src/types/lukso-components.d.ts`):
+
+```typescript
+import '@lukso/web-components'
+
+// Dynamic type generation based on HTMLElementTagNameMap
+type CamelToKebab<S extends string> = S extends `${infer T}${infer U}`
+  ? U extends Uncapitalize<U>
+    ? `${Lowercase<T>}${CamelToKebab<U>}`
+    : `${Lowercase<T>}-${CamelToKebab<U>}`
+  : S
+
+type ComponentProps<T> = {
+  [K in keyof T as T[K] extends (...args: unknown[]) => unknown
+    ? never
+    : K]: T[K]
+}
+
+type KebabHTMLAttributes<T> = {
+  [K in keyof ComponentProps<T> as CamelToKebab<
+    K & string
+  >]?: ComponentProps<T>[K]
+}
+
+type ReactWebComponentProps<T> = T extends HTMLElement
+  ? React.DetailedHTMLProps<React.HTMLAttributes<T>, T> & KebabHTMLAttributes<T>
+  : never
+
+type CustomElementsOnly = {
+  [K in keyof HTMLElementTagNameMap as K extends `${string}-${string}`
+    ? K
+    : never]: HTMLElementTagNameMap[K]
+}
+
+type CustomElements = {
+  [K in keyof CustomElementsOnly]: ReactWebComponentProps<CustomElementsOnly[K]>
+}
+
+declare module 'react' {
+  namespace JSX {
+    interface IntrinsicElements extends CustomElements {}
+  }
+}
+```
+
+#### Method 2: Manual configuration
+
+1. Ensure `@lukso/web-components` is imported to register the components
+2. Add the type definitions file to your project
+3. Make sure your `tsconfig.json` includes the type definition file
+
+Once configured, you'll get full TypeScript support:
+
+```tsx
+// Full IntelliSense for component properties
+<lukso-profile
+  profile-url="/path/to/image.jpg"
+  has-identicon={true}
+  size="large"
+/>
+```
+
+> Note: The type definitions automatically convert camelCase properties to kebab-case attributes as expected by React.
+
 ### Styles (Tailwind CSS projects)
 
 ##### 1. Add this preset in the config file
@@ -126,6 +196,23 @@ check for the issues after code changes
 yarn lint
 yarn test
 ```
+
+### Initial Setup
+
+When cloning the repository for the first time, you'll need to run the build process to generate the package workspace:
+
+```sh
+# Install dependencies
+yarn install
+
+# Build the project (generates package/package.json)
+yarn build
+
+# Install dependencies again to register the workspace
+yarn install
+```
+
+> Note: The `package/package.json` file is generated dynamically during the build process and is not tracked in git. This prevents version conflicts in pull requests.
 
 ## Releasing project
 

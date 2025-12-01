@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.170.0](https://github.com/lukso-network/tools-web-components/compare/v1.169.1...v1.170.0) (2025-12-01)
+
+
+### Features
+
+* Add new SVG icons for Lukso: setdata, sign, transaction, and transfer states ([#731](https://github.com/lukso-network/tools-web-components/issues/731)) ([0d9df92](https://github.com/lukso-network/tools-web-components/commit/0d9df925c12a2e92f79e55fffe1fdce98e1b2224))
+
+
+### Bug Fixes
+
+* Move tailwindcss from devDependency to dependency ([#737](https://github.com/lukso-network/tools-web-components/issues/737)) ([2949a14](https://github.com/lukso-network/tools-web-components/commit/2949a142205503cf8f4da5899033fc83bffa6b29))
+
 ## [1.169.1](https://github.com/lukso-network/tools-web-components/compare/v1.169.0...v1.169.1) (2025-12-01)
 
 

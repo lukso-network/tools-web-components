@@ -63,14 +63,6 @@ jobs:
       - name: Enable Yarn
         run: corepack enable
 
-      # Bootstrap package directory for fresh checkouts
-      - name: Bootstrap Package Directory
-        run: |
-          mkdir -p package
-          if [ ! -f package/package.json ]; then
-            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('./package.json'));fs.writeFileSync('./package/package.json',JSON.stringify({name:'@lukso/web-components',version:r.version,type:'module',dependencies:r.dependencies},null,2))"
-          fi
-
       - name: ⚙️ Install Dependencies
         run: yarn install --immutable
 
@@ -88,6 +80,7 @@ jobs:
             package/dist/
             package/tools/
             package/custom-elements.json
+            package/package.json
           retention-days: 7
           if-no-files-found: error
 
@@ -112,15 +105,6 @@ jobs:
       # Ensure we use the correct Yarn version
       - name: Enable Yarn
         run: corepack enable
-
-      # Bootstrap package directory for fresh checkouts
-      - name: Bootstrap Package Directory
-        run: |
-          mkdir -p package
-          if [ ! -f package/package.json ]; then
-            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('./package.json'));fs.writeFileSync('./package/package.json',JSON.stringify({name:'@lukso/web-components',version:r.version,type:'module',dependencies:r.dependencies},null,2))"
-          fi
-
       - name: ⚙️ Install Dependencies
         run: yarn install --immutable
 
@@ -157,15 +141,6 @@ jobs:
       # Ensure we use the correct Yarn version
       - name: Enable Yarn
         run: corepack enable
-
-      # Bootstrap package directory for fresh checkouts
-      - name: Bootstrap Package Directory
-        run: |
-          mkdir -p package
-          if [ ! -f package/package.json ]; then
-            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('./package.json'));fs.writeFileSync('./package/package.json',JSON.stringify({name:'@lukso/web-components',version:r.version,type:'module',dependencies:r.dependencies},null,2))"
-          fi
-
       - name: ⚙️ Install Dependencies
         run: yarn install --immutable
 
@@ -348,14 +323,6 @@ jobs:
       - name: Enable Yarn
         run: corepack enable
 
-      # Bootstrap package directory for fresh checkouts
-      - name: Bootstrap Package Directory
-        run: |
-          mkdir -p package
-          if [ ! -f package/package.json ]; then
-            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('./package.json'));fs.writeFileSync('./package/package.json',JSON.stringify({name:'@lukso/web-components',version:r.version,type:'module',dependencies:r.dependencies},null,2))"
-          fi
-
       - name: ⚙️ Install Dependencies
         run: yarn install --immutable
 
@@ -370,7 +337,7 @@ jobs:
           echo "npmAuthToken: $NODE_AUTH_TOKEN" >> ./.yarnrc.yml
 
           # Get version from package.json
-          VERSION=$(node -pe "require('./package/package.json').version")
+          VERSION=$(node -pe "require('./package.json').version")
           echo "Publishing version: $VERSION"
 
           # Check if version already exists (skip if already published)

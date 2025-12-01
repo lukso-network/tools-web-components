@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.169.1](https://github.com/lukso-network/tools-web-components/compare/v1.169.0...v1.169.1) (2025-12-01)
+
+
+### Bug Fixes
+
+* Add react template, remove css map the right way, remove package/package.json from git ([#734](https://github.com/lukso-network/tools-web-components/issues/734)) ([c9691f6](https://github.com/lukso-network/tools-web-components/commit/c9691f65158d173e4c35c8c39ed9edc94a1bffed))
+
 ## [1.169.0](https://github.com/lukso-network/tools-web-components/compare/v1.168.0...v1.169.0) (2025-11-28)
 
 

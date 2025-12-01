@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.170.1](https://github.com/lukso-network/tools-web-components/compare/v1.170.0...v1.170.1) (2025-12-01)
+
+
+### Bug Fixes
+
+* Remove package/package.json generation from scratch ([#738](https://github.com/lukso-network/tools-web-components/issues/738)) ([ec9dd38](https://github.com/lukso-network/tools-web-components/commit/ec9dd38ef160dde94fb11a9698693a6a3c62697e))
+
 ## [1.170.0](https://github.com/lukso-network/tools-web-components/compare/v1.169.1...v1.170.0) (2025-12-01)
 
 

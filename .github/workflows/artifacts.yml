@@ -63,8 +63,16 @@ jobs:
       - name: Enable Yarn
         run: corepack enable
 
+      # Bootstrap package directory for fresh checkouts
+      - name: Bootstrap Package Directory
+        run: |
+          mkdir -p package
+          if [ ! -f package/package.json ]; then
+            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('./package.json'));fs.writeFileSync('./package/package.json',JSON.stringify({name:'@lukso/web-components',version:r.version,type:'module',dependencies:r.dependencies},null,2))"
+          fi
+
       - name: ⚙️ Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: 🎨 Lint JS
         run: yarn lint
@@ -105,8 +113,16 @@ jobs:
       - name: Enable Yarn
         run: corepack enable
 
+      # Bootstrap package directory for fresh checkouts
+      - name: Bootstrap Package Directory
+        run: |
+          mkdir -p package
+          if [ ! -f package/package.json ]; then
+            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('./package.json'));fs.writeFileSync('./package/package.json',JSON.stringify({name:'@lukso/web-components',version:r.version,type:'module',dependencies:r.dependencies},null,2))"
+          fi
+
       - name: ⚙️ Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: 🧪 Unit Tests
         run: yarn test:unit:ci
@@ -142,8 +158,16 @@ jobs:
       - name: Enable Yarn
         run: corepack enable
 
+      # Bootstrap package directory for fresh checkouts
+      - name: Bootstrap Package Directory
+        run: |
+          mkdir -p package
+          if [ ! -f package/package.json ]; then
+            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('./package.json'));fs.writeFileSync('./package/package.json',JSON.stringify({name:'@lukso/web-components',version:r.version,type:'module',dependencies:r.dependencies},null,2))"
+          fi
+
       - name: ⚙️ Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       # Cache Playwright browsers to avoid downloading them every time
       - name: Cache Playwright browsers
@@ -324,8 +348,16 @@ jobs:
       - name: Enable Yarn
         run: corepack enable
 
+      # Bootstrap package directory for fresh checkouts
+      - name: Bootstrap Package Directory
+        run: |
+          mkdir -p package
+          if [ ! -f package/package.json ]; then
+            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('./package.json'));fs.writeFileSync('./package/package.json',JSON.stringify({name:'@lukso/web-components',version:r.version,type:'module',dependencies:r.dependencies},null,2))"
+          fi
+
       - name: ⚙️ Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Download Build Assets
         uses: actions/download-artifact@v4

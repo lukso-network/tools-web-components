@@ -254,6 +254,8 @@ import { transactionActivated } from './icons/transaction-activated'
 import { transferActivated } from './icons/transfer-activated'
 import { transferInactive } from './icons/transfer-inactive'
 import { logoHyperlaneOutline } from './icons/logo-hyperlane-outline'
+import { raLogoColor } from './icons/ra-logo-color'
+import { raLogoRound } from './icons/ra-logo-round'
 
 export type IconOptions = {
   width: number
@@ -541,6 +543,8 @@ const iconMap = {
   'transfer-activated': transferActivated,
   'transfer-inactive': transferInactive,
   'logo-hyperlane-outline': logoHyperlaneOutline,
+  'ra-logo-color': raLogoColor,
+  'ra-logo-round': raLogoRound,
 }
 
 const DEFAULT_COLOR = 'neutral-20'

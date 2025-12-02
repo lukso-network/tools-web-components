@@ -391,6 +391,7 @@ export const ColoredIcons: Story = {
           'logo-linkedin',
           'logo-farcaster',
           'logo-hyperlane',
+          'ra-logo-color',
         ],
         'Colored Icons'
       )}
@@ -453,6 +454,7 @@ export const RoundIcons: Story = {
           'profile-circle',
           'user-circle-add',
           'warning-round',
+          'ra-logo-round',
         ],
         'Round Icons'
       )}

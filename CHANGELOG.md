@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.171.0](https://github.com/lukso-network/tools-web-components/compare/v1.170.1...v1.171.0) (2025-12-02)
+
+
+### Features
+
+* QR code component ([#741](https://github.com/lukso-network/tools-web-components/issues/741)) ([f9719c2](https://github.com/lukso-network/tools-web-components/commit/f9719c2ea5c82fa0cf895352e77c94f6a07035f9))
+
+
+### Bug Fixes
+
+* add supply to SearchResult type ([#740](https://github.com/lukso-network/tools-web-components/issues/740)) ([1b28336](https://github.com/lukso-network/tools-web-components/commit/1b28336e0a8ee5fa24715c9bb169267f87cdc2aa))
+
 ## [1.170.1](https://github.com/lukso-network/tools-web-components/compare/v1.170.0...v1.170.1) (2025-12-01)
 
 

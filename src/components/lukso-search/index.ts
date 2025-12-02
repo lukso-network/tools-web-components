@@ -35,6 +35,7 @@ export type SearchResult = {
   symbol?: string
   standard?: Standard
   status?: boolean
+  supply?: string
 }
 
 @safeCustomElement('lukso-search')

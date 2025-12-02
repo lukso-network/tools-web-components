@@ -1,6 +1,6 @@
 {
 	"name": "@lukso/web-components",
-	"version": "1.170.0",
+	"version": "1.170.1",
 	"type": "module",
 	"files": [
 		"dist",
@@ -185,6 +185,11 @@
 			"require": "./dist/components/lukso-progress/index.cjs",
 			"import": "./dist/components/lukso-progress/index.js",
 			"types": "./dist/components/lukso-progress/index.d.ts"
+		},
+		"./dist/components/lukso-qr-code": {
+			"require": "./dist/components/lukso-qr-code/index.cjs",
+			"import": "./dist/components/lukso-qr-code/index.js",
+			"types": "./dist/components/lukso-qr-code/index.d.ts"
 		},
 		"./dist/components/lukso-radio": {
 			"require": "./dist/components/lukso-radio/index.cjs",

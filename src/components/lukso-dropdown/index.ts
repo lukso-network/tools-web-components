@@ -63,7 +63,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   private styles = tv({
     slots: {
-      wrapper: 'absolute z-50 w-full',
+      wrapper: 'absolute z-50',
       dropdown: `bg-neutral-100 border border-neutral-90 shadow-1xl
         flex flex-col gap-1 overflow-y-auto w-full animate-fade-in animation-duration-200`,
     },

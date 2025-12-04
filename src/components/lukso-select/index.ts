@@ -302,8 +302,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       size=${this.size}
       is-open
       is-open-on-outside-click
-      is-full-width=${this.isFullWidth}
       max-height=${this.maxHeight}
+      ?is-full-width=${this.isFullWidth}
       ?is-right=${this.isRight}
       ?open-top=${this.openTop}
       >${optionTemplates}</lukso-dropdown

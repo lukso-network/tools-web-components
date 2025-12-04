@@ -117,4 +117,8 @@ export class LuksoQrCode extends TailwindStyledElement(style) {
   }
 }
 
-export default LuksoQrCode
+declare global {
+  interface HTMLElementTagNameMap {
+    'lukso-qr-code': LuksoQrCode
+  }
+}

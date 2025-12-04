@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.171.2](https://github.com/lukso-network/tools-web-components/compare/v1.171.1...v1.171.2) (2025-12-04)
+
+
+### Bug Fixes
+
+* Select component width issue ([#745](https://github.com/lukso-network/tools-web-components/issues/745)) ([1c55ebf](https://github.com/lukso-network/tools-web-components/commit/1c55ebfbdc567a0bf7805fae143928679af36c4b))
+
 ## [1.171.1](https://github.com/lukso-network/tools-web-components/compare/v1.171.0...v1.171.1) (2025-12-04)
 
 

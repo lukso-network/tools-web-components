@@ -313,7 +313,13 @@ export async function run(argv) {
               }
             : null,
         rollupOptions: {
-          external: ['fs', 'path', 'node:fs', 'node:path'], // Explicitly externalize these modules
+          external: ['fs', 'path', 'node:fs', 'node:path'],
+          output: {
+            // Prevent variable name collisions by using unique prefixes per chunk
+            chunkFileNames: 'chunks/[name]-[hash].js',
+            // Ensure consistent mangling across builds
+            manualChunks: undefined,
+          },
         },
       },
       plugins: [

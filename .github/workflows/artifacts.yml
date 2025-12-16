@@ -322,7 +322,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.setup.outputs.node_version }}
-          registry-url: 'https://registry.npmjs.org'
           cache: 'yarn'
 
       # Ensure we use the correct Yarn version
@@ -353,16 +352,16 @@ jobs:
             exit 0
           fi
 
-          # Clear any existing npm auth config to ensure OIDC is used
-          # The .yarnrc.yml has LUKSO_NPM_TOKEN for reading private deps,
-          # but we need to ensure npm doesn't pick it up for publishing
-          npm config delete //registry.npmjs.org/:_authToken 2>/dev/null || true
+          # Create .npmrc for registry (OIDC will handle auth automatically)
+          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > package/.npmrc
 
-          # Publish with provenance using npm (npm 11+ enables OIDC support)
+          # Publish with provenance - OIDC auth happens automatically via GitHub Actions
           echo "Publishing version $VERSION with trusted publishing..."
-          if (cd package && npm publish --provenance --access public); then
+          if (cd package && NPM_TOKEN="" npm publish --provenance --access public); then
             echo "✅ Successfully published version $VERSION"
+            rm .npmrc
           else
             echo "❌ Publish failed"
+            rm .npmrc
             exit 1
           fi

@@ -1,14 +1,10 @@
 const { defineConfig } = require('eslint/config')
-
 const globals = require('globals')
-
 const { fixupConfigRules, fixupPluginRules } = require('@eslint/compat')
-
 const tsParser = require('@typescript-eslint/parser')
 const typescriptEslint = require('@typescript-eslint/eslint-plugin')
 const espree = require('espree')
 const js = require('@eslint/js')
-
 const { FlatCompat } = require('@eslint/eslintrc')
 
 const compat = new FlatCompat({
@@ -31,7 +27,7 @@ module.exports = defineConfig([
 
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: ['./tsconfig.json', './tsconfig.eslint.json'],
+        project: ['./tsconfig.json', './tsconfig.eslint.json', './.storybook/tsconfig.json'],
       },
     },
 
@@ -99,12 +95,8 @@ module.exports = defineConfig([
   },
   {
     files: [
-      './*.{mjs,cjs}',
-      './*.js',
-      './*.json',
-      './package/*.{mjs,cjs}',
-      './package/*.js',
-      './package/*.json',
+      './*.{mjs,cjs,js}',
+      './package/*.{mjs,cjs,js}',
       './.eslintrc.cjs',
       './dist/**/*.js',
     ],
@@ -114,6 +106,10 @@ module.exports = defineConfig([
       ecmaVersion: 2020,
       parserOptions: {},
     },
+
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
   },
   {
     ignores: [
@@ -122,6 +118,17 @@ module.exports = defineConfig([
       '**/node_modules/**',
       '**/package/dist/**',
       '**/package/tools/**',
+      'storybook-static/**',
+      '.work/**',
+      'coverage/**',
+      'test-results/**',
+      'playwright-report/**',
+      '.yarn/**',
+      '**/*.css.map',
+      '**/*.d.ts.map',
+      '**/*.json',
+      'scripts/**/*.js',
+      'scripts/**/*.cjs',
     ],
   },
 ])

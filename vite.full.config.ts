@@ -7,6 +7,7 @@ import dts from 'vite-plugin-dts'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import * as url from 'node:url'
+import tailwindcss from '@tailwindcss/vite'
 
 import { colorPalette } from './src/shared/tools/tailwind-config.js'
 
@@ -289,7 +290,6 @@ export async function run(argv) {
     },
   ].concat(
     list.map(({ entry, fileName, name }) => {
-      console.log(`setting up ${entry}`)
       return {
         fileName,
         name: `web_components_${name.replace(/-/g, '_')}`,
@@ -355,6 +355,7 @@ export async function run(argv) {
         },
       },
       plugins: [
+        tailwindcss(),
         viteStaticCopy({
           targets: [
             {

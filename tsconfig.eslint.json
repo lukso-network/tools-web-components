@@ -18,8 +18,8 @@
     },
   },
   "include": [
-    "dist",
-    "tools"
+    "package/dist",
+    "package/tools"
   ],
   "exclude": [
     "node_modules",

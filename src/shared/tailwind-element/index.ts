@@ -1,6 +1,6 @@
 import { LitElement, unsafeCSS } from 'lit'
 
-import style from '@/shared/styles/component.scss?inline'
+import style from '@/shared/styles/component-v4.scss?inline'
 
 const tailwindElement = unsafeCSS(style)
 

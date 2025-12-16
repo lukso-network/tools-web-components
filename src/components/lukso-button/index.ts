@@ -270,7 +270,10 @@ export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
     setTimeout(() => {
       this.noTransition = false
     }, 100)
-    this.timer && clearTimeout(this.timer)
+    if (this.timer) {
+      clearTimeout(this.timer)
+      this.timer = null
+    }
   }
 
   loadingTemplate() {

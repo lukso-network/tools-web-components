@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.172.2](https://github.com/lukso-network/tools-web-components/compare/v1.172.1...v1.172.2) (2025-12-16)
+
+
+### Bug Fixes
+
+* Repair lint in workflow file. ([#755](https://github.com/lukso-network/tools-web-components/issues/755)) ([26d703b](https://github.com/lukso-network/tools-web-components/commit/26d703b1b863fe22fb22f9f9c215c8ecad0cada0))
+* Repair missing id-token ([#753](https://github.com/lukso-network/tools-web-components/issues/753)) ([d28351a](https://github.com/lukso-network/tools-web-components/commit/d28351a3e3606d082a5cb339f707665733943df3))
+
 ## [1.172.1](https://github.com/lukso-network/tools-web-components/compare/v1.172.0...v1.172.1) (2025-12-16)
 
 

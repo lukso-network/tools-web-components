@@ -337,7 +337,8 @@ jobs:
 
       - name: 📢 Publish NPM with Retry
         run: |
-          echo "npmAuthToken: $NODE_AUTH_TOKEN" >> ./.yarnrc.yml
+          # trusted publish
+          # echo "npmAuthToken: $NODE_AUTH_TOKEN" >> ./.yarnrc.yml
 
           # Get version from package.json
           VERSION=$(node -pe "require('./package.json').version")
@@ -352,7 +353,7 @@ jobs:
           # Retry npm publish up to 3 times due to intermittent 404 errors
           for i in {1..3}; do
             echo "Publish attempt $i..."
-            if (cd package && yarn npm publish); then
+            if (cd package && yarn npm publish --provenance); then
               echo "Publish succeeded on attempt $i"
 
               # Verify publish succeeded

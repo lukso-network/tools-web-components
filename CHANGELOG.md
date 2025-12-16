@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.7](https://github.com/lukso-network/tools-web-components/compare/v1.172.6...v1.172.7) (2025-12-16)
+
+
+### Bug Fixes
+
+* Temporarily disable auth ([#765](https://github.com/lukso-network/tools-web-components/issues/765)) ([704eeb1](https://github.com/lukso-network/tools-web-components/commit/704eeb1606a6234f08ff53526ded3b53125917b4))
+
 ## [1.172.6](https://github.com/lukso-network/tools-web-components/compare/v1.172.5...v1.172.6) (2025-12-16)
 
 

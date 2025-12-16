@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.0](https://github.com/lukso-network/tools-web-components/compare/v1.171.3...v1.172.0) (2025-12-16)
+
+
+### Features
+
+* Theme support ([#749](https://github.com/lukso-network/tools-web-components/issues/749)) ([b7b15dc](https://github.com/lukso-network/tools-web-components/commit/b7b15dcdff6e9d3d57c0feee871b82c16f0fef97))
+
 ## [1.171.3](https://github.com/lukso-network/tools-web-components/compare/v1.171.2...v1.171.3) (2025-12-16)
 
 

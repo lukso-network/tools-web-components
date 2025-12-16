@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.9](https://github.com/lukso-network/tools-web-components/compare/v1.172.8...v1.172.9) (2025-12-16)
+
+
+### Bug Fixes
+
+* Publish from temp ([#769](https://github.com/lukso-network/tools-web-components/issues/769)) ([593d8e0](https://github.com/lukso-network/tools-web-components/commit/593d8e02797e3cb8e1d534a614f71a061521b587))
+
 ## [1.172.8](https://github.com/lukso-network/tools-web-components/compare/v1.172.7...v1.172.8) (2025-12-16)
 
 

@@ -46,12 +46,13 @@ export class LuksoTerms extends TailwindStyledElement(style) {
   private handleBottomScroll() {
     const scrollEnd = this.shadowRoot.getElementById('scroll-end')
 
-    scrollEnd &&
+    if (scrollEnd) {
       scrollEnd.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
         inline: 'start',
       })
+    }
   }
 
   render() {

@@ -168,7 +168,9 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     // when manually trigger tooltip
     if (changedProperties.has('show') && this.trigger === 'manual') {
       if (this.show) {
-        !this.tooltipInstance && this.initTooltip()
+        if (!this.tooltipInstance) {
+          this.initTooltip()
+        }
         this.tooltipInstance?.show()
       } else {
         this.tooltipInstance?.hide()

@@ -355,20 +355,6 @@ jobs:
             exit 0
           fi
 
-          # Copy package to temporary directory OUTSIDE workspace to avoid npm workspace detection
-          TEMP_DIR=$(mktemp -d)
-          cp -r package/* "$TEMP_DIR/"
-
-          # Create .npmrc in temp directory (no workspace interference)
-          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > "$TEMP_DIR/.npmrc"
-
-          # Publish with provenance from temp directory - OIDC auth happens automatically
+          # Publish with provenance - OIDC auth happens automatically via release.yml workflow
           echo "Publishing version $VERSION with trusted publishing..."
-          if (cd "$TEMP_DIR" && unset NPM_TOKEN && npm publish --provenance --access public); then
-            echo "✅ Successfully published version $VERSION"
-            rm -rf "$TEMP_DIR"
-          else
-            echo "❌ Publish failed"
-            rm -rf "$TEMP_DIR"
-            exit 1
-          fi
+          cd package && npm publish --provenance --access public

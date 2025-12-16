@@ -2,27 +2,27 @@ on:
   workflow_call:
     inputs:
       sha:
-        description: 'Github sha'
+        description: "Github sha"
         required: true
         type: string
       ref:
-        description: 'Github ref'
+        description: "Github ref"
         required: true
         type: string
       tag_name:
-        description: 'Github tag_name'
+        description: "Github tag_name"
         type: string
       release_created:
-        description: 'Github release_created'
+        description: "Github release_created"
         type: string
       pr_number:
-        description: 'PR Number'
+        description: "PR Number"
         type: string
 
 name: build artifacts
 
 env:
-  LUKSO_NPM_TOKEN: '${{ secrets.LUKSO_NPM_TOKEN }}'
+  LUKSO_NPM_TOKEN: "${{ secrets.LUKSO_NPM_TOKEN }}"
 
 jobs:
   # Single setup job that handles Node.js version detection
@@ -60,7 +60,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.setup.outputs.node_version }}
-          cache: 'yarn'
+          cache: "yarn"
 
       # Ensure we use the correct Yarn version
       - name: Enable Yarn
@@ -103,7 +103,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.setup.outputs.node_version }}
-          cache: 'yarn'
+          cache: "yarn"
 
       # Ensure we use the correct Yarn version
       - name: Enable Yarn
@@ -139,7 +139,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.setup.outputs.node_version }}
-          cache: 'yarn'
+          cache: "yarn"
 
       # Ensure we use the correct Yarn version
       - name: Enable Yarn
@@ -256,7 +256,7 @@ jobs:
         if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
         uses: kentaro-m/auto-assign-action@v2.0.0
         with:
-          configuration-path: '.github/auto_assign.yaml'
+          configuration-path: ".github/auto_assign.yaml"
 
       - name: 🔍 Get Discord Mentions
         if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
@@ -288,7 +288,7 @@ jobs:
         uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          content: '${{ steps.discord-mentions.outputs.result }} https://github.com/lukso-network/tools-web-components/pull/${{ github.event.number }} - ${{ github.event.pull_request.title }}'
+          content: "${{ steps.discord-mentions.outputs.result }} https://github.com/lukso-network/tools-web-components/pull/${{ github.event.number }} - ${{ github.event.pull_request.title }}"
 
       - name: ✨ Add 'review-requested' Label
         if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
@@ -322,8 +322,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.setup.outputs.node_version }}
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'yarn'
+          registry-url: "https://registry.npmjs.org"
+          cache: "yarn"
 
       # Ensure we use the correct Yarn version
       - name: Enable Yarn
@@ -343,9 +343,6 @@ jobs:
 
       - name: 📢 Publish to NPM
         run: |
-          # Remove npmAuthToken temporarily to ensure OIDC token is used
-          sed -i "/npmAuthToken:/d" ./.yarnrc.yml
-
           # Get version from package.json
           VERSION=$(node -pe "require('./package.json').version")
           echo "Publishing version: $VERSION"
@@ -353,17 +350,14 @@ jobs:
           # Check if version already exists (skip if already published)
           if npm view @lukso/web-components@$VERSION version 2>/dev/null; then
             echo "Version $VERSION already exists on npm, skipping publish"
-            git checkout -f ./.yarnrc.yml
             exit 0
           fi
 
-          # Publish with provenance using yarn (npm 11+ enables OIDC support)
+          # Publish with provenance using npm (npm 11+ enables OIDC support)
           echo "Publishing version $VERSION with trusted publishing..."
-          if (cd package && yarn npm publish --provenance); then
+          if (cd package && npm publish --provenance --access public); then
             echo "✅ Successfully published version $VERSION"
-            git checkout -f ./.yarnrc.yml
           else
             echo "❌ Publish failed"
-            git checkout -f ./.yarnrc.yml
             exit 1
           fi

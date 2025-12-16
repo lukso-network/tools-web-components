@@ -79,6 +79,7 @@ module.exports = {
 		"./stories/**/*.{ts,html,css,scss,mdx}",
 		"./*.{ts,html,css,scss,mdx}",
 	],
+	darkMode: 'class',
 	theme: {
 		fontFamily: {
 			inter: ["Inter", "sans-serif"],

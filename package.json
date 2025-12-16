@@ -46,6 +46,7 @@
 		]
 	},
 	"dependencies": {
+		"@lukso/core": "^1.2.0",
 		"@tailwindcss/typography": "^0.5.16",
 		"axe-core": "4.10.3",
 		"clsx": "^2.1.1",
@@ -124,7 +125,7 @@
 		"wait-on": "^8.0.3",
 		"yargs": "^18.0.0"
 	},
-	"packageManager": "yarn@3.3.1",
+	"packageManager": "yarn@4.12.0",
 	"workspaces": [
 		"./package"
 	],

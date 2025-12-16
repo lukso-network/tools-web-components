@@ -1,8 +1,8 @@
 import { html, nothing } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
+import { withTheme } from '@lukso/core'
 
-import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import style from './style.scss?inline'
@@ -25,8 +25,7 @@ export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
 
 const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
 
-@safeCustomElement('lukso-button')
-export class LuksoButton extends TailwindStyledElement(style) {
+export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
   @property({ type: String })
   variant: ButtonVariant = 'primary'
 
@@ -107,7 +106,8 @@ export class LuksoButton extends TailwindStyledElement(style) {
             disabled:hover:!bg-neutral-20 disabled:hover:!border-neutral-20
             hover:bg-neutral-25 hover:border-neutral-25
             active:bg-neutral-25 active:border-neutral-25 before:bg-neutral-10`,
-        secondary: 'bg-neutral-100 border-neutral-90 text-neutral-20',
+        secondary:
+          'bg-neutral-100 border-neutral-90 text-neutral-20 dark:border-neutral-20 dark:bg-neutral-20 dark:text-neutral-100',
         landing: `bg-purple-51 border-purple-51 text-neutral-100
             disabled:hover:!bg-purple-51 disabled:hover:!border-purple-51
             hover:bg-purple-58 hover:border-purple-58 before:bg-purple-51`,
@@ -356,6 +356,8 @@ export class LuksoButton extends TailwindStyledElement(style) {
     return html` ${this.isLink ? this.linkTemplate() : this.buttonTemplate()} `
   }
 }
+
+customElements.define('lukso-button', LuksoButton as any)
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html, nothing } from 'lit-html'
 import { useArgs } from 'storybook/preview-api'
 
 import type { Meta } from '@storybook/web-components-vite'
@@ -50,6 +50,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    theme: {
+      control: { type: 'select' },
+      options: ['light', 'dark', 'auto'],
+      table: {
+        category: 'Global',
+      },
+    },
     'is-open': {
       name: 'isOpen',
     },
@@ -81,7 +88,7 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ size, disableAnimations, hasBottomPadding }) => {
+const Template = ({ size, disableAnimations, hasBottomPadding, theme }) => {
   const [{ isOpen }, updateArgs] = useArgs()
 
   const handleClose = () => {
@@ -97,20 +104,27 @@ const Template = ({ size, disableAnimations, hasBottomPadding }) => {
       >Show modal</lukso-button
     >
     <lukso-modal
-      size=${size}
+      size=${size ? size : nothing}
+      .theme=${theme}
       ?is-open=${isOpen}
       ?disable-animations=${disableAnimations}
       ?has-bottom-padding=${hasBottomPadding}
     >
       <div class="p-6">
-        <h1 class="heading-inter-26-semi-bold pb-4">Lorem ipsum</h1>
-        <p class="paragraph-inter-16-regular">
+        <h1 class="heading-inter-26-semi-bold pb-4 dark:text-neutral-100">
+          Lorem ipsum
+        </h1>
+        <p class="paragraph-inter-16-regular dark:text-neutral-100">
           Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
           posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel,
           ullamcorper sit amet ligula. Proin eget tortor risus.
         </p>
         <p class="pt-6">
-          <lukso-button variant="primary" is-full-width @click=${handleClose}
+          <lukso-button
+            variant="secondary"
+            .theme=${theme}
+            is-full-width
+            @click=${handleClose}
             >Close</lukso-button
           >
         </p>

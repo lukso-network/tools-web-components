@@ -263,6 +263,7 @@
 		}
 	},
 	"dependencies": {
+		"@lukso/core": "^1.2.0",
 		"@tailwindcss/typography": "^0.5.16",
 		"axe-core": "4.10.3",
 		"clsx": "^2.1.1",

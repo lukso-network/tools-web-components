@@ -338,9 +338,12 @@ jobs:
           name: build-assets
           path: package
 
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g npm@latest
+
       - name: 📢 Publish to NPM
         run: |
-          # Remove npmAuthToken temporarily to allow trusted publishing with OIDC token
+          # Remove npmAuthToken temporarily to ensure OIDC token is used
           sed -i "/npmAuthToken:/d" ./.yarnrc.yml
 
           # Get version from package.json
@@ -354,8 +357,8 @@ jobs:
             exit 0
           fi
 
-          # Publish with provenance (trusted publishing)
-          echo "Publishing version $VERSION..."
+          # Publish with provenance using yarn (npm 11+ enables OIDC support)
+          echo "Publishing version $VERSION with trusted publishing..."
           if (cd package && yarn npm publish --provenance); then
             echo "✅ Successfully published version $VERSION"
             git checkout -f ./.yarnrc.yml

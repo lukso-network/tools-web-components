@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.171.3](https://github.com/lukso-network/tools-web-components/compare/v1.171.2...v1.171.3) (2025-12-16)
+
+
+### Bug Fixes
+
+* Repair build chunk names ([#747](https://github.com/lukso-network/tools-web-components/issues/747)) ([a4c924d](https://github.com/lukso-network/tools-web-components/commit/a4c924dd50262dbbb9f2e74fa0addd7f64738ade))
+
 ## [1.171.2](https://github.com/lukso-network/tools-web-components/compare/v1.171.1...v1.171.2) (2025-12-04)
 
 

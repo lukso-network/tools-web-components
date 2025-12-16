@@ -1,6 +1,6 @@
 {
 	"name": "@lukso/web-components",
-	"version": "1.170.1",
+	"version": "1.171.2",
 	"type": "module",
 	"files": [
 		"dist",
@@ -268,6 +268,7 @@
 		"clsx": "^2.1.1",
 		"ethereum-blockies-base64": "^1.0.2",
 		"marked": "16.2.1",
+		"qr-code-styling": "^1.9.2",
 		"tailwind-merge": "^2.6.0",
 		"tailwind-variants": "^0.3.1",
 		"tailwindcss": "^3.4.17",

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.11](https://github.com/lukso-network/tools-web-components/compare/v1.172.10...v1.172.11) (2025-12-16)
+
+
+### Bug Fixes
+
+* Try this again, we figured out it's the workflow name ([a1bf106](https://github.com/lukso-network/tools-web-components/commit/a1bf106dcaae0d2e91dae91adc8bf0e12cafde29))
+
 ## [1.172.10](https://github.com/lukso-network/tools-web-components/compare/v1.172.9...v1.172.10) (2025-12-16)
 
 

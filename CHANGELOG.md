@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.13](https://github.com/lukso-network/tools-web-components/compare/v1.172.12...v1.172.13) (2025-12-16)
+
+
+### Bug Fixes
+
+* Repository.url is there, but not in package/package.json ([a518eb8](https://github.com/lukso-network/tools-web-components/commit/a518eb87b2a675f33cfb01270e02d05699142b5a))
+
 ## [1.172.12](https://github.com/lukso-network/tools-web-components/compare/v1.172.11...v1.172.12) (2025-12-16)
 
 

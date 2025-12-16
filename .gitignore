@@ -31,3 +31,4 @@ coverage/
 # Test results
 test-results/
 playwright-report/
+/package/node_modules/

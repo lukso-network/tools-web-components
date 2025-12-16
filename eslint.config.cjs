@@ -27,7 +27,11 @@ module.exports = defineConfig([
 
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: ['./tsconfig.json', './tsconfig.eslint.json', './.storybook/tsconfig.json'],
+        project: [
+          './tsconfig.json',
+          './tsconfig.eslint.json',
+          './.storybook/tsconfig.json',
+        ],
       },
     },
 

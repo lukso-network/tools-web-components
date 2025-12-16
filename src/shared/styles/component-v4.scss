@@ -1,0 +1,16 @@
+/**
+  * @file Component styles (Tailwind CSS v4)
+  *
+  * This is the base stylesheet that all web components inherit.
+  * This version uses Tailwind CSS v4 syntax.
+  */
+
+@use './typography';
+@use './utilities';
+@use './variables-v4';
+
+@import 'tailwindcss';
+
+strong {
+  @apply font-600;
+}

@@ -9,7 +9,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import sass from 'sass'
+import * as sass from 'sass'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 

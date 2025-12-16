@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.6](https://github.com/lukso-network/tools-web-components/compare/v1.172.5...v1.172.6) (2025-12-16)
+
+
+### Bug Fixes
+
+* Use npm publish directly, yarn npm publish is failing. ([#763](https://github.com/lukso-network/tools-web-components/issues/763)) ([314f6a6](https://github.com/lukso-network/tools-web-components/commit/314f6a65ce7dde10e3b8595a05b4064813a8a579))
+
 ## [1.172.5](https://github.com/lukso-network/tools-web-components/compare/v1.172.4...v1.172.5) (2025-12-16)
 
 

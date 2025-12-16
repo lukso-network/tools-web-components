@@ -16571,13 +16571,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "tailwind-merge@npm:3.4.0"
-  checksum: 10/d8caeb40ee3ec0eae2996f8a86d77c82a1751fc9c61a31d6153b4252cb734deaf98d351205aff5c204beee7b73497add8492411e75187acb8506b4d981e4ccc2
-  languageName: node
-  linkType: hard
-
 "tailwind-variants@npm:^0.3.1":
   version: 0.3.1
   resolution: "tailwind-variants@npm:0.3.1"
@@ -16586,19 +16579,6 @@ __metadata:
   peerDependencies:
     tailwindcss: "*"
   checksum: 10/8d05a7025b32c8da499d44cd292bd3f6d29185ab1c02390fa7f6a1584f89aeb3e772b79769de4c490f5898767a78843624ee7723d5da0aa302b362342c966ac7
-  languageName: node
-  linkType: hard
-
-"tailwind-variants@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "tailwind-variants@npm:3.2.2"
-  peerDependencies:
-    tailwind-merge: ">=3.0.0"
-    tailwindcss: "*"
-  peerDependenciesMeta:
-    tailwind-merge:
-      optional: true
-  checksum: 10/a9f7b339472eb945369249c3a364ebd16a2ab068c759c507a6d4fe089c92e8c81bccdda1af7d831c515e2e88357fa1735775e3255d09db392abecbf7fa002108
   languageName: node
   linkType: hard
 
@@ -16632,13 +16612,6 @@ __metadata:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
   checksum: 10/f4e5e3dc3e1d96c453520f6787d0f36a9b9ae20bfa443102181fb772ba236e796eaf0888181becd5f00ffa6e99c17605224db216ff660a4ed7e7bb2d94b0b071
-  languageName: node
-  linkType: hard
-
-"tailwindcss@npm:^4.1.18":
-  version: 4.1.18
-  resolution: "tailwindcss@npm:4.1.18"
-  checksum: 10/16a51bf972dce3871fec66aba7bffa02cd6fccc5a330180be3dcf297e48aae2d64d965df48fda851f65924ef61d7d2c6c8e6d7a05a09f454244475b7dab93464
   languageName: node
   linkType: hard
 

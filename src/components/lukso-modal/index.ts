@@ -1,14 +1,13 @@
 import { html } from 'lit'
 import { property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
+import { withTheme } from '@lukso/core'
 
-import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 
 export type ModalSizes = 'small' | 'medium' | 'full' | 'auto'
 
-@safeCustomElement('lukso-modal')
-export class LuksoModal extends TailwindElement {
+export class LuksoModal extends withTheme(TailwindElement) {
   @property({ type: Boolean, attribute: 'is-open' })
   isOpen = false
 
@@ -27,9 +26,9 @@ export class LuksoModal extends TailwindElement {
         'opacity-0 fixed z-[1011] transition-opacity inset-0 w-screen h-screen overflow-y-auto overscroll-none scrolling-touch touch-pan-y',
       inner: 'min-h-screen flex items-center justify-center px-6 pt-6 w-full',
       overlay:
-        'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed inset-0 w-[100vw] h-[100vh] z-[1010]',
+        'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed inset-0 w-[100vw] h-[100vh] z-[1010] dark:bg-[rgba(196,202,206,0.1)]',
       dialog:
-        'bg-neutral-98 rounded-12 shadow-neutral-shadow-round-3xl z-[1012] mx-auto',
+        'bg-neutral-98 rounded-12 shadow-neutral-shadow-round-3xl z-[1012] mx-auto dark:bg-neutral-10',
     },
     variants: {
       isOpen: {
@@ -112,6 +111,8 @@ export class LuksoModal extends TailwindElement {
     `
   }
 }
+
+customElements.define('lukso-modal', LuksoModal as any)
 
 declare global {
   interface HTMLElementTagNameMap {

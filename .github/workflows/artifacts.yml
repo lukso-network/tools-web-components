@@ -21,6 +21,9 @@ on:
 
 name: build artifacts
 
+env:
+  LUKSO_NPM_TOKEN: '${{ secrets.LUKSO_NPM_TOKEN }}'
+
 jobs:
   # Single setup job that handles Node.js version detection
   setup:

@@ -158,6 +158,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    theme: {
+      control: { type: 'select' },
+      options: ['light', 'dark', 'auto'],
+      table: {
+        category: 'Global',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -250,6 +257,7 @@ const Template = ({
   count,
   isIcon,
   label,
+  theme,
 }) =>
   html`<lukso-button
     variant=${variant ? variant : nothing}
@@ -262,6 +270,7 @@ const Template = ({
     custom-class=${customClass ? customClass : nothing}
     count=${count ? count : nothing}
     label=${label ? label : nothing}
+    .theme=${theme}
     ?disabled=${disabled}
     ?is-full-width=${isFullWidth}
     ?is-long-press=${isLongPress}

@@ -13,6 +13,7 @@
 /package/custom-elements.json
 .DS_Store
 .claude
+.env
 
 # Yarn
 .pnp.*

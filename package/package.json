@@ -277,5 +277,9 @@
 		"viem": "^2.31.7",
 		"web3-utils": "^4.3.3"
 	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lukso-network/tools-web-components"
+	},
 	"customElements": "custom-elements.json"
 }

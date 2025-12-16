@@ -243,6 +243,7 @@ async function writePackage() {
     types: './dist/index.d.ts',
     exports: exp,
     dependencies: fullPack.dependencies || {},
+    registry: fullPack.registry,
     customElements: 'custom-elements.json',
   }
 

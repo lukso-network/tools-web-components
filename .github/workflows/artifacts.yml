@@ -364,7 +364,7 @@ jobs:
 
           # Publish with provenance from temp directory - OIDC auth happens automatically
           echo "Publishing version $VERSION with trusted publishing..."
-          if (cd "$TEMP_DIR" && NPM_TOKEN="" npm publish --provenance --access public); then
+          if (cd "$TEMP_DIR" && unset NPM_TOKEN && npm publish --provenance --access public); then
             echo "✅ Successfully published version $VERSION"
             rm -rf "$TEMP_DIR"
           else

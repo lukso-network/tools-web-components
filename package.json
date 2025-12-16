@@ -35,13 +35,13 @@
 	},
 	"lint-staged": {
 		"*.{ts,js,vue}": [
-			"prettier --list-different",
+			"prettier --write",
 			"eslint"
 		],
-		"*.json": "prettier --list-different",
-		"*.ya?ml": "prettier --list-different",
+		"*.json": "prettier --write",
+		"*.ya?ml": "prettier --write",
 		"*.{scss,css,vue}": [
-			"prettier --list-different",
+			"prettier --write",
 			"stylelint --allow-empty-input"
 		]
 	},

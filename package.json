@@ -1,7 +1,7 @@
 {
 	"name": "web-components-builder",
 	"private": true,
-	"version": "1.172.11",
+	"version": "1.172.12",
 	"type": "module",
 	"scripts": {
 		"config-prepare": "tsx ./vite.tools.config.ts --mode=production",
@@ -34,10 +34,16 @@
 		"playwright:install": "playwright install --with-deps"
 	},
 	"lint-staged": {
-		"*.{ts,js,vue}": ["prettier --write", "eslint"],
+		"*.{ts,js,vue}": [
+			"prettier --write",
+			"eslint"
+		],
 		"*.json": "prettier --write",
 		"*.ya?ml": "prettier --write",
-		"*.{scss,css,vue}": ["prettier --write", "stylelint --allow-empty-input"]
+		"*.{scss,css,vue}": [
+			"prettier --write",
+			"stylelint --allow-empty-input"
+		]
 	},
 	"dependencies": {
 		"@lukso/core": "^1.2.0",
@@ -120,7 +126,9 @@
 		"yargs": "^18.0.0"
 	},
 	"packageManager": "yarn@4.12.0",
-	"workspaces": ["./package"],
+	"workspaces": [
+		"./package"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/lukso-network/tools-web-components"

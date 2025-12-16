@@ -338,12 +338,15 @@ jobs:
           path: package
 
       - name: Upgrade npm for trusted publishing
-        run: npm install -g npm@latest
+        run: |
+          npm install -g npm@latest
+          echo "Upgraded to npm version:"
+          npm --version
 
       - name: 📢 Publish to NPM
         run: |
-          # Get version from package.json
-          VERSION=$(node -pe "require('./package.json').version")
+          # Get version from package/package.json (the actual package being published)
+          VERSION=$(node -pe "require('./package/package.json').version")
           echo "Publishing version: $VERSION"
 
           # Check if version already exists (skip if already published)
@@ -352,16 +355,20 @@ jobs:
             exit 0
           fi
 
-          # Create .npmrc for registry (OIDC will handle auth automatically)
-          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > package/.npmrc
+          # Copy package to temporary directory OUTSIDE workspace to avoid npm workspace detection
+          TEMP_DIR=$(mktemp -d)
+          cp -r package/* "$TEMP_DIR/"
 
-          # Publish with provenance - OIDC auth happens automatically via GitHub Actions
+          # Create .npmrc in temp directory (no workspace interference)
+          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > "$TEMP_DIR/.npmrc"
+
+          # Publish with provenance from temp directory - OIDC auth happens automatically
           echo "Publishing version $VERSION with trusted publishing..."
-          if (cd package && NPM_TOKEN="" npm publish --provenance --access public); then
+          if (cd "$TEMP_DIR" && NPM_TOKEN="" npm publish --provenance --access public); then
             echo "✅ Successfully published version $VERSION"
-            rm .npmrc
+            rm -rf "$TEMP_DIR"
           else
             echo "❌ Publish failed"
-            rm .npmrc
+            rm -rf "$TEMP_DIR"
             exit 1
           fi

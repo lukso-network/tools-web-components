@@ -1,7 +1,7 @@
 {
 	"name": "web-components-builder",
 	"private": true,
-	"version": "1.172.4",
+	"version": "1.172.5",
 	"type": "module",
 	"scripts": {
 		"config-prepare": "tsx ./vite.tools.config.ts --mode=production",

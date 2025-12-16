@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.5](https://github.com/lukso-network/tools-web-components/compare/v1.172.4...v1.172.5) (2025-12-16)
+
+
+### Bug Fixes
+
+* Upgrade npm to make sure we have trusted publishing ([#761](https://github.com/lukso-network/tools-web-components/issues/761)) ([0f32064](https://github.com/lukso-network/tools-web-components/commit/0f32064467028e8161b10c1220767597cad9fd53))
+
 ## [1.172.4](https://github.com/lukso-network/tools-web-components/compare/v1.172.3...v1.172.4) (2025-12-16)
 
 

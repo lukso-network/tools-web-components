@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.8](https://github.com/lukso-network/tools-web-components/compare/v1.172.7...v1.172.8) (2025-12-16)
+
+
+### Bug Fixes
+
+* Explicitely set token to '' ([#767](https://github.com/lukso-network/tools-web-components/issues/767)) ([7b809fb](https://github.com/lukso-network/tools-web-components/commit/7b809fba47dd83b699a80e0b0ede902344925a43))
+
 ## [1.172.7](https://github.com/lukso-network/tools-web-components/compare/v1.172.6...v1.172.7) (2025-12-16)
 
 

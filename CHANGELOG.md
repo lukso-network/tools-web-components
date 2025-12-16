@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.4](https://github.com/lukso-network/tools-web-components/compare/v1.172.3...v1.172.4) (2025-12-16)
+
+
+### Bug Fixes
+
+* Remove npmAuthToken while doing the publish ([#759](https://github.com/lukso-network/tools-web-components/issues/759)) ([c522a5e](https://github.com/lukso-network/tools-web-components/commit/c522a5eb2be70697ea326a923e0cb3b251cb5ecf))
+
 ## [1.172.3](https://github.com/lukso-network/tools-web-components/compare/v1.172.2...v1.172.3) (2025-12-16)
 
 

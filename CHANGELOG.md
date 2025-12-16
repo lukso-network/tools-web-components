@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.10](https://github.com/lukso-network/tools-web-components/compare/v1.172.9...v1.172.10) (2025-12-16)
+
+
+### Bug Fixes
+
+* Try unset ([#771](https://github.com/lukso-network/tools-web-components/issues/771)) ([9e80550](https://github.com/lukso-network/tools-web-components/commit/9e8055056f8823af0ed128d82509ad9c55893526))
+
 ## [1.172.9](https://github.com/lukso-network/tools-web-components/compare/v1.172.8...v1.172.9) (2025-12-16)
 
 

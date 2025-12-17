@@ -1,6 +1,6 @@
 {
 	"name": "@lukso/web-components",
-	"version": "1.172.11",
+	"version": "1.172.13",
 	"type": "module",
 	"files": [
 		"dist",
@@ -255,11 +255,6 @@
 			"require": "./dist/components/lukso-wizard/index.cjs",
 			"import": "./dist/components/lukso-wizard/index.js",
 			"types": "./dist/components/lukso-wizard/index.d.ts"
-		},
-		"./dist/shared/tailwind-element": {
-			"require": "./dist/shared/tailwind-element/index.cjs",
-			"import": "./dist/shared/tailwind-element/index.js",
-			"types": "./dist/shared/tailwind-element/index.d.ts"
 		}
 	},
 	"dependencies": {

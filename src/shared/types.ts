@@ -20,3 +20,11 @@ export type ProfileSize =
 export type SearchResultType = `${SEARCH_RESULT_TYPES}`
 
 export type Standard = `${STANDARDS}`
+
+export type IconOptions = {
+  width: number
+  height: number
+  color: string
+  strokeWidth: number
+  secondaryColor?: string
+}

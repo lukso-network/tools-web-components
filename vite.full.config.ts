@@ -25,15 +25,6 @@ export async function readDeps(dir, prefix: string[] = []) {
             types: './dist/components/index.d.ts',
             fileName: 'components/index',
           },
-          {
-            entry: './src/shared/tailwind-element/index.ts',
-            source: './shared/tailwind-element/index.ts',
-            name: 'tailwind-element',
-            requires: './dist/shared/tailwind-element/index.cjs',
-            imports: './dist/shared/tailwind-element/index.js',
-            types: './dist/shared/tailwind-element/index.d.ts',
-            fileName: 'shared/tailwind-element/index',
-          },
         ]
       : []
   const list = await readdir(dir)

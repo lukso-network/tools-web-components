@@ -255,14 +255,6 @@ import { transferActivated } from './icons/transfer-activated'
 import { transferInactive } from './icons/transfer-inactive'
 import { logoHyperlaneOutline } from './icons/logo-hyperlane-outline'
 
-export type IconOptions = {
-  width: number
-  height: number
-  color: string
-  strokeWidth: number
-  secondaryColor?: string
-}
-
 export type IconSize =
   | 'x-small'
   | 'small'

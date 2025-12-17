@@ -28,12 +28,12 @@
  * @param tagName - The custom element tag name (must contain a hyphen)
  * @returns A class decorator that safely registers the element
  */
-export function safeCustomElement(tagName: string) {
-  return <T extends CustomElementConstructor>(classOrDescriptor: T): T => {
+export function safeCustomElement(tagName: string): ClassDecorator {
+  return ((classOrDescriptor: CustomElementConstructor) => {
     // Only register if not already defined
     if (typeof customElements !== 'undefined' && !customElements.get(tagName)) {
       customElements.define(tagName, classOrDescriptor)
     }
     return classOrDescriptor
-  }
+  }) as ClassDecorator
 }

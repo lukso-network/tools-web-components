@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.14](https://github.com/lukso-network/tools-web-components/compare/v1.172.13...v1.172.14) (2025-12-17)
+
+
+### Bug Fixes
+
+* Small fix mark sideeffect/rebuild ([145bf1e](https://github.com/lukso-network/tools-web-components/commit/145bf1e0a152e7e57c927e45b51b16ad6b11f722))
+
 ## [1.172.13](https://github.com/lukso-network/tools-web-components/compare/v1.172.12...v1.172.13) (2025-12-16)
 
 

@@ -241,6 +241,12 @@ async function writePackage() {
     main: './dist/index.cjs',
     module: './dist/index.js',
     types: './dist/index.d.ts',
+    sideEffects: [
+      './dist/index.js',
+      './dist/index.cjs',
+      './dist/components/**/index.js',
+      './dist/components/**/index.cjs',
+    ],
     exports: exp,
     dependencies: fullPack.dependencies || {},
     repository: fullPack.repository,
@@ -318,12 +324,33 @@ export async function run(argv) {
               }
             : null,
         rollupOptions: {
-          external: ['fs', 'path', 'node:fs', 'node:path'],
+          external: [
+            'fs',
+            'path',
+            'node:fs',
+            'node:path',
+            // External library dependencies - consumers will provide these
+            'lit',
+            'lit/decorators.js',
+            'lit/directives/class-map.js',
+            'lit/directives/if-defined.js',
+            'lit/directives/unsafe-html.js',
+            'lit/static-html.js',
+            '@lit-labs/motion',
+            /^@lukso\/core/,
+            /^tippy\.js/,
+            /^qr-code-styling/,
+            /^ethereum-blockies-base64/,
+            /^marked/,
+            /^clsx/,
+            /^tailwind-merge/,
+            /^tailwind-variants/,
+            /^viem/,
+            /^web3-utils/,
+            /^axe-core/,
+          ],
           output: {
-            // Prevent variable name collisions by using unique prefixes per chunk
             chunkFileNames: 'chunks/[name]-[hash].js',
-            // Ensure consistent mangling across builds
-            manualChunks: undefined,
           },
         },
       },

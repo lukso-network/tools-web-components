@@ -5,6 +5,7 @@ import { withTheme } from '@lukso/core'
 
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
+import { safeCustomElement } from '@/shared'
 import style from './style.scss?inline'
 
 import type { InputSize } from '@/shared/types'
@@ -25,6 +26,7 @@ export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
 
 const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
 
+@safeCustomElement('lukso-button')
 export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
   @property({ type: String })
   variant: ButtonVariant = 'primary'
@@ -356,8 +358,6 @@ export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
     return html` ${this.isLink ? this.linkTemplate() : this.buttonTemplate()} `
   }
 }
-
-customElements.define('lukso-button', LuksoButton as any)
 
 declare global {
   interface HTMLElementTagNameMap {

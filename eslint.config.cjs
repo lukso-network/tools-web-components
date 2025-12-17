@@ -98,6 +98,19 @@ module.exports = defineConfig([
     },
   },
   {
+    files: ['.storybook/**/*.{ts,tsx,js,jsx}'],
+
+    rules: {
+      // Storybook imports generated files that don't exist during linting
+      'import/no-unresolved': [
+        'error',
+        {
+          ignore: ['custom-elements\\.json$'],
+        },
+      ],
+    },
+  },
+  {
     files: [
       './*.{mjs,cjs,js}',
       './package/*.{mjs,cjs,js}',

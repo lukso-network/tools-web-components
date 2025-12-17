@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.15](https://github.com/lukso-network/tools-web-components/compare/v1.172.14...v1.172.15) (2025-12-17)
+
+
+### Bug Fixes
+
+* Make sure to use safeCustomElement ([bd9e02e](https://github.com/lukso-network/tools-web-components/commit/bd9e02e1fe71bfb77b52b03289a250f36f8a5646))
+
 ## [1.172.14](https://github.com/lukso-network/tools-web-components/compare/v1.172.13...v1.172.14) (2025-12-17)
 
 

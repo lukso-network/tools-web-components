@@ -1,7 +1,7 @@
 import { html } from 'lit'
 import { styleMap } from 'lit/directives/style-map.js'
 
-import type { IconOptions } from '@/components/lukso-icon/index.js'
+import type { IconOptions } from '@/shared/types.js'
 
 export const minus = (options: IconOptions) => {
   return html`<svg width="24" height="24" viewBox="0 0 24 24" style=${styleMap({

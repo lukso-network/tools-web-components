@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.17](https://github.com/lukso-network/tools-web-components/compare/v1.172.16...v1.172.17) (2025-12-17)
+
+
+### Bug Fixes
+
+* Try to fix lint error ([9359576](https://github.com/lukso-network/tools-web-components/commit/9359576270aca7e4c84377564ecbdc87cf86969f))
+
 ## [1.172.16](https://github.com/lukso-network/tools-web-components/compare/v1.172.15...v1.172.16) (2025-12-17)
 
 

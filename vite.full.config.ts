@@ -325,6 +325,7 @@ export async function run(argv) {
             'lit/decorators.js',
             'lit/directives/class-map.js',
             'lit/directives/if-defined.js',
+            'lit/directives/style-map.js',
             'lit/directives/unsafe-html.js',
             'lit/static-html.js',
             '@lit-labs/motion',

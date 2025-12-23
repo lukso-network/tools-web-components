@@ -1,0 +1,26 @@
+/**
+  * @file Main styles (Tailwind CSS v4)
+  *
+  * This file contain general styles that should be applied to host page.
+  * This version uses Tailwind CSS v4 syntax.
+  *
+  * Usage:
+  * - Import the compiled main-v4.css directly in your Tailwind v4 project (recommended)
+  * - Or import this .scss file in your Sass build and override $font-file-path if needed:
+  *   $font-file-path: '/custom/path';
+  *   @use '@lukso/web-components/tools/sass/main-v4';
+  */
+
+@use './colors';
+@use './fonts-v4';
+@use './typography';
+@use './utilities';
+@use './variables';
+@use './tippy';
+
+/* Tailwind v4 import - when compiling this SCSS yourself, ensure your build supports Tailwind v4 */
+@import 'tailwindcss';
+
+strong {
+  @apply font-600;
+}

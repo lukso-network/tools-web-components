@@ -11,7 +11,9 @@ export const debounceFunction = (func: unknown, timeout = 100) => {
     clearTimeout(timer)
 
     timer = setTimeout(() => {
-      typeof func === 'function' && func.apply(this, args)
+      if (typeof func === 'function') {
+        func.apply(this, args)
+      }
     }, timeout)
   }
 }

@@ -15,21 +15,21 @@ import {
 const customTwMerge = extendTailwindMerge({
   extend: {
     theme: {
-      colors: Object.entries(colorPalette).reduce((acc, currentVal) => {
+      color: Object.entries(colorPalette).reduce((acc, currentVal) => {
         const colors = Object.keys(currentVal[1]).map(
-          c => `text-${currentVal[0]}-${c}`
+          c => `${currentVal[0]}-${c}`
         )
         return acc.concat(colors)
-      }, []),
-      borderRadius: Object.keys(borderRadius).map(s => `rounded-${s}`),
+      }, [] as string[]),
     },
     classGroups: {
-      shadow: [{ shadow: Object.keys(boxShadows).map(s => `shadow-${s}`) }],
-      'font-size': Object.keys(fontSizes).map(s => `text-${s}`),
-      'font-weight': Object.keys(fontWeights).map(s => `font-${s}`),
-      scale: Object.keys(scales).map(s => `scale-${s}`),
-      h: Object.keys(heights).map(s => `h-${s}`),
-      leading: Object.keys(lineHeights).map(s => `leading-${s}`),
+      shadow: [{ shadow: Object.keys(boxShadows).map(s => `${s}`) }],
+      'font-size': [{ text: Object.keys(fontSizes) }],
+      'font-weight': [{ font: Object.keys(fontWeights) }],
+      rounded: [{ rounded: Object.keys(borderRadius) }],
+      scale: [{ scale: Object.keys(scales) }],
+      h: [{ h: Object.keys(heights) }],
+      leading: [{ leading: Object.keys(lineHeights) }],
     },
   },
 })

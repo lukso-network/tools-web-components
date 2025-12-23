@@ -72,7 +72,7 @@ export class LuksoShare extends TailwindStyledElement(style) {
 
     try {
       providers = JSON.parse(this.providers)
-    } catch (error) {
+    } catch {
       // do nothing
     }
 

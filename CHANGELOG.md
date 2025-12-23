@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.172.18](https://github.com/lukso-network/tools-web-components/compare/v1.172.17...v1.172.18) (2025-12-23)
+
+
+### Bug Fixes
+
+* Make all of lit external ([428d955](https://github.com/lukso-network/tools-web-components/commit/428d95542b59c6aa20ff090fa320837bc78bdc8d))
+* Make sure style-map is an external reference. ([4c7a59a](https://github.com/lukso-network/tools-web-components/commit/4c7a59ab747f5a078ecff3dc6c6e717300d038ab))
+
 ## [1.172.17](https://github.com/lukso-network/tools-web-components/compare/v1.172.16...v1.172.17) (2025-12-17)
 
 

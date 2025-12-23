@@ -321,13 +321,9 @@ export async function run(argv) {
             'node:fs',
             'node:path',
             // External library dependencies - consumers will provide these
-            'lit',
-            'lit/decorators.js',
-            'lit/directives/class-map.js',
-            'lit/directives/if-defined.js',
-            'lit/directives/style-map.js',
-            'lit/directives/unsafe-html.js',
-            'lit/static-html.js',
+            /^lit($|\/)/, // Matches 'lit' and 'lit/*' but not 'lit-*'
+            /^lit-html($|\/)/, // Matches 'lit-html' and 'lit-html/*'
+            /^lit-element($|\/)/, // Matches 'lit-element' and 'lit-element/*'
             '@lit-labs/motion',
             /^@lukso\/core/,
             /^tippy\.js/,

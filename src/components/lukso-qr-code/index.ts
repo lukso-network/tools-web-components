@@ -56,7 +56,11 @@ export class LuksoQrCode extends TailwindStyledElement(style) {
     super.updated(changedProperties)
 
     if (changedProperties.has('value') && this.value) {
-      this.generateQrCode()
+      // Fire-and-forget async call - errors are handled internally
+      this.generateQrCode().catch(err => {
+        console.error('Failed to generate QR code:', err)
+        this.isLoading = false
+      })
     }
   }
 

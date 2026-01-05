@@ -46,7 +46,7 @@
 		]
 	},
 	"dependencies": {
-		"@lukso/core": "^1.2.0",
+		"@lukso/core": "^1.2.6",
 		"@tailwindcss/typography": "^0.5.19",
 		"axe-core": "4.10.3",
 		"clsx": "^2.1.1",

@@ -1,8 +1,5 @@
 import { html } from 'lit'
 import { property, state } from 'lit/decorators.js'
-// Dynamic import of qr-code-styling to avoid bundling it at module load time
-// qr-code-styling is a CommonJS module that needs special handling
-let QRCodeStyling: typeof import('qr-code-styling').default | null = null
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -11,6 +8,11 @@ import '@/components/lukso-icon'
 import { cn } from '@/shared/tools'
 
 import type { Options } from 'qr-code-styling/lib/types'
+import type QRCodeStylingType from 'qr-code-styling'
+
+// Dynamic import of qr-code-styling to avoid bundling it at module load time
+// qr-code-styling is a CommonJS module that needs special handling
+let QRCodeStyling: typeof QRCodeStylingType | null = null
 
 export type QRCodeOptions = Options
 
@@ -50,7 +52,7 @@ export class LuksoQrCode extends TailwindStyledElement(style) {
   @state()
   private isLoading = true
 
-  private qrCodeInstance: QRCodeStyling | null = null
+  private qrCodeInstance: QRCodeStylingType | null = null
 
   protected updated(changedProperties: Map<string | number | symbol, unknown>) {
     super.updated(changedProperties)

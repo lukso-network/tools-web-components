@@ -13580,10 +13580,6 @@ __metadata:
     wait-on: "npm:^8.0.5"
     web3-utils: "npm:^4.3.3"
     yargs: "npm:^18.0.0"
-  peerDependencies:
-    lit: ^3.3.2
-    lit-analyzer: ^2.0.3
-    lit-html: ^3.3.1
   languageName: unknown
   linkType: soft
 

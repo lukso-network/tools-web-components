@@ -25,13 +25,12 @@ env:
   LUKSO_NPM_TOKEN: '${{ secrets.LUKSO_NPM_TOKEN }}'
 
 jobs:
-  # Single setup job that handles Node.js and pnpm version detection
+  # Single setup job that handles Node.js version detection
   setup:
     name: Setup
     runs-on: ubuntu-latest
     outputs:
       node_version: ${{ steps.nodeversion.outputs.content }}
-      pnpm_version: ${{ steps.pnpmversion.outputs.content }}
     steps:
       - name: Checkout ${{ inputs.sha }}
         uses: actions/checkout@v4
@@ -44,12 +43,6 @@ jobs:
         uses: juliangruber/read-file-action@v1.1.6
         with:
           path: ./.node-version
-
-      - name: Extract pnpm version from .tool-versions
-        id: pnpmversion
-        run: |
-          PNPM_VERSION=$(grep '^pnpm' .tool-versions | awk '{print $2}')
-          echo "content=$PNPM_VERSION" >> $GITHUB_OUTPUT
 
   # Build job - runs in parallel with tests after setup
   build:
@@ -70,8 +63,6 @@ jobs:
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
 
       - name: ⚙️ Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -113,8 +104,6 @@ jobs:
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
 
       - name: ⚙️ Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -150,8 +139,6 @@ jobs:
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
 
       - name: ⚙️ Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -334,8 +321,6 @@ jobs:
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
 
       - name: ⚙️ Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -391,8 +376,6 @@ jobs:
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
 
       - name: ⚙️ Install Dependencies
         run: pnpm install --frozen-lockfile

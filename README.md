@@ -218,6 +218,68 @@ yarn install
 
 This repo uses [Release Please](https://github.com/googleapis/release-please) to automate release process. It's important to follow [Conventional Commits](https://www.conventionalcommits.org/) spec for naming Pull Requests. Once PR is merged into `main` the release PR will be created. When release PR is merged new package is released in npm.
 
+## Using Without a Bundler (Import Maps)
+
+If you need to use `@lukso/web-components` in environments without a bundler (e.g., plain HTML, WordPress, static sites), you can use import maps to resolve bare module specifiers.
+
+Since this package uses Lit as a peer dependency and marks it as external, it outputs bare imports like `import { html } from 'lit'`. Browsers can't resolve these without help.
+
+### Example: Using Import Maps
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Import Map to resolve bare module specifiers -->
+  <script type="importmap">
+    {
+      "imports": {
+        "lit": "https://cdn.jsdelivr.net/npm/lit@3.3/+esm",
+        "lit/": "https://cdn.jsdelivr.net/npm/lit@3.3/",
+        "@lit/reactive-element": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@2/+esm",
+        "@lit/reactive-element/": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@2/",
+        "@preact/signals-core": "https://cdn.jsdelivr.net/npm/@preact/signals-core@1/+esm",
+        "@lukso/core": "https://cdn.jsdelivr.net/npm/@lukso/core/+esm",
+        "@lukso/web-components": "https://cdn.jsdelivr.net/npm/@lukso/web-components/+esm"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Use web components -->
+  <lukso-button is-full-width>Click Me</lukso-button>
+  <lukso-profile
+    profile-url="/path/to/image.jpg"
+    has-identicon
+    size="large"
+  ></lukso-profile>
+
+  <!-- Load module -->
+  <script type="module">
+    import '@lukso/web-components'
+    // Components are now registered and ready to use
+  </script>
+</body>
+</html>
+```
+
+### Notes on Import Maps
+
+- **Browser Support**: Import maps are supported in all modern browsers (Chrome 89+, Safari 16.4+, Firefox 108+)
+- **Must be before scripts**: The `<script type="importmap">` must appear before any `<script type="module">` that uses imports
+- **One per page**: Only one import map is allowed per HTML document
+- **Trailing slashes matter**: Use `"lit/"` to map subpath imports like `import { html } from 'lit/html.js'`
+- **All dependencies required**: You must map all external dependencies that the packages import, including `@lukso/core`
+
+### Limitations Without Bundler
+
+- No tree-shaking (entire packages are loaded)
+- No module concatenation (more HTTP requests)
+- No code minification (unless using pre-minified CDN builds)
+- Larger initial load size
+
+For production applications, we recommend using a bundler (Vite, Webpack, Rollup) which provides better performance through tree-shaking and optimization.
+
 ## Linking the library
 
 For local development it's handy to link component library with the project you currently develop. This way you can work with components like in normal app. To make it work you need to first link the library:

@@ -229,37 +229,37 @@ Since this package uses Lit as a peer dependency and marks it as external, it ou
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- Import Map to resolve bare module specifiers -->
-  <script type="importmap">
-    {
-      "imports": {
-        "lit": "https://cdn.jsdelivr.net/npm/lit@3.3/+esm",
-        "lit/": "https://cdn.jsdelivr.net/npm/lit@3.3/",
-        "@lit/reactive-element": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@2/+esm",
-        "@lit/reactive-element/": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@2/",
-        "@preact/signals-core": "https://cdn.jsdelivr.net/npm/@preact/signals-core@1/+esm",
-        "@lukso/core": "https://cdn.jsdelivr.net/npm/@lukso/core/+esm",
-        "@lukso/web-components": "https://cdn.jsdelivr.net/npm/@lukso/web-components/+esm"
+  <head>
+    <!-- Import Map to resolve bare module specifiers -->
+    <script type="importmap">
+      {
+        "imports": {
+          "lit": "https://cdn.jsdelivr.net/npm/lit@3.3/+esm",
+          "lit/": "https://cdn.jsdelivr.net/npm/lit@3.3/",
+          "@lit/reactive-element": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@2/+esm",
+          "@lit/reactive-element/": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@2/",
+          "@preact/signals-core": "https://cdn.jsdelivr.net/npm/@preact/signals-core@1/+esm",
+          "@lukso/core": "https://cdn.jsdelivr.net/npm/@lukso/core/+esm",
+          "@lukso/web-components": "https://cdn.jsdelivr.net/npm/@lukso/web-components/+esm"
+        }
       }
-    }
-  </script>
-</head>
-<body>
-  <!-- Use web components -->
-  <lukso-button is-full-width>Click Me</lukso-button>
-  <lukso-profile
-    profile-url="/path/to/image.jpg"
-    has-identicon
-    size="large"
-  ></lukso-profile>
+    </script>
+  </head>
+  <body>
+    <!-- Use web components -->
+    <lukso-button is-full-width>Click Me</lukso-button>
+    <lukso-profile
+      profile-url="/path/to/image.jpg"
+      has-identicon
+      size="large"
+    ></lukso-profile>
 
-  <!-- Load module -->
-  <script type="module">
-    import '@lukso/web-components'
-    // Components are now registered and ready to use
-  </script>
-</body>
+    <!-- Load module -->
+    <script type="module">
+      import '@lukso/web-components'
+      // Components are now registered and ready to use
+    </script>
+  </body>
 </html>
 ```
 

@@ -1,6 +1,5 @@
 import { html } from 'lit'
 import { property, state } from 'lit/decorators.js'
-import QRCodeStyling from 'qr-code-styling'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
@@ -9,6 +8,11 @@ import '@/components/lukso-icon'
 import { cn } from '@/shared/tools'
 
 import type { Options } from 'qr-code-styling/lib/types'
+import type QRCodeStylingType from 'qr-code-styling'
+
+// Dynamic import of qr-code-styling to avoid bundling it at module load time
+// qr-code-styling is a CommonJS module that needs special handling
+let QRCodeStyling: typeof QRCodeStylingType | null = null
 
 export type QRCodeOptions = Options
 
@@ -48,21 +52,37 @@ export class LuksoQrCode extends TailwindStyledElement(style) {
   @state()
   private isLoading = true
 
-  private qrCodeInstance: QRCodeStyling | null = null
+  private qrCodeInstance: QRCodeStylingType | null = null
 
   protected updated(changedProperties: Map<string | number | symbol, unknown>) {
     super.updated(changedProperties)
 
     if (changedProperties.has('value') && this.value) {
-      this.generateQrCode()
+      // Fire-and-forget async call - errors are handled internally
+      this.generateQrCode().catch(err => {
+        console.error('Failed to generate QR code:', err)
+        this.isLoading = false
+      })
     }
   }
 
-  private generateQrCode() {
+  private async generateQrCode() {
     const container = this.shadowRoot?.querySelector('.qr-code-container')
     if (!container) return
 
     this.isLoading = true
+
+    // Lazy load qr-code-styling only when needed
+    if (!QRCodeStyling) {
+      try {
+        const module = await import('qr-code-styling')
+        QRCodeStyling = module.default
+      } catch (e) {
+        console.error('qr-code-styling not available:', e)
+        this.isLoading = false
+        return
+      }
+    }
 
     // Clean up previous instance
     if (this.qrCodeInstance) {

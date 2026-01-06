@@ -1726,7 +1726,7 @@ __metadata:
   dependencies:
     "@lukso/core": "npm:^1.2.6"
     "@tailwindcss/typography": "npm:^0.5.19"
-    axe-core: "npm:4.10.3"
+    axe-core: "npm:4.11.0"
     clsx: "npm:^2.1.1"
     ethereum-blockies-base64: "npm:^1.0.2"
     marked: "npm:16.2.1"
@@ -2871,10 +2871,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/axe-core@npm:2.0.2":
-  version: 2.0.2
-  resolution: "@types/axe-core@npm:2.0.2"
-  checksum: 10/4712129c3677cf64ffa387033f10b6500b9d63f628092cb6e88308fed72cbf26af6e48fb04a5fbd1b1e0c56f068c833145dfe0690a13b3fb8f5e37c847e4f185
+"@types/axe-core@npm:3.0.6":
+  version: 3.0.6
+  resolution: "@types/axe-core@npm:3.0.6"
+  dependencies:
+    axe-core: "npm:*"
+  checksum: 10/4fa3bf658f877bace5a4fb784d4ca06b4e7e750afe43aa32850aec39a6d6b966920ac8d378c043b2959919fe68096cdd8a75cafb2ec4333eed9c773b44d5aa85
   languageName: node
   linkType: hard
 
@@ -4298,10 +4300,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axe-core@npm:4.10.3":
-  version: 4.10.3
-  resolution: "axe-core@npm:4.10.3"
-  checksum: 10/9ff51ad0fd0fdec5c0247ea74e8ace5990b54c7f01f8fa3e5cd8ba98b0db24d8ebd7bab4a9bd4d75c28c4edcd1eac455b44c8c6c258c6a98f3d2f88bc60af4cc
+"axe-core@npm:*, axe-core@npm:4.11.0":
+  version: 4.11.0
+  resolution: "axe-core@npm:4.11.0"
+  checksum: 10/18254ee95bc328aec9a909b22e4b22e8ff14a21363fdbd1a5227267e66bf1d2fc1425c186e9001759aab5827cf4ee9dc30f7ea57e8200cbf7a1cd555ed21a908
   languageName: node
   linkType: hard
 
@@ -8972,7 +8974,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-html@npm:^3.3.0, lit-html@npm:^3.3.1":
+"lit-html@npm:^3.3.0":
   version: 3.3.1
   resolution: "lit-html@npm:3.3.1"
   dependencies:
@@ -8981,7 +8983,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:3.3.1, lit@npm:^3.1.2, lit@npm:^3.3.1":
+"lit-html@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "lit-html@npm:3.3.2"
+  dependencies:
+    "@types/trusted-types": "npm:^2.0.2"
+  checksum: 10/5e938739641e312673e722eb41d5ca48dfcf69277e665c72dadd6514f53fc3dc4d5172cf8ca6af67736df1bce267f6189b3ef6fcb4125386b2490cd10c266b8f
+  languageName: node
+  linkType: hard
+
+"lit@npm:3.3.1, lit@npm:^3.1.2":
   version: 3.3.1
   resolution: "lit@npm:3.3.1"
   dependencies:
@@ -8989,6 +9000,17 @@ __metadata:
     lit-element: "npm:^4.2.0"
     lit-html: "npm:^3.3.0"
   checksum: 10/ec70ff33db610537fd7cfc608cc7728126ecfae2d5593aa94844c614d2f6840448f1b995a58aeba593b0bf0e8169af5988036c11d3c5b55313fe8e722417c17d
+  languageName: node
+  linkType: hard
+
+"lit@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "lit@npm:3.3.2"
+  dependencies:
+    "@lit/reactive-element": "npm:^2.1.0"
+    lit-element: "npm:^4.2.0"
+    lit-html: "npm:^3.3.0"
+  checksum: 10/0af8e06a0ef5bb6a84c3dd58b64b6b554baf4bc195d725951ae60bbd9999618364815dc4438bf949051e7f15497b71b2bb9f7514772b33c4526882bdfb805858
   languageName: node
   linkType: hard
 
@@ -13497,14 +13519,14 @@ __metadata:
     "@storybook/web-components-vite": "npm:9.0.17"
     "@tailwindcss/typography": "npm:^0.5.19"
     "@testing-library/user-event": "npm:^14.6.1"
-    "@types/axe-core": "npm:2.0.2"
+    "@types/axe-core": "npm:3.0.6"
     "@types/marked": "npm:5.0.2"
     "@types/node": "npm:^24.9.1"
     "@typescript-eslint/eslint-plugin": "npm:^6.21.0"
     "@typescript-eslint/parser": "npm:^6.21.0"
     "@vitest/coverage-v8": "npm:2.1.9"
     autoprefixer: "npm:^10.4.23"
-    axe-core: "npm:4.10.3"
+    axe-core: "npm:4.11.0"
     clsx: "npm:^2.1.1"
     concurrently: "npm:^9.1.2"
     dompurify: "npm:^3.2.6"
@@ -13523,9 +13545,9 @@ __metadata:
     jsdom: "npm:27.0.0"
     lint-staged: "npm:^16.1.0"
     list-exports: "npm:^1.1.0"
-    lit: "npm:^3.3.1"
+    lit: "npm:^3.3.2"
     lit-analyzer: "npm:^2.0.3"
-    lit-html: "npm:^3.3.1"
+    lit-html: "npm:^3.3.2"
     marked: "npm:16.2.1"
     npm-run-all: "npm:^4.1.5"
     postcss: "npm:^8.5.6"

@@ -1,4 +1,6 @@
-import axe from 'axe-core'
+// Dynamic import of axe-core to avoid bundling it in production
+// axe-core is a CommonJS module designed for Node.js testing
+let axe: typeof import('axe-core') | null = null
 
 import type { Result as AxeResult, NodeResult } from 'axe-core'
 
@@ -49,6 +51,7 @@ function mapAxeViolationToAccessibilityViolation(
 
 /**
  * Check accessibility violations directly on a rendered DOM element
+ * Note: Only works in development mode where axe-core is available
  */
 export async function checkAccessibility(
   element: HTMLElement
@@ -62,6 +65,21 @@ export async function checkAccessibility(
   }
 
   try {
+    // Lazy load axe-core only when needed (development mode)
+    if (!axe) {
+      try {
+        axe = await import('axe-core')
+      } catch (e) {
+        // axe-core not available (production build or missing dependency)
+        console.warn('axe-core not available, skipping accessibility check')
+        return {
+          violations: [],
+          hasViolations: false,
+          violationCount: 0,
+        }
+      }
+    }
+
     // Run axe-core on the live preview content
     const results = await axe.run(element, {
       resultTypes: ['violations'],
@@ -75,10 +93,10 @@ export async function checkAccessibility(
         label: { enabled: true },
         'form-field-multiple-labels': { enabled: true },
       },
-    } as axe.RunOptions)
+    } as any)
 
     // Map axe violations to our format
-    const violations = (results as axe.AxeResults).violations.map(
+    const violations = (results as any).violations.map(
       mapAxeViolationToAccessibilityViolation
     )
 

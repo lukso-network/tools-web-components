@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.172.19](https://github.com/lukso-network/tools-web-components/compare/v1.172.18...v1.172.19) (2026-01-06)
+
+
+### Bug Fixes
+
+* Inherit width in theme wrapper ([#782](https://github.com/lukso-network/tools-web-components/issues/782)) ([7d81f26](https://github.com/lukso-network/tools-web-components/commit/7d81f266e01af14c38525a2ebb586c9b0cdf7469))
+
 ## [1.172.18](https://github.com/lukso-network/tools-web-components/compare/v1.172.17...v1.172.18) (2025-12-23)
 
 

@@ -6,7 +6,7 @@ import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-sanitize'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 
 export type AlertVariant = 'info' | 'warning' | 'error' | 'success'
 

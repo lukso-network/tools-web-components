@@ -17,15 +17,11 @@ const resolve = {
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   staticDirs: [
-    '../src/shared',
-    './assets',
-    '../src/components/lukso-icon/vuesax',
+    { from: '../src/shared', to: '/' },
+    { from: './assets', to: '/' },
+    { from: '../src/components/lukso-icon/vuesax', to: '/vuesax' },
   ],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/preset-scss',
-    '@storybook/addon-docs',
-  ],
+  addons: ['@storybook/addon-links', '@storybook/addon-docs'],
   framework: {
     name: '@storybook/web-components-vite',
     options: {

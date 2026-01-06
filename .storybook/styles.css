@@ -1,7 +1,0 @@
-/**
- * @file Tailwind CSS v4 import for Storybook
- *
- * This import is processed by the @tailwindcss/vite plugin before Sass compilation.
- * Keep this in a separate CSS file to avoid Sass @import deprecation warnings.
- */
-@import 'tailwindcss';

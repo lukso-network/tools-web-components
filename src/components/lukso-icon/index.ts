@@ -4,7 +4,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 import { addPhoto } from './icons/add-photo'
 import { arrowDownLg } from './icons/arrow-down-lg'
 import { arrowDownSm } from './icons/arrow-down-sm'

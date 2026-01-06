@@ -6,7 +6,7 @@ import { tv } from 'tailwind-variants'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 import '@/components/lukso-profile'
 import { cn } from '@/shared/tools'
 import { customStyleMap } from '@/shared/directives'

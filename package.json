@@ -5,9 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"config-prepare": "tsx ./vite.tools.config.ts --mode=production",
-		"start": "pnpm config-prepare && concurrently 'tsx ./vite.full.config.ts --mode=develop' 'pnpm storybook' 'pnpm analyze:watch'",
+		"start": "pnpm config-prepare && node ./scripts/build-storybook-styles.js && concurrently 'tsx ./vite.full.config.ts --mode=develop' 'pnpm storybook' 'pnpm analyze:watch'",
 		"dev": "pnpm start",
-		"build": "rm -rf package/dist package/tools && pnpm config-prepare && pnpm analyze && tsx ./vite.full.config.ts --mode=production && pnpm sass --verbose --no-source-map ./src/shared/styles/main.scss ./package/dist/styles/main.css && node ./scripts/build-main-v4.js && cp ./package/dist/styles/main.css ./package/tools/styles/main.css && pnpm build:list-exports",
+		"build": "rm -rf package/dist package/tools && pnpm config-prepare && pnpm analyze && node ./scripts/build-component-v4.js && node ./scripts/build-storybook-styles.js && tsx ./vite.full.config.ts --mode=production && pnpm sass --verbose --no-source-map ./src/shared/styles/main.scss ./package/dist/styles/main.css && node ./scripts/build-main-v4.js && cp ./package/dist/styles/main.css ./package/tools/styles/main.css && pnpm build:list-exports",
 		"build:list-exports": "node ./listExports.cjs",
 		"lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt,types}'",
 		"lint:eslint": "eslint . --fix",

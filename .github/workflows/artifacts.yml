@@ -412,6 +412,8 @@ jobs:
         run: |
           if [ "${{ steps.extract_branch.outputs.branch_name }}" = "main" ]; then
             pnpm dlx wrangler pages deploy storybook-static --project-name tools-web-components --branch main | tee output-storybook.log
+          elif [ -n "${{ steps.extract_branch.outputs.pr_number }}" ]; then
+            pnpm dlx wrangler pages deploy storybook-static --project-name tools-web-components --branch "pr-${{ steps.extract_branch.outputs.pr_number }}" | tee output-storybook.log
           else
             pnpm dlx wrangler pages deploy storybook-static --project-name tools-web-components --branch "${{ steps.extract_branch.outputs.branch_name }}" | tee output-storybook.log
           fi

@@ -1,0 +1,7 @@
+:host {
+  @apply inline-flex w-full;
+}
+
+:host([width]) {
+  width: inherit;
+}

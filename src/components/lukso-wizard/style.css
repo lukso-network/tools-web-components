@@ -1,0 +1,15 @@
+.lukso-wizard-circle::after {
+  width: 0;
+}
+
+.lukso-wizard-circle.completed::after {
+  width: calc(100% - 16px);
+}
+
+.lukso-wizard-circle.current::after {
+  width: 0;
+}
+
+.lukso-wizard-circle.current.animated-step::after {
+  width: calc(100% - 16px);
+}

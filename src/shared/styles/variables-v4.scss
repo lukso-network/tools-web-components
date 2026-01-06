@@ -80,4 +80,93 @@
   --spacing-18: 4.5rem;
   --spacing-22: 5.5rem;
   --spacing-30: 7.5rem;
+
+  /* Box Shadows (shadow-*) */
+  --shadow-neutral-shadow-round:
+    0px 7px 5px 0px rgb(63 93 116 / 0%), 0px 0px 10px 0px rgb(63 93 116 / 2%),
+    0px 3px 10px 0px rgb(63 93 116 / 8%), 0px 4px 4px 0px rgb(63 93 116 / 13%),
+    0px 1px 2px 0px rgb(63 93 116 / 15%), 0px 0px 3px 0px rgb(63 93 116 / 16%);
+  --shadow-neutral-shadow-round-1xl:
+    0px 27px 12px 0px rgb(63 93 116 / 0%), 0px 18px 7px 0px rgb(63 93 116 / 2%),
+    0px 10px 6px 0px rgb(63 93 116 / 8%), 0px 4px 4px 0px rgb(63 93 116 / 13%),
+    0px 1px 2px 0px rgb(63 93 116 / 15%), 0px 0px 14px 0px rgb(63 93 116 / 16%);
+  --shadow-neutral-shadow-round-2xl:
+    0px 85px 24px 0px rgb(63 93 116 / 0%),
+    0px 54px 22px 0px rgb(63 93 116 / 2%),
+    0px 30px 18px 0px rgb(63 93 116 / 8%),
+    0px 14px 14px 0px rgb(63 93 116 / 13%),
+    0px 3px 7px 0px rgb(63 93 116 / 15%), 0px 0px 23px 0px rgb(63 93 116 / 16%);
+  --shadow-neutral-shadow-round-3xl:
+    0px 185px 52px 0px rgb(63 93 116 / 0%),
+    0px 118px 47px 0px rgb(63 93 116 / 2%),
+    0px 67px 40px 0px rgb(63 93 116 / 8%),
+    0px 30px 30px 0px rgb(63 93 116 / 13%),
+    0px 7px 16px 0px rgb(63 93 116 / 15%), 0px 0px 30px 0px rgb(63 93 116 / 16%);
+
+  /* Animations (animate-*) */
+  --animate-pulse-resize: pulse-resize 1s ease-in-out infinite;
+  --animate-resize-in: resize-in 0.5s ease-in-out;
+  --animate-fade-in: fade-in 0.5s ease-in-out forwards;
+  --animate-bounce2: bounce2 1s ease-in-out infinite alternate;
+  --animate-fade-in-up: fade-in-up 0.5s ease-out forwards;
+
+  /* Animation Fill Modes (animation-fill-*) */
+  --animation-fill-none: none;
+  --animation-fill-forwards: forwards;
+  --animation-fill-backwards: backwards;
+  --animation-fill-both: both;
+}
+
+/* Keyframes for animations */
+@keyframes pulse-resize {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.7);
+  }
+}
+
+@keyframes resize-in {
+  0% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce2 {
+  0% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(10);
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

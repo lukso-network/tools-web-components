@@ -14,7 +14,7 @@ import '@/components/lukso-sanitize'
 import '@/components/lukso-form-label'
 import '@/components/lukso-form-description'
 import '@/components/lukso-form-error'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 import { uniqId } from '@/shared/tools/uniq-id'
 
 import type { Address, InputSize } from '@/shared/types'

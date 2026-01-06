@@ -6,7 +6,7 @@ import { withTheme } from '@lukso/core'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import { safeCustomElement } from '@/shared'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 
 import type { InputSize } from '@/shared/types'
 

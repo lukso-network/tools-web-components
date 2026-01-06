@@ -1,21 +1,21 @@
 /**
-  * @file Storybook preview styles (SCSS)
+  * @file Storybook preview styles
   *
   * Since preview mode imitates normal host page we load all
   * necessary styles that Web Components will inherit from like fonts and CSS variables.
   *
-  * We import the same partials as main-v4.scss. The Tailwind CSS import is
-  * in styles.css (separate file) to avoid Sass @import deprecation warnings.
+  * We import the same partials as main-v4.scss. The @import 'tailwindcss' is
+  * handled by the @tailwindcss/vite plugin configured in main.ts
   */
 
 $font-file-path: '/assets/fonts';
 
-@use '../src/shared/styles/colors';
-@use '../src/shared/styles/fonts-v4';
-@use '../src/shared/styles/typography';
-@use '../src/shared/styles/utilities';
-@use '../src/shared/styles/variables-v4';
-@use '../src/shared/styles/tippy';
+@use 'colors';
+@use 'fonts-v4';
+@use 'typography';
+@use 'utilities';
+@use 'variables-v4';
+@use 'tippy-v4';
 
 strong {
   font-weight: 600;

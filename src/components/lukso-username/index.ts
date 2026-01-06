@@ -10,7 +10,7 @@ import { sliceAddress } from '@/shared/tools/slice-address'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customStyleMap } from '@/shared/directives'
 import { cn } from '@/shared/tools'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 
 import type { ProfileSize } from '@/shared/types'
 

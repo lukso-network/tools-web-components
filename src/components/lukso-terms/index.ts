@@ -4,7 +4,7 @@ import { property, state } from 'lit/decorators.js'
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 import '@/components/lukso-icon'
 import '@/components/lukso-sanitize'
 

@@ -1,0 +1,9 @@
+:host {
+  @apply inline-flex relative;
+
+  line-height: 0;
+}
+
+:host svg {
+  display: block !important;
+}

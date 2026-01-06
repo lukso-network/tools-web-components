@@ -13,8 +13,6 @@
 @use './utilities';
 @use './variables-v4';
 
-@import 'tailwindcss';
-
 strong {
   @apply font-600;
 }

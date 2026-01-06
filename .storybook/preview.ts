@@ -2,8 +2,7 @@ import * as jest from 'jest-mock'
 import { setCustomElementsManifest } from '@storybook/web-components-vite'
 
 import customElements from '../package/custom-elements.json'
-import './styles.css' // Tailwind CSS v4 (processed by @tailwindcss/vite plugin)
-import './styles.scss' // Sass styles (fonts, variables, etc.)
+import './styles.css'
 ;(window as any).jest = jest
 
 setCustomElementsManifest(customElements)

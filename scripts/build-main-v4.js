@@ -2,8 +2,11 @@
 /**
  * Build script for main-v4.css
  *
- * This script assembles main-v4.css by compiling individual SCSS partials
- * and adding the Tailwind v4 import at the beginning.
+ * This script:
+ * 1. Compiles SCSS partials individually
+ * 2. Concatenates them
+ * 3. Processes through Tailwind to expand @apply directives
+ * 4. Adds the Tailwind v4 import for end users
  */
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
@@ -29,6 +32,7 @@ const compileScss = (content, file = 'inline') => {
 }
 
 // Read the SCSS partials
+console.log('Compiling SCSS partials...')
 const colorsScss = readFileSync(
   `${dirname(__dirname)}/src/shared/styles/colors.scss`,
   'utf-8'
@@ -37,53 +41,33 @@ const fontsV4Scss = readFileSync(
   `${dirname(__dirname)}/src/shared/styles/fonts-v4.scss`,
   'utf-8'
 )
-const typographyScss = readFileSync(
-  `${dirname(__dirname)}/src/shared/styles/typography.scss`,
-  'utf-8'
-)
-const utilitiesScss = readFileSync(
-  `${dirname(__dirname)}/src/shared/styles/utilities.scss`,
-  'utf-8'
-)
 const variablesV4Scss = readFileSync(
   `${dirname(__dirname)}/src/shared/styles/variables-v4.scss`,
   'utf-8'
 )
-const tippyScss = readFileSync(
-  `${dirname(__dirname)}/src/shared/styles/tippy.scss`,
-  'utf-8'
-)
 
 // Compile each partial
-console.log('Compiling SCSS partials...')
 const colorsCss = compileScss(colorsScss, 'colors.scss')
 const fontsV4Css = compileScss(fontsV4Scss, 'fonts-v4.scss')
-const typographyCss = compileScss(typographyScss, 'typography.scss')
-const utilitiesCss = compileScss(utilitiesScss, 'utilities.scss')
 const variablesV4Css = compileScss(variablesV4Scss, 'variables-v4.scss')
-const tippyCss = compileScss(tippyScss, 'tippy.scss')
 
-// Assemble the final CSS
+// Assemble the final CSS (only theme config and fonts - no typography classes)
 const mainV4Css = `/**
  * @file Main styles (Tailwind CSS v4)
  *
- * This file contain general styles that should be applied to host page.
- * This version uses Tailwind CSS v4 syntax.
+ * This file contains theme configuration for Tailwind v4 applications.
+ * Import this to get the same typography scale and design tokens.
+ *
+ * For Web Components: This does NOT include component-specific styles.
+ * The components have their own encapsulated styles via Shadow DOM.
  */
 
+${variablesV4Css}
 ${colorsCss}
 ${fontsV4Css}
-${typographyCss}
-${utilitiesCss}
-${variablesV4Css}
-${tippyCss}
 
-/* Tailwind v4 import for modern consumers */
+/* Tailwind v4 import - enables all utilities with custom theme */
 @import "tailwindcss";
-
-strong {
-  font-weight: 600;
-}
 `
 
 // Write the output files

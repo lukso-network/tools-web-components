@@ -367,3 +367,41 @@ jobs:
           # Publish with provenance - OIDC auth happens automatically via release.yml workflow
           echo "Publishing version $VERSION with trusted publishing..."
           cd package && npm publish --provenance --access public
+
+  # Deploy Storybook to Cloudflare Pages - runs after tests pass
+  deploy-storybook:
+    needs: [setup, test-storybook]
+    name: Deploy Storybook
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: 🛏️ Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.sha }}
+          fetch-depth: 1
+
+      - name: 🎛 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ needs.setup.outputs.node_version }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ needs.setup.outputs.pnpm_version }}
+
+      - name: ⚙️ Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build Storybook
+        run: pnpm storybook:build
+
+      - name: 📤 Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy storybook-static --project-name=tools-web-components

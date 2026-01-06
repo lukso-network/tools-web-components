@@ -19,3 +19,6 @@
 /.work
 src/shared/styles/colors.scss
 package/
+
+# Package manager lockfiles (managed by package managers)
+pnpm-lock.yaml

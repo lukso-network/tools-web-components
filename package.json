@@ -5,9 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"config-prepare": "tsx ./vite.tools.config.ts --mode=production",
-		"start": "yarn config-prepare && concurrently 'tsx ./vite.full.config.ts --mode=develop' 'yarn storybook' 'yarn analyze:watch'",
-		"dev": "yarn start",
-		"build": "rm -rf package/dist package/tools && yarn config-prepare && yarn analyze && tsx ./vite.full.config.ts --mode=production && yarn sass --verbose --no-source-map ./src/shared/styles/main.scss ./package/dist/styles/main.css && node ./scripts/build-main-v4.js && cp ./package/dist/styles/main.css ./package/tools/styles/main.css && yarn build:list-exports",
+		"start": "pnpm config-prepare && concurrently 'tsx ./vite.full.config.ts --mode=develop' 'pnpm storybook' 'pnpm analyze:watch'",
+		"dev": "pnpm start",
+		"build": "rm -rf package/dist package/tools && pnpm config-prepare && pnpm analyze && tsx ./vite.full.config.ts --mode=production && pnpm sass --verbose --no-source-map ./src/shared/styles/main.scss ./package/dist/styles/main.css && node ./scripts/build-main-v4.js && cp ./package/dist/styles/main.css ./package/tools/styles/main.css && pnpm build:list-exports",
 		"build:list-exports": "node ./listExports.cjs",
 		"lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt,types}'",
 		"lint:eslint": "eslint . --fix",
@@ -19,12 +19,12 @@
 		"analyze": "cem analyze --litelement --outdir ./package --globs 'src/**/index.ts' --exclude 'src/**/*.stories.ts'",
 		"analyze:watch": "cem analyze --litelement --outdir ./package --globs 'src/**/index.ts' --exclude 'src/**/*.stories.ts' --watch",
 		"storybook": "storybook dev -p 6006",
-		"storybook:build": "yarn build && storybook build -o storybook-static",
+		"storybook:build": "pnpm build && storybook build -o storybook-static",
 		"storybook:serve": "http-server storybook-static -p 6006 --silent",
-		"build-storybook": "yarn build && storybook build",
-		"test-storybook": "yarn config-prepare && test-storybook",
-		"test:components": "yarn analyze && yarn config-prepare && yarn build && yarn build-storybook && concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'http-server storybook-static --port 6007' 'wait-on -v tcp:127.0.0.1:6007 && yarn test-storybook --url http://127.0.0.1:6007'",
-		"test": "yarn test:unit && yarn test:storybook",
+		"build-storybook": "pnpm build && storybook build",
+		"test-storybook": "pnpm config-prepare && test-storybook",
+		"test:components": "pnpm analyze && pnpm config-prepare && pnpm build && pnpm build-storybook && concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'http-server storybook-static --port 6007' 'wait-on -v tcp:127.0.0.1:6007 && pnpm test-storybook --url http://127.0.0.1:6007'",
+		"test": "pnpm test:unit && pnpm test:storybook",
 		"test:unit": "vitest run",
 		"test:unit:coverage": "vitest run --coverage",
 		"test:unit:ci": "vitest run --coverage",
@@ -91,7 +91,6 @@
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-import-resolver-typescript": "^4.4.4",
 		"eslint-plugin-import": "^2.32.0",
-		"eslint-plugin-json": "^4.0.1",
 		"eslint-plugin-lit": "^2.1.1",
 		"eslint-plugin-storybook": "10.1.9",
 		"espree": "^11.0.0",
@@ -130,12 +129,14 @@
 		"wait-on": "^9.0.3",
 		"yargs": "^18.0.0"
 	},
-	"packageManager": "yarn@4.12.0",
+	"packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a",
 	"workspaces": [
 		"./package"
 	],
-	"resolutions": {
-		"playwright": "^1.57.0"
+	"pnpm": {
+		"overrides": {
+			"playwright": "^1.57.0"
+		}
 	},
 	"repository": {
 		"type": "git",

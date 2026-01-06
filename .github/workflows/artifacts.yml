@@ -376,6 +376,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
+      pull-requests: write
     steps:
       - name: 🛏️ Checkout
         uses: actions/checkout@v4
@@ -399,9 +400,51 @@ jobs:
       - name: 🏗️ Build Storybook
         run: pnpm storybook:build
 
+      - name: 🔍 Extract branch name
+        id: extract_branch
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BRANCH_NAME="${{ github.head_ref }}"
+            PR_NUMBER="${{ github.event.number }}"
+          else
+            BRANCH_NAME="${{ github.ref_name }}"
+            PR_NUMBER="${{ inputs.pr_number }}"
+          fi
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+
+          # Generate PR-specific URL (e.g., pr-123.tools-web-components.pages.dev)
+          if [ -n "$PR_NUMBER" ]; then
+            echo "pr_url=https://pr-${PR_NUMBER}.tools-web-components.pages.dev" >> $GITHUB_OUTPUT
+          fi
+
+          echo "Branch: $BRANCH_NAME"
+          echo "PR: $PR_NUMBER"
+
       - name: 📤 Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        id: deploy_storybook
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ "${{ steps.extract_branch.outputs.branch_name }}" = "main" ]; then
+            pnpm dlx wrangler pages deploy storybook-static --project-name tools-web-components --branch main | tee output-storybook.log
+          else
+            pnpm dlx wrangler pages deploy storybook-static --project-name tools-web-components --branch "${{ steps.extract_branch.outputs.branch_name }}" | tee output-storybook.log
+          fi
+          sed < output-storybook.log -n 's#.*Take a peek over at \(.*\)$#specific_url=\1#p' >> $GITHUB_OUTPUT
+
+      - name: ✍🏻 Create PR preview comment
+        uses: mshick/add-pr-comment@v2
+        if: ${{ steps.extract_branch.outputs.branch_name != '' && steps.extract_branch.outputs.pr_number != '' && steps.extract_branch.outputs.branch_name != 'main' }}
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy storybook-static --project-name=tools-web-components
+          message-id: cloudflare-pages-storybook-deployment
+          issue: ${{ steps.extract_branch.outputs.pr_number }}
+          message: |
+            ### Storybook deployed with **Cloudflare Pages** :cloud: :book: :rocket:
+
+            **Storybook**
+            - **URL**: [${{ steps.extract_branch.outputs.pr_url }}](${{ steps.extract_branch.outputs.pr_url }})
+            - **Specific**: [${{ steps.deploy_storybook.outputs.specific_url }}](${{ steps.deploy_storybook.outputs.specific_url }})
+
+            Built from commit ${{ inputs.sha }}

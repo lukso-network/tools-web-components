@@ -281,7 +281,8 @@ export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
     return html`<lukso-icon
         name="spinner"
         size=${this.size}
-        color=${this.variant === 'secondary' || this.variant === 'text'
+        color=${!this.isDark &&
+        (this.variant === 'secondary' || this.variant === 'text')
           ? 'neutral-20'
           : 'neutral-100'}
         class=${icon()}

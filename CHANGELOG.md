@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.172.20](https://github.com/lukso-network/tools-web-components/compare/v1.172.19...v1.172.20) (2026-01-07)
+
+
+### Bug Fixes
+
+* loading icon color in dark mode ([#786](https://github.com/lukso-network/tools-web-components/issues/786)) ([21d36b5](https://github.com/lukso-network/tools-web-components/commit/21d36b58b46502b9a60c3186969a4b28eec6ade5))
+* Repair axe-core and missing peed deps for lit/lit-html ([#783](https://github.com/lukso-network/tools-web-components/issues/783)) ([5838cfa](https://github.com/lukso-network/tools-web-components/commit/5838cfa0c151a3fd2fcd2932fd6326b92ef89cbf))
+
 ## [1.172.19](https://github.com/lukso-network/tools-web-components/compare/v1.172.18...v1.172.19) (2026-01-06)
 
 

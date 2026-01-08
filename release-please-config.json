@@ -7,7 +7,10 @@
       "draft": false,
       "prerelease": false,
       "include-v-in-tag": true,
-      "include-component-in-tag": false
+      "include-component-in-tag": false,
+      "extra-files": [
+        "package/package.json"
+      ]
     }
   },
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"

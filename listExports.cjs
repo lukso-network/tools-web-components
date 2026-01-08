@@ -1,9 +1,9 @@
 const listExports = require('list-exports')
-const path = require('path')
+const path = require('node:path')
 
 listExports(path.resolve('./package/package.json'))
-  .then(output => {
-    console.log(JSON.stringify(output, undefined, '  '))
+  .then(() => {
+    // console.log(JSON.stringify(output, undefined, '  '))
     process.exit(0)
   })
   .catch(err => {

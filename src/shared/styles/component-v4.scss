@@ -1,0 +1,18 @@
+/**
+  * @file Component styles (Tailwind CSS v4)
+  *
+  * This is the base stylesheet that all web components inherit.
+  * Since Web Components styles are encapsulated within the Shadow DOM,
+  * we need to include all necessary styles.
+  * This version uses Tailwind CSS v4 syntax.
+  */
+
+@use './colors';
+@use './fonts-v4';
+@use './typography';
+@use './utilities';
+@use './variables-v4';
+
+strong {
+  @apply font-600;
+}

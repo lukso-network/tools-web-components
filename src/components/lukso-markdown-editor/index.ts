@@ -10,7 +10,7 @@ import {
   formatViolationsForTooltip,
   type AccessibilityViolation,
 } from '@/shared/tools/accessibility-checker'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 import '@/components/lukso-textarea'
 import '@/components/lukso-markdown'
 import '@/components/lukso-switch'

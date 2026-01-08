@@ -5,7 +5,7 @@ import DOMPurify from 'dompurify'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 
 /**
  * Default DOMPurify options for lukso-sanitize component.

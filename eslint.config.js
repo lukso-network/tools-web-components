@@ -1,7 +1,6 @@
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 import importPlugin from 'eslint-plugin-import'
-import jsonPlugin from 'eslint-plugin-json'
 import litPlugin from 'eslint-plugin-lit'
 import prettierConfig from 'eslint-config-prettier'
 import storybookPlugin from 'eslint-plugin-storybook'
@@ -18,6 +17,9 @@ export default [
       'package/**',
       'templates/**',
       'eslint.config.js',
+      '**/*.json',
+      'storybook-static/**',
+      '.work/**',
     ],
   },
   {
@@ -80,22 +82,12 @@ export default [
     },
   },
   {
-    files: [
-      '*.cjs',
-      '*.js',
-      '*.json',
-      './package/**/*.{cjs,js,json}',
-      './dist/**/*.js',
-    ],
+    files: ['*.cjs', '*.mjs', './package/**/*.{cjs,js}', './dist/**/*.js'],
     languageOptions: {
       sourceType: 'commonjs',
       ecmaVersion: 2020,
     },
-    plugins: {
-      json: jsonPlugin,
-    },
     rules: {
-      ...jsonPlugin.configs.recommended.rules,
       complexity: 0,
       '@typescript-eslint/no-unused-vars': 0,
       '@typescript-eslint/no-empty-function': 0,

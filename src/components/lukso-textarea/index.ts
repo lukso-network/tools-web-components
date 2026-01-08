@@ -10,7 +10,7 @@ import '@/components/lukso-sanitize'
 import '@/components/lukso-form-label'
 import '@/components/lukso-form-description'
 import '@/components/lukso-form-error'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 
 import type { InputSize } from '@/shared/types'
 

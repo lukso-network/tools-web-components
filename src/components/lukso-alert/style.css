@@ -1,0 +1,5 @@
+@import '@/shared/styles/component-v4.css';
+
+:host {
+  @apply flex;
+}

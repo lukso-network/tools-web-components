@@ -9,7 +9,7 @@ import '@/components/lukso-username'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { debounceFunction } from '@/shared/tools/debounceFunction'
 import { uniqId } from '@/shared/tools/uniq-id'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 
 import type { InputSize } from '@/shared/types'
 

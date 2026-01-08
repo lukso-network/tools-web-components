@@ -6,7 +6,7 @@ import DOMPurify from 'dompurify'
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { NO_HTML_TAGS_OPTIONS } from '@/components/lukso-sanitize'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 
 @safeCustomElement('lukso-markdown')
 export class LuksoMarkdown extends TailwindStyledElement(style) {

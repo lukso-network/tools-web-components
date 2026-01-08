@@ -1,10 +1,12 @@
-import { createRequire } from 'node:module'
+import * as path from 'node:path'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { mergeConfig } from 'vite'
-import * as path from 'path'
-import { dirname, join } from 'path'
+import tailwindcss from '@tailwindcss/vite'
+
 import type { StorybookConfig } from '@storybook/web-components-vite'
 
-const require = createRequire(import.meta.url)
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const resolve = {
   alias: {
@@ -15,17 +17,13 @@ const resolve = {
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   staticDirs: [
-    '../src/shared',
-    './assets',
-    '../src/components/lukso-icon/vuesax',
+    { from: '../src/shared', to: '/' },
+    { from: './assets', to: '/' },
+    { from: '../src/components/lukso-icon/vuesax', to: '/vuesax' },
   ],
-  addons: [
-    getAbsolutePath('@storybook/addon-links'),
-    getAbsolutePath('@storybook/preset-scss'),
-    getAbsolutePath('@storybook/addon-docs'),
-  ],
+  addons: ['@storybook/addon-links', '@storybook/addon-docs'],
   framework: {
-    name: getAbsolutePath('@storybook/web-components-vite'),
+    name: '@storybook/web-components-vite',
     options: {
       builder: {
         viteConfigPath: undefined,
@@ -33,7 +31,7 @@ const config: StorybookConfig = {
     },
   },
   core: {
-    builder: getAbsolutePath('@storybook/builder-vite'),
+    builder: '@storybook/builder-vite',
   },
   docs: {
     defaultName: 'Documentation',
@@ -51,12 +49,9 @@ const config: StorybookConfig = {
         'process.env.STORYBOOK': JSON.stringify(true),
         'import.meta.env.STORYBOOK': JSON.stringify(true),
       },
+      plugins: [tailwindcss()],
     })
   },
 }
 
 export default config
-
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')))
-}

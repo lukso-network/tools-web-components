@@ -5,7 +5,7 @@ import { tv } from 'tailwind-variants'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 import '@/components/lukso-sanitize'
 
 export type TooltipVariant = 'dark' | 'light' | 'success' | 'danger' | 'white'
@@ -168,7 +168,9 @@ export class LuksoTooltip extends TailwindStyledElement(style) {
     // when manually trigger tooltip
     if (changedProperties.has('show') && this.trigger === 'manual') {
       if (this.show) {
-        !this.tooltipInstance && this.initTooltip()
+        if (!this.tooltipInstance) {
+          this.initTooltip()
+        }
         this.tooltipInstance?.show()
       } else {
         this.tooltipInstance?.hide()

@@ -1,0 +1,6 @@
+name = "tools-web-components"
+compatibility_date = "2025-01-06"
+
+# This file is primarily for documentation and local testing.
+# Actual deployment happens via GitHub Actions (see .github/workflows/artifacts.yml)
+# which builds Storybook and deploys using: wrangler pages deploy storybook-static

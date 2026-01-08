@@ -1,1 +1,5 @@
-module.exports = require('./package/postcss.config.cjs')
+module.exports = {
+  plugins: {
+    autoprefixer: {},
+  },
+}

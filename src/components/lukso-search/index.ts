@@ -14,7 +14,7 @@ import '@/components/lukso-username'
 import '@/components/lukso-tooltip'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { sliceAddress } from '@/shared/tools'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 import { SEARCH_RESULT_TYPES, STANDARDS } from '@/shared/enums'
 import { uniqId } from '@/shared/tools/uniq-id'
 

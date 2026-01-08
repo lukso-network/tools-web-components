@@ -65,7 +65,7 @@ export class LuksoImage extends TailwindElement {
         isLoading: false,
         hasError: false,
         class: {
-          image: 'animate-fade-in animation-fill-forwards',
+          image: 'animate-fade-in',
         },
       },
       {

@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import style from './style.scss?inline'
+import style from './style.css?inline'
 
 export type ProviderName =
   | 'twitter'
@@ -72,7 +72,7 @@ export class LuksoShare extends TailwindStyledElement(style) {
 
     try {
       providers = JSON.parse(this.providers)
-    } catch (error) {
+    } catch {
       // do nothing
     }
 

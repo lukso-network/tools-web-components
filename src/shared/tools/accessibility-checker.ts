@@ -69,7 +69,7 @@ export async function checkAccessibility(
     if (!axe) {
       try {
         axe = await import('axe-core')
-      } catch (e) {
+      } catch {
         // axe-core not available (production build or missing dependency)
         console.warn('axe-core not available, skipping accessibility check')
         return {

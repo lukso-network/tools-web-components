@@ -3,8 +3,20 @@
   *
   * Since preview mode imitates normal host page we load all
   * necessary styles that Web Components will inherit from like fonts and CSS variables.
+  *
+  * We import the same partials as main-v4.scss. The @import 'tailwindcss' is
+  * handled by the @tailwindcss/vite plugin configured in main.ts
   */
 
 $font-file-path: '/assets/fonts';
 
-@use '../src/shared/styles/main';
+@use 'colors';
+@use 'fonts-v4';
+@use 'typography';
+@use 'utilities';
+@use 'variables-v4';
+@use 'tippy-v4';
+
+strong {
+  font-weight: 600;
+}

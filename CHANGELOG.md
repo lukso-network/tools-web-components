@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.173.0](https://github.com/lukso-network/tools-web-components/compare/v1.172.20...v1.173.0) (2026-01-08)
+
+
+### Features
+
+* Upgrades 2025-12, pnpm, tailwinds 4 ([#756](https://github.com/lukso-network/tools-web-components/issues/756)) ([c5dea20](https://github.com/lukso-network/tools-web-components/commit/c5dea202e6dee4b0e383dd272dbd9cfb71764965))
+
+
+### Bug Fixes
+
+* Upgrade @lukso/core and minor bumps ([11813bd](https://github.com/lukso-network/tools-web-components/commit/11813bd21eceb0841d2af91f70d24dd11b6b2d37))
+
 ## [1.172.20](https://github.com/lukso-network/tools-web-components/compare/v1.172.19...v1.172.20) (2026-01-07)
 
 

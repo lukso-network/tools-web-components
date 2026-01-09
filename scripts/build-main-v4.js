@@ -1,55 +1,32 @@
 #!/usr/bin/env node
 /**
- * Build script for main-v4.css
+ * Build script for main-v4.css for package distribution
  *
  * This script:
- * 1. Compiles SCSS partials individually
+ * 1. Reads generated CSS files (colors without --color- prefix for external usage)
  * 2. Concatenates them
- * 3. Processes through Tailwind to expand @apply directives
- * 4. Adds the Tailwind v4 import for end users
+ * 3. Adds the Tailwind v4 import for end users
+ *
+ * This output is for external consumers who want to use the design tokens
+ * in their own Tailwind v4 applications.
  */
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import * as sass from 'sass'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-// Compile individual SCSS files
-const compileScss = (content, file = 'inline') => {
-  try {
-    const result = sass.compileString(content, {
-      loadPaths: [`${dirname(__dirname)}/src/shared/styles`],
-      style: 'expanded',
-      sourceMap: false,
-    })
-    return result.css
-  } catch (err) {
-    console.error(`Error compiling ${file}:`, err.message)
-    throw err
-  }
-}
-
-// Read the SCSS partials
-console.log('Compiling SCSS partials...')
-const colorsScss = readFileSync(
-  `${dirname(__dirname)}/src/shared/styles/colors.scss`,
+// Read the generated CSS files
+console.log('Reading generated CSS files...')
+const colorsCss = readFileSync(
+  `${dirname(__dirname)}/src/shared/styles/generated/colors.css`,
   'utf-8'
 )
-const fontsV4Scss = readFileSync(
-  `${dirname(__dirname)}/src/shared/styles/fonts-v4.scss`,
+const fontsV4Css = readFileSync(
+  `${dirname(__dirname)}/src/shared/styles/generated/fonts-v4.css`,
   'utf-8'
 )
-const variablesV4Scss = readFileSync(
-  `${dirname(__dirname)}/src/shared/styles/variables-v4.scss`,
-  'utf-8'
-)
-
-// Compile each partial
-const colorsCss = compileScss(colorsScss, 'colors.scss')
-const fontsV4Css = compileScss(fontsV4Scss, 'fonts-v4.scss')
-const variablesV4Css = compileScss(variablesV4Scss, 'variables-v4.scss')
 
 // Assemble the final CSS (only theme config and fonts - no typography classes)
 const mainV4Css = `/**
@@ -58,11 +35,10 @@ const mainV4Css = `/**
  * This file contains theme configuration for Tailwind v4 applications.
  * Import this to get the same typography scale and design tokens.
  *
- * For Web Components: This does NOT include component-specific styles.
- * The components have their own encapsulated styles via Shadow DOM.
+ * IMPORTANT: This uses :root CSS variables (--neutral-20) for external usage.
+ * For internal component usage with Tailwind v4 @theme, see generated/main-v4.css.
  */
 
-${variablesV4Css}
 ${colorsCss}
 ${fontsV4Css}
 

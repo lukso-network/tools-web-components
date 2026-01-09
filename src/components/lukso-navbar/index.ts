@@ -6,7 +6,8 @@ import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-tag'
-import { FunctionMap } from '@/shared/types'
+
+import type { FunctionMap } from '@/shared/types'
 
 export type NavbarMobileBreakpoint = 'sm' | 'md' | 'lg' | 'xl'
 

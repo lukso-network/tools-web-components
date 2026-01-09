@@ -1,6 +1,6 @@
 {
 	"name": "@lukso/web-components",
-	"version": "1.172.19",
+	"version": "1.173.0",
 	"type": "module",
 	"files": [
 		"dist",
@@ -264,9 +264,9 @@
 		}
 	},
 	"dependencies": {
-		"@lukso/core": "^1.2.6",
+		"@lukso/core": "^1.2.9",
 		"@tailwindcss/typography": "^0.5.19",
-		"axe-core": "4.11.0",
+		"axe-core": "4.11.1",
 		"clsx": "^2.1.1",
 		"ethereum-blockies-base64": "^1.0.2",
 		"marked": "17.0.1",
@@ -275,7 +275,7 @@
 		"tailwind-variants": "^3.2.2",
 		"tailwindcss": "^4.1.18",
 		"tippy.js": "^6.3.7",
-		"viem": "^2.42.1",
+		"viem": "^2.43.5",
 		"web3-utils": "^4.3.3"
 	},
 	"repository": {

@@ -11,6 +11,7 @@
       "@/components/*": ["./src/components/*"],
       "@/shared/*": ["./src/shared/*"],
       "@/shared/directives": ["./src/shared/directives"],
+      "@styles/*": ["./package/dist/styles/*"],
     },
   },
   "include": [

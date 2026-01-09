@@ -21,7 +21,10 @@ const storybookScss = readFileSync(`${rootDir}/.storybook/styles.scss`, 'utf-8')
 
 // Compile SCSS to CSS (this handles all the @use directives)
 const result = sass.compileString(storybookScss, {
-  loadPaths: [`${rootDir}/src/shared/styles`],
+  loadPaths: [
+    `${rootDir}/src/shared/styles`,
+    `${rootDir}/src/shared/styles/generated`,
+  ],
   style: 'expanded',
   sourceMap: false,
 })

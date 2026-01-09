@@ -2,6 +2,7 @@ import * as path from 'node:path'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { mergeConfig } from 'vite'
+// @ts-ignore - Tailwind CSS v4 Vite plugin
 import tailwindcss from '@tailwindcss/vite'
 
 import type { StorybookConfig } from '@storybook/web-components-vite'

@@ -1,0 +1,368 @@
+/**
+  * @file Typography v4
+  *
+  * This file contains all typography classes for Tailwind v4.
+  * Uses pure CSS properties instead of @apply to avoid Tailwind v4 conflicts.
+  *
+  * You can use them same as the normal Tailwind classes, e.g.: class="heading-inter-26-semi-bold"
+  */
+
+// Headers
+
+.heading-inter-48-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-48);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-58);
+}
+
+.heading-inter-48-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-48);
+  font-weight: var(--font-weight-500);
+  font-style: normal;
+  line-height: var(--leading-58);
+}
+
+.heading-inter-44-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-44);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-40);
+}
+
+.heading-inter-44-medium {
+  font-family: var(--font-inter);
+  font-size: var(--text-44);
+  font-weight: var(--font-weight-500);
+  font-style: normal;
+  line-height: var(--leading-40);
+}
+
+.heading-inter-40-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-40);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-48);
+}
+
+.heading-inter-40-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-40);
+  font-weight: var(--font-weight-500);
+  font-style: normal;
+  line-height: var(--leading-48);
+}
+
+.heading-inter-32-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-32);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-38);
+}
+
+.heading-inter-32-medium {
+  font-family: var(--font-inter);
+  font-size: var(--text-32);
+  font-weight: var(--font-weight-500);
+  font-style: normal;
+  line-height: var(--leading-38);
+}
+
+.heading-inter-24-medium {
+  font-family: var(--font-inter);
+  font-size: var(--text-24);
+  font-weight: var(--font-weight-500);
+  font-style: normal;
+  line-height: var(--leading-28);
+}
+
+.heading-inter-26-semi-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-26);
+  font-weight: var(--font-weight-600);
+  font-style: normal;
+  line-height: var(--leading-31);
+}
+
+.heading-inter-21-semi-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-21);
+  font-weight: var(--font-weight-600);
+  font-style: normal;
+  line-height: var(--leading-26);
+}
+
+.heading-inter-17-semi-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-17);
+  font-weight: var(--font-weight-600);
+  font-style: normal;
+  line-height: var(--leading-22);
+}
+
+.heading-inter-12-bold-uppercase {
+  font-family: var(--font-inter);
+  font-size: var(--text-12);
+  font-weight: var(--font-weight-700);
+  font-style: normal;
+  line-height: var(--leading-15);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.heading-inter-14-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-14);
+  font-weight: var(--font-weight-700);
+  font-style: normal;
+  line-height: var(--leading-17);
+}
+
+// Navbar
+
+.nav-inter-14-medium-uppercase {
+  font-family: var(--font-inter);
+  font-size: var(--text-14);
+  font-weight: var(--font-weight-500);
+  font-style: normal;
+  line-height: var(--leading-17);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.nav-inter-12-medium-uppercase {
+  font-family: var(--font-inter);
+  font-size: var(--text-12);
+  font-weight: var(--font-weight-500);
+  font-style: normal;
+  line-height: var(--leading-14);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.nav-inter-10-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-10);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-12);
+}
+
+.nav-inter-8-medium-uppercase {
+  font-family: var(--font-inter);
+  font-size: var(--text-8);
+  font-weight: var(--font-weight-500);
+  font-style: normal;
+  line-height: var(--leading-10);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+// Paragraph
+
+.paragraph-inter-20-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-20);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-32);
+}
+
+.paragraph-inter-16-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-16);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-24);
+}
+
+.paragraph-inter-16-semi-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-16);
+  font-weight: var(--font-weight-600);
+  font-style: normal;
+  line-height: var(--leading-24);
+}
+
+.paragraph-inter-16-semi-bold-underlined {
+  font-family: var(--font-inter);
+  font-size: var(--text-16);
+  font-weight: var(--font-weight-600);
+  font-style: normal;
+  line-height: var(--leading-24);
+  text-decoration: underline;
+}
+
+.paragraph-inter-14-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-14);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-22);
+}
+
+.paragraph-inter-14-medium {
+  font-family: var(--font-inter);
+  font-size: var(--text-14);
+  font-weight: var(--font-weight-500);
+  font-style: normal;
+  line-height: var(--leading-22);
+}
+
+.paragraph-inter-14-semi-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-14);
+  font-weight: var(--font-weight-600);
+  font-style: normal;
+  line-height: var(--leading-22);
+}
+
+.paragraph-inter-13-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-13);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-20);
+}
+
+.paragraph-inter-12-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-12);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-20);
+}
+
+.paragraph-inter-10-regular {
+  font-family: var(--font-inter);
+  font-size: var(--text-10);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-12);
+}
+
+.paragraph-inter-12-medium {
+  font-family: var(--font-inter);
+  font-size: var(--text-12);
+  font-weight: var(--font-weight-500);
+  font-style: normal;
+  line-height: var(--leading-20);
+}
+
+.paragraph-inter-12-semi-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-12);
+  font-weight: var(--font-weight-600);
+  font-style: normal;
+  line-height: var(--leading-20);
+}
+
+.paragraph-inter-12-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-12);
+  font-weight: var(--font-weight-700);
+  font-style: normal;
+  line-height: var(--leading-20);
+}
+
+.paragraph-inter-10-semi-bold {
+  font-family: var(--font-inter);
+  font-size: var(--text-10);
+  font-weight: var(--font-weight-600);
+  font-style: normal;
+  line-height: var(--leading-12);
+}
+
+.paragraph-inter-10-bold-uppercase {
+  font-family: var(--font-inter);
+  font-size: var(--text-10);
+  font-weight: var(--font-weight-700);
+  font-style: normal;
+  line-height: var(--leading-12);
+  text-transform: uppercase;
+}
+
+.paragraph-ptmono-24-regular {
+  font-family: var(--font-mono);
+  font-size: var(--text-24);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-26);
+}
+
+.paragraph-ptmono-24-bold {
+  font-family: var(--font-mono);
+  font-size: var(--text-24);
+  font-weight: var(--font-weight-700);
+  font-style: normal;
+  line-height: var(--leading-26);
+}
+
+.paragraph-ptmono-16-regular {
+  font-family: var(--font-mono);
+  font-size: var(--text-16);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-22);
+}
+
+.paragraph-ptmono-16-bold {
+  font-family: var(--font-mono);
+  font-size: var(--text-16);
+  font-weight: var(--font-weight-700);
+  font-style: normal;
+  line-height: var(--leading-22);
+}
+
+.paragraph-ptmono-14-regular {
+  font-family: var(--font-mono);
+  font-size: var(--text-14);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-20);
+}
+
+.paragraph-ptmono-14-bold {
+  font-family: var(--font-mono);
+  font-size: var(--text-14);
+  font-weight: var(--font-weight-700);
+  font-style: normal;
+  line-height: var(--leading-20);
+}
+
+.paragraph-ptmono-12-bold {
+  font-family: var(--font-mono);
+  font-size: var(--text-12);
+  font-weight: var(--font-weight-700);
+  font-style: normal;
+  line-height: var(--leading-14);
+}
+
+.paragraph-ptmono-12-regular {
+  font-family: var(--font-mono);
+  font-size: var(--text-12);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-14);
+}
+
+.paragraph-ptmono-10-bold {
+  font-family: var(--font-mono);
+  font-size: var(--text-10);
+  font-weight: var(--font-weight-700);
+  font-style: normal;
+  line-height: var(--leading-14);
+}
+
+.paragraph-ptmono-10-regular {
+  font-family: var(--font-mono);
+  font-size: var(--text-10);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--leading-14);
+}

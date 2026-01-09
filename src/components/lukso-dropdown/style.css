@@ -1,3 +1,4 @@
+@source './index.ts';
 @import '../../shared/styles/generated/component-v4.css';
 
 :host {

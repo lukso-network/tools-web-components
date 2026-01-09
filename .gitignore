@@ -16,7 +16,6 @@
 .env
 
 # Generated CSS files (compiled from SCSS by build scripts)
-.storybook/styles.css
 src/shared/styles/component-v4.css
 src/shared/styles/generated/
 src/shared/styles/typography.css

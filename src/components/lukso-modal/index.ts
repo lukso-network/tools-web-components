@@ -3,14 +3,13 @@ import { property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 import { withTheme } from '@lukso/core'
 
-import style from './style.css?inline'
-import { TailwindStyledElement } from '@/shared/tailwind-element'
+import { TailwindElement } from '@/shared/tailwind-element'
 import { safeCustomElement } from '@/shared'
 
 export type ModalSizes = 'small' | 'medium' | 'full' | 'auto'
 
 @safeCustomElement('lukso-modal')
-export class LuksoModal extends withTheme(TailwindStyledElement(style)) {
+export class LuksoModal extends withTheme(TailwindElement) {
   @property({ type: Boolean, attribute: 'is-open' })
   isOpen = false
 

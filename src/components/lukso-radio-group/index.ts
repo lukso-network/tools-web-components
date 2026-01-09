@@ -1,9 +1,8 @@
 import { html } from 'lit'
 import { property, state } from 'lit/decorators.js'
 
-import style from './style.css?inline'
 import { safeCustomElement } from '@/shared/safe-custom-element'
-import { TailwindStyledElement } from '@/shared/tailwind-element'
+import { TailwindElement } from '@/shared/tailwind-element'
 
 import type { LuksoRadio } from '../lukso-radio'
 
@@ -14,7 +13,7 @@ type HTMLRadioElement = HTMLInputElement & {
 }
 
 @safeCustomElement('lukso-radio-group')
-export class LuksoRadioGroup extends TailwindStyledElement(style) {
+export class LuksoRadioGroup extends TailwindElement {
   @property({ type: String })
   name = ''
 

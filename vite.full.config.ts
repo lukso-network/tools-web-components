@@ -54,18 +54,6 @@ export async function readDeps(dir, prefix: string[] = []) {
       if (file !== 'index.ts') {
         continue
       }
-
-      // Validate that each component has a style.css file
-      const stylePath = path.join(dir, 'style.css')
-      try {
-        await stat(stylePath)
-      } catch {
-        const componentName = path.basename(dir)
-        throw new Error(
-          `Component '${componentName}' is missing style.css file.\nAll components must have a style.css file with @source directive.\nExpected: ${stylePath}`
-        )
-      }
-
       const entry = `./${path.join(dir, file)}`
       const item = {
         entry,

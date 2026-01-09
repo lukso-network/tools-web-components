@@ -1,0 +1,9 @@
+/**
+ * TailwindElement base styles
+ *
+ * Scans all component files to generate utility classes globally.
+ * All components inherit these utilities from TailwindElement.
+ */
+
+@source '../components/**/index.ts';
+@import '../styles/generated/main-v4.css';

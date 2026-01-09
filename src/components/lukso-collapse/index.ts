@@ -2,9 +2,8 @@ import { html, nothing } from 'lit'
 import { property, query, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
-import style from './style.css?inline'
 import { safeCustomElement } from '@/shared/safe-custom-element'
-import { TailwindStyledElement } from '@/shared/tailwind-element'
+import { TailwindElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import '@/components/lukso-icon'
 import '@/components/lukso-form-label'
@@ -14,7 +13,7 @@ import '@/components/lukso-form-error'
 import type { InputSize } from '@/shared/types'
 
 @safeCustomElement('lukso-collapse')
-export class LuksoCollapse extends TailwindStyledElement(style) {
+export class LuksoCollapse extends TailwindElement {
   @property({ type: String })
   label: string | undefined = ''
 

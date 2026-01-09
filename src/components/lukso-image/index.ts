@@ -3,12 +3,11 @@ import { property, state } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { tv } from 'tailwind-variants'
 
-import style from './style.css?inline'
 import { safeCustomElement } from '@/shared/safe-custom-element'
-import { TailwindStyledElement } from '@/shared/tailwind-element'
+import { TailwindElement } from '@/shared/tailwind-element'
 
 @safeCustomElement('lukso-image')
-export class LuksoImage extends TailwindStyledElement(style) {
+export class LuksoImage extends TailwindElement {
   @property({ type: String, reflect: true })
   src = ''
 

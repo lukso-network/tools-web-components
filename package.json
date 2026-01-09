@@ -134,7 +134,16 @@
 	"pnpm": {
 		"overrides": {
 			"playwright": "^1.57.0"
-		}
+		},
+		"onlyBuiltDependencies": [
+			"@parcel/watcher",
+			"@swc/core",
+			"esbuild",
+			"rs-module-lexer",
+			"sharp",
+			"unrs-resolver",
+			"workerd"
+		]
 	},
 	"repository": {
 		"type": "git",

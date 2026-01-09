@@ -4,15 +4,8 @@ node_modules
 storybook-static
 package/
 
-# Generated SCSS files (auto-generated, don't lint)
-src/shared/styles/colors.scss
+# Generated CSS files (auto-generated, don't lint)
+src/shared/styles/generated/
 
-# Generated CSS files from shared styles (compiled from SCSS, don't lint)
+# Other generated CSS files (compiled from SCSS, don't lint)
 .storybook/styles.css
-src/shared/styles/component-v4.css
-src/shared/styles/colors.css
-src/shared/styles/colors-v4.css
-src/shared/styles/fonts-v4.css
-src/shared/styles/typography.css
-src/shared/styles/utilities.css
-src/shared/styles/variables-v4.css

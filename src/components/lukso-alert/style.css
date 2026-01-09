@@ -1,4 +1,4 @@
-@import '@/shared/styles/component-v4.css';
+@import '../../shared/styles/generated/component-v4.css';
 
 :host {
   @apply flex;

@@ -11,6 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const resolve = {
   alias: {
     '@': path.resolve(__dirname, '../src'),
+    '@styles': path.resolve(__dirname, '../package/dist/styles'),
   },
 }
 
@@ -48,6 +49,14 @@ const config: StorybookConfig = {
       define: {
         'process.env.STORYBOOK': JSON.stringify(true),
         'import.meta.env.STORYBOOK': JSON.stringify(true),
+      },
+      // Allow Vite to serve and process files from package/dist and project root
+      server: {
+        fs: {
+          allow: [
+            path.resolve(__dirname, '..'), // Project root (includes node_modules, src, etc)
+          ],
+        },
       },
       plugins: [tailwindcss()],
     })

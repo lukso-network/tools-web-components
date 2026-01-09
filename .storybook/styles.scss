@@ -14,8 +14,7 @@ $font-file-path: '/assets/fonts';
 @use 'fonts-v4';
 @use 'typography';
 @use 'utilities';
-@use 'variables-v4';
-@use 'tippy-v4';
+@use 'tippy';
 
 strong {
   font-weight: 600;

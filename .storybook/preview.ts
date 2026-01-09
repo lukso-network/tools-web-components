@@ -2,7 +2,7 @@ import * as jest from 'jest-mock'
 import { setCustomElementsManifest } from '@storybook/web-components-vite'
 
 import customElements from '../package/custom-elements.json'
-import '../src/shared/styles/generated/main-v4.css'
+import './styles.css'
 ;(window as any).jest = jest
 
 setCustomElementsManifest(customElements)

@@ -8,6 +8,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowImportingTsExtensions": false,
+    "resolveJsonModule": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "types": ["node", "@storybook/types"]

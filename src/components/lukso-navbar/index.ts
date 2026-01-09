@@ -2,11 +2,13 @@ import { html, nothing } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
+import style from './style.css?inline'
 import { safeCustomElement } from '@/shared/safe-custom-element'
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-tag'
-import { FunctionMap } from '@/shared/types'
+
+import type { FunctionMap } from '@/shared/types'
 
 export type NavbarMobileBreakpoint = 'sm' | 'md' | 'lg' | 'xl'
 
@@ -22,7 +24,7 @@ type Styles = FunctionMap<
 >
 
 @safeCustomElement('lukso-navbar')
-export class LuksoNavbar extends TailwindElement {
+export class LuksoNavbar extends TailwindStyledElement(style) {
   @property({ type: String })
   title = ''
 

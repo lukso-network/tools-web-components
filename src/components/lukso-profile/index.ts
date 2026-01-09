@@ -3,14 +3,15 @@ import { property } from 'lit/decorators.js'
 import makeBlockie from 'ethereum-blockies-base64'
 import { tv } from 'tailwind-variants'
 
+import style from './style.css?inline'
 import { safeCustomElement } from '@/shared/safe-custom-element'
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-image'
 
 import type { ProfileSize } from '@/shared/types'
 
 @safeCustomElement('lukso-profile')
-export class LuksoProfile extends TailwindElement {
+export class LuksoProfile extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'profile-url', reflect: true })
   profileUrl = ''
 

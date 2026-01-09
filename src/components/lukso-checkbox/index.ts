@@ -2,9 +2,9 @@ import { html, nothing } from 'lit'
 import { property, state } from 'lit/decorators.js'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
-
+import style from './style.css?inline'
 import '@/components/lukso-form-description'
 import '@/components/lukso-form-error'
 
@@ -12,7 +12,7 @@ export type CheckboxSize = 'x-small' | 'small' | 'medium'
 export type CheckboxType = 'text' | 'profile'
 
 @safeCustomElement('lukso-checkbox')
-export class LuksoCheckbox extends TailwindElement {
+export class LuksoCheckbox extends TailwindStyledElement(style) {
   @property({ type: String })
   name: string | undefined = ''
 
@@ -168,7 +168,7 @@ export class LuksoCheckbox extends TailwindElement {
           for=${this.name}
           class=${customClassMap({
             [this.defaultContainerStyles]: true,
-            ['cursor-not-allowed']: this.isDisabled || this.isReadonly,
+            'cursor-not-allowed': this.isDisabled || this.isReadonly,
           })}
           @mouseenter=${this.handleMouseOver}
           @mouseleave=${this.handleMouseOut}

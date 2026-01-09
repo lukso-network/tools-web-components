@@ -3,9 +3,10 @@ import { property } from 'lit/decorators.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import { tv } from 'tailwind-variants'
 
+import style from './style.css?inline'
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { uniqId } from '@/shared/tools/uniq-id'
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import '@/components/lukso-sanitize'
 import '@/components/lukso-form-label'
 import '@/components/lukso-form-description'
@@ -14,7 +15,7 @@ import '@/components/lukso-form-error'
 const DEFAULT_COLOR = 'green-54'
 
 @safeCustomElement('lukso-switch')
-export class LuksoSwitch extends TailwindElement {
+export class LuksoSwitch extends TailwindStyledElement(style) {
   @property({ type: String })
   color = DEFAULT_COLOR
 

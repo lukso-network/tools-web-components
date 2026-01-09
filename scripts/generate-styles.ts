@@ -167,6 +167,9 @@ const finalCss = `/**
  *
  * This file is imported by TailwindElement base class for Shadow DOM styles.
  * It includes BOTH :root (for external usage) and @theme (for Tailwind utilities).
+ *
+ * Users should add @source directive when importing this file to specify
+ * which files Tailwind should scan for utility classes.
  */
 
 ${cssV3Output.join('\n')}
@@ -176,7 +179,6 @@ ${cssOutput.join('\n')}
 ${fontsCss}
 
 ${mainV4Css}
-@source '../**/*.{ts,tsx,js,jsx,html,mdx}';
 `
 
 writeFileSync(outputPath, finalCss)

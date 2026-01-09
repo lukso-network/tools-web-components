@@ -1,13 +1,14 @@
 import { html } from 'lit'
 import { property } from 'lit/decorators.js'
 
+import style from './style.css?inline'
 import { safeCustomElement } from '@/shared/safe-custom-element'
-import { TailwindElement } from '@/shared/tailwind-element'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 
 import type { ProviderName, ProviderObject } from '@/components/lukso-share'
 
 @safeCustomElement('lukso-footer')
-export class LuksoFooter extends TailwindElement {
+export class LuksoFooter extends TailwindStyledElement(style) {
   @property({ type: String })
   providers = ''
 

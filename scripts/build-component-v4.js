@@ -30,12 +30,31 @@ const fontsV4Css = readFileSync(
   `${rootDir}/src/shared/styles/generated/fonts-v4.css`,
   'utf-8'
 )
+const shadowsV4Css = readFileSync(
+  `${rootDir}/src/shared/styles/generated/shadows-v4.css`,
+  'utf-8'
+)
+const typographyV4Css = readFileSync(
+  `${rootDir}/src/shared/styles/generated/typography-v4.css`,
+  'utf-8'
+)
 
-// Read the template to get the typography @theme section
+// Read the template to get the @theme section
 const mainV4Template = readFileSync(
   `${rootDir}/src/shared/styles/main-v4.template.css`,
   'utf-8'
 )
+
+// Remove import statements from template
+const templateContent = mainV4Template
+  .replace(/\/\* Import generated colors and fonts \*\/\n/g, '')
+  .replace(/@import '\.\/colors-v4\.css';\n/g, '')
+  .replace(/@import '\.\/fonts-v4\.css';\n/g, '')
+  .replace(
+    /\/\* Import typography classes for Tailwind v4 \(must come (before|after) tailwindcss for proper specificity\) \*\/\n/g,
+    ''
+  )
+  .replace(/@import '\.\/typography-v4\.css';\n/g, '')
 
 // Assemble component-v4.css (same as main-v4 but WITHOUT :root section)
 // Note: @source directive should be added in each component's style.css for optimization
@@ -57,8 +76,12 @@ ${colorsV4Css}
 
 ${fontsV4Css}
 
-${mainV4Template}
-@import 'tailwindcss';
+${shadowsV4Css}
+
+${templateContent}
+
+/* Typography classes for Tailwind v4 - inlined from typography-v4.css */
+${typographyV4Css}
 `
 
 // Write the output file

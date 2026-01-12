@@ -314,8 +314,11 @@
   }
 }
 
+/* Import typography classes for Tailwind v4 (must come before tailwindcss for proper specificity) */
+@import './typography-v4.css';
+
 /* Import Tailwind CSS v4 - this enables all utilities with the custom theme above */
 @import 'tailwindcss';
 
-/* Import typography classes for Tailwind v4 (must come after tailwindcss) */
-@import './typography-v4.css';
+/* Dark mode configuration - use class-based dark mode */
+@variant dark (:where(.dark, .dark *) &);

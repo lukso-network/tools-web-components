@@ -14,12 +14,11 @@
 .DS_Store
 .claude
 .env
+debug-storybook.log
 
 # Generated CSS files (compiled from SCSS by build scripts)
-.storybook/styles.css
 src/shared/styles/component-v4.css
-src/shared/styles/colors.css
-src/shared/styles/fonts-v4.css
+src/shared/styles/generated/
 src/shared/styles/typography.css
 src/shared/styles/utilities.css
 src/shared/styles/variables-v4.css

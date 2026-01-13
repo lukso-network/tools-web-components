@@ -144,7 +144,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
-      class: 'grid grid-rows-[auto,1fr] overflow-hidden',
+      class: 'grid grid-rows-[auto_1fr] overflow-hidden',
     })
 
     return html`
@@ -174,7 +174,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
-      class: 'grid grid-rows-[1fr,auto]',
+      class: 'grid grid-rows-[1fr_auto]',
     })
 
     return html`
@@ -245,7 +245,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
-      class: 'grid grid-rows-[auto,1fr]',
+      class: 'grid grid-rows-[auto_1fr]',
     })
 
     return html`
@@ -279,7 +279,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
             <slot name="header"></slot>
           </div>
         </div>
-        <div class="grid grid-rows-[max-content,auto] rounded-b-[inherit]">
+        <div class="grid grid-rows-[max-content_auto] rounded-b-[inherit]">
           <div
             class=${cn('bg-neutral-100 relative', {
               'rounded-b-[inherit]': !this.hasBottom,
@@ -319,7 +319,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
-      class: 'grid grid-rows-[auto,1fr]',
+      class: 'grid grid-rows-[auto_1fr]',
     })
 
     return html`
@@ -420,7 +420,7 @@ export class LuksoCard extends TailwindStyledElement(style) {
       shadow: this.shadow,
       isHoverable: this.isHoverable,
       hasNoWidth: !this.width,
-      class: 'grid grid-rows-[auto,1fr]',
+      class: 'grid grid-rows-[auto_1fr]',
     })
 
     return html`

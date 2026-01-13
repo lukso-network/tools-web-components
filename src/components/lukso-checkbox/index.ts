@@ -4,7 +4,6 @@ import { property, state } from 'lit/decorators.js'
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 import { customClassMap } from '@/shared/directives'
-
 import '@/components/lukso-form-description'
 import '@/components/lukso-form-error'
 
@@ -168,7 +167,7 @@ export class LuksoCheckbox extends TailwindElement {
           for=${this.name}
           class=${customClassMap({
             [this.defaultContainerStyles]: true,
-            ['cursor-not-allowed']: this.isDisabled || this.isReadonly,
+            'cursor-not-allowed': this.isDisabled || this.isReadonly,
           })}
           @mouseenter=${this.handleMouseOver}
           @mouseleave=${this.handleMouseOut}

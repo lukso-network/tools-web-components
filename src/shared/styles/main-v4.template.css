@@ -11,6 +11,13 @@
 @import './colors-v4.css';
 @import './fonts-v4.css';
 
+/* Base layer font family override to ensure Inter is used instead of browser defaults */
+@layer base {
+  :root {
+    --font-sans: 'Inter', system-ui, sans-serif;
+  }
+}
+
 /* Theme variables in :root for shadow DOM inheritance */
 :root {
   /* Font families */
@@ -95,10 +102,29 @@
   --height-78: 78px;
 
   /* Spacing */
+  --spacing-0: 0px;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-7: 1.75rem;
+  --spacing-8: 2rem;
+  --spacing-9: 2.25rem;
+  --spacing-10: 2.5rem;
+  --spacing-11: 2.75rem;
+  --spacing-12: 3rem;
+  --spacing-14: 3.5rem;
+  --spacing-16: 4rem;
   --spacing-17: 4.25rem;
   --spacing-18: 4.5rem;
+  --spacing-20: 5rem;
   --spacing-22: 5.5rem;
+  --spacing-24: 6rem;
+  --spacing-28: 7rem;
   --spacing-30: 7.5rem;
+  --spacing-32: 8rem;
 
   /* Box Shadows (shadow-*) */
   --shadow-neutral-shadow-round:
@@ -219,10 +245,29 @@
   --height-78: 78px;
 
   /* Spacing */
+  --spacing-0: 0px;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-7: 1.75rem;
+  --spacing-8: 2rem;
+  --spacing-9: 2.25rem;
+  --spacing-10: 2.5rem;
+  --spacing-11: 2.75rem;
+  --spacing-12: 3rem;
+  --spacing-14: 3.5rem;
+  --spacing-16: 4rem;
   --spacing-17: 4.25rem;
   --spacing-18: 4.5rem;
+  --spacing-20: 5rem;
   --spacing-22: 5.5rem;
+  --spacing-24: 6rem;
+  --spacing-28: 7rem;
   --spacing-30: 7.5rem;
+  --spacing-32: 8rem;
 
   /* Box Shadows (shadow-*) */
   --shadow-neutral-shadow-round:
@@ -316,6 +361,9 @@
 
 /* Import typography classes for Tailwind v4 (must come before tailwindcss for proper specificity) */
 @import './typography-v4.css';
+
+/* Import Tippy.js tooltip styles for Tailwind v4 */
+@import './tippy-v4.css';
 
 /* Import Tailwind CSS v4 - this enables all utilities with the custom theme above */
 @import 'tailwindcss';

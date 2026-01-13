@@ -38,6 +38,10 @@ const typographyV4Css = readFileSync(
   `${rootDir}/src/shared/styles/generated/typography-v4.css`,
   'utf-8'
 )
+const tippyV4Css = readFileSync(
+  `${rootDir}/src/shared/styles/generated/tippy-v4.css`,
+  'utf-8'
+)
 
 // Read the template to get the @theme section
 const mainV4Template = readFileSync(
@@ -55,6 +59,10 @@ const templateContent = mainV4Template
     ''
   )
   .replace(/@import '\.\/typography-v4\.css';\n/g, '')
+  .replace(
+    /\/\* Import Tippy\.js tooltip styles for Tailwind v4 \*\/\n@import '\.\/tippy-v4\.css';\n/g,
+    ''
+  )
 
 // Assemble component-v4.css (same as main-v4 but WITHOUT :root section)
 // Note: @source directive should be added in each component's style.css for optimization
@@ -82,6 +90,9 @@ ${templateContent}
 
 /* Typography classes for Tailwind v4 - inlined from typography-v4.css */
 ${typographyV4Css}
+
+/* Tippy.js tooltip styles for Tailwind v4 - inlined from tippy-v4.css */
+${tippyV4Css}
 `
 
 // Write the output file

@@ -27,7 +27,7 @@ export class LuksoWizard extends TailwindStyledElement(style) {
   private stepStyles = tv({
     slots: {
       base: `inline-flex flex-col items-center justify-end first:-ml-12 last:-mr-12 relative
-    [&>.lukso-wizard-circle]:after:last:hidden [&>.lukso-wizard-circle]:before:last:hidden`,
+    last:[&>.lukso-wizard-circle]:after:hidden last:[&>.lukso-wizard-circle]:before:hidden`,
       circle: `lukso-wizard-circle bg-neutral-90 w-4 h-4 rounded-full shadow-wizard-step mt-2 flex items-center
     border-[1px] border-solid border-[rgba(255,255,255,0.8)]
     after:block after:absolute after:bottom-[7px] after:ml-[15px] after:h-[2px]
@@ -85,7 +85,7 @@ export class LuksoWizard extends TailwindStyledElement(style) {
     })
     return html`<li class="${base()}">
       <div
-        class="text-purple-51 nav-inter-8-medium-uppercase whitespace-pre-line flex text-center break-words uppercase"
+        class="text-purple-51 nav-inter-8-medium-uppercase whitespace-pre-line flex text-center break-words uppercase leading-none"
       >
         ${step.label}
       </div>

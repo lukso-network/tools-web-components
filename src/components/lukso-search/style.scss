@@ -1,7 +1,0 @@
-:host {
-  @apply inline-flex;
-}
-
-:host([is-full-width]) {
-  @apply flex w-full;
-}

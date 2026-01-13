@@ -50,6 +50,7 @@ export class LuksoPagination extends TailwindStyledElement(style) {
     variants: {
       size: {
         small: {
+          wrapper: 'paragraph-inter-12-medium',
           ellipsis: 'min-w-6',
           numbers: 'min-w-6',
         },

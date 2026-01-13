@@ -42,6 +42,10 @@ const tippyV4Css = readFileSync(
   `${rootDir}/src/shared/styles/generated/tippy-v4.css`,
   'utf-8'
 )
+const proseOverridesV4Css = readFileSync(
+  `${rootDir}/src/shared/styles/generated/prose-overrides-v4.css`,
+  'utf-8'
+)
 
 // Read the template to get the @theme section
 const mainV4Template = readFileSync(
@@ -61,6 +65,10 @@ const templateContent = mainV4Template
   .replace(/@import '\.\/typography-v4\.css';\n/g, '')
   .replace(
     /\/\* Import Tippy\.js tooltip styles for Tailwind v4 \*\/\n@import '\.\/tippy-v4\.css';\n/g,
+    ''
+  )
+  .replace(
+    /\/\* Import prose customizations - must come after the plugin \*\/\n@import '\.\/prose-overrides-v4\.css';\n/g,
     ''
   )
 
@@ -93,6 +101,9 @@ ${typographyV4Css}
 
 /* Tippy.js tooltip styles for Tailwind v4 - inlined from tippy-v4.css */
 ${tippyV4Css}
+
+/* Prose customizations for Tailwind v4 Typography - inlined from prose-overrides-v4.css */
+${proseOverridesV4Css}
 `
 
 // Write the output file

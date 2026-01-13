@@ -1,0 +1,152 @@
+/**
+ * @file Typography overrides for @tailwindcss/typography in Tailwind v4
+ *
+ * In Tailwind v4, typography plugin customization is done via @utility directives
+ * instead of the theme.extend.typography config object from v3.
+ *
+ * These overrides customize the prose classes to match the project's design system.
+ */
+
+/* Base prose styles - applies to all prose sizes */
+@utility prose {
+  max-width: none;
+  line-height: 1.6;
+
+  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.5;
+  }
+
+  hr {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  h1 {
+    margin-top: 0.75em;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+  }
+
+  h2 {
+    margin-top: 0.65em;
+    margin-bottom: 0.45em;
+    line-height: 1.25;
+  }
+
+  h3 {
+    margin-top: 0.6em;
+    margin-bottom: 0.4em;
+    line-height: 1.3;
+  }
+
+  h4 {
+    margin-top: 0.5em;
+    margin-bottom: 0.35em;
+    line-height: 1.35;
+  }
+
+  h5 {
+    margin-top: 0.45em;
+    margin-bottom: 0.3em;
+    line-height: 1.4;
+  }
+
+  h6 {
+    margin-top: 0.4em;
+    margin-bottom: 0.25em;
+    line-height: 1.45;
+  }
+
+  ul {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-left: 1.25em;
+  }
+
+  ol {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-left: 1.25em;
+  }
+
+  ul ul,
+  ul ol,
+  ol ul,
+  ol ol {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+
+  li {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+
+  blockquote {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-left: 1em;
+    border-left-width: 0.25rem;
+    font-style: italic;
+    color: inherit;
+  }
+
+  a {
+    color: var(--tw-prose-links);
+    text-decoration: underline;
+    font-weight: 500;
+
+    &:hover {
+      color: var(--tw-prose-links-hover, var(--tw-prose-links));
+      text-decoration: none;
+    }
+  }
+
+  pre {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.45;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
+}
+
+/* prose-sm variant */
+@utility prose-sm {
+  max-width: none;
+  line-height: 1.6;
+}
+
+/* prose-base variant */
+@utility prose-base {
+  max-width: none;
+  line-height: 1.6;
+}
+
+/* prose-lg variant */
+@utility prose-lg {
+  max-width: none;
+  line-height: 1.6;
+}
+
+/* prose-xl variant */
+@utility prose-xl {
+  max-width: none;
+  line-height: 1.6;
+}
+
+/* prose-inherit - inherits colors from parent */
+@utility prose-inherit {
+  --tw-prose-body: inherit;
+  --tw-prose-headings: inherit;
+  --tw-prose-lead: inherit;
+  --tw-prose-links: inherit;
+  --tw-prose-bold: inherit;
+  --tw-prose-counters: inherit;
+  --tw-prose-bullets: inherit;
+}

@@ -9,7 +9,14 @@
     "scss/at-rule-no-unknown": [
       true,
       {
-        "ignoreAtRules": ["tailwind", "theme", "source", "variant"]
+        "ignoreAtRules": [
+          "tailwind",
+          "theme",
+          "source",
+          "variant",
+          "plugin",
+          "utility"
+        ]
       }
     ],
     "scss/at-extend-no-missing-placeholder": null,

@@ -368,5 +368,11 @@
 /* Import Tailwind CSS v4 - this enables all utilities with the custom theme above */
 @import 'tailwindcss';
 
+/* Import Tailwind Typography plugin for prose classes */
+@plugin '@tailwindcss/typography';
+
+/* Import prose customizations - must come after the plugin */
+@import './prose-overrides-v4.css';
+
 /* Dark mode configuration - use class-based dark mode */
 @variant dark (:where(.dark, .dark *) &);

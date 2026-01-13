@@ -35,7 +35,7 @@ export class LuksoFooter extends TailwindElement {
     return html`
       <footer class="bg-neutral-100">
         <div
-          class="p-10 grid gap-8 items-center lg:grid-cols-[auto,max-content]"
+          class="p-10 grid gap-8 items-center lg:grid-cols-[auto_max-content]"
         >
           <slot name="links"></slot>
           <div class="flex gap-5 flex-col sm:flex-row sm:justify-between">

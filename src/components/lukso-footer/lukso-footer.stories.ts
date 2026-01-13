@@ -38,7 +38,7 @@ const Template = ({ providers }) =>
     <div
       slot="links"
       class="grid gap-4 items-center grid-cols-1 grid-rows-2
-      xl:grid-cols-[repeat(3,max-content)] xl:gap-10 xl:grid-rows-1"
+      xl:grid-cols-[repeat(3_max-content)]xl:gap-10 xl:grid-rows-1"
     >
       <div class="flex gap-10">
         <a

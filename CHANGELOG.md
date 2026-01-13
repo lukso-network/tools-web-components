@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.173.1](https://github.com/lukso-network/tools-web-components/compare/v1.173.0...v1.173.1) (2026-01-13)
+
+
+### Bug Fixes
+
+* Repair colors and fonts. ([#788](https://github.com/lukso-network/tools-web-components/issues/788)) ([209e028](https://github.com/lukso-network/tools-web-components/commit/209e0287d374185327064ad7d780b2ab5767105a))
+
 ## [1.173.0](https://github.com/lukso-network/tools-web-components/compare/v1.172.20...v1.173.0) (2026-01-08)
 
 

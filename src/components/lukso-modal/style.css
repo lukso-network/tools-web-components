@@ -1,0 +1,29 @@
+/**
+ * backdrop-filter must be applied at :host level (Light DOM) because it cannot blur content
+ * across the Shadow DOM boundary. pointer-events: none allows backdrop clicks while children remain interactive.
+ */
+:host([is-open]) {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1011 !important;
+  backdrop-filter: blur(8px) !important;
+  background: rgb(196 202 206 / 60%) !important;
+  pointer-events: none !important;
+}
+
+/* Light theme backdrop */
+:host([is-open]:not([theme='dark'])) {
+  background: rgb(196 202 206 / 60%) !important;
+}
+
+/* Dark theme backdrop with reduced opacity */
+:host([is-open][theme='dark']) {
+  background: rgb(196 202 206 / 10%) !important;
+}
+
+/* Re-enable pointer events for modal content */
+:host([is-open]) > * {
+  pointer-events: auto !important;
+}

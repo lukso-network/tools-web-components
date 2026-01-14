@@ -24,6 +24,15 @@
   --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'PT Mono', ui-monospace, monospace;
 
+  /* Backdrop blur values (backdrop-blur-*) */
+  --blur-xs: 4px;
+  --blur-sm: 8px;
+  --blur-md: 12px;
+  --blur-lg: 16px;
+  --blur-xl: 24px;
+  --blur-2xl: 40px;
+  --blur-3xl: 64px;
+
   /* Font sizes (text-*) */
   --text-6: 6px;
   --text-8: 8px;
@@ -166,6 +175,15 @@
   /* Font families */
   --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'PT Mono', ui-monospace, monospace;
+
+  /* Backdrop blur values (backdrop-blur-*) */
+  --blur-xs: 4px;
+  --blur-sm: 8px;
+  --blur-md: 12px;
+  --blur-lg: 16px;
+  --blur-xl: 24px;
+  --blur-2xl: 40px;
+  --blur-3xl: 64px;
 
   /* Font sizes (text-*) */
   --text-6: 6px;

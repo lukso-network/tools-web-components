@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.173.3](https://github.com/lukso-network/tools-web-components/compare/v1.173.2...v1.173.3) (2026-01-14)
+
+
+### Bug Fixes
+
+* Add missing shadow variables ([#792](https://github.com/lukso-network/tools-web-components/issues/792)) ([35941b2](https://github.com/lukso-network/tools-web-components/commit/35941b2b3c25734b06049485187762fdea13057f))
+
 ## [1.173.2](https://github.com/lukso-network/tools-web-components/compare/v1.173.1...v1.173.2) (2026-01-14)
 
 

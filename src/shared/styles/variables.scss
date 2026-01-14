@@ -3,3 +3,26 @@
   *
   * This file contains all CSS variables used in designs.
   */
+
+/**
+ * Tailwind v4 shadow system variables
+ * Web components use Tailwind v4 internally, which requires these CSS variables
+ * to be initialized for box-shadow to render correctly in Tailwind v3 consumers.
+ */
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-inset-shadow: 0 0 #0000;
+  --tw-inset-shadow-colored: 0 0 #0000;
+  --tw-ring-color: initial;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-inset-ring-color: initial;
+  --tw-inset-ring-shadow: 0 0 #0000;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-offset-shadow: 0 0 #0000;
+}

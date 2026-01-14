@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.173.2](https://github.com/lukso-network/tools-web-components/compare/v1.173.1...v1.173.2) (2026-01-14)
+
+
+### Bug Fixes
+
+* Backdrop blur effect is missing on lukso-modal ([#790](https://github.com/lukso-network/tools-web-components/issues/790)) ([d47765c](https://github.com/lukso-network/tools-web-components/commit/d47765cfdc816e905cfa206ac2ebc5307c8bb342))
+
 ## [1.173.1](https://github.com/lukso-network/tools-web-components/compare/v1.173.0...v1.173.1) (2026-01-13)
 
 

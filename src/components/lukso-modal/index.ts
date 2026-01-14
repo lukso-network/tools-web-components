@@ -3,13 +3,14 @@ import { property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 import { withTheme } from '@lukso/core'
 
-import { TailwindElement } from '@/shared/tailwind-element'
+import style from './style.css?inline'
+import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { safeCustomElement } from '@/shared'
 
 export type ModalSizes = 'small' | 'medium' | 'full' | 'auto'
 
 @safeCustomElement('lukso-modal')
-export class LuksoModal extends withTheme(TailwindElement) {
+export class LuksoModal extends withTheme(TailwindStyledElement(style)) {
   @property({ type: Boolean, attribute: 'is-open' })
   isOpen = false
 
@@ -25,10 +26,9 @@ export class LuksoModal extends withTheme(TailwindElement) {
   private styles = tv({
     slots: {
       wrapper:
-        'opacity-0 fixed z-[1011] transition-opacity inset-0 w-screen h-screen overflow-y-auto overscroll-none scrolling-touch touch-pan-y',
+        'opacity-0 fixed z-[1011] transition-opacity inset-0 w-screen h-screen overflow-y-auto overscroll-none scrolling-touch touch-pan-y isolate',
       inner: 'min-h-screen flex items-center justify-center px-6 pt-6 w-full',
-      overlay:
-        'bg-[rgba(196,202,206,0.6)] backdrop-blur-sm fixed inset-0 w-[100vw] h-[100vh] z-[1010] dark:bg-[rgba(196,202,206,0.1)]',
+      overlay: 'absolute inset-0 w-full h-full z-[1010]',
       dialog:
         'bg-neutral-98 rounded-12 shadow-neutral-shadow-round-3xl z-[1012] mx-auto dark:bg-neutral-10',
     },

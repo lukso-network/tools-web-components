@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.174.0](https://github.com/lukso-network/tools-web-components/compare/v1.173.3...v1.174.0) (2026-01-15)
+
+
+### Features
+
+* Update parachute icon ([#794](https://github.com/lukso-network/tools-web-components/issues/794)) ([77e59c7](https://github.com/lukso-network/tools-web-components/commit/77e59c79dc6a3eaa83c61bc27952c1da931a6e24))
+
 ## [1.173.3](https://github.com/lukso-network/tools-web-components/compare/v1.173.2...v1.173.3) (2026-01-14)
 
 

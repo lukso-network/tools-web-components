@@ -276,14 +276,16 @@ jobs:
 
       - name: 📃 Output info
         if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
-        run: echo "${{ steps.discord-mentions.outputs.result }} https://github.com/lukso-network/tools-web-components/pull/${{ github.event.number }} - ${{ github.event.pull_request.title }}"
+        run: echo "${{ steps.discord-mentions.outputs.result }} https://github.com/lukso-network/tools-web-components/pull/${{ github.event.number }} - ${{ github.event.pull_request.title }} by **${{ github.event.pull_request.user.login }}**"
 
       - name: 🧑🏼‍💻 Run Discord Webhook Action
         if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
         uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          content: '${{ steps.discord-mentions.outputs.result }} https://github.com/lukso-network/tools-web-components/pull/${{ github.event.number }} - ${{ github.event.pull_request.title }}'
+          username: 'Tools Web Components'
+          avatar-url: 'https://avatars.githubusercontent.com/u/1905708'
+          content: '${{ steps.discord-mentions.outputs.result }} https://github.com/lukso-network/tools-web-components/pull/${{ github.event.number }} - ${{ github.event.pull_request.title }} by **${{ github.event.pull_request.user.login }}**'
 
       - name: ✨ Add 'review-requested' Label
         if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}

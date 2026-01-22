@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.175.0](https://github.com/lukso-network/tools-web-components/compare/v1.174.0...v1.175.0) (2026-01-22)
+
+
+### Features
+
+* add decimals to SearchResult ([#796](https://github.com/lukso-network/tools-web-components/issues/796)) ([02b8eca](https://github.com/lukso-network/tools-web-components/commit/02b8eca619a711827693373e8748535f3f37e645))
+
+
+### Bug Fixes
+
+* Add missing border to tags ([#798](https://github.com/lukso-network/tools-web-components/issues/798)) ([d2e4cec](https://github.com/lukso-network/tools-web-components/commit/d2e4cecc01c8cd287b3d70a03ccfbeb7a67552ed))
+
 ## [1.174.0](https://github.com/lukso-network/tools-web-components/compare/v1.173.3...v1.174.0) (2026-01-15)
 
 

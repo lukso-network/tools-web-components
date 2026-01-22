@@ -265,7 +265,6 @@ jobs:
             const mentions = [
               { githubUser: 'dzbo', discordId: '752572450834743316' },
               { githubUser: 'richtera', discordId: '457668914198085643' },
-              { githubUser: 'doubleppereira', discordId: '366621324069830669' },
               { githubUser: 'JeneaVranceanu', discordId: '785496710150357023' },
               { githubUser: 'federico-freddi', discordId: '205844357042012160' }
             ];

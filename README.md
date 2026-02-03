@@ -8,12 +8,39 @@ Web Components library address issue of sharing same visual elements and basic s
 
 Please check the storybook [preview page](https://tools-web-components.pages.dev/) for full component list and basic styling.
 
+## Prerequisites
+
+This project uses [mise](https://mise.jdx.dev/) for managing tool versions (Node.js, pnpm).
+
+### Install mise
+
+```bash
+# macOS
+brew install mise
+
+# Or see https://mise.jdx.dev/getting-started.html for other installation methods
+```
+
+Then activate mise in your shell (add to `~/.zshrc` or `~/.bashrc`):
+
+```bash
+eval "$(mise activate zsh)"  # or bash
+```
+
+### Install project tools
+
+```bash
+mise install
+```
+
+This will install the correct versions of Node.js and pnpm as specified in `.mise.toml`.
+
 ## Installation
 
 In order to use library you need to install this as npm package
 
 ```sh
-yarn add @lukso/web-components
+pnpm add @lukso/web-components
 ```
 
 ## Using the library
@@ -187,14 +214,14 @@ Those icon take more modern approach. All it is needed that the svg files have t
 Start the watch mode and Storybook preview
 
 ```sh
-yarn dev
+pnpm dev
 ```
 
 check for the issues after code changes
 
 ```sh
-yarn lint
-yarn test
+pnpm lint
+pnpm test
 ```
 
 ### Initial Setup
@@ -203,13 +230,13 @@ When cloning the repository for the first time, you'll need to run the build pro
 
 ```sh
 # Install dependencies
-yarn install
+pnpm install
 
 # Build the project (generates package/package.json)
-yarn build
+pnpm build
 
 # Install dependencies again to register the workspace
-yarn install
+pnpm install
 ```
 
 > Note: The `package/package.json` file is generated dynamically during the build process and is not tracked in git. This prevents version conflicts in pull requests.
@@ -285,11 +312,11 @@ For production applications, we recommend using a bundler (Vite, Webpack, Rollup
 For local development it's handy to link component library with the project you currently develop. This way you can work with components like in normal app. To make it work you need to first link the library:
 
 ```sh
-yarn link -p ../tools-web-components
+pnpm link ../tools-web-components
 ```
 
-The only caveat with linking is that this will add resolution entry into `package.json` and package.lock` which shouldn't be committed. Make sure to revert this changes or run unlink command
+The only caveat with linking is that this will add resolution entry into `package.json` and `pnpm-lock.yaml` which shouldn't be committed. Make sure to revert these changes or run unlink command
 
 ```sh
-yarn unlink ../tools-web-components
+pnpm unlink ../tools-web-components
 ```

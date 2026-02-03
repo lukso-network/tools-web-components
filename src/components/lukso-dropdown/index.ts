@@ -7,6 +7,7 @@ import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
+import { cn } from '@/shared/tools'
 import { debounceFunction } from '@/shared/tools/debounceFunction'
 import { uniqId } from '@/shared/tools/uniq-id'
 import style from './style.css?inline'
@@ -50,6 +51,9 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   @property({ type: Number, attribute: 'max-height', reflect: true })
   maxHeight = undefined
+
+  @property({ type: String, attribute: 'custom-class' })
+  customClass = ''
 
   private boundHandleClick?: (event: Event) => void
 
@@ -252,7 +256,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
     return html`<div id=${this.id} class=${wrapper()}>
       <div
-        class=${dropdown()}
+        class=${cn(dropdown(), this.customClass)}
         style=${this.maxHeight ? `max-height: ${this.maxHeight}px;` : nothing}
       >
         <slot></slot>

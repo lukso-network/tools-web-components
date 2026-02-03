@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.176.0](https://github.com/lukso-network/tools-web-components/compare/v1.175.0...v1.176.0) (2026-02-03)
+
+
+### Features
+
+* Add custom class attribute ([#804](https://github.com/lukso-network/tools-web-components/issues/804)) ([94bf67c](https://github.com/lukso-network/tools-web-components/commit/94bf67cfa1a99cbc5f380e4273b67042d0acadfd))
+
+
+### Bug Fixes
+
+* Upgrade @lukso/core and any pending minor/bugfix upgrades ([#801](https://github.com/lukso-network/tools-web-components/issues/801)) ([e8e7c47](https://github.com/lukso-network/tools-web-components/commit/e8e7c47c05b3c7342faa318cb70eef6a687b4463))
+
 ## [1.175.0](https://github.com/lukso-network/tools-web-components/compare/v1.174.0...v1.175.0) (2026-01-22)
 
 

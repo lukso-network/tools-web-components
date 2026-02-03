@@ -85,6 +85,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    customClass: {
+      name: 'custom-class',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     onChange: {
       name: 'on-change',
       description: 'Fires when dropdown is opened or closed.',
@@ -113,6 +120,9 @@ const meta: Meta = {
     'max-height': {
       name: 'maxHeight',
     },
+    'custom-class': {
+      name: 'customClass',
+    },
   },
   args: {
     size: 'large',
@@ -128,6 +138,7 @@ const meta: Meta = {
     marginTop: 0,
     marginBottom: 0,
     maxHeight: undefined,
+    customClass: '',
   },
   parameters: {
     controls: {
@@ -148,6 +159,7 @@ const meta: Meta = {
         'handleMouseLeave',
         'handleClick',
         'maxHeight',
+        'customClass',
       ],
     },
   },
@@ -170,6 +182,7 @@ const Template = ({
   isFullWidth,
   onChange,
   maxHeight,
+  customClass,
 }) => {
   return html`<div
     class="relative"
@@ -187,6 +200,7 @@ const Template = ({
       ?is-full-width=${isFullWidth}
       size=${size ? size : nothing}
       max-height=${maxHeight ? maxHeight : nothing}
+      custom-class=${customClass ? customClass : nothing}
       @on-change=${onChange}
     >
       <lukso-dropdown-option size=${size ? size : nothing}
@@ -272,4 +286,12 @@ HoverTrigger.args = {
   marginBottom: 170,
   triggerId: 'dropdown-7',
   trigger: 'hover',
+}
+
+/** You can pass any custom CSS class using `custom-class` property. */
+export const CustomClass = Template.bind({})
+CustomClass.args = {
+  marginBottom: 170,
+  triggerId: 'dropdown-8',
+  customClass: 'border-purple-51',
 }

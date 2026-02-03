@@ -220,6 +220,7 @@ module.exports = {
 		{
 			pattern: /^prose(-[a-z0-9]+)?$/,
 		},
+		'max-w-none',
 	],
 	plugins: [
 		animationDelayPlugin,

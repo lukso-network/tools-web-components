@@ -45,7 +45,7 @@ pnpm add @lukso/web-components
 
 ## Using the library
 
-Library is focused around projects build on top of [Tailwind CSS](https://tailwindcss.com/) framework. It ships with bunch of components, presets for styles, typography and colors.
+Library is focused around projects build on top of [Tailwind CSS](https://tailwindcss.com/) framework. It ships with bunch of components, presets for styles, typography and colors. Library support both Tailwind v3 and v4 projects, more about integration below. Components are build on top of Tailwind v4.
 
 #### Components
 
@@ -152,7 +152,7 @@ Once configured, you'll get full TypeScript support:
 
 > Note: The type definitions automatically convert camelCase properties to kebab-case attributes as expected by React.
 
-### Styles (Tailwind CSS projects)
+### Styles (Tailwind CSS v3 projects)
 
 ##### 1. Add this preset in the config file
 
@@ -185,6 +185,40 @@ copyAssets('./src', assets)
 ```
 
 > Place this at the top of your build file ie. `vite.config.ts`
+
+### Styles (Tailwind CSS v4 projects)
+
+Tailwind CSS v4 uses a new CSS-first configuration approach. Here's how to integrate the library:
+
+##### 1. Import the library styles in your main CSS file
+
+```css
+/* main.css */
+@import '@lukso/web-components/tools/styles/main.css';
+```
+
+##### 2. Copy assets to your project
+
+Same as Tailwind v3, you need to copy fonts and other assets:
+
+```ts
+import { copyAssets } from '@lukso/web-components/tools/copy-assets'
+import assets from '@lukso/web-components/tools/assets'
+
+copyAssets('./src', assets)
+```
+
+> Place this at the top of your build file ie. `vite.config.ts`
+
+##### 4. Configure font path (optional)
+
+If your fonts are served from a different path, you can override the font path CSS variable:
+
+```css
+:root {
+  --font-file-path: '/assets/fonts';
+}
+```
 
 ### Styles (non Tailwind CSS projects)
 

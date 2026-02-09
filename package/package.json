@@ -1,6 +1,6 @@
 {
 	"name": "@lukso/web-components",
-	"version": "1.173.3",
+	"version": "1.175.0",
 	"type": "module",
 	"files": [
 		"dist",
@@ -18,7 +18,9 @@
 		"./dist/index.js",
 		"./dist/index.cjs",
 		"./dist/components/**/index.js",
-		"./dist/components/**/index.cjs"
+		"./dist/components/**/index.cjs",
+		"./components/**/index.js",
+		"./components/**/index.cjs"
 	],
 	"exports": {
 		".": {
@@ -82,7 +84,17 @@
 			"import": "./dist/components/index.js",
 			"types": "./dist/components/index.d.ts"
 		},
+		"./components": {
+			"require": "./dist/components/index.cjs",
+			"import": "./dist/components/index.js",
+			"types": "./dist/components/index.d.ts"
+		},
 		"./dist/components/lukso-alert": {
+			"require": "./dist/components/lukso-alert/index.cjs",
+			"import": "./dist/components/lukso-alert/index.js",
+			"types": "./dist/components/lukso-alert/index.d.ts"
+		},
+		"./components/lukso-alert": {
 			"require": "./dist/components/lukso-alert/index.cjs",
 			"import": "./dist/components/lukso-alert/index.js",
 			"types": "./dist/components/lukso-alert/index.d.ts"
@@ -92,7 +104,17 @@
 			"import": "./dist/components/lukso-button/index.js",
 			"types": "./dist/components/lukso-button/index.d.ts"
 		},
+		"./components/lukso-button": {
+			"require": "./dist/components/lukso-button/index.cjs",
+			"import": "./dist/components/lukso-button/index.js",
+			"types": "./dist/components/lukso-button/index.d.ts"
+		},
 		"./dist/components/lukso-card": {
+			"require": "./dist/components/lukso-card/index.cjs",
+			"import": "./dist/components/lukso-card/index.js",
+			"types": "./dist/components/lukso-card/index.d.ts"
+		},
+		"./components/lukso-card": {
 			"require": "./dist/components/lukso-card/index.cjs",
 			"import": "./dist/components/lukso-card/index.js",
 			"types": "./dist/components/lukso-card/index.d.ts"
@@ -102,7 +124,17 @@
 			"import": "./dist/components/lukso-checkbox/index.js",
 			"types": "./dist/components/lukso-checkbox/index.d.ts"
 		},
+		"./components/lukso-checkbox": {
+			"require": "./dist/components/lukso-checkbox/index.cjs",
+			"import": "./dist/components/lukso-checkbox/index.js",
+			"types": "./dist/components/lukso-checkbox/index.d.ts"
+		},
 		"./dist/components/lukso-collapse": {
+			"require": "./dist/components/lukso-collapse/index.cjs",
+			"import": "./dist/components/lukso-collapse/index.js",
+			"types": "./dist/components/lukso-collapse/index.d.ts"
+		},
+		"./components/lukso-collapse": {
 			"require": "./dist/components/lukso-collapse/index.cjs",
 			"import": "./dist/components/lukso-collapse/index.js",
 			"types": "./dist/components/lukso-collapse/index.d.ts"
@@ -112,7 +144,17 @@
 			"import": "./dist/components/lukso-color-picker/index.js",
 			"types": "./dist/components/lukso-color-picker/index.d.ts"
 		},
+		"./components/lukso-color-picker": {
+			"require": "./dist/components/lukso-color-picker/index.cjs",
+			"import": "./dist/components/lukso-color-picker/index.js",
+			"types": "./dist/components/lukso-color-picker/index.d.ts"
+		},
 		"./dist/components/lukso-dropdown": {
+			"require": "./dist/components/lukso-dropdown/index.cjs",
+			"import": "./dist/components/lukso-dropdown/index.js",
+			"types": "./dist/components/lukso-dropdown/index.d.ts"
+		},
+		"./components/lukso-dropdown": {
 			"require": "./dist/components/lukso-dropdown/index.cjs",
 			"import": "./dist/components/lukso-dropdown/index.js",
 			"types": "./dist/components/lukso-dropdown/index.d.ts"
@@ -122,7 +164,17 @@
 			"import": "./dist/components/lukso-dropdown-option/index.js",
 			"types": "./dist/components/lukso-dropdown-option/index.d.ts"
 		},
+		"./components/lukso-dropdown-option": {
+			"require": "./dist/components/lukso-dropdown-option/index.cjs",
+			"import": "./dist/components/lukso-dropdown-option/index.js",
+			"types": "./dist/components/lukso-dropdown-option/index.d.ts"
+		},
 		"./dist/components/lukso-footer": {
+			"require": "./dist/components/lukso-footer/index.cjs",
+			"import": "./dist/components/lukso-footer/index.js",
+			"types": "./dist/components/lukso-footer/index.d.ts"
+		},
+		"./components/lukso-footer": {
 			"require": "./dist/components/lukso-footer/index.cjs",
 			"import": "./dist/components/lukso-footer/index.js",
 			"types": "./dist/components/lukso-footer/index.d.ts"
@@ -132,7 +184,17 @@
 			"import": "./dist/components/lukso-form-description/index.js",
 			"types": "./dist/components/lukso-form-description/index.d.ts"
 		},
+		"./components/lukso-form-description": {
+			"require": "./dist/components/lukso-form-description/index.cjs",
+			"import": "./dist/components/lukso-form-description/index.js",
+			"types": "./dist/components/lukso-form-description/index.d.ts"
+		},
 		"./dist/components/lukso-form-error": {
+			"require": "./dist/components/lukso-form-error/index.cjs",
+			"import": "./dist/components/lukso-form-error/index.js",
+			"types": "./dist/components/lukso-form-error/index.d.ts"
+		},
+		"./components/lukso-form-error": {
 			"require": "./dist/components/lukso-form-error/index.cjs",
 			"import": "./dist/components/lukso-form-error/index.js",
 			"types": "./dist/components/lukso-form-error/index.d.ts"
@@ -142,7 +204,17 @@
 			"import": "./dist/components/lukso-form-label/index.js",
 			"types": "./dist/components/lukso-form-label/index.d.ts"
 		},
+		"./components/lukso-form-label": {
+			"require": "./dist/components/lukso-form-label/index.cjs",
+			"import": "./dist/components/lukso-form-label/index.js",
+			"types": "./dist/components/lukso-form-label/index.d.ts"
+		},
 		"./dist/components/lukso-icon": {
+			"require": "./dist/components/lukso-icon/index.cjs",
+			"import": "./dist/components/lukso-icon/index.js",
+			"types": "./dist/components/lukso-icon/index.d.ts"
+		},
+		"./components/lukso-icon": {
 			"require": "./dist/components/lukso-icon/index.cjs",
 			"import": "./dist/components/lukso-icon/index.js",
 			"types": "./dist/components/lukso-icon/index.d.ts"
@@ -152,7 +224,17 @@
 			"import": "./dist/components/lukso-image/index.js",
 			"types": "./dist/components/lukso-image/index.d.ts"
 		},
+		"./components/lukso-image": {
+			"require": "./dist/components/lukso-image/index.cjs",
+			"import": "./dist/components/lukso-image/index.js",
+			"types": "./dist/components/lukso-image/index.d.ts"
+		},
 		"./dist/components/lukso-input": {
+			"require": "./dist/components/lukso-input/index.cjs",
+			"import": "./dist/components/lukso-input/index.js",
+			"types": "./dist/components/lukso-input/index.d.ts"
+		},
+		"./components/lukso-input": {
 			"require": "./dist/components/lukso-input/index.cjs",
 			"import": "./dist/components/lukso-input/index.js",
 			"types": "./dist/components/lukso-input/index.d.ts"
@@ -162,7 +244,17 @@
 			"import": "./dist/components/lukso-markdown/index.js",
 			"types": "./dist/components/lukso-markdown/index.d.ts"
 		},
+		"./components/lukso-markdown": {
+			"require": "./dist/components/lukso-markdown/index.cjs",
+			"import": "./dist/components/lukso-markdown/index.js",
+			"types": "./dist/components/lukso-markdown/index.d.ts"
+		},
 		"./dist/components/lukso-markdown-editor": {
+			"require": "./dist/components/lukso-markdown-editor/index.cjs",
+			"import": "./dist/components/lukso-markdown-editor/index.js",
+			"types": "./dist/components/lukso-markdown-editor/index.d.ts"
+		},
+		"./components/lukso-markdown-editor": {
 			"require": "./dist/components/lukso-markdown-editor/index.cjs",
 			"import": "./dist/components/lukso-markdown-editor/index.js",
 			"types": "./dist/components/lukso-markdown-editor/index.d.ts"
@@ -172,7 +264,17 @@
 			"import": "./dist/components/lukso-modal/index.js",
 			"types": "./dist/components/lukso-modal/index.d.ts"
 		},
+		"./components/lukso-modal": {
+			"require": "./dist/components/lukso-modal/index.cjs",
+			"import": "./dist/components/lukso-modal/index.js",
+			"types": "./dist/components/lukso-modal/index.d.ts"
+		},
 		"./dist/components/lukso-navbar": {
+			"require": "./dist/components/lukso-navbar/index.cjs",
+			"import": "./dist/components/lukso-navbar/index.js",
+			"types": "./dist/components/lukso-navbar/index.d.ts"
+		},
+		"./components/lukso-navbar": {
 			"require": "./dist/components/lukso-navbar/index.cjs",
 			"import": "./dist/components/lukso-navbar/index.js",
 			"types": "./dist/components/lukso-navbar/index.d.ts"
@@ -182,7 +284,17 @@
 			"import": "./dist/components/lukso-pagination/index.js",
 			"types": "./dist/components/lukso-pagination/index.d.ts"
 		},
+		"./components/lukso-pagination": {
+			"require": "./dist/components/lukso-pagination/index.cjs",
+			"import": "./dist/components/lukso-pagination/index.js",
+			"types": "./dist/components/lukso-pagination/index.d.ts"
+		},
 		"./dist/components/lukso-profile": {
+			"require": "./dist/components/lukso-profile/index.cjs",
+			"import": "./dist/components/lukso-profile/index.js",
+			"types": "./dist/components/lukso-profile/index.d.ts"
+		},
+		"./components/lukso-profile": {
 			"require": "./dist/components/lukso-profile/index.cjs",
 			"import": "./dist/components/lukso-profile/index.js",
 			"types": "./dist/components/lukso-profile/index.d.ts"
@@ -192,7 +304,17 @@
 			"import": "./dist/components/lukso-progress/index.js",
 			"types": "./dist/components/lukso-progress/index.d.ts"
 		},
+		"./components/lukso-progress": {
+			"require": "./dist/components/lukso-progress/index.cjs",
+			"import": "./dist/components/lukso-progress/index.js",
+			"types": "./dist/components/lukso-progress/index.d.ts"
+		},
 		"./dist/components/lukso-qr-code": {
+			"require": "./dist/components/lukso-qr-code/index.cjs",
+			"import": "./dist/components/lukso-qr-code/index.js",
+			"types": "./dist/components/lukso-qr-code/index.d.ts"
+		},
+		"./components/lukso-qr-code": {
 			"require": "./dist/components/lukso-qr-code/index.cjs",
 			"import": "./dist/components/lukso-qr-code/index.js",
 			"types": "./dist/components/lukso-qr-code/index.d.ts"
@@ -202,7 +324,17 @@
 			"import": "./dist/components/lukso-radio/index.js",
 			"types": "./dist/components/lukso-radio/index.d.ts"
 		},
+		"./components/lukso-radio": {
+			"require": "./dist/components/lukso-radio/index.cjs",
+			"import": "./dist/components/lukso-radio/index.js",
+			"types": "./dist/components/lukso-radio/index.d.ts"
+		},
 		"./dist/components/lukso-radio-group": {
+			"require": "./dist/components/lukso-radio-group/index.cjs",
+			"import": "./dist/components/lukso-radio-group/index.js",
+			"types": "./dist/components/lukso-radio-group/index.d.ts"
+		},
+		"./components/lukso-radio-group": {
 			"require": "./dist/components/lukso-radio-group/index.cjs",
 			"import": "./dist/components/lukso-radio-group/index.js",
 			"types": "./dist/components/lukso-radio-group/index.d.ts"
@@ -212,7 +344,17 @@
 			"import": "./dist/components/lukso-sanitize/index.js",
 			"types": "./dist/components/lukso-sanitize/index.d.ts"
 		},
+		"./components/lukso-sanitize": {
+			"require": "./dist/components/lukso-sanitize/index.cjs",
+			"import": "./dist/components/lukso-sanitize/index.js",
+			"types": "./dist/components/lukso-sanitize/index.d.ts"
+		},
 		"./dist/components/lukso-search": {
+			"require": "./dist/components/lukso-search/index.cjs",
+			"import": "./dist/components/lukso-search/index.js",
+			"types": "./dist/components/lukso-search/index.d.ts"
+		},
+		"./components/lukso-search": {
 			"require": "./dist/components/lukso-search/index.cjs",
 			"import": "./dist/components/lukso-search/index.js",
 			"types": "./dist/components/lukso-search/index.d.ts"
@@ -222,7 +364,17 @@
 			"import": "./dist/components/lukso-select/index.js",
 			"types": "./dist/components/lukso-select/index.d.ts"
 		},
+		"./components/lukso-select": {
+			"require": "./dist/components/lukso-select/index.cjs",
+			"import": "./dist/components/lukso-select/index.js",
+			"types": "./dist/components/lukso-select/index.d.ts"
+		},
 		"./dist/components/lukso-share": {
+			"require": "./dist/components/lukso-share/index.cjs",
+			"import": "./dist/components/lukso-share/index.js",
+			"types": "./dist/components/lukso-share/index.d.ts"
+		},
+		"./components/lukso-share": {
 			"require": "./dist/components/lukso-share/index.cjs",
 			"import": "./dist/components/lukso-share/index.js",
 			"types": "./dist/components/lukso-share/index.d.ts"
@@ -232,7 +384,17 @@
 			"import": "./dist/components/lukso-switch/index.js",
 			"types": "./dist/components/lukso-switch/index.d.ts"
 		},
+		"./components/lukso-switch": {
+			"require": "./dist/components/lukso-switch/index.cjs",
+			"import": "./dist/components/lukso-switch/index.js",
+			"types": "./dist/components/lukso-switch/index.d.ts"
+		},
 		"./dist/components/lukso-tag": {
+			"require": "./dist/components/lukso-tag/index.cjs",
+			"import": "./dist/components/lukso-tag/index.js",
+			"types": "./dist/components/lukso-tag/index.d.ts"
+		},
+		"./components/lukso-tag": {
 			"require": "./dist/components/lukso-tag/index.cjs",
 			"import": "./dist/components/lukso-tag/index.js",
 			"types": "./dist/components/lukso-tag/index.d.ts"
@@ -242,7 +404,17 @@
 			"import": "./dist/components/lukso-terms/index.js",
 			"types": "./dist/components/lukso-terms/index.d.ts"
 		},
+		"./components/lukso-terms": {
+			"require": "./dist/components/lukso-terms/index.cjs",
+			"import": "./dist/components/lukso-terms/index.js",
+			"types": "./dist/components/lukso-terms/index.d.ts"
+		},
 		"./dist/components/lukso-textarea": {
+			"require": "./dist/components/lukso-textarea/index.cjs",
+			"import": "./dist/components/lukso-textarea/index.js",
+			"types": "./dist/components/lukso-textarea/index.d.ts"
+		},
+		"./components/lukso-textarea": {
 			"require": "./dist/components/lukso-textarea/index.cjs",
 			"import": "./dist/components/lukso-textarea/index.js",
 			"types": "./dist/components/lukso-textarea/index.d.ts"
@@ -252,7 +424,17 @@
 			"import": "./dist/components/lukso-tooltip/index.js",
 			"types": "./dist/components/lukso-tooltip/index.d.ts"
 		},
+		"./components/lukso-tooltip": {
+			"require": "./dist/components/lukso-tooltip/index.cjs",
+			"import": "./dist/components/lukso-tooltip/index.js",
+			"types": "./dist/components/lukso-tooltip/index.d.ts"
+		},
 		"./dist/components/lukso-username": {
+			"require": "./dist/components/lukso-username/index.cjs",
+			"import": "./dist/components/lukso-username/index.js",
+			"types": "./dist/components/lukso-username/index.d.ts"
+		},
+		"./components/lukso-username": {
 			"require": "./dist/components/lukso-username/index.cjs",
 			"import": "./dist/components/lukso-username/index.js",
 			"types": "./dist/components/lukso-username/index.d.ts"
@@ -261,10 +443,15 @@
 			"require": "./dist/components/lukso-wizard/index.cjs",
 			"import": "./dist/components/lukso-wizard/index.js",
 			"types": "./dist/components/lukso-wizard/index.d.ts"
+		},
+		"./components/lukso-wizard": {
+			"require": "./dist/components/lukso-wizard/index.cjs",
+			"import": "./dist/components/lukso-wizard/index.js",
+			"types": "./dist/components/lukso-wizard/index.d.ts"
 		}
 	},
 	"dependencies": {
-		"@lukso/core": "^1.2.9",
+		"@lukso/core": "^1.2.11",
 		"@tailwindcss/typography": "^0.5.19",
 		"axe-core": "4.11.1",
 		"clsx": "^2.1.1",
@@ -275,7 +462,7 @@
 		"tailwind-variants": "^3.2.2",
 		"tailwindcss": "^4.1.18",
 		"tippy.js": "^6.3.7",
-		"viem": "^2.43.5",
+		"viem": "^2.45.0",
 		"web3-utils": "^4.3.3"
 	},
 	"repository": {

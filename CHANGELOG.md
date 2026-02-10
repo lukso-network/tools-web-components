@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.177.0](https://github.com/lukso-network/tools-web-components/compare/v1.176.0...v1.177.0) (2026-02-10)
+
+
+### Features
+
+* Add Tailwind v4 readme ([#805](https://github.com/lukso-network/tools-web-components/issues/805)) ([5239d69](https://github.com/lukso-network/tools-web-components/commit/5239d69faf251729e5f543662ccef4de6225741d))
+
+
+### Bug Fixes
+
+* Add treeshake proof export ([#807](https://github.com/lukso-network/tools-web-components/issues/807)) ([e50fc59](https://github.com/lukso-network/tools-web-components/commit/e50fc59ed3b0d641a4c17a3dee2c9763b98f7689))
+
 ## [1.176.0](https://github.com/lukso-network/tools-web-components/compare/v1.175.0...v1.176.0) (2026-02-03)
 
 

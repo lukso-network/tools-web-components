@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.177.1](https://github.com/lukso-network/tools-web-components/compare/v1.177.0...v1.177.1) (2026-02-10)
+
+
+### Bug Fixes
+
+* Fix treeshake problem in a different way ([#808](https://github.com/lukso-network/tools-web-components/issues/808)) ([3bca5bc](https://github.com/lukso-network/tools-web-components/commit/3bca5bc5f54bb7c559adabd6a8ded381d9f24b6d))
+
 ## [1.177.0](https://github.com/lukso-network/tools-web-components/compare/v1.176.0...v1.177.0) (2026-02-10)
 
 

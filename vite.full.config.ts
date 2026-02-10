@@ -176,11 +176,16 @@ async function writePackage() {
     './package.json': './package.json',
   }
   for (const { fileName, requires, imports, types } of list) {
-    exp[`./dist/${fileName.replace(/\/index$/, '')}`] = {
+    const distPath = `./dist/${fileName.replace(/\/index$/, '')}`
+    const entry = {
       require: requires,
       import: imports,
       types,
     }
+    exp[distPath] = entry
+    // Add shorthand alias without dist/ prefix (e.g. ./components/lukso-button)
+    const shortPath = distPath.replace(/^\.\/dist\//, './')
+    exp[shortPath] = entry
   }
 
   // Read the root package.json
@@ -209,6 +214,8 @@ async function writePackage() {
       './dist/index.cjs',
       './dist/components/**/index.js',
       './dist/components/**/index.cjs',
+      './components/**/index.js',
+      './components/**/index.cjs',
     ],
     exports: exp,
     dependencies: fullPack.dependencies || {},

@@ -314,9 +314,12 @@ export async function run(argv) {
             /^viem/,
             /^web3-utils/,
             /^axe-core/,
+            /^tinycolor2/,
+            /^dompurify/,
           ],
           output: {
-            chunkFileNames: 'chunks/[name]-[hash].js',
+            preserveModules: true,
+            preserveModulesRoot: 'src',
           },
         },
       },

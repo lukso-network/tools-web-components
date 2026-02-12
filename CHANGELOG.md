@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.178.0](https://github.com/lukso-network/tools-web-components/compare/v1.177.1...v1.178.0) (2026-02-12)
+
+
+### Features
+
+* Add icons for theme switch ([#810](https://github.com/lukso-network/tools-web-components/issues/810)) ([3d3d59c](https://github.com/lukso-network/tools-web-components/commit/3d3d59c73885ce19b5d7c50c01898134bf06cbd9))
+
 ## [1.177.1](https://github.com/lukso-network/tools-web-components/compare/v1.177.0...v1.177.1) (2026-02-10)
 
 

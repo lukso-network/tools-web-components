@@ -124,7 +124,7 @@ const cssVarStyle = (args: Record<string, unknown>) => {
     .filter(([, v]) => v)
     .map(([k, v]) => `${k}: ${v}`)
     .join('; ')
-  return props || nothing
+  return props ? props : nothing
 }
 
 const Template: StoryFn = args => {

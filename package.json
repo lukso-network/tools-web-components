@@ -16,6 +16,7 @@
 		"lint:css:fix": "stylelint \"**/*.{scss,css}\" --fix",
 		"lint:fmt:fix": "prettier --write .",
 		"lint:types": "tsc --noEmit --project tsconfig.json",
+    "lint:fix": "npm-run-all --aggregate-output --continue-on-error --parallel \"lint:*:fix\"",
 		"analyze": "cem analyze --litelement --outdir ./package --globs 'src/**/index.ts' --exclude 'src/**/*.stories.ts'",
 		"analyze:watch": "cem analyze --litelement --outdir ./package --globs 'src/**/index.ts' --exclude 'src/**/*.stories.ts' --watch",
 		"storybook": "storybook dev -p 6006",

@@ -1,7 +1,7 @@
 import { html, nothing } from 'lit-html'
 import { useArgs } from 'storybook/preview-api'
 
-import type { Meta } from '@storybook/web-components-vite'
+import type { Meta, StoryFn } from '@storybook/web-components-vite'
 
 import './index'
 import '../lukso-button'
@@ -63,6 +63,33 @@ const meta: Meta = {
     'has-bottom-padding': {
       name: 'hasBottomPadding',
     },
+    '--lukso-modal-border-radius': {
+      name: '--lukso-modal-border-radius',
+      control: { type: 'text' },
+      description: 'Border radius of the dialog panel.',
+      table: {
+        category: 'Style',
+        defaultValue: { summary: '12px' },
+      },
+    },
+    '--lukso-modal-bg': {
+      name: '--lukso-modal-bg',
+      control: { type: 'color' },
+      description: 'Background color of the dialog panel (light mode).',
+      table: {
+        category: 'Style',
+        defaultValue: { summary: '#f8fafb' },
+      },
+    },
+    '--lukso-modal-dark-bg': {
+      name: '--lukso-modal-dark-bg',
+      control: { type: 'color' },
+      description: 'Background color of the dialog panel (dark mode).',
+      table: {
+        category: 'Style',
+        defaultValue: { summary: '#121b21' },
+      },
+    },
   },
   args: {
     isOpen: false,
@@ -88,7 +115,19 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ size, disableAnimations, hasBottomPadding, theme }) => {
+const cssVarStyle = (args: Record<string, unknown>) => {
+  const props = [
+    ['--lukso-modal-border-radius', args['--lukso-modal-border-radius']],
+    ['--lukso-modal-bg', args['--lukso-modal-bg']],
+    ['--lukso-modal-dark-bg', args['--lukso-modal-dark-bg']],
+  ]
+    .filter(([, v]) => v)
+    .map(([k, v]) => `${k}: ${v}`)
+    .join('; ')
+  return props || nothing
+}
+
+const Template: StoryFn = args => {
   const [{ isOpen }, updateArgs] = useArgs()
 
   const handleClose = () => {
@@ -104,11 +143,12 @@ const Template = ({ size, disableAnimations, hasBottomPadding, theme }) => {
       >Show modal</lukso-button
     >
     <lukso-modal
-      size=${size ? size : nothing}
-      .theme=${theme}
+      size=${args.size ? args.size : nothing}
+      .theme=${args.theme}
       ?is-open=${isOpen}
-      ?disable-animations=${disableAnimations}
-      ?has-bottom-padding=${hasBottomPadding}
+      ?disable-animations=${args.disableAnimations}
+      ?has-bottom-padding=${args.hasBottomPadding}
+      style=${cssVarStyle(args)}
     >
       <div class="p-6">
         <h1 class="heading-inter-26-semi-bold pb-4 dark:text-neutral-100">
@@ -122,7 +162,7 @@ const Template = ({ size, disableAnimations, hasBottomPadding, theme }) => {
         <p class="pt-6">
           <lukso-button
             variant="secondary"
-            .theme=${theme}
+            .theme=${args.theme}
             is-full-width
             @click=${handleClose}
             >Close</lukso-button
@@ -133,4 +173,11 @@ const Template = ({ size, disableAnimations, hasBottomPadding, theme }) => {
   </div>`
 }
 
-export const DefaultModal = Template.bind({})
+export const DefaultModal: StoryFn = Template.bind({})
+
+export const CustomStyled: StoryFn = Template.bind({})
+CustomStyled.args = {
+  '--lukso-modal-border-radius': '24px',
+  '--lukso-modal-bg': '#eef2ff',
+  '--lukso-modal-dark-bg': '#1e1b4b',
+}

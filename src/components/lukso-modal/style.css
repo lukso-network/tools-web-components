@@ -28,17 +28,15 @@
   pointer-events: auto !important;
 }
 
-/* Dialog panel custom properties */
-:host {
-  --lukso-modal-border-radius: 12px; /* rounded-12 */
-  --lukso-modal-bg: #f8fafb; /* neutral-98 */
-  --lukso-modal-dark-bg: #121b21; /* neutral-10 */
-}
-
+/* Dialog panel custom properties — defaults are inlined as var() fallbacks
+   so inherited values from parent elements are not blocked by :host. */
 :host(:not([theme='dark'])) {
-  --lukso-modal-resolved-bg: var(--lukso-modal-bg);
+  --lukso-modal-resolved-bg: var(--lukso-modal-bg, #f8fafb); /* neutral-98 */
 }
 
 :host([theme='dark']) {
-  --lukso-modal-resolved-bg: var(--lukso-modal-dark-bg);
+  --lukso-modal-resolved-bg: var(
+    --lukso-modal-dark-bg,
+    #121b21
+  ); /* neutral-10 */
 }

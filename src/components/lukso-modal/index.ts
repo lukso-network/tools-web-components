@@ -106,7 +106,7 @@ export class LuksoModal extends withTheme(TailwindStyledElement(style)) {
           <div class=${overlay()} @click=${this.handleBackdropClick}></div>
           <div
             class=${dialog()}
-            style="background: var(--lukso-modal-resolved-bg); border-radius: var(--lukso-modal-border-radius);"
+            style="background: var(--lukso-modal-resolved-bg); border-radius: var(--lukso-modal-border-radius, 12px);"
           >
             <slot></slot>
           </div>

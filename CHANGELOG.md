@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.180.1](https://github.com/lukso-network/tools-web-components/compare/v1.180.0...v1.180.1) (2026-02-26)
+
+
+### Bug Fixes
+
+* passing CSS variables to lukso-modal ([#817](https://github.com/lukso-network/tools-web-components/issues/817)) ([b6b4a1b](https://github.com/lukso-network/tools-web-components/commit/b6b4a1b6a86e122dbe21d6d8c87fd2458b8a7ffc))
+
 ## [1.180.0](https://github.com/lukso-network/tools-web-components/compare/v1.179.0...v1.180.0) (2026-02-26)
 
 

@@ -27,3 +27,18 @@
 :host([is-open]) > * {
   pointer-events: auto !important;
 }
+
+/* Dialog panel custom properties */
+:host {
+  --lukso-modal-border-radius: 12px; /* rounded-12 */
+  --lukso-modal-bg: #f8fafb; /* neutral-98 */
+  --lukso-modal-dark-bg: #121b21; /* neutral-10 */
+}
+
+:host(:not([theme='dark'])) {
+  --lukso-modal-resolved-bg: var(--lukso-modal-bg);
+}
+
+:host([theme='dark']) {
+  --lukso-modal-resolved-bg: var(--lukso-modal-dark-bg);
+}

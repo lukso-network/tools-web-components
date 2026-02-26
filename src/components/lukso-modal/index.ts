@@ -29,8 +29,7 @@ export class LuksoModal extends withTheme(TailwindStyledElement(style)) {
         'opacity-0 fixed z-[1011] transition-opacity inset-0 w-screen h-screen overflow-y-auto overscroll-none scrolling-touch touch-pan-y isolate',
       inner: 'min-h-screen flex items-center justify-center px-6 pt-6 w-full',
       overlay: 'absolute inset-0 w-full h-full z-[1010]',
-      dialog:
-        'bg-neutral-98 rounded-12 shadow-neutral-shadow-round-3xl z-[1012] mx-auto dark:bg-neutral-10',
+      dialog: 'shadow-neutral-shadow-round-3xl z-[1012] mx-auto',
     },
     variants: {
       isOpen: {
@@ -105,7 +104,10 @@ export class LuksoModal extends withTheme(TailwindStyledElement(style)) {
       <div data-testid="modal" class=${wrapper()}>
         <div class=${inner()}>
           <div class=${overlay()} @click=${this.handleBackdropClick}></div>
-          <div class=${dialog()}>
+          <div
+            class=${dialog()}
+            style="background: var(--lukso-modal-resolved-bg); border-radius: var(--lukso-modal-border-radius);"
+          >
             <slot></slot>
           </div>
         </div>

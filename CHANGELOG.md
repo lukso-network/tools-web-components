@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.180.0](https://github.com/lukso-network/tools-web-components/compare/v1.179.0...v1.180.0) (2026-02-26)
+
+
+### Features
+
+* lukso-modal component customization ([#815](https://github.com/lukso-network/tools-web-components/issues/815)) ([a833b6c](https://github.com/lukso-network/tools-web-components/commit/a833b6cffc76862f38cf1985df68f9c9592930ad))
+
 ## [1.179.0](https://github.com/lukso-network/tools-web-components/compare/v1.178.0...v1.179.0) (2026-02-16)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.181.0](https://github.com/lukso-network/tools-web-components/compare/v1.180.1...v1.181.0) (2026-02-27)
+
+
+### Features
+
+* customize icons via CSS variables ([#819](https://github.com/lukso-network/tools-web-components/issues/819)) ([feacddb](https://github.com/lukso-network/tools-web-components/commit/feacddbec926fc292e12f2b0fa72cdc2895436e3))
+
 ## [1.180.1](https://github.com/lukso-network/tools-web-components/compare/v1.180.0...v1.180.1) (2026-02-26)
 
 

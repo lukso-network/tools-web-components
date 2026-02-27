@@ -37,6 +37,6 @@
 :host([theme='dark']) {
   --lukso-modal-resolved-bg: var(
     --lukso-modal-dark-bg,
-    #121b21
+    var(--lukso-modal-bg, #121b21)
   ); /* neutral-10 */
 }

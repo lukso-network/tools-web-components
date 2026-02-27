@@ -778,6 +778,18 @@ export class LuksoIcon extends TailwindStyledElement(style) {
     }
   }
 
+  /**
+   * Wrap a color token so --lukso-icon-color (or --lukso-icon-secondary-color)
+   * takes precedence when set, falling back to the original token.
+   * Icon SVGs render: var(--<returned string>)
+   * Result: var(--lukso-icon-color, var(--neutral-20))
+   */
+  private wrapColor(token: string, cssVar: string): string {
+    // Returns a string that, when used as var(--<result>), produces
+    // var(--lukso-icon-color, var(--neutral-20))
+    return `${cssVar}, var(--${token})`
+  }
+
   render() {
     // Ensure default values are applied
     if (!this.color) {
@@ -793,6 +805,13 @@ export class LuksoIcon extends TailwindStyledElement(style) {
       console.warn(`Size ${this.size} not found`)
       return html``
     }
+
+    // Apply CSS variable overrides: --lukso-icon-color wraps the primary color,
+    // --lukso-icon-secondary-color wraps the secondary color.
+    const color = this.wrapColor(this.color, 'lukso-icon-color')
+    const secondaryColor = this.secondaryColor
+      ? this.wrapColor(this.secondaryColor, 'lukso-icon-secondary-color')
+      : undefined
 
     // Handle vuesax pack - use SVG files
     if (this.pack === 'vuesax') {
@@ -834,9 +853,9 @@ export class LuksoIcon extends TailwindStyledElement(style) {
         ${icon({
           width: size.width,
           height: size.height,
-          color: this.color,
+          color,
           strokeWidth: size.strokeWidth,
-          secondaryColor: this.secondaryColor,
+          secondaryColor,
         })}
       `
     }

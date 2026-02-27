@@ -224,7 +224,7 @@ export const IconName: StoryObj = {
     )
     expect(icon.shadowRoot.innerHTML)
       .toContain(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px;">
-    <g stroke-linecap="round" stroke-linejoin="round" stroke="var(--neutral-20)" stroke-width="1.5">
+    <g stroke-linecap="round" stroke-linejoin="round" stroke="var(--lukso-icon-color, var(--neutral-20))" stroke-width="1.5">
       <path d="m9.75 16.5h-3c-1.19347 0-2.33807-.4741-3.18198-1.318s-1.31802-1.9885-1.31802-3.182.47411-2.33807 1.31802-3.18198 1.98851-1.31802 3.18198-1.31802h3"></path>
       <path d="m14.25 7.5h3c1.1935 0 2.3381.47411 3.182 1.31802s1.318 1.98848 1.318 3.18198-.4741 2.3381-1.318 3.182-1.9885 1.318-3.182 1.318h-3"></path>
       <path d="m7.6543 12h8.7853"></path>
@@ -250,7 +250,7 @@ export const IconCustomColor: StoryObj = {
     )
     expect(icon.shadowRoot.innerHTML)
       .toContain(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px;">
-    <g stroke-linecap="round" stroke-linejoin="round" stroke="var(--coral-65)" stroke-width="1.5">
+    <g stroke-linecap="round" stroke-linejoin="round" stroke="var(--lukso-icon-color, var(--coral-65))" stroke-width="1.5">
       <path d="m9.75 16.5h-3c-1.19347 0-2.33807-.4741-3.18198-1.318s-1.31802-1.9885-1.31802-3.182.47411-2.33807 1.31802-3.18198 1.98851-1.31802 3.18198-1.31802h3"></path>
       <path d="m14.25 7.5h3c1.1935 0 2.3381.47411 3.182 1.31802s1.318 1.98848 1.318 3.18198-.4741 2.3381-1.318 3.182-1.9885 1.318-3.182 1.318h-3"></path>
       <path d="m7.6543 12h8.7853"></path>
@@ -276,7 +276,7 @@ export const IconLargeSize: StoryObj = {
     )
     expect(icon.shadowRoot.innerHTML)
       .toContain(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
-    <g stroke-linecap="round" stroke-linejoin="round" stroke="var(--neutral-20)" stroke-width="1.5">
+    <g stroke-linecap="round" stroke-linejoin="round" stroke="var(--lukso-icon-color, var(--neutral-20))" stroke-width="1.5">
       <path d="m9.75 16.5h-3c-1.19347 0-2.33807-.4741-3.18198-1.318s-1.31802-1.9885-1.31802-3.182.47411-2.33807 1.31802-3.18198 1.98851-1.31802 3.18198-1.31802h3"></path>
       <path d="m14.25 7.5h3c1.1935 0 2.3381.47411 3.182 1.31802s1.318 1.98848 1.318 3.18198-.4741 2.3381-1.318 3.182-1.9885 1.318-3.182 1.318h-3"></path>
       <path d="m7.6543 12h8.7853"></path>
@@ -389,5 +389,29 @@ export const VuesaxLargeIcon: StoryObj = {
 <path d="M8.00146 12H16.0015" stroke="var(--neutral-20)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>`
     )
+  },
+}
+
+/** Test story for CSS variable override on lukso pack icon */
+export const CSSVariableOverride: StoryObj = {
+  name: 'Test: CSS variable override',
+  render: () =>
+    html`<div style="--lukso-icon-color: red;">
+      <lukso-icon name="link"></lukso-icon>
+    </div>`,
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('lukso-icon')
+    // SVG should contain the wrapped CSS variable that allows override
+    expect(icon.shadowRoot.innerHTML).toContain(
+      'var(--lukso-icon-color, var(--neutral-20))'
+    )
+    // The icon's stroke should resolve to the override color
+    const svg = icon.shadowRoot.querySelector('svg')
+    const g = svg.querySelector('g')
+    const computedColor = getComputedStyle(g).stroke
+    expect(computedColor).toBe('rgb(255, 0, 0)')
   },
 }

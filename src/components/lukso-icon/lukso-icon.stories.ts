@@ -391,3 +391,27 @@ export const VuesaxLargeIcon: StoryObj = {
     )
   },
 }
+
+/** Test story for CSS variable override on lukso pack icon */
+export const CSSVariableOverride: StoryObj = {
+  name: 'Test: CSS variable override',
+  render: () =>
+    html`<div style="--lukso-icon-color: red;">
+      <lukso-icon name="link"></lukso-icon>
+    </div>`,
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('lukso-icon')
+    // SVG should contain the wrapped CSS variable that allows override
+    expect(icon.shadowRoot.innerHTML).toContain(
+      'var(--lukso-icon-color, var(--neutral-20))'
+    )
+    // The icon's stroke should resolve to the override color
+    const svg = icon.shadowRoot.querySelector('svg')
+    const g = svg.querySelector('g')
+    const computedColor = getComputedStyle(g).stroke
+    expect(computedColor).toBe('rgb(255, 0, 0)')
+  },
+}

@@ -23,12 +23,12 @@
  * | SoundCloud  | /<user>/<track> (2 segments)                           | soundcloud.com/artist/song                |
  */
 
-type PostPattern = RegExp | ((host: string, pathname: string) => boolean)
+type SocialMediaEntry = {
+  domains: string[]
+  postPattern?: RegExp | ((host: string, pathname: string) => boolean)
+}
 
-const SOCIAL_MEDIA: Record<
-  string,
-  { domains: string[]; postPattern?: PostPattern }
-> = {
+const SOCIAL_MEDIA = {
   facebook: {
     domains: ['facebook.com', 'messenger.com', 'fb.com', 'fb.me'],
     postPattern: /^\/(photo|video|watch|reel|share|.+\/posts\/|.+\/videos\/)/i,
@@ -70,7 +70,7 @@ const SOCIAL_MEDIA: Record<
   },
   youtube: {
     domains: ['youtube.com', 'youtu.be', 'youtube-nocookie.com'],
-    postPattern: (host, pathname) =>
+    postPattern: (host: string, pathname: string) =>
       host === 'youtu.be'
         ? /^\/[A-Za-z0-9_-]+/.test(pathname)
         : /^\/(watch|shorts\/|live\/|embed\/)/i.test(pathname),
@@ -91,7 +91,7 @@ const SOCIAL_MEDIA: Record<
     domains: ['tiktok.com'],
     postPattern: /^\/@[^/]+\/video\//i,
   },
-}
+} satisfies Record<string, SocialMediaEntry>
 
 /**
  * Detect social media from a given URL and classify as profile or post.
@@ -99,9 +99,11 @@ const SOCIAL_MEDIA: Record<
  * @param url - The URL to check
  * @returns Object with `platform` and `type` ('profile' | 'post'), or undefined
  */
+type SocialMediaPlatform = keyof typeof SOCIAL_MEDIA
+
 export const detectSocialMedia = (
   url?: string
-): { platform: string; type: 'profile' | 'post' } | undefined => {
+): { platform: SocialMediaPlatform; type: 'profile' | 'post' } | undefined => {
   if (!url) {
     return
   }
@@ -112,7 +114,7 @@ export const detectSocialMedia = (
 
     for (const [platform, { domains, postPattern }] of Object.entries(
       SOCIAL_MEDIA
-    )) {
+    ) as [SocialMediaPlatform, SocialMediaEntry][]) {
       const match = domains.some(
         domain => host === domain || host.endsWith(`.${domain}`)
       )

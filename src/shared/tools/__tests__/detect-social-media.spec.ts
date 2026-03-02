@@ -306,6 +306,10 @@ describe('detectSocialMedia', () => {
       expect(
         detectSocialMedia('https://youtube-nocookie.com/embed/dQw4w9WgXcQ')
       ).toEqual({ platform: 'youtube', type: 'post' })
+      expect(detectSocialMedia('https://youtu.be/dQw4w9WgXcQ')).toEqual({
+        platform: 'youtube',
+        type: 'post',
+      })
     })
   })
 
@@ -391,6 +395,51 @@ describe('detectSocialMedia', () => {
       expect(
         detectSocialMedia('https://www.tiktok.com/@lukso/video/1234567890')
       ).toEqual({ platform: 'tiktok', type: 'post' })
+    })
+  })
+
+  describe('mobile and subdomain variants', () => {
+    it('should detect m.facebook.com', () => {
+      expect(detectSocialMedia('https://m.facebook.com/lukso')).toEqual({
+        platform: 'facebook',
+        type: 'profile',
+      })
+      expect(
+        detectSocialMedia('https://m.facebook.com/lukso/posts/123')
+      ).toEqual({ platform: 'facebook', type: 'post' })
+    })
+
+    it('should detect mobile.twitter.com', () => {
+      expect(detectSocialMedia('https://mobile.twitter.com/lukso')).toEqual({
+        platform: 'x',
+        type: 'profile',
+      })
+    })
+
+    it('should detect vm.tiktok.com', () => {
+      expect(detectSocialMedia('https://vm.tiktok.com/ZMxxxxxx/')).toEqual({
+        platform: 'tiktok',
+        type: 'profile',
+      })
+    })
+  })
+
+  describe('URLs with query strings and fragments', () => {
+    it('should handle query parameters', () => {
+      expect(detectSocialMedia('https://instagram.com/lukso?ref=123')).toEqual({
+        platform: 'instagram',
+        type: 'profile',
+      })
+      expect(detectSocialMedia('https://youtube.com/watch?v=abc&t=10')).toEqual(
+        { platform: 'youtube', type: 'post' }
+      )
+    })
+
+    it('should handle fragments', () => {
+      expect(detectSocialMedia('https://instagram.com/lukso#section')).toEqual({
+        platform: 'instagram',
+        type: 'profile',
+      })
     })
   })
 

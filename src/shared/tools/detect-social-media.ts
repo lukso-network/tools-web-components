@@ -1,18 +1,17 @@
 /**
  * Social media detection with profile vs post classification.
  *
- * Each platform has two regexes:
- * - `post`: matches individual content URLs (posts, videos, articles, etc.)
- * - `profile`: matches profile/channel/root URLs
- *
- * The function checks `post` first (more specific), then `profile`.
+ * Each platform has a list of domains and an optional `postPattern` regex
+ * that matches the URL pathname for individual content (posts, videos, etc.).
+ * If the pathname matches `postPattern`, type is 'post'; otherwise 'profile'.
  *
  * Post patterns per platform:
  *
  * | Platform    | Post patterns                                          | Example post URL                          |
  * |-------------|--------------------------------------------------------|-------------------------------------------|
  * | Instagram   | /p/<id>, /reel/<id>, /stories/<user>/<id>               | instagram.com/p/ABC123                    |
- * | YouTube     | /watch, /shorts/<id>, /live/<id>                       | youtube.com/watch?v=xyz                   |
+ * | YouTube     | /watch, /shorts/<id>, /live/<id>, /embed/<id>,         | youtube.com/watch?v=xyz                   |
+ * |             | youtu.be/<videoId>                                     | youtu.be/dQw4w9WgXcQ                     |
  * | X/Twitter   | /<user>/status/<id>                                    | x.com/user/status/123                     |
  * | Facebook    | /photo, /video, /posts/<id>, /watch, /reel, /share     | facebook.com/user/posts/123               |
  * | TikTok      | /<user>/video/<id>                                     | tiktok.com/@user/video/123                |
@@ -24,74 +23,73 @@
  * | SoundCloud  | /<user>/<track> (2 segments)                           | soundcloud.com/artist/song                |
  */
 
-const SOCIAL_MEDIA: Record<string, { post: RegExp; profile: RegExp }> = {
+type PostPattern = RegExp | ((host: string, pathname: string) => boolean)
+
+const SOCIAL_MEDIA: Record<
+  string,
+  { domains: string[]; postPattern?: PostPattern }
+> = {
   facebook: {
-    post: /^https?:\/\/(www\.)?(facebook\.com|fb\.com|fb\.me)\/(photo|video|watch|reel|share|.+\/posts\/|.+\/videos\/)/i,
-    profile:
-      /^https?:\/\/(www\.)?(facebook\.com|messenger\.com|fb\.com|fb\.me)(\/|$)/i,
+    domains: ['facebook.com', 'messenger.com', 'fb.com', 'fb.me'],
+    postPattern: /^\/(photo|video|watch|reel|share|.+\/posts\/|.+\/videos\/)/i,
   },
   x: {
-    post: /^https?:\/\/(www\.)?(x\.com|twitter\.com)\/[^/]+\/status\//i,
-    profile: /^https?:\/\/(www\.)?(x\.com|twitter\.com|t\.co)(\/|$)/i,
+    domains: ['x.com', 'twitter.com', 't.co'],
+    postPattern: /^\/[^/]+\/status\//i,
   },
   instagram: {
-    post: /^https?:\/\/(www\.)?instagram\.com\/(p|reel|stories)\//i,
-    profile: /^https?:\/\/(www\.)?instagram\.com(\/|$)/i,
+    domains: ['instagram.com'],
+    postPattern: /^\/(p|reel|stories)\//i,
   },
   medium: {
-    post: /^https?:\/\/(www\.)?medium\.com\/.*-[0-9a-f]{12,}/i,
-    profile: /^https?:\/\/(www\.)?medium\.com(\/|$)/i,
+    domains: ['medium.com'],
+    postPattern: /\/.*-[0-9a-f]{12,}/i,
   },
   discord: {
-    post: /(?!)/,
-    profile:
-      /^https?:\/\/(www\.)?(discord\.com|discordapp\.com|discord\.gg)(\/|$)/i,
+    domains: ['discord.com', 'discordapp.com', 'discord.gg'],
   },
   snapchat: {
-    post: /(?!)/,
-    profile: /^https?:\/\/(www\.)?snapchat\.com(\/|$)/i,
+    domains: ['snapchat.com'],
   },
   whatsapp: {
-    post: /(?!)/,
-    profile: /^https?:\/\/(www\.)?(whatsapp\.com|wa\.me)(\/|$)/i,
+    domains: ['whatsapp.com', 'wa.me'],
   },
   telegram: {
-    post: /(?!)/,
-    profile:
-      /^https?:\/\/(www\.|web\.)?(telegram\.com|t\.me|telegram\.org)(\/|$)/i,
+    domains: ['telegram.com', 't.me', 'telegram.org'],
   },
   linkedin: {
-    post: /^https?:\/\/(www\.)?linkedin\.com\/(posts|pulse|feed\/update)\//i,
-    profile: /^https?:\/\/(www\.)?linkedin\.com(\/|$)/i,
+    domains: ['linkedin.com'],
+    postPattern: /^\/(posts|pulse|feed\/update)\//i,
   },
   github: {
-    post: /^https?:\/\/(www\.)?github\.com\/[^/]+\/[^/]+/i,
-    profile: /^https?:\/\/(www\.)?github\.com(\/|$)/i,
+    domains: ['github.com'],
+    postPattern: /^\/[^/]+\/[^/]+/i,
   },
   'universal-page': {
-    post: /(?!)/,
-    profile: /^https?:\/\/(www\.)?universal\.page(\/|$)/i,
+    domains: ['universal.page'],
   },
   youtube: {
-    post: /^https?:\/\/(www\.)?(youtube\.com|youtu\.be|youtube-nocookie\.com)\/(watch|shorts\/|live\/|embed\/)/i,
-    profile:
-      /^https?:\/\/(www\.)?(youtube\.com|youtu\.be|youtube-nocookie\.com)(\/|$)/i,
+    domains: ['youtube.com', 'youtu.be', 'youtube-nocookie.com'],
+    postPattern: (host, pathname) =>
+      host === 'youtu.be'
+        ? /^\/[A-Za-z0-9_-]+/.test(pathname)
+        : /^\/(watch|shorts\/|live\/|embed\/)/i.test(pathname),
   },
   spotify: {
-    post: /^https?:\/\/(www\.|open\.)?spotify\.com\/(track|episode|album)\//i,
-    profile: /^https?:\/\/(www\.|open\.)?spotify\.com(\/|$)/i,
+    domains: ['spotify.com'],
+    postPattern: /^\/(track|episode|album)\//i,
   },
   soundcloud: {
-    post: /^https?:\/\/(www\.)?soundcloud\.com\/[^/]+\/[^/]+/i,
-    profile: /^https?:\/\/(www\.)?soundcloud\.com(\/|$)/i,
+    domains: ['soundcloud.com'],
+    postPattern: /^\/[^/]+\/[^/]+/i,
   },
   warpcast: {
-    post: /^https?:\/\/(www\.)?warpcast\.com\/[^/]+\/0x/i,
-    profile: /^https?:\/\/(www\.)?warpcast\.com(\/|$)/i,
+    domains: ['warpcast.com'],
+    postPattern: /^\/[^/]+\/0x/i,
   },
   tiktok: {
-    post: /^https?:\/\/(www\.)?tiktok\.com\/@[^/]+\/video\//i,
-    profile: /^https?:\/\/(www\.)?tiktok\.com(\/|$)/i,
+    domains: ['tiktok.com'],
+    postPattern: /^\/@[^/]+\/video\//i,
   },
 }
 
@@ -109,16 +107,22 @@ export const detectSocialMedia = (
   }
 
   try {
-    // Validate URL
-    new URL(url)
+    const { hostname, pathname } = new URL(url)
+    const host = hostname.replace(/^www\./, '')
 
-    for (const [platform, { post, profile }] of Object.entries(SOCIAL_MEDIA)) {
-      if (post.test(url)) {
-        return { platform, type: 'post' }
-      }
+    for (const [platform, { domains, postPattern }] of Object.entries(
+      SOCIAL_MEDIA
+    )) {
+      const match = domains.some(
+        domain => host === domain || host.endsWith(`.${domain}`)
+      )
 
-      if (profile.test(url)) {
-        return { platform, type: 'profile' }
+      if (match) {
+        const isPost =
+          typeof postPattern === 'function'
+            ? postPattern(host, pathname)
+            : postPattern?.test(pathname)
+        return { platform, type: isPost ? 'post' : 'profile' }
       }
     }
   } catch {

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.182.0](https://github.com/lukso-network/tools-web-components/compare/v1.181.0...v1.182.0) (2026-03-03)
+
+
+### Features
+
+* Rework social media detection ([#821](https://github.com/lukso-network/tools-web-components/issues/821)) ([5ccb33f](https://github.com/lukso-network/tools-web-components/commit/5ccb33f0df26237202e581da6aa85901b1f0dcc5))
+
 ## [1.181.0](https://github.com/lukso-network/tools-web-components/compare/v1.180.1...v1.181.0) (2026-02-27)
 
 

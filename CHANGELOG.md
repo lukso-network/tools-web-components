@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.183.1](https://github.com/lukso-network/tools-web-components/compare/v1.183.0...v1.183.1) (2026-03-06)
+
+
+### Bug Fixes
+
+* Make tokenType optional ([#825](https://github.com/lukso-network/tools-web-components/issues/825)) ([d37cb92](https://github.com/lukso-network/tools-web-components/commit/d37cb921c9d80444e828d1bd4c76b5df7f982187))
+
 ## [1.183.0](https://github.com/lukso-network/tools-web-components/compare/v1.182.0...v1.183.0) (2026-03-06)
 
 

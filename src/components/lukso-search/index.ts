@@ -504,6 +504,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         profile-url="${result.image}"
         placeholder="/assets/images/token-default.svg"
         size=${this.profileSize[this.size]}
+        ?is-square=${isCollectible(result)}
+        has-identicon
       ></lukso-profile>
       <span class="paragraph-inter-14-semi-bold ${this.textSize[this.size]}"
         >${result.name}
@@ -529,6 +531,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         profile-address="${result.address}"
         profile-url="${result.image}"
         size=${this.profileSize[this.size]}
+        has-identicon
       ></lukso-profile>
       <span class="paragraph-inter-14-semi-bold ${this.textSize[this.size]}"
         >${result.name}
@@ -617,6 +620,8 @@ export class LuksoSearch extends TailwindStyledElement(style) {
               placeholder="/assets/images/token-default.svg"
               size=${this.profileSize[this.size]}
               class="cursor-pointer transition hover:scale-[1.02]"
+              ?is-square=${isCollectible(result)}
+              has-identicon
               @click=${() => this.handleSelect(recentSearch)}
             ></lukso-profile
           ></lukso-tooltip>`
@@ -633,6 +638,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
               profile-url="${recentSearch.image}"
               size=${this.profileSize[this.size]}
               class="cursor-pointer transition hover:scale-[1.02]"
+              has-identicon
               @click=${() => this.handleSelect(recentSearch)}
             ></lukso-profile
           ></lukso-tooltip>`

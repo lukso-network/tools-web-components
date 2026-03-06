@@ -1,5 +1,6 @@
 import { useArgs } from 'storybook/preview-api'
 import { html, nothing } from 'lit-html'
+import { LSP4_TOKEN_TYPES } from '@lukso/lsp-smart-contracts'
 
 import { SEARCH_RESULT_TYPES, STANDARDS } from '@/shared/enums'
 
@@ -581,32 +582,40 @@ ResultAsset.args = {
       symbol: 'MST',
       image: 'images/sample-asset.jpg',
       id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+      address: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
       type: SEARCH_RESULT_TYPES.ASSET,
       standard: STANDARDS.LSP7,
+      tokenType: LSP4_TOKEN_TYPES.TOKEN,
     },
     {
       name: 'My Sample NFT',
       symbol: 'MSN',
       image: 'images/sample-asset.jpg',
       id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+      address: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
       type: SEARCH_RESULT_TYPES.ASSET,
       standard: STANDARDS.LSP8,
+      tokenType: LSP4_TOKEN_TYPES.NFT,
     },
     {
       name: 'My Sample Token',
       symbol: 'MST',
       image: '',
       id: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
+      address: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
       type: SEARCH_RESULT_TYPES.ASSET,
       standard: STANDARDS.LSP7,
+      tokenType: LSP4_TOKEN_TYPES.TOKEN,
     },
     {
       name: 'My Sample NFT',
       symbol: 'MSN',
       image: '',
       id: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
+      address: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
       type: SEARCH_RESULT_TYPES.ASSET,
       standard: STANDARDS.LSP8,
+      tokenType: LSP4_TOKEN_TYPES.NFT,
     },
   ],
   margin: 200,
@@ -621,12 +630,14 @@ ResultApp.args = {
       name: 'My Sample App',
       image: 'images/sample-avatar.jpg',
       id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+      address: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
       type: SEARCH_RESULT_TYPES.APP,
       standard: STANDARDS.LSP3,
     },
     {
       name: 'My Sample App',
       id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+      address: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
       type: SEARCH_RESULT_TYPES.APP,
       standard: STANDARDS.LSP3,
     },
@@ -659,6 +670,7 @@ ResultMixed.args = {
           image: 'images/sample-asset.jpg',
           type: SEARCH_RESULT_TYPES.ASSET,
           standard: STANDARDS.LSP7,
+          tokenType: LSP4_TOKEN_TYPES.TOKEN,
         },
         {
           id: '0x64DE43F67e533b59A5791E6aB1e5a80626E10710',
@@ -698,6 +710,7 @@ ResultMixed.args = {
       image: 'images/sample-asset.jpg',
       type: SEARCH_RESULT_TYPES.ASSET,
       standard: STANDARDS.LSP7,
+      tokenType: LSP4_TOKEN_TYPES.TOKEN,
     },
     {
       id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
@@ -707,6 +720,7 @@ ResultMixed.args = {
       image: 'images/sample-asset.jpg',
       type: SEARCH_RESULT_TYPES.ASSET,
       standard: STANDARDS.LSP8,
+      tokenType: LSP4_TOKEN_TYPES.NFT,
     },
     {
       id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',

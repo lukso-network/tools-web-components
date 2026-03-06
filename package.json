@@ -48,7 +48,8 @@
 		]
 	},
 	"dependencies": {
-		"@lukso/core": "^1.2.11",
+		"@lukso/core": "^1.5.0",
+		"@lukso/lsp-smart-contracts": "0.16.7",
 		"@tailwindcss/typography": "^0.5.19",
 		"axe-core": "4.11.1",
 		"clsx": "^2.1.1",

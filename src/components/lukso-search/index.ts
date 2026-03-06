@@ -2,6 +2,7 @@ import makeBlockie from 'ethereum-blockies-base64'
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
+import { isCollectible } from '@lukso/core'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import '@/components/lukso-dropdown'
@@ -127,7 +128,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   keepValueOnEscapeHit = false
 
   @property({ type: Number })
-  selected = undefined
+  selected: number | undefined = undefined
 
   @property({ type: String })
   size: InputSize = 'large'
@@ -142,7 +143,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   private isDebouncing = false
 
   @state()
-  private debounceTimer: ReturnType<typeof setTimeout>
+  private debounceTimer: ReturnType<typeof setTimeout> | undefined
 
   @state()
   private resultsParsed: SearchResult[] = []

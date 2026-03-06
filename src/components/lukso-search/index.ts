@@ -39,7 +39,7 @@ export type SearchResult = {
   status?: boolean
   supply?: string
   decimals?: number
-  tokenType: TokenType
+  tokenType?: TokenType
 }
 
 @safeCustomElement('lukso-search')

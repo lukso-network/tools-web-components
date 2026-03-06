@@ -24,6 +24,7 @@ import type {
   Address,
   InputSize,
   Standard,
+  TokenType,
 } from '@/shared/types'
 
 export type SearchResult = {
@@ -38,6 +39,7 @@ export type SearchResult = {
   status?: boolean
   supply?: string
   decimals?: number
+  tokenType: TokenType
 }
 
 @safeCustomElement('lukso-search')

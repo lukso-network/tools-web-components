@@ -1,3 +1,5 @@
+import { LSP4_TOKEN_TYPES } from '@lukso/lsp-smart-contracts'
+
 import { SEARCH_RESULT_TYPES, STANDARDS } from './enums'
 
 export type Address = `0x${string}`
@@ -28,3 +30,5 @@ export type IconOptions = {
   strokeWidth: number
   secondaryColor?: string
 }
+
+export type TokenType = (typeof LSP4_TOKEN_TYPES)[keyof typeof LSP4_TOKEN_TYPES]

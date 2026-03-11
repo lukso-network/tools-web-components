@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.184.0](https://github.com/lukso-network/tools-web-components/compare/v1.183.1...v1.184.0) (2026-03-11)
+
+
+### Features
+
+* Add llm documentation to web-components ([#828](https://github.com/lukso-network/tools-web-components/issues/828)) ([2405f0d](https://github.com/lukso-network/tools-web-components/commit/2405f0d7911e9d13a2c0ddb93b49b16d52bad42f))
+
 ## [1.183.1](https://github.com/lukso-network/tools-web-components/compare/v1.183.0...v1.183.1) (2026-03-06)
 
 

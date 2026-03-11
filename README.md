@@ -275,6 +275,28 @@ pnpm install
 
 > Note: The `package/package.json` file is generated dynamically during the build process and is not tracked in git. This prevents version conflicts in pull requests.
 
+## LLM Documentation
+
+This project publishes LLM-friendly documentation following the [llmstxt.org](https://llmstxt.org/) specification. The docs are generated automatically from the Storybook build using [`@acring/storybook-llms-extractor`](https://github.com/Acring/storybook-llms-extractor) and deployed alongside Storybook on every release.
+
+- **Summary:** `https://tools-web-components.pages.dev/llms.txt`
+- **Per-component docs:** `https://tools-web-components.pages.dev/llms/`
+
+To generate locally (requires a Storybook build first):
+
+```sh
+pnpm exec playwright install chromium  # first time only
+pnpm storybook:build && pnpm docs:llms
+```
+
+Generated files land in `storybook-static/` (gitignored). To view them locally, serve the directory:
+
+```sh
+pnpm storybook:serve
+```
+
+Then open `http://localhost:6006/llms.txt` or `http://localhost:6006/llms/`.
+
 ## Releasing project
 
 This repo uses [Release Please](https://github.com/googleapis/release-please) to automate release process. It's important to follow [Conventional Commits](https://www.conventionalcommits.org/) spec for naming Pull Requests. Once PR is merged into `main` the release PR will be created. When release PR is merged new package is released in npm.

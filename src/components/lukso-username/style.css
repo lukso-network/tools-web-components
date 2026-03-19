@@ -1,9 +1,4 @@
 :host {
-  display: flex;
-  width: 100%;
+  display: inline-flex;
   min-width: 0;
-}
-
-[part='wrapper'] {
-  display: flex;
 }

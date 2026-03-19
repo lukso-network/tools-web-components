@@ -451,7 +451,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       name="${result.name?.toLowerCase() || 'anonymous-profile'}"
       address="${result.address}"
       name-color="neutral-20"
-      max-width="300"
       size=${this.usernameSize[this.size]}
       ?hide-prefix="${!result.name}"
       class="ml-1"
@@ -460,7 +459,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       name="${sliceAddress(result.address, 8)}"
       address="__EOA"
       name-color="neutral-20"
-      max-width="300"
       size=${this.usernameSize[this.size]}
       hide-prefix
       class="ml-1"
@@ -470,7 +468,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       name="${sliceAddress(result.address, 8)}"
       address=""
       name-color="neutral-20"
-      max-width="300"
       size=${this.usernameSize[this.size]}
       hide-prefix
       class="ml-1"
@@ -557,7 +554,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
                 name="${sliceAddress(recentSearch.address, 8)}"
                 address="__EOA"
                 name-color="neutral-20"
-                max-width="300"
                 size="x-small"
                 hide-prefix
                 class="ml-1"
@@ -584,7 +580,6 @@ export class LuksoSearch extends TailwindStyledElement(style) {
                 'anonymous-profile'}"
                 address="${recentSearch.address}"
                 name-color="neutral-20"
-                max-width="300"
                 size="x-small"
                 ?hide-prefix="${!recentSearch.name}"
                 class="ml-1"

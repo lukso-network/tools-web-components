@@ -52,7 +52,7 @@ const meta: Meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'medium', 'large', 'x-large'],
       table: {
         category: 'Attributes',
       },
@@ -355,6 +355,12 @@ MediumSize.args = {
 export const LargeSize = Template.bind({})
 LargeSize.args = {
   size: 'large',
+}
+
+/** Example of `x-large` size button.  */
+export const XLargeSize = Template.bind({})
+XLargeSize.args = {
+  size: 'x-large',
 }
 
 /** If you need button to take full width of the parent element add `is-full-width` property. */

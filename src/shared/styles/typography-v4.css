@@ -177,6 +177,14 @@
     line-height: var(--leading-32);
   }
 
+  .paragraph-inter-20-semi-bold {
+    font-family: var(--font-inter);
+    font-size: var(--text-20);
+    font-weight: var(--font-weight-600);
+    font-style: normal;
+    line-height: var(--leading-32);
+  }
+
   .paragraph-inter-16-regular {
     font-family: var(--font-inter);
     font-size: var(--text-16);

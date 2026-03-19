@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.185.0](https://github.com/lukso-network/tools-web-components/compare/v1.184.0...v1.185.0) (2026-03-19)
+
+
+### Features
+
+* Add x-large button ([#830](https://github.com/lukso-network/tools-web-components/issues/830)) ([4c13ac3](https://github.com/lukso-network/tools-web-components/commit/4c13ac301988b4ef6cfe07052cc1b7be221d8596))
+
 ## [1.184.0](https://github.com/lukso-network/tools-web-components/compare/v1.183.1...v1.184.0) (2026-03-11)
 
 

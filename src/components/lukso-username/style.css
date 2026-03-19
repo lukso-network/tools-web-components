@@ -1,3 +1,4 @@
 :host {
-  @apply inline-flex;
+  display: inline-flex;
+  min-width: 0;
 }

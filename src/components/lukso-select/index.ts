@@ -388,7 +388,6 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         name="${option.name?.toLowerCase()}"
         address="${option.address}"
         name-color="neutral-20"
-        max-width="150"
         slice-by="4"
         size=${this.size}
         class="ml-1"

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.186.0](https://github.com/lukso-network/tools-web-components/compare/v1.185.0...v1.186.0) (2026-03-19)
+
+
+### Features
+
+* Make username dynamic ([#832](https://github.com/lukso-network/tools-web-components/issues/832)) ([f9703da](https://github.com/lukso-network/tools-web-components/commit/f9703da41fc1c1704873a1ab04416b083d9bf636))
+
 ## [1.185.0](https://github.com/lukso-network/tools-web-components/compare/v1.184.0...v1.185.0) (2026-03-19)
 
 

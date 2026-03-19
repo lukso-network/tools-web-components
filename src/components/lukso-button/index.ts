@@ -135,7 +135,7 @@ export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
         small: 'h-7 px-3 paragraph-inter-12-medium rounded-8',
         medium: 'h-10 px-4 paragraph-inter-14-semi-bold rounded-10',
         large: 'h-12 px-6 paragraph-inter-16-semi-bold rounded-12',
-        'x-large': '',
+        'x-large': 'h-17 px-8 paragraph-inter-20-semi-bold rounded-[14px]',
       },
       isLongPress: {
         true: `relative overflow-hidden z-[1] active:outline-0
@@ -165,18 +165,18 @@ export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
         class: 'text-purple-41',
       },
       {
-        size: ['medium', 'small', 'large'],
+        size: ['medium', 'small', 'large', 'x-large'],
         color: 'link',
         class: 'p-0 h-[initial]',
       },
       {
-        size: ['medium', 'large'],
+        size: ['medium', 'large', 'x-large'],
         color: ['primary', 'landing', 'success', 'danger', 'warning'],
         class:
           'hover:shadow-button-medium-hover-primary active:shadow-button-medium-press-primary',
       },
       {
-        size: ['medium', 'large'],
+        size: ['medium', 'large', 'x-large'],
         color: ['secondary'],
         class:
           'hover:shadow-button-medium-hover-secondary active:shadow-button-medium-press-secondary',
@@ -208,6 +208,11 @@ export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
         size: ['large'],
         class: 'px-0 w-12',
       },
+      {
+        isIcon: true,
+        size: ['x-large'],
+        class: 'px-0 w-17',
+      },
     ],
   })
 
@@ -227,7 +232,9 @@ export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
         large: {
           text: 'ml-2',
         },
-        'x-large': {},
+        'x-large': {
+          text: 'ml-2',
+        },
       },
     },
   })
@@ -272,7 +279,7 @@ export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
     }, 100)
     if (this.timer) {
       clearTimeout(this.timer)
-      this.timer = null
+      this.timer = 0
     }
   }
 

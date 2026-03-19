@@ -63,6 +63,7 @@ const navClasses = [
 
 const paragraphClasses = [
   'paragraph-inter-20-regular',
+  'paragraph-inter-20-semi-bold',
   'paragraph-inter-16-regular',
   'paragraph-inter-16-semi-bold',
   'paragraph-inter-16-semi-bold-underlined',

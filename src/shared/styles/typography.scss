@@ -90,6 +90,10 @@
     @apply text-20 not-italic font-400 leading-32 font-inter;
   }
 
+  .paragraph-inter-20-semi-bold {
+    @apply text-20 not-italic font-600 leading-32 font-inter;
+  }
+
   .paragraph-inter-16-regular {
     @apply text-16 not-italic font-400 leading-24 font-inter;
   }

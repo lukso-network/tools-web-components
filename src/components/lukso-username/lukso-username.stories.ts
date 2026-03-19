@@ -21,14 +21,6 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    maxWidth: {
-      name: 'max-width',
-      control: { type: 'number' },
-      if: { arg: 'name', neq: '' },
-      table: {
-        category: 'Attributes',
-      },
-    },
     size: {
       control: { type: 'select' },
       options: [
@@ -94,9 +86,6 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    'max-width': {
-      name: 'maxWidth',
-    },
     'slice-by': {
       name: 'sliceBy',
     },
@@ -119,7 +108,6 @@ const meta: Meta = {
   args: {
     name: 'John',
     address: '0xcdec110f9c255357e37f46cd2687be1f7e9b02f7',
-    maxWidth: 200,
     size: 'large',
     sliceBy: 8,
     addressColor: '',
@@ -132,8 +120,6 @@ const meta: Meta = {
   parameters: {
     controls: {
       exclude: [
-        'bytesWidth',
-        'maxWidth',
         'sliceBy',
         'addressColor',
         'nameColor',
@@ -151,7 +137,6 @@ export default meta
 const Template = ({
   name,
   address,
-  maxWidth,
   size,
   sliceBy,
   addressColor,
@@ -164,7 +149,6 @@ const Template = ({
   html`<lukso-username
     name=${name}
     address=${address}
-    max-width=${maxWidth}
     size=${size}
     slice-by=${sliceBy}
     address-color=${addressColor}
@@ -178,7 +162,7 @@ const Template = ({
 /** By default user name is displayed as `name` prefixed with `@` character and 4 bytes of `address` */
 export const DefaultUsername = Template.bind({})
 
-/** Long names get truncated. You can control width of the component with `max-width` attribute. */
+/** Long names get truncated when the component is constrained by its container. */
 export const LongName = Template.bind({})
 LongName.args = {
   name: 'ThisIsAReallyLongName',
@@ -221,7 +205,6 @@ export const HidePrefix = Template.bind({})
 HidePrefix.args = {
   hidePrefix: true,
   name: 'anonymous-profile',
-  maxWidth: 300,
   address: '',
 }
 

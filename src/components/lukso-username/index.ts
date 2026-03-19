@@ -22,9 +22,6 @@ export class LuksoUsername extends TailwindStyledElement(style) {
   @property({ type: String })
   address = ''
 
-  @property({ type: Number, attribute: 'max-width' })
-  maxWidth = 200
-
   @property({ type: 'string' })
   size: ProfileSize = 'large'
 
@@ -49,15 +46,12 @@ export class LuksoUsername extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'no-transform' })
   noTransform = false
 
-  /** Width of the first 4 bytes of the address */
-  private bytesWidth = 52
-
   private styles = tv({
     slots: {
-      wrapper: 'inline-flex',
-      name: 'inline-block whitespace-nowrap overflow-hidden text-ellipsis',
-      address: 'inline-block',
-      bytes: 'inline-block',
+      wrapper: 'inline-flex w-full min-w-0',
+      name: 'inline-block whitespace-nowrap overflow-hidden text-ellipsis shrink min-w-0',
+      address: 'inline-block shrink-0',
+      bytes: 'inline-block shrink-0',
     },
     variants: {
       size: {
@@ -137,7 +131,6 @@ export class LuksoUsername extends TailwindStyledElement(style) {
     return html`<div
       class=${styles}
       style=${customStyleMap({
-        [`max-width: ${this.maxWidth - (this.address ? this.bytesWidth : 0)}px`]: true,
         [`color: var(--${this.nameColor})`]: this.nameColor !== '',
       })}
     >
@@ -181,7 +174,9 @@ export class LuksoUsername extends TailwindStyledElement(style) {
       }
     })()
 
-    return html`<div class=${cn(wrapper(), this.customClass)}>${template}</div>`
+    return html`<div part="wrapper" class=${cn(wrapper(), this.customClass)}>
+      ${template}
+    </div>`
   }
 }
 

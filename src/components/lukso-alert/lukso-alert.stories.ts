@@ -77,29 +77,34 @@ const Template = ({ variant, title, description, hasIcon }) =>
     ?has-icon=${hasIcon}
   ></lukso-alert>`
 
+/** Example of `info` alert.  */
 export const InfoAlert = Template.bind({})
-InfoAlert.parameters = {
+InfoAlert.args = {
   hasIcon: true,
 }
 
+/** Example of `warning` alert.  */
 export const WarningAlert = Template.bind({})
 WarningAlert.args = {
   variant: 'warning',
   hasIcon: true,
 }
 
+/** Example of `error` alert.  */
 export const ErrorAlert = Template.bind({})
 ErrorAlert.args = {
   variant: 'error',
   hasIcon: true,
 }
 
+/** Example of `success` alert.  */
 export const SuccessAlert = Template.bind({})
 SuccessAlert.args = {
   variant: 'success',
   hasIcon: true,
 }
 
+/** Example of alert without icon.  */
 export const AlertWithoutIcon = Template.bind({})
 AlertWithoutIcon.args = {
   hasIcon: false,

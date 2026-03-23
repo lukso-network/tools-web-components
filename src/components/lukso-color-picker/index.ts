@@ -17,6 +17,9 @@ import type { InputSize } from '@/shared/types'
 
 const FOCUS_DELAY_MS = 10
 
+/**
+ * A color picker input combining a native color swatch with a hex text field, kept in sync.
+ */
 @safeCustomElement('lukso-color-picker')
 export class LuksoColorPicker extends TailwindStyledElement(style) {
   @property({ type: String })

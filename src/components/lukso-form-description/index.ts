@@ -5,6 +5,9 @@ import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.css?inline'
 
+/**
+ * A small description text block rendered below a form label. Used internally by form components.
+ */
 @safeCustomElement('lukso-form-description')
 export class LuksoFormDescription extends TailwindStyledElement(style) {
   @property({ type: String, reflect: true })

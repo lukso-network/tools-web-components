@@ -21,6 +21,9 @@ type Pagination = {
   items: (string | number)[]
 }
 
+/**
+ * A pagination control rendering prev/next arrows and page number buttons.
+ */
 @safeCustomElement('lukso-pagination')
 export class LuksoPagination extends TailwindStyledElement(style) {
   @property({ type: String })

@@ -8,6 +8,11 @@ import style from './style.css?inline'
 
 import type { InputSize } from '@/shared/types'
 
+/**
+ * A single option row inside a `lukso-dropdown`. Does not emit its own events — parent handles clicks.
+ *
+ * @slot - Option label content (text, icons, profile elements, etc.).
+ */
 @safeCustomElement('lukso-dropdown-option')
 export class LuksoDropdownOption extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-readonly' })

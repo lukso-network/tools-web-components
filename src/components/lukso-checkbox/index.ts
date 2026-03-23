@@ -10,6 +10,11 @@ import '@/components/lukso-form-error'
 export type CheckboxSize = 'x-small' | 'small' | 'medium'
 export type CheckboxType = 'text' | 'profile'
 
+/**
+ * A styled checkbox with optional label, description, and error state.
+ *
+ * @slot - Label text (type=text) or profile content (type=profile).
+ */
 @safeCustomElement('lukso-checkbox')
 export class LuksoCheckbox extends TailwindElement {
   @property({ type: String })

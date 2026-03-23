@@ -34,6 +34,13 @@ export type TooltipOption = {
   text: string
 }
 
+/**
+ * A tooltip powered by Tippy.js. Wraps any trigger element and shows a tooltip on hover, click, or manual control.
+ * Supports clipboard copy mode, rich HTML content via the `text` slot, and all Tippy placement options.
+ *
+ * @slot - The trigger element that the tooltip is attached to.
+ * @slot text - Rich HTML tooltip content (used instead of the `text` attribute for complex content).
+ */
 @safeCustomElement('lukso-tooltip')
 export class LuksoTooltip extends TailwindStyledElement(style) {
   @property({ type: String })

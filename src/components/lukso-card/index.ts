@@ -26,6 +26,13 @@ export type CardBorderRadius = 'small' | 'medium' | 'none'
 
 export type CardShadows = 'small' | 'medium' | 'large'
 
+/**
+ * A card container with multiple layout variants for different content types including basic, header, profile, hero, and dapp layouts.
+ *
+ * @slot content - Main card body content.
+ * @slot header - Header area (not available on `basic` variant).
+ * @slot bottom - Bottom section (only `profile-2` variant).
+ */
 @safeCustomElement('lukso-card')
 export class LuksoCard extends TailwindStyledElement(style) {
   @property({ type: String })

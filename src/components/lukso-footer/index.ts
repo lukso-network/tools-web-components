@@ -6,6 +6,11 @@ import { TailwindElement } from '@/shared/tailwind-element'
 
 import type { ProviderName, ProviderObject } from '@/components/lukso-share'
 
+/**
+ * A page footer with social share links and a "Powered by LUKSO" logo.
+ *
+ * @slot links - Navigation links area (left side of the footer).
+ */
 @safeCustomElement('lukso-footer')
 export class LuksoFooter extends TailwindElement {
   @property({ type: String })

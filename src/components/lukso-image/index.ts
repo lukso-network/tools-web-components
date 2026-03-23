@@ -6,6 +6,9 @@ import { tv } from 'tailwind-variants'
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindElement } from '@/shared/tailwind-element'
 
+/**
+ * A lazy-loading image with a pulse skeleton placeholder during load and a fallback on error.
+ */
 @safeCustomElement('lukso-image')
 export class LuksoImage extends TailwindElement {
   @property({ type: String, reflect: true })

@@ -31,6 +31,10 @@ const DEFAULT_PREVIEW_BACKGROUND_COLOR = '#f9f9f9'
 const DEFAULT_PREVIEW_TEXT_COLOR = '#243542' // neutral-20
 const ACCESSIBILITY_CHECK_DELAY = 1000 // ms - debounce checking
 
+/**
+ * A split-pane markdown editor with live preview, formatting toolbar, and accessibility checker.
+ * All events pass `{ value, event }` in their detail object.
+ */
 @safeCustomElement('lukso-markdown-editor')
 export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
   @property({ type: String })
@@ -1853,7 +1857,6 @@ export class LuksoMarkdownEditor extends TailwindStyledElement(style) {
 
   /**
    * Save the current state to the undo stack before making a change.
-   *
    */
   private saveUndoStateBeforeChange() {
     if (this.isUndoRedoAction) return

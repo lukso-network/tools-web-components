@@ -9,6 +9,9 @@ import '@/components/lukso-image'
 
 import type { ProfileSize } from '@/shared/types'
 
+/**
+ * A circular (or square) profile image with an optional Ethereum blockies identicon badge overlay.
+ */
 @safeCustomElement('lukso-profile')
 export class LuksoProfile extends TailwindElement {
   @property({ type: String, attribute: 'profile-url', reflect: true })

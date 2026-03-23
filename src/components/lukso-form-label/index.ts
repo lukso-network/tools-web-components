@@ -5,6 +5,9 @@ import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.css?inline'
 
+/**
+ * A styled `<label>` element used internally by form components. Renders nothing if `label` is empty.
+ */
 @safeCustomElement('lukso-form-label')
 export class LuksoFormLabel extends TailwindStyledElement(style) {
   @property({ type: String, reflect: true })

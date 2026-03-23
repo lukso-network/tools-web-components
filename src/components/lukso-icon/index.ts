@@ -538,6 +538,9 @@ const iconMap = {
 const DEFAULT_COLOR = 'neutral-20'
 const DEFAULT_SIZE: IconSize = 'medium'
 
+/**
+ * Renders a named SVG icon from the built-in LUKSO icon registry or from the Vuesax icon pack.
+ */
 @safeCustomElement('lukso-icon')
 export class LuksoIcon extends TailwindStyledElement(style) {
   @property({ type: String, reflect: true })

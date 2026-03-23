@@ -20,6 +20,11 @@ export type LuksoDropdownOnChangeEventDetail = {
 
 export type LuksoDropdownTrigger = 'click' | 'hover'
 
+/**
+ * A floating dropdown panel that positions absolutely relative to its trigger element.
+ *
+ * @slot - Dropdown content, typically `lukso-dropdown-option` elements.
+ */
 @safeCustomElement('lukso-dropdown')
 export class LuksoDropdown extends TailwindStyledElement(style) {
   @property({ type: String })

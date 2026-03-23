@@ -13,6 +13,9 @@ export type WizardStep = {
 
 export type WizardSize = 'small' | 'medium' | 'large' | 'full-width'
 
+/**
+ * A multi-step progress indicator (stepper) showing labelled steps with completed/current/upcoming states.
+ */
 @safeCustomElement('lukso-wizard')
 export class LuksoWizard extends TailwindStyledElement(style) {
   @property({ type: String })

@@ -62,13 +62,32 @@ const navClasses = [
 ]
 
 const paragraphClasses = [
-  'paragraph-inter-20-regular',
   'paragraph-inter-20-semi-bold',
-  'paragraph-inter-16-regular',
+  'paragraph-inter-20-regular',
   'paragraph-inter-16-semi-bold',
   'paragraph-inter-16-semi-bold-underlined',
-  'paragraph-inter-14-regular',
+  'paragraph-inter-16-regular',
+  'paragraph-inter-14-semi-bold',
   'paragraph-inter-14-medium',
+  'paragraph-inter-14-regular',
+  'paragraph-inter-13-regular',
+  'paragraph-inter-12-semi-bold',
+  'paragraph-inter-12-medium',
+  'paragraph-inter-12-bold',
+  'paragraph-inter-12-regular',
+  'paragraph-inter-10-semi-bold',
+  'paragraph-inter-10-bold-uppercase',
+  'paragraph-inter-10-regular',
+  'paragraph-ptmono-24-bold',
+  'paragraph-ptmono-24-regular',
+  'paragraph-ptmono-16-bold',
+  'paragraph-ptmono-16-regular',
+  'paragraph-ptmono-14-bold',
+  'paragraph-ptmono-14-regular',
+  'paragraph-ptmono-12-bold',
+  'paragraph-ptmono-12-regular',
+  'paragraph-ptmono-10-bold',
+  'paragraph-ptmono-10-regular',
 ]
 
 export const Headings: Story = {

@@ -14,6 +14,9 @@ import style from './style.css?inline'
 
 import type { ProfileSize } from '@/shared/types'
 
+/**
+ * Displays a LUKSO Universal Profile username with an optional `@` prefix and a truncated address.
+ */
 @safeCustomElement('lukso-username')
 export class LuksoUsername extends TailwindStyledElement(style) {
   @property({ type: String })

@@ -60,9 +60,6 @@ importers:
         specifier: ^4.3.3
         version: 4.3.3
     devDependencies:
-      '@acring/storybook-llms-extractor':
-        specifier: ^0.2.2
-        version: 0.2.2
       '@babel/core':
         specifier: ^7.29.0
         version: 7.29.0
@@ -269,10 +266,6 @@ packages:
 
   '@acemir/cssom@0.9.31':
     resolution: {integrity: sha512-ZnR3GSaH+/vJ0YlHau21FjfLYjMpYVIzTD8M8vIEQvIGxeOXyXdzCI140rrCY862p/C/BbzWsjc1dgnM9mkoTA==}
-
-  '@acring/storybook-llms-extractor@0.2.2':
-    resolution: {integrity: sha512-CTg86+AjpnJp9v4iij8gju1WwDWRxmxX2b6ezLRRLpUZpq8kBEmWCqaajr/SKP/RcOcduqjEnjVjbob3ZsdFNg==}
-    hasBin: true
 
   '@adobe/css-tools@4.4.4':
     resolution: {integrity: sha512-Elp+iwUx5rN5+Y8xLt5/GRoG20WGoDCQ/1Fb+1LiGtvwbDavuSk0jhD/eZdckHAuzcDzccnkv+rEjyWfRx18gg==}
@@ -1412,9 +1405,6 @@ packages:
 
   '@microsoft/tsdoc@0.16.0':
     resolution: {integrity: sha512-xgAyonlVVS+q7Vc7qLW0UrJU7rSFcETRWsqdXZtjzRU8dF+6CkozTK4V4y1LwOX7j8r/vHphjDeMeGI4tNGeGA==}
-
-  '@mixmark-io/domino@2.2.0':
-    resolution: {integrity: sha512-Y28PR25bHXUg88kCV7nivXrP2Nj2RueZ3/l/jdx6J9f8J4nsEGcgX0Qe6lt7Pa+J79+kPiJU3LguR6O/6zrLOw==}
 
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
@@ -7219,12 +7209,6 @@ packages:
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
-  turndown-plugin-gfm@1.0.2:
-    resolution: {integrity: sha512-vwz9tfvF7XN/jE0dGoBei3FXWuvll78ohzCZQuOb+ZjWrs3a0XhQVomJEb2Qh4VHTPNRO4GPZh0V7VRbiWwkRg==}
-
-  turndown@7.2.2:
-    resolution: {integrity: sha512-1F7db8BiExOKxjSMU2b7if62D/XOyQyZbPKq/nUwopfgnHlqXHqQ0lvfUTeUIr1lZJzOPFn43dODyMSIfvWRKQ==}
-
   tweetnacl-util@0.15.1:
     resolution: {integrity: sha512-RKJBIj8lySrShN4w6i/BonWp2Z/uxwC3h4y7xsRrpP59ZboCd0GpEVsOnMDYLMmKBpYhb5TgHzZXy7wTfYFBRw==}
 
@@ -7980,15 +7964,6 @@ snapshots:
   '@account-abstraction/contracts@0.6.0': {}
 
   '@acemir/cssom@0.9.31': {}
-
-  '@acring/storybook-llms-extractor@0.2.2':
-    dependencies:
-      '@swc/helpers': 0.5.19
-      playwright: 1.58.2
-      tslib: 2.8.1
-      turndown: 7.2.2
-      turndown-plugin-gfm: 1.0.2
-      yargs: 17.7.2
 
   '@adobe/css-tools@4.4.4': {}
 
@@ -9546,8 +9521,6 @@ snapshots:
 
   '@microsoft/tsdoc@0.16.0': {}
 
-  '@mixmark-io/domino@2.2.0': {}
-
   '@napi-rs/wasm-runtime@0.2.12':
     dependencies:
       '@emnapi/core': 1.8.1
@@ -10121,6 +10094,7 @@ snapshots:
   '@swc/helpers@0.5.19':
     dependencies:
       tslib: 2.8.1
+    optional: true
 
   '@swc/jest@0.2.39(@swc/core@1.15.11(@swc/helpers@0.5.19))':
     dependencies:
@@ -16126,12 +16100,6 @@ snapshots:
   tunnel-agent@0.6.0:
     dependencies:
       safe-buffer: 5.2.1
-
-  turndown-plugin-gfm@1.0.2: {}
-
-  turndown@7.2.2:
-    dependencies:
-      '@mixmark-io/domino': 2.2.0
 
   tweetnacl-util@0.15.1: {}
 

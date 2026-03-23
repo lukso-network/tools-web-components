@@ -8,6 +8,9 @@ import style from './style.css?inline'
 import '@/components/lukso-icon'
 import '@/components/lukso-sanitize'
 
+/**
+ * A scrollable terms-and-conditions panel that fires an event when the user reaches the bottom.
+ */
 @safeCustomElement('lukso-terms')
 export class LuksoTerms extends TailwindStyledElement(style) {
   @property({ type: String })

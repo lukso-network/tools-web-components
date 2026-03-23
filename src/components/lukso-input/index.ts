@@ -16,6 +16,10 @@ import type { InputSize } from '@/shared/types'
 
 const FOCUS_DELAY_MS = 10
 
+/**
+ * A styled text input with optional label, description, error, unit suffix, and right icon.
+ * All events pass `{ value, event }` in their detail object.
+ */
 @safeCustomElement('lukso-input')
 export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: String })

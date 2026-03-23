@@ -7,7 +7,7 @@
 		"config-prepare": "tsx ./vite.tools.config.ts --mode=production",
 		"start": "pnpm config-prepare && tsx ./scripts/generate-styles.ts && node ./scripts/build-component-v4.js && concurrently 'tsx ./vite.full.config.ts --mode=develop' 'pnpm storybook' 'pnpm analyze:watch'",
 		"dev": "pnpm start",
-		"build": "rm -rf package/dist package/tools && pnpm config-prepare && tsx ./scripts/generate-styles.ts && node ./scripts/build-component-v4.js && pnpm analyze && tsx ./vite.full.config.ts --mode=production && pnpm sass --verbose --no-source-map ./src/shared/styles/main.scss ./package/dist/styles/main.css && node ./scripts/build-main-v4.js && mkdir -p package/tools/styles && cp ./package/dist/styles/main.css ./package/tools/styles/main.css && cp -r src/shared/styles/generated/* package/tools/styles/ && pnpm build:list-exports",
+		"build": "rm -rf package/dist package/tools && pnpm config-prepare && tsx ./scripts/generate-styles.ts && node ./scripts/build-component-v4.js && pnpm analyze && pnpm docs:llms && tsx ./vite.full.config.ts --mode=production && pnpm sass --verbose --no-source-map ./src/shared/styles/main.scss ./package/dist/styles/main.css && node ./scripts/build-main-v4.js && mkdir -p package/tools/styles && cp ./package/dist/styles/main.css ./package/tools/styles/main.css && cp -r src/shared/styles/generated/* package/tools/styles/ && pnpm build:list-exports",
 		"build:list-exports": "node ./listExports.cjs",
 		"lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:{eslint,css,fmt,types}'",
 		"lint:eslint": "tsx ./scripts/generate-styles.ts && node ./scripts/build-component-v4.js && eslint .",
@@ -23,7 +23,7 @@
 		"storybook": "storybook dev -p 6006",
 		"storybook:build": "pnpm build && storybook build -o storybook-static",
 		"storybook:serve": "http-server storybook-static -p 6006 --silent",
-		"docs:llms": "storybook-llms-extractor --config llms.config.cjs",
+		"docs:llms": "tsx scripts/generate-llm-docs.ts",
 		"build-storybook": "pnpm build && storybook build",
 		"test-storybook": "pnpm config-prepare && test-storybook",
 		"test:components": "pnpm analyze && pnpm config-prepare && pnpm build && pnpm build-storybook && concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'http-server storybook-static --port 6007' 'wait-on -v tcp:127.0.0.1:6007 && pnpm test-storybook --url http://127.0.0.1:6007'",
@@ -67,8 +67,7 @@
 		"web3-utils": "^4.3.3"
 	},
 	"devDependencies": {
-		"@acring/storybook-llms-extractor": "^0.2.2",
-		"@babel/core": "^7.29.0",
+"@babel/core": "^7.29.0",
 		"@babel/preset-react": "^7.28.5",
 		"@custom-elements-manifest/analyzer": "^0.11.0",
 		"@eslint/compat": "^2.0.2",

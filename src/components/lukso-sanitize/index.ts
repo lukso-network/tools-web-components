@@ -23,6 +23,9 @@ export const DEFAULT_OPTIONS = {
  */
 export const NO_HTML_TAGS_OPTIONS = { ALLOWED_TAGS: [] }
 
+/**
+ * Renders an HTML string safely using DOMPurify. Used internally by most components that display user-provided content.
+ */
 @safeCustomElement('lukso-sanitize')
 export class LuksoSanitize extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'html-content' })

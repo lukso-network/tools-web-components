@@ -26,6 +26,9 @@ export type ProviderObject = {
   url: Url
 }
 
+/**
+ * A row of social media icon links for sharing. Supports twitter, instagram, linkedin, telegram, discord, reddit, medium, github.
+ */
 @safeCustomElement('lukso-share')
 export class LuksoShare extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'custom-style' })

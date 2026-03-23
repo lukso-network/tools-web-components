@@ -13,6 +13,9 @@ import '@/components/lukso-form-error'
 
 const DEFAULT_COLOR = 'green-54'
 
+/**
+ * A toggle switch (on/off). Does not update state internally — handle `on-change` and set `is-checked` externally.
+ */
 @safeCustomElement('lukso-switch')
 export class LuksoSwitch extends TailwindElement {
   @property({ type: String })

@@ -406,6 +406,13 @@ jobs:
         env:
           PLAYWRIGHT_BROWSERS_PATH: /home/runner/.cache/ms-playwright
 
+      - name: 📋 Copy LLM docs into Storybook static
+        run: |
+          cp llms.md storybook-static/llms.md
+          cp -r llms storybook-static/llms
+          echo '/llms.md /llms.md 200' >> storybook-static/_redirects
+          echo '/llms/* /llms/:splat 200' >> storybook-static/_redirects
+
       - name: 🔍 Extract branch name
         id: extract_branch
         run: |

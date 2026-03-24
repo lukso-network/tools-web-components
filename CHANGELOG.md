@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.187.0](https://github.com/lukso-network/tools-web-components/compare/v1.186.0...v1.187.0) (2026-03-24)
+
+
+### Features
+
+* Improve llm doc for web components ([#834](https://github.com/lukso-network/tools-web-components/issues/834)) ([4a2f081](https://github.com/lukso-network/tools-web-components/commit/4a2f081dfc708d5c76c893696c04672c44258252))
+
 ## [1.186.0](https://github.com/lukso-network/tools-web-components/compare/v1.185.0...v1.186.0) (2026-03-19)
 
 

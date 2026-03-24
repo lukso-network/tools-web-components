@@ -87,10 +87,8 @@ function extractTypeDefinitions(src: string): Record<string, string> {
   let m: RegExpExecArray | null
   while ((m = singleLine.exec(src)) !== null) {
     const name = m[1]
-    const def = m[2].trim()
-    if (/^['"`\d|'\s]+$/.test(def.replace(/\s+/g, ' ')) || def.includes("'")) {
-      types[name] = def
-    }
+    const def = m[2].trim().replace(/;$/, '')
+    types[name] = def
   }
 
   const multiLine =

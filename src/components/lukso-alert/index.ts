@@ -10,6 +10,9 @@ import style from './style.css?inline'
 
 export type AlertVariant = 'info' | 'warning' | 'error' | 'success'
 
+/**
+ * A non-interactive alert banner for displaying informational, warning, error, or success messages.
+ */
 @safeCustomElement('lukso-alert')
 export class LuksoAlert extends TailwindStyledElement(style) {
   @property({ type: String })

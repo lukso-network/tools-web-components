@@ -32,6 +32,11 @@ const DEFAULT_QR_OPTIONS: QRCodeOptions = {
   },
 }
 
+/**
+ * A styled SVG QR code with customizable dot/corner styles and optional center logo.
+ *
+ * @slot - Content overlaid on top of the QR code (e.g. a logo, shown after load).
+ */
 @safeCustomElement('lukso-qr-code')
 export class LuksoQrCode extends TailwindStyledElement(style) {
   @property({ type: String, reflect: true })

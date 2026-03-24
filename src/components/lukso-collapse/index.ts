@@ -12,6 +12,11 @@ import '@/components/lukso-form-error'
 
 import type { InputSize } from '@/shared/types'
 
+/**
+ * An animated accordion/collapsible panel with a clickable header trigger and smooth height transition.
+ *
+ * @slot - Collapsible body content.
+ */
 @safeCustomElement('lukso-collapse')
 export class LuksoCollapse extends TailwindElement {
   @property({ type: String })

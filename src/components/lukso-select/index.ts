@@ -35,6 +35,9 @@ export type SelectProfileOption = {
 
 export type SelectOption = SelectStringOption | SelectProfileOption
 
+/**
+ * A custom select/dropdown supporting string options (`SelectStringOption`) and profile options (`SelectProfileOption` with address, image, name).
+ */
 @safeCustomElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
   @property({ type: String })

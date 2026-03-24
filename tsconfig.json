@@ -16,6 +16,7 @@
   },
   "include": [
     "src",
+    "scripts",
     "vite.full.config.ts",
     "vite.tools.config.ts",
     "vitest.config.ts",

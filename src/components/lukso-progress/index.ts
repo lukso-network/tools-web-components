@@ -8,6 +8,9 @@ import { cn } from '@/shared/tools'
 
 export type ProgressVariant = 'success' | 'error' | 'warning'
 
+/**
+ * A horizontal progress bar showing a value between `min` and `max`.
+ */
 @safeCustomElement('lukso-progress')
 export class LuksoProgress extends TailwindElement {
   @property({ type: Number })

@@ -22,6 +22,14 @@ type Styles = FunctionMap<
   string
 >
 
+/**
+ * A responsive navigation bar with brand logo, desktop menu slots, and mobile hamburger menu.
+ *
+ * @slot desktop-menu - Right-side desktop navigation links.
+ * @slot desktop-center - Center area shown on desktop.
+ * @slot mobile-menu - Right-side mobile navigation items (always visible on mobile).
+ * @slot mobile-dropdown - Full-screen mobile dropdown content (requires `has-mobile-dropdown-menu`).
+ */
 @safeCustomElement('lukso-navbar')
 export class LuksoNavbar extends TailwindElement {
   @property({ type: String })

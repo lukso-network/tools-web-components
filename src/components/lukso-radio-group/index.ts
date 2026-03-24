@@ -12,6 +12,11 @@ type HTMLRadioElement = HTMLInputElement & {
   isReadonly: boolean
 }
 
+/**
+ * A container that manages a group of `lukso-radio` elements with selection state and keyboard navigation.
+ *
+ * @slot - One or more `lukso-radio` elements.
+ */
 @safeCustomElement('lukso-radio-group')
 export class LuksoRadioGroup extends TailwindElement {
   @property({ type: String })

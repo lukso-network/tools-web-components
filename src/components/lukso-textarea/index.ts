@@ -16,6 +16,10 @@ import type { InputSize } from '@/shared/types'
 
 const FOCUS_DELAY_MS = 10
 
+/**
+ * A styled multi-line textarea with optional label, description, and error.
+ * All events pass `{ value, event }` in their detail object.
+ */
 @safeCustomElement('lukso-textarea')
 export class LuksoTextarea extends TailwindStyledElement(style) {
   @property({ type: String })

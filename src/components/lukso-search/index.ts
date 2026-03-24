@@ -42,6 +42,9 @@ export type SearchResult = {
   tokenType?: TokenType
 }
 
+/**
+ * A search input with debounced search events and a rich results dropdown supporting multiple result types (profile, asset, app, universal-name, recent-search, string).
+ */
 @safeCustomElement('lukso-search')
 export class LuksoSearch extends TailwindStyledElement(style) {
   @property({ type: String })

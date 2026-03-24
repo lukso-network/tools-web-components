@@ -9,6 +9,12 @@ import { safeCustomElement } from '@/shared'
 
 export type ModalSizes = 'small' | 'medium' | 'full' | 'auto'
 
+/**
+ * A full-screen overlay modal with a centered dialog box and backdrop overlay.
+ * Does not close automatically on backdrop click — handle `on-backdrop-click` to close.
+ *
+ * @slot - Dialog content.
+ */
 @safeCustomElement('lukso-modal')
 export class LuksoModal extends withTheme(TailwindStyledElement(style)) {
   @property({ type: Boolean, attribute: 'is-open' })

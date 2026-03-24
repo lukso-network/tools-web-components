@@ -11,6 +11,11 @@ import { cn } from '@/shared/tools'
 
 export type RadioSize = 'x-small' | 'small' | 'medium'
 
+/**
+ * A single radio button with optional label, description, and error state. Use inside `lukso-radio-group`.
+ *
+ * @slot - Radio label content.
+ */
 @safeCustomElement('lukso-radio')
 export class LuksoRadio extends TailwindElement {
   @property({ type: String })

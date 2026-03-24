@@ -26,6 +26,12 @@ export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
 
 const LONG_PRESS_ANIMATION_DURATION_IN_MS = 2000
 
+/**
+ * A versatile button component supporting multiple visual variants, sizes, loading state, long-press, and link mode.
+ *
+ * Long press is only supported for `primary` and `landing` variants.
+ * When `is-link` is set, renders as an `<a>` tag.
+ */
 @safeCustomElement('lukso-button')
 export class LuksoButton extends withTheme(TailwindStyledElement(style)) {
   @property({ type: String })

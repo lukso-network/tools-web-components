@@ -9,6 +9,11 @@ import style from './style.css?inline'
 
 export type TagSizes = 'x-small' | 'small' | 'large'
 
+/**
+ * A small inline tag/badge for labels, status indicators, and categories.
+ *
+ * @slot - Tag label text or content.
+ */
 @safeCustomElement('lukso-tag')
 export class LuksoTag extends TailwindStyledElement(style) {
   @property({ type: String })

@@ -281,15 +281,7 @@ Docs are generated automatically from component source files and Storybook stori
 
 **What is generated:**
 
-- `llms.md` — index linking to all docs
-- `llms/components/<component>.md` — per-component API (attributes, types, slots, usage examples)
-- `llms/tailwind/colors.md` — color palette
-- `llms/tailwind/typography.md` — typography classes
-- `llms/tailwind/shadows.md` — shadow classes
-- `llms/tailwind/animations.md` — animation classes
-- `llms/tailwind/other.md` — border radius, spacing
-- `llms/icons/custom.md` — built-in custom icons
-- `llms/icons/vuesax.md` — Vuesax icon pack availability grid
+- `llms.md` — single concatenated file with all docs (components, Tailwind classes, icons) for AI context
 
 **Sources of truth:**
 
@@ -300,7 +292,7 @@ Docs are generated automatically from component source files and Storybook stori
 - Colors and shadows → `src/shared/tools/tailwind-config.ts` and `src/docs/*.stories.ts`
 - Icons → `src/components/lukso-icon/icons/` and `src/components/lukso-icon/vuesax/`
 
-Generated files are gitignored (`llms/`, `llms.md`). They are regenerated on every build.
+Generated files are gitignored (`llms.md`). They are regenerated on every build.
 
 To generate locally:
 

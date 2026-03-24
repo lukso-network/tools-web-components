@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { read, write } from './utils.js'
+import { read } from './utils.js'
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
 
@@ -339,22 +339,18 @@ export function generateVuesaxIconsDoc(root: string): string {
 
 // ─── Entry points ─────────────────────────────────────────────────────────────
 
-/** Write all Tailwind utility class docs (colors, typography, shadows, animations, other) to outDir. */
-export function generateTailwindDocs(outDir: string, root: string): void {
-  const sections = [
-    { file: 'colors.md', content: generateColorsDoc(root) },
-    { file: 'typography.md', content: generateTypographyDoc(root) },
-    { file: 'shadows.md', content: generateShadowsDoc(root) },
-    { file: 'animations.md', content: generateAnimationsDoc(root) },
-    { file: 'other.md', content: generateOtherDoc() },
-  ]
-  for (const s of sections) {
-    write(path.join(outDir, s.file), s.content)
-  }
+/** Return all Tailwind utility class docs as a single concatenated string. */
+export function generateTailwindDocs(root: string): string {
+  return [
+    generateColorsDoc(root),
+    generateTypographyDoc(root),
+    generateShadowsDoc(root),
+    generateAnimationsDoc(root),
+    generateOtherDoc(),
+  ].join('\n')
 }
 
-/** Write custom and Vuesax icon docs to outDir. */
-export function generateIconDocs(outDir: string, root: string): void {
-  write(path.join(outDir, 'custom.md'), generateCustomIconsDoc(root))
-  write(path.join(outDir, 'vuesax.md'), generateVuesaxIconsDoc(root))
+/** Return custom and Vuesax icon docs as a single concatenated string. */
+export function generateIconDocs(root: string): string {
+  return generateCustomIconsDoc(root) + '\n' + generateVuesaxIconsDoc(root)
 }

@@ -37,7 +37,6 @@ tools-web-components.code-workspace
 coverage/
 
 # Generated LLM documentation
-/llms/
 /llms.md
 
 # Test results

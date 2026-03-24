@@ -37,11 +37,11 @@ export function parseFiresTags(
 ): { event: string; detail: string; bubbles: string; description: string }[] {
   const results = []
   const firesRegex = /@fires\s+\{([^}]+)\}\s+(\S+)\s*-\s*(.*)/g
-  let m: RegExpExecArray | null
-  while ((m = firesRegex.exec(jsdoc)) !== null) {
-    const detail = m[1]
-    const event = m[2]
-    const rest = m[3]
+  let match: RegExpExecArray | null
+  while ((match = firesRegex.exec(jsdoc)) !== null) {
+    const detail = match[1]
+    const event = match[2]
+    const rest = match[3]
     const bubblesMatch = rest.match(/Bubbles:\s*(yes|no)/i)
     const bubbles = bubblesMatch ? bubblesMatch[1] : '—'
     const description = rest.replace(/\.\s*Bubbles:\s*(yes|no)\./i, '').trim()
@@ -56,10 +56,10 @@ export function parseSlotTags(
 ): { name: string; description: string }[] {
   const results = []
   const slotRegex = /@slot\s*([^\s-]*)\s*-?\s*(.*)/g
-  let m: RegExpExecArray | null
-  while ((m = slotRegex.exec(jsdoc)) !== null) {
-    const name = m[1].trim() || '(default)'
-    const description = m[2].trim()
+  let match: RegExpExecArray | null
+  while ((match = slotRegex.exec(jsdoc)) !== null) {
+    const name = match[1].trim() || '(default)'
+    const description = match[2].trim()
     results.push({ name, description })
   }
   return results
@@ -84,20 +84,20 @@ function extractTypeDefinitions(src: string): Record<string, string> {
   const types: Record<string, string> = {}
 
   const singleLine = /^export\s+type\s+(\w+)\s*=\s*(.+)$/gm
-  let m: RegExpExecArray | null
-  while ((m = singleLine.exec(src)) !== null) {
-    const name = m[1]
-    const def = m[2].trim().replace(/;$/, '')
+  let match: RegExpExecArray | null
+  while ((match = singleLine.exec(src)) !== null) {
+    const name = match[1]
+    const def = match[2].trim().replace(/;$/, '')
     types[name] = def
   }
 
   const multiLine =
     /^export\s+type\s+(\w+)\s*=\s*\n((?:\s*\|\s*['"`][^'"`]+['"`]\s*\n?)+)/gm
-  while ((m = multiLine.exec(src)) !== null) {
-    const name = m[1]
-    const values = m[2]
+  while ((match = multiLine.exec(src)) !== null) {
+    const name = match[1]
+    const values = match[2]
       .split('\n')
-      .map(l => l.replace(/^\s*\|\s*/, '').trim())
+      .map(line => line.replace(/^\s*\|\s*/, '').trim())
       .filter(Boolean)
       .join(' | ')
     types[name] = values
@@ -109,16 +109,16 @@ function extractTypeDefinitions(src: string): Record<string, string> {
 /** Collect UpperCamelCase type names referenced in the public attribute fields. */
 function collectReferencedTypeNames(members: CemMember[]): Set<string> {
   const names = new Set<string>()
-  for (const m of members) {
+  for (const member of members) {
     if (
-      m.kind !== 'field' ||
-      !m.attribute ||
-      m.privacy === 'private' ||
-      m.static
+      member.kind !== 'field' ||
+      !member.attribute ||
+      member.privacy === 'private' ||
+      member.static
     )
       continue
-    const typeRefs = (m.type?.text ?? '').match(/\b[A-Z]\w+/g) ?? []
-    for (const t of typeRefs) names.add(t)
+    const typeRefs = (member.type?.text ?? '').match(/\b[A-Z]\w+/g) ?? []
+    for (const typeName of typeRefs) names.add(typeName)
   }
   return names
 }
@@ -227,9 +227,9 @@ export function buildComponentDoc(
     lines.push('')
     lines.push('| Event | Detail type | Bubbles | Description |')
     lines.push('|-------|-------------|---------|-------------|')
-    for (const f of fires) {
+    for (const fire of fires) {
       lines.push(
-        `| \`${f.event}\` | \`${f.detail}\` | ${f.bubbles} | ${f.description} |`
+        `| \`${fire.event}\` | \`${fire.detail}\` | ${fire.bubbles} | ${fire.description} |`
       )
     }
     lines.push('')
@@ -240,8 +240,8 @@ export function buildComponentDoc(
     lines.push('')
     lines.push('| Slot | Description |')
     lines.push('|------|-------------|')
-    for (const s of slots) {
-      lines.push(`| \`${s.name}\` | ${s.description} |`)
+    for (const slot of slots) {
+      lines.push(`| \`${slot.name}\` | ${slot.description} |`)
     }
     lines.push('')
   }

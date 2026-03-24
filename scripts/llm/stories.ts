@@ -38,16 +38,16 @@ function parseArgsObject(
 
   const kvRegex =
     /(\w+)\s*:\s*(?:'([^']*)'|"([^"]*)"|`([^`]*)`|(true|false|undefined|null)|(-?\d+(?:\.\d+)?))/g
-  let m: RegExpExecArray | null
-  while ((m = kvRegex.exec(objectSrc)) !== null) {
-    const key = m[1]
-    if (m[2] !== undefined) result[key] = m[2]
-    else if (m[3] !== undefined) result[key] = m[3]
-    else if (m[4] !== undefined) result[key] = m[4]
-    else if (m[5] !== undefined) {
+  let match: RegExpExecArray | null
+  while ((match = kvRegex.exec(objectSrc)) !== null) {
+    const key = match[1]
+    if (match[2] !== undefined) result[key] = match[2]
+    else if (match[3] !== undefined) result[key] = match[3]
+    else if (match[4] !== undefined) result[key] = match[4]
+    else if (match[5] !== undefined) {
       result[key] =
-        m[5] === 'true' ? true : m[5] === 'false' ? false : undefined
-    } else if (m[6] !== undefined) result[key] = Number(m[6])
+        match[5] === 'true' ? true : match[5] === 'false' ? false : undefined
+    } else if (match[6] !== undefined) result[key] = Number(match[6])
   }
 
   return result
@@ -63,15 +63,15 @@ function buildArgToAttrMap(src: string): Record<string, string> {
   const map: Record<string, string> = {}
 
   const kebabToCamel = /['"]([a-z][\w-]+)['"]:\s*\{\s*name:\s*['"](\w+)['"]/g
-  let m: RegExpExecArray | null
-  while ((m = kebabToCamel.exec(src)) !== null) {
-    const [, kebab, camel] = m
+  let match: RegExpExecArray | null
+  while ((match = kebabToCamel.exec(src)) !== null) {
+    const [, kebab, camel] = match
     if (kebab.includes('-')) map[camel] = kebab
   }
 
   const camelToKebab = /\b(\w+):\s*\{[^}]*name:\s*['"]([a-z][\w-]+)['"]/g
-  while ((m = camelToKebab.exec(src)) !== null) {
-    const [, camel, kebab] = m
+  while ((match = camelToKebab.exec(src)) !== null) {
+    const [, camel, kebab] = match
     if (kebab.includes('-') && !camel.includes('-')) map[camel] = kebab
   }
 
@@ -154,10 +154,10 @@ function renderTemplate(
   html = html.replace(/\s*style="([^"]*)"/g, (_full: string, value: string) => {
     const decls = value
       .split(';')
-      .map((d: string) => d.trim())
-      .filter((d: string) => {
-        if (!d) return false
-        const parts = d.split(':')
+      .map((decl: string) => decl.trim())
+      .filter((decl: string) => {
+        if (!decl) return false
+        const parts = decl.split(':')
         if (parts.length < 2) return false
         const val = parts.slice(1).join(':').trim()
         return val && !/^(px|em|rem|%|vh|vw)$/.test(val)
@@ -183,13 +183,13 @@ function extractStoryDoc(src: string, storyName: string): string {
   const pattern = new RegExp(
     `(\\/\\*\\*[\\s\\S]*?\\*\\/)[ \\t]*\\n(?:export\\s+const\\s+${storyName}\\s*=)`
   )
-  const m = src.match(pattern)
-  if (!m) return ''
-  return m[1]
+  const match = src.match(pattern)
+  if (!match) return ''
+  return match[1]
     .replace(/^\/\*\*/, '')
     .replace(/\*\/$/, '')
     .split('\n')
-    .map(l => l.replace(/^\s*\*\s?/, ''))
+    .map(line => line.replace(/^\s*\*\s?/, ''))
     .join(' ')
     .replace(/\s+/g, ' ')
     .trim()
@@ -239,9 +239,9 @@ export function extractStoriesExamples(tagName: string, root: string): string {
 
   const storyExportRegex =
     /export\s+const\s+(\w+)\s*=\s*(?:Template|DefaultTemplate)\.bind\(\{\}\)/g
-  let m: RegExpExecArray | null
-  while ((m = storyExportRegex.exec(src)) !== null) {
-    const storyName = m[1]
+  let match: RegExpExecArray | null
+  while ((match = storyExportRegex.exec(src)) !== null) {
+    const storyName = match[1]
     if (storyName === 'default') continue
 
     const argsMatch = src.match(new RegExp(`${storyName}\\.args\\s*=\\s*\\{`))

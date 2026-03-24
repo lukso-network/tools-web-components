@@ -67,6 +67,6 @@ export function getClassDeclarations(
 
 /** Extract the custom element tag name from a component source file */
 export function getTagName(source: string): string {
-  const m = source.match(/@safeCustomElement\('([^']+)'\)/)
-  return m ? m[1] : ''
+  const match = source.match(/@safeCustomElement\('([^']+)'\)/)
+  return match ? match[1] : ''
 }

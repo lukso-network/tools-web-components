@@ -1,3 +1,11 @@
+/**
+ * cem.ts
+ *
+ * Loads and queries the Custom Elements Manifest (package/custom-elements.json).
+ * Provides typed interfaces for CEM declarations and helpers to extract
+ * Lukso class declarations and tag names from component source files.
+ */
+
 import path from 'path'
 import { read } from './utils.js'
 

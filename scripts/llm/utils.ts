@@ -1,3 +1,9 @@
+/**
+ * utils.ts
+ *
+ * Filesystem helpers used by the LLM doc generation scripts.
+ */
+
 import fs from 'fs'
 import path from 'path'
 

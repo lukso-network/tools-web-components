@@ -1,3 +1,11 @@
+/**
+ * tailwind.ts
+ *
+ * Generates markdown documentation for Tailwind utility classes and icon packs.
+ * Sources: tailwind-config.ts (colors/shadows), typography-v4.css, Animations/DropShadows
+ * story files, and the lukso-icon component's icon directories.
+ */
+
 import fs from 'fs'
 import path from 'path'
 import { read } from './utils.js'

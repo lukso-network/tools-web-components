@@ -1,3 +1,11 @@
+/**
+ * component-doc.ts
+ *
+ * Builds the markdown documentation for a single web component.
+ * Parses JSDoc (description, @fires, @slot tags), renders the attributes table,
+ * resolves referenced TypeScript types, and appends usage examples from stories.
+ */
+
 import type { CemMember } from './cem.js'
 import { extractStoriesExamples } from './stories.js'
 

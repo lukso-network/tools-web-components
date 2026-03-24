@@ -1,3 +1,11 @@
+/**
+ * stories.ts
+ *
+ * Extracts usage examples from Storybook story files (*.stories.ts).
+ * Parses story args, renders Lit html`` templates into plain HTML snippets,
+ * and extracts per-story JSDoc descriptions for inclusion in component docs.
+ */
+
 import path from 'path'
 import { readSafe } from './utils.js'
 

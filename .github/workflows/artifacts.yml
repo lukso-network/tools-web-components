@@ -401,11 +401,6 @@ jobs:
         if: steps.playwright-cache-deploy.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
 
-      - name: 📄 Generate LLM docs
-        run: pnpm docs:llms
-        env:
-          PLAYWRIGHT_BROWSERS_PATH: /home/runner/.cache/ms-playwright
-
       - name: 📋 Copy LLM docs into Storybook static
         run: |
           cp llms.md storybook-static/llms.md

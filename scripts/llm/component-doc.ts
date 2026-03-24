@@ -9,8 +9,11 @@ export function extractJsDoc(source: string, markerPattern: RegExp): string {
   if (match === -1) return ''
 
   const before = source.slice(0, match)
-  // Negative lookahead prevents spanning multiple /** ... */ blocks
-  const docMatch = before.match(/\/\*\*((?:(?!\*\/)[\s\S])*)\*\/\s*$/)
+  // Negative lookahead prevents spanning multiple /** ... */ blocks.
+  // Allow decorators (e.g. @safeCustomElement) and `export` between the JSDoc and the class keyword.
+  const docMatch = before.match(
+    /\/\*\*((?:(?!\*\/)[\s\S])*)\*\/[\s\S]*?(?:@\w[^\n]*\n[\s\S]*?)*(?:export\s+)?$/
+  )
   if (!docMatch) return ''
 
   return docMatch[1]

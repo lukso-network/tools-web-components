@@ -67,7 +67,7 @@
 		"web3-utils": "^4.3.3"
 	},
 	"devDependencies": {
-"@babel/core": "^7.29.0",
+		"@babel/core": "^7.29.0",
 		"@babel/preset-react": "^7.28.5",
 		"@custom-elements-manifest/analyzer": "^0.11.0",
 		"@eslint/compat": "^2.0.2",

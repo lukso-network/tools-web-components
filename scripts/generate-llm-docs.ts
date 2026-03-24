@@ -11,6 +11,7 @@
  * Run: pnpm docs:llms
  */
 
+import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { write, readSafe } from './llm/utils.js'
@@ -97,6 +98,7 @@ function generateIndex(componentNames: string[]): void {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
+fs.rmSync(OUT, { recursive: true, force: true })
 generateTailwindDocs(path.join(OUT, 'tailwind'), ROOT)
 generateIconDocs(path.join(OUT, 'icons'), ROOT)
 const componentNames = generateComponentDocs()

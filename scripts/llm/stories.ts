@@ -173,7 +173,7 @@ function renderTemplate(
 /** Extract the JSDoc description from the comment immediately before `export const StoryName =` */
 function extractStoryDoc(src: string, storyName: string): string {
   const pattern = new RegExp(
-    `(\\/\\*\\*[^/]*?\\*\\/)[ \\t]*\\n(?:export\\s+const\\s+${storyName}\\s*=)`
+    `(\\/\\*\\*[\\s\\S]*?\\*\\/)[ \\t]*\\n(?:export\\s+const\\s+${storyName}\\s*=)`
   )
   const m = src.match(pattern)
   if (!m) return ''

@@ -166,6 +166,50 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    noComma: {
+      name: 'no-comma',
+      control: { type: 'boolean' },
+      description:
+        'Disallow comma (`,`) as input, only dots are accepted as decimal separators.',
+      table: {
+        category: 'Attributes',
+      },
+    },
+    noLeadingDot: {
+      name: 'no-leading-dot',
+      control: { type: 'boolean' },
+      description:
+        'Prevent input from starting with a dot (`.`). E.g. `.5` is blocked; `0.5` is allowed.',
+      table: {
+        category: 'Attributes',
+      },
+    },
+    onlyOneDot: {
+      name: 'only-one-dot',
+      control: { type: 'boolean' },
+      description: 'Allow only one decimal point (`.`) in the input.',
+      table: {
+        category: 'Attributes',
+      },
+    },
+    onlyNumbersAndDot: {
+      name: 'only-numbers-and-dot',
+      control: { type: 'boolean' },
+      description:
+        'Accept only digits (`0-9`) and a dot (`.`). Blocks letters and special characters.',
+      table: {
+        category: 'Attributes',
+      },
+    },
+    noDecimal: {
+      name: 'no-decimal',
+      control: { type: 'boolean' },
+      description:
+        'Disallow the decimal point (`.`), only whole numbers are accepted.',
+      table: {
+        category: 'Attributes',
+      },
+    },
     onBlur: {
       name: 'on-blur',
       description: 'Emitted on input blur event.',
@@ -250,6 +294,21 @@ const meta: Meta = {
     'keep-focus-on-escape': {
       name: 'keepFocusOnEscape',
     },
+    'no-comma': {
+      name: 'noComma',
+    },
+    'no-leading-dot': {
+      name: 'noLeadingDot',
+    },
+    'only-one-dot': {
+      name: 'onlyOneDot',
+    },
+    'only-numbers-and-dot': {
+      name: 'onlyNumbersAndDot',
+    },
+    'no-decimal': {
+      name: 'noDecimal',
+    },
   },
   args: {
     type: 'text',
@@ -262,6 +321,11 @@ const meta: Meta = {
     borderless: false,
     isRightIconClickable: false,
     keepFocusOnEscape: false,
+    noComma: false,
+    noLeadingDot: false,
+    onlyOneDot: false,
+    onlyNumbersAndDot: false,
+    noDecimal: false,
     name: 'input',
     label: '',
     unit: '',
@@ -291,6 +355,11 @@ const meta: Meta = {
         'styles',
         'isRightIconClickable',
         'keepFocusOnEscape',
+        'noComma',
+        'noLeadingDot',
+        'onlyOneDot',
+        'onlyNumbersAndDot',
+        'noDecimal',
       ],
     },
   },
@@ -328,6 +397,11 @@ const Template = ({
   rightIcon,
   isRightIconClickable,
   keepFocusOnEscape,
+  noComma,
+  noLeadingDot,
+  onlyOneDot,
+  onlyNumbersAndDot,
+  noDecimal,
 }) =>
   html`<lukso-input
     value=${value}
@@ -351,6 +425,11 @@ const Template = ({
     ?borderless=${borderless}
     ?is-right-icon-clickable=${isRightIconClickable}
     ?keep-focus-on-escape=${keepFocusOnEscape}
+    ?no-comma=${noComma}
+    ?no-leading-dot=${noLeadingDot}
+    ?only-one-dot=${onlyOneDot}
+    ?only-numbers-and-dot=${onlyNumbersAndDot}
+    ?no-decimal=${noDecimal}
     @on-key-up=${onKeyUp}
     @on-blur=${onBlur}
     @on-change=${onChange}
@@ -420,4 +499,14 @@ RightIcon.args = {
   rightIcon: 'search',
   // size: 'small',
   // unit: '1',
+}
+
+/** Example of input with number rules enabled. Combines `only-numbers-and-dot`, `no-comma`, `no-leading-dot` and `only-one-dot` to enforce a valid decimal number format. */
+export const NumberRules = Template.bind({})
+NumberRules.args = {
+  placeholder: '0.00',
+  onlyNumbersAndDot: true,
+  noComma: true,
+  noLeadingDot: true,
+  onlyOneDot: true,
 }

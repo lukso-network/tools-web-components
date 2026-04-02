@@ -4,10 +4,13 @@
  * - `name`: Unique identifier for the rule (used for logging/debugging).
  * - `validate`: Function that receives the HTML input and the last typed key,
  *    and returns a boolean indicating whether the input is valid.
+ * - `sanitize`: Function that receives the full value (e.g. after paste/autofill)
+ *    and returns a cleaned version that satisfies the rule.
  */
 type InputRule = {
   name: string
   validate: (input: HTMLInputElement, key: string) => boolean
+  sanitize: (value: string) => string
 }
 
 /**
@@ -19,6 +22,7 @@ type InputRule = {
 export const noComma: InputRule = {
   name: 'noComma',
   validate: (_, key) => !key.includes(','),
+  sanitize: value => value.replaceAll(',', ''),
 }
 
 /**
@@ -30,6 +34,7 @@ export const noComma: InputRule = {
 export const noLeadingDot: InputRule = {
   name: 'noLeadingDot',
   validate: (input, key) => !(key === '.' && input.selectionStart === 0),
+  sanitize: value => value.replace(/^\.+/, ''),
 }
 
 /**
@@ -41,6 +46,10 @@ export const noLeadingDot: InputRule = {
 export const onlyOneDot: InputRule = {
   name: 'onlyOneDot',
   validate: (input, key) => !(key === '.' && input.value.split('.').length > 1),
+  sanitize: value => {
+    const [integer, ...decimals] = value.split('.')
+    return decimals.length > 0 ? `${integer}.${decimals.join('')}` : integer
+  },
 }
 
 /**
@@ -52,6 +61,7 @@ export const onlyOneDot: InputRule = {
 export const onlyNumbersAndDot: InputRule = {
   name: 'onlyNumbersAndDot',
   validate: (_, key) => key === '' || /^[0-9.]$/.test(key),
+  sanitize: value => value.replace(/[^0-9.]/g, ''),
 }
 
 /**
@@ -63,4 +73,5 @@ export const onlyNumbersAndDot: InputRule = {
 export const noDecimal: InputRule = {
   name: 'noDecimal',
   validate: (_, key) => key !== '.',
+  sanitize: value => value.replaceAll('.', ''),
 }

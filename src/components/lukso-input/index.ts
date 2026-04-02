@@ -336,6 +336,17 @@ export class LuksoInput extends TailwindStyledElement(style) {
 
   private async handleInput(event: Event) {
     const target = event.target as HTMLInputElement
+    if (this.activeRules.length > 0) {
+      const sanitized = this.activeRules.reduce(
+        (val, rule) => rule.sanitize(val),
+        target.value
+      )
+      if (sanitized !== target.value) {
+        const cursor = target.selectionStart ?? sanitized.length
+        target.value = sanitized
+        target.setSelectionRange(cursor, cursor)
+      }
+    }
     this.value = target?.value
     await this.updateComplete
     const changeEvent = new CustomEvent('on-input', {

@@ -5,7 +5,7 @@
  * - `validate`: Function that receives the HTML input and the last typed key,
  *    and returns a boolean indicating whether the input is valid.
  */
-type Rule = {
+type InputRule = {
   name: string
   validate: (input: HTMLInputElement, key: string) => boolean
 }
@@ -16,7 +16,7 @@ type Rule = {
  * This ensures that users only use dots (`.`) as decimal separators,
  * which is standard in most programming and blockchain contexts.
  */
-export const noComma: Rule = {
+export const noComma: InputRule = {
   name: 'noComma',
   validate: (_, key) => !key.includes(','),
 }
@@ -27,7 +27,7 @@ export const noComma: Rule = {
  * For example, `.5` will be considered invalid; `0.5` is preferred.
  * This helps avoid format inconsistencies and parsing errors.
  */
-export const noLeadingDot: Rule = {
+export const noLeadingDot: InputRule = {
   name: 'noLeadingDot',
   validate: (input, key) => !(key === '.' && input.selectionStart === 0),
 }
@@ -38,7 +38,7 @@ export const noLeadingDot: Rule = {
  * This ensures valid decimal numbers like `123.45`,
  * and rejects invalid ones like `123.4.5`.
  */
-export const onlyOneDot: Rule = {
+export const onlyOneDot: InputRule = {
   name: 'onlyOneDot',
   validate: (input, key) => !(key === '.' && input.value.split('.').length > 1),
 }
@@ -49,7 +49,7 @@ export const onlyOneDot: Rule = {
  * This prevents letters, symbols, and other invalid characters
  * from being typed into the input field, but allows clearing the field.
  */
-export const onlyNumbersAndDot: Rule = {
+export const onlyNumbersAndDot: InputRule = {
   name: 'onlyNumbersAndDot',
   validate: (_, key) => key === '' || /^[0-9.]$/.test(key),
 }
@@ -60,7 +60,7 @@ export const onlyNumbersAndDot: Rule = {
  * This ensures that users can only enter whole numbers (integers),
  * preventing decimal values from being entered.
  */
-export const noDecimal: Rule = {
+export const noDecimal: InputRule = {
   name: 'noDecimal',
   validate: (_, key) => key !== '.',
 }

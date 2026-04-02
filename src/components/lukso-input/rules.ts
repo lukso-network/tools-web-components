@@ -7,7 +7,7 @@
  * - `sanitize`: Function that receives the full value (e.g. after paste/autofill)
  *    and returns a cleaned version that satisfies the rule.
  */
-type InputRule = {
+export type InputRule = {
   name: string
   validate: (input: HTMLInputElement, key: string) => boolean
   sanitize: (value: string) => string

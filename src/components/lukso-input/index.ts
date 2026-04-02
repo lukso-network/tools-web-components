@@ -379,8 +379,8 @@ export class LuksoInput extends TailwindStyledElement(style) {
     }
   }
 
-  private get activeRules() {
-    const rules = []
+  private get activeRules(): ReadonlyArray<InputRules.InputRule> {
+    const rules: InputRules.InputRule[] = []
     if (this.noComma) rules.push(InputRules.noComma)
     if (this.noLeadingDot) rules.push(InputRules.noLeadingDot)
     if (this.onlyOneDot) rules.push(InputRules.onlyOneDot)

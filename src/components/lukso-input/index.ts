@@ -11,6 +11,7 @@ import '@/components/lukso-form-error'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import style from './style.css?inline'
+import * as InputRules from './rules'
 
 import type { InputSize } from '@/shared/types'
 
@@ -93,6 +94,21 @@ export class LuksoInput extends TailwindStyledElement(style) {
 
   @property({ type: Boolean, attribute: 'keep-focus-on-escape' })
   keepFocusOnEscape = false
+
+  @property({ type: Boolean, attribute: 'no-comma' })
+  noComma = false
+
+  @property({ type: Boolean, attribute: 'no-leading-dot' })
+  noLeadingDot = false
+
+  @property({ type: Boolean, attribute: 'only-one-dot' })
+  onlyOneDot = false
+
+  @property({ type: Boolean, attribute: 'only-numbers-and-dot' })
+  onlyNumbersAndDot = false
+
+  @property({ type: Boolean, attribute: 'no-decimal' })
+  noDecimal = false
 
   @state()
   private hasFocus = false
@@ -320,6 +336,17 @@ export class LuksoInput extends TailwindStyledElement(style) {
 
   private async handleInput(event: Event) {
     const target = event.target as HTMLInputElement
+    if (this.activeRules.length > 0) {
+      const sanitized = this.activeRules.reduce(
+        (val, rule) => rule.sanitize(val),
+        target.value
+      )
+      if (sanitized !== target.value) {
+        const cursor = target.selectionStart ?? sanitized.length
+        target.value = sanitized
+        target.setSelectionRange(cursor, cursor)
+      }
+    }
     this.value = target?.value
     await this.updateComplete
     const changeEvent = new CustomEvent('on-input', {
@@ -352,7 +379,28 @@ export class LuksoInput extends TailwindStyledElement(style) {
     }
   }
 
+  private get activeRules(): ReadonlyArray<InputRules.InputRule> {
+    const rules: InputRules.InputRule[] = []
+    if (this.noComma) rules.push(InputRules.noComma)
+    if (this.noLeadingDot) rules.push(InputRules.noLeadingDot)
+    if (this.onlyOneDot) rules.push(InputRules.onlyOneDot)
+    if (this.onlyNumbersAndDot) rules.push(InputRules.onlyNumbersAndDot)
+    if (this.noDecimal) rules.push(InputRules.noDecimal)
+    return rules
+  }
+
   private async handleKeyDown(event: KeyboardEvent) {
+    if (event.key.length === 1 && this.activeRules.length > 0) {
+      const input = event.target as HTMLInputElement
+      const isValid = this.activeRules.every(rule =>
+        rule.validate(input, event.key)
+      )
+      if (!isValid) {
+        event.preventDefault()
+        return
+      }
+    }
+
     await this.updateComplete
     const target = event.target as HTMLInputElement
     const keyEvent = new CustomEvent('on-key-down', {

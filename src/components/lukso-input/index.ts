@@ -24,7 +24,7 @@ const FOCUS_DELAY_MS = 10
 @safeCustomElement('lukso-input')
 export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: String })
-  value: string | undefined = ''
+  value?: string = ''
 
   @property({ type: String })
   name: string | undefined
@@ -450,7 +450,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
       composed: true,
     })
     this.dispatchEvent(clickEvent)
-    input.focus()
+    input?.focus()
   }
 
   private async handleInputClick(event: MouseEvent) {

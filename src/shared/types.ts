@@ -32,3 +32,9 @@ export type IconOptions = {
 }
 
 export type TokenType = (typeof LSP4_TOKEN_TYPES)[keyof typeof LSP4_TOKEN_TYPES]
+
+export type DatePickerDateFormat = 'short' | 'long'
+
+export type DatePickerTimeFormat = '12h' | '24h' | 'auto'
+
+export type DatePickerWeekStartDay = 'monday' | 'sunday'

@@ -119,7 +119,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       {
         isFullWidth: false,
         size: 'large',
-        class: { dropdown: 'max-w-[300px]' },
+        class: { dropdown: 'max-w-[350px]' },
       },
       {
         openTop: true,

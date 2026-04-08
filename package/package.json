@@ -249,6 +249,16 @@
 			"import": "./dist/components/lukso-input/index.js",
 			"types": "./dist/components/lukso-input/index.d.ts"
 		},
+		"./dist/components/lukso-input-date-picker": {
+			"require": "./dist/components/lukso-input-date-picker/index.cjs",
+			"import": "./dist/components/lukso-input-date-picker/index.js",
+			"types": "./dist/components/lukso-input-date-picker/index.d.ts"
+		},
+		"./components/lukso-input-date-picker": {
+			"require": "./dist/components/lukso-input-date-picker/index.cjs",
+			"import": "./dist/components/lukso-input-date-picker/index.js",
+			"types": "./dist/components/lukso-input-date-picker/index.d.ts"
+		},
 		"./dist/components/lukso-markdown": {
 			"require": "./dist/components/lukso-markdown/index.cjs",
 			"import": "./dist/components/lukso-markdown/index.js",

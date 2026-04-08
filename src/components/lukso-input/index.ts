@@ -110,6 +110,15 @@ export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'no-decimal' })
   noDecimal = false
 
+  @property({ type: Boolean, attribute: 'is-hour-24' })
+  isHour24 = false
+
+  @property({ type: Boolean, attribute: 'is-hour-12' })
+  isHour12 = false
+
+  @property({ type: Boolean, attribute: 'is-minute' })
+  isMinute = false
+
   @state()
   private hasFocus = false
 
@@ -386,6 +395,9 @@ export class LuksoInput extends TailwindStyledElement(style) {
     if (this.onlyOneDot) rules.push(InputRules.onlyOneDot)
     if (this.onlyNumbersAndDot) rules.push(InputRules.onlyNumbersAndDot)
     if (this.noDecimal) rules.push(InputRules.noDecimal)
+    if (this.isHour24) rules.push(InputRules.isHour24)
+    if (this.isHour12) rules.push(InputRules.isHour12)
+    if (this.isMinute) rules.push(InputRules.isMinute)
     return rules
   }
 

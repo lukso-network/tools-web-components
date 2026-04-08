@@ -4,10 +4,13 @@ import { tv } from 'tailwind-variants'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import '@/components/lukso-icon'
+import '@/components/lukso-input'
 import '@/components/lukso-sanitize'
 import '@/components/lukso-form-label'
 import '@/components/lukso-form-description'
 import '@/components/lukso-form-error'
+import '@/components/lukso-dropdown'
+import '@/components/lukso-dropdown-option'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.css?inline'
 
@@ -77,16 +80,10 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
       outer: 'flex flex-col',
       card: 'flex items-center bg-neutral-100 rounded-12 shadow-drop-shadow-small w-full',
       timeRow: 'flex items-center gap-2',
-      timeInput:
-        'w-7 text-center text-paragraph-sm bg-transparent border-0 outline-none text-neutral-20 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
       timeSeparator: 'text-paragraph-sm text-neutral-40',
-      ampmContainer: 'relative',
+      ampmWrapper: 'relative',
       ampmBtn:
         'w-9 text-center text-paragraph-xxs-bold text-neutral-20 border border-neutral-85 rounded-4 px-1.5 py-0.5 hover:bg-neutral-95 cursor-pointer transition-colors',
-      ampmPopover:
-        'absolute bottom-full right-0 mb-1 bg-neutral-100 rounded-8 shadow-drop-shadow-small border border-neutral-90 overflow-hidden z-10 min-w-[2.5rem]',
-      ampmOption:
-        'flex items-center justify-center px-3 py-1.5 text-paragraph-xxs-bold cursor-pointer hover:bg-neutral-95 transition-colors w-full',
     },
     variants: {
       size: {
@@ -151,9 +148,11 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
 
   // ─── Event handlers ─────────────────────────────────────────────────────────
 
-  private _handleHourInput(event: Event) {
-    const input = event.target as HTMLInputElement
-    const raw = parseInt(input.value, 10)
+  private _handleHourChange(event: Event) {
+    const { value: rawStr, event: innerEvent } = (
+      event as CustomEvent<{ value: string; event: Event }>
+    ).detail
+    const raw = parseInt(rawStr, 10)
     if (isNaN(raw)) return
     if (this._uses24Hour) {
       this._selectedHour = Math.max(0, Math.min(23, raw))
@@ -162,17 +161,17 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
       const isPm = this._selectedHour >= 12
       this._selectedHour = isPm ? (h === 12 ? 12 : h + 12) : h === 12 ? 0 : h
     }
-    input.value = this._displayHour
-    this._emitChange(event)
+    this._emitChange(innerEvent)
   }
 
-  private _handleMinuteInput(event: Event) {
-    const input = event.target as HTMLInputElement
-    const raw = parseInt(input.value, 10)
+  private _handleMinuteChange(event: Event) {
+    const { value: rawStr, event: innerEvent } = (
+      event as CustomEvent<{ value: string; event: Event }>
+    ).detail
+    const raw = parseInt(rawStr, 10)
     if (isNaN(raw)) return
     this._selectedMinute = Math.max(0, Math.min(59, raw))
-    input.value = this._displayMinute
-    this._emitChange(event)
+    this._emitChange(innerEvent)
   }
 
   private _toggleAmPmPicker(e: Event) {
@@ -207,38 +206,48 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
 
   private _renderTimeRow(
     timeRow: () => string,
-    timeInput: () => string,
     timeSeparator: () => string,
-    ampmContainer: () => string,
-    ampmBtn: () => string,
-    ampmPopover: () => string,
-    ampmOption: () => string
+    ampmWrapper: () => string,
+    ampmBtn: () => string
   ) {
     return html`
       <div class=${timeRow()}>
-        <input
-          class=${timeInput()}
-          type="number"
-          min=${this._uses24Hour ? '0' : '1'}
-          max=${this._uses24Hour ? '23' : '12'}
-          .value=${this._displayHour}
-          @input=${this._handleHourInput}
-          aria-label="Hours"
-        />
+        <div class="w-8">
+          <lukso-input
+            type="text"
+            size="medium"
+            ?borderless=${true}
+            ?only-numbers-and-dot=${true}
+            ?no-decimal=${true}
+            ?is-hour-24=${this._uses24Hour}
+            ?is-hour-12=${!this._uses24Hour}
+            ?is-full-width=${true}
+            custom-class="text-center text-neutral-20 !px-1"
+            .value=${this._displayHour}
+            aria-label="Hours"
+            @on-input=${this._handleHourChange}
+          ></lukso-input>
+        </div>
         <span class=${timeSeparator()}>:</span>
-        <input
-          class=${timeInput()}
-          type="number"
-          min="0"
-          max="59"
-          .value=${this._displayMinute}
-          @input=${this._handleMinuteInput}
-          aria-label="Minutes"
-        />
+        <div class="w-8">
+          <lukso-input
+            type="text"
+            size="medium"
+            ?borderless=${true}
+            ?only-numbers-and-dot=${true}
+            ?no-decimal=${true}
+            ?is-full-width=${true}
+            ?is-minute=${true}
+            custom-class="text-center text-neutral-20 !px-1"
+            .value=${this._displayMinute}
+            aria-label="Minutes"
+            @on-input=${this._handleMinuteChange}
+          ></lukso-input>
+        </div>
         ${!this._uses24Hour
           ? html`
               <div
-                class=${ampmContainer()}
+                class=${ampmWrapper()}
                 @click=${(e: Event) => e.stopPropagation()}
               >
                 <button
@@ -249,36 +258,26 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
                 >
                   ${this._amPmLabel}
                 </button>
-                ${this._showAmPmPicker
-                  ? html`
-                      <div
-                        class=${ampmPopover()}
-                        role="listbox"
-                        aria-label="AM/PM"
-                      >
-                        <button
-                          class=${ampmOption()}
-                          role="option"
-                          aria-selected=${this._amPmLabel === 'AM'
-                            ? 'true'
-                            : 'false'}
-                          @click=${(e: Event) => this._selectAmPm('AM', e)}
-                        >
-                          AM
-                        </button>
-                        <button
-                          class=${ampmOption()}
-                          role="option"
-                          aria-selected=${this._amPmLabel === 'PM'
-                            ? 'true'
-                            : 'false'}
-                          @click=${(e: Event) => this._selectAmPm('PM', e)}
-                        >
-                          PM
-                        </button>
-                      </div>
-                    `
-                  : nothing}
+                <lukso-dropdown
+                  ?is-open=${this._showAmPmPicker}
+                  is-open-on-outside-click
+                  open-top
+                  is-right
+                  size="small"
+                >
+                  <lukso-dropdown-option
+                    size="small"
+                    ?is-selected=${this._amPmLabel === 'AM'}
+                    @click=${(e: Event) => this._selectAmPm('AM', e)}
+                    >AM</lukso-dropdown-option
+                  >
+                  <lukso-dropdown-option
+                    size="small"
+                    ?is-selected=${this._amPmLabel === 'PM'}
+                    @click=${(e: Event) => this._selectAmPm('PM', e)}
+                    >PM</lukso-dropdown-option
+                  >
+                </lukso-dropdown>
               </div>
             `
           : nothing}
@@ -287,29 +286,17 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
   }
 
   override render() {
-    const {
-      outer,
-      card,
-      timeRow,
-      timeInput,
-      timeSeparator,
-      ampmContainer,
-      ampmBtn,
-      ampmPopover,
-      ampmOption,
-    } = this.styles({
-      size: this.size,
-      isDisabled: this.isDisabled,
-    })
+    const { outer, card, timeRow, timeSeparator, ampmWrapper, ampmBtn } =
+      this.styles({
+        size: this.size,
+        isDisabled: this.isDisabled,
+      })
 
     const controls = this._renderTimeRow(
       timeRow,
-      timeInput,
       timeSeparator,
-      ampmContainer,
-      ampmBtn,
-      ampmPopover,
-      ampmOption
+      ampmWrapper,
+      ampmBtn
     )
 
     if (!this.isStandalone) {

@@ -6,7 +6,7 @@ import './index'
 
 /** Documentation and examples of the `lukso-time-picker` component. */
 const meta: Meta = {
-  title: 'Design System/Forms/lukso-time-picker',
+  title: 'Design System/Components/lukso-time-picker',
   component: 'lukso-time-picker',
   argTypes: {
     value: {

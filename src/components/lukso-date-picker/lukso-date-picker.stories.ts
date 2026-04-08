@@ -6,7 +6,7 @@ import './index'
 
 /** Documentation and examples of the `lukso-date-picker` component. */
 const meta: Meta = {
-  title: 'Design System/Forms/lukso-date-picker',
+  title: 'Design System/Components/lukso-date-picker',
   component: 'lukso-date-picker',
   argTypes: {
     value: {

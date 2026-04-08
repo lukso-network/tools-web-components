@@ -134,9 +134,9 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
     },
     variants: {
       size: {
-        small: { outer: 'w-[240px]' },
-        medium: { outer: 'w-[300px]' },
-        large: { outer: 'w-[360px]' },
+        small: { outer: 'w-[200px]' },
+        medium: { outer: 'w-[250px]' },
+        large: { outer: 'w-[300px]' },
         'x-large': { outer: 'w-[420px]' },
       },
       isDisabled: {

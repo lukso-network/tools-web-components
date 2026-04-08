@@ -41,7 +41,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
 
   /** Component width — only relevant when is-standalone=true. */
   @property({ type: String })
-  size: InputSize = 'large'
+  size: InputSize = 'medium'
 
   /**
    * When true (default) renders a card wrapper and form label/description/error.
@@ -75,7 +75,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
   private styles = tv({
     slots: {
       outer: 'flex flex-col',
-      card: 'flex items-center bg-neutral-100 rounded-12 shadow-drop-shadow-small px-4 py-3 w-full',
+      card: 'flex items-center bg-neutral-100 rounded-12 shadow-drop-shadow-small w-full',
       timeRow: 'flex items-center gap-2',
       timeInput:
         'w-7 text-center text-paragraph-sm bg-transparent border-0 outline-none text-neutral-20 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
@@ -94,6 +94,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
         medium: { outer: 'w-[300px]' },
         large: { outer: 'w-[360px]' },
         'x-large': { outer: 'w-[420px]' },
+        full: { outer: 'w-full' },
       },
       isDisabled: {
         true: { outer: 'opacity-50 pointer-events-none' },
@@ -215,14 +216,13 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
   ) {
     return html`
       <div class=${timeRow()}>
-        <lukso-icon name="clock" size="small" color="currentColor"></lukso-icon>
         <input
           class=${timeInput()}
           type="number"
           min=${this._uses24Hour ? '0' : '1'}
           max=${this._uses24Hour ? '23' : '12'}
           .value=${this._displayHour}
-          @change=${this._handleHourInput}
+          @input=${this._handleHourInput}
           aria-label="Hours"
         />
         <span class=${timeSeparator()}>:</span>
@@ -232,7 +232,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
           min="0"
           max="59"
           .value=${this._displayMinute}
-          @change=${this._handleMinuteInput}
+          @input=${this._handleMinuteInput}
           aria-label="Minutes"
         />
         ${!this._uses24Hour

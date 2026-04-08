@@ -101,6 +101,12 @@ const meta: Meta = {
       description: 'Disables all interaction.',
       table: { category: 'Attributes' },
     },
+    'is-full-width': {
+      control: { type: 'boolean' },
+      description:
+        'Whether the component should take the full width of its container.',
+      table: { category: 'Attributes' },
+    },
     'on-change': {
       description:
         'Emitted when the user selects a date or changes the time. `detail: { value: string, event }`',
@@ -124,6 +130,7 @@ const meta: Meta = {
     'selected-bg-color': undefined,
     'selected-text-color': undefined,
     'is-disabled': false,
+    'is-full-width': false,
   },
   parameters: {
     controls: { exclude: ['styles'] },
@@ -148,6 +155,7 @@ const meta: Meta = {
       time-format=${args['time-format'] || nothing}
       week-start-day=${args['week-start-day'] || nothing}
       ?is-disabled=${args['is-disabled']}
+      ?is-full-width=${args['is-full-width']}
       @on-change=${(e: CustomEvent) => console.log('on-change', e.detail)}
     ></lukso-date-picker>
   `,

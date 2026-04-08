@@ -96,6 +96,10 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-disabled' })
   isDisabled = false
 
+  /** Whether the component should take the full width of its container. */
+  @property({ type: Boolean, attribute: 'is-full-width' })
+  isFullWidth = false
+
   @state() private _viewYear: number = new Date().getFullYear()
   @state() private _viewMonth: number = new Date().getMonth()
   @state() private _selectedDate: Date | null = null
@@ -137,6 +141,9 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
       },
       isDisabled: {
         true: { outer: 'opacity-50 pointer-events-none' },
+      },
+      isFullWidth: {
+        true: { outer: 'w-full' },
       },
     },
   })
@@ -341,6 +348,10 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
   }
 
   private _handleTimeChange(e: CustomEvent) {
+    // Stop the time-picker's on-change from composing out of this shadow root.
+    // Without this, lukso-input-date-picker would receive the "HH:MM" event
+    // in addition to the ISO string event re-emitted below.
+    e.stopPropagation()
     const [hStr, mStr] = (e.detail.value as string).split(':')
     this._selectedHour = parseInt(hStr, 10)
     this._selectedMinute = parseInt(mStr, 10)
@@ -376,7 +387,11 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
       dateLabelWeekday,
       dateLabelDate,
       timeRowWrap,
-    } = this.styles({ size: this.size, isDisabled: this.isDisabled })
+    } = this.styles({
+      size: this.size,
+      isDisabled: this.isDisabled,
+      isFullWidth: this.isFullWidth,
+    })
 
     const grid = this._getDayGrid()
     const labelInfo = this._formattedDateLabel()
@@ -480,6 +495,7 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
                             ?is-standalone=${false}
                             ?is-disabled=${this.isDisabled}
                             @on-change=${this._handleTimeChange}
+                            size="full"
                           ></lukso-time-picker>
                         </div>
                       `

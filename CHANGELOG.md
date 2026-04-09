@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.188.0](https://github.com/lukso-network/tools-web-components/compare/v1.187.0...v1.188.0) (2026-04-09)
+
+
+### Features
+
+* Add is-full-width property to alerts ([#839](https://github.com/lukso-network/tools-web-components/issues/839)) ([40d9c4d](https://github.com/lukso-network/tools-web-components/commit/40d9c4dd7cba5d8d45cc08034917cf94b5e958c6))
+* add rules to lukso-input ([#836](https://github.com/lukso-network/tools-web-components/issues/836)) ([361cac5](https://github.com/lukso-network/tools-web-components/commit/361cac5d704c502d1e81780ab291a1a400b9077b))
+
 ## [1.187.0](https://github.com/lukso-network/tools-web-components/compare/v1.186.0...v1.187.0) (2026-03-24)
 
 

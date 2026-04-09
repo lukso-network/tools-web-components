@@ -52,6 +52,19 @@ const meta: Meta = {
     'has-icon': {
       name: 'hasIcon',
     },
+    isFullWidth: {
+      name: 'is-full-width',
+      control: {
+        type: 'boolean',
+      },
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: 'false' },
+      },
+    },
+    'is-full-width': {
+      name: 'isFullWidth',
+    },
   },
   args: {
     variant: 'info',
@@ -59,22 +72,24 @@ const meta: Meta = {
     description:
       'Lorem ipsum dolor sit amet, <i>consectetur adipiscing</i> elit. Urna, tortor tempus.',
     hasIcon: true,
+    isFullWidth: false,
   },
   parameters: {
     controls: {
-      exclude: ['hasIcon'],
+      exclude: ['hasIcon', 'isFullWidth'],
     },
   },
 }
 
 export default meta
 
-const Template = ({ variant, title, description, hasIcon }) =>
+const Template = ({ variant, title, description, hasIcon, isFullWidth }) =>
   html`<lukso-alert
     variant=${variant ? variant : nothing}
     title=${title ? title : nothing}
     description=${description ? description : nothing}
     ?has-icon=${hasIcon}
+    ?is-full-width=${isFullWidth}
   ></lukso-alert>`
 
 /** Example of `info` alert.  */
@@ -108,4 +123,11 @@ SuccessAlert.args = {
 export const AlertWithoutIcon = Template.bind({})
 AlertWithoutIcon.args = {
   hasIcon: false,
+}
+
+/** Example of a full-width alert. */
+export const FullWidthAlert = Template.bind({})
+FullWidthAlert.args = {
+  isFullWidth: true,
+  hasIcon: true,
 }

@@ -156,7 +156,6 @@ const meta: Meta = {
       week-start-day=${args['week-start-day'] || nothing}
       ?is-disabled=${args['is-disabled']}
       ?is-full-width=${args['is-full-width']}
-      @on-change=${(e: CustomEvent) => console.log('on-change', e.detail)}
     ></lukso-date-picker>
   `,
 }

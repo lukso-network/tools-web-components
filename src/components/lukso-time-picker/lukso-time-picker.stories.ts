@@ -92,7 +92,6 @@ const meta: Meta = {
       error=${args['error'] || nothing}
       ?is-standalone=${args['is-standalone']}
       ?is-disabled=${args['is-disabled']}
-      @on-change=${(e: CustomEvent) => console.log('on-change', e.detail)}
     ></lukso-time-picker>
   `,
 }

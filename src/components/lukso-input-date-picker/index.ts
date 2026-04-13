@@ -210,7 +210,6 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   // ─── Computed helpers ───────────────────────────────────────────────────────
 
   private _formatDisplayValue(): string {
-    console.log('qui')
     if (!this._internalValue) return ''
     try {
       const d = new Date(this._internalValue)

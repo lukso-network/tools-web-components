@@ -352,9 +352,17 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
     // Without this, lukso-input-date-picker would receive the "HH:MM" event
     // in addition to the ISO string event re-emitted below.
     e.stopPropagation()
-    const [hStr, mStr] = (e.detail.value as string).split(':')
-    this._selectedHour = parseInt(hStr, 10)
-    this._selectedMinute = parseInt(mStr, 10)
+    const value = e.detail.value as string
+    //[bug] Guard: lukso-input dispatches on-change (bubbles:false, composed:true) on blur,
+    // which is retargeted to lukso-time-picker and reaches this listener with a raw
+    // number string (no colon). Ignore anything that isn't "HH:MM".
+    if (!value?.includes(':')) return
+    const [hStr, mStr] = value.split(':')
+    const h = parseInt(hStr, 10)
+    const m = parseInt(mStr, 10)
+    if (isNaN(h) || isNaN(m)) return
+    this._selectedHour = h
+    this._selectedMinute = m
     this._emitChange(e.detail.event)
   }
 

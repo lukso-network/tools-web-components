@@ -131,7 +131,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
   private get _displayHour(): string {
     if (this._uses24Hour) return String(this._selectedHour).padStart(2, '0')
     const h = this._selectedHour % 12
-    return String(h === 0 ? 12 : h).padStart(2, '0')
+    return String(h === 0 ? 12 : h)
   }
 
   private get _displayMinute(): string {
@@ -153,7 +153,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
       event as CustomEvent<{ value: string; event: Event }>
     ).detail
     const raw = parseInt(rawStr, 10)
-    if (isNaN(raw)) return
+    if (isNaN(raw) || (!this._uses24Hour && raw === 0)) return
     if (this._uses24Hour) {
       this._selectedHour = Math.max(0, Math.min(23, raw))
     } else {

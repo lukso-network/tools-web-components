@@ -86,33 +86,20 @@ export const isHour12: InputRule = {
   name: 'isHour12',
   validate: (input, key) => {
     if (key === '' || !/^[0-9]$/.test(key)) return true
-    const next =
-      input.value.slice(0, input.selectionStart ?? 0) +
-      key +
-      input.value.slice(input.selectionEnd ?? 0)
-    let num = parseInt(next, 10)
-    if (next.length === 1) return num >= 0 && num <= 1
-    if (next.length === 2 && next[0] === '2') return num <= 23
-    if (next.length === 3 && (next[0] !== '0' || next[1] === '0')) {
-      const digit1 = next[0]
-      const digit2 = next[2]
-      num = parseInt(digit1 + digit2, 10)
-
-      return num >= 0 && num <= 59
-    }
-    return num >= 1 && num <= 12
+    // Allow 0 only when the existing value is "1" (to form "10")
+    if (key === '0') return input.value === '1'
+    // Any other digit 1–9 is always accepted; sanitize handles multi-digit results
+    return /^[1-9]$/.test(key)
   },
   sanitize: value => {
-    let num = parseInt(value.replace(/\D/g, ''), 10)
-    if (isNaN(num)) return '01'
-    if (value.length === 3 && (value[0] !== '0' || value[1] === '0')) {
-      const digit1 = value[0]
-      const digit2 = value[2]
-      num = parseInt(digit1 + digit2, 10)
-
-      return num >= 0 && num <= 59 ? String(num) : '00'
-    }
-    return String(Math.max(1, Math.min(12, num))).padStart(2, '0')
+    const cleaned = value.replace(/\D/g, '')
+    if (!cleaned) return '0'
+    const num = parseInt(cleaned, 10)
+    if (isNaN(num) || num < 1) return '0'
+    if (num <= 12) return String(num)
+    // > 12: use the last digit typed (e.g. "35" → "5")
+    const last = parseInt(cleaned[cleaned.length - 1], 10)
+    return last >= 1 ? String(last) : '0'
   },
 }
 

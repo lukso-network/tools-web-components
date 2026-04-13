@@ -27,6 +27,9 @@ export class LuksoAlert extends TailwindStyledElement(style) {
   @property({ type: String })
   description: string | undefined = ''
 
+  @property({ type: Boolean, attribute: 'is-full-width', reflect: true })
+  isFullWidth = false
+
   private styles = tv({
     base: 'rounded-8 p-4 flex gap-3 items-center',
     variants: {
@@ -35,6 +38,9 @@ export class LuksoAlert extends TailwindStyledElement(style) {
         warning: 'bg-honey-92 text-yellow-25',
         error: 'bg-red-95 text-red-55',
         success: 'bg-green-95 text-green-45',
+      },
+      isFullWidth: {
+        true: 'w-full',
       },
     },
   })
@@ -55,6 +61,7 @@ export class LuksoAlert extends TailwindStyledElement(style) {
   render() {
     const styles = this.styles({
       variant: this.variant,
+      isFullWidth: this.isFullWidth,
     })
 
     return html`

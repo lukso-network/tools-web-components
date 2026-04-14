@@ -264,3 +264,33 @@ CollapseWithSelector.args = {
     </div>
   `,
 }
+
+/** Example of lukso-collapse with a `selector` and a badge in the `right` slot */
+export const CollapseWithSelectorAndRightSlot = Template.bind({})
+CollapseWithSelectorAndRightSlot.args = {
+  content: html`
+    <div class="flex">
+      <lukso-select
+        value='{"id":"1","value":"First result"}'
+        size="large"
+        is-full-width
+        max-height="200"
+        options='[{"id":"1","value":"First result"},{"id":"2","value":"Second result"},{"id":"3","value":"Third result"}]'
+      >
+        <span
+          slot="right"
+          style="
+            background: #f0eaf8;
+            color: #6b21a8;
+            border-radius: 9999px;
+            padding: 2px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+          "
+          >LSP7 NDT</span
+        >
+      </lukso-select>
+    </div>
+  `,
+}

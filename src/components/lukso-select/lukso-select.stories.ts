@@ -475,6 +475,20 @@ CountSelections.args = {
   size: 'small',
 }
 
+const badge = html`<span
+  slot="right"
+  style="
+    background: #f0eaf8;
+    color: #6b21a8;
+    border-radius: 9999px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  "
+  >LSP7 NDT</span
+>`
+
 /** Example with a badge in the `right` slot, positioned between the selected value and the chevron icon. */
 export const WithRightSlot = {
   render: () => {
@@ -491,19 +505,37 @@ export const WithRightSlot = {
       @on-select=${handleSelect}
       style="margin-bottom: 160px"
     >
-      <span
-        slot="right"
-        style="
-          background: #f0eaf8;
-          color: #6b21a8;
-          border-radius: 9999px;
-          padding: 2px 10px;
-          font-size: 12px;
-          font-weight: 600;
-          white-space: nowrap;
-        "
-        >LSP7 NDT</span
-      >
+      ${badge}
+    </lukso-select>`
+  },
+  args: {
+    options: [
+      { id: '1', value: 'First result' },
+      { id: '2', value: 'Second result' },
+      { id: '3', value: 'Third result' },
+    ],
+    value: JSON.stringify({ id: '2', value: 'Second result' }),
+  },
+}
+
+/** Example with a badge in the `right` slot and `is-full-width`. */
+export const WithRightSlotFullWidth = {
+  render: () => {
+    const [{ options, value }, updateArgs] = useArgs()
+
+    const handleSelect = (event: CustomEvent) => {
+      updateArgs({ value: JSON.stringify(event.detail.value) })
+    }
+
+    return html`<lukso-select
+      label="Token Standard"
+      is-full-width
+      value=${value ? value : nothing}
+      options=${options ? JSON.stringify(options) : nothing}
+      @on-select=${handleSelect}
+      style="margin-bottom: 160px"
+    >
+      ${badge}
     </lukso-select>`
   },
   args: {

@@ -223,6 +223,7 @@ export class LuksoCollapse extends TailwindElement {
                       : this.toggleLabel?.open}
                   </span>`
                 : nothing}
+              <slot name="right"></slot>
               ${this.icon
                 ? html`<lukso-icon
                     name=${this.icon}

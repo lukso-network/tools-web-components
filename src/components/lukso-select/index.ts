@@ -103,6 +103,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   @state()
   private valueParsed: SelectOption[] | undefined = undefined
 
+  @state()
+  private rightSlotWidth = 0
+
   constructor() {
     super()
 
@@ -153,15 +156,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     },
   })
 
-  private iconStyles = tv({
-    base: 'absolute right-0 transition cursor-pointer',
+  private iconWrapperStyles = tv({
+    base: 'absolute right-0 flex items-center gap-2',
     variants: {
-      isDisabled: {
-        true: 'opacity-60 cursor-not-allowed',
-      },
-      isOpen: {
-        true: 'rotate-180',
-      },
       size: {
         small: 'mr-2',
         medium: 'mr-3',
@@ -170,6 +167,33 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       },
     },
   })
+
+  private iconStyles = tv({
+    base: 'transition cursor-pointer',
+    variants: {
+      isDisabled: {
+        true: 'opacity-60 cursor-not-allowed',
+      },
+      isOpen: {
+        true: 'rotate-180',
+      },
+    },
+  })
+
+  private handleRightSlotChange(event: Event) {
+    const slot = event.target as HTMLSlotElement
+    const assigned = slot.assignedElements()
+    if (!assigned.length) {
+      this.rightSlotWidth = 0
+      return
+    }
+    requestAnimationFrame(() => {
+      this.rightSlotWidth = assigned.reduce(
+        (acc, el) => acc + el.getBoundingClientRect().width,
+        0
+      )
+    })
+  }
 
   connectedCallback() {
     super.connectedCallback()
@@ -233,11 +257,23 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       size: this.size,
     })
 
+    const basePrBySize: Partial<Record<InputSize, number>> = {
+      small: 32,
+      medium: 44,
+      large: 44,
+    }
+    const basePr = basePrBySize[this.size]
+    const paddingRightStyle =
+      this.rightSlotWidth && basePr
+        ? `padding-right: ${basePr + this.rightSlotWidth + 8}px`
+        : nothing
+
     return html`
       <div
         id=${this.id}
         data-testid=${this.id ? `select-${this.id}` : 'select'}
         class=${inputStyles}
+        style=${paddingRightStyle}
         @blur=${this.handleBlur}
         @click=${this.handleClick}
       >
@@ -523,6 +559,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     const iconStyles = this.iconStyles({
       isDisabled: this.isDisabled,
       isOpen: this.isOpen,
+    })
+
+    const iconWrapperStyles = this.iconWrapperStyles({
       size: this.size,
     })
 
@@ -534,11 +573,18 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         ></lukso-form-description>
         <div class="group">
           <div class="flex relative items-center">
-            ${this.inputTemplate()}<lukso-icon
-              name=${this.isLargeIcon ? 'arrow-down-lg' : 'arrow-down-sm'}
-              class="${iconStyles}"
-              @click=${this.handleClick}
-            ></lukso-icon>
+            ${this.inputTemplate()}
+            <div class="${iconWrapperStyles}">
+              <slot
+                name="right"
+                @slotchange=${this.handleRightSlotChange}
+              ></slot>
+              <lukso-icon
+                name=${this.isLargeIcon ? 'arrow-down-lg' : 'arrow-down-sm'}
+                class="${iconStyles}"
+                @click=${this.handleClick}
+              ></lukso-icon>
+            </div>
           </div>
           <!-- options dropdown -->
           ${this.isOpen && this.optionsParsed.length > 0

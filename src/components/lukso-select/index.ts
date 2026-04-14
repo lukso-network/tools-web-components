@@ -157,7 +157,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   })
 
   private iconWrapperStyles = tv({
-    base: 'absolute right-0 flex items-center gap-2',
+    base: 'absolute right-0 flex items-center',
     variants: {
       size: {
         small: 'mr-2',

@@ -1,4 +1,4 @@
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 import { property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -12,6 +12,7 @@ import type { InputSize } from '@/shared/types'
  * A single option row inside a `lukso-dropdown`. Does not emit its own events — parent handles clicks.
  *
  * @slot - Option label content (text, icons, profile elements, etc.).
+ * @slot right - Optional trailing content (icon, tooltip trigger, badge, etc.).
  */
 @safeCustomElement('lukso-dropdown-option')
 export class LuksoDropdownOption extends TailwindStyledElement(style) {
@@ -32,6 +33,9 @@ export class LuksoDropdownOption extends TailwindStyledElement(style) {
 
   @property({ type: String })
   size: InputSize = 'large'
+
+  @property({ type: String, attribute: 'secondary-label' })
+  secondaryLabel = ''
 
   private styles = tv({
     base: `text-neutral-20 cursor-pointer select-none
@@ -96,6 +100,14 @@ export class LuksoDropdownOption extends TailwindStyledElement(style) {
 
     return html`<div class="${styles}">
       <slot></slot>
+      ${this.secondaryLabel
+        ? html`<span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
+            >${this.secondaryLabel}</span
+          >`
+        : nothing}
+      <div class="ml-auto shrink-0 flex items-center">
+        <slot name="right"></slot>
+      </div>
     </div>`
   }
 }

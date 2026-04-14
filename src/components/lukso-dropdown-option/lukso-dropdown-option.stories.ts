@@ -3,6 +3,7 @@ import { html, nothing } from 'lit-html'
 import type { Meta } from '@storybook/web-components-vite'
 
 import '../lukso-button/index'
+import '../lukso-icon/index'
 
 import './index'
 
@@ -53,6 +54,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    secondaryLabel: {
+      name: 'secondary-label',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-readonly': {
       name: 'isReadonly',
     },
@@ -76,6 +84,7 @@ const meta: Meta = {
     isSelected: false,
     isActive: false,
     isGroup: false,
+    secondaryLabel: '',
   },
   parameters: {
     controls: {
@@ -100,6 +109,7 @@ const Template = ({
   isSelected,
   isActive,
   isGroup,
+  secondaryLabel,
 }) => {
   return html`
     <lukso-dropdown-option
@@ -109,8 +119,9 @@ const Template = ({
       ?is-selected=${isSelected}
       ?is-active=${isActive}
       ?is-group=${isGroup}
+      secondary-label=${secondaryLabel ? secondaryLabel : nothing}
     >
-      Test
+      Proof of Attendance
     </lukso-dropdown-option>
   </div>`
 }
@@ -118,3 +129,13 @@ const Template = ({
 /** Example of dropdown option.  */
 export const DefaultDropdownOption = Template.bind({})
 DefaultDropdownOption.args = {}
+
+/** Dropdown option with secondary label and a generic right slot. */
+export const WithSecondaryLabelAndRightSlot = {
+  render: () => html`
+    <lukso-dropdown-option secondary-label="LSP7 NDT">
+      Proof of Attendance
+      <lukso-icon slot="right" name="information" size="small"></lukso-icon>
+    </lukso-dropdown-option>
+  `,
+}

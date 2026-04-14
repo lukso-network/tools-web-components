@@ -4,6 +4,8 @@ import type { Meta } from '@storybook/web-components-vite'
 
 import '../lukso-button/index'
 import '../lukso-dropdown-option/index'
+import '../lukso-icon/index'
+import '../lukso-tooltip/index'
 import './index'
 
 /**  Documentation and examples of `lukso-dropdown` component. */
@@ -294,4 +296,46 @@ CustomClass.args = {
   marginBottom: 170,
   triggerId: 'dropdown-8',
   customClass: 'border-purple-51',
+}
+
+/** Example of dropdown options with `tag` property and a generic `right` slot containing a tooltip. */
+export const WithTagAndRightSlot = {
+  render: () => html`
+    <div class="relative" style="margin-bottom: 220px;">
+      <lukso-button id="dropdown-tag-slot">Click me!</lukso-button>
+      <lukso-dropdown
+        trigger-id="dropdown-tag-slot"
+        ?is-open=${true}
+        ?is-open-on-outside-click=${true}
+        ?is-full-width=${true}
+      >
+        <lukso-dropdown-option secondary-label="LSP8 Collection"
+          >Collectible</lukso-dropdown-option
+        >
+        <lukso-dropdown-option secondary-label="LSP7 Token"
+          >Utility Token</lukso-dropdown-option
+        >
+        <lukso-dropdown-option secondary-label="LSP7 Token"
+          >Fan Token</lukso-dropdown-option
+        >
+        <lukso-dropdown-option secondary-label="LSP7 NDT" is-selected>
+          Proof of Attendance
+          <lukso-tooltip
+            slot="right"
+            text="Token standard information"
+            trigger="mouseenter"
+            placement="right"
+          >
+            <lukso-icon name="information" size="small"></lukso-icon>
+          </lukso-tooltip>
+        </lukso-dropdown-option>
+        <lukso-dropdown-option secondary-label="LSP7 NDT"
+          >Digital Collectible</lukso-dropdown-option
+        >
+        <lukso-dropdown-option secondary-label="LSP7 NDT"
+          >Ticket</lukso-dropdown-option
+        >
+      </lukso-dropdown>
+    </div>
+  `,
 }

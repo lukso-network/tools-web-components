@@ -13,6 +13,7 @@ import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import style from './style.css?inline'
+import * as TimePickerRules from './rules'
 
 import type { DatePickerTimeFormat, InputSize } from '@/shared/types'
 
@@ -149,28 +150,39 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
   // ─── Event handlers ─────────────────────────────────────────────────────────
 
   private _handleHourChange(event: Event) {
-    const { value: rawStr, event: innerEvent } = (
+    const { value: rawStringValue, event: innerEvent } = (
       event as CustomEvent<{ value: string; event: Event }>
     ).detail
-    const raw = parseInt(rawStr, 10)
-    if (isNaN(raw) || (!this._uses24Hour && raw === 0)) return
+    const rule = this._uses24Hour
+      ? TimePickerRules.RULES_MAP.isHour24
+      : TimePickerRules.RULES_MAP.isHour12
+    const sanitized = rule.sanitize(rawStringValue)
+    const rawValue = parseInt(sanitized, 10)
+    if (isNaN(rawValue) || (!this._uses24Hour && rawValue === 0)) return
     if (this._uses24Hour) {
-      this._selectedHour = Math.max(0, Math.min(23, raw))
+      this._selectedHour = rawValue
     } else {
-      const h = Math.max(1, Math.min(12, raw))
       const isPm = this._selectedHour >= 12
-      this._selectedHour = isPm ? (h === 12 ? 12 : h + 12) : h === 12 ? 0 : h
+      this._selectedHour = isPm
+        ? rawValue === 12
+          ? 12
+          : rawValue + 12
+        : rawValue === 12
+          ? 0
+          : rawValue
     }
     this._emitChange(innerEvent)
   }
 
   private _handleMinuteChange(event: Event) {
-    const { value: rawStr, event: innerEvent } = (
+    const { value: rawStringValue, event: innerEvent } = (
       event as CustomEvent<{ value: string; event: Event }>
     ).detail
-    const raw = parseInt(rawStr, 10)
-    if (isNaN(raw)) return
-    this._selectedMinute = Math.max(0, Math.min(59, raw))
+    const sanitized =
+      TimePickerRules.RULES_MAP.isMinute.sanitize(rawStringValue)
+    const rawValue = parseInt(sanitized, 10)
+    if (isNaN(rawValue)) return
+    this._selectedMinute = rawValue
     this._emitChange(innerEvent)
   }
 
@@ -217,10 +229,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
             type="text"
             size="medium"
             ?borderless=${true}
-            ?only-numbers-and-dot=${true}
-            ?no-decimal=${true}
-            ?is-hour-24=${this._uses24Hour}
-            ?is-hour-12=${!this._uses24Hour}
+            .rules=${['onlyNumbersAndDot', 'noDecimal']}
             ?is-full-width=${true}
             custom-class="text-center text-neutral-20 !px-1"
             .value=${this._displayHour}
@@ -234,10 +243,8 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
             type="text"
             size="medium"
             ?borderless=${true}
-            ?only-numbers-and-dot=${true}
-            ?no-decimal=${true}
+            .rules=${['onlyNumbersAndDot', 'noDecimal']}
             ?is-full-width=${true}
-            ?is-minute=${true}
             custom-class="text-center text-neutral-20 !px-1"
             .value=${this._displayMinute}
             aria-label="Minutes"

@@ -1,4 +1,5 @@
 import { html, nothing } from 'lit'
+import { styleMap } from 'lit/directives/style-map.js'
 import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
@@ -404,17 +405,10 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
     const grid = this._getDayGrid()
     const labelInfo = this._formattedDateLabel()
 
-    const selectedInlineStyle =
-      this.selectedBgColor || this.selectedTextColor
-        ? [
-            this.selectedBgColor
-              ? `background-color:${this.selectedBgColor}`
-              : '',
-            this.selectedTextColor ? `color:${this.selectedTextColor}` : '',
-          ]
-            .filter(Boolean)
-            .join(';')
-        : ''
+    const selectedStyleMap = styleMap({
+      'background-color': this.selectedBgColor ?? null,
+      color: this.selectedTextColor ?? null,
+    })
 
     return html`
       <div class=${outer()}>
@@ -466,9 +460,7 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
                     isOutOfRange: outOfRange,
                     isEmpty: empty,
                   })}
-                  style=${selected && selectedInlineStyle
-                    ? selectedInlineStyle
-                    : nothing}
+                  style=${selected ? selectedStyleMap : nothing}
                   ?disabled=${empty || outOfRange}
                   aria-label=${cell.date ? cell.date.toDateString() : nothing}
                   aria-pressed=${selected ? 'true' : 'false'}

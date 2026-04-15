@@ -20,39 +20,23 @@ import { uniqId } from '@/shared/tools/uniq-id'
 
 import type { Address, InputSize } from '@/shared/types'
 
-export type SelectStringOption = {
-  id: string
-  type: 'string'
-  group?: string
-  value: string
-}
+export type SelectOptionType = 'string' | 'profile' | 'secondary-with-tooltip'
 
-export type SelectProfileOption = {
+export type SelectOption = {
   id: string
-  type: 'profile'
-  address: Address
+  type: SelectOptionType
+  address?: Address
   image?: string
   name?: string
   isEOA?: boolean
   group?: string
-}
-
-export type SelectSecondaryWithTooltip = {
-  id: string
-  type: 'secondary-with-tooltip'
-  value: string
+  value?: string
   secondaryValue?: string
   tooltip?: string
-  group?: string
 }
 
-export type SelectOption =
-  | SelectStringOption
-  | SelectProfileOption
-  | SelectSecondaryWithTooltip
-
 /**
- * A custom select/dropdown supporting string options (`SelectStringOption`) and profile options (`SelectProfileOption` with address, image, name).
+ * A custom select/dropdown supporting string options, profile options (with address, image, name), and secondary-with-tooltip options.
  */
 @safeCustomElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
@@ -366,7 +350,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       case 'secondary-with-tooltip':
         return this.optionSecondaryWithTooltipTemplate(option, index)
       default:
-        return this.optionStringTemplate(option as SelectStringOption, index)
+        return this.optionStringTemplate(option, index)
     }
   }
 
@@ -385,7 +369,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       ${option.values.map(value => this.optionByTypeTemplate(value, index))}`
   }
 
-  optionStringTemplate(option: SelectStringOption, index: number) {
+  optionStringTemplate(option: SelectOption, index: number) {
     return html`<lukso-dropdown-option
       data-id="${option.id}"
       data-index="${index + 1}"
@@ -402,7 +386,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     </lukso-dropdown-option>`
   }
 
-  optionProfileTemplate(option: SelectProfileOption, index: number) {
+  optionProfileTemplate(option: SelectOption, index: number) {
     return html`<lukso-dropdown-option
       data-id="${option.id}"
       data-index="${index + 1}"
@@ -418,10 +402,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     </lukso-dropdown-option>`
   }
 
-  optionSecondaryWithTooltipTemplate(
-    option: SelectSecondaryWithTooltip,
-    index: number
-  ) {
+  optionSecondaryWithTooltipTemplate(option: SelectOption, index: number) {
     return html`<lukso-dropdown-option
       data-id="${option.id}"
       data-index="${index + 1}"
@@ -443,19 +424,21 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     </lukso-dropdown-option>`
   }
 
-  private optionStringValue(option: SelectStringOption) {
-    return option.value
+  private optionStringValue(option: SelectOption) {
+    return option.value ?? ''
   }
 
-  private optionProfileValue(option: SelectProfileOption) {
+  private optionProfileValue(option: SelectOption) {
+    const address = option.address ?? ''
+
     const eoaProfilePicture = html`<lukso-profile
-      profile-address="${option.address}"
-      profile-url="${option.address ? makeBlockie(option.address) : ''}"
+      profile-address="${address}"
+      profile-url="${address ? makeBlockie(address) : ''}"
       size="x-small"
     ></lukso-profile>`
 
     const lsp3ProfilePicture = html`<lukso-profile
-      profile-address="${option.address}"
+      profile-address="${address}"
       profile-url="${option.image}"
       size="x-small"
       has-identicon
@@ -466,7 +449,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     return html`${profilePicture}
       <lukso-username
         name="${option.name?.toLowerCase()}"
-        address="${option.address}"
+        address="${address}"
         name-color="neutral-20"
         slice-by="4"
         size=${this.size}
@@ -481,25 +464,21 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       return ''
     }
 
-    if ('value' in firstOption) {
+    if (firstOption.type !== 'profile') {
       const foundValues = this.optionsParsed.filter(
         option => !!this.valueParsed?.find(value => value.id === option.id)
       )
-      return foundValues
-        .map(value => this.optionStringValue(value as SelectStringOption))
-        .join(', ')
+      return foundValues.map(value => this.optionStringValue(value)).join(', ')
     }
 
-    if ('address' in firstOption) {
+    if (firstOption.type === 'profile') {
       const foundValues = this.optionsParsed.filter(
         option => !!this.valueParsed?.find(value => value.id === option.id)
       )
       const optionProfileValues = []
 
       for (const value of foundValues) {
-        optionProfileValues.push(
-          this.optionProfileValue(value as SelectProfileOption)
-        )
+        optionProfileValues.push(this.optionProfileValue(value))
       }
 
       return optionProfileValues

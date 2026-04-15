@@ -300,7 +300,7 @@ CustomClass.args = {
 /** Example of options with secondary label and tooltip. */
 export const SecondaryWithTooltip = {
   args: {
-    size: 'small',
+    size: 'large',
   },
   render: ({ size }: { size: string }) => html`
     <div class="relative" style="margin-bottom: 220px;">

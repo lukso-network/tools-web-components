@@ -122,7 +122,7 @@ DefaultDropdownOption.args = {}
 /** Dropdown option with secondary label and tooltip. */
 export const SecondaryWithTooltip = {
   args: {
-    size: 'small',
+    size: 'large',
   },
   render: ({ size }: { size: string }) => html`
     <lukso-dropdown-option size=${size}>

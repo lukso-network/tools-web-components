@@ -2,9 +2,6 @@ import { html, nothing } from 'lit-html'
 
 import type { Meta } from '@storybook/web-components-vite'
 
-import '../lukso-button/index'
-import '../lukso-icon/index'
-
 import './index'
 
 /**  Documentation and examples of `lukso-dropdown-option` component. */
@@ -130,12 +127,14 @@ const Template = ({
 export const DefaultDropdownOption = Template.bind({})
 DefaultDropdownOption.args = {}
 
-/** Dropdown option with secondary label and a generic right slot. */
-export const WithSecondaryLabelAndRightSlot = {
+/** Dropdown option with `secondary-label` and `tooltip` — both are rendered automatically, no manual slot usage needed. */
+export const SecondaryWithTooltip = {
   render: () => html`
-    <lukso-dropdown-option secondary-label="LSP7 NDT">
+    <lukso-dropdown-option
+      secondary-label="LSP7 NDT"
+      tooltip="Token standard information"
+    >
       Proof of Attendance
-      <lukso-icon slot="right" name="information" size="small"></lukso-icon>
     </lukso-dropdown-option>
   `,
 }

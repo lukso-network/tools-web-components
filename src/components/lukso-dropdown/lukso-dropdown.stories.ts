@@ -299,49 +299,7 @@ CustomClass.args = {
   customClass: 'border-purple-51',
 }
 
-/** Example of dropdown options with `secondary-label` and a `right` slot containing a tooltip (slot-based, for reference). */
-export const WithTagAndRightSlot = {
-  render: () => html`
-    <div class="relative" style="margin-bottom: 220px;">
-      <lukso-button id="dropdown-tag-slot">Click me!</lukso-button>
-      <lukso-dropdown
-        trigger-id="dropdown-tag-slot"
-        ?is-open=${true}
-        ?is-open-on-outside-click=${true}
-        ?is-full-width=${true}
-      >
-        <lukso-dropdown-option secondary-label="LSP8 Collection"
-          >Collectible</lukso-dropdown-option
-        >
-        <lukso-dropdown-option secondary-label="LSP7 Token"
-          >Utility Token</lukso-dropdown-option
-        >
-        <lukso-dropdown-option secondary-label="LSP7 Token"
-          >Fan Token</lukso-dropdown-option
-        >
-        <lukso-dropdown-option secondary-label="LSP7 NDT" is-selected>
-          Proof of Attendance
-          <lukso-tooltip
-            slot="right"
-            text="Token standard information"
-            trigger="mouseenter"
-            placement="right"
-          >
-            <lukso-icon name="information" size="small"></lukso-icon>
-          </lukso-tooltip>
-        </lukso-dropdown-option>
-        <lukso-dropdown-option secondary-label="LSP7 NDT"
-          >Digital Collectible</lukso-dropdown-option
-        >
-        <lukso-dropdown-option secondary-label="LSP7 NDT"
-          >Ticket</lukso-dropdown-option
-        >
-      </lukso-dropdown>
-    </div>
-  `,
-}
-
-const typedOptions: DropdownOption[] = [
+const secondaryWithTooltipOptions: DropdownOption[] = [
   {
     id: '1',
     type: 'secondary-with-tooltip',
@@ -381,17 +339,17 @@ const typedOptions: DropdownOption[] = [
   },
 ]
 
-/** Same options as `WithTagAndRightSlot` but driven by the typed `options` property — no manual slot usage needed, Vue-friendly. */
-export const WithTypedOptions = {
+/** Example of `secondary-with-tooltip` options — secondary label and tooltip are rendered automatically via the `options` property, no manual slot usage needed. */
+export const SecondaryWithTooltip = {
   render: () => html`
     <div class="relative" style="margin-bottom: 220px;">
-      <lukso-button id="dropdown-typed">Click me!</lukso-button>
+      <lukso-button id="dropdown-secondary-tooltip">Click me!</lukso-button>
       <lukso-dropdown
-        trigger-id="dropdown-typed"
+        trigger-id="dropdown-secondary-tooltip"
         ?is-open=${true}
         ?is-open-on-outside-click=${true}
         ?is-full-width=${true}
-        options=${JSON.stringify(typedOptions)}
+        options=${JSON.stringify(secondaryWithTooltipOptions)}
       ></lukso-dropdown>
     </div>
   `,

@@ -24,7 +24,7 @@ const FOCUS_DELAY_MS = 10
 @safeCustomElement('lukso-input')
 export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: String })
-  value: string | undefined = ''
+  value?: string = ''
 
   @property({ type: String })
   name: string | undefined
@@ -95,20 +95,8 @@ export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'keep-focus-on-escape' })
   keepFocusOnEscape = false
 
-  @property({ type: Boolean, attribute: 'no-comma' })
-  noComma = false
-
-  @property({ type: Boolean, attribute: 'no-leading-dot' })
-  noLeadingDot = false
-
-  @property({ type: Boolean, attribute: 'only-one-dot' })
-  onlyOneDot = false
-
-  @property({ type: Boolean, attribute: 'only-numbers-and-dot' })
-  onlyNumbersAndDot = false
-
-  @property({ type: Boolean, attribute: 'no-decimal' })
-  noDecimal = false
+  @property({ type: Array })
+  rules: InputRules.InputRuleName[] = []
 
   @state()
   private hasFocus = false
@@ -380,13 +368,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
   }
 
   private get activeRules(): ReadonlyArray<InputRules.InputRule> {
-    const rules: InputRules.InputRule[] = []
-    if (this.noComma) rules.push(InputRules.noComma)
-    if (this.noLeadingDot) rules.push(InputRules.noLeadingDot)
-    if (this.onlyOneDot) rules.push(InputRules.onlyOneDot)
-    if (this.onlyNumbersAndDot) rules.push(InputRules.onlyNumbersAndDot)
-    if (this.noDecimal) rules.push(InputRules.noDecimal)
-    return rules
+    return this.rules.map(name => InputRules.RULES_MAP[name]).filter(Boolean)
   }
 
   private async handleKeyDown(event: KeyboardEvent) {
@@ -450,7 +432,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
       composed: true,
     })
     this.dispatchEvent(clickEvent)
-    input.focus()
+    input?.focus()
   }
 
   private async handleInputClick(event: MouseEvent) {

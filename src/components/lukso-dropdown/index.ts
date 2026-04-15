@@ -7,6 +7,7 @@ import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
 import '@/components/lukso-dropdown-option'
+import '@/components/lukso-tooltip'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import { debounceFunction } from '@/shared/tools/debounceFunction'
@@ -276,12 +277,22 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       data-id="${option.id}"
       data-index="${index + 1}"
       size=${this.size}
-      secondary-label=${option.secondaryValue ?? nothing}
-      tooltip=${option.tooltip ?? nothing}
       ?is-group=${!!option.group}
       @click=${() => this.handleSelect(option)}
     >
       ${option.value}
+      ${option.secondaryValue
+        ? html`<span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
+            >${option.secondaryValue}</span
+          >`
+        : nothing}
+      ${option.tooltip
+        ? html`<div slot="right" class="ml-auto shrink-0 flex items-center">
+            <lukso-tooltip text="${option.tooltip}">
+              <lukso-icon name="information" size=${this.size}></lukso-icon>
+            </lukso-tooltip>
+          </div>`
+        : nothing}
     </lukso-dropdown-option>`
   }
 
@@ -309,23 +320,23 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       _options = this.optionsParsed
     }
 
-    for (const option of Object.entries(_options)) {
-      const index = Number(option[0])
+    let globalIndex = 0
 
-      if ('values' in option[1]) {
+    for (const item of _options) {
+      if ('values' in item) {
         optionTemplates.push(html`
           <div
             class="paragraph-inter-10-bold-uppercase text-neutral-20 p-1 text-left"
           >
-            ${option[1].group}
+            ${item.group}
           </div>
-          ${option[1].values.map((value, i) =>
-            this.optionSecondaryWithTooltipTemplate(value, i)
+          ${item.values.map(value =>
+            this.optionSecondaryWithTooltipTemplate(value, globalIndex++)
           )}
         `)
       } else {
         optionTemplates.push(
-          this.optionSecondaryWithTooltipTemplate(option[1], index)
+          this.optionSecondaryWithTooltipTemplate(item, globalIndex++)
         )
       }
     }

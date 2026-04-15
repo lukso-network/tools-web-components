@@ -341,11 +341,15 @@ const secondaryWithTooltipOptions: DropdownOption[] = [
 
 /** Example of `secondary-with-tooltip` options — secondary label and tooltip are rendered automatically via the `options` property, no manual slot usage needed. */
 export const SecondaryWithTooltip = {
-  render: () => html`
+  args: {
+    size: 'small',
+  },
+  render: ({ size }: { size: string }) => html`
     <div class="relative" style="margin-bottom: 220px;">
       <lukso-button id="dropdown-secondary-tooltip">Click me!</lukso-button>
       <lukso-dropdown
         trigger-id="dropdown-secondary-tooltip"
+        size=${size}
         ?is-open=${true}
         ?is-open-on-outside-click=${true}
         ?is-full-width=${true}

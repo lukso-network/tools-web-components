@@ -3,6 +3,8 @@ import { html, nothing } from 'lit-html'
 import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
+import '../lukso-icon/index'
+import '../lukso-tooltip/index'
 
 /**  Documentation and examples of `lukso-dropdown-option` component. */
 const meta: Meta = {
@@ -51,13 +53,6 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    secondaryLabel: {
-      name: 'secondary-label',
-      control: { type: 'text' },
-      table: {
-        category: 'Attributes',
-      },
-    },
     'is-readonly': {
       name: 'isReadonly',
     },
@@ -81,7 +76,6 @@ const meta: Meta = {
     isSelected: false,
     isActive: false,
     isGroup: false,
-    secondaryLabel: '',
   },
   parameters: {
     controls: {
@@ -106,7 +100,6 @@ const Template = ({
   isSelected,
   isActive,
   isGroup,
-  secondaryLabel,
 }) => {
   return html`
     <lukso-dropdown-option
@@ -116,7 +109,6 @@ const Template = ({
       ?is-selected=${isSelected}
       ?is-active=${isActive}
       ?is-group=${isGroup}
-      secondary-label=${secondaryLabel ? secondaryLabel : nothing}
     >
       Proof of Attendance
     </lukso-dropdown-option>
@@ -127,14 +119,22 @@ const Template = ({
 export const DefaultDropdownOption = Template.bind({})
 DefaultDropdownOption.args = {}
 
-/** Dropdown option with `secondary-label` and `tooltip` — both are rendered automatically, no manual slot usage needed. */
+/** Dropdown option with secondary label and tooltip passed via the `right` slot. */
 export const SecondaryWithTooltip = {
-  render: () => html`
-    <lukso-dropdown-option
-      secondary-label="LSP7 NDT"
-      tooltip="Token standard information"
-    >
+  args: {
+    size: 'small',
+  },
+  render: ({ size }: { size: string }) => html`
+    <lukso-dropdown-option size=${size}>
       Proof of Attendance
+      <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
+        >LSP7 NDT</span
+      >
+      <div slot="right" class="ml-auto shrink-0 flex items-center">
+        <lukso-tooltip text="Token standard information">
+          <lukso-icon size=${size} name="information"></lukso-icon>
+        </lukso-tooltip>
+      </div>
     </lukso-dropdown-option>
   `,
 }

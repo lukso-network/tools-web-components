@@ -1,11 +1,9 @@
-import { html, nothing } from 'lit'
+import { html } from 'lit'
 import { property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
-import '@/components/lukso-icon'
-import '@/components/lukso-tooltip'
 import style from './style.css?inline'
 
 import type { InputSize } from '@/shared/types'
@@ -35,12 +33,6 @@ export class LuksoDropdownOption extends TailwindStyledElement(style) {
 
   @property({ type: String })
   size: InputSize = 'large'
-
-  @property({ type: String, attribute: 'secondary-label' })
-  secondaryLabel = ''
-
-  @property({ type: String })
-  tooltip = ''
 
   private styles = tv({
     base: `text-neutral-20 cursor-pointer select-none
@@ -105,19 +97,7 @@ export class LuksoDropdownOption extends TailwindStyledElement(style) {
 
     return html`<div class="${styles}">
       <slot></slot>
-      ${this.secondaryLabel
-        ? html`<span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
-            >${this.secondaryLabel}</span
-          >`
-        : nothing}
-      <div class="ml-auto shrink-0 flex items-center">
-        ${this.tooltip
-          ? html`<lukso-tooltip text="${this.tooltip}">
-              <lukso-icon name="information" size="small"></lukso-icon>
-            </lukso-tooltip>`
-          : nothing}
-        <slot name="right"></slot>
-      </div>
+      <slot name="right"></slot>
     </div>`
   }
 }

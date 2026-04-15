@@ -410,16 +410,22 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       ?is-active=${this.selected === index + 1 &&
       !this.valueParsed?.find(value => value.id === option.id)}
       size=${this.size}
-      secondary-label=${option.secondaryValue ?? nothing}
       ?is-disabled=${this.isDisabled}
       ?is-readonly=${this.isReadonly}
       @click=${() => this.handleSelect(option)}
     >
       ${option.value}
+      ${option.secondaryValue
+        ? html`<span class="paragraph-inter-14-regular text-sky-64 shrink-0"
+            >${option.secondaryValue}</span
+          >`
+        : nothing}
       ${option.tooltip
-        ? html`<lukso-tooltip slot="right" text="${option.tooltip}">
-            <lukso-icon name="info-sm"></lukso-icon>
-          </lukso-tooltip>`
+        ? html`<div slot="right" class="ml-auto shrink-0 flex items-center">
+            <lukso-tooltip text="${option.tooltip}">
+              <lukso-icon name="information" size=${this.size}></lukso-icon>
+            </lukso-tooltip>
+          </div>`
         : nothing}
     </lukso-dropdown-option>`
   }
@@ -464,13 +470,6 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       return ''
     }
 
-    if (firstOption.type !== 'profile') {
-      const foundValues = this.optionsParsed.filter(
-        option => !!this.valueParsed?.find(value => value.id === option.id)
-      )
-      return foundValues.map(value => this.optionStringValue(value)).join(', ')
-    }
-
     if (firstOption.type === 'profile') {
       const foundValues = this.optionsParsed.filter(
         option => !!this.valueParsed?.find(value => value.id === option.id)
@@ -484,9 +483,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       return optionProfileValues
     }
 
-    console.error('Unknown value type', this.valueParsed)
-
-    return ''
+    const foundValues = this.optionsParsed.filter(
+      option => !!this.valueParsed?.find(value => value.id === option.id)
+    )
+    return foundValues.map(value => this.optionStringValue(value)).join(', ')
   }
 
   private handleOutsideDropdownClick(event: Event) {

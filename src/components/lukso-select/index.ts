@@ -421,7 +421,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
           >`
         : nothing}
       ${option.tooltip
-        ? html`<div slot="right" class="ml-auto shrink-0 flex items-center">
+        ? html`<div class="ml-auto shrink-0 flex items-center">
             <lukso-tooltip text="${option.tooltip}">
               <lukso-icon name="information" size=${this.size}></lukso-icon>
             </lukso-tooltip>

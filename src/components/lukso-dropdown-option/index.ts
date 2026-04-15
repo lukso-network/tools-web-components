@@ -12,7 +12,6 @@ import type { InputSize } from '@/shared/types'
  * A single option row inside a `lukso-dropdown`. Does not emit its own events — parent handles clicks.
  *
  * @slot - Option label content (text, icons, profile elements, etc.).
- * @slot right - Optional trailing content (icon, tooltip trigger, badge, etc.).
  */
 @safeCustomElement('lukso-dropdown-option')
 export class LuksoDropdownOption extends TailwindStyledElement(style) {
@@ -97,7 +96,6 @@ export class LuksoDropdownOption extends TailwindStyledElement(style) {
 
     return html`<div class="${styles}">
       <slot></slot>
-      <slot name="right"></slot>
     </div>`
   }
 }

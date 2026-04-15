@@ -1,13 +1,11 @@
-import { html, nothing, type PropertyValues, type TemplateResult } from 'lit'
-import { property, state } from 'lit/decorators.js'
+import { html, nothing, type PropertyValues } from 'lit'
+import { property } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
-import '@/components/lukso-dropdown-option'
-import '@/components/lukso-tooltip'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import { debounceFunction } from '@/shared/tools/debounceFunction'
@@ -20,22 +18,7 @@ export type LuksoDropdownOnChangeEventDetail = {
   isOpen: boolean
 }
 
-export type LuksoDropdownOnSelectEventDetail = {
-  value: DropdownOption
-}
-
 export type LuksoDropdownTrigger = 'click' | 'hover'
-
-export type DropdownSecondaryWithTooltipOption = {
-  id: string
-  type: 'secondary-with-tooltip'
-  value: string
-  secondaryValue?: string
-  tooltip?: string
-  group?: string
-}
-
-export type DropdownOption = DropdownSecondaryWithTooltipOption
 
 /**
  * A floating dropdown panel that positions absolutely relative to its trigger element.
@@ -76,12 +59,6 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   @property({ type: String, attribute: 'custom-class' })
   customClass = ''
-
-  @property({ type: String })
-  options = ''
-
-  @state()
-  private optionsParsed: DropdownOption[] = []
 
   private boundHandleClick?: (event: Event) => void
 
@@ -246,102 +223,6 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       )
       this.dispatchEvent(changeEvent)
     }
-
-    if (changedProperties.has('options') && !!this.options) {
-      try {
-        this.optionsParsed = JSON.parse(this.options) as DropdownOption[]
-      } catch (error: unknown) {
-        console.warn('Could not parse options', error)
-        this.optionsParsed = []
-      }
-    }
-  }
-
-  private handleSelect(option: DropdownOption) {
-    const selectEvent = new CustomEvent<LuksoDropdownOnSelectEventDetail>(
-      'on-select',
-      {
-        detail: { value: option },
-        bubbles: false,
-        composed: true,
-      }
-    )
-    this.dispatchEvent(selectEvent)
-  }
-
-  private optionSecondaryWithTooltipTemplate(
-    option: DropdownSecondaryWithTooltipOption,
-    index: number
-  ): TemplateResult<1> {
-    return html`<lukso-dropdown-option
-      data-id="${option.id}"
-      data-index="${index + 1}"
-      size=${this.size}
-      ?is-group=${!!option.group}
-      @click=${() => this.handleSelect(option)}
-    >
-      ${option.value}
-      ${option.secondaryValue
-        ? html`<span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
-            >${option.secondaryValue}</span
-          >`
-        : nothing}
-      ${option.tooltip
-        ? html`<div slot="right" class="ml-auto shrink-0 flex items-center">
-            <lukso-tooltip text="${option.tooltip}">
-              <lukso-icon name="information" size=${this.size}></lukso-icon>
-            </lukso-tooltip>
-          </div>`
-        : nothing}
-    </lukso-dropdown-option>`
-  }
-
-  private optionsTemplate(): TemplateResult<1>[] {
-    const optionTemplates: TemplateResult<1>[] = []
-    let _options: Array<
-      DropdownOption | { group: string; values: DropdownOption[] }
-    > = []
-
-    const groups: string[] = this.optionsParsed.reduce((acc, option) => {
-      if (option.group && !acc.includes(option.group)) {
-        acc.push(option.group)
-      }
-      return acc
-    }, [] as string[])
-
-    if (groups.length > 0) {
-      for (const group of groups) {
-        _options.push({
-          group,
-          values: this.optionsParsed.filter(option => option.group === group),
-        })
-      }
-    } else {
-      _options = this.optionsParsed
-    }
-
-    let globalIndex = 0
-
-    for (const item of _options) {
-      if ('values' in item) {
-        optionTemplates.push(html`
-          <div
-            class="paragraph-inter-10-bold-uppercase text-neutral-20 p-1 text-left"
-          >
-            ${item.group}
-          </div>
-          ${item.values.map(value =>
-            this.optionSecondaryWithTooltipTemplate(value, globalIndex++)
-          )}
-        `)
-      } else {
-        optionTemplates.push(
-          this.optionSecondaryWithTooltipTemplate(item, globalIndex++)
-        )
-      }
-    }
-
-    return optionTemplates
   }
 
   private handleClick = debounceFunction((event: Event) => {
@@ -383,9 +264,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         class=${cn(dropdown(), this.customClass)}
         style=${this.maxHeight ? `max-height: ${this.maxHeight}px;` : nothing}
       >
-        ${this.optionsParsed.length > 0
-          ? this.optionsTemplate()
-          : html`<slot></slot>`}
+        <slot></slot>
       </div>
     </div>`
   }

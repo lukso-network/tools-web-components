@@ -119,7 +119,7 @@ const Template = ({
 export const DefaultDropdownOption = Template.bind({})
 DefaultDropdownOption.args = {}
 
-/** Dropdown option with secondary label and tooltip passed via the `right` slot. */
+/** Dropdown option with secondary label and tooltip. */
 export const SecondaryWithTooltip = {
   args: {
     size: 'small',
@@ -130,7 +130,7 @@ export const SecondaryWithTooltip = {
       <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
         >LSP7 NDT</span
       >
-      <div slot="right" class="ml-auto shrink-0 flex items-center">
+      <div class="ml-auto shrink-0 flex items-center">
         <lukso-tooltip text="Token standard information">
           <lukso-icon size=${size} name="information"></lukso-icon>
         </lukso-tooltip>

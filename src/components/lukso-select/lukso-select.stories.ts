@@ -564,7 +564,7 @@ export const FullWidthWithBadgeSecondaryLabelTooltip = {
       options=${options ? JSON.stringify(options) : nothing}
       @on-select=${handleSelect}
       style="margin-bottom: 160px"
-      size="medium"
+      size="large"
     >
       ${badge}
     </lukso-select>`

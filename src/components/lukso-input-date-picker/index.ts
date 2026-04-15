@@ -341,7 +341,6 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
                     size=${this.size}
                     ?show-time=${this.showTime}
                     ?show-summary=${this.showTime}
-                    show-summary
                     date-format=${this.dateFormat}
                     time-format=${this.timeFormat}
                     week-start-day=${this.weekStartDay}

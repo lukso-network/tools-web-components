@@ -1,8 +1,6 @@
 import { html, nothing } from 'lit-html'
 
 import type { Meta } from '@storybook/web-components-vite'
-import type { DropdownOption } from './index'
-
 import '../lukso-button/index'
 import '../lukso-dropdown-option/index'
 import '../lukso-icon/index'
@@ -299,47 +297,7 @@ CustomClass.args = {
   customClass: 'border-purple-51',
 }
 
-const secondaryWithTooltipOptions: DropdownOption[] = [
-  {
-    id: '1',
-    type: 'secondary-with-tooltip',
-    value: 'Collectible',
-    secondaryValue: 'LSP8 Collection',
-  },
-  {
-    id: '2',
-    type: 'secondary-with-tooltip',
-    value: 'Utility Token',
-    secondaryValue: 'LSP7 Token',
-  },
-  {
-    id: '3',
-    type: 'secondary-with-tooltip',
-    value: 'Fan Token',
-    secondaryValue: 'LSP7 Token',
-  },
-  {
-    id: '4',
-    type: 'secondary-with-tooltip',
-    value: 'Proof of Attendance',
-    secondaryValue: 'LSP7 NDT',
-    tooltip: 'Token standard information',
-  },
-  {
-    id: '5',
-    type: 'secondary-with-tooltip',
-    value: 'Digital Collectible',
-    secondaryValue: 'LSP7 NDT',
-  },
-  {
-    id: '6',
-    type: 'secondary-with-tooltip',
-    value: 'Ticket',
-    secondaryValue: 'LSP7 NDT',
-  },
-]
-
-/** Example of `secondary-with-tooltip` options — secondary label and tooltip are rendered automatically via the `options` property, no manual slot usage needed. */
+/** Example of options with secondary label and tooltip. */
 export const SecondaryWithTooltip = {
   args: {
     size: 'small',
@@ -353,8 +311,49 @@ export const SecondaryWithTooltip = {
         ?is-open=${true}
         ?is-open-on-outside-click=${true}
         ?is-full-width=${true}
-        options=${JSON.stringify(secondaryWithTooltipOptions)}
-      ></lukso-dropdown>
+      >
+        <lukso-dropdown-option size=${size}>
+          Collectible
+          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
+            >LSP8 Collection</span
+          >
+        </lukso-dropdown-option>
+        <lukso-dropdown-option size=${size}>
+          Utility Token
+          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
+            >LSP7 Token</span
+          >
+        </lukso-dropdown-option>
+        <lukso-dropdown-option size=${size}>
+          Fan Token
+          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
+            >LSP7 Token</span
+          >
+        </lukso-dropdown-option>
+        <lukso-dropdown-option size=${size}>
+          Proof of Attendance
+          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
+            >LSP7 NDT</span
+          >
+          <div class="ml-auto shrink-0 flex items-center">
+            <lukso-tooltip text="Token standard information">
+              <lukso-icon size=${size} name="information"></lukso-icon>
+            </lukso-tooltip>
+          </div>
+        </lukso-dropdown-option>
+        <lukso-dropdown-option size=${size}>
+          Digital Collectible
+          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
+            >LSP7 NDT</span
+          >
+        </lukso-dropdown-option>
+        <lukso-dropdown-option size=${size}>
+          Ticket
+          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
+            >LSP7 NDT</span
+          >
+        </lukso-dropdown-option>
+      </lukso-dropdown>
     </div>
   `,
 }

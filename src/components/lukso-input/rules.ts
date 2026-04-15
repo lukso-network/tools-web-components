@@ -75,3 +75,24 @@ export const noDecimal: InputRule = {
   validate: (_, key) => key !== '.',
   sanitize: value => value.replaceAll('.', ''),
 }
+
+/**
+ * Union of all available input rule names.
+ */
+export type InputRuleName =
+  | 'noComma'
+  | 'noLeadingDot'
+  | 'onlyOneDot'
+  | 'onlyNumbersAndDot'
+  | 'noDecimal'
+
+/**
+ * Lookup map from rule name to rule object.
+ */
+export const RULES_MAP: Record<InputRuleName, InputRule> = {
+  noComma,
+  noLeadingDot,
+  onlyOneDot,
+  onlyNumbersAndDot,
+  noDecimal,
+}

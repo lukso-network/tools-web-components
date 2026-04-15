@@ -149,6 +149,16 @@
 			"import": "./dist/components/lukso-color-picker/index.js",
 			"types": "./dist/components/lukso-color-picker/index.d.ts"
 		},
+		"./dist/components/lukso-date-picker": {
+			"require": "./dist/components/lukso-date-picker/index.cjs",
+			"import": "./dist/components/lukso-date-picker/index.js",
+			"types": "./dist/components/lukso-date-picker/index.d.ts"
+		},
+		"./components/lukso-date-picker": {
+			"require": "./dist/components/lukso-date-picker/index.cjs",
+			"import": "./dist/components/lukso-date-picker/index.js",
+			"types": "./dist/components/lukso-date-picker/index.d.ts"
+		},
 		"./dist/components/lukso-dropdown": {
 			"require": "./dist/components/lukso-dropdown/index.cjs",
 			"import": "./dist/components/lukso-dropdown/index.js",
@@ -238,6 +248,16 @@
 			"require": "./dist/components/lukso-input/index.cjs",
 			"import": "./dist/components/lukso-input/index.js",
 			"types": "./dist/components/lukso-input/index.d.ts"
+		},
+		"./dist/components/lukso-input-date-picker": {
+			"require": "./dist/components/lukso-input-date-picker/index.cjs",
+			"import": "./dist/components/lukso-input-date-picker/index.js",
+			"types": "./dist/components/lukso-input-date-picker/index.d.ts"
+		},
+		"./components/lukso-input-date-picker": {
+			"require": "./dist/components/lukso-input-date-picker/index.cjs",
+			"import": "./dist/components/lukso-input-date-picker/index.js",
+			"types": "./dist/components/lukso-input-date-picker/index.d.ts"
 		},
 		"./dist/components/lukso-markdown": {
 			"require": "./dist/components/lukso-markdown/index.cjs",
@@ -418,6 +438,16 @@
 			"require": "./dist/components/lukso-textarea/index.cjs",
 			"import": "./dist/components/lukso-textarea/index.js",
 			"types": "./dist/components/lukso-textarea/index.d.ts"
+		},
+		"./dist/components/lukso-time-picker": {
+			"require": "./dist/components/lukso-time-picker/index.cjs",
+			"import": "./dist/components/lukso-time-picker/index.js",
+			"types": "./dist/components/lukso-time-picker/index.d.ts"
+		},
+		"./components/lukso-time-picker": {
+			"require": "./dist/components/lukso-time-picker/index.cjs",
+			"import": "./dist/components/lukso-time-picker/index.js",
+			"types": "./dist/components/lukso-time-picker/index.d.ts"
 		},
 		"./dist/components/lukso-tooltip": {
 			"require": "./dist/components/lukso-tooltip/index.cjs",

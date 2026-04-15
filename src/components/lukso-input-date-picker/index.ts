@@ -330,7 +330,6 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
                   ?open-top=${this.openTop}
                   ?is-right=${this.openRight}
                   ?is-full-width=${this.isFullWidth}
-                  max-height="full"
                   size=${this.size}
                 >
                   <lukso-date-picker

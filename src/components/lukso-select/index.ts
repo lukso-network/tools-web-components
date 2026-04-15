@@ -11,6 +11,7 @@ import '@/components/lukso-username'
 import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
 import '@/components/lukso-sanitize'
+import '@/components/lukso-tooltip'
 import '@/components/lukso-form-label'
 import '@/components/lukso-form-description'
 import '@/components/lukso-form-error'
@@ -20,20 +21,35 @@ import { uniqId } from '@/shared/tools/uniq-id'
 import type { Address, InputSize } from '@/shared/types'
 
 export type SelectStringOption = {
-  id?: string
+  id: string
+  type: 'string'
   group?: string
   value: string
 }
 
 export type SelectProfileOption = {
-  id?: string
+  id: string
+  type: 'profile'
   address: Address
   image?: string
   name?: string
   isEOA?: boolean
+  group?: string
 }
 
-export type SelectOption = SelectStringOption | SelectProfileOption
+export type SelectSecondaryWithTooltip = {
+  id: string
+  type: 'secondary-with-tooltip'
+  value: string
+  secondaryValue?: string
+  tooltip?: string
+  group?: string
+}
+
+export type SelectOption =
+  | SelectStringOption
+  | SelectProfileOption
+  | SelectSecondaryWithTooltip
 
 /**
  * A custom select/dropdown supporting string options (`SelectStringOption`) and profile options (`SelectProfileOption` with address, image, name).
@@ -303,7 +319,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
     // get list of groups names
     const groups: string[] = this.optionsParsed.reduce((acc, option) => {
-      if ('group' in option && !acc.includes(option.group)) {
+      if (option.group && !acc.includes(option.group)) {
         acc.push(option.group)
       }
       return acc
@@ -314,9 +330,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       for (const group of groups) {
         _options.push({
           group,
-          values: this.optionsParsed.filter(
-            option => 'group' in option && option.group === group
-          ),
+          values: this.optionsParsed.filter(option => option.group === group),
         })
       }
     } else {
@@ -326,14 +340,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     for (const option of Object.entries(_options)) {
       const index = Number(option[0])
 
-      if ('group' in option[1]) {
-        optionTemplates.push(this.optionGroupedStringTemplate(option[1], index))
-      } else if ('value' in option[1]) {
-        optionTemplates.push(this.optionStringTemplate(option[1], index))
-      } else if ('address' in option[1]) {
-        optionTemplates.push(this.optionProfileTemplate(option[1], index))
+      if ('values' in option[1]) {
+        optionTemplates.push(this.optionGroupedTemplate(option[1], index))
       } else {
-        console.error('Unknown option type', option)
+        optionTemplates.push(this.optionByTypeTemplate(option[1], index))
       }
     }
 
@@ -349,10 +359,21 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     >`
   }
 
-  optionGroupedStringTemplate(
+  private optionByTypeTemplate(option: SelectOption, index: number) {
+    switch (option.type) {
+      case 'profile':
+        return this.optionProfileTemplate(option, index)
+      case 'secondary-with-tooltip':
+        return this.optionSecondaryWithTooltipTemplate(option, index)
+      default:
+        return this.optionStringTemplate(option as SelectStringOption, index)
+    }
+  }
+
+  optionGroupedTemplate(
     option: {
       group: string
-      values: SelectStringOption[]
+      values: SelectOption[]
     },
     index: number
   ) {
@@ -361,12 +382,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       >
         ${option.group}
       </div>
-      ${option.values.map(value => {
-        return this.optionStringTemplate(
-          { id: value.id, group: option.group, value: value.value },
-          index
-        )
-      })}`
+      ${option.values.map(value => this.optionByTypeTemplate(value, index))}`
   }
 
   optionStringTemplate(option: SelectStringOption, index: number) {
@@ -399,6 +415,31 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       @click=${() => this.handleSelect(option)}
     >
       ${this.optionProfileValue(option)}
+    </lukso-dropdown-option>`
+  }
+
+  optionSecondaryWithTooltipTemplate(
+    option: SelectSecondaryWithTooltip,
+    index: number
+  ) {
+    return html`<lukso-dropdown-option
+      data-id="${option.id}"
+      data-index="${index + 1}"
+      ?is-selected=${!!this.valueParsed?.find(value => value.id === option.id)}
+      ?is-active=${this.selected === index + 1 &&
+      !this.valueParsed?.find(value => value.id === option.id)}
+      size=${this.size}
+      secondary-label=${option.secondaryValue ?? nothing}
+      ?is-disabled=${this.isDisabled}
+      ?is-readonly=${this.isReadonly}
+      @click=${() => this.handleSelect(option)}
+    >
+      ${option.value}
+      ${option.tooltip
+        ? html`<lukso-tooltip slot="right" text="${option.tooltip}">
+            <lukso-icon name="info-sm"></lukso-icon>
+          </lukso-tooltip>`
+        : nothing}
     </lukso-dropdown-option>`
   }
 

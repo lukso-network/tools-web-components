@@ -490,7 +490,7 @@ const badge = html`<span
 >`
 
 /** Example with a badge in the `right` slot, positioned between the selected value and the chevron icon. */
-export const WithRightSlot = {
+export const WithBadge = {
   render: () => {
     const [{ options, value }, updateArgs] = useArgs()
 
@@ -519,7 +519,7 @@ export const WithRightSlot = {
 }
 
 /** Example with a badge in the `right` slot and `is-full-width`. */
-export const WithRightSlotFullWidth = {
+export const FullWidthWithBadge = {
   render: () => {
     const [{ options, value }, updateArgs] = useArgs()
 
@@ -545,5 +545,60 @@ export const WithRightSlotFullWidth = {
       { id: '3', value: 'Third result' },
     ],
     value: JSON.stringify({ id: '2', value: 'Second result' }),
+  },
+}
+
+/** Example with a badge in the `right` slot, `is-full-width`, secondary label and tooltip on options. */
+export const FullWidthWithBadgeSecondaryLabelTooltip = {
+  render: () => {
+    const [{ options, value }, updateArgs] = useArgs()
+
+    const handleSelect = (event: CustomEvent) => {
+      updateArgs({ value: JSON.stringify(event.detail.value) })
+    }
+
+    return html`<lukso-select
+      label="Token Standard"
+      is-full-width
+      value=${value ? value : nothing}
+      options=${options ? JSON.stringify(options) : nothing}
+      @on-select=${handleSelect}
+      style="margin-bottom: 160px"
+      size="medium"
+    >
+      ${badge}
+    </lukso-select>`
+  },
+  args: {
+    options: [
+      {
+        id: '1',
+        value: 'First result',
+        secondaryValue: 'LSP7',
+        tooltip: 'Token standard info',
+        type: 'secondary-with-tooltip',
+      },
+      {
+        id: '2',
+        value: 'Second result',
+        secondaryValue: 'LSP8',
+        tooltip: 'Token standard info',
+        type: 'secondary-with-tooltip',
+      },
+      {
+        id: '3',
+        value: 'Third result',
+        secondaryValue: 'LSP9',
+        tooltip: 'Token standard info',
+        type: 'secondary-with-tooltip',
+      },
+    ],
+    value: JSON.stringify({
+      id: '2',
+      value: 'Second result',
+      secondaryValue: 'LSP8',
+      tooltip: 'Token standard info',
+      type: 'secondary-with-tooltip',
+    }),
   },
 }

@@ -416,7 +416,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     >
       ${option.value}
       ${option.secondaryValue
-        ? html`<span class="paragraph-inter-14-regular text-sky-64 shrink-0"
+        ? html`<span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
             >${option.secondaryValue}</span
           >`
         : nothing}

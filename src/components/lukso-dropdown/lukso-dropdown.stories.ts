@@ -1,6 +1,7 @@
 import { html, nothing } from 'lit-html'
 
 import type { Meta } from '@storybook/web-components-vite'
+import type { DropdownOption } from './index'
 
 import '../lukso-button/index'
 import '../lukso-dropdown-option/index'
@@ -298,7 +299,7 @@ CustomClass.args = {
   customClass: 'border-purple-51',
 }
 
-/** Example of dropdown options with `tag` property and a generic `right` slot containing a tooltip. */
+/** Example of dropdown options with `secondary-label` and a `right` slot containing a tooltip (slot-based, for reference). */
 export const WithTagAndRightSlot = {
   render: () => html`
     <div class="relative" style="margin-bottom: 220px;">
@@ -336,6 +337,62 @@ export const WithTagAndRightSlot = {
           >Ticket</lukso-dropdown-option
         >
       </lukso-dropdown>
+    </div>
+  `,
+}
+
+const typedOptions: DropdownOption[] = [
+  {
+    id: '1',
+    type: 'secondary-with-tooltip',
+    value: 'Collectible',
+    secondaryValue: 'LSP8 Collection',
+  },
+  {
+    id: '2',
+    type: 'secondary-with-tooltip',
+    value: 'Utility Token',
+    secondaryValue: 'LSP7 Token',
+  },
+  {
+    id: '3',
+    type: 'secondary-with-tooltip',
+    value: 'Fan Token',
+    secondaryValue: 'LSP7 Token',
+  },
+  {
+    id: '4',
+    type: 'secondary-with-tooltip',
+    value: 'Proof of Attendance',
+    secondaryValue: 'LSP7 NDT',
+    tooltip: 'Token standard information',
+  },
+  {
+    id: '5',
+    type: 'secondary-with-tooltip',
+    value: 'Digital Collectible',
+    secondaryValue: 'LSP7 NDT',
+  },
+  {
+    id: '6',
+    type: 'secondary-with-tooltip',
+    value: 'Ticket',
+    secondaryValue: 'LSP7 NDT',
+  },
+]
+
+/** Same options as `WithTagAndRightSlot` but driven by the typed `options` property — no manual slot usage needed, Vue-friendly. */
+export const WithTypedOptions = {
+  render: () => html`
+    <div class="relative" style="margin-bottom: 220px;">
+      <lukso-button id="dropdown-typed">Click me!</lukso-button>
+      <lukso-dropdown
+        trigger-id="dropdown-typed"
+        ?is-open=${true}
+        ?is-open-on-outside-click=${true}
+        ?is-full-width=${true}
+        options=${JSON.stringify(typedOptions)}
+      ></lukso-dropdown>
     </div>
   `,
 }

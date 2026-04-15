@@ -174,9 +174,6 @@ const meta: Meta = {
         'onlyOneDot',
         'onlyNumbersAndDot',
         'noDecimal',
-        'isHour24',
-        'isHour12',
-        'isMinute',
       ],
       description: 'Array of validation rule names to apply to the input.',
       table: {

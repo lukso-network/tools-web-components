@@ -1,6 +1,6 @@
 {
 	"name": "@lukso/web-components",
-	"version": "1.188.0",
+	"version": "1.189.0",
 	"type": "module",
 	"files": [
 		"dist",
@@ -448,6 +448,16 @@
 			"require": "./dist/components/lukso-time-picker/index.cjs",
 			"import": "./dist/components/lukso-time-picker/index.js",
 			"types": "./dist/components/lukso-time-picker/index.d.ts"
+		},
+		"./dist/components/lukso-timeline": {
+			"require": "./dist/components/lukso-timeline/index.cjs",
+			"import": "./dist/components/lukso-timeline/index.js",
+			"types": "./dist/components/lukso-timeline/index.d.ts"
+		},
+		"./components/lukso-timeline": {
+			"require": "./dist/components/lukso-timeline/index.cjs",
+			"import": "./dist/components/lukso-timeline/index.js",
+			"types": "./dist/components/lukso-timeline/index.d.ts"
 		},
 		"./dist/components/lukso-tooltip": {
 			"require": "./dist/components/lukso-tooltip/index.cjs",

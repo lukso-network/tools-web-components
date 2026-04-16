@@ -23,10 +23,10 @@ const FOREVER_GREEN_PCT = 35
  */
 @safeCustomElement('lukso-timeline')
 export class LuksoTimeline extends TailwindStyledElement(style) {
-  @property({ type: String, attribute: 'start-date' })
+  @property({ type: Date, attribute: 'start-date' })
   startDate = ''
 
-  @property({ type: String, attribute: 'end-date' })
+  @property({ type: Date, attribute: 'end-date' })
   endDate = ''
 
   @property({ type: String })
@@ -219,17 +219,12 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
 
     const bar =
       this._state === 'before-start'
-        ? this._barTemplate(
-            0,
-            STRIPED_STYLE,
-            STRIPED_STYLE,
-            this.endDate.trim() === ''
-          )
+        ? this._barTemplate(0, STRIPED_STYLE, STRIPED_STYLE, false)
         : this._barTemplate(
             FOREVER_GREEN_PCT,
             GREEN_STYLE,
             STRIPED_STYLE,
-            this.endDate.trim() === ''
+            false
           )
 
     return html`
@@ -252,7 +247,7 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
   render() {
     return html`
       <div class="flex w-full">
-        ${this.endDate.trim() ? this.endDateTemplate() : this.foreverTemplate()}
+        ${this.endDate ? this.endDateTemplate() : this.foreverTemplate()}
       </div>
     `
   }

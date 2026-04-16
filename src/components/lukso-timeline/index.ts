@@ -10,16 +10,12 @@ import style from './style.css?inline'
 
 type TimelineState = 'before-start' | 'in-range' | 'after-end'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const GREY_STYLE = { backgroundColor: '#cddae4' }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const GREEN_STYLE = { backgroundColor: '#47cd68' }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const STRIPED_STYLE = {
   backgroundImage:
     'repeating-linear-gradient(145deg, gray 0px, gray 5px, #ccc 5px, #ccc 10px, gray 10px)',
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const FOREVER_GREEN_PCT = 35
 
 /**
@@ -154,8 +150,67 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
     `
   }
 
+  // ── Main templates ──────────────────────────────────────────────────────
+
+  private endDateTemplate() {
+    if (!this.startDate || !this.endDate) return html``
+    const start = new Date(this.startDate)
+    const end = new Date(this.endDate)
+    const pct = this._progressPercent
+
+    const bar =
+      this._state === 'before-start'
+        ? this._barTemplate(0, GREY_STYLE, GREY_STYLE)
+        : this._state === 'in-range'
+          ? this._barTemplate(pct, GREEN_STYLE, GREY_STYLE)
+          : this._barTemplate(100, GREEN_STYLE, GREEN_STYLE)
+
+    return html`
+      <div class="flex flex-col w-full gap-2">
+        ${bar}
+        <div class="flex items-start w-full">
+          ${this._dateLabelTemplate(start, 'start')}
+          <div class="flex-1 flex justify-center pt-1">
+            <lukso-icon name="arrow-right-sm" size="small"></lukso-icon>
+          </div>
+          ${this._dateLabelTemplate(end, 'end')}
+        </div>
+      </div>
+    `
+  }
+
+  private foreverTemplate() {
+    if (!this.startDate) return html``
+    const start = new Date(this.startDate)
+
+    const bar =
+      this._state === 'before-start'
+        ? this._barTemplate(0, STRIPED_STYLE, STRIPED_STYLE)
+        : this._barTemplate(FOREVER_GREEN_PCT, GREEN_STYLE, STRIPED_STYLE)
+
+    return html`
+      <div class="flex flex-col w-full gap-2">
+        ${bar}
+        <div class="flex items-start w-full">
+          ${this._dateLabelTemplate(start, 'start')}
+          <div class="flex-1 flex justify-center pt-1">
+            <lukso-icon name="arrow-right-sm" size="small"></lukso-icon>
+          </div>
+          <div class="flex flex-col items-end text-right">
+            <span class="text-sm font-semibold text-neutral-20">Forever</span>
+            <span class="text-sm text-neutral-20">-</span>
+          </div>
+        </div>
+      </div>
+    `
+  }
+
   render() {
-    return html`<div class="flex w-full"></div>`
+    return html`
+      <div class="flex w-full">
+        ${this.endDate ? this.endDateTemplate() : this.foreverTemplate()}
+      </div>
+    `
   }
 }
 

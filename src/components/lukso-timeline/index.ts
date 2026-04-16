@@ -121,7 +121,6 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
     leftStyle: Record<string, string>,
     rightStyle: Record<string, string>
   ) {
-    const right = 100 - leftPercent
     return html`
       <div class="flex items-center w-full gap-1">
         <div class="w-2 h-2 rounded-full bg-neutral-85 shrink-0"></div>
@@ -129,7 +128,7 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
           <div
             style=${styleMap({ width: `${leftPercent}%`, ...leftStyle })}
           ></div>
-          <div style=${styleMap({ width: `${right}%`, ...rightStyle })}></div>
+          <div style=${styleMap({ flexGrow: '1', ...rightStyle })}></div>
         </div>
         <div class="w-2 h-2 rounded-full bg-neutral-85 shrink-0"></div>
       </div>

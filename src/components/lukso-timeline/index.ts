@@ -76,6 +76,7 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
     })
       .format(date)
       .toLowerCase()
+      .replace(/[\s\u202f]/g, '')
   }
 
   private _relativeTime(date: Date): string {

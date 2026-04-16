@@ -314,10 +314,10 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
 
   private _buildIsoValue(): string {
     if (!this._selectedDate) return ''
-    const d = this._selectedDate
-    const year = d.getFullYear()
-    const month = String(d.getMonth() + 1).padStart(2, '0')
-    const day = String(d.getDate()).padStart(2, '0')
+    const date = this._selectedDate
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
     const hour = String(this._selectedHour).padStart(2, '0')
     const minute = String(this._selectedMinute).padStart(2, '0')
     return `${year}-${month}-${day}T${hour}:${minute}`
@@ -349,11 +349,11 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
     this._emitChange(event)
   }
 
-  private _handleTimeChange(e: CustomEvent) {
+  private _handleTimeChange(event: CustomEvent) {
     // Prevent the child time-picker's event from propagating further so that
     // lukso-input-date-picker only receives the re-emitted ISO string event below.
-    e.stopPropagation()
-    const value = e.detail.value as string
+    event.stopPropagation()
+    const value = event.detail.value as string
     // Guard: lukso-input can reach this handler with a raw number string on blur.
     // Only handle proper "HH:MM" values.
     if (!value?.includes(':')) return
@@ -363,7 +363,7 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
     if (isNaN(h) || isNaN(m)) return
     this._selectedHour = h
     this._selectedMinute = m
-    this._emitChange(e.detail.event)
+    this._emitChange(event.detail.event)
   }
 
   private _emitChange(event: Event) {

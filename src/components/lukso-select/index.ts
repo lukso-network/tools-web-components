@@ -11,6 +11,7 @@ import '@/components/lukso-username'
 import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
 import '@/components/lukso-sanitize'
+import '@/components/lukso-tooltip'
 import '@/components/lukso-form-label'
 import '@/components/lukso-form-description'
 import '@/components/lukso-form-error'
@@ -19,24 +20,23 @@ import { uniqId } from '@/shared/tools/uniq-id'
 
 import type { Address, InputSize } from '@/shared/types'
 
-export type SelectStringOption = {
-  id?: string
-  group?: string
-  value: string
-}
+export type SelectOptionType = 'string' | 'profile' | 'secondary-with-tooltip'
 
-export type SelectProfileOption = {
-  id?: string
-  address: Address
+export type SelectOption = {
+  id: string
+  type: SelectOptionType
+  address?: Address
   image?: string
   name?: string
   isEOA?: boolean
+  group?: string
+  value?: string
+  secondaryValue?: string
+  tooltip?: string
 }
 
-export type SelectOption = SelectStringOption | SelectProfileOption
-
 /**
- * A custom select/dropdown supporting string options (`SelectStringOption`) and profile options (`SelectProfileOption` with address, image, name).
+ * A custom select/dropdown supporting string options, profile options (with address, image, name), and secondary-with-tooltip options.
  */
 @safeCustomElement('lukso-select')
 export class LuksoSelect extends TailwindStyledElement(style) {
@@ -303,7 +303,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
     // get list of groups names
     const groups: string[] = this.optionsParsed.reduce((acc, option) => {
-      if ('group' in option && !acc.includes(option.group)) {
+      if (option.group && !acc.includes(option.group)) {
         acc.push(option.group)
       }
       return acc
@@ -314,9 +314,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       for (const group of groups) {
         _options.push({
           group,
-          values: this.optionsParsed.filter(
-            option => 'group' in option && option.group === group
-          ),
+          values: this.optionsParsed.filter(option => option.group === group),
         })
       }
     } else {
@@ -326,14 +324,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     for (const option of Object.entries(_options)) {
       const index = Number(option[0])
 
-      if ('group' in option[1]) {
-        optionTemplates.push(this.optionGroupedStringTemplate(option[1], index))
-      } else if ('value' in option[1]) {
-        optionTemplates.push(this.optionStringTemplate(option[1], index))
-      } else if ('address' in option[1]) {
-        optionTemplates.push(this.optionProfileTemplate(option[1], index))
+      if ('values' in option[1]) {
+        optionTemplates.push(this.optionGroupedTemplate(option[1], index))
       } else {
-        console.error('Unknown option type', option)
+        optionTemplates.push(this.optionByTypeTemplate(option[1], index))
       }
     }
 
@@ -349,10 +343,21 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     >`
   }
 
-  optionGroupedStringTemplate(
+  private optionByTypeTemplate(option: SelectOption, index: number) {
+    switch (option.type) {
+      case 'profile':
+        return this.optionProfileTemplate(option, index)
+      case 'secondary-with-tooltip':
+        return this.optionSecondaryWithTooltipTemplate(option, index)
+      default:
+        return this.optionStringTemplate(option, index)
+    }
+  }
+
+  optionGroupedTemplate(
     option: {
       group: string
-      values: SelectStringOption[]
+      values: SelectOption[]
     },
     index: number
   ) {
@@ -361,15 +366,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       >
         ${option.group}
       </div>
-      ${option.values.map(value => {
-        return this.optionStringTemplate(
-          { id: value.id, group: option.group, value: value.value },
-          index
-        )
-      })}`
+      ${option.values.map(value => this.optionByTypeTemplate(value, index))}`
   }
 
-  optionStringTemplate(option: SelectStringOption, index: number) {
+  optionStringTemplate(option: SelectOption, index: number) {
     return html`<lukso-dropdown-option
       data-id="${option.id}"
       data-index="${index + 1}"
@@ -386,7 +386,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     </lukso-dropdown-option>`
   }
 
-  optionProfileTemplate(option: SelectProfileOption, index: number) {
+  optionProfileTemplate(option: SelectOption, index: number) {
     return html`<lukso-dropdown-option
       data-id="${option.id}"
       data-index="${index + 1}"
@@ -402,19 +402,52 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     </lukso-dropdown-option>`
   }
 
-  private optionStringValue(option: SelectStringOption) {
-    return option.value
+  optionSecondaryWithTooltipTemplate(option: SelectOption, index: number) {
+    return html`<lukso-dropdown-option
+      data-id="${option.id}"
+      data-index="${index + 1}"
+      ?is-selected=${!!this.valueParsed?.find(value => value.id === option.id)}
+      ?is-active=${this.selected === index + 1 &&
+      !this.valueParsed?.find(value => value.id === option.id)}
+      size=${this.size}
+      ?is-disabled=${this.isDisabled}
+      ?is-readonly=${this.isReadonly}
+      @click=${() => this.handleSelect(option)}
+    >
+      ${option.value}
+      ${option.secondaryValue
+        ? html`<span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
+            >${option.secondaryValue}</span
+          >`
+        : nothing}
+      ${option.tooltip
+        ? html`<div class="ml-auto shrink-0 flex items-center">
+            <lukso-tooltip text="${option.tooltip}">
+              <lukso-icon
+                name="information"
+                size=${this.size === 'small' ? 'x-small' : 'small'}
+              ></lukso-icon>
+            </lukso-tooltip>
+          </div>`
+        : nothing}
+    </lukso-dropdown-option>`
   }
 
-  private optionProfileValue(option: SelectProfileOption) {
+  private optionStringValue(option: SelectOption) {
+    return option.value ?? ''
+  }
+
+  private optionProfileValue(option: SelectOption) {
+    const address = option.address ?? ''
+
     const eoaProfilePicture = html`<lukso-profile
-      profile-address="${option.address}"
-      profile-url="${option.address ? makeBlockie(option.address) : ''}"
+      profile-address="${address}"
+      profile-url="${address ? makeBlockie(address) : ''}"
       size="x-small"
     ></lukso-profile>`
 
     const lsp3ProfilePicture = html`<lukso-profile
-      profile-address="${option.address}"
+      profile-address="${address}"
       profile-url="${option.image}"
       size="x-small"
       has-identicon
@@ -425,7 +458,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     return html`${profilePicture}
       <lukso-username
         name="${option.name?.toLowerCase()}"
-        address="${option.address}"
+        address="${address}"
         name-color="neutral-20"
         slice-by="4"
         size=${this.size}
@@ -440,33 +473,23 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       return ''
     }
 
-    if ('value' in firstOption) {
-      const foundValues = this.optionsParsed.filter(
-        option => !!this.valueParsed?.find(value => value.id === option.id)
-      )
-      return foundValues
-        .map(value => this.optionStringValue(value as SelectStringOption))
-        .join(', ')
-    }
-
-    if ('address' in firstOption) {
+    if (firstOption.type === 'profile') {
       const foundValues = this.optionsParsed.filter(
         option => !!this.valueParsed?.find(value => value.id === option.id)
       )
       const optionProfileValues = []
 
       for (const value of foundValues) {
-        optionProfileValues.push(
-          this.optionProfileValue(value as SelectProfileOption)
-        )
+        optionProfileValues.push(this.optionProfileValue(value))
       }
 
       return optionProfileValues
     }
 
-    console.error('Unknown value type', this.valueParsed)
-
-    return ''
+    const foundValues = this.optionsParsed.filter(
+      option => !!this.valueParsed?.find(value => value.id === option.id)
+    )
+    return foundValues.map(value => this.optionStringValue(value)).join(', ')
   }
 
   private handleOutsideDropdownClick(event: Event) {

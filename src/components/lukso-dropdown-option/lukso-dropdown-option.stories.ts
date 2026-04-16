@@ -2,9 +2,8 @@ import { html, nothing } from 'lit-html'
 
 import type { Meta } from '@storybook/web-components-vite'
 
-import '../lukso-button/index'
-
 import './index'
+import '../lukso-icon/index'
 
 /**  Documentation and examples of `lukso-dropdown-option` component. */
 const meta: Meta = {
@@ -110,7 +109,7 @@ const Template = ({
       ?is-active=${isActive}
       ?is-group=${isGroup}
     >
-      Test
+      Proof of Attendance
     </lukso-dropdown-option>
   </div>`
 }

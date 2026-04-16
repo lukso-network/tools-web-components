@@ -1,9 +1,9 @@
 import { html, nothing } from 'lit-html'
 
 import type { Meta } from '@storybook/web-components-vite'
-
 import '../lukso-button/index'
 import '../lukso-dropdown-option/index'
+import '../lukso-icon/index'
 import './index'
 
 /**  Documentation and examples of `lukso-dropdown` component. */

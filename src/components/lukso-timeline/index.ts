@@ -208,7 +208,7 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
   render() {
     return html`
       <div class="flex w-full">
-        ${this.endDate ? this.endDateTemplate() : this.foreverTemplate()}
+        ${this.endDate.trim() ? this.endDateTemplate() : this.foreverTemplate()}
       </div>
     `
   }

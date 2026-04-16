@@ -313,10 +313,11 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
   }
 
   private _buildIsoValue(): string {
-    const d = this._selectedDate ?? new Date()
-    const year = d.getFullYear()
-    const month = String(d.getMonth() + 1).padStart(2, '0')
-    const day = String(d.getDate()).padStart(2, '0')
+    if (!this._selectedDate) return ''
+    const date = this._selectedDate
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
     const hour = String(this._selectedHour).padStart(2, '0')
     const minute = String(this._selectedMinute).padStart(2, '0')
     return `${year}-${month}-${day}T${hour}:${minute}`
@@ -348,15 +349,13 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
     this._emitChange(event)
   }
 
-  private _handleTimeChange(e: CustomEvent) {
-    // Stop the time-picker's on-change from composing out of this shadow root.
-    // Without this, lukso-input-date-picker would receive the "HH:MM" event
-    // in addition to the ISO string event re-emitted below.
-    e.stopPropagation()
-    const value = e.detail.value as string
-    //[bug] Guard: lukso-input dispatches on-change (bubbles:false, composed:true) on blur,
-    // which is retargeted to lukso-time-picker and reaches this listener with a raw
-    // number string (no colon). Ignore anything that isn't "HH:MM".
+  private _handleTimeChange(event: CustomEvent) {
+    // Prevent the child time-picker's event from propagating further so that
+    // lukso-input-date-picker only receives the re-emitted ISO string event below.
+    event.stopPropagation()
+    const value = event.detail.value as string
+    // Guard: lukso-input can reach this handler with a raw number string on blur.
+    // Only handle proper "HH:MM" values.
     if (!value?.includes(':')) return
     const [hStr, mStr] = value.split(':')
     const h = parseInt(hStr, 10)
@@ -364,11 +363,12 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
     if (isNaN(h) || isNaN(m)) return
     this._selectedHour = h
     this._selectedMinute = m
-    this._emitChange(e.detail.event)
+    this._emitChange(event.detail.event)
   }
 
   private _emitChange(event: Event) {
     const value = this._buildIsoValue()
+    if (!value) return
     this.dispatchEvent(
       new CustomEvent('on-change', {
         detail: { value, event },
@@ -421,6 +421,7 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
           <!-- Calendar header -->
           <div class=${header()}>
             <button
+              type="button"
               class=${navBtn()}
               @click=${this._prevMonth}
               aria-label="Previous month"
@@ -429,6 +430,7 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
             </button>
             <span class=${monthLabel()}>${this._monthYearLabel}</span>
             <button
+              type="button"
               class=${navBtn()}
               @click=${this._nextMonth}
               aria-label="Next month"
@@ -454,6 +456,7 @@ export class LuksoDatePicker extends TailwindStyledElement(style) {
 
               return html`
                 <button
+                  type="button"
                   class=${this.dayCellStyles({
                     isSelected: selected,
                     isToday: today,

@@ -258,6 +258,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
                 @click=${(e: Event) => e.stopPropagation()}
               >
                 <button
+                  type="button"
                   class=${ampmBtn()}
                   @click=${this._toggleAmPmPicker}
                   aria-haspopup="listbox"

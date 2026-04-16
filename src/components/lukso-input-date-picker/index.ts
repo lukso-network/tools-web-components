@@ -224,9 +224,9 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       if (this.timeFormat === '12h') hour12 = true
       else if (this.timeFormat === '24h') hour12 = false
       else {
-        hour12 = /AM|PM/i.test(
-          new Intl.DateTimeFormat(this.locale, { hour: 'numeric' }).format(d)
-        )
+        hour12 = new Intl.DateTimeFormat(this.locale, {
+          hour: 'numeric',
+        }).resolvedOptions().hour12
       }
       const timeStr = new Intl.DateTimeFormat(this.locale, {
         hour: '2-digit',

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.189.0](https://github.com/lukso-network/tools-web-components/compare/v1.188.0...v1.189.0) (2026-04-15)
+
+
+### Features
+
+* add right slot in select component ([#840](https://github.com/lukso-network/tools-web-components/issues/840)) ([0f53d58](https://github.com/lukso-network/tools-web-components/commit/0f53d58e48a0ab3c37ab4b6f2c03fe31b45f3f46))
+* date-time-picker ([#838](https://github.com/lukso-network/tools-web-components/issues/838)) ([7cfadf4](https://github.com/lukso-network/tools-web-components/commit/7cfadf4526934056b35c8ac754743d468f72038f))
+
 ## [1.188.0](https://github.com/lukso-network/tools-web-components/compare/v1.187.0...v1.188.0) (2026-04-09)
 
 

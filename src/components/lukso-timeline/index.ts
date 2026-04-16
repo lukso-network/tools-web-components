@@ -26,11 +26,13 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
   // ── Computed state ──────────────────────────────────────────────────────
 
   private get _state(): TimelineState {
+    if (!this.startDate) return 'before-start'
     const now = Date.now()
     const start = new Date(this.startDate).getTime()
-    if (now < start) return 'before-start'
+    if (isNaN(start) || now < start) return 'before-start'
     if (!this.endDate) return 'in-range'
-    if (now > new Date(this.endDate).getTime()) return 'after-end'
+    const end = new Date(this.endDate).getTime()
+    if (!isNaN(end) && now > end) return 'after-end'
     return 'in-range'
   }
 
@@ -39,6 +41,7 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
     const now = Date.now()
     const start = new Date(this.startDate).getTime()
     const end = new Date(this.endDate).getTime()
+    if (isNaN(start) || isNaN(end) || end <= start) return 0
     if (now <= start) return 0
     if (now >= end) return 100
     return ((now - start) / (end - start)) * 100

@@ -264,3 +264,107 @@ CollapseWithSelector.args = {
     </div>
   `,
 }
+
+/** Example of lukso-collapse with a `selector` and a badge in the `right` slot of the select */
+export const CollapseWithSelectorAndRightSlot = Template.bind({})
+CollapseWithSelectorAndRightSlot.args = {
+  content: html`
+    <div class="flex">
+      <lukso-select
+        value='{"id":"1","value":"First result"}'
+        size="large"
+        is-full-width
+        max-height="200"
+        options='[{"id":"1","value":"First result"},{"id":"2","value":"Second result"},{"id":"3","value":"Third result"}]'
+      >
+        <span
+          slot="right"
+          style="
+            background: #f0eaf8;
+            color: #6b21a8;
+            border-radius: 9999px;
+            padding: 2px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+          "
+          >LSP7 NDT</span
+        >
+      </lukso-select>
+    </div>
+  `,
+}
+
+/** Example of lukso-collapse with a badge in the `right` slot */
+export const CollapseWithRightSlot = {
+  render: () => html`
+    <lukso-collapse
+      trigger-label="Change Token Standard (Advanced)"
+      icon="arrow-down-sm"
+    >
+      <span
+        slot="right"
+        style="
+          background: #dcfce7;
+          color: #166534;
+          border-radius: 9999px;
+          padding: 2px 10px;
+          font-size: 12px;
+          font-weight: 600;
+          white-space: nowrap;
+        "
+        >LSP7 NDT</span
+      >
+      <div class="p-3">Default collapse content</div>
+    </lukso-collapse>
+  `,
+}
+
+/** Example of lukso-collapse with a badge in the `right` slot and a select inside */
+export const CollapseWithRightSlotAndSelect = {
+  name: 'CollapseWithRightSlot & Select',
+  render: () => html`
+    <lukso-collapse
+      trigger-label="Change Token Standard (Advanced)"
+      icon="arrow-down-sm"
+      is-open
+    >
+      <span
+        slot="right"
+        style="
+          background: #dcfce7;
+          color: #166534;
+          border-radius: 9999px;
+          padding: 2px 10px;
+          font-size: 12px;
+          font-weight: 600;
+          white-space: nowrap;
+        "
+        >LSP7 NDT</span
+      >
+      <div class="flex p-3">
+        <lukso-select
+          value='{"id":"1","value":"First result"}'
+          size="large"
+          is-full-width
+          max-height="200"
+          options='[{"id":"1","value":"First result"},{"id":"2","value":"Second result"},{"id":"3","value":"Third result"}]'
+        >
+          <span
+            slot="right"
+            style="
+              background: #f0eaf8;
+              color: #6b21a8;
+              border-radius: 9999px;
+              padding: 2px 10px;
+              font-size: 12px;
+              font-weight: 600;
+              white-space: nowrap;
+            "
+            >ASSET NDT</span
+          >
+        </lukso-select>
+      </div>
+    </lukso-collapse>
+  `,
+}

@@ -25,6 +25,11 @@ const meta: Meta = {
       table: { category: 'Attributes' },
     },
   },
+  parameters: {
+    controls: {
+      exclude: [],
+    },
+  },
 }
 
 export default meta
@@ -39,55 +44,68 @@ function relDate(ms: number): string {
 const H = 3_600_000
 const D = 86_400_000
 
+const Template = ({
+  startDate,
+  endDate,
+}: {
+  startDate: string
+  endDate?: string
+}) =>
+  endDate
+    ? html`<lukso-timeline
+        start-date=${startDate}
+        end-date=${endDate}
+      ></lukso-timeline>`
+    : html`<lukso-timeline start-date=${startDate}></lukso-timeline>`
+
 // ── Template: start → end ──────────────────────────────────────────────────
 
 /**
  * Today is BEFORE the start date.
  * Bar is fully grey — the event hasn't started yet.
- * start-date = now + 2h, end-date = now + 5d
  */
-export const TodayBeforeStart = () =>
-  html`<lukso-timeline
-    start-date=${relDate(2 * H)}
-    end-date=${relDate(5 * D)}
-  ></lukso-timeline>`
+export const TodayBeforeStart = Template.bind({})
+TodayBeforeStart.args = {
+  startDate: relDate(2 * H),
+  endDate: relDate(5 * D),
+}
 
 /**
  * Today is WITHIN the timeline (between start and end).
  * Bar shows green progress from start to today, then grey to end.
- * start-date = now − 1d, end-date = now + 4d
  */
-export const TodayInRange = () =>
-  html`<lukso-timeline
-    start-date=${relDate(-D)}
-    end-date=${relDate(4 * D)}
-  ></lukso-timeline>`
+export const TodayInRange = Template.bind({})
+TodayInRange.args = {
+  startDate: relDate(-D),
+  endDate: relDate(4 * D),
+}
 
 /**
  * Today is AFTER the end date — event has expired.
  * Bar is fully green (completed).
- * start-date = now − 10d, end-date = now − 2d
  */
-export const TodayAfterEnd = () =>
-  html`<lukso-timeline
-    start-date=${relDate(-10 * D)}
-    end-date=${relDate(-2 * D)}
-  ></lukso-timeline>`
+export const TodayAfterEnd = Template.bind({})
+TodayAfterEnd.args = {
+  startDate: relDate(-10 * D),
+  endDate: relDate(-2 * D),
+}
 
 // ── Template: start → forever ─────────────────────────────────────────────
 
 /**
  * Forever mode — today is BEFORE the start date.
  * Bar is fully striped (event is in the future with no fixed end).
- * start-date = now + 5d, no end-date
  */
-export const ForeverBeforeStart = () =>
-  html`<lukso-timeline start-date=${relDate(5 * D)}></lukso-timeline>`
+export const ForeverBeforeStart = Template.bind({})
+ForeverBeforeStart.args = {
+  startDate: relDate(5 * D),
+}
 
 /**
  * Forever mode — today is WITHIN the timeline (past start, no end).
  * Bar shows 35% green (since start) then striped (indefinite future).
- * start-date = now − 5d, no end-date
  */
-export const ForeverInRange = () =>
-  html`<lukso-timeline start-date=${relDate(-5 * D)}></lukso-timeline>`
+export const ForeverInRange = Template.bind({})
+ForeverInRange.args = {
+  startDate: relDate(-5 * D),
+}

@@ -4,7 +4,6 @@ import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
 import '../lukso-icon/index'
-import '../lukso-tooltip/index'
 
 /**  Documentation and examples of `lukso-dropdown-option` component. */
 const meta: Meta = {
@@ -118,23 +117,3 @@ const Template = ({
 /** Example of dropdown option.  */
 export const DefaultDropdownOption = Template.bind({})
 DefaultDropdownOption.args = {}
-
-/** Dropdown option with secondary label and tooltip. */
-export const SecondaryWithTooltip = {
-  args: {
-    size: 'large',
-  },
-  render: ({ size }: { size: string }) => html`
-    <lukso-dropdown-option size=${size}>
-      Proof of Attendance
-      <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
-        >LSP7 NDT</span
-      >
-      <div class="ml-auto shrink-0 flex items-center">
-        <lukso-tooltip text="Token standard information">
-          <lukso-icon size=${size} name="information"></lukso-icon>
-        </lukso-tooltip>
-      </div>
-    </lukso-dropdown-option>
-  `,
-}

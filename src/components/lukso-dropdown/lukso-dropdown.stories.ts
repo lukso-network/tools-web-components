@@ -4,7 +4,6 @@ import type { Meta } from '@storybook/web-components-vite'
 import '../lukso-button/index'
 import '../lukso-dropdown-option/index'
 import '../lukso-icon/index'
-import '../lukso-tooltip/index'
 import './index'
 
 /**  Documentation and examples of `lukso-dropdown` component. */
@@ -295,65 +294,4 @@ CustomClass.args = {
   marginBottom: 170,
   triggerId: 'dropdown-8',
   customClass: 'border-purple-51',
-}
-
-/** Example of options with secondary label and tooltip. */
-export const SecondaryWithTooltip = {
-  args: {
-    size: 'large',
-  },
-  render: ({ size }: { size: string }) => html`
-    <div class="relative" style="margin-bottom: 220px;">
-      <lukso-button id="dropdown-secondary-tooltip">Click me!</lukso-button>
-      <lukso-dropdown
-        trigger-id="dropdown-secondary-tooltip"
-        size=${size}
-        ?is-open=${true}
-        ?is-open-on-outside-click=${true}
-        ?is-full-width=${true}
-      >
-        <lukso-dropdown-option size=${size}>
-          Collectible
-          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
-            >LSP8 Collection</span
-          >
-        </lukso-dropdown-option>
-        <lukso-dropdown-option size=${size}>
-          Utility Token
-          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
-            >LSP7 Token</span
-          >
-        </lukso-dropdown-option>
-        <lukso-dropdown-option size=${size}>
-          Fan Token
-          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
-            >LSP7 Token</span
-          >
-        </lukso-dropdown-option>
-        <lukso-dropdown-option size=${size}>
-          Proof of Attendance
-          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
-            >LSP7 NDT</span
-          >
-          <div class="ml-auto shrink-0 flex items-center">
-            <lukso-tooltip text="Token standard information">
-              <lukso-icon size=${size} name="information"></lukso-icon>
-            </lukso-tooltip>
-          </div>
-        </lukso-dropdown-option>
-        <lukso-dropdown-option size=${size}>
-          Digital Collectible
-          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
-            >LSP7 NDT</span
-          >
-        </lukso-dropdown-option>
-        <lukso-dropdown-option size=${size}>
-          Ticket
-          <span class="paragraph-inter-14-regular text-neutral-60 shrink-0"
-            >LSP7 NDT</span
-          >
-        </lukso-dropdown-option>
-      </lukso-dropdown>
-    </div>
-  `,
 }

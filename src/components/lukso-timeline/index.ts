@@ -219,12 +219,17 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
 
     const bar =
       this._state === 'before-start'
-        ? this._barTemplate(0, STRIPED_STYLE, STRIPED_STYLE, false)
+        ? this._barTemplate(
+            0,
+            STRIPED_STYLE,
+            STRIPED_STYLE,
+            this.endDate === ''
+          )
         : this._barTemplate(
             FOREVER_GREEN_PCT,
             GREEN_STYLE,
             STRIPED_STYLE,
-            false
+            this.endDate === ''
           )
 
     return html`

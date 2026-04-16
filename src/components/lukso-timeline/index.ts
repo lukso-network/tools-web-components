@@ -115,18 +115,50 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
   private _barTemplate(
     leftPercent: number,
     leftStyle: Record<string, string>,
-    rightStyle: Record<string, string>
+    rightStyle: Record<string, string>,
+    isForever: boolean = false
   ) {
+    const rightInset = isForever ? 'right-1/20' : ''
     return html`
-      <div class="flex items-center w-full gap-1">
-        <div class="w-2 h-2 rounded-full bg-neutral-85 shrink-0"></div>
-        <div class="flex flex-1 h-2 rounded-full overflow-hidden">
+      <div class="relative flex items-center w-full" style="height: 2.5rem">
+        <!-- Track line full-width -->
+        <div
+          class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-neutral-85"
+        ></div>
+
+        <!-- Left endpoint dot -->
+        <div
+          class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
+        ></div>
+
+        <!-- Progress bar, inset 10% -->
+        <div
+          class="absolute inset-x-[10%] ${rightInset} top-1/3 flex h-2 overflow-hidden z-10"
+        >
           <div
             style=${styleMap({ width: `${leftPercent}%`, ...leftStyle })}
           ></div>
           <div style=${styleMap({ flexGrow: '1', ...rightStyle })}></div>
         </div>
-        <div class="w-2 h-2 rounded-full bg-neutral-85 shrink-0"></div>
+
+        <!-- Vertical tick left (start date) -->
+        <div
+          class="absolute left-[10%] top-1/2 w-px h-10 bg-neutral-85 z-10"
+        ></div>
+
+        <!-- Vertical tick right(end date) -->
+        ${!isForever
+          ? html`<div
+              class="absolute right-[10%] top-1/2 w-px h-10 bg-neutral-85 z-10"
+            ></div>`
+          : ''}
+
+        <!-- Arrow right (replaces the right dot) -->
+        <div
+          class="absolute -right-2 top-1/2 -translate-y-1/2 z-10 flex items-center"
+        >
+          <lukso-icon name="arrow-right-sm" size="small"></lukso-icon>
+        </div>
       </div>
     `
   }
@@ -140,12 +172,12 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
   private _dateLabelTemplate(date: Date, align: 'start' | 'end') {
     const cls = align === 'end' ? 'items-end text-right' : 'items-start'
     return html`
-      <div class="flex flex-col ${cls}">
-        <span class="text-sm font-semibold text-neutral-20"
+      <div class="flex flex-col ${cls} left-[12%] right-[12%] absolute ">
+        <span class="text-sm font-semibold text-neutral-50"
           >${this._formatDate(date)}</span
         >
-        <span class="text-sm text-neutral-20">${this._formatTime(date)}</span>
-        <span class="text-xs text-neutral-60">${this._relativeTime(date)}</span>
+        <span class="text-sm text-neutral-50">${this._formatTime(date)}</span>
+        <span class="text-xs text-neutral-70">${this._relativeTime(date)}</span>
       </div>
     `
   }
@@ -167,7 +199,7 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
           : this._barTemplate(100, GREEN_STYLE, GREEN_STYLE)
 
     return html`
-      <div class="flex flex-col w-full gap-2">
+      <div class="flex flex-col w-full">
         ${bar}
         <div class="flex items-start w-full">
           ${this._dateLabelTemplate(start, 'start')}
@@ -187,11 +219,21 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
 
     const bar =
       this._state === 'before-start'
-        ? this._barTemplate(0, STRIPED_STYLE, STRIPED_STYLE)
-        : this._barTemplate(FOREVER_GREEN_PCT, GREEN_STYLE, STRIPED_STYLE)
+        ? this._barTemplate(
+            0,
+            STRIPED_STYLE,
+            STRIPED_STYLE,
+            this.endDate.trim() === ''
+          )
+        : this._barTemplate(
+            FOREVER_GREEN_PCT,
+            GREEN_STYLE,
+            STRIPED_STYLE,
+            this.endDate.trim() === ''
+          )
 
     return html`
-      <div class="flex flex-col w-full gap-2">
+      <div class="flex flex-col w-full">
         ${bar}
         <div class="flex items-start w-full">
           ${this._dateLabelTemplate(start, 'start')}

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.190.0](https://github.com/lukso-network/tools-web-components/compare/v1.189.0...v1.190.0) (2026-04-16)
+
+
+### Features
+
+* Add graph icon ([#844](https://github.com/lukso-network/tools-web-components/issues/844)) ([27786ef](https://github.com/lukso-network/tools-web-components/commit/27786ef69501495135c4937a807680008c8629b7))
+
 ## [1.189.0](https://github.com/lukso-network/tools-web-components/compare/v1.188.0...v1.189.0) (2026-04-15)
 
 

@@ -156,6 +156,7 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
     if (!this.startDate || !this.endDate) return html``
     const start = new Date(this.startDate)
     const end = new Date(this.endDate)
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) return html``
     const pct = this._progressPercent
 
     const bar =
@@ -182,6 +183,7 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
   private foreverTemplate() {
     if (!this.startDate) return html``
     const start = new Date(this.startDate)
+    if (isNaN(start.getTime())) return html``
 
     const bar =
       this._state === 'before-start'

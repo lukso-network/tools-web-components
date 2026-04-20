@@ -1,4 +1,4 @@
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 import { property } from 'lit/decorators.js'
 import { repeat } from 'lit/directives/repeat.js'
 import { tv } from 'tailwind-variants'
@@ -12,6 +12,7 @@ export type WizardStep = {
 }
 
 export type WizardSize = 'small' | 'medium' | 'large' | 'full-width'
+export type WizardVariant = 'default' | 'secondary'
 
 /**
  * A multi-step progress indicator (stepper) showing labelled steps with completed/current/upcoming states.
@@ -26,6 +27,34 @@ export class LuksoWizard extends TailwindStyledElement(style) {
 
   @property({ type: String })
   size: WizardSize = 'medium'
+
+  @property({ type: String })
+  variant: WizardVariant = 'default'
+
+  private numberedStepStyles = tv({
+    slots: {
+      base: 'flex items-center flex-1 last:flex-none',
+      circle: `lukso-wizard-numbered-circle w-7 h-7 rounded-full flex items-center justify-center
+        shrink-0 body-inter-12-bold bg-neutral-90 text-neutral-60`,
+      label: 'ml-2 body-inter-12-medium text-neutral-60 whitespace-nowrap',
+      line: 'lukso-wizard-numbered-line flex-1 h-[2px] mx-3 bg-neutral-90 transition-colors duration-300',
+    },
+    variants: {
+      completed: {
+        true: {
+          circle: 'bg-green-54 text-neutral-100',
+          label: 'text-neutral-20',
+          line: 'bg-green-54',
+        },
+      },
+      active: {
+        true: {
+          circle: 'bg-neutral-20 text-neutral-100',
+          label: 'text-neutral-20',
+        },
+      },
+    },
+  })
 
   private stepStyles = tv({
     slots: {
@@ -79,6 +108,20 @@ export class LuksoWizard extends TailwindStyledElement(style) {
     },
   })
 
+  numberedStepTemplate(step: WizardStep, index: number, totalSteps: number) {
+    const isCompleted = index + 1 < this.activeStep
+    const isActive = index + 1 === this.activeStep
+    const { base, circle, label, line } = this.numberedStepStyles({
+      completed: isCompleted,
+      active: isActive,
+    })
+    return html`<li class="${base()}">
+      <div class="${circle()}">${index + 1}</div>
+      <span class="${label()}">${step.label}</span>
+      ${index < totalSteps - 1 ? html`<div class="${line()}"></div>` : nothing}
+    </li>`
+  }
+
   stepTemplate(step: WizardStep, index: number) {
     const { base, circle, innerCircle } = this.stepStyles({
       completed: index + 1 < this.activeStep,
@@ -88,7 +131,7 @@ export class LuksoWizard extends TailwindStyledElement(style) {
     })
     return html`<li class="${base()}">
       <div
-        class="text-purple-51 nav-inter-8-medium-uppercase whitespace-pre-line flex text-center break-words uppercase leading-none"
+        class="text-purple-51 nav-inter-8-medium-uppercase whitespace-pre-line flex text-center wrap-break-word uppercase leading-none"
       >
         ${step.label}
       </div>
@@ -100,6 +143,19 @@ export class LuksoWizard extends TailwindStyledElement(style) {
 
   render() {
     const steps = JSON.parse(this.steps) as WizardStep[]
+
+    if (this.variant === 'secondary') {
+      return html`
+        <ul class="flex items-center w-full" data-testid="wizard">
+          ${repeat(
+            steps || [],
+            step => steps.indexOf(step),
+            (step, index) =>
+              this.numberedStepTemplate(step, index, steps.length)
+          )}
+        </ul>
+      `
+    }
 
     return html`
       <ul class="flex justify-center" data-testid="wizard">
@@ -115,8 +171,8 @@ export class LuksoWizard extends TailwindStyledElement(style) {
   updated() {
     // delay animation to allow for DOM to be updated
     setTimeout(() => {
-      const currentStep = this.shadowRoot.querySelectorAll('.current')
-      currentStep[0]?.classList.add('animated-step')
+      const currentStep = this.shadowRoot?.querySelectorAll('.current')
+      currentStep?.[0]?.classList.add('animated-step')
     }, 10)
   }
 }

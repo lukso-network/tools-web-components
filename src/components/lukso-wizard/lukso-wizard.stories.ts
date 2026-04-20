@@ -31,6 +31,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'secondary'],
+      table: {
+        category: 'Attributes',
+      },
+    },
     'active-step': {
       name: 'activeStep',
     },
@@ -68,11 +75,35 @@ LYXe`,
 
 export default meta
 
-const Template = ({ steps, activeStep, size }) =>
+const Template = ({
+  steps,
+  activeStep,
+  size,
+  variant,
+}: {
+  steps: object[]
+  activeStep: number
+  size: string
+  variant: string
+}) =>
   html`<lukso-wizard
     steps=${JSON.stringify(steps)}
     active-step=${activeStep}
     size=${size ? size : nothing}
+    variant=${variant ? variant : nothing}
   ></lukso-wizard>`
 
 export const BasicWizard = Template.bind({})
+
+export const NumberedWizard = Template.bind({})
+;(NumberedWizard as typeof Template & { args: object }).args = {
+  steps: [
+    { label: 'Token information' },
+    { label: 'Token settings' },
+    { label: 'Review' },
+    { label: 'Deploy' },
+  ],
+  size: 'full-width',
+  activeStep: 2,
+  variant: 'secondary',
+}

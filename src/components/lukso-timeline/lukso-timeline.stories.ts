@@ -37,7 +37,6 @@ function relDate(ms: number): string {
   return new Date(Date.now() + ms).toISOString()
 }
 
-const H = 3_600_000
 const D = 86_400_000
 
 const Template = ({
@@ -62,8 +61,8 @@ const Template = ({
  */
 export const TodayBeforeStart = Template.bind({})
 TodayBeforeStart.args = {
-  startDate: relDate(2 * H),
-  endDate: relDate(5 * D),
+  startDate: relDate(10 * D),
+  endDate: relDate(20 * D),
 }
 
 /**
@@ -74,16 +73,6 @@ export const TodayInRange = Template.bind({})
 TodayInRange.args = {
   startDate: relDate(-D),
   endDate: relDate(4 * D),
-}
-
-/**
- * Today is AFTER the end date — event has expired.
- * Bar is fully green (completed).
- */
-export const TodayAfterEnd = Template.bind({})
-TodayAfterEnd.args = {
-  startDate: relDate(-10 * D),
-  endDate: relDate(-2 * D),
 }
 
 /**

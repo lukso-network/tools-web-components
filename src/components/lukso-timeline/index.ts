@@ -49,6 +49,12 @@ export class LuksoTimeline extends withIntlService(
     return 'in-range'
   }
 
+  private get _startIsNow(): boolean {
+    if (!this.startDate) return false
+    const start = new Date(this.startDate).getTime()
+    return !isNaN(start) && Math.abs(Date.now() - start) < 60_000
+  }
+
   private get _progressPercent(): number {
     if (!this.startDate || !this.endDate) return 0
     const now = Date.now()
@@ -84,16 +90,32 @@ export class LuksoTimeline extends withIntlService(
   private _relativeTime(date: Date): string {
     const diffMs = date.getTime() - Date.now()
     const abs = Math.abs(diffMs)
-    const fmt = new Intl.RelativeTimeFormat(
-      this._intl?.getLocale() ?? 'en-US',
-      { numeric: 'auto' }
-    )
-    if (abs < 60_000) return fmt.format(Math.round(diffMs / 1_000), 'second')
+    const opts = { numeric: 'auto' } as const
+    if (abs < 60_000)
+      return this._intl?.formatRelativeTime(0, 'second', opts) ?? ''
     if (abs < 3_600_000)
-      return fmt.format(Math.round(diffMs / 60_000), 'minute')
+      return (
+        this._intl?.formatRelativeTime(
+          Math.round(diffMs / 60_000),
+          'minute',
+          opts
+        ) ?? ''
+      )
     if (abs < 86_400_000)
-      return fmt.format(Math.round(diffMs / 3_600_000), 'hour')
-    return fmt.format(Math.round(diffMs / 86_400_000), 'day')
+      return (
+        this._intl?.formatRelativeTime(
+          Math.round(diffMs / 3_600_000),
+          'hour',
+          opts
+        ) ?? ''
+      )
+    return (
+      this._intl?.formatRelativeTime(
+        Math.round(diffMs / 86_400_000),
+        'day',
+        opts
+      ) ?? ''
+    )
   }
 
   // ── Sub-templates ───────────────────────────────────────────────────────
@@ -111,12 +133,13 @@ export class LuksoTimeline extends withIntlService(
     rightStyle: Record<string, string>,
     isForever: boolean = false
   ) {
-    const rightInset = isForever ? 'right-1/20' : ''
+    const barLeft = this._startIsNow ? 'left-3' : 'left-[10%]'
+    const barRight = isForever ? 'right-1/20' : 'right-[10%]'
     return html`
       <div class="relative flex items-center w-full" style="height: 2.5rem">
         <!-- Track line full-width -->
         <div
-          class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-neutral-85"
+          class="absolute inset-x-0 top-[53%] -translate-y-1/2 h-px bg-neutral-85"
         ></div>
 
         <!-- Left endpoint dot -->
@@ -124,9 +147,9 @@ export class LuksoTimeline extends withIntlService(
           class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
         ></div>
 
-        <!-- Progress bar, inset 10% -->
+        <!-- Progress bar -->
         <div
-          class="absolute inset-x-[10%] ${rightInset} top-1/3 flex h-2 overflow-hidden z-10"
+          class="absolute ${barLeft} ${barRight} top-1/3 flex h-2 overflow-hidden "
         >
           <div
             style=${styleMap({ width: `${leftPercent}%`, ...leftStyle })}
@@ -136,7 +159,7 @@ export class LuksoTimeline extends withIntlService(
 
         <!-- Vertical tick left (start date) -->
         <div
-          class="absolute left-[10%] top-1/2 w-px h-10 bg-neutral-85 z-10"
+          class="absolute  top-[53%] w-px h-10 bg-neutral-85 z-10 ${barLeft}"
         ></div>
 
         <!-- Vertical tick right(end date) -->
@@ -148,9 +171,13 @@ export class LuksoTimeline extends withIntlService(
 
         <!-- Arrow right (replaces the right dot) -->
         <div
-          class="absolute -right-2 top-1/2 -translate-y-1/2 z-10 flex items-center"
+          class="absolute -right-2 top-[53%] -translate-y-1/2 z-10 flex items-center"
         >
-          <lukso-icon name="arrow-right-sm" size="small"></lukso-icon>
+          <lukso-icon
+            name="arrow-right-sm"
+            size="small"
+            color="neutral-85"
+          ></lukso-icon>
         </div>
       </div>
     `
@@ -164,13 +191,19 @@ export class LuksoTimeline extends withIntlService(
    */
   private _dateLabelTemplate(date: Date, align: 'start' | 'end') {
     const cls = align === 'end' ? 'items-end text-right' : 'items-start'
+    const leftCls =
+      align === 'start' && this._startIsNow ? 'left-[3%]' : 'left-[12%]'
     return html`
-      <div class="flex flex-col ${cls} left-[12%] right-[12%] absolute ">
+      <div class="flex flex-col ${cls} ${leftCls} right-[12%] absolute ">
         <span class="text-sm font-semibold text-neutral-50"
           >${this._formatDate(date)}</span
         >
         <span class="text-sm text-neutral-50">${this._formatTime(date)}</span>
-        <span class="text-xs text-neutral-70">${this._relativeTime(date)}</span>
+        ${this._state !== 'after-end'
+          ? html`<span class="text-xs text-neutral-70"
+              >${this._relativeTime(date)}</span
+            >`
+          : ''}
       </div>
     `
   }
@@ -191,13 +224,21 @@ export class LuksoTimeline extends withIntlService(
           ? this._barTemplate(pct, GREEN_STYLE, GREY_STYLE)
           : this._barTemplate(100, GREEN_STYLE, GREEN_STYLE)
 
+    const arrowLeft = this._startIsNow ? 'left-[3%]' : 'left-[12%]'
     return html`
       <div class="flex flex-col w-full">
         ${bar}
-        <div class="flex items-start w-full">
+        <div class="relative min-h-[4.5rem] w-full">
           ${this._dateLabelTemplate(start, 'start')}
-          <div class="flex-1 flex justify-center pt-1">
-            <lukso-icon name="arrow-right-sm" size="small"></lukso-icon>
+          <div
+            class="absolute ${arrowLeft} right-[12%] flex justify-center pt-1"
+          >
+            <lukso-icon
+              name="arrow-long-down"
+              size="medium"
+              class="rotate-270"
+              color="neutral-55"
+            ></lukso-icon>
           </div>
           ${this._dateLabelTemplate(end, 'end')}
         </div>
@@ -225,17 +266,24 @@ export class LuksoTimeline extends withIntlService(
             this.endDate === ''
           )
 
+    const arrowLeft = this._startIsNow ? 'left-[3%]' : 'left-[12%]'
     return html`
       <div class="flex flex-col w-full">
         ${bar}
-        <div class="flex items-start w-full">
+        <div class="relative min-h-[4.5rem] w-full">
           ${this._dateLabelTemplate(start, 'start')}
-          <div class="flex-1 flex justify-center pt-1">
-            <lukso-icon name="arrow-right-sm" size="small"></lukso-icon>
+          <div
+            class="absolute ${arrowLeft} right-[12%] flex justify-center pt-1"
+          >
+            <lukso-icon
+              name="arrow-long-down"
+              size="medium"
+              class="rotate-270"
+              color="neutral-55"
+            ></lukso-icon>
           </div>
-          <div class="flex flex-col items-end text-right">
-            <span class="text-sm font-semibold text-neutral-20">Forever</span>
-            <span class="text-sm text-neutral-20">-</span>
+          <div class="absolute right-[12%] flex flex-col items-end text-right">
+            <span class="text-sm font-semibold text-neutral-50">Forever</span>
           </div>
         </div>
       </div>

@@ -20,10 +20,6 @@ const meta: Meta = {
       control: { type: 'text' },
       table: { category: 'Attributes' },
     },
-    locale: {
-      control: { type: 'text' },
-      table: { category: 'Attributes' },
-    },
   },
   parameters: {
     controls: {
@@ -88,6 +84,15 @@ export const TodayAfterEnd = Template.bind({})
 TodayAfterEnd.args = {
   startDate: relDate(-10 * D),
   endDate: relDate(-2 * D),
+}
+
+/**
+ * Start date is right now — dot sits on the start tick, relative time shows "now".
+ */
+export const StartIsNow = Template.bind({})
+StartIsNow.args = {
+  startDate: relDate(0),
+  endDate: relDate(5 * D),
 }
 
 // ── Template: start → forever ─────────────────────────────────────────────

@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@lukso/core':
-        specifier: ^1.5.0
-        version: 1.5.0(@babel/core@7.29.0)(bufferutil@4.1.0)(lit@3.3.2)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.45.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+        specifier: ^1.7.0
+        version: 1.7.0(@babel/core@7.29.0)(bufferutil@4.1.0)(lit@3.3.2)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.45.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
       '@lukso/lsp-smart-contracts':
         specifier: 0.16.7
         version: 0.16.7(@babel/core@7.29.0)(bufferutil@4.1.0)(utf-8-validate@5.0.10)
@@ -1284,8 +1284,8 @@ packages:
   '@lit/reactive-element@2.1.2':
     resolution: {integrity: sha512-pbCDiVMnne1lYUIaYNN5wrwQXDtHaYtg7YEFPeW+hws6U47WeFvISGUWekPGKWOP1ygrs0ef0o1VJMk1exos5A==}
 
-  '@lukso/core@1.5.0':
-    resolution: {integrity: sha512-NsZ7idO24q/bpCkaTLyxGdKjjW7y2H2fL6SIiwssuda+NpOJK3TVjgqyp4DZiT31b4F+y0HN1sXV8vsZSpYYyQ==}
+  '@lukso/core@1.7.0':
+    resolution: {integrity: sha512-572J+I24cTLkk7amFZLBeQ1xPXz/PkmAXtusgR2FI1Anr7Du+JtOATqaeZ5z0gD5efCRAzMS4w3rHcRg/QZBXQ==}
     peerDependencies:
       lit: 3.3.2
       viem: ^2.0.0
@@ -9101,7 +9101,7 @@ snapshots:
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.5.1
 
-  '@lukso/core@1.5.0(@babel/core@7.29.0)(bufferutil@4.1.0)(lit@3.3.2)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.45.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
+  '@lukso/core@1.7.0(@babel/core@7.29.0)(bufferutil@4.1.0)(lit@3.3.2)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.45.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
     dependencies:
       '@formatjs/intl': 4.1.2(typescript@5.9.3)
       '@lukso/lsp-smart-contracts': 0.16.7(@babel/core@7.29.0)(bufferutil@4.1.0)(utf-8-validate@5.0.10)

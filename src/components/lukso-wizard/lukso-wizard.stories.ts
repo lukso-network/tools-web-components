@@ -53,6 +53,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    'on-step-click': {
+      description:
+        'Fired when a linkable step is clicked (requires `is-linkable`). The `detail.step` property contains the 1-based index of the clicked step.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent<{ step: number }>' },
+      },
+    },
     'active-step': {
       name: 'activeStep',
     },

@@ -13,6 +13,7 @@ export type WizardStep = {
 
 export type WizardSize = 'small' | 'medium' | 'large' | 'full-width'
 export type WizardVariant = 'default' | 'numbered'
+export type WizardLinkableMode = 'previous' | 'all'
 
 /**
  * A multi-step progress indicator (stepper) showing labelled steps with completed/current/upcoming states.
@@ -30,6 +31,12 @@ export class LuksoWizard extends TailwindStyledElement(style) {
 
   @property({ type: String })
   variant: WizardVariant = 'default'
+
+  @property({ type: Boolean, attribute: 'is-linkable' })
+  isLinkable = false
+
+  @property({ type: String, attribute: 'linkable-mode' })
+  linkableMode: WizardLinkableMode = 'previous'
 
   private numberedStepStyles = tv({
     slots: {
@@ -108,14 +115,31 @@ export class LuksoWizard extends TailwindStyledElement(style) {
     },
   })
 
+  private handleStepClick(stepNumber: number) {
+    this.dispatchEvent(
+      new CustomEvent('on-step-click', {
+        detail: { step: stepNumber },
+        bubbles: true,
+        composed: true,
+      })
+    )
+  }
+
   numberedStepTemplate(step: WizardStep, index: number, totalSteps: number) {
     const isCompleted = index + 1 < this.activeStep
     const isActive = index + 1 === this.activeStep
+    const isLinkableStep =
+      this.isLinkable &&
+      !isActive &&
+      (isCompleted || this.linkableMode === 'all')
     const { base, circle, label, line } = this.numberedStepStyles({
       completed: isCompleted,
       active: isActive,
     })
-    return html`<li class="${base()}">
+    return html`<li
+      class="${base()} ${isLinkableStep ? 'cursor-pointer' : ''}"
+      @click=${isLinkableStep ? () => this.handleStepClick(index + 1) : nothing}
+    >
       <div class="${circle()}">${index + 1}</div>
       <span class="${label()}">${step.label}</span>
       ${index < totalSteps - 1 ? html`<div class="${line()}"></div>` : nothing}
@@ -123,13 +147,22 @@ export class LuksoWizard extends TailwindStyledElement(style) {
   }
 
   defaultStepTemplate(step: WizardStep, index: number) {
+    const isCompleted = index + 1 < this.activeStep
+    const isActive = index + 1 === this.activeStep
+    const isLinkableStep =
+      this.isLinkable &&
+      !isActive &&
+      (isCompleted || this.linkableMode === 'all')
     const { base, circle, innerCircle } = this.stepStyles({
-      completed: index + 1 < this.activeStep,
+      completed: isCompleted,
       active: index + 1 === this.activeStep,
       current: index === this.activeStep - 2,
       size: this.size,
     })
-    return html`<li class="${base()}">
+    return html`<li
+      class="${base()} ${isLinkableStep ? 'cursor-pointer' : ''}"
+      @click=${isLinkableStep ? () => this.handleStepClick(index + 1) : nothing}
+    >
       <div
         class="text-purple-51 nav-inter-8-medium-uppercase whitespace-pre-line flex text-center break-words uppercase leading-none"
       >

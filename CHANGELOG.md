@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.191.0](https://github.com/lukso-network/tools-web-components/compare/v1.190.0...v1.191.0) (2026-04-20)
+
+
+### Features
+
+* add wizard steps variant ([#847](https://github.com/lukso-network/tools-web-components/issues/847)) ([d468f78](https://github.com/lukso-network/tools-web-components/commit/d468f78daece0b3eb4a8336690d2dfcc573301b4))
+
 ## [1.190.0](https://github.com/lukso-network/tools-web-components/compare/v1.189.0...v1.190.0) (2026-04-16)
 
 

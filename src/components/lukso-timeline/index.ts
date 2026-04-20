@@ -13,7 +13,7 @@ type TimelineState = 'before-start' | 'in-range' | 'after-end'
 
 const GREY_STYLE = { backgroundColor: '#cddae4' }
 const GREEN_STYLE = { backgroundColor: '#47cd68' }
-const STRIPED_GREEN_STYLE = { color1: '#EEEEEE', color2: '#cddae4' }
+const STRIPED_GREEN_STYLE = { color1: '#ccc', color2: '#cddae4' }
 const STRIPED_STYLE = {
   backgroundImage: `repeating-linear-gradient(135deg, ${STRIPED_GREEN_STYLE.color1} 0px, ${STRIPED_GREEN_STYLE.color1} 5px, ${STRIPED_GREEN_STYLE.color2} 5px, ${STRIPED_GREEN_STYLE.color2} 10px, ${STRIPED_GREEN_STYLE.color2} 10px)`,
 }
@@ -247,7 +247,7 @@ export class LuksoTimeline extends withIntlService(
             : ''}
           ${bar}
         </div>
-        <div class="relative min-h-[4.5rem] w-full">
+        <div class="relative min-h-18 w-full">
           ${this._dateLabelTemplate(start, 'start')}
           <div
             class="absolute ${arrowLeft} right-[12%] flex justify-center pt-1"
@@ -292,7 +292,7 @@ export class LuksoTimeline extends withIntlService(
             : ''}
           ${bar}
         </div>
-        <div class="relative min-h-[4.5rem] w-full">
+        <div class="relative min-h-18 w-full">
           ${this._dateLabelTemplate(start, 'start')}
           <div
             class="absolute ${arrowLeft} right-[12%] flex justify-center pt-1"

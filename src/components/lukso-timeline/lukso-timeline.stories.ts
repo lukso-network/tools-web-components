@@ -38,7 +38,7 @@ export default meta
 
 /** Returns an ISO 8601 date-time string offset from now by `ms` milliseconds. */
 function relDate(ms: number): string {
-  return new Date(Date.now() + ms).toISOString().slice(0, 16)
+  return new Date(Date.now() + ms).toISOString()
 }
 
 const H = 3_600_000

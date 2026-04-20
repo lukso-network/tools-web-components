@@ -1,7 +1,7 @@
 // src/components/lukso-timeline/index.ts
 import { html } from 'lit'
 import { property } from 'lit/decorators.js'
-import { styleMap } from 'lit-html/directives/style-map.js'
+import { styleMap } from 'lit/directives/style-map.js'
 import { withIntlService } from '@lukso/core/mixins/intl'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
@@ -26,10 +26,10 @@ const FOREVER_GREEN_PCT = 35
 export class LuksoTimeline extends withIntlService(
   TailwindStyledElement(style)
 ) {
-  @property({ type: Date, attribute: 'start-date' })
+  @property({ type: String, attribute: 'start-date' })
   startDate = ''
 
-  @property({ type: Date, attribute: 'end-date' })
+  @property({ type: String, attribute: 'end-date' })
   endDate = ''
 
   private get _intl() {
@@ -62,25 +62,14 @@ export class LuksoTimeline extends withIntlService(
 
   // ── Formatting helpers ──────────────────────────────────────────────────
 
-  private _ordinal(n: number): string {
-    if (n >= 11 && n <= 13) return 'th'
-    switch (n % 10) {
-      case 1:
-        return 'st'
-      case 2:
-        return 'nd'
-      case 3:
-        return 'rd'
-      default:
-        return 'th'
-    }
-  }
-
   private _formatDate(date: Date): string {
-    const day = date.getDate()
-    const month =
-      this._intl?.formatTimestamp(date.getTime(), { month: 'short' }) ?? ''
-    return `${day}${this._ordinal(day)} ${month} ${date.getFullYear()}`
+    return (
+      this._intl?.formatTimestamp(date.getTime(), {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      }) ?? ''
+    )
   }
 
   private _formatTime(date: Date): string {
@@ -88,11 +77,8 @@ export class LuksoTimeline extends withIntlService(
       this._intl?.formatTimestamp(date.getTime(), {
         hour: 'numeric',
         minute: '2-digit',
-        hour12: true,
       }) ?? ''
     )
-      .toLowerCase()
-      .replace(/[\s\u202f]/g, '')
   }
 
   private _relativeTime(date: Date): string {
@@ -257,9 +243,11 @@ export class LuksoTimeline extends withIntlService(
   }
 
   render() {
+    const hasValidEndDate =
+      !!this.endDate && !isNaN(new Date(this.endDate).getTime())
     return html`
       <div class="flex w-full">
-        ${this.endDate ? this.endDateTemplate() : this.foreverTemplate()}
+        ${hasValidEndDate ? this.endDateTemplate() : this.foreverTemplate()}
       </div>
     `
   }

@@ -449,6 +449,16 @@
 			"import": "./dist/components/lukso-time-picker/index.js",
 			"types": "./dist/components/lukso-time-picker/index.d.ts"
 		},
+		"./dist/components/lukso-timeline": {
+			"require": "./dist/components/lukso-timeline/index.cjs",
+			"import": "./dist/components/lukso-timeline/index.js",
+			"types": "./dist/components/lukso-timeline/index.d.ts"
+		},
+		"./components/lukso-timeline": {
+			"require": "./dist/components/lukso-timeline/index.cjs",
+			"import": "./dist/components/lukso-timeline/index.js",
+			"types": "./dist/components/lukso-timeline/index.d.ts"
+		},
 		"./dist/components/lukso-tooltip": {
 			"require": "./dist/components/lukso-tooltip/index.cjs",
 			"import": "./dist/components/lukso-tooltip/index.js",
@@ -481,7 +491,7 @@
 		}
 	},
 	"dependencies": {
-		"@lukso/core": "^1.5.0",
+		"@lukso/core": "^1.7.0",
 		"@lukso/lsp-smart-contracts": "0.16.7",
 		"@tailwindcss/typography": "^0.5.19",
 		"axe-core": "4.11.1",

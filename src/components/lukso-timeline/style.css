@@ -1,0 +1,4 @@
+/* src/components/lukso-timeline/style.css */
+:host {
+  @apply flex;
+}

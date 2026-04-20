@@ -35,21 +35,21 @@ export class LuksoWizard extends TailwindStyledElement(style) {
     slots: {
       base: 'flex items-center flex-1 last:flex-none',
       circle: `lukso-wizard-numbered-circle w-7 h-7 rounded-full flex items-center justify-center
-        shrink-0 body-inter-12-bold bg-neutral-90 text-neutral-60`,
-      label: 'ml-2 body-inter-12-medium text-neutral-60 whitespace-nowrap',
+        shrink-0 body-inter-12-bold text-neutral-80 border border-neutral-80`,
+      label: 'ml-2 body-inter-12-medium text-neutral-80 whitespace-nowrap',
       line: 'lukso-wizard-numbered-line flex-1 h-[2px] mx-3 bg-neutral-90 transition-colors duration-300',
     },
     variants: {
       completed: {
         true: {
-          circle: 'bg-green-54 text-neutral-100',
-          label: 'text-neutral-20',
-          line: 'bg-green-54',
+          circle: 'bg-green-45 text-neutral-100 border border-green-54',
+          label: 'text-green-54',
+          line: 'bg-green-45',
         },
       },
       active: {
         true: {
-          circle: 'bg-neutral-20 text-neutral-100',
+          circle: 'bg-neutral-10 text-neutral-100 border border-neutral-20 ',
           label: 'text-neutral-20',
         },
       },

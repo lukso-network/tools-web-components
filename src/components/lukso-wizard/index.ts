@@ -125,6 +125,13 @@ export class LuksoWizard extends TailwindStyledElement(style) {
     )
   }
 
+  private onKeyDown(stepNumber: number, e: KeyboardEvent) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      this.handleStepClick(stepNumber)
+    }
+  }
+
   numberedStepTemplate(step: WizardStep, index: number, totalSteps: number) {
     const isCompleted = index + 1 < this.activeStep
     const isActive = index + 1 === this.activeStep
@@ -137,8 +144,17 @@ export class LuksoWizard extends TailwindStyledElement(style) {
       active: isActive,
     })
     return html`<li
-      class="${base()} ${isLinkableStep ? 'cursor-pointer' : ''}"
-      @click=${isLinkableStep ? () => this.handleStepClick(index + 1) : nothing}
+      class="${base()} ${isLinkableStep
+        ? 'cursor-pointer hover:opacity-70 transition-opacity duration-200'
+        : ''}"
+      role=${isLinkableStep ? 'button' : nothing}
+      tabindex=${isLinkableStep ? '0' : nothing}
+      @click=${isLinkableStep
+        ? () => this.handleStepClick(index + 1)
+        : undefined}
+      @keydown=${isLinkableStep
+        ? (e: KeyboardEvent) => this.onKeyDown(index + 1, e)
+        : undefined}
     >
       <div class="${circle()}">${index + 1}</div>
       <span class="${label()}">${step.label}</span>
@@ -155,13 +171,22 @@ export class LuksoWizard extends TailwindStyledElement(style) {
       (isCompleted || this.linkableMode === 'all')
     const { base, circle, innerCircle } = this.stepStyles({
       completed: isCompleted,
-      active: index + 1 === this.activeStep,
+      active: isActive,
       current: index === this.activeStep - 2,
       size: this.size,
     })
     return html`<li
-      class="${base()} ${isLinkableStep ? 'cursor-pointer' : ''}"
-      @click=${isLinkableStep ? () => this.handleStepClick(index + 1) : nothing}
+      class="${base()} ${isLinkableStep
+        ? 'cursor-pointer hover:opacity-70 transition-opacity duration-200'
+        : ''}"
+      role=${isLinkableStep ? 'button' : nothing}
+      tabindex=${isLinkableStep ? '0' : nothing}
+      @click=${isLinkableStep
+        ? () => this.handleStepClick(index + 1)
+        : undefined}
+      @keydown=${isLinkableStep
+        ? (e: KeyboardEvent) => this.onKeyDown(index + 1, e)
+        : undefined}
     >
       <div
         class="text-purple-51 nav-inter-8-medium-uppercase whitespace-pre-line flex text-center break-words uppercase leading-none"
@@ -175,7 +200,12 @@ export class LuksoWizard extends TailwindStyledElement(style) {
   }
 
   render() {
-    const steps = JSON.parse(this.steps) as WizardStep[]
+    let steps: WizardStep[] = []
+    try {
+      steps = JSON.parse(this.steps) as WizardStep[]
+    } catch {
+      console.warn('lukso-wizard: invalid JSON in `steps` attribute')
+    }
 
     if (this.variant === 'numbered') {
       return html`

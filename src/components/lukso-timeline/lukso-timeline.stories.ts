@@ -37,7 +37,7 @@ function relDate(ms: number): string {
   return new Date(Date.now() + ms).toISOString()
 }
 
-const D = 86_400_000
+const DateMs = 86_400_000
 
 const Template = ({
   startDate,
@@ -61,8 +61,8 @@ const Template = ({
  */
 export const TodayBeforeStart = Template.bind({})
 TodayBeforeStart.args = {
-  startDate: relDate(10 * D),
-  endDate: relDate(20 * D),
+  startDate: relDate(10 * DateMs),
+  endDate: relDate(20 * DateMs),
 }
 
 /**
@@ -71,8 +71,8 @@ TodayBeforeStart.args = {
  */
 export const TodayInRange = Template.bind({})
 TodayInRange.args = {
-  startDate: relDate(-D),
-  endDate: relDate(4 * D),
+  startDate: relDate(-DateMs),
+  endDate: relDate(4 * DateMs),
 }
 
 /**
@@ -81,7 +81,7 @@ TodayInRange.args = {
 export const StartIsNow = Template.bind({})
 StartIsNow.args = {
   startDate: relDate(0),
-  endDate: relDate(5 * D),
+  endDate: relDate(5 * DateMs),
 }
 
 // ── Template: start → forever ─────────────────────────────────────────────
@@ -92,7 +92,7 @@ StartIsNow.args = {
  */
 export const ForeverBeforeStart = Template.bind({})
 ForeverBeforeStart.args = {
-  startDate: relDate(5 * D),
+  startDate: relDate(5 * DateMs),
 }
 
 /**
@@ -101,5 +101,5 @@ ForeverBeforeStart.args = {
  */
 export const ForeverInRange = Template.bind({})
 ForeverInRange.args = {
-  startDate: relDate(-5 * D),
+  startDate: relDate(-5 * DateMs),
 }

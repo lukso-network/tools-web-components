@@ -13,9 +13,9 @@ type TimelineState = 'before-start' | 'in-range' | 'after-end'
 
 const GREY_STYLE = { backgroundColor: '#cddae4' }
 const GREEN_STYLE = { backgroundColor: '#47cd68' }
-const STRIPED_GREEN_STYLE = { color1: '#ccc', color2: '#cddae4' }
+const STRIPED_COLOR = { color1: '#ccc', color2: '#cddae4' }
 const STRIPED_STYLE = {
-  backgroundImage: `repeating-linear-gradient(135deg, ${STRIPED_GREEN_STYLE.color1} 0px, ${STRIPED_GREEN_STYLE.color1} 5px, ${STRIPED_GREEN_STYLE.color2} 5px, ${STRIPED_GREEN_STYLE.color2} 10px, ${STRIPED_GREEN_STYLE.color2} 10px)`,
+  backgroundImage: `repeating-linear-gradient(135deg, ${STRIPED_COLOR.color1} 0px, ${STRIPED_COLOR.color1} 5px, ${STRIPED_COLOR.color2} 5px, ${STRIPED_COLOR.color2} 10px, ${STRIPED_COLOR.color2} 10px)`,
 }
 const FOREVER_GREEN_PCT = 35
 
@@ -153,11 +153,10 @@ export class LuksoTimeline extends withIntlService(
         ></div>
 
         <!-- Left endpoint dot -->
-        ${this._state === 'before-start' || this._startIsNow
-          ? html`<div
-              class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
-            ></div>`
-          : ''}
+
+        <div
+          class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
+        ></div>
 
         <!-- Progress bar -->
         <div
@@ -233,7 +232,7 @@ export class LuksoTimeline extends withIntlService(
       this._state === 'before-start'
         ? this._barTemplate(0, GREY_STYLE, GREY_STYLE)
         : this._state === 'in-range'
-          ? this._barTemplate(pct, GREEN_STYLE, GREY_STYLE)
+          ? this._barTemplate(pct, GREEN_STYLE, STRIPED_STYLE)
           : this._barTemplate(100, GREEN_STYLE, GREEN_STYLE)
 
     const barStartPct = this._startIsNow ? 3 : 10

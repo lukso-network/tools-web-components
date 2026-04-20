@@ -2,6 +2,7 @@
 import { html } from 'lit'
 import { property } from 'lit/decorators.js'
 import { styleMap } from 'lit-html/directives/style-map.js'
+import { withIntlService } from '@lukso/core/mixins/intl'
 
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import '@/components/lukso-icon'
@@ -22,15 +23,18 @@ const FOREVER_GREEN_PCT = 35
  * Displays the temporal state of an event as a horizontal progress bar with date labels.
  */
 @safeCustomElement('lukso-timeline')
-export class LuksoTimeline extends TailwindStyledElement(style) {
+export class LuksoTimeline extends withIntlService(
+  TailwindStyledElement(style)
+) {
   @property({ type: Date, attribute: 'start-date' })
   startDate = ''
 
   @property({ type: Date, attribute: 'end-date' })
   endDate = ''
 
-  @property({ type: String })
-  locale = 'en-US'
+  private get _intl() {
+    return this.setupLocalIntl()
+  }
 
   // ── Computed state ──────────────────────────────────────────────────────
 
@@ -74,19 +78,19 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
 
   private _formatDate(date: Date): string {
     const day = date.getDate()
-    const month = new Intl.DateTimeFormat(this.locale, {
-      month: 'short',
-    }).format(date)
+    const month =
+      this._intl?.formatTimestamp(date.getTime(), { month: 'short' }) ?? ''
     return `${day}${this._ordinal(day)} ${month} ${date.getFullYear()}`
   }
 
   private _formatTime(date: Date): string {
-    return new Intl.DateTimeFormat(this.locale, {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    })
-      .format(date)
+    return (
+      this._intl?.formatTimestamp(date.getTime(), {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      }) ?? ''
+    )
       .toLowerCase()
       .replace(/[\s\u202f]/g, '')
   }
@@ -94,7 +98,10 @@ export class LuksoTimeline extends TailwindStyledElement(style) {
   private _relativeTime(date: Date): string {
     const diffMs = date.getTime() - Date.now()
     const abs = Math.abs(diffMs)
-    const fmt = new Intl.RelativeTimeFormat(this.locale, { numeric: 'auto' })
+    const fmt = new Intl.RelativeTimeFormat(
+      this._intl?.getLocale() ?? 'en-US',
+      { numeric: 'auto' }
+    )
     if (abs < 60_000) return fmt.format(Math.round(diffMs / 1_000), 'second')
     if (abs < 3_600_000)
       return fmt.format(Math.round(diffMs / 60_000), 'minute')

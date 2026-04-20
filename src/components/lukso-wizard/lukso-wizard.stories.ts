@@ -104,6 +104,6 @@ export const NumberedWizard = Template.bind({})
     { label: 'Deploy' },
   ],
   size: 'full-width',
-  activeStep: 2,
+  activeStep: 3,
   variant: 'secondary',
 }

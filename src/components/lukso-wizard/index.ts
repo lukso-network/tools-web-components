@@ -1,4 +1,4 @@
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 import { property } from 'lit/decorators.js'
 import { repeat } from 'lit/directives/repeat.js'
 import { tv } from 'tailwind-variants'
@@ -12,6 +12,8 @@ export type WizardStep = {
 }
 
 export type WizardSize = 'small' | 'medium' | 'large' | 'full-width'
+export type WizardVariant = 'default' | 'numbered'
+export type WizardLinkableMode = 'previous' | 'all'
 
 /**
  * A multi-step progress indicator (stepper) showing labelled steps with completed/current/upcoming states.
@@ -26,6 +28,40 @@ export class LuksoWizard extends TailwindStyledElement(style) {
 
   @property({ type: String })
   size: WizardSize = 'medium'
+
+  @property({ type: String })
+  variant: WizardVariant = 'default'
+
+  @property({ type: Boolean, attribute: 'is-linkable' })
+  isLinkable = false
+
+  @property({ type: String, attribute: 'linkable-mode' })
+  linkableMode: WizardLinkableMode = 'previous'
+
+  private numberedStepStyles = tv({
+    slots: {
+      base: 'flex items-center flex-1 last:flex-none',
+      circle: `lukso-wizard-numbered-circle w-7 h-7 rounded-full flex items-center justify-center
+        shrink-0 body-inter-12-bold text-neutral-80 border border-neutral-80`,
+      label: 'ml-2 body-inter-12-medium text-neutral-80 whitespace-nowrap',
+      line: 'lukso-wizard-numbered-line flex-1 h-[2px] mx-3 bg-neutral-90 transition-colors duration-300',
+    },
+    variants: {
+      completed: {
+        true: {
+          circle: 'bg-green-45 text-neutral-100 border border-green-54',
+          label: 'text-green-54',
+          line: 'bg-green-45',
+        },
+      },
+      active: {
+        true: {
+          circle: 'bg-neutral-10 text-neutral-100 border border-neutral-20 ',
+          label: 'text-neutral-20',
+        },
+      },
+    },
+  })
 
   private stepStyles = tv({
     slots: {
@@ -79,14 +115,79 @@ export class LuksoWizard extends TailwindStyledElement(style) {
     },
   })
 
-  stepTemplate(step: WizardStep, index: number) {
+  private handleStepClick(stepNumber: number) {
+    this.dispatchEvent(
+      new CustomEvent('on-step-click', {
+        detail: { step: stepNumber },
+        bubbles: true,
+        composed: true,
+      })
+    )
+  }
+
+  private onKeyDown(stepNumber: number, e: KeyboardEvent) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      this.handleStepClick(stepNumber)
+    }
+  }
+
+  numberedStepTemplate(step: WizardStep, index: number, totalSteps: number) {
+    const isCompleted = index + 1 < this.activeStep
+    const isActive = index + 1 === this.activeStep
+    const isLinkableStep =
+      this.isLinkable &&
+      !isActive &&
+      (isCompleted || this.linkableMode === 'all')
+    const { base, circle, label, line } = this.numberedStepStyles({
+      completed: isCompleted,
+      active: isActive,
+    })
+    return html`<li
+      class="${base()} ${isLinkableStep
+        ? 'cursor-pointer hover:opacity-70 transition-opacity duration-200'
+        : ''}"
+      role=${isLinkableStep ? 'button' : nothing}
+      tabindex=${isLinkableStep ? '0' : nothing}
+      @click=${isLinkableStep
+        ? () => this.handleStepClick(index + 1)
+        : undefined}
+      @keydown=${isLinkableStep
+        ? (e: KeyboardEvent) => this.onKeyDown(index + 1, e)
+        : undefined}
+    >
+      <div class="${circle()}">${index + 1}</div>
+      <span class="${label()}">${step.label}</span>
+      ${index < totalSteps - 1 ? html`<div class="${line()}"></div>` : nothing}
+    </li>`
+  }
+
+  defaultStepTemplate(step: WizardStep, index: number) {
+    const isCompleted = index + 1 < this.activeStep
+    const isActive = index + 1 === this.activeStep
+    const isLinkableStep =
+      this.isLinkable &&
+      !isActive &&
+      (isCompleted || this.linkableMode === 'all')
     const { base, circle, innerCircle } = this.stepStyles({
-      completed: index + 1 < this.activeStep,
-      active: index + 1 === this.activeStep,
+      completed: isCompleted,
+      active: isActive,
       current: index === this.activeStep - 2,
       size: this.size,
     })
-    return html`<li class="${base()}">
+    return html`<li
+      class="${base()} ${isLinkableStep
+        ? 'cursor-pointer hover:opacity-70 transition-opacity duration-200'
+        : ''}"
+      role=${isLinkableStep ? 'button' : nothing}
+      tabindex=${isLinkableStep ? '0' : nothing}
+      @click=${isLinkableStep
+        ? () => this.handleStepClick(index + 1)
+        : undefined}
+      @keydown=${isLinkableStep
+        ? (e: KeyboardEvent) => this.onKeyDown(index + 1, e)
+        : undefined}
+    >
       <div
         class="text-purple-51 nav-inter-8-medium-uppercase whitespace-pre-line flex text-center break-words uppercase leading-none"
       >
@@ -99,14 +200,32 @@ export class LuksoWizard extends TailwindStyledElement(style) {
   }
 
   render() {
-    const steps = JSON.parse(this.steps) as WizardStep[]
+    let steps: WizardStep[] = []
+    try {
+      steps = JSON.parse(this.steps) as WizardStep[]
+    } catch {
+      console.warn('lukso-wizard: invalid JSON in `steps` attribute')
+    }
+
+    if (this.variant === 'numbered') {
+      return html`
+        <ul class="flex items-center w-full" data-testid="wizard">
+          ${repeat(
+            steps || [],
+            (_, index) => index,
+            (step, index) =>
+              this.numberedStepTemplate(step, index, steps.length)
+          )}
+        </ul>
+      `
+    }
 
     return html`
       <ul class="flex justify-center" data-testid="wizard">
         ${repeat(
           steps || [],
-          step => steps.indexOf(step),
-          (step, index) => this.stepTemplate(step, index)
+          (_, index) => index,
+          (step, index) => this.defaultStepTemplate(step, index)
         )}
       </ul>
     `
@@ -115,8 +234,8 @@ export class LuksoWizard extends TailwindStyledElement(style) {
   updated() {
     // delay animation to allow for DOM to be updated
     setTimeout(() => {
-      const currentStep = this.shadowRoot.querySelectorAll('.current')
-      currentStep[0]?.classList.add('animated-step')
+      const currentStep = this.shadowRoot?.querySelectorAll('.current')
+      currentStep?.[0]?.classList.add('animated-step')
     }, 10)
   }
 }

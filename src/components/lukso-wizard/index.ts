@@ -12,7 +12,7 @@ export type WizardStep = {
 }
 
 export type WizardSize = 'small' | 'medium' | 'large' | 'full-width'
-export type WizardVariant = 'default' | 'secondary'
+export type WizardVariant = 'default' | 'numbered'
 
 /**
  * A multi-step progress indicator (stepper) showing labelled steps with completed/current/upcoming states.
@@ -122,7 +122,7 @@ export class LuksoWizard extends TailwindStyledElement(style) {
     </li>`
   }
 
-  stepTemplate(step: WizardStep, index: number) {
+  defaultStepTemplate(step: WizardStep, index: number) {
     const { base, circle, innerCircle } = this.stepStyles({
       completed: index + 1 < this.activeStep,
       active: index + 1 === this.activeStep,
@@ -144,12 +144,12 @@ export class LuksoWizard extends TailwindStyledElement(style) {
   render() {
     const steps = JSON.parse(this.steps) as WizardStep[]
 
-    if (this.variant === 'secondary') {
+    if (this.variant === 'numbered') {
       return html`
         <ul class="flex items-center w-full" data-testid="wizard">
           ${repeat(
             steps || [],
-            step => steps.indexOf(step),
+            (_, index) => index,
             (step, index) =>
               this.numberedStepTemplate(step, index, steps.length)
           )}
@@ -161,8 +161,8 @@ export class LuksoWizard extends TailwindStyledElement(style) {
       <ul class="flex justify-center" data-testid="wizard">
         ${repeat(
           steps || [],
-          step => steps.indexOf(step),
-          (step, index) => this.stepTemplate(step, index)
+          (_, index) => index,
+          (step, index) => this.defaultStepTemplate(step, index)
         )}
       </ul>
     `

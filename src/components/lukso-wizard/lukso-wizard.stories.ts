@@ -33,7 +33,7 @@ const meta: Meta = {
     },
     variant: {
       control: { type: 'select' },
-      options: ['default', 'secondary'],
+      options: ['default', 'numbered'],
       table: {
         category: 'Attributes',
       },
@@ -105,5 +105,5 @@ export const NumberedWizard = Template.bind({})
   ],
   size: 'full-width',
   activeStep: 3,
-  variant: 'secondary',
+  variant: 'numbered',
 }

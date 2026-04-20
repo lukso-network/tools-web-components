@@ -83,6 +83,8 @@ LYXe`,
     ],
     size: 'medium',
     activeStep: 3,
+    isLinkable: false,
+    linkableMode: 'previous',
   },
   parameters: {
     controls: {

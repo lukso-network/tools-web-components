@@ -13,9 +13,9 @@ type TimelineState = 'before-start' | 'in-range' | 'after-end'
 
 const GREY_STYLE = { backgroundColor: '#cddae4' }
 const GREEN_STYLE = { backgroundColor: '#47cd68' }
+const STRIPED_GREEN_STYLE = { color1: '#EEEEEE', color2: '#cddae4' }
 const STRIPED_STYLE = {
-  backgroundImage:
-    'repeating-linear-gradient(145deg, gray 0px, gray 5px, #ccc 5px, #ccc 10px, gray 10px)',
+  backgroundImage: `repeating-linear-gradient(135deg, ${STRIPED_GREEN_STYLE.color1} 0px, ${STRIPED_GREEN_STYLE.color1} 5px, ${STRIPED_GREEN_STYLE.color2} 5px, ${STRIPED_GREEN_STYLE.color2} 10px, ${STRIPED_GREEN_STYLE.color2} 10px)`,
 }
 const FOREVER_GREEN_PCT = 35
 
@@ -120,6 +120,16 @@ export class LuksoTimeline extends withIntlService(
 
   // ── Sub-templates ───────────────────────────────────────────────────────
 
+  private _todayLabelTemplate(leftPct: number) {
+    const label =
+      this._intl?.formatRelativeTime(0, 'day', { numeric: 'auto' }) ?? 'Today'
+    return html`<span
+      class="absolute -top-2 text-xs text-neutral-50 -translate-x-1/2 whitespace-nowrap capitalize"
+      style="left: ${leftPct}%"
+      >${label}</span
+    >`
+  }
+
   /**
    * Renders the horizontal bar with endpoint dots and two colour segments.
    *
@@ -134,7 +144,7 @@ export class LuksoTimeline extends withIntlService(
     isForever: boolean = false
   ) {
     const barLeft = this._startIsNow ? 'left-3' : 'left-[10%]'
-    const barRight = isForever ? 'right-1/20' : 'right-[10%]'
+    const barRight = isForever ? 'right-[1%]' : 'right-[10%]'
     return html`
       <div class="relative flex items-center w-full" style="height: 2.5rem">
         <!-- Track line full-width -->
@@ -143,9 +153,11 @@ export class LuksoTimeline extends withIntlService(
         ></div>
 
         <!-- Left endpoint dot -->
-        <div
-          class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
-        ></div>
+        ${this._state !== 'in-range' && this._state !== 'after-end'
+          ? html`<div
+              class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
+            ></div>`
+          : ''}
 
         <!-- Progress bar -->
         <div
@@ -224,10 +236,17 @@ export class LuksoTimeline extends withIntlService(
           ? this._barTemplate(pct, GREEN_STYLE, GREY_STYLE)
           : this._barTemplate(100, GREEN_STYLE, GREEN_STYLE)
 
+    const barStartPct = this._startIsNow ? 3 : 10
+    const todayLeftPct = barStartPct + (pct / 100) * (90 - barStartPct)
     const arrowLeft = this._startIsNow ? 'left-[3%]' : 'left-[12%]'
     return html`
       <div class="flex flex-col w-full">
-        ${bar}
+        <div class="relative">
+          ${this._state === 'in-range' && !this._startIsNow
+            ? this._todayLabelTemplate(todayLeftPct)
+            : ''}
+          ${bar}
+        </div>
         <div class="relative min-h-[4.5rem] w-full">
           ${this._dateLabelTemplate(start, 'start')}
           <div
@@ -253,12 +272,7 @@ export class LuksoTimeline extends withIntlService(
 
     const bar =
       this._state === 'before-start'
-        ? this._barTemplate(
-            0,
-            STRIPED_STYLE,
-            STRIPED_STYLE,
-            this.endDate === ''
-          )
+        ? this._barTemplate(0, GREY_STYLE, GREY_STYLE, this.endDate === '')
         : this._barTemplate(
             FOREVER_GREEN_PCT,
             GREEN_STYLE,
@@ -266,10 +280,18 @@ export class LuksoTimeline extends withIntlService(
             this.endDate === ''
           )
 
+    const barStartPct = this._startIsNow ? 3 : 10
+    const todayLeftPct =
+      barStartPct + (FOREVER_GREEN_PCT / 100) * (99 - barStartPct)
     const arrowLeft = this._startIsNow ? 'left-[3%]' : 'left-[12%]'
     return html`
       <div class="flex flex-col w-full">
-        ${bar}
+        <div class="relative">
+          ${this._state === 'in-range'
+            ? this._todayLabelTemplate(todayLeftPct)
+            : ''}
+          ${bar}
+        </div>
         <div class="relative min-h-[4.5rem] w-full">
           ${this._dateLabelTemplate(start, 'start')}
           <div

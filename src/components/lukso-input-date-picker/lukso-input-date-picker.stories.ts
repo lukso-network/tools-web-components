@@ -156,7 +156,7 @@ const meta: Meta = {
   },
   decorators: [
     (story: () => unknown) =>
-      html`<div style="padding: 20px; padding-bottom: 520px;">${story()}</div>`,
+      html`<div style="padding: 20px; padding-bottom: 420px;">${story()}</div>`,
   ],
   parameters: {
     controls: { exclude: ['styles'] },
@@ -323,7 +323,7 @@ export const OpenTop: StoryObj = {
   args: { 'open-top': true },
   decorators: [
     (story: () => unknown) =>
-      html`<div style="padding: 20px; padding-top: 520px;">${story()}</div>`,
+      html`<div style="padding: 20px; padding-top: 420px;">${story()}</div>`,
   ],
 }
 
@@ -337,9 +337,33 @@ export const OpenTopRight: StoryObj = {
   decorators: [
     (story: () => unknown) =>
       html`<div
-        style="padding: 20px; padding-top: 520px; display: flex; justify-content: flex-end;"
+        style="padding: 20px; padding-top: 420px; display: flex; justify-content: flex-end;"
       >
         ${story()}
       </div>`,
   ],
+}
+
+/**
+ * Two date pickers side by side — use this to verify that opening one
+ * closes the other and that outside-click works correctly.
+ */
+export const TwoPickers: StoryObj = {
+  name: 'Two Pickers (close behavior)',
+  render: () => html`
+    <div
+      style="display: flex; gap: 16px; padding: 20px; padding-bottom: 460px;"
+    >
+      <lukso-input-date-picker
+        value="2026-11-15T20:00"
+        placeholder="Pick start date..."
+        label="Start date"
+      ></lukso-input-date-picker>
+      <lukso-input-date-picker
+        value="2026-12-01T10:00"
+        placeholder="Pick end date..."
+        label="End date"
+      ></lukso-input-date-picker>
+    </div>
+  `,
 }

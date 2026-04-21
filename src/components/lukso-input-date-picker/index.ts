@@ -241,8 +241,10 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
 
   // ─── Event handlers ─────────────────────────────────────────────────────────
 
-  private _handleOutsideClick() {
-    this._isOpen = false
+  private _handleOutsideClick(event: Event) {
+    if (!event.composedPath().includes(this)) {
+      this._isOpen = false
+    }
   }
 
   private _handleInputClick() {
@@ -285,10 +287,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
     })
 
     return html`
-      <div
-        class="relative w-[inherit]"
-        @click=${(e: Event) => e.stopPropagation()}
-      >
+      <div class="relative w-[inherit]">
         <lukso-form-label label=${this.label ?? nothing}></lukso-form-label>
         <lukso-form-description
           description=${this.description ?? nothing}
@@ -330,14 +329,16 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
                   ?open-top=${this.openTop}
                   ?is-right=${this.openRight}
                   ?is-full-width=${this.isFullWidth}
-                  size=${this.size}
+                  size="large"
+                  custom-class="min-w-[300px] min-h-[390px]"
+                  max-height="500"
                 >
                   <lukso-date-picker
                     value=${this._internalValue ?? nothing}
                     min=${this.min ?? nothing}
                     max=${this.max ?? nothing}
                     locale=${this.locale}
-                    size=${this.size}
+                    size="large"
                     ?show-time=${this.showTime}
                     ?show-summary=${this.showTime}
                     date-format=${this.dateFormat}

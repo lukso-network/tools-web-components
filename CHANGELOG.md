@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.191.1](https://github.com/lukso-network/tools-web-components/compare/v1.191.0...v1.191.1) (2026-04-21)
+
+
+### Bug Fixes
+
+* lukso-select style ([#849](https://github.com/lukso-network/tools-web-components/issues/849)) ([1ff3f66](https://github.com/lukso-network/tools-web-components/commit/1ff3f66a3b991e6c8a56d82bbadbefcd26fe51b1))
+
 ## [1.191.0](https://github.com/lukso-network/tools-web-components/compare/v1.190.0...v1.191.0) (2026-04-20)
 
 

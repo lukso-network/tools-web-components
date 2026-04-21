@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.192.0](https://github.com/lukso-network/tools-web-components/compare/v1.191.1...v1.192.0) (2026-04-21)
+
+
+### Features
+
+* Date picker adjustments and fixes ([#851](https://github.com/lukso-network/tools-web-components/issues/851)) ([4bcd3bb](https://github.com/lukso-network/tools-web-components/commit/4bcd3bbaa6ffc79634df7f478fb97fc2cf735cc5))
+
 ## [1.191.1](https://github.com/lukso-network/tools-web-components/compare/v1.191.0...v1.191.1) (2026-04-21)
 
 

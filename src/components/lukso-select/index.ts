@@ -489,6 +489,20 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     const foundValues = this.optionsParsed.filter(
       option => !!this.valueParsed?.find(value => value.id === option.id)
     )
+
+    if (firstOption.type === 'secondary-with-tooltip') {
+      return html`${foundValues.map(
+        (value, index) =>
+          html`${index > 0 ? ', ' : ''}${value.value ??
+          ''}${value.secondaryValue
+            ? html`<span
+                class="paragraph-inter-14-regular text-neutral-60 shrink-0 ml-1"
+                >${value.secondaryValue}</span
+              >`
+            : nothing}`
+      )}`
+    }
+
     return foundValues.map(value => this.optionStringValue(value)).join(', ')
   }
 

@@ -548,8 +548,8 @@ export const FullWidthWithBadge = {
   },
 }
 
-/** Example with a badge in the `right` slot, `is-full-width`, secondary label and tooltip on options. */
-export const FullWidthWithBadgeSecondaryLabelTooltip = {
+/** Example with `is-full-width`, secondary label and tooltip on options. The selected option's secondary value is shown next to the main value. */
+export const FullWidthWithSecondaryLabelTooltip = {
   render: () => {
     const [{ options, value }, updateArgs] = useArgs()
 
@@ -565,9 +565,7 @@ export const FullWidthWithBadgeSecondaryLabelTooltip = {
       @on-select=${handleSelect}
       style="margin-bottom: 160px"
       size="large"
-    >
-      ${badge}
-    </lukso-select>`
+    ></lukso-select>`
   },
   args: {
     options: [

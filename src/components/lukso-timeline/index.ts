@@ -11,9 +11,12 @@ import style from './style.css?inline'
 
 type TimelineState = 'before-start' | 'in-range' | 'after-end'
 
-const GREY_STYLE = { backgroundColor: '#cddae4' }
-const GREEN_STYLE = { backgroundColor: '#47cd68' }
-const STRIPED_COLOR = { color1: '#ccc', color2: '#cddae4' }
+const GREY_STYLE = { backgroundColor: 'var(--neutral-90)' }
+const GREEN_STYLE = { backgroundColor: 'var(--green-54)' }
+const STRIPED_COLOR = {
+  color1: 'var(--neutral-95)',
+  color2: 'var(--neutral-90)',
+}
 const STRIPED_STYLE = {
   backgroundImage: `repeating-linear-gradient(135deg, ${STRIPED_COLOR.color1} 0px, ${STRIPED_COLOR.color1} 5px, ${STRIPED_COLOR.color2} 5px, ${STRIPED_COLOR.color2} 10px, ${STRIPED_COLOR.color2} 10px)`,
 }

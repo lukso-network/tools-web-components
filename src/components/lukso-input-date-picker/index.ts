@@ -254,6 +254,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
 
   private _handleDatePickerChange(e: CustomEvent) {
     this._internalValue = e.detail.value as string
+    this._isOpen = false
     this.dispatchEvent(
       new CustomEvent<LuksoInputDatePickerOnChangeEventDetail>('on-change', {
         detail: { value: this._internalValue, event: e.detail.event },
@@ -320,39 +321,35 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
             ></lukso-icon>
           </div>
 
-          <!-- Date picker dropdown -->
-          ${this._isOpen
-            ? html`
-                <lukso-dropdown
-                  ?is-open=${true}
-                  is-open-on-outside-click
-                  ?open-top=${this.openTop}
-                  ?is-right=${this.openRight}
-                  ?is-full-width=${this.isFullWidth}
-                  size="large"
-                  custom-class="min-w-[300px] min-h-[390px]"
-                  max-height="500"
-                >
-                  <lukso-date-picker
-                    value=${this._internalValue ?? nothing}
-                    min=${this.min ?? nothing}
-                    max=${this.max ?? nothing}
-                    locale=${this.locale}
-                    size="large"
-                    ?show-time=${this.showTime}
-                    ?show-summary=${this.showTime}
-                    date-format=${this.dateFormat}
-                    time-format=${this.timeFormat}
-                    week-start-day=${this.weekStartDay}
-                    ?is-disabled=${this.isDisabled}
-                    ?is-full-width=${this.isFullWidth}
-                    selected-bg-color=${this.selectedBgColor ?? nothing}
-                    selected-text-color=${this.selectedTextColor ?? nothing}
-                    @on-change=${this._handleDatePickerChange}
-                  ></lukso-date-picker>
-                </lukso-dropdown>
-              `
-            : nothing}
+          <!-- Date picker dropdown: always in DOM to preserve internal date state -->
+          <lukso-dropdown
+            ?is-open=${this._isOpen}
+            is-open-on-outside-click
+            ?open-top=${this.openTop}
+            ?is-right=${this.openRight}
+            ?is-full-width=${this.isFullWidth}
+            size="large"
+            custom-class="min-w-[300px] min-h-[390px]"
+            max-height="500"
+          >
+            <lukso-date-picker
+              value=${this._internalValue ?? nothing}
+              min=${this.min ?? nothing}
+              max=${this.max ?? nothing}
+              locale=${this.locale}
+              size="large"
+              ?show-time=${this.showTime}
+              ?show-summary=${this.showTime}
+              date-format=${this.dateFormat}
+              time-format=${this.timeFormat}
+              week-start-day=${this.weekStartDay}
+              ?is-disabled=${this.isDisabled}
+              ?is-full-width=${this.isFullWidth}
+              selected-bg-color=${this.selectedBgColor ?? nothing}
+              selected-text-color=${this.selectedTextColor ?? nothing}
+              @on-change=${this._handleDatePickerChange}
+            ></lukso-date-picker>
+          </lukso-dropdown>
         </div>
 
         <lukso-form-error error=${this.error ?? nothing}></lukso-form-error>

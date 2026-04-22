@@ -254,7 +254,12 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
 
   private _handleDatePickerChange(e: CustomEvent) {
     this._internalValue = e.detail.value as string
-    this._isOpen = false
+    const shouldClose =
+      !this.showTime ||
+      (e.detail.event instanceof MouseEvent && e.detail.event.type === 'click')
+    if (shouldClose) {
+      this._isOpen = false
+    }
     this.dispatchEvent(
       new CustomEvent<LuksoInputDatePickerOnChangeEventDetail>('on-change', {
         detail: { value: this._internalValue, event: e.detail.event },

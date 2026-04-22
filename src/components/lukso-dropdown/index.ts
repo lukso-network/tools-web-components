@@ -218,7 +218,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
             isOpen: this.isOpen,
           },
           bubbles: false,
-          composed: false,
+          composed: true,
         }
       )
       this.dispatchEvent(changeEvent)

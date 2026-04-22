@@ -158,7 +158,7 @@ export class LuksoTimeline extends withIntlService(
         <!-- Left endpoint dot -->
 
         <div
-          class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
+          class="absolute left-0 top-[53%] -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
         ></div>
 
         <!-- Progress bar -->

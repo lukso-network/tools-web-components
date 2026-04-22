@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.192.1](https://github.com/lukso-network/tools-web-components/compare/v1.192.0...v1.192.1) (2026-04-22)
+
+
+### Bug Fixes
+
+* Fix for opening 2 date pickers ([#853](https://github.com/lukso-network/tools-web-components/issues/853)) ([b44e06d](https://github.com/lukso-network/tools-web-components/commit/b44e06ded2ecdddb16bd7ce70abc81675054d671))
+* timeline adjustments ([#854](https://github.com/lukso-network/tools-web-components/issues/854)) ([6385c5b](https://github.com/lukso-network/tools-web-components/commit/6385c5b614f754d4c8e44c1c0a0336709652418d))
+
 ## [1.192.0](https://github.com/lukso-network/tools-web-components/compare/v1.191.1...v1.192.0) (2026-04-21)
 
 

@@ -11,9 +11,12 @@ import style from './style.css?inline'
 
 type TimelineState = 'before-start' | 'in-range' | 'after-end'
 
-const GREY_STYLE = { backgroundColor: '#cddae4' }
-const GREEN_STYLE = { backgroundColor: '#47cd68' }
-const STRIPED_COLOR = { color1: '#ccc', color2: '#cddae4' }
+const GREY_STYLE = { backgroundColor: 'var(--neutral-90)' }
+const GREEN_STYLE = { backgroundColor: 'var(--green-54)' }
+const STRIPED_COLOR = {
+  color1: 'var(--neutral-95)',
+  color2: 'var(--neutral-90)',
+}
 const STRIPED_STYLE = {
   backgroundImage: `repeating-linear-gradient(135deg, ${STRIPED_COLOR.color1} 0px, ${STRIPED_COLOR.color1} 5px, ${STRIPED_COLOR.color2} 5px, ${STRIPED_COLOR.color2} 10px, ${STRIPED_COLOR.color2} 10px)`,
 }
@@ -155,7 +158,7 @@ export class LuksoTimeline extends withIntlService(
         <!-- Left endpoint dot -->
 
         <div
-          class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
+          class="absolute left-0 top-[53%] -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
         ></div>
 
         <!-- Progress bar -->
@@ -170,13 +173,13 @@ export class LuksoTimeline extends withIntlService(
 
         <!-- Vertical tick left (start date) -->
         <div
-          class="absolute  top-[53%] w-px h-10 bg-neutral-85 z-10 ${barLeft}"
+          class="absolute top-[53%] w-px h-[5rem] bg-neutral-85 z-10 ${barLeft}"
         ></div>
 
         <!-- Vertical tick right(end date) -->
         ${!isForever
           ? html`<div
-              class="absolute right-[10%] top-1/2 w-px h-10 bg-neutral-85 z-10"
+              class="absolute right-[10%] top-[53%] w-px h-[5rem] bg-neutral-85 z-10"
             ></div>`
           : ''}
 

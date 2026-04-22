@@ -173,13 +173,13 @@ export class LuksoTimeline extends withIntlService(
 
         <!-- Vertical tick left (start date) -->
         <div
-          class="absolute  top-[53%] w-px h-10 bg-neutral-85 z-10 ${barLeft}"
+          class="absolute top-[53%] w-px h-[5rem] bg-neutral-85 z-10 ${barLeft}"
         ></div>
 
         <!-- Vertical tick right(end date) -->
         ${!isForever
           ? html`<div
-              class="absolute right-[10%] top-1/2 w-px h-10 bg-neutral-85 z-10"
+              class="absolute right-[10%] top-[53%] w-px h-[5rem] bg-neutral-85 z-10"
             ></div>`
           : ''}
 

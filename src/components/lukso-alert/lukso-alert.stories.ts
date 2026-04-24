@@ -21,6 +21,18 @@ const meta: Meta = {
       // @ts-ignore
       type: { name: 'AlertVariant' },
     },
+    size: {
+      control: {
+        type: 'select',
+      },
+      options: ['medium', 'large'],
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: 'medium' },
+      },
+      // @ts-ignore
+      type: { name: 'AlertSize' },
+    },
     title: {
       control: {
         type: 'text',
@@ -68,6 +80,7 @@ const meta: Meta = {
   },
   args: {
     variant: 'info',
+    size: 'medium',
     title: 'This is an info alert',
     description:
       'Lorem ipsum dolor sit amet, <i>consectetur adipiscing</i> elit. Urna, tortor tempus.',
@@ -83,9 +96,17 @@ const meta: Meta = {
 
 export default meta
 
-const Template = ({ variant, title, description, hasIcon, isFullWidth }) =>
+const Template = ({
+  variant,
+  size,
+  title,
+  description,
+  hasIcon,
+  isFullWidth,
+}) =>
   html`<lukso-alert
     variant=${variant ? variant : nothing}
+    size=${size ? size : nothing}
     title=${title ? title : nothing}
     description=${description ? description : nothing}
     ?has-icon=${hasIcon}
@@ -130,4 +151,19 @@ export const FullWidthAlert = Template.bind({})
 FullWidthAlert.args = {
   isFullWidth: true,
   hasIcon: true,
+}
+
+/** Example of a large-size alert with 16px title and 14px description. */
+export const LargeAlert = Template.bind({})
+LargeAlert.args = {
+  size: 'large',
+  hasIcon: true,
+}
+
+/** Example of an alert with icon only — no title or description. */
+export const IconOnly = Template.bind({})
+IconOnly.args = {
+  hasIcon: true,
+  title: '',
+  description: '',
 }

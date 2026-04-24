@@ -1,6 +1,6 @@
 import { build } from 'vite'
 import path from 'node:path'
-import { readdir, readFile, stat, writeFile } from 'node:fs/promises'
+import { readdir, readFile, rename, stat, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import dts from 'vite-plugin-dts'
@@ -319,6 +319,25 @@ export async function run(argv) {
         },
       },
       plugins: [
+        {
+          name: 'strip-query-from-filenames',
+          async writeBundle(options) {
+            const outDir = options.dir ?? './package/dist'
+            async function renameInDir(dir: string) {
+              const entries = await readdir(dir, { withFileTypes: true })
+              for (const entry of entries) {
+                const fullPath = path.join(dir, entry.name)
+                if (entry.isDirectory()) {
+                  await renameInDir(fullPath)
+                } else if (entry.name.includes('?')) {
+                  const newName = entry.name.replace(/\?[^.]*(\.)/, '$1')
+                  await rename(fullPath, path.join(dir, newName))
+                }
+              }
+            }
+            await renameInDir(outDir)
+          },
+        },
         tailwindcss(),
         viteStaticCopy({
           targets: [

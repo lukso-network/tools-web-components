@@ -380,3 +380,7 @@ The only caveat with linking is that this will add resolution entry into `packag
 ```sh
 pnpm unlink ../tools-web-components
 ```
+
+## License
+
+[Apache License 2.0](LICENSE.md) © LUKSO Blockchain GmbH

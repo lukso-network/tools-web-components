@@ -872,7 +872,7 @@ console.log(greeting)
 </ol>
 <h2>Links and Code</h2>
 <p>Visit <a href="https://lukso.network">LUKSO Network</a> for more information.</p>
-<p>Here&#39;s some <code>inline code</code> and a code block:</p>
+<p>Here's some <code>inline code</code> and a code block:</p>
 <pre><code class="language-javascript">const greeting = "Hello, LUKSO!"
 console.log(greeting)
 </code></pre>

@@ -9,6 +9,7 @@ import '@/components/lukso-sanitize'
 import style from './style.css?inline'
 
 export type AlertVariant = 'info' | 'warning' | 'error' | 'success'
+export type AlertSize = 'medium' | 'large'
 
 /**
  * A non-interactive alert banner for displaying informational, warning, error, or success messages.
@@ -18,29 +19,48 @@ export class LuksoAlert extends TailwindStyledElement(style) {
   @property({ type: String })
   variant: AlertVariant | undefined = 'info'
 
+  @property({ type: String })
+  size: AlertSize = 'medium'
+
   @property({ type: Boolean, attribute: 'has-icon', reflect: true })
   hasIcon = false
 
   @property({ type: String })
-  title: string | undefined = ''
+  override title: string = ''
 
   @property({ type: String })
-  description: string | undefined = ''
+  description: string = ''
 
   @property({ type: Boolean, attribute: 'is-full-width', reflect: true })
   isFullWidth = false
 
   private styles = tv({
-    base: 'rounded-8 p-4 flex gap-3 items-center',
+    slots: {
+      container: 'flex items-center',
+      title: '',
+      description: '',
+    },
     variants: {
       variant: {
-        info: 'bg-blue-95 text-blue-40',
-        warning: 'bg-honey-92 text-yellow-25',
-        error: 'bg-red-95 text-red-55',
-        success: 'bg-green-95 text-green-45',
+        info: { container: 'bg-blue-95 text-blue-40' },
+        warning: { container: 'bg-honey-92 text-yellow-25' },
+        error: { container: 'bg-red-95 text-red-55' },
+        success: { container: 'bg-green-95 text-green-45' },
+      },
+      size: {
+        medium: {
+          container: 'p-4 gap-3 rounded-8',
+          title: 'paragraph-inter-14-semi-bold',
+          description: 'paragraph-inter-12-regular',
+        },
+        large: {
+          container: 'p-5 gap-4 rounded-10',
+          title: 'paragraph-inter-16-semi-bold',
+          description: 'paragraph-inter-14-regular',
+        },
       },
       isFullWidth: {
-        true: 'w-full',
+        true: { container: 'w-full' },
       },
     },
   })
@@ -59,13 +79,14 @@ export class LuksoAlert extends TailwindStyledElement(style) {
   }
 
   render() {
-    const styles = this.styles({
+    const { container, title, description } = this.styles({
       variant: this.variant,
+      size: this.size,
       isFullWidth: this.isFullWidth,
     })
 
     return html`
-      <div class=${styles}>
+      <div class=${container()}>
         ${this.hasIcon
           ? html`<lukso-icon
               pack="vuesax"
@@ -75,11 +96,11 @@ export class LuksoAlert extends TailwindStyledElement(style) {
           : nothing}
         <div class="flex flex-col gap-1">
           ${this.title
-            ? html`<div class="heading-inter-14-bold">${this.title}</div>`
+            ? html`<div class=${title()}>${this.title}</div>`
             : nothing}
           ${this.description
             ? html`<lukso-sanitize
-                class="paragraph-inter-12-regular"
+                class=${description()}
                 html-content="${this.description}"
               ></lukso-sanitize>`
             : nothing}

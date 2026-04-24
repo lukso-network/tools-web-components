@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.194.0](https://github.com/lukso-network/tools-web-components/compare/v1.193.0...v1.194.0) (2026-04-24)
+
+
+### Features
+
+* Add license ([#860](https://github.com/lukso-network/tools-web-components/issues/860)) ([8d52edb](https://github.com/lukso-network/tools-web-components/commit/8d52edb958c25364bc68fbbcf87e8b7d3725171d))
+* Rework rules and add new ones ([#862](https://github.com/lukso-network/tools-web-components/issues/862)) ([24fab41](https://github.com/lukso-network/tools-web-components/commit/24fab414d3bb121bd99f8b306717c048e57f2a89))
+
+
+### Bug Fixes
+
+* Remove old license ([#863](https://github.com/lukso-network/tools-web-components/issues/863)) ([42435c2](https://github.com/lukso-network/tools-web-components/commit/42435c2df83b1f628a9cab88fae00ab35915874f))
+
 ## [1.193.0](https://github.com/lukso-network/tools-web-components/compare/v1.192.1...v1.193.0) (2026-04-24)
 
 

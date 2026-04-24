@@ -325,10 +325,22 @@ export class LuksoInput extends TailwindStyledElement(style) {
   private async handleInput(event: Event) {
     const target = event.target as HTMLInputElement
     if (this.activeRules.length > 0) {
-      const sanitized = this.activeRules.reduce(
-        (val, rule) => rule.sanitize(val),
-        target.value
+      const blockRules = this.activeRules.filter(
+        rule => rule.type === 'disallow'
       )
+      const allowRules = this.activeRules.filter(rule => rule.type === 'allow')
+
+      // block rules strip their own disallowed chars; allow rules union their allowed chars
+      const sanitized = blockRules.reduce(
+        (val, rule) => rule.sanitize(val),
+        allowRules.length > 0
+          ? target.value
+              .split('')
+              .filter(ch => allowRules.some(rule => rule.validate(target, ch)))
+              .join('')
+          : target.value
+      )
+
       if (sanitized !== target.value) {
         const cursor = target.selectionStart ?? sanitized.length
         target.value = sanitized
@@ -374,10 +386,19 @@ export class LuksoInput extends TailwindStyledElement(style) {
   private async handleKeyDown(event: KeyboardEvent) {
     if (event.key.length === 1 && this.activeRules.length > 0) {
       const input = event.target as HTMLInputElement
-      const isValid = this.activeRules.every(rule =>
+      const blockRules = this.activeRules.filter(
+        rule => rule.type === 'disallow'
+      )
+      const allowRules = this.activeRules.filter(rule => rule.type === 'allow')
+
+      const passesBlock = blockRules.every(rule =>
         rule.validate(input, event.key)
       )
-      if (!isValid) {
+      const passesAllow =
+        allowRules.length === 0 ||
+        allowRules.some(rule => rule.validate(input, event.key))
+
+      if (!passesBlock || !passesAllow) {
         event.preventDefault()
         return
       }

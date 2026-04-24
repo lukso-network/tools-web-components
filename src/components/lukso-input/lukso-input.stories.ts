@@ -169,11 +169,14 @@ const meta: Meta = {
     rules: {
       control: { type: 'check' },
       options: [
-        'noComma',
-        'noLeadingDot',
-        'onlyOneDot',
-        'onlyNumbersAndDot',
-        'noDecimal',
+        'disallowComma',
+        'disallowLeadingDot',
+        'disallowMultipleDots',
+        'disallowDecimal',
+        'allowNumbersAndDot',
+        'allowAlphanumeric',
+        'allowDash',
+        'allowUnderscore',
       ],
       description: 'Array of validation rule names to apply to the input.',
       table: {
@@ -439,9 +442,28 @@ RightIcon.args = {
   // unit: '1',
 }
 
-/** Example of input with number rules enabled. Combines `onlyNumbersAndDot`, `noComma`, `noLeadingDot` and `onlyOneDot` to enforce a valid decimal number format. */
+/** Example of input with number rules enabled. Combines `allowNumbersAndDot`, `disallowComma`, `disallowLeadingDot` and `disallowMultipleDots` to enforce a valid decimal number format. */
 export const NumberRules = Template.bind({})
 NumberRules.args = {
   placeholder: '0.00',
-  rules: ['onlyNumbersAndDot', 'noComma', 'noLeadingDot', 'onlyOneDot'],
+  rules: [
+    'allowNumbersAndDot',
+    'disallowComma',
+    'disallowLeadingDot',
+    'disallowMultipleDots',
+  ],
+}
+
+/** Example of input with alphanumeric rule enabled. Uses `allowAlphanumeric` to allow only letters (a–z, A–Z) and digits (0–9). */
+export const AlphanumericRules = Template.bind({})
+AlphanumericRules.args = {
+  placeholder: 'abc123',
+  rules: ['allowAlphanumeric'],
+}
+
+/** Example of input with symbol rules enabled. Combines `allowAlphanumeric`, `allowDash`, and `allowUnderscore` to match the LSP4 token symbol character set. */
+export const SymbolRules = Template.bind({})
+SymbolRules.args = {
+  placeholder: 'TOKEN',
+  rules: ['allowAlphanumeric', 'allowDash', 'allowUnderscore'],
 }

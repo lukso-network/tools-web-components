@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.193.0](https://github.com/lukso-network/tools-web-components/compare/v1.192.1...v1.193.0) (2026-04-24)
+
+
+### Features
+
+* Add size to lukso-alert ([#856](https://github.com/lukso-network/tools-web-components/issues/856)) ([9ac42b2](https://github.com/lukso-network/tools-web-components/commit/9ac42b2360631c1e112565679d1547e99bf9e395))
+
 ## [1.192.1](https://github.com/lukso-network/tools-web-components/compare/v1.192.0...v1.192.1) (2026-04-22)
 
 

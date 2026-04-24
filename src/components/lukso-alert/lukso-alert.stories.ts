@@ -153,17 +153,16 @@ FullWidthAlert.args = {
   hasIcon: true,
 }
 
-/** Example of a large-size alert with 16px title and 14px description. */
-export const LargeAlert = Template.bind({})
-LargeAlert.args = {
-  size: 'large',
+/** Example of an alert with title only — no description. */
+export const TitleOnly = Template.bind({})
+TitleOnly.args = {
   hasIcon: true,
+  description: '',
 }
 
-/** Example of an alert with icon only — no title or description. */
-export const IconOnly = Template.bind({})
-IconOnly.args = {
+/** Example of an alert with description only — no title. */
+export const DescriptionOnly = Template.bind({})
+DescriptionOnly.args = {
   hasIcon: true,
   title: '',
-  description: '',
 }

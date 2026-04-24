@@ -229,7 +229,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
             type="text"
             size="medium"
             ?borderless=${true}
-            .rules=${['onlyNumbersAndDot', 'noDecimal']}
+            .rules=${['allowNumbersAndDot', 'disallowDecimal']}
             ?is-full-width=${true}
             custom-class="text-center text-neutral-20 !px-1"
             .value=${this._displayHour}
@@ -243,7 +243,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
             type="text"
             size="medium"
             ?borderless=${true}
-            .rules=${['onlyNumbersAndDot', 'noDecimal']}
+            .rules=${['allowNumbersAndDot', 'disallowDecimal']}
             ?is-full-width=${true}
             custom-class="text-center text-neutral-20 !px-1"
             .value=${this._displayMinute}

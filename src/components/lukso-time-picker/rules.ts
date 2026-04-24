@@ -8,6 +8,7 @@ import type { InputRule } from '@/components/lukso-input/rules'
  */
 export const isHour12: InputRule = {
   name: 'isHour12',
+  type: 'disallow',
   validate: (input, key) => {
     if (key === '' || !/^[0-9]$/.test(key)) return true
     // Allow 0 only when the existing value is "1" (to form "10")
@@ -35,6 +36,7 @@ export const isHour12: InputRule = {
  */
 export const isHour24: InputRule = {
   name: 'isHour24',
+  type: 'disallow',
   validate: (input, key) => {
     if (key === '' || !/^[0-9]$/.test(key)) return true
     const next =
@@ -75,6 +77,7 @@ export const isHour24: InputRule = {
  */
 export const isMinute: InputRule = {
   name: 'isMinute',
+  type: 'disallow',
   validate: (input, key) => {
     if (key === '') return true
     if (!/^[0-9]$/.test(key)) return false

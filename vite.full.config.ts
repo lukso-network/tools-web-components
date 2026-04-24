@@ -230,10 +230,6 @@ async function writePackage() {
   return exp
 }
 
-const chokidar = {
-  ignored: ['node_modules/**', 'tools/**', 'dist/**'],
-}
-
 const resolve = {
   alias: {
     '@': path.resolve(__dirname, './src'),
@@ -288,7 +284,6 @@ export async function run(argv) {
           mode !== 'production'
             ? {
                 clearScreen: false,
-                chokidar,
                 exclude: ['node_modules/**', 'tools/**', 'dist/**'],
               }
             : null,

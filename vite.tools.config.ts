@@ -9,10 +9,6 @@ import * as url from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const chokidar = {
-  ignored: ['node_modules/**', 'tools/**', 'dist/**'],
-}
-
 const resolve = {
   alias: {
     '@': path.resolve(__dirname, './src'),
@@ -90,7 +86,6 @@ export async function run(argv) {
           mode !== 'production'
             ? {
                 clearScreen: false,
-                chokidar,
                 exclude: ['node_modules/**', 'tools/**', 'dist/**'],
               }
             : null,

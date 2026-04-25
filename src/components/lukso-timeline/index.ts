@@ -290,7 +290,7 @@ export class LuksoTimeline extends withIntlService(
     return html`
       <div class="flex flex-col w-full">
         <div class="relative">
-          ${this._state === 'in-range'
+          ${this._state === 'in-range' && !this._startIsNow
             ? this._todayLabelTemplate(todayLeftPct)
             : ''}
           ${bar}

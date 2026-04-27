@@ -59,8 +59,8 @@ const Template = ({
  * Today is BEFORE the start date.
  * Bar is fully grey — the event hasn't started yet.
  */
-export const TodayBeforeStart = Template.bind({})
-TodayBeforeStart.args = {
+export const FromFuture = Template.bind({})
+FromFuture.args = {
   startDate: relDate(10 * DateMs),
   endDate: relDate(20 * DateMs),
 }
@@ -69,8 +69,8 @@ TodayBeforeStart.args = {
  * Today is WITHIN the timeline (between start and end).
  * Bar shows green progress from start to today, then grey to end.
  */
-export const TodayInRange = Template.bind({})
-TodayInRange.args = {
+export const FromPast = Template.bind({})
+FromPast.args = {
   startDate: relDate(-DateMs),
   endDate: relDate(4 * DateMs),
 }
@@ -78,8 +78,8 @@ TodayInRange.args = {
 /**
  * Start date is right now — dot sits on the start tick, relative time shows "now".
  */
-export const StartIsNow = Template.bind({})
-StartIsNow.args = {
+export const FromNow = Template.bind({})
+FromNow.args = {
   startDate: relDate(0),
   endDate: relDate(5 * DateMs),
 }
@@ -90,8 +90,8 @@ StartIsNow.args = {
  * Forever mode — today is BEFORE the start date.
  * Bar is fully striped (event is in the future with no fixed end).
  */
-export const ForeverBeforeStart = Template.bind({})
-ForeverBeforeStart.args = {
+export const ForeverFromFuture = Template.bind({})
+ForeverFromFuture.args = {
   startDate: relDate(5 * DateMs),
 }
 
@@ -99,7 +99,16 @@ ForeverBeforeStart.args = {
  * Forever mode — today is WITHIN the timeline (past start, no end).
  * Bar shows 35% green (since start) then striped (indefinite future).
  */
-export const ForeverInRange = Template.bind({})
-ForeverInRange.args = {
+export const ForeverFromPast = Template.bind({})
+ForeverFromPast.args = {
   startDate: relDate(-5 * DateMs),
+}
+
+/**
+ * Forever mode — start date is right now, no end date.
+ * Bar should show 0% green and be entirely striped.
+ */
+export const ForeverFromNow = Template.bind({})
+ForeverFromNow.args = {
+  startDate: relDate(0),
 }

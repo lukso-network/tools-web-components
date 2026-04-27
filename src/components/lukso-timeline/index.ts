@@ -272,24 +272,25 @@ export class LuksoTimeline extends withIntlService(
     const start = new Date(this.startDate)
     if (isNaN(start.getTime())) return html``
 
+    const greenPct = this._startIsNow ? 0 : FOREVER_GREEN_PCT
+
     const bar =
       this._state === 'before-start'
         ? this._barTemplate(0, GREY_STYLE, GREY_STYLE, this.endDate === '')
         : this._barTemplate(
-            FOREVER_GREEN_PCT,
+            greenPct,
             GREEN_STYLE,
             STRIPED_STYLE,
             this.endDate === ''
           )
 
     const barStartPct = this._startIsNow ? 3 : 10
-    const todayLeftPct =
-      barStartPct + (FOREVER_GREEN_PCT / 100) * (99 - barStartPct)
+    const todayLeftPct = barStartPct + (greenPct / 100) * (99 - barStartPct)
     const arrowLeft = this._startIsNow ? 'left-[3%]' : 'left-[12%]'
     return html`
       <div class="flex flex-col w-full">
         <div class="relative">
-          ${this._state === 'in-range'
+          ${this._state === 'in-range' && !this._startIsNow
             ? this._todayLabelTemplate(todayLeftPct)
             : ''}
           ${bar}

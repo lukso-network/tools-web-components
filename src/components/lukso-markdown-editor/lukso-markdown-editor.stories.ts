@@ -912,9 +912,8 @@ console.log(greeting)
 the markdown rendering capabilities.</p>
 </blockquote>
 <h2>Alignment</h2>
-<div style="text-align: center;">Center</div>
-
-<div style="text-align: right;">Right</div>\n`)
+<div style="text-align: center;">Center</div><div style="text-align: right;">Right</div>
+`)
   },
 }
 

@@ -1,6 +1,6 @@
 {
 	"name": "@lukso/web-components",
-	"version": "1.191.1",
+	"version": "1.192.0",
 	"type": "module",
 	"files": [
 		"dist",
@@ -494,18 +494,18 @@
 		"@lukso/core": "^1.7.0",
 		"@lukso/lsp-smart-contracts": "0.16.7",
 		"@tailwindcss/typography": "^0.5.19",
-		"axe-core": "4.11.1",
+		"axe-core": "4.11.3",
 		"clsx": "^2.1.1",
-		"dompurify": "^3.3.1",
+		"dompurify": "^3.4.1",
 		"ethereum-blockies-base64": "^1.0.2",
-		"marked": "17.0.1",
+		"marked": "18.0.2",
 		"qr-code-styling": "^1.9.2",
-		"tailwind-merge": "^3.4.0",
+		"tailwind-merge": "^3.5.0",
 		"tailwind-variants": "^3.2.2",
-		"tailwindcss": "^4.1.18",
+		"tailwindcss": "^4.2.4",
 		"tinycolor2": "^1.6.0",
 		"tippy.js": "^6.3.7",
-		"viem": "^2.45.2",
+		"viem": "^2.48.4",
 		"web3-utils": "^4.3.3"
 	},
 	"repository": {

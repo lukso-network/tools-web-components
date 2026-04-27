@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.194.1](https://github.com/lukso-network/tools-web-components/compare/v1.194.0...v1.194.1) (2026-04-27)
+
+
+### Bug Fixes
+
+* Change timeline for start to forever ([#864](https://github.com/lukso-network/tools-web-components/issues/864)) ([58dc955](https://github.com/lukso-network/tools-web-components/commit/58dc9558630cab6995119ed49f0f4b7d32ceaab3))
+
 ## [1.194.0](https://github.com/lukso-network/tools-web-components/compare/v1.193.0...v1.194.0) (2026-04-24)
 
 

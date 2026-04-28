@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.195.0](https://github.com/lukso-network/tools-web-components/compare/v1.194.1...v1.195.0) (2026-04-28)
+
+
+### Features
+
+* Add camera swap icon ([#867](https://github.com/lukso-network/tools-web-components/issues/867)) ([798fd3d](https://github.com/lukso-network/tools-web-components/commit/798fd3d21165d42404571200b3ef60ee1f2b1352))
+
 ## [1.194.1](https://github.com/lukso-network/tools-web-components/compare/v1.194.0...v1.194.1) (2026-04-27)
 
 

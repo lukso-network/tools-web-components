@@ -5,6 +5,7 @@ import { tv } from 'tailwind-variants'
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-dropdown'
+import '@/components/lukso-dropdown-option'
 import '@/components/lukso-date-picker'
 import '@/components/lukso-form-label'
 import '@/components/lukso-form-description'
@@ -15,24 +16,36 @@ import style from './style.css?inline'
 
 import type {
   DatePickerDateFormat,
+  DatePickerPreset,
+  DatePickerPresetTime,
   DatePickerTimeFormat,
   DatePickerWeekStartDay,
   InputSize,
 } from '@/shared/types'
 
 export type LuksoInputDatePickerOnChangeEventDetail = {
+  /** Resolved ISO 8601 date-time string, e.g. "2026-05-15T20:00". */
   value: string
+  /**
+   * The active preset when a preset triggered the change.
+   * Omitted when the user picks a date directly without a preset active.
+   */
+  preset?: DatePickerPresetTime
   event: Event
 }
 
 /**
  * An input that opens a date picker dropdown when clicked.
  * Displays the selected date/time inline with customizable formatting.
- * Emits `on-change` with `{ value: string, event }` where `value` is an ISO 8601 date-time string.
+ * Emits `on-change` with `{ value: string, preset?: string, event }` where `value` is an ISO 8601 date-time string.
+ *
+ * When `presets` is provided the trigger becomes a preset selector.
+ * Selecting a time preset immediately resolves the date and emits `on-change`.
+ * Selecting `{ time: 'pick' }` opens the calendar for manual date selection.
  */
 @safeCustomElement('lukso-input-date-picker')
 export class LuksoInputDatePicker extends TailwindStyledElement(style) {
-  /** ISO 8601 date-time string, e.g. "2026-05-15T20:00" */
+  /** ISO 8601 date-time string, e.g. "2026-05-15T20:00". Can also be a preset time key (e.g. "+week") when presets are configured. */
   @property({ type: String })
   value?: string
 
@@ -117,8 +130,20 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'open-right' })
   openRight = false
 
+  /**
+   * JSON-stringified array of DatePickerPreset objects.
+   * When provided, replaces the plain date input with a preset-selector dropdown.
+   * Example: '[{"label":"Now","time":"now"},{"label":"Pick a date…","time":"pick"}]'
+   * Preset time values: "now" | "+week" | "+month" | "pick" | ISO string.
+   */
+  @property({ type: String })
+  presets?: string
+
   @state() private _isOpen = false
   @state() private _internalValue?: string
+  @state() private _presetsParsed: DatePickerPreset[] = []
+  @state() private _activePreset: DatePickerPreset | null = null
+  @state() private _isPresetOpen = false
 
   private readonly _inputId = uniqId()
   private _boundOutsideClick?: (e: Event) => void
@@ -202,14 +227,86 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   }
 
   override willUpdate(changed: Map<string | number | symbol, unknown>) {
-    if (changed.has('value')) {
-      this._internalValue = this.value
+    // Parse presets string first so value matching below uses the latest parsed array
+    if (changed.has('presets')) {
+      try {
+        this._presetsParsed = this.presets ? JSON.parse(this.presets) : []
+      } catch {
+        console.warn('[lukso-input-date-picker] Invalid JSON in `presets` prop')
+        this._presetsParsed = []
+      }
+    }
+
+    if (changed.has('value') || changed.has('presets')) {
+      // Only string sentinels ('now', 'pick') can be matched via the value prop,
+      // since object-based times cannot round-trip through an HTML attribute string.
+      const matchedPreset = this._presetsParsed.find(
+        preset => typeof preset.time === 'string' && preset.time === this.value
+      )
+      if (matchedPreset) {
+        this._activePreset = matchedPreset
+        // 'pick' has no computed date — keep whatever the calendar last set
+        this._internalValue =
+          matchedPreset.time !== 'pick'
+            ? this._resolvePresetTime(matchedPreset.time)
+            : this._internalValue
+      } else {
+        this._activePreset = null
+        this._internalValue = this.value
+      }
     }
   }
 
   // ─── Computed helpers ───────────────────────────────────────────────────────
 
+  /**
+   * Converts a preset time value into an ISO 8601 local-time string.
+   * Uses local time (not UTC) to match lukso-date-picker's internal _buildIsoValue().
+   */
+  private _resolvePresetTime(time: DatePickerPresetTime): string {
+    const now = new Date()
+    const toLocalISO = (date: Date): string => {
+      const pad = (number: number) => String(number).padStart(2, '0')
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`
+    }
+
+    if (time === 'now') return toLocalISO(now)
+    if (time === 'forever') return ''
+    if (time === 'pick') return this._internalValue ?? ''
+
+    const date = new Date(now)
+    const { amount, unit } = time
+
+    switch (unit) {
+      case 'minute':
+        date.setMinutes(date.getMinutes() + amount)
+        break
+      case 'hour':
+        date.setHours(date.getHours() + amount)
+        break
+      case 'day':
+        date.setDate(date.getDate() + amount)
+        break
+      case 'week':
+        date.setDate(date.getDate() + amount * 7)
+        break
+      case 'month':
+        date.setMonth(date.getMonth() + amount)
+        break
+      case 'year':
+        date.setFullYear(date.getFullYear() + amount)
+        break
+    }
+
+    return toLocalISO(date)
+  }
+
   private _formatDisplayValue(): string {
+    // Non-pick preset: show the label instead of the formatted date
+    if (this._activePreset && this._activePreset.time !== 'pick') {
+      return this._activePreset.label
+    }
+
     if (!this._internalValue) return ''
     try {
       const d = new Date(this._internalValue)
@@ -244,12 +341,39 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   private _handleOutsideClick(event: Event) {
     if (!event.composedPath().includes(this)) {
       this._isOpen = false
+      this._isPresetOpen = false
     }
   }
 
   private _handleInputClick() {
     if (this.isDisabled || this.isReadonly) return
-    this._isOpen = !this._isOpen
+    if (this._presetsParsed.length > 0) {
+      this._isPresetOpen = !this._isPresetOpen
+      this._isOpen = false
+    } else {
+      this._isOpen = !this._isOpen
+    }
+  }
+
+  private _handlePresetSelect(preset: DatePickerPreset, event: Event) {
+    this._activePreset = preset
+    this._isPresetOpen = false
+
+    if (preset.time === 'pick') {
+      this._isOpen = true
+      return
+    }
+
+    const resolvedDate = this._resolvePresetTime(preset.time)
+    this._internalValue = resolvedDate
+
+    this.dispatchEvent(
+      new CustomEvent<LuksoInputDatePickerOnChangeEventDetail>('on-change', {
+        detail: { value: resolvedDate, preset: preset.time, event },
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   private _handleDatePickerChange(e: CustomEvent) {
@@ -262,11 +386,166 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
     }
     this.dispatchEvent(
       new CustomEvent<LuksoInputDatePickerOnChangeEventDetail>('on-change', {
-        detail: { value: this._internalValue, event: e.detail.event },
+        detail: {
+          value: this._internalValue,
+          preset: this._activePreset?.time,
+          event: e.detail.event,
+        },
         bubbles: true,
         composed: true,
       })
     )
+  }
+
+  // ─── Render helpers ─────────────────────────────────────────────────────────
+
+  private _renderStandardTrigger(
+    displayValue: string,
+    inputClass: string,
+    iconClass: string
+  ) {
+    return html`
+      <div class="flex relative items-center w-full">
+        <div
+          id=${this._inputId}
+          class=${inputClass}
+          @click=${this._handleInputClick}
+          aria-haspopup="true"
+          aria-expanded=${this._isOpen ? 'true' : 'false'}
+          role="combobox"
+        >
+          ${displayValue
+            ? displayValue
+            : this.placeholder
+              ? html`<span class="text-neutral-70">${this.placeholder}</span>`
+              : nothing}
+        </div>
+        <lukso-icon
+          name="arrow-down-sm"
+          class=${iconClass}
+          @click=${this._handleInputClick}
+        ></lukso-icon>
+      </div>
+
+      <!-- Date picker dropdown: always in DOM to preserve internal date state -->
+      <lukso-dropdown
+        ?is-open=${this._isOpen}
+        is-open-on-outside-click
+        ?open-top=${this.openTop}
+        ?is-right=${this.openRight}
+        ?is-full-width=${this.isFullWidth}
+        size="large"
+        custom-class="min-w-[300px] min-h-[390px]"
+        max-height="500"
+      >
+        <lukso-date-picker
+          value=${this._internalValue ?? nothing}
+          min=${this.min ?? nothing}
+          max=${this.max ?? nothing}
+          locale=${this.locale}
+          size="large"
+          ?show-time=${this.showTime}
+          ?show-summary=${this.showTime}
+          date-format=${this.dateFormat}
+          time-format=${this.timeFormat}
+          week-start-day=${this.weekStartDay}
+          ?is-disabled=${this.isDisabled}
+          ?is-full-width=${this.isFullWidth}
+          selected-bg-color=${this.selectedBgColor ?? nothing}
+          selected-text-color=${this.selectedTextColor ?? nothing}
+          @on-change=${this._handleDatePickerChange}
+        ></lukso-date-picker>
+      </lukso-dropdown>
+    `
+  }
+
+  private _renderPresetTrigger(
+    displayValue: string,
+    inputClass: string,
+    iconClass: string
+  ) {
+    return html`
+      <div class="flex relative items-center w-full">
+        <div
+          id=${this._inputId}
+          class=${inputClass}
+          @click=${this._handleInputClick}
+          aria-haspopup="listbox"
+          aria-expanded=${this._isPresetOpen ? 'true' : 'false'}
+          role="combobox"
+        >
+          ${displayValue
+            ? displayValue
+            : this.placeholder
+              ? html`<span class="text-neutral-70">${this.placeholder}</span>`
+              : nothing}
+        </div>
+        <lukso-icon
+          name="arrow-down-sm"
+          class=${iconClass}
+          @click=${this._handleInputClick}
+        ></lukso-icon>
+      </div>
+
+      <!-- Preset options list -->
+      <lukso-dropdown
+        ?is-open=${this._isPresetOpen}
+        is-open-on-outside-click
+        ?open-top=${this.openTop}
+        ?is-right=${this.openRight}
+        ?is-full-width=${this.isFullWidth}
+        size=${this.size}
+      >
+        ${this._presetsParsed.map(
+          preset => html`
+            <lukso-dropdown-option
+              ?is-selected=${this._activePreset?.time === preset.time}
+              size=${this.size}
+              ?is-disabled=${this.isDisabled}
+              ?is-readonly=${this.isReadonly}
+              @click=${(event: Event) =>
+                this._handlePresetSelect(preset, event)}
+            >
+              ${preset.label}
+            </lukso-dropdown-option>
+          `
+        )}
+      </lukso-dropdown>
+
+      <!-- Calendar: only rendered when the 'pick' preset is active -->
+      ${this._activePreset?.time === 'pick'
+        ? html`
+            <lukso-dropdown
+              ?is-open=${this._isOpen}
+              is-open-on-outside-click
+              ?open-top=${this.openTop}
+              ?is-right=${this.openRight}
+              ?is-full-width=${this.isFullWidth}
+              size="large"
+              custom-class="min-w-[300px] min-h-[390px]"
+              max-height="500"
+            >
+              <lukso-date-picker
+                value=${this._internalValue ?? nothing}
+                min=${this.min ?? nothing}
+                max=${this.max ?? nothing}
+                locale=${this.locale}
+                size="large"
+                ?show-time=${this.showTime}
+                ?show-summary=${this.showTime}
+                date-format=${this.dateFormat}
+                time-format=${this.timeFormat}
+                week-start-day=${this.weekStartDay}
+                ?is-disabled=${this.isDisabled}
+                ?is-full-width=${this.isFullWidth}
+                selected-bg-color=${this.selectedBgColor ?? nothing}
+                selected-text-color=${this.selectedTextColor ?? nothing}
+                @on-change=${this._handleDatePickerChange}
+              ></lukso-date-picker>
+            </lukso-dropdown>
+          `
+        : nothing}
+    `
   }
 
   // ─── Render ─────────────────────────────────────────────────────────────────
@@ -288,7 +567,8 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
 
     const iconClass = this.iconStyles({
       isDisabled: this.isDisabled,
-      isOpen: this._isOpen,
+      isOpen:
+        this._presetsParsed.length > 0 ? this._isPresetOpen : this._isOpen,
       size: this.size,
     })
 
@@ -300,61 +580,9 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
         ></lukso-form-description>
 
         <div class=${wrapperClass}>
-          <div class="flex relative items-center w-full">
-            <!-- Input trigger -->
-            <div
-              id=${this._inputId}
-              class=${inputClass}
-              @click=${this._handleInputClick}
-              aria-haspopup="true"
-              aria-expanded=${this._isOpen ? 'true' : 'false'}
-              role="combobox"
-            >
-              ${displayValue
-                ? displayValue
-                : this.placeholder
-                  ? html`<span class="text-neutral-70"
-                      >${this.placeholder}</span
-                    >`
-                  : nothing}
-            </div>
-            <!-- Arrow icon -->
-            <lukso-icon
-              name="arrow-down-sm"
-              class=${iconClass}
-              @click=${this._handleInputClick}
-            ></lukso-icon>
-          </div>
-
-          <!-- Date picker dropdown: always in DOM to preserve internal date state -->
-          <lukso-dropdown
-            ?is-open=${this._isOpen}
-            is-open-on-outside-click
-            ?open-top=${this.openTop}
-            ?is-right=${this.openRight}
-            ?is-full-width=${this.isFullWidth}
-            size="large"
-            custom-class="min-w-[300px] min-h-[390px]"
-            max-height="500"
-          >
-            <lukso-date-picker
-              value=${this._internalValue ?? nothing}
-              min=${this.min ?? nothing}
-              max=${this.max ?? nothing}
-              locale=${this.locale}
-              size="large"
-              ?show-time=${this.showTime}
-              ?show-summary=${this.showTime}
-              date-format=${this.dateFormat}
-              time-format=${this.timeFormat}
-              week-start-day=${this.weekStartDay}
-              ?is-disabled=${this.isDisabled}
-              ?is-full-width=${this.isFullWidth}
-              selected-bg-color=${this.selectedBgColor ?? nothing}
-              selected-text-color=${this.selectedTextColor ?? nothing}
-              @on-change=${this._handleDatePickerChange}
-            ></lukso-date-picker>
-          </lukso-dropdown>
+          ${this._presetsParsed.length > 0
+            ? this._renderPresetTrigger(displayValue, inputClass, iconClass)
+            : this._renderStandardTrigger(displayValue, inputClass, iconClass)}
         </div>
 
         <lukso-form-error error=${this.error ?? nothing}></lukso-form-error>

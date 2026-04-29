@@ -9,6 +9,12 @@ const meta: Meta = {
   title: 'Design System/Forms/lukso-input-date-picker',
   component: 'lukso-input-date-picker',
   argTypes: {
+    presets: {
+      control: { type: 'text' },
+      description:
+        'JSON array of preset objects `[{label, time}]`. `time` is `"now"`, `"pick"`, or a relative offset object `{ amount: number, unit: "minute" | "hour" | "day" | "week" | "month" | "year" }`. Negative `amount` selects a past date. When provided, replaces the raw date input with a preset selector.',
+      table: { category: 'Attributes' },
+    },
     value: {
       control: { type: 'text' },
       description:
@@ -125,13 +131,16 @@ const meta: Meta = {
       description: 'Aligns the calendar to the right edge of the input.',
       table: { category: 'Attributes' },
     },
-    'on-change': {
+    onChange: {
+      name: 'on-change',
+      action: 'on-change',
       description:
-        'Emitted when the user selects a date or changes the time. `detail: { value: string, event }`',
+        'Emitted when the user selects a date, changes the time, or picks a preset. `detail: { value: string, preset?: DatePickerPresetTime, event }` — `value` is always a resolved ISO date string; `preset` is the full preset `time` value when a preset triggered the change.',
       table: { category: 'Events' },
     },
   },
   args: {
+    presets: undefined,
     value: '2026-11-15T20:00',
     min: undefined,
     max: undefined,
@@ -159,10 +168,11 @@ const meta: Meta = {
       html`<div style="padding: 20px; padding-bottom: 420px;">${story()}</div>`,
   ],
   parameters: {
-    controls: { exclude: ['styles'] },
+    controls: { exclude: ['styles', 'onChange'] },
   },
   render: args => html`
     <lukso-input-date-picker
+      presets=${args['presets'] || nothing}
       value=${args['value'] || nothing}
       min=${args['min'] || nothing}
       max=${args['max'] || nothing}
@@ -184,6 +194,7 @@ const meta: Meta = {
       ?borderless=${args['borderless']}
       ?open-top=${args['open-top']}
       ?open-right=${args['open-right']}
+      @on-change=${args['onChange']}
     ></lukso-input-date-picker>
   `,
 }
@@ -342,6 +353,50 @@ export const OpenTopRight: StoryObj = {
         ${story()}
       </div>`,
   ],
+}
+
+// ─── Preset variants ────────────────────────────────────────────────────────
+
+/**
+ * Preset selector with common time shortcuts.
+ * Clicking a preset immediately resolves and emits the computed date.
+ * Selecting "Pick a date…" opens the calendar for manual selection.
+ */
+export const WithPresets: StoryObj = {
+  name: 'With Presets',
+  args: {
+    presets: JSON.stringify([
+      { label: 'Forever', time: 'forever' },
+      { label: 'Now', time: 'now' },
+      { label: 'In an hour', time: { amount: 1, unit: 'hour' } },
+      { label: 'In a day', time: { amount: 1, unit: 'day' } },
+      { label: 'In a week', time: { amount: 1, unit: 'week' } },
+      { label: 'In a month', time: { amount: 1, unit: 'month' } },
+      { label: 'Pick a date…', time: 'pick' },
+    ]),
+    value: undefined,
+    placeholder: 'Select time range…',
+    label: 'Start date',
+  },
+}
+
+/**
+ * Presets with a default preset pre-selected via the `value` prop.
+ * Only string sentinels ('now', 'pick') can be passed as `value` to pre-select a preset.
+ */
+export const WithPresetsPreselected: StoryObj = {
+  name: 'With Presets — Pre-selected',
+  args: {
+    presets: JSON.stringify([
+      { label: 'Now', time: 'now' },
+      { label: 'In a week', time: { amount: 1, unit: 'week' } },
+      { label: 'In a month', time: { amount: 1, unit: 'month' } },
+      { label: 'Pick a date…', time: 'pick' },
+    ]),
+    value: 'now',
+    placeholder: 'Select time range…',
+    label: 'Return after',
+  },
 }
 
 /**

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.195.1](https://github.com/lukso-network/tools-web-components/compare/v1.195.0...v1.195.1) (2026-04-29)
+
+
+### Bug Fixes
+
+* icon inline error ([#870](https://github.com/lukso-network/tools-web-components/issues/870)) ([c649c04](https://github.com/lukso-network/tools-web-components/commit/c649c04ff517095effb47e6318ed450cd2f218e1))
+
 ## [1.195.0](https://github.com/lukso-network/tools-web-components/compare/v1.194.1...v1.195.0) (2026-04-28)
 
 

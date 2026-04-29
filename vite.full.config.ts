@@ -323,6 +323,7 @@ export async function run(argv) {
           name: 'strip-query-from-filenames',
           async writeBundle(options) {
             const outDir = options.dir ?? './package/dist'
+
             async function renameInDir(dir: string) {
               const entries = await readdir(dir, { withFileTypes: true })
               for (const entry of entries) {
@@ -335,7 +336,34 @@ export async function run(argv) {
                 }
               }
             }
+
+            // Rewrite import/require path strings inside JS/CJS files so that
+            // "foo?raw.js" → "foo.js" etc. (the files were already renamed above
+            // but the string literals inside the bundles still contain the old paths)
+            async function rewriteImportPathsInDir(dir: string) {
+              const entries = await readdir(dir, { withFileTypes: true })
+              for (const entry of entries) {
+                const fullPath = path.join(dir, entry.name)
+                if (entry.isDirectory()) {
+                  await rewriteImportPathsInDir(fullPath)
+                } else if (
+                  entry.name.endsWith('.js') ||
+                  entry.name.endsWith('.cjs')
+                ) {
+                  const content = await readFile(fullPath, 'utf8')
+                  const updated = content.replace(
+                    /"([^"]*)\?[^."]*(\.[^"]*)"/g,
+                    '"$1$2"'
+                  )
+                  if (updated !== content) {
+                    await writeFile(fullPath, updated, 'utf8')
+                  }
+                }
+              }
+            }
+
             await renameInDir(outDir)
+            await rewriteImportPathsInDir(outDir)
           },
         },
         tailwindcss(),

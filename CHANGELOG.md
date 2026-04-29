@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.196.0](https://github.com/lukso-network/tools-web-components/compare/v1.195.1...v1.196.0) (2026-04-29)
+
+
+### Features
+
+* Package update ([#869](https://github.com/lukso-network/tools-web-components/issues/869)) ([6511b11](https://github.com/lukso-network/tools-web-components/commit/6511b113f77af909d4fa8404dd12343bb83f5a11))
+
 ## [1.195.1](https://github.com/lukso-network/tools-web-components/compare/v1.195.0...v1.195.1) (2026-04-29)
 
 

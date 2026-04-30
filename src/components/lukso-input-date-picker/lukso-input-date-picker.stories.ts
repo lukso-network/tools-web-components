@@ -12,7 +12,7 @@ const meta: Meta = {
     presets: {
       control: { type: 'text' },
       description:
-        'JSON array of preset objects `[{label, time}]`. `time` is `"now"`, `"pick"`, or a relative offset object `{ amount: number, unit: "minute" | "hour" | "day" | "week" | "month" | "year" }`. Negative `amount` selects a past date. When provided, replaces the raw date input with a preset selector.',
+        'JSON array of preset objects `[{label, time}]`. `time` is `"now"`, `"forever"`, `"pick"`, or a relative offset object `{ amount: number, unit: "minute" | "hour" | "day" | "week" | "month" | "year" }`. Negative `amount` selects a past date. `"forever"` emits an empty string (no date). When provided, replaces the raw date input with a preset selector.',
       table: { category: 'Attributes' },
     },
     value: {
@@ -135,7 +135,7 @@ const meta: Meta = {
       name: 'on-change',
       action: 'on-change',
       description:
-        'Emitted when the user selects a date, changes the time, or picks a preset. `detail: { value: string, preset?: DatePickerPresetTime, event }` — `value` is always a resolved ISO date string; `preset` is the full preset `time` value when a preset triggered the change.',
+        'Emitted when the user selects a date, changes the time, or picks a preset. `detail: { value: string, preset?: DatePickerPresetTime, event }` — `value` is a resolved ISO date string, or an empty string when the `"forever"` preset is selected; `preset` is the full preset `time` value when a preset triggered the change.',
       table: { category: 'Events' },
     },
   },
@@ -382,7 +382,8 @@ export const WithPresets: StoryObj = {
 
 /**
  * Presets with a default preset pre-selected via the `value` prop.
- * Only string sentinels ('now', 'pick') can be passed as `value` to pre-select a preset.
+ * Any string sentinel ('now', 'forever', 'pick') can be passed as `value` to pre-select a preset.
+ * Object-based presets ({ amount, unit }) cannot be pre-selected via `value` since objects don't round-trip through HTML attributes.
  */
 export const WithPresetsPreselected: StoryObj = {
   name: 'With Presets — Pre-selected',

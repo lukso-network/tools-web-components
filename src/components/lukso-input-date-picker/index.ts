@@ -37,7 +37,8 @@ export type LuksoInputDatePickerOnChangeEventDetail = {
 /**
  * An input that opens a date picker dropdown when clicked.
  * Displays the selected date/time inline with customizable formatting.
- * Emits `on-change` with `{ value: string, preset?: string, event }` where `value` is an ISO 8601 date-time string.
+ * Emits `on-change` with `{ value: string, preset?: DatePickerPresetTime, event }` where `value`
+ * is a resolved ISO 8601 date-time string, or an empty string when `'forever'` is selected.
  *
  * When `presets` is provided the trigger becomes a preset selector.
  * Selecting a time preset immediately resolves the date and emits `on-change`.
@@ -134,7 +135,8 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
    * JSON-stringified array of DatePickerPreset objects.
    * When provided, replaces the plain date input with a preset-selector dropdown.
    * Example: '[{"label":"Now","time":"now"},{"label":"Pick a date…","time":"pick"}]'
-   * Preset time values: "now" | "+week" | "+month" | "pick" | ISO string.
+   * Preset time values: "now" | "forever" | "pick" | { amount: number, unit: "minute" | "hour" | "day" | "week" | "month" | "year" }.
+   * Negative `amount` selects a past date. "forever" emits an empty string value (no date).
    */
   @property({ type: String })
   presets?: string
@@ -230,7 +232,13 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
     // Parse presets string first so value matching below uses the latest parsed array
     if (changed.has('presets')) {
       try {
-        this._presetsParsed = this.presets ? JSON.parse(this.presets) : []
+        const parsed = this.presets ? JSON.parse(this.presets) : []
+        this._presetsParsed = Array.isArray(parsed) ? parsed : []
+        if (!Array.isArray(parsed)) {
+          console.warn(
+            '[lukso-input-date-picker] `presets` must be a JSON array'
+          )
+        }
       } catch {
         console.warn('[lukso-input-date-picker] Invalid JSON in `presets` prop')
         this._presetsParsed = []
@@ -238,8 +246,12 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
     }
 
     if (changed.has('value') || changed.has('presets')) {
-      // Only string sentinels ('now', 'pick') can be matched via the value prop,
-      // since object-based times cannot round-trip through an HTML attribute string.
+      // When the consumer echoes back the ISO value we emitted, keep the active preset
+      // rather than clearing it — the value round-trip should not reset preset state.
+      if (this._activePreset && this.value === this._internalValue) return
+
+      // Only string sentinels ('now', 'forever', 'pick') can be matched via the value
+      // prop, since object-based times cannot round-trip through an HTML attribute string.
       const matchedPreset = this._presetsParsed.find(
         preset => typeof preset.time === 'string' && preset.time === this.value
       )

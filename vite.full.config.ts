@@ -351,8 +351,13 @@ export async function run(argv) {
                   entry.name.endsWith('.cjs')
                 ) {
                   const content = await readFile(fullPath, 'utf8')
+                  // Only rewrite relative import paths ("./..." or "../...") that
+                  // contain a Vite query suffix like ?raw or ?inline before the
+                  // final .js/.cjs extension. Plain ternary expressions in code
+                  // (e.g. "undefined" ? x : y) are never relative paths so they
+                  // won't be matched.
                   const updated = content.replace(
-                    /"([^"]*)\?[^."]*(\.[^"]*)"/g,
+                    /"(\.[^"]*)\?[a-zA-Z0-9_-]+(\.[a-zA-Z0-9]+)"/g,
                     '"$1$2"'
                   )
                   if (updated !== content) {

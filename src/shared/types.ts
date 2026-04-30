@@ -38,3 +38,29 @@ export type DatePickerDateFormat = 'short' | 'long'
 export type DatePickerTimeFormat = '12h' | '24h' | 'auto'
 
 export type DatePickerWeekStartDay = 'monday' | 'sunday'
+
+export type DatePickerPresetUnit =
+  | 'minute'
+  | 'hour'
+  | 'day'
+  | 'week'
+  | 'month'
+  | 'year'
+
+/**
+ * Preset time value. Either a special sentinel or a relative offset object.
+ * - `'now'` — resolves to the current date and time
+ * - `'forever'` — resolves to no date (clears the value, emits empty string)
+ * - `'pick'` — opens the calendar for manual selection
+ * - `{ amount, unit }` — adds `amount` units to the current date (use negative for past)
+ */
+export type DatePickerPresetTime =
+  | 'now'
+  | 'forever'
+  | 'pick'
+  | { amount: number; unit: DatePickerPresetUnit }
+
+export type DatePickerPreset = {
+  label: string
+  time: DatePickerPresetTime
+}

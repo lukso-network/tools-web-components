@@ -46,7 +46,7 @@ export type LuksoInputDatePickerOnChangeEventDetail = {
  */
 @safeCustomElement('lukso-input-date-picker')
 export class LuksoInputDatePicker extends TailwindStyledElement(style) {
-  /** ISO 8601 date-time string, e.g. "2026-05-15T20:00". Can also be a preset time key (e.g. "+week") when presets are configured. */
+  /** ISO 8601 date-time string, e.g. "2026-05-15T20:00". Can also be a string sentinel ("now", "forever", "pick") to pre-select a matching preset when `presets` is configured. */
   @property({ type: String })
   value?: string
 
@@ -246,9 +246,15 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
     }
 
     if (changed.has('value') || changed.has('presets')) {
-      // When the consumer echoes back the ISO value we emitted, keep the active preset
-      // rather than clearing it — the value round-trip should not reset preset state.
-      if (this._activePreset && this.value === this._internalValue) return
+      // When only `value` changed and the consumer echoed back the ISO we emitted,
+      // keep the active preset — the round-trip should not reset preset state.
+      // Skip this when `presets` also changed so stale presets are always re-evaluated.
+      if (
+        !changed.has('presets') &&
+        this._activePreset &&
+        this.value === this._internalValue
+      )
+        return
 
       // Only string sentinels ('now', 'forever', 'pick') can be matched via the value
       // prop, since object-based times cannot round-trip through an HTML attribute string.
@@ -308,6 +314,11 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       case 'year':
         date.setFullYear(date.getFullYear() + amount)
         break
+      default:
+        console.warn(
+          `[lukso-input-date-picker] Unknown preset unit "${(time as { unit: string }).unit}" — returning current time`
+        )
+        return toLocalISO(now)
     }
 
     return toLocalISO(date)

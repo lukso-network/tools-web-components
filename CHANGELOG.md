@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.197.0](https://github.com/lukso-network/tools-web-components/compare/v1.196.0...v1.197.0) (2026-04-30)
+
+
+### Features
+
+* Date picker presets ([#873](https://github.com/lukso-network/tools-web-components/issues/873)) ([4901618](https://github.com/lukso-network/tools-web-components/commit/490161814a237e4502f594ea3c2e056439629dc5))
+
+
+### Bug Fixes
+
+* Add copilot fixes ([#876](https://github.com/lukso-network/tools-web-components/issues/876)) ([67b5ea1](https://github.com/lukso-network/tools-web-components/commit/67b5ea1a00262f7b302452b1fcf4c6a08c320d28))
+* package error ([#874](https://github.com/lukso-network/tools-web-components/issues/874)) ([8560dfc](https://github.com/lukso-network/tools-web-components/commit/8560dfc96d6d723e75227a9c09c522db73151a02))
+
 ## [1.196.0](https://github.com/lukso-network/tools-web-components/compare/v1.195.1...v1.196.0) (2026-04-29)
 
 

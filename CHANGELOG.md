@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.197.1](https://github.com/lukso-network/tools-web-components/compare/v1.197.0...v1.197.1) (2026-05-04)
+
+
+### Bug Fixes
+
+* matching presets ([#877](https://github.com/lukso-network/tools-web-components/issues/877)) ([9aaa68f](https://github.com/lukso-network/tools-web-components/commit/9aaa68f14d3b7ea35eb2dc2c66b7f17944afb3a3))
+
 ## [1.197.0](https://github.com/lukso-network/tools-web-components/compare/v1.196.0...v1.197.0) (2026-04-30)
 
 

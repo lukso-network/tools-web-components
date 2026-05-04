@@ -256,16 +256,30 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       )
         return
 
-      // String sentinels match directly. Object presets match when the value is
-      // their JSON-stringified time (e.g. '{"amount":1,"unit":"month"}'), which
-      // allows consumers to persist and restore object preset selections.
+      // String sentinels match directly. Object presets match by parsing the
+      // stored value as JSON and comparing amount/unit fields, so that
+      // key-insertion order in persisted JSON does not cause mismatches.
+      const parsedValue = (() => {
+        try {
+          return JSON.parse(this.value ?? '')
+        } catch {
+          return null
+        }
+      })()
       const matchedPreset = this._presetsParsed.find(preset => {
         if (typeof preset.time === 'string') return preset.time === this.value
-        try {
-          return JSON.stringify(preset.time) === this.value
-        } catch {
-          return false
+        if (
+          parsedValue !== null &&
+          typeof parsedValue === 'object' &&
+          typeof parsedValue.amount === 'number' &&
+          typeof parsedValue.unit === 'string'
+        ) {
+          return this._presetTimesMatch(
+            preset.time,
+            parsedValue as DatePickerPresetTime
+          )
         }
+        return false
       })
       if (matchedPreset) {
         this._activePreset = matchedPreset
@@ -282,6 +296,19 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   }
 
   // ─── Computed helpers ───────────────────────────────────────────────────────
+
+  /**
+   * Compares two preset time values for structural equality.
+   * For object presets, compares amount and unit rather than stringified form
+   * so that key-insertion order in persisted JSON does not cause mismatches.
+   */
+  private _presetTimesMatch(
+    a: DatePickerPresetTime,
+    b: DatePickerPresetTime
+  ): boolean {
+    if (typeof a === 'string' || typeof b === 'string') return a === b
+    return a.amount === b.amount && a.unit === b.unit
+  }
 
   /**
    * Converts a preset time value into an ISO 8601 local-time string.
@@ -529,10 +556,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
           preset => html`
             <lukso-dropdown-option
               ?is-selected=${this._activePreset != null &&
-              (typeof preset.time === 'string'
-                ? this._activePreset.time === preset.time
-                : JSON.stringify(this._activePreset.time) ===
-                  JSON.stringify(preset.time))}
+              this._presetTimesMatch(this._activePreset.time, preset.time)}
               size=${this.size}
               ?is-disabled=${this.isDisabled}
               ?is-readonly=${this.isReadonly}

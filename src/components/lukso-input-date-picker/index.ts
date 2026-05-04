@@ -256,11 +256,33 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       )
         return
 
-      // Only string sentinels ('now', 'forever', 'pick') can be matched via the value
-      // prop, since object-based times cannot round-trip through an HTML attribute string.
-      const matchedPreset = this._presetsParsed.find(
-        preset => typeof preset.time === 'string' && preset.time === this.value
-      )
+      // String sentinels match directly. Object presets match by parsing the
+      // stored value as JSON and comparing amount/unit fields, so that
+      // key-insertion order in persisted JSON does not cause mismatches.
+      const parsedValue = this.value?.startsWith('{')
+        ? (() => {
+            try {
+              return JSON.parse(this.value)
+            } catch {
+              return null
+            }
+          })()
+        : null
+      const matchedPreset = this._presetsParsed.find(preset => {
+        if (typeof preset.time === 'string') return preset.time === this.value
+        if (
+          parsedValue !== null &&
+          typeof parsedValue === 'object' &&
+          typeof parsedValue.amount === 'number' &&
+          typeof parsedValue.unit === 'string'
+        ) {
+          return this._presetTimesMatch(
+            preset.time,
+            parsedValue as DatePickerPresetTime
+          )
+        }
+        return false
+      })
       if (matchedPreset) {
         this._activePreset = matchedPreset
         // 'pick' has no computed date — keep whatever the calendar last set
@@ -276,6 +298,19 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   }
 
   // ─── Computed helpers ───────────────────────────────────────────────────────
+
+  /**
+   * Compares two preset time values for structural equality.
+   * For object presets, compares amount and unit rather than stringified form
+   * so that key-insertion order in persisted JSON does not cause mismatches.
+   */
+  private _presetTimesMatch(
+    a: DatePickerPresetTime,
+    b: DatePickerPresetTime
+  ): boolean {
+    if (typeof a === 'string' || typeof b === 'string') return a === b
+    return a.amount === b.amount && a.unit === b.unit
+  }
 
   /**
    * Converts a preset time value into an ISO 8601 local-time string.
@@ -360,6 +395,10 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   }
 
   // ─── Event handlers ─────────────────────────────────────────────────────────
+
+  private _stopDropdownChange(event: Event) {
+    event.stopPropagation()
+  }
 
   private _handleOutsideClick(event: Event) {
     if (!event.composedPath().includes(this)) {
@@ -453,6 +492,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       <!-- Date picker dropdown: always in DOM to preserve internal date state -->
       <lukso-dropdown
         ?is-open=${this._isOpen}
+        @on-change=${this._stopDropdownChange}
         is-open-on-outside-click
         ?open-top=${this.openTop}
         ?is-right=${this.openRight}
@@ -513,6 +553,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       <!-- Preset options list -->
       <lukso-dropdown
         ?is-open=${this._isPresetOpen}
+        @on-change=${this._stopDropdownChange}
         is-open-on-outside-click
         ?open-top=${this.openTop}
         ?is-right=${this.openRight}
@@ -522,7 +563,8 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
         ${this._presetsParsed.map(
           preset => html`
             <lukso-dropdown-option
-              ?is-selected=${this._activePreset?.time === preset.time}
+              ?is-selected=${this._activePreset != null &&
+              this._presetTimesMatch(this._activePreset.time, preset.time)}
               size=${this.size}
               ?is-disabled=${this.isDisabled}
               ?is-readonly=${this.isReadonly}
@@ -540,6 +582,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
         ? html`
             <lukso-dropdown
               ?is-open=${this._isOpen}
+              @on-change=${this._stopDropdownChange}
               is-open-on-outside-click
               ?open-top=${this.openTop}
               ?is-right=${this.openRight}

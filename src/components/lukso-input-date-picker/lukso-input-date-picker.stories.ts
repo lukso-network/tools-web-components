@@ -194,7 +194,7 @@ const meta: Meta = {
       ?borderless=${args['borderless']}
       ?open-top=${args['open-top']}
       ?open-right=${args['open-right']}
-      @on-change=${args['onChange']}
+      @on-change=${(event: CustomEvent) => args['onChange'](event.detail)}
     ></lukso-input-date-picker>
   `,
 }

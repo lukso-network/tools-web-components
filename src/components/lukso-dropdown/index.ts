@@ -209,7 +209,12 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   }
 
   async willUpdate(changedProperties: PropertyValues<this>) {
-    if (changedProperties.has('isOpen')) {
+    // changedProperties.get('isOpen') is undefined on the first render (no previous value),
+    // so skip emitting then to avoid a spurious on-change firing on component mount.
+    if (
+      changedProperties.has('isOpen') &&
+      changedProperties.get('isOpen') !== undefined
+    ) {
       await this.updateComplete
       const changeEvent = new CustomEvent<LuksoDropdownOnChangeEventDetail>(
         'on-change',

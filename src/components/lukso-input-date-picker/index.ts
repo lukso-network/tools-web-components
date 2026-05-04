@@ -256,11 +256,17 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       )
         return
 
-      // Only string sentinels ('now', 'forever', 'pick') can be matched via the value
-      // prop, since object-based times cannot round-trip through an HTML attribute string.
-      const matchedPreset = this._presetsParsed.find(
-        preset => typeof preset.time === 'string' && preset.time === this.value
-      )
+      // String sentinels match directly. Object presets match when the value is
+      // their JSON-stringified time (e.g. '{"amount":1,"unit":"month"}'), which
+      // allows consumers to persist and restore object preset selections.
+      const matchedPreset = this._presetsParsed.find(preset => {
+        if (typeof preset.time === 'string') return preset.time === this.value
+        try {
+          return JSON.stringify(preset.time) === this.value
+        } catch {
+          return false
+        }
+      })
       if (matchedPreset) {
         this._activePreset = matchedPreset
         // 'pick' has no computed date — keep whatever the calendar last set
@@ -522,7 +528,11 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
         ${this._presetsParsed.map(
           preset => html`
             <lukso-dropdown-option
-              ?is-selected=${this._activePreset?.time === preset.time}
+              ?is-selected=${this._activePreset != null &&
+              (typeof preset.time === 'string'
+                ? this._activePreset.time === preset.time
+                : JSON.stringify(this._activePreset.time) ===
+                  JSON.stringify(preset.time))}
               size=${this.size}
               ?is-disabled=${this.isDisabled}
               ?is-readonly=${this.isReadonly}

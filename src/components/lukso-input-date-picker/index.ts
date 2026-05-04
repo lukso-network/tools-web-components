@@ -259,13 +259,15 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       // String sentinels match directly. Object presets match by parsing the
       // stored value as JSON and comparing amount/unit fields, so that
       // key-insertion order in persisted JSON does not cause mismatches.
-      const parsedValue = (() => {
-        try {
-          return JSON.parse(this.value ?? '')
-        } catch {
-          return null
-        }
-      })()
+      const parsedValue = this.value?.startsWith('{')
+        ? (() => {
+            try {
+              return JSON.parse(this.value)
+            } catch {
+              return null
+            }
+          })()
+        : null
       const matchedPreset = this._presetsParsed.find(preset => {
         if (typeof preset.time === 'string') return preset.time === this.value
         if (

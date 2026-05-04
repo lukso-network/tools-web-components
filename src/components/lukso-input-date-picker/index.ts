@@ -394,6 +394,10 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
 
   // ─── Event handlers ─────────────────────────────────────────────────────────
 
+  private _stopDropdownChange(event: Event) {
+    event.stopPropagation()
+  }
+
   private _handleOutsideClick(event: Event) {
     if (!event.composedPath().includes(this)) {
       this._isOpen = false
@@ -486,6 +490,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       <!-- Date picker dropdown: always in DOM to preserve internal date state -->
       <lukso-dropdown
         ?is-open=${this._isOpen}
+        @on-change=${this._stopDropdownChange}
         is-open-on-outside-click
         ?open-top=${this.openTop}
         ?is-right=${this.openRight}
@@ -546,6 +551,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       <!-- Preset options list -->
       <lukso-dropdown
         ?is-open=${this._isPresetOpen}
+        @on-change=${this._stopDropdownChange}
         is-open-on-outside-click
         ?open-top=${this.openTop}
         ?is-right=${this.openRight}
@@ -574,6 +580,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
         ? html`
             <lukso-dropdown
               ?is-open=${this._isOpen}
+              @on-change=${this._stopDropdownChange}
               is-open-on-outside-click
               ?open-top=${this.openTop}
               ?is-right=${this.openRight}

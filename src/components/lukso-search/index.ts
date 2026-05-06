@@ -23,6 +23,7 @@ import type {
   SearchResultType,
   Address,
   InputSize,
+  InputVariant,
   Standard,
   TokenType,
 } from '@/shared/types'
@@ -44,6 +45,8 @@ export type SearchResult = {
 
 /**
  * A search input with debounced search events and a rich results dropdown supporting multiple result types (profile, asset, app, universal-name, recent-search, string).
+ *
+ * @prop {InputVariant} variant - Visual variant forwarded to the inner `lukso-input`. `'default'` uses `bg-neutral-100`; `'subtle'` uses `bg-neutral-97` for use on slightly darker surfaces.
  */
 @safeCustomElement('lukso-search')
 export class LuksoSearch extends TailwindStyledElement(style) {
@@ -143,6 +146,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   @property({ type: Boolean, attribute: 'with-group-labels' })
   withGroupLabels = false
+
+  @property({ type: String })
+  variant: InputVariant = 'default'
 
   @state()
   private isDebouncing = false
@@ -850,6 +856,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
           ?is-readonly=${this.isReadonly}
           ?is-disabled=${this.isDisabled}
           ?is-full-width=${this.isFullWidth}
+          variant=${this.variant}
           keep-focus-on-escape
           @on-input=${this.handleSearch}
           @on-blur=${this.handleBlur}

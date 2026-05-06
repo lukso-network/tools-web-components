@@ -22,6 +22,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'subtle'],
+      table: {
+        category: 'Attributes',
+      },
+    },
     name: {
       control: { type: 'text' },
       table: {
@@ -280,6 +287,7 @@ const meta: Meta = {
     isRightIconClickable: false,
     keepFocusOnEscape: false,
     rules: [],
+    variant: 'default',
     name: 'input',
     label: '',
     unit: '',
@@ -347,6 +355,7 @@ const Template = ({
   isRightIconClickable,
   keepFocusOnEscape,
   rules,
+  variant,
 }) =>
   html`<lukso-input
     value=${value}
@@ -363,6 +372,7 @@ const Template = ({
     accept=${accept}
     size=${size ? size : nothing}
     right-icon=${rightIcon ? rightIcon : nothing}
+    variant=${variant}
     ?is-full-width=${isFullWidth}
     ?autofocus=${autofocus}
     ?is-readonly=${isReadonly}

@@ -321,6 +321,13 @@ const meta: Meta = {
     'with-group-labels': {
       name: 'withGroupLabels',
     },
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'subtle'],
+      table: {
+        category: 'Attributes',
+      },
+    },
   },
   args: {
     value: '',
@@ -366,6 +373,7 @@ const meta: Meta = {
     selected: undefined,
     maxHeight: undefined,
     groupLabels: undefined,
+    variant: 'default',
   },
   parameters: {
     controls: {
@@ -433,6 +441,7 @@ const Template = ({
   maxHeight,
   groupLabels,
   withGroupLabels,
+  variant,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -487,6 +496,7 @@ const Template = ({
     no-results-text=${noResultsText}
     selected=${selected ? selected : nothing}
     size=${size ? size : nothing}
+    variant=${variant}
     max-height=${maxHeight ? maxHeight : nothing}
     group-labels=${groupLabels ? groupLabels : nothing}
     results=${results ? JSON.stringify(results) : nothing}

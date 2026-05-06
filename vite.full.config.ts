@@ -399,7 +399,7 @@ export async function run(argv) {
             './src/shared/styles',
             './src/shared/directives',
           ],
-          outDir: './package/dist',
+          outDirs: './package/dist',
           beforeWriteFile: (filePath, content) => {
             return { filePath: filePath.replace('/src/', '/'), content }
           },
@@ -412,7 +412,7 @@ export async function run(argv) {
               content,
             }
           },
-          outDir: './package/dist',
+          outDirs: './package/dist',
         }),
       ].filter(item => item),
     })

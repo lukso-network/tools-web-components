@@ -13,13 +13,15 @@ import { cn } from '@/shared/tools'
 import style from './style.css?inline'
 import * as InputRules from './rules'
 
-import type { InputSize } from '@/shared/types'
+import type { InputSize, InputVariant } from '@/shared/types'
 
 const FOCUS_DELAY_MS = 10
 
 /**
  * A styled text input with optional label, description, error, unit suffix, and right icon.
  * All events pass `{ value, event }` in their detail object.
+ *
+ * @prop {InputVariant} variant - Visual variant. `'default'` uses `bg-neutral-100`; `'subtle'` uses `bg-neutral-97` for use on slightly darker surfaces.
  */
 @safeCustomElement('lukso-input')
 export class LuksoInput extends TailwindStyledElement(style) {
@@ -98,6 +100,9 @@ export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: Array })
   rules: InputRules.InputRuleName[] = []
 
+  @property({ type: String })
+  variant: InputVariant = 'default'
+
   @state()
   private hasFocus = false
 
@@ -107,9 +112,9 @@ export class LuksoInput extends TailwindStyledElement(style) {
   private inputStyles = tv({
     slots: {
       wrapper: 'group flex',
-      input: `bg-neutral-100 border-solid placeholder:text-neutral-70 w-full
+      input: `border-solid placeholder:text-neutral-70 w-full
         outline-none transition transition-all duration-150 appearance-none`,
-      unit: `bg-neutral-100 text-neutral-60 flex items-center relative border-solid transition
+      unit: `text-neutral-60 flex items-center relative border-solid transition
         transition-all duration-150 before:bg-neutral-90 before:absolute
         before:left-0 before:w-[1px] whitespace-nowrap cursor-pointer`,
       rightIcon: 'absolute top-1/2 transform -translate-y-1/2',
@@ -179,6 +184,16 @@ export class LuksoInput extends TailwindStyledElement(style) {
       },
       isRightIconClickable: {
         true: { rightIcon: 'cursor-pointer' },
+      },
+      variant: {
+        default: {
+          input: 'bg-neutral-100',
+          unit: 'bg-neutral-100',
+        },
+        subtle: {
+          input: 'bg-neutral-97',
+          unit: 'bg-neutral-97',
+        },
       },
     },
     compoundVariants: [
@@ -494,6 +509,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
       size: this.size,
       hasRightIcon: !!this.rightIcon,
       isRightIconClickable: this.isRightIconClickable,
+      variant: this.variant,
     })
 
     return html`

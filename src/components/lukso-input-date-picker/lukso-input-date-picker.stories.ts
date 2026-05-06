@@ -131,6 +131,13 @@ const meta: Meta = {
       description: 'Aligns the calendar to the right edge of the input.',
       table: { category: 'Attributes' },
     },
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'subtle'],
+      description:
+        'Visual variant. `subtle` uses a slightly darker background (`bg-neutral-97`).',
+      table: { category: 'Attributes' },
+    },
     onChange: {
       name: 'on-change',
       action: 'on-change',
@@ -162,6 +169,7 @@ const meta: Meta = {
     'selected-text-color': undefined,
     'open-top': false,
     'open-right': false,
+    variant: 'default',
   },
   decorators: [
     (story: () => unknown) =>
@@ -194,6 +202,7 @@ const meta: Meta = {
       ?borderless=${args['borderless']}
       ?open-top=${args['open-top']}
       ?open-right=${args['open-right']}
+      variant=${args['variant']}
       @on-change=${(event: CustomEvent) => args['onChange'](event.detail)}
     ></lukso-input-date-picker>
   `,

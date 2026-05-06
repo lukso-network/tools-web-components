@@ -112,20 +112,20 @@ export async function run(argv) {
         }),
         dts({
           entryRoot: 'src/shared/tools',
-          outDir: './package/tools',
+          outDirs: './package/tools',
           include: ['./src/shared/tools'],
         }),
         dts({
           include: ['./src/shared/assets'],
-          outDir: './package/tools/assets',
+          outDirs: './package/tools/assets',
         }),
         dts({
           include: ['./src/shared/styles'],
-          outDir: './package/tools/styles',
+          outDirs: './package/tools/styles',
         }),
         dts({
           include: ['./src/shared/styles'],
-          outDir: './package/tools/sass',
+          outDirs: './package/tools/sass',
         }),
       ].filter(item => item),
     })

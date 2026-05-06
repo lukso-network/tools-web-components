@@ -1,5 +1,5 @@
 import { html, nothing } from 'lit-html'
-import { expect, userEvent, within } from '@storybook/test'
+import { expect, userEvent } from '@storybook/test'
 
 import { wait } from '../../../.storybook/test-helpers'
 
@@ -444,7 +444,6 @@ export const TestRelativePresetOpensPicker: StoryObj = {
     </div>
   `,
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
     const picker = canvasElement.querySelector('lukso-input-date-picker')
     const shadowRoot = picker.shadowRoot
 
@@ -453,8 +452,8 @@ export const TestRelativePresetOpensPicker: StoryObj = {
       emittedEvents.push(e as CustomEvent)
     )
 
-    // Open the preset dropdown
-    const trigger = canvas.getByRole('combobox')
+    // Open the preset dropdown via the shadow-DOM trigger div
+    const trigger = shadowRoot.querySelector('[role="combobox"]') as HTMLElement
     await userEvent.click(trigger)
     await wait(100)
 
@@ -510,7 +509,6 @@ export const TestNowPresetEmitsImmediately: StoryObj = {
     </div>
   `,
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
     const picker = canvasElement.querySelector('lukso-input-date-picker')
     const shadowRoot = picker.shadowRoot
 
@@ -519,7 +517,7 @@ export const TestNowPresetEmitsImmediately: StoryObj = {
       emittedEvents.push(e as CustomEvent)
     )
 
-    const trigger = canvas.getByRole('combobox')
+    const trigger = shadowRoot.querySelector('[role="combobox"]') as HTMLElement
     await userEvent.click(trigger)
     await wait(100)
 

@@ -1,4 +1,7 @@
 import { html, nothing } from 'lit-html'
+import { expect, userEvent, within } from '@storybook/test'
+
+import { wait } from '../../../.storybook/test-helpers'
 
 import type { Meta, StoryObj } from '@storybook/web-components-vite'
 
@@ -359,8 +362,12 @@ export const OpenTopRight: StoryObj = {
 
 /**
  * Preset selector with common time shortcuts.
- * Clicking a preset immediately resolves and emits the computed date.
- * Selecting "Pick a date…" opens the calendar for manual selection.
+ * Selecting "Now" or "Forever" emits the resolved value immediately.
+ * Selecting a relative preset (e.g. "In a month") opens the calendar pre-navigated
+ * to the resolved date so the user can fine-tune before confirming.
+ * The emitted `on-change` event carries both the chosen ISO date and the originating
+ * preset reference (`preset: { amount, unit }`).
+ * Selecting "Pick a date…" opens the calendar for fully manual selection.
  */
 export const WithPresets: StoryObj = {
   name: 'With Presets',
@@ -397,6 +404,102 @@ export const WithPresetsPreselected: StoryObj = {
     value: 'now',
     placeholder: 'Select time range…',
     label: 'Return after',
+  },
+}
+
+// ─── Interaction tests ───────────────────────────────────────────────────────
+
+const presetsForTests = JSON.stringify([
+  { label: 'Forever', time: 'forever' },
+  { label: 'Now', time: 'now' },
+  { label: 'In a month', time: { amount: 1, unit: 'month' } },
+  { label: 'Pick a date…', time: 'pick' },
+])
+
+/**
+ * Selecting a relative preset opens the calendar — no immediate emit.
+ * The display should show the formatted date after the user confirms.
+ */
+export const TestRelativePresetOpensPicker: StoryObj = {
+  name: 'Test: Relative preset opens calendar',
+  parameters: { docs: { disable: true } },
+  render: () => html`
+    <div style="padding: 20px; padding-bottom: 460px;">
+      <lukso-input-date-picker
+        presets=${presetsForTests}
+        placeholder="Select…"
+      ></lukso-input-date-picker>
+    </div>
+  `,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const picker = canvasElement.querySelector('lukso-input-date-picker')
+
+    const emittedEvents: CustomEvent[] = []
+    picker.addEventListener('on-change', (e: Event) =>
+      emittedEvents.push(e as CustomEvent)
+    )
+
+    // Open the preset dropdown
+    const trigger = canvas.getByRole('combobox')
+    await userEvent.click(trigger)
+    await wait(100)
+
+    // Click the relative preset option — should open calendar, NOT emit
+    const shadowRoot = picker.shadowRoot
+    const relativeOption = Array.from(
+      shadowRoot.querySelectorAll('lukso-dropdown-option')
+    ).find(el => el.textContent?.trim() === 'In a month')
+    await userEvent.click(relativeOption)
+    await wait(100)
+
+    expect(emittedEvents).toHaveLength(0)
+
+    // Calendar dropdown should now be open
+    const calendarDropdown = shadowRoot.querySelector(
+      'lukso-dropdown[is-open="true"], lukso-dropdown[is-open]'
+    )
+    expect(calendarDropdown).not.toBeNull()
+  },
+}
+
+/**
+ * Selecting "Now" emits immediately without opening the calendar.
+ */
+export const TestNowPresetEmitsImmediately: StoryObj = {
+  name: 'Test: "Now" preset emits immediately',
+  parameters: { docs: { disable: true } },
+  render: () => html`
+    <div style="padding: 20px; padding-bottom: 460px;">
+      <lukso-input-date-picker
+        presets=${presetsForTests}
+        placeholder="Select…"
+      ></lukso-input-date-picker>
+    </div>
+  `,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const picker = canvasElement.querySelector('lukso-input-date-picker')
+
+    const emittedEvents: CustomEvent[] = []
+    picker.addEventListener('on-change', (e: Event) =>
+      emittedEvents.push(e as CustomEvent)
+    )
+
+    const trigger = canvas.getByRole('combobox')
+    await userEvent.click(trigger)
+    await wait(100)
+
+    const shadowRoot = picker.shadowRoot
+    const nowOption = Array.from(
+      shadowRoot.querySelectorAll('lukso-dropdown-option')
+    ).find(el => el.textContent?.trim() === 'Now')
+    await userEvent.click(nowOption)
+    await wait(100)
+
+    expect(emittedEvents).toHaveLength(1)
+    expect(emittedEvents[0].detail.preset).toBe('now')
+    expect(emittedEvents[0].detail.value).toBeTruthy()
   },
 }
 

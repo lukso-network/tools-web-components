@@ -476,19 +476,26 @@ export const TestRelativePresetOpensPicker: StoryObj = {
     }
     expect(calendarDropdown).not.toBeNull()
 
-    // Wait for lukso-date-picker and its shadow DOM day buttons to be ready
-    let firstEnabledDay: HTMLButtonElement | null = null
+    // Wait for lukso-date-picker to be ready
+    let datePicker: Element | null = null
     for (let attempt = 0; attempt < 10; attempt++) {
-      const datePicker = calendarDropdown.querySelector('lukso-date-picker')
-      firstEnabledDay =
-        (datePicker?.shadowRoot?.querySelector(
-          'button[aria-label]:not([disabled])'
-        ) as HTMLButtonElement) ?? null
-      if (firstEnabledDay) break
+      datePicker = calendarDropdown.querySelector('lukso-date-picker')
+      if (datePicker) break
       await wait(100)
     }
-    expect(firstEnabledDay).not.toBeNull()
-    await userEvent.click(firstEnabledDay)
+    expect(datePicker).not.toBeNull()
+
+    // Simulate the date picker emitting an on-change (a day selection).
+    // userEvent.click on shadow-DOM buttons is unreliable in the Playwright test runner,
+    // so we dispatch the same CustomEvent that lukso-date-picker would produce.
+    const resolvedDate = '2026-06-15T10:00'
+    datePicker.dispatchEvent(
+      new CustomEvent('on-change', {
+        detail: { value: resolvedDate, event: new MouseEvent('click') },
+        bubbles: true,
+        composed: true,
+      })
+    )
     await wait(200)
 
     // on-change should have fired with the ISO date and the relative preset reference

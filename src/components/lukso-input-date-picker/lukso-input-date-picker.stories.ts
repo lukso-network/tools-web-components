@@ -426,8 +426,10 @@ const presetsForTests = JSON.stringify([
 ])
 
 /**
- * Selecting a relative preset opens the calendar — no immediate emit.
- * The display should show the formatted date after the user confirms.
+ * Selecting a relative preset opens the calendar without emitting immediately.
+ * After the user confirms a date, `on-change` fires with the ISO date and the
+ * originating preset reference. The trigger displays the formatted date, not
+ * the preset label.
  */
 export const TestRelativePresetOpensPicker: StoryObj = {
   name: 'Test: Relative preset opens calendar',
@@ -437,12 +439,14 @@ export const TestRelativePresetOpensPicker: StoryObj = {
       <lukso-input-date-picker
         presets=${presetsForTests}
         placeholder="Select…"
+        show-time
       ></lukso-input-date-picker>
     </div>
   `,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const picker = canvasElement.querySelector('lukso-input-date-picker')
+    const shadowRoot = picker.shadowRoot
 
     const emittedEvents: CustomEvent[] = []
     picker.addEventListener('on-change', (e: Event) =>
@@ -454,8 +458,7 @@ export const TestRelativePresetOpensPicker: StoryObj = {
     await userEvent.click(trigger)
     await wait(100)
 
-    // Click the relative preset option — should open calendar, NOT emit
-    const shadowRoot = picker.shadowRoot
+    // Click the relative preset option — should open calendar, NOT emit yet
     const relativeOption = Array.from(
       shadowRoot.querySelectorAll('lukso-dropdown-option')
     ).find(el => el.textContent?.trim() === 'In a month')
@@ -465,10 +468,30 @@ export const TestRelativePresetOpensPicker: StoryObj = {
     expect(emittedEvents).toHaveLength(0)
 
     // Calendar dropdown should now be open
-    const calendarDropdown = shadowRoot.querySelector(
-      'lukso-dropdown[is-open="true"], lukso-dropdown[is-open]'
-    )
+    const calendarDropdown = shadowRoot.querySelector('lukso-dropdown[is-open]')
     expect(calendarDropdown).not.toBeNull()
+
+    // Confirm a date by clicking the first enabled day button inside the date picker shadow DOM
+    const datePicker = calendarDropdown.querySelector('lukso-date-picker')
+    const firstEnabledDay = datePicker.shadowRoot.querySelector(
+      'button[aria-label]:not([disabled])'
+    ) as HTMLButtonElement
+    expect(firstEnabledDay).not.toBeNull()
+    await userEvent.click(firstEnabledDay)
+    await wait(100)
+
+    // on-change should have fired with the ISO date and the relative preset reference
+    expect(emittedEvents).toHaveLength(1)
+    expect(emittedEvents[0].detail.value).toBeTruthy()
+    expect(emittedEvents[0].detail.preset).toMatchObject({
+      amount: 1,
+      unit: 'month',
+    })
+
+    // Trigger should now show a formatted date, not the preset label "In a month"
+    const displayText = trigger.textContent?.trim()
+    expect(displayText).not.toBe('In a month')
+    expect(displayText).toBeTruthy()
   },
 }
 
@@ -489,6 +512,7 @@ export const TestNowPresetEmitsImmediately: StoryObj = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const picker = canvasElement.querySelector('lukso-input-date-picker')
+    const shadowRoot = picker.shadowRoot
 
     const emittedEvents: CustomEvent[] = []
     picker.addEventListener('on-change', (e: Event) =>
@@ -499,16 +523,20 @@ export const TestNowPresetEmitsImmediately: StoryObj = {
     await userEvent.click(trigger)
     await wait(100)
 
-    const shadowRoot = picker.shadowRoot
     const nowOption = Array.from(
       shadowRoot.querySelectorAll('lukso-dropdown-option')
     ).find(el => el.textContent?.trim() === 'Now')
     await userEvent.click(nowOption)
     await wait(100)
 
+    // Emits immediately with the resolved date and "now" preset reference
     expect(emittedEvents).toHaveLength(1)
     expect(emittedEvents[0].detail.preset).toBe('now')
     expect(emittedEvents[0].detail.value).toBeTruthy()
+
+    // Calendar must NOT have opened
+    const calendarDropdown = shadowRoot.querySelector('lukso-dropdown[is-open]')
+    expect(calendarDropdown).toBeNull()
   },
 }
 

@@ -455,29 +455,41 @@ export const TestRelativePresetOpensPicker: StoryObj = {
     // Open the preset dropdown via the shadow-DOM trigger div
     const trigger = shadowRoot.querySelector('[role="combobox"]') as HTMLElement
     await userEvent.click(trigger)
-    await wait(100)
+    await wait(200)
 
     // Click the relative preset option — should open calendar, NOT emit yet
     const relativeOption = Array.from(
       shadowRoot.querySelectorAll('lukso-dropdown-option')
     ).find(el => el.textContent?.trim() === 'In a month')
+    expect(relativeOption).not.toBeNull()
     await userEvent.click(relativeOption)
-    await wait(100)
+    await wait(200)
 
     expect(emittedEvents).toHaveLength(0)
 
-    // Calendar dropdown should now be open
-    const calendarDropdown = shadowRoot.querySelector('lukso-dropdown[is-open]')
+    // Wait for the calendar dropdown to appear (Lit re-render is async)
+    let calendarDropdown: Element | null = null
+    for (let attempt = 0; attempt < 10; attempt++) {
+      calendarDropdown = shadowRoot.querySelector('lukso-dropdown[is-open=""]')
+      if (calendarDropdown) break
+      await wait(100)
+    }
     expect(calendarDropdown).not.toBeNull()
 
-    // Confirm a date by clicking the first enabled day button inside the date picker shadow DOM
-    const datePicker = calendarDropdown.querySelector('lukso-date-picker')
-    const firstEnabledDay = datePicker.shadowRoot.querySelector(
-      'button[aria-label]:not([disabled])'
-    ) as HTMLButtonElement
+    // Wait for lukso-date-picker and its shadow DOM day buttons to be ready
+    let firstEnabledDay: HTMLButtonElement | null = null
+    for (let attempt = 0; attempt < 10; attempt++) {
+      const datePicker = calendarDropdown.querySelector('lukso-date-picker')
+      firstEnabledDay =
+        (datePicker?.shadowRoot?.querySelector(
+          'button[aria-label]:not([disabled])'
+        ) as HTMLButtonElement) ?? null
+      if (firstEnabledDay) break
+      await wait(100)
+    }
     expect(firstEnabledDay).not.toBeNull()
     await userEvent.click(firstEnabledDay)
-    await wait(100)
+    await wait(200)
 
     // on-change should have fired with the ISO date and the relative preset reference
     expect(emittedEvents).toHaveLength(1)

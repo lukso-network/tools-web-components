@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.198.0](https://github.com/lukso-network/tools-web-components/compare/v1.197.1...v1.198.0) (2026-05-06)
+
+
+### Features
+
+* Add input variant ([#880](https://github.com/lukso-network/tools-web-components/issues/880)) ([a49aa92](https://github.com/lukso-network/tools-web-components/commit/a49aa92710f9ae8dc280128173477bf572ed082a))
+
 ## [1.197.1](https://github.com/lukso-network/tools-web-components/compare/v1.197.0...v1.197.1) (2026-05-04)
 
 

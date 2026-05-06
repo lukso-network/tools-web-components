@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.199.0](https://github.com/lukso-network/tools-web-components/compare/v1.198.0...v1.199.0) (2026-05-06)
+
+
+### Features
+
+* Relative presets open date picker for user adjustment ([#882](https://github.com/lukso-network/tools-web-components/issues/882)) ([831d8f1](https://github.com/lukso-network/tools-web-components/commit/831d8f1a2f13a4657b8bee75545b67fb4a5d2675))
+
 ## [1.198.0](https://github.com/lukso-network/tools-web-components/compare/v1.197.1...v1.198.0) (2026-05-06)
 
 

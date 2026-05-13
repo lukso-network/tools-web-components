@@ -256,7 +256,8 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     const changed = changedProperties as Map<string, unknown>
     if (
       changed.has('searchQuery') ||
-      changed.has('optionsParsed') ||
+      changedProperties.has('options') ||
+      changedProperties.has('hasSearch') ||
       (changedProperties.has('isOpen') && !this.isOpen)
     ) {
       this.visibleOptions =
@@ -271,6 +272,9 @@ export class LuksoSelect extends TailwindStyledElement(style) {
               )
             })
           : this.optionsParsed
+
+      // reset keyboard selection when the visible list changes to avoid out-of-range access
+      this.selected = undefined
     }
 
     if (changedProperties.has('value') && !!this.value) {

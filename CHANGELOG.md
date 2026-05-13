@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.200.0](https://github.com/lukso-network/tools-web-components/compare/v1.199.0...v1.200.0) (2026-05-13)
+
+
+### Features
+
+* Add search to lukso-select ([#884](https://github.com/lukso-network/tools-web-components/issues/884)) ([61aa2ae](https://github.com/lukso-network/tools-web-components/commit/61aa2ae37bf9ac25eb17b72b979a81865e5598ba))
+
 ## [1.199.0](https://github.com/lukso-network/tools-web-components/compare/v1.198.0...v1.199.0) (2026-05-06)
 
 

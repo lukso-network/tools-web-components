@@ -154,6 +154,15 @@ const meta: Meta = {
       },
       type: { name: 'number' },
     },
+    hasSearch: {
+      name: 'has-search',
+      description:
+        'Show a search input at the top of the dropdown to filter options.',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -181,6 +190,9 @@ const meta: Meta = {
     'max-height': {
       name: 'maxHeight',
     },
+    'has-search': {
+      name: 'hasSearch',
+    },
   },
   args: {
     value: JSON.stringify({
@@ -202,6 +214,7 @@ const meta: Meta = {
     isLargeIcon: false,
     isRight: false,
     showSelectionCounter: false,
+    hasSearch: false,
     options: [
       {
         id: '1',
@@ -275,6 +288,7 @@ const Template = ({
   isRight,
   showSelectionCounter,
   maxHeight,
+  hasSearch,
 }) => {
   const [{ options, value }, updateArgs] = useArgs()
 
@@ -298,6 +312,7 @@ const Template = ({
     ?is-large-icon=${isLargeIcon}
     ?is-right=${isRight}
     ?show-selection-counter=${showSelectionCounter}
+    ?has-search=${hasSearch}
     selected=${selected ? selected : nothing}
     @on-select=${handleSelect}
     @on-blur=${onBlur}
@@ -546,6 +561,23 @@ export const FullWidthWithBadge = {
     ],
     value: JSON.stringify({ id: '2', value: 'Second result' }),
   },
+}
+
+/** Example of select with built-in search that filters the list. */
+export const WithSearch = Template.bind({})
+WithSearch.args = {
+  marginBottom: 220,
+  hasSearch: true,
+  options: [
+    { id: '1', value: 'Apple' },
+    { id: '2', value: 'Banana' },
+    { id: '3', value: 'Cherry' },
+    { id: '4', value: 'Durian' },
+    { id: '5', value: 'Elderberry' },
+    { id: '6', value: 'Fig' },
+    { id: '7', value: 'Grape' },
+  ],
+  value: '',
 }
 
 /** Example with `is-full-width`, secondary label and tooltip on options. The selected option's secondary value is shown next to the main value. */

@@ -10,6 +10,7 @@ import '@/components/lukso-profile'
 import '@/components/lukso-username'
 import '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
+import '@/components/lukso-input'
 import '@/components/lukso-sanitize'
 import '@/components/lukso-tooltip'
 import '@/components/lukso-form-label'
@@ -97,8 +98,17 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   @property({ type: Number, attribute: 'max-height', reflect: true })
   maxHeight: number | undefined
 
+  @property({ type: Boolean, attribute: 'has-search' })
+  hasSearch = false
+
   @state()
   private optionsParsed: SelectOption[] = []
+
+  @state()
+  private searchQuery = ''
+
+  @state()
+  private visibleOptions: SelectOption[] = []
 
   @state()
   private valueParsed: SelectOption[] | undefined = undefined
@@ -230,6 +240,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       }
     }
 
+    if (changedProperties.has('isOpen') && !this.isOpen) {
+      this.searchQuery = ''
+    }
+
     if (changedProperties.has('options') && !!this.options) {
       try {
         this.optionsParsed = JSON.parse(this.options) as SelectOption[]
@@ -237,6 +251,26 @@ export class LuksoSelect extends TailwindStyledElement(style) {
         console.warn('Could not parse options', error)
         this.optionsParsed = []
       }
+    }
+
+    const changed = changedProperties as Map<string, unknown>
+    if (
+      changed.has('searchQuery') ||
+      changed.has('optionsParsed') ||
+      (changedProperties.has('isOpen') && !this.isOpen)
+    ) {
+      this.visibleOptions =
+        this.hasSearch && this.searchQuery
+          ? this.optionsParsed.filter(option => {
+              const query = this.searchQuery.toLowerCase()
+              return (
+                option.value?.toLowerCase().includes(query) ||
+                option.name?.toLowerCase().includes(query) ||
+                option.address?.toLowerCase().includes(query) ||
+                option.secondaryValue?.toLowerCase().includes(query)
+              )
+            })
+          : this.optionsParsed
     }
 
     if (changedProperties.has('value') && !!this.value) {
@@ -302,7 +336,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
     let _options = []
 
     // get list of groups names
-    const groups: string[] = this.optionsParsed.reduce((acc, option) => {
+    const groups: string[] = this.visibleOptions.reduce((acc, option) => {
       if (option.group && !acc.includes(option.group)) {
         acc.push(option.group)
       }
@@ -314,11 +348,11 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       for (const group of groups) {
         _options.push({
           group,
-          values: this.optionsParsed.filter(option => option.group === group),
+          values: this.visibleOptions.filter(option => option.group === group),
         })
       }
     } else {
-      _options = this.optionsParsed
+      _options = this.visibleOptions
     }
 
     for (const option of Object.entries(_options)) {
@@ -331,6 +365,29 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       }
     }
 
+    const searchInputTemplate = this.hasSearch
+      ? html`<lukso-input
+          placeholder="Search..."
+          right-icon="search"
+          size=${this.size === 'small' ? 'small' : 'medium'}
+          .value=${this.searchQuery}
+          is-full-width
+          autofocus
+          @on-input=${(event: CustomEvent<{ value: string }>) => {
+            this.searchQuery = event.detail.value
+          }}
+        ></lukso-input>`
+      : nothing
+
+    const noResultsTemplate =
+      this.hasSearch && this.searchQuery && this.visibleOptions.length === 0
+        ? html`<div
+            class="text-neutral-60 italic paragraph-inter-14-regular px-1 pt-2 pb-0.5"
+          >
+            No results found
+          </div>`
+        : nothing
+
     return html`<lukso-dropdown
       size=${this.size}
       is-open
@@ -339,7 +396,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       ?is-full-width=${this.isFullWidth}
       ?is-right=${this.isRight}
       ?open-top=${this.openTop}
-      >${optionTemplates}</lukso-dropdown
+      >${searchInputTemplate}${noResultsTemplate}${optionTemplates}</lukso-dropdown
     >`
   }
 
@@ -529,21 +586,21 @@ export class LuksoSelect extends TailwindStyledElement(style) {
 
     if (
       event.key === 'ArrowDown' &&
-      this.optionsParsed?.length &&
+      this.visibleOptions?.length &&
       this.isOpen
     ) {
       event.preventDefault()
 
       if (!this.selected) {
         this.selected = 1
-      } else if (this.selected < this.optionsParsed.length) {
+      } else if (this.selected < this.visibleOptions.length) {
         this.selected = this.selected + 1
       }
     }
 
     if (event.key === 'Enter' && this.isOpen) {
-      if (this.optionsParsed?.length && this.selected) {
-        const selectedResult = this.optionsParsed[this.selected - 1]
+      if (this.visibleOptions?.length && this.selected) {
+        const selectedResult = this.visibleOptions[this.selected - 1]
         await this.handleSelect(selectedResult)
       }
     }

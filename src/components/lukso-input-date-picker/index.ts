@@ -467,6 +467,9 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
 
     if (preset.time === 'now' || preset.time === 'forever') {
       this._activePreset = preset
+      this._pendingPreset = null
+      this._presetDateConfirmed = false
+      this._internalValueBeforePending = undefined
       const resolvedDate = this._resolvePresetTime(preset.time)
       this._internalValue = resolvedDate
       this.dispatchEvent(

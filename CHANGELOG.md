@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.200.1](https://github.com/lukso-network/tools-web-components/compare/v1.200.0...v1.200.1) (2026-05-15)
+
+
+### Bug Fixes
+
+* Date picker value clears when user set time and click to close dropdown ([#886](https://github.com/lukso-network/tools-web-components/issues/886)) ([584f884](https://github.com/lukso-network/tools-web-components/commit/584f884acf3cc7faa215c67510ea87260cf9c74d))
+
 ## [1.200.0](https://github.com/lukso-network/tools-web-components/compare/v1.199.0...v1.200.0) (2026-05-13)
 
 

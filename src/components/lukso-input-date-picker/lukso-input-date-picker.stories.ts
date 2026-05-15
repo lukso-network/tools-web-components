@@ -558,6 +558,88 @@ export const TestNowPresetEmitsImmediately: StoryObj = {
 }
 
 /**
+ * Regression: selecting a relative preset, adjusting time only (no day click),
+ * then clicking outside should commit the adjusted value — not restore the original.
+ */
+export const TestRelativePresetTimeAdjustOutsideClick: StoryObj = {
+  name: 'Test: Time-only change + outside click commits value',
+  parameters: { docs: { disable: true } },
+  render: () => html`
+    <div style="padding: 20px; padding-bottom: 460px;">
+      <lukso-input-date-picker
+        presets=${presetsForTests}
+        placeholder="Select…"
+        show-time
+      ></lukso-input-date-picker>
+    </div>
+  `,
+  play: async ({ canvasElement }) => {
+    const picker = canvasElement.querySelector('lukso-input-date-picker')
+    const shadowRoot = picker.shadowRoot
+
+    const emittedEvents: CustomEvent[] = []
+    picker.addEventListener('on-change', (e: Event) =>
+      emittedEvents.push(e as CustomEvent)
+    )
+
+    // Open the preset dropdown
+    const trigger = shadowRoot.querySelector('[role="combobox"]') as HTMLElement
+    await userEvent.click(trigger)
+    await wait(200)
+
+    // Select the relative preset — opens calendar, no emit yet
+    const relativeOption = Array.from(
+      shadowRoot.querySelectorAll('lukso-dropdown-option')
+    ).find(el => el.textContent?.trim() === 'In a month')
+    await userEvent.click(relativeOption)
+    await wait(200)
+
+    expect(emittedEvents).toHaveLength(0)
+
+    // Wait for calendar to open
+    let calendarDropdown: Element | null = null
+    for (let attempt = 0; attempt < 10; attempt++) {
+      calendarDropdown = shadowRoot.querySelector('lukso-dropdown[is-open=""]')
+      if (calendarDropdown) break
+      await wait(100)
+    }
+    expect(calendarDropdown).not.toBeNull()
+
+    let datePicker: Element | null = null
+    for (let attempt = 0; attempt < 10; attempt++) {
+      datePicker = calendarDropdown.querySelector('lukso-date-picker')
+      if (datePicker) break
+      await wait(100)
+    }
+    expect(datePicker).not.toBeNull()
+
+    // Simulate a time-only change (not a MouseEvent click on a day) — calendar stays open
+    const adjustedDate = '2026-06-15T15:30'
+    datePicker.dispatchEvent(
+      new CustomEvent('on-change', {
+        detail: { value: adjustedDate, event: new Event('change') },
+        bubbles: true,
+        composed: true,
+      })
+    )
+    await wait(200)
+
+    // on-change should have emitted with the adjusted value
+    expect(emittedEvents).toHaveLength(1)
+    expect(emittedEvents[0].detail.value).toBe(adjustedDate)
+
+    // Simulate outside click — should commit, not restore
+    document.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    await wait(200)
+
+    // Value must still be the adjusted date, not the original empty/pre-preset value
+    const displayText = trigger.textContent?.trim()
+    expect(displayText).toBeTruthy()
+    expect(displayText).not.toBe('Select…')
+  },
+}
+
+/**
  * Two date pickers side by side — use this to verify that opening one
  * closes the other and that outside-click works correctly.
  */

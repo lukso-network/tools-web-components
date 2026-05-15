@@ -159,6 +159,8 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   @state() private _pendingPreset: DatePickerPreset | null = null
   /** Snapshot of `_internalValue` taken before a relative preset opens the calendar, used to restore on cancel. */
   private _internalValueBeforePending?: string
+  /** True once the user has interacted with the calendar (date or time change) while a pending preset is active. */
+  private _presetDateConfirmed = false
 
   private readonly _inputId = uniqId()
   private _boundOutsideClick?: (e: Event) => void
@@ -428,8 +430,13 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       this._isOpen = false
       this._isPresetOpen = false
       if (this._pendingPreset) {
-        this._internalValue = this._internalValueBeforePending
+        if (this._presetDateConfirmed) {
+          this._activePreset = this._pendingPreset
+        } else {
+          this._internalValue = this._internalValueBeforePending
+        }
         this._pendingPreset = null
+        this._presetDateConfirmed = false
         this._internalValueBeforePending = undefined
       }
     }
@@ -460,6 +467,9 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
 
     if (preset.time === 'now' || preset.time === 'forever') {
       this._activePreset = preset
+      this._pendingPreset = null
+      this._presetDateConfirmed = false
+      this._internalValueBeforePending = undefined
       const resolvedDate = this._resolvePresetTime(preset.time)
       this._internalValue = resolvedDate
       this.dispatchEvent(
@@ -484,6 +494,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
     // _activePreset is intentionally left unset until the user confirms.
     this._internalValueBeforePending = this._internalValue
     this._pendingPreset = preset
+    this._presetDateConfirmed = false
     this._activePreset = null
     this._internalValue = this._resolvePresetTime(preset.time)
     this._isOpen = true
@@ -498,6 +509,9 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
    */
   private _handleDatePickerChange(e: CustomEvent) {
     this._internalValue = e.detail.value as string
+    if (this._pendingPreset) {
+      this._presetDateConfirmed = true
+    }
     const shouldClose =
       !this.showTime ||
       (e.detail.event instanceof MouseEvent && e.detail.event.type === 'click')
@@ -506,6 +520,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       if (this._pendingPreset) {
         this._activePreset = this._pendingPreset
         this._pendingPreset = null
+        this._presetDateConfirmed = false
         this._internalValueBeforePending = undefined
       }
     }

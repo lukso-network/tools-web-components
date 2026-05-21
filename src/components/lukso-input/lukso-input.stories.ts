@@ -165,6 +165,13 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    isUnitClickable: {
+      name: 'is-unit-clickable',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     keepFocusOnEscape: {
       name: 'keep-focus-on-escape',
       control: { type: 'boolean' },
@@ -271,6 +278,9 @@ const meta: Meta = {
     'is-right-icon-clickable': {
       name: 'isRightIconClickable',
     },
+    'is-unit-clickable': {
+      name: 'isUnitClickable',
+    },
     'keep-focus-on-escape': {
       name: 'keepFocusOnEscape',
     },
@@ -285,6 +295,7 @@ const meta: Meta = {
     autofocus: false,
     borderless: false,
     isRightIconClickable: false,
+    isUnitClickable: false,
     keepFocusOnEscape: false,
     rules: [],
     variant: 'default',
@@ -316,6 +327,7 @@ const meta: Meta = {
         'rightIcon',
         'styles',
         'isRightIconClickable',
+        'isUnitClickable',
         'keepFocusOnEscape',
       ],
     },
@@ -353,6 +365,7 @@ const Template = ({
   size,
   rightIcon,
   isRightIconClickable,
+  isUnitClickable,
   keepFocusOnEscape,
   rules,
   variant,
@@ -379,6 +392,7 @@ const Template = ({
     ?is-disabled=${isDisabled}
     ?borderless=${borderless}
     ?is-right-icon-clickable=${isRightIconClickable}
+    ?is-unit-clickable=${isUnitClickable}
     ?keep-focus-on-escape=${keepFocusOnEscape}
     .rules=${rules}
     @on-key-up=${onKeyUp}
@@ -411,10 +425,17 @@ FormDecorators.args = {
   error: 'Error <i>message</i>',
 }
 
-/** Example of input with `unit`. */
+/** Example of input with a decorative `unit` label (no pointer cursor). */
 export const Unit = Template.bind({})
 Unit.args = {
-  unit: 'unit',
+  unit: 'ETH',
+}
+
+/** Example of input with a clickable `unit`. Add `is-unit-clickable` to show a pointer cursor and enable the `on-unit-click` event. */
+export const UnitClickable = Template.bind({})
+UnitClickable.args = {
+  unit: 'ETH',
+  isUnitClickable: true,
 }
 
 /** If you need input to take full width of the parent element add `is-full-width` property. */

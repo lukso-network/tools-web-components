@@ -94,6 +94,10 @@ export class LuksoInput extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-right-icon-clickable' })
   isRightIconClickable = false
 
+  /** Controls whether the unit shows a pointer cursor and emits on-unit-click. Without this, the unit is purely decorative. */
+  @property({ type: Boolean, attribute: 'is-unit-clickable' })
+  isUnitClickable = false
+
   @property({ type: Boolean, attribute: 'keep-focus-on-escape' })
   keepFocusOnEscape = false
 
@@ -116,7 +120,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
         outline-none transition transition-all duration-150 appearance-none`,
       unit: `text-neutral-60 flex items-center relative border-solid transition
         transition-all duration-150 before:bg-neutral-90 before:absolute
-        before:left-0 before:w-[1px] whitespace-nowrap cursor-pointer`,
+        before:left-0 before:w-[1px] whitespace-nowrap`,
       rightIcon: 'absolute top-1/2 transform -translate-y-1/2',
     },
     variants: {
@@ -185,6 +189,9 @@ export class LuksoInput extends TailwindStyledElement(style) {
       isRightIconClickable: {
         true: { rightIcon: 'cursor-pointer' },
       },
+      isUnitClickable: {
+        true: { unit: 'cursor-pointer' },
+      },
       variant: {
         default: {
           input: 'bg-neutral-100',
@@ -197,6 +204,16 @@ export class LuksoInput extends TailwindStyledElement(style) {
       },
     },
     compoundVariants: [
+      {
+        isUnitClickable: true,
+        isDisabled: true,
+        class: { unit: 'cursor-not-allowed' },
+      },
+      {
+        isUnitClickable: true,
+        isReadonly: true,
+        class: { unit: 'cursor-not-allowed' },
+      },
       {
         isFullWidth: false,
         hasUnit: true,
@@ -284,7 +301,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
       class=${styles}
       @mouseenter=${this.handleMouseOver}
       @mouseleave=${this.handleMouseOut}
-      @click=${this.handleUnitClick}
+      @click=${this.isUnitClickable ? this.handleUnitClick : nothing}
     >
       ${this.unit}
     </div>`
@@ -459,6 +476,9 @@ export class LuksoInput extends TailwindStyledElement(style) {
   }
 
   private handleUnitClick() {
+    if (this.isDisabled || this.isReadonly) {
+      return
+    }
     const input = this.shadowRoot?.querySelector('input')
     const clickEvent = new CustomEvent('on-unit-click', {
       detail: {
@@ -509,6 +529,7 @@ export class LuksoInput extends TailwindStyledElement(style) {
       size: this.size,
       hasRightIcon: !!this.rightIcon,
       isRightIconClickable: this.isRightIconClickable,
+      isUnitClickable: this.isUnitClickable,
       variant: this.variant,
     })
 

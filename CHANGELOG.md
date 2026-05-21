@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.201.0](https://github.com/lukso-network/tools-web-components/compare/v1.200.1...v1.201.0) (2026-05-21)
+
+
+### Features
+
+* Add is-unit-clickable property to lukso-input ([#889](https://github.com/lukso-network/tools-web-components/issues/889)) ([4644a68](https://github.com/lukso-network/tools-web-components/commit/4644a684c3bb3b9dce301e91cfc218c1a86ec0af))
+
 ## [1.200.1](https://github.com/lukso-network/tools-web-components/compare/v1.200.0...v1.200.1) (2026-05-15)
 
 

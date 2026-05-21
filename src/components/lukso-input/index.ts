@@ -205,6 +205,16 @@ export class LuksoInput extends TailwindStyledElement(style) {
     },
     compoundVariants: [
       {
+        isUnitClickable: true,
+        isDisabled: true,
+        class: { unit: 'cursor-not-allowed' },
+      },
+      {
+        isUnitClickable: true,
+        isReadonly: true,
+        class: { unit: 'cursor-not-allowed' },
+      },
+      {
         isFullWidth: false,
         hasUnit: true,
         class: { wrapper: 'w-[300px]' },
@@ -466,6 +476,9 @@ export class LuksoInput extends TailwindStyledElement(style) {
   }
 
   private handleUnitClick() {
+    if (this.isDisabled || this.isReadonly) {
+      return
+    }
     const input = this.shadowRoot?.querySelector('input')
     const clickEvent = new CustomEvent('on-unit-click', {
       detail: {

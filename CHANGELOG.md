@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.201.1](https://github.com/lukso-network/tools-web-components/compare/v1.201.0...v1.201.1) (2026-05-22)
+
+
+### Bug Fixes
+
+* Timeline component fixes ([#891](https://github.com/lukso-network/tools-web-components/issues/891)) ([105aebc](https://github.com/lukso-network/tools-web-components/commit/105aebc8165820d3ad4ed87c58a3c3016af24365))
+
 ## [1.201.0](https://github.com/lukso-network/tools-web-components/compare/v1.200.1...v1.201.0) (2026-05-21)
 
 

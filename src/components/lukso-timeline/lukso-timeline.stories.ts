@@ -43,15 +43,13 @@ const Template = ({
   startDate,
   endDate,
 }: {
-  startDate: string
+  startDate?: string
   endDate?: string
 }) =>
-  endDate
-    ? html`<lukso-timeline
-        start-date=${startDate}
-        end-date=${endDate}
-      ></lukso-timeline>`
-    : html`<lukso-timeline start-date=${startDate}></lukso-timeline>`
+  html`<lukso-timeline
+    start-date=${startDate ?? ''}
+    end-date=${endDate ?? ''}
+  ></lukso-timeline>`
 
 // ── Template: start → end ──────────────────────────────────────────────────
 
@@ -111,4 +109,22 @@ ForeverFromPast.args = {
 export const ForeverFromNow = Template.bind({})
 ForeverFromNow.args = {
   startDate: relDate(0),
+}
+
+// ── Template: creation → forever ──────────────────────────────────────────────
+
+/**
+ * Forever mode — no start date (creation).
+ * Left side shows "Creation" label; dot sits on the vertical start tick.
+ */
+export const ForeverFromCreation = Template.bind({})
+ForeverFromCreation.args = {}
+
+/**
+ * With end date — no start date (creation).
+ * Left side shows "Creation" label; right side shows the end date.
+ */
+export const EndDateFromCreation = Template.bind({})
+EndDateFromCreation.args = {
+  endDate: relDate(5 * DateMs),
 }

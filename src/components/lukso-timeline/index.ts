@@ -256,7 +256,7 @@ export class LuksoTimeline extends withIntlService(
         <div></div>
         <!-- inner area between the ticks: date | arrow | date -->
         <div
-          class="grid px-3 sm:px-4 md:px-5 "
+          class="grid px-3 sm:px-4 md:px-5"
           style="grid-template-columns: 1fr auto 1fr"
         >
           <div class="flex flex-col items-start min-w-0">${startLabel}</div>

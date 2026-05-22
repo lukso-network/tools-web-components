@@ -155,7 +155,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   @state() private _presetsParsed: DatePickerPreset[] = []
   @state() private _activePreset: DatePickerPreset | null = null
   @state() private _isPresetOpen = false
-  /** Holds the preset that triggered an open-calendar flow for relative presets, until the user confirms a date. */
+  /** Holds the preset that triggered an open-calendar flow for relative presets, until the user confirms a date from the calendar or clicks outside. */
   @state() private _pendingPreset: DatePickerPreset | null = null
 
   private readonly _inputId = uniqId()
@@ -471,8 +471,8 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
    * - `pick`: open blank calendar (existing behaviour).
    * - Relative object presets: open the calendar pre-navigated to the resolved
    *   date so the user can adjust before confirming. The preset is stored in
-   *   `_pendingPreset` and adopted into `_activePreset` only once the user
-   *   picks a date from the calendar.
+   *   `_pendingPreset` and adopted into `_activePreset` once the user picks a
+   *   date from the calendar or clicks outside (which commits the pre-filled date).
    */
   private _handlePresetSelect(preset: DatePickerPreset, event: Event) {
     this._isPresetOpen = false

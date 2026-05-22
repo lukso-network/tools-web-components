@@ -50,17 +50,17 @@ export class LuksoTimeline extends withIntlService(
     if (this._startIsCreation) return 'in-range'
     const now = Date.now()
     const start = new Date(this.startDate).getTime()
-    if (isNaN(start) || now < start) return 'before-start'
+    if (Number.isNaN(start) || now < start) return 'before-start'
     if (!this.endDate) return 'in-range'
     const end = new Date(this.endDate).getTime()
-    if (!isNaN(end) && now > end) return 'after-end'
+    if (!Number.isNaN(end) && now > end) return 'after-end'
     return 'in-range'
   }
 
   private get _startIsNow(): boolean {
     if (!this.startDate) return false
     const start = new Date(this.startDate).getTime()
-    return !isNaN(start) && Math.abs(Date.now() - start) < 60_000
+    return !Number.isNaN(start) && Math.abs(Date.now() - start) < 60_000
   }
 
   private get _progressPercent(): number {
@@ -68,7 +68,7 @@ export class LuksoTimeline extends withIntlService(
     const now = Date.now()
     const start = new Date(this.startDate).getTime()
     const end = new Date(this.endDate).getTime()
-    if (isNaN(start) || isNaN(end) || end <= start) return 0
+    if (Number.isNaN(start) || Number.isNaN(end) || end <= start) return 0
     if (now <= start) return 0
     if (now >= end) return 100
     return ((now - start) / (end - start)) * 100
@@ -156,7 +156,9 @@ export class LuksoTimeline extends withIntlService(
   ) {
     const barLeft = this._startIsNow || dotOnStartTick ? 'left-3' : 'left-[10%]'
     const barRight = isForever ? 'right-[1%]' : 'right-[10%]'
-    const dotLeft = this._startIsNow || dotOnStartTick ? barLeft : 'left-0'
+    const dotOnTick = this._startIsNow || dotOnStartTick
+    const dotLeft = dotOnTick ? barLeft : 'left-0'
+    const dotTranslateX = dotOnTick ? '-translate-x-1/2' : ''
     return html`
       <div class="relative flex items-center w-full h-6 sm:h-10">
         <!-- Track line full-width -->
@@ -166,7 +168,7 @@ export class LuksoTimeline extends withIntlService(
 
         <!-- Left endpoint dot -->
         <div
-          class="absolute ${dotLeft} top-[53%] -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
+          class="absolute ${dotLeft} top-[53%] ${dotTranslateX} -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-85 z-10"
         ></div>
 
         <!-- Progress bar -->
@@ -408,7 +410,7 @@ export class LuksoTimeline extends withIntlService(
 
   render() {
     const hasValidEndDate =
-      !!this.endDate && !isNaN(new Date(this.endDate).getTime())
+      !!this.endDate && !Number.isNaN(new Date(this.endDate).getTime())
     return html`
       <div class="flex w-full">
         ${hasValidEndDate ? this.endDateTemplate() : this.foreverTemplate()}

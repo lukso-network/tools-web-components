@@ -160,7 +160,7 @@ export class LuksoTimeline extends withIntlService(
     const dotLeft = dotOnTick ? barLeft : 'left-0'
     const dotTranslateX = dotOnTick ? '-translate-x-1/2' : ''
     return html`
-      <div class="relative flex items-center w-full h-6 sm:h-10">
+      <div class="relative flex items-center w-full h-6 sm:h-8 md:h-10">
         <!-- Track line full-width -->
         <div
           class="absolute inset-x-0 top-[53%] -translate-y-1/2 h-px bg-neutral-85"
@@ -249,14 +249,14 @@ export class LuksoTimeline extends withIntlService(
   ) {
     return html`
       <div
-        class="grid w-full"
+        class="grid w-full min-h-14"
         style="grid-template-columns: ${leftOffset} 1fr ${rightOffset}"
       >
         <!-- spacer matching left tick offset -->
         <div></div>
         <!-- inner area between the ticks: date | arrow | date -->
         <div
-          class="grid pt-1 pl-2 pr-2 sm:pl-6 sm:pr-6"
+          class="grid px-3 sm:px-4 md:px-5"
           style="grid-template-columns: 1fr auto 1fr"
         >
           <div class="flex flex-col items-start min-w-0">${startLabel}</div>

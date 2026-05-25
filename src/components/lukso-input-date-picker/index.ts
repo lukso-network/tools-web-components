@@ -155,12 +155,8 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   @state() private _presetsParsed: DatePickerPreset[] = []
   @state() private _activePreset: DatePickerPreset | null = null
   @state() private _isPresetOpen = false
-  /** Holds the preset that triggered an open-calendar flow for relative presets, until the user confirms a date. */
+  /** Holds the preset that triggered an open-calendar flow for relative presets, until the user confirms a date from the calendar or clicks outside. */
   @state() private _pendingPreset: DatePickerPreset | null = null
-  /** Snapshot of `_internalValue` taken before a relative preset opens the calendar, used to restore on cancel. */
-  private _internalValueBeforePending?: string
-  /** True once the user has interacted with the calendar (date or time change) while a pending preset is active. */
-  private _presetDateConfirmed = false
 
   private readonly _inputId = uniqId()
   private _boundOutsideClick?: (e: Event) => void
@@ -425,19 +421,35 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
     event.stopPropagation()
   }
 
+  /**
+   * Closes open dropdowns when the user clicks outside this component.
+   *
+   * When a relative preset is pending (calendar open after preset selection),
+   * clicking outside always commits the resolved date — the preset pre-fills
+   * the date immediately, so outside click means "confirm as-is".
+   */
   private _handleOutsideClick(event: Event) {
     if (!event.composedPath().includes(this)) {
       this._isOpen = false
       this._isPresetOpen = false
       if (this._pendingPreset) {
-        if (this._presetDateConfirmed) {
-          this._activePreset = this._pendingPreset
-        } else {
-          this._internalValue = this._internalValueBeforePending
-        }
+        const committedPreset = this._pendingPreset
+        this._activePreset = committedPreset
         this._pendingPreset = null
-        this._presetDateConfirmed = false
-        this._internalValueBeforePending = undefined
+        this.dispatchEvent(
+          new CustomEvent<LuksoInputDatePickerOnChangeEventDetail>(
+            'on-change',
+            {
+              detail: {
+                value: this._internalValue ?? '',
+                preset: committedPreset.time,
+                event,
+              },
+              bubbles: true,
+              composed: true,
+            }
+          )
+        )
       }
     }
   }
@@ -459,8 +471,8 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
    * - `pick`: open blank calendar (existing behaviour).
    * - Relative object presets: open the calendar pre-navigated to the resolved
    *   date so the user can adjust before confirming. The preset is stored in
-   *   `_pendingPreset` and adopted into `_activePreset` only once the user
-   *   picks a date from the calendar.
+   *   `_pendingPreset` and adopted into `_activePreset` once the user picks a
+   *   date from the calendar or clicks outside (which commits the pre-filled date).
    */
   private _handlePresetSelect(preset: DatePickerPreset, event: Event) {
     this._isPresetOpen = false
@@ -468,8 +480,6 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
     if (preset.time === 'now' || preset.time === 'forever') {
       this._activePreset = preset
       this._pendingPreset = null
-      this._presetDateConfirmed = false
-      this._internalValueBeforePending = undefined
       const resolvedDate = this._resolvePresetTime(preset.time)
       this._internalValue = resolvedDate
       this.dispatchEvent(
@@ -490,11 +500,8 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
     }
 
     // Relative object preset — open calendar pre-navigated to the resolved date.
-    // Snapshot the current value so it can be restored if the user cancels.
-    // _activePreset is intentionally left unset until the user confirms.
-    this._internalValueBeforePending = this._internalValue
+    // _activePreset is left unset until the user confirms a date or clicks outside.
     this._pendingPreset = preset
-    this._presetDateConfirmed = false
     this._activePreset = null
     this._internalValue = this._resolvePresetTime(preset.time)
     this._isOpen = true
@@ -509,9 +516,6 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
    */
   private _handleDatePickerChange(e: CustomEvent) {
     this._internalValue = e.detail.value as string
-    if (this._pendingPreset) {
-      this._presetDateConfirmed = true
-    }
     const shouldClose =
       !this.showTime ||
       (e.detail.event instanceof MouseEvent && e.detail.event.type === 'click')
@@ -520,8 +524,6 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
       if (this._pendingPreset) {
         this._activePreset = this._pendingPreset
         this._pendingPreset = null
-        this._presetDateConfirmed = false
-        this._internalValueBeforePending = undefined
       }
     }
     this.dispatchEvent(

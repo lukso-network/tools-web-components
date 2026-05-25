@@ -628,11 +628,74 @@ export const TestRelativePresetTimeAdjustOutsideClick: StoryObj = {
     expect(emittedEvents).toHaveLength(1)
     expect(emittedEvents[0].detail.value).toBe(adjustedDate)
 
-    // Simulate outside click — should commit, not restore
+    // Simulate outside click — should commit the adjusted date and emit again
     document.dispatchEvent(new MouseEvent('click', { bubbles: true }))
     await wait(200)
 
-    // Value must still be the adjusted date, not the original empty/pre-preset value
+    // Outside click emits on-change with the committed value
+    expect(emittedEvents).toHaveLength(2)
+    expect(emittedEvents[1].detail.value).toBe(adjustedDate)
+
+    // Trigger should display the adjusted date, not the placeholder
+    const displayText = trigger.textContent?.trim()
+    expect(displayText).toBeTruthy()
+    expect(displayText).not.toBe('Select…')
+  },
+}
+
+/**
+ * Regression: selecting a relative preset and immediately clicking outside
+ * (without interacting with the calendar) should commit the resolved date,
+ * not clear the input.
+ */
+export const TestRelativePresetOutsideClickWithoutCalendarCommits: StoryObj = {
+  name: 'Test: Relative preset + outside click (no calendar) commits date',
+  parameters: { docs: { disable: true } },
+  render: () => html`
+    <div style="padding: 20px; padding-bottom: 460px;">
+      <lukso-input-date-picker
+        presets=${presetsForTests}
+        placeholder="Select…"
+      ></lukso-input-date-picker>
+    </div>
+  `,
+  play: async ({ canvasElement }) => {
+    const picker = canvasElement.querySelector('lukso-input-date-picker')
+    const shadowRoot = picker.shadowRoot
+
+    const emittedEvents: CustomEvent[] = []
+    picker.addEventListener('on-change', (e: Event) =>
+      emittedEvents.push(e as CustomEvent)
+    )
+
+    // Open the preset dropdown
+    const trigger = shadowRoot.querySelector('[role="combobox"]') as HTMLElement
+    await userEvent.click(trigger)
+    await wait(200)
+
+    // Click the relative preset — calendar opens, no emit yet
+    const relativeOption = Array.from(
+      shadowRoot.querySelectorAll('lukso-dropdown-option')
+    ).find(el => el.textContent?.trim() === 'In a month')
+    expect(relativeOption).not.toBeNull()
+    await userEvent.click(relativeOption)
+    await wait(200)
+
+    expect(emittedEvents).toHaveLength(0)
+
+    // Simulate outside click without interacting with the calendar at all
+    document.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    await wait(200)
+
+    // Should have committed the resolved preset date and emitted on-change
+    expect(emittedEvents).toHaveLength(1)
+    expect(emittedEvents[0].detail.preset).toMatchObject({
+      amount: 1,
+      unit: 'month',
+    })
+    expect(emittedEvents[0].detail.value).toBeTruthy()
+
+    // Trigger must display a formatted date, not the placeholder
     const displayText = trigger.textContent?.trim()
     expect(displayText).toBeTruthy()
     expect(displayText).not.toBe('Select…')

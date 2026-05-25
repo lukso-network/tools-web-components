@@ -12,6 +12,7 @@ import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { cn } from '@/shared/tools'
 import style from './style.css?inline'
 import * as InputRules from './rules'
+export type { InputRuleName } from './rules'
 
 import type { InputSize, InputVariant } from '@/shared/types'
 

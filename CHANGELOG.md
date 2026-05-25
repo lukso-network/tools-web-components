@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.201.2](https://github.com/lukso-network/tools-web-components/compare/v1.201.1...v1.201.2) (2026-05-25)
+
+
+### Bug Fixes
+
+* Selecting preset in date picker clears value ([#894](https://github.com/lukso-network/tools-web-components/issues/894)) ([5503245](https://github.com/lukso-network/tools-web-components/commit/55032455407a28bf20b3405850eb334784d2988c))
+* Timeline label row height inconsistency ([#893](https://github.com/lukso-network/tools-web-components/issues/893)) ([b040b65](https://github.com/lukso-network/tools-web-components/commit/b040b6508fbc433104f4b0b2856a89b185c0600c))
+
 ## [1.201.1](https://github.com/lukso-network/tools-web-components/compare/v1.201.0...v1.201.1) (2026-05-22)
 
 

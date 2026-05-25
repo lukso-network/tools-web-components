@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.202.0](https://github.com/lukso-network/tools-web-components/compare/v1.201.2...v1.202.0) (2026-05-25)
+
+
+### Features
+
+* Export InputRuleName type from lukso-input ([#896](https://github.com/lukso-network/tools-web-components/issues/896)) ([188d143](https://github.com/lukso-network/tools-web-components/commit/188d143b2b00b36f34600dbda299651385075337))
+
 ## [1.201.2](https://github.com/lukso-network/tools-web-components/compare/v1.201.1...v1.201.2) (2026-05-25)
 
 

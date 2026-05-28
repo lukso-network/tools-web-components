@@ -296,6 +296,51 @@ CustomClass.args = {
 }
 
 /**
+ * Two rows each with a trigger button and dropdown, stacked vertically.
+ * Opening the first dropdown must render fully above the second row's button.
+ */
+export const StackingContext = () => html`
+  <div style="display: flex; flex-direction: column; gap: 8px; width: 200px;">
+    <div class="relative">
+      <lukso-button id="stacking-trigger-1">Item 1</lukso-button>
+      <lukso-dropdown
+        trigger-id="stacking-trigger-1"
+        position="bottom-left"
+        size="large"
+        ?is-open-on-outside-click=${true}
+      >
+        <lukso-dropdown-option
+          ><lukso-icon name="edit" class="mr-2"></lukso-icon
+          >Edit</lukso-dropdown-option
+        >
+        <lukso-dropdown-option
+          ><lukso-icon name="trash" class="mr-2"></lukso-icon
+          >Delete</lukso-dropdown-option
+        >
+      </lukso-dropdown>
+    </div>
+    <div class="relative">
+      <lukso-button id="stacking-trigger-2">Item 2</lukso-button>
+      <lukso-dropdown
+        trigger-id="stacking-trigger-2"
+        position="bottom-left"
+        size="large"
+        ?is-open-on-outside-click=${true}
+      >
+        <lukso-dropdown-option
+          ><lukso-icon name="edit" class="mr-2"></lukso-icon
+          >Edit</lukso-dropdown-option
+        >
+        <lukso-dropdown-option
+          ><lukso-icon name="trash" class="mr-2"></lukso-icon
+          >Delete</lukso-dropdown-option
+        >
+      </lukso-dropdown>
+    </div>
+  </div>
+`
+
+/**
  * Scroll horizontally or vertically to move the button across the viewport midpoint —
  * the dropdown flips left/right and up/down automatically.
  */

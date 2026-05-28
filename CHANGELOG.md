@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.203.1](https://github.com/lukso-network/tools-web-components/compare/v1.203.0...v1.203.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* Fix dropdown panel hidden behind sibling trigger buttons ([#901](https://github.com/lukso-network/tools-web-components/issues/901)) ([0d7c759](https://github.com/lukso-network/tools-web-components/commit/0d7c75974072892c9abc3e36b7a3cf3a53ab9c6c))
+
 ## [1.203.0](https://github.com/lukso-network/tools-web-components/compare/v1.202.0...v1.203.0) (2026-05-28)
 
 

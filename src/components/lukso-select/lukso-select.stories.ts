@@ -563,6 +563,37 @@ WithSearch.args = {
   value: '',
 }
 
+/**
+ * Scroll horizontally or vertically to move the select near a viewport edge —
+ * the dropdown flips left/right and up/down automatically.
+ */
+export const AutoPositionScroll = {
+  render: () => html`
+    <div style="overflow: auto; width: 100%; height: 300px;">
+      <div style="width: 250vw; height: 150vh; position: relative;">
+        <div
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px;"
+        >
+          <lukso-select
+            label="Fruit"
+            options=${JSON.stringify([
+              { id: '1', value: 'Apple' },
+              { id: '2', value: 'Banana' },
+              { id: '3', value: 'Cherry' },
+              { id: '4', value: 'Durian' },
+            ])}
+          ></lukso-select>
+        </div>
+      </div>
+    </div>
+    <p style="color: #888; font-size: 13px; margin-top: 8px;">
+      Scroll to position the select near an edge, then click to open — the
+      dropdown flips left/right and up/down automatically.
+    </p>
+  `,
+  args: {},
+}
+
 /** Example with `is-full-width`, secondary label and tooltip on options. The selected option's secondary value is shown next to the main value. */
 export const FullWidthWithSecondaryLabelTooltip = {
   render: () => {

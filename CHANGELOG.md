@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.203.0](https://github.com/lukso-network/tools-web-components/compare/v1.202.0...v1.203.0) (2026-05-28)
+
+
+### Features
+
+* Add maximize icons ([#900](https://github.com/lukso-network/tools-web-components/issues/900)) ([801c12c](https://github.com/lukso-network/tools-web-components/commit/801c12ca04d9ceb0ffab8bc670a567754e28cd7a))
+* Replace openTop/isRight booleans with position prop on dropdown ([#898](https://github.com/lukso-network/tools-web-components/issues/898)) ([ad4da6a](https://github.com/lukso-network/tools-web-components/commit/ad4da6a86d02ada702447169e89a5e238d584e7f))
+
 ## [1.202.0](https://github.com/lukso-network/tools-web-components/compare/v1.201.2...v1.202.0) (2026-05-25)
 
 

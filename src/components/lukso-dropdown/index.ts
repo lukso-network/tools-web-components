@@ -66,6 +66,14 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   private boundHandleClick?: (event: Event) => void
   private boundHandleResize?: () => void
   private boundHandleScroll?: () => void
+  private _scrollRafId?: number
+
+  private get _win(): Window | undefined {
+    return (
+      this.ownerDocument.defaultView ??
+      (typeof window !== 'undefined' ? window : undefined)
+    )
+  }
 
   constructor() {
     super()
@@ -165,12 +173,12 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   private resolveDirection(): { isRight: boolean; openTop: boolean } {
     if (this.position === 'auto') {
-      const win = this.ownerDocument.defaultView ?? window
+      const win = this._win
       const triggerElement = this.triggerId
         ? this.ownerDocument.getElementById(this.triggerId)
         : null
 
-      if (triggerElement) {
+      if (triggerElement && win) {
         const rect = triggerElement.getBoundingClientRect()
         return {
           isRight: rect.left + rect.width / 2 > win.innerWidth / 2,
@@ -188,6 +196,44 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     }
   }
 
+  private _addAutoListeners(win: Window) {
+    this.boundHandleResize = debounceFunction(() => {
+      if (this.isOpen) this.requestUpdate()
+    })
+    win.addEventListener('resize', this.boundHandleResize, { passive: true })
+
+    this.boundHandleScroll = () => {
+      if (this.isOpen) {
+        if (this._scrollRafId !== undefined) return
+        this._scrollRafId = win.requestAnimationFrame(() => {
+          this._scrollRafId = undefined
+          this.requestUpdate()
+        })
+      }
+    }
+    win.addEventListener('scroll', this.boundHandleScroll, {
+      capture: true,
+      passive: true,
+    })
+  }
+
+  private _removeAutoListeners(win: Window) {
+    if (this.boundHandleResize) {
+      win.removeEventListener('resize', this.boundHandleResize)
+      this.boundHandleResize = undefined
+    }
+    if (this.boundHandleScroll) {
+      win.removeEventListener('scroll', this.boundHandleScroll, {
+        capture: true,
+      })
+      this.boundHandleScroll = undefined
+    }
+    if (this._scrollRafId !== undefined) {
+      win.cancelAnimationFrame(this._scrollRafId)
+      this._scrollRafId = undefined
+    }
+  }
+
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties)
 
@@ -202,29 +248,28 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         dropdownElement.removeEventListener('mouseleave', this.handleMouseLeave)
       }
     }
+
+    if (changedProperties.has('position')) {
+      const win = this._win
+      if (!win) return
+      const wasAuto = changedProperties.get('position') === 'auto'
+      const isAuto = this.position === 'auto'
+      if (wasAuto && !isAuto) this._removeAutoListeners(win)
+      else if (!wasAuto && isAuto) this._addAutoListeners(win)
+    }
   }
 
   connectedCallback() {
     super.connectedCallback()
 
-    const win = this.ownerDocument.defaultView ?? window
+    const win = this._win
+    if (!win) return
 
     this.boundHandleClick = this.handleClick.bind(this)
     win.addEventListener('click', this.boundHandleClick)
 
     if (this.position === 'auto') {
-      this.boundHandleResize = debounceFunction(() => {
-        if (this.isOpen) this.requestUpdate()
-      })
-      win.addEventListener('resize', this.boundHandleResize, { passive: true })
-
-      this.boundHandleScroll = () => {
-        if (this.isOpen) this.requestUpdate()
-      }
-      win.addEventListener('scroll', this.boundHandleScroll, {
-        capture: true,
-        passive: true,
-      })
+      this._addAutoListeners(win)
     }
 
     if (this.trigger === 'hover') {
@@ -240,18 +285,13 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   disconnectedCallback() {
     super.disconnectedCallback()
 
-    const win = this.ownerDocument.defaultView ?? window
+    const win = this._win
 
-    if (this.boundHandleClick) {
-      win.removeEventListener('click', this.boundHandleClick)
-    }
-    if (this.boundHandleResize) {
-      win.removeEventListener('resize', this.boundHandleResize)
-    }
-    if (this.boundHandleScroll) {
-      win.removeEventListener('scroll', this.boundHandleScroll, {
-        capture: true,
-      })
+    if (win) {
+      if (this.boundHandleClick) {
+        win.removeEventListener('click', this.boundHandleClick)
+      }
+      this._removeAutoListeners(win)
     }
 
     if (this.trigger === 'hover') {

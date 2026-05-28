@@ -46,18 +46,11 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
-    openTop: {
-      name: 'open-top',
-      description: 'Open dropdown on top.',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    isRight: {
-      name: 'is-right',
-      description: 'Align dropdown to right side.',
-      control: { type: 'boolean' },
+    position: {
+      description:
+        'Controls dropdown placement. "auto" (default) measures the trigger\'s viewport position and opens toward the nearest edge. Use explicit values like "bottom-left", "bottom-right", "top-left", "top-right" to force a fixed direction.',
+      control: { type: 'select' },
+      options: ['auto', 'bottom-left', 'bottom-right', 'top-left', 'top-right'],
       table: {
         category: 'Attributes',
       },
@@ -102,12 +95,6 @@ const meta: Meta = {
     'is-open': {
       name: 'isOpen',
     },
-    'open-top': {
-      name: 'openTop',
-    },
-    'is-right': {
-      name: 'isRight',
-    },
     'is-open-on-outside-click': {
       name: 'isOpenOnOutsideClick',
     },
@@ -128,8 +115,7 @@ const meta: Meta = {
     size: 'large',
     id: '',
     isOpen: true,
-    openTop: false,
-    isRight: false,
+    position: 'bottom-left',
     isOpenOnOutsideClick: true,
     isFullWidth: false,
     align: 'left',
@@ -147,8 +133,6 @@ const meta: Meta = {
         'marginTop',
         'styles',
         'isOpen',
-        'openTop',
-        'isRight',
         'align',
         '_isOpen',
         'isOpenOnOutsideClick',
@@ -170,11 +154,10 @@ export default meta
 const Template = ({
   marginBottom,
   id,
-  openTop,
   marginTop,
   size,
   align,
-  isRight,
+  position,
   isOpen,
   isOpenOnOutsideClick,
   triggerId,
@@ -194,8 +177,7 @@ const Template = ({
       trigger-id=${triggerId ? triggerId : nothing}
       trigger=${trigger ? trigger : nothing}
       ?is-open=${isOpen}
-      ?open-top=${openTop}
-      ?is-right=${isRight}
+      position=${position ? position : nothing}
       ?is-open-on-outside-click=${isOpenOnOutsideClick}
       ?is-full-width=${isFullWidth}
       size=${size ? size : nothing}
@@ -255,21 +237,38 @@ MediumSize.args = {
   triggerId: 'dropdown-medium',
 }
 
-/** Example of right side dropdown.  */
-export const RightSide = Template.bind({})
-RightSide.args = {
+/** Dropdown opens below the trigger, aligned to the left edge. */
+export const BottomLeft = Template.bind({})
+BottomLeft.args = {
   marginBottom: 170,
-  triggerId: 'dropdown-4',
-  isRight: true,
+  triggerId: 'dropdown-bottom-left',
+  position: 'bottom-left',
+}
+
+/** Dropdown opens below the trigger, aligned to the right edge. */
+export const BottomRight = Template.bind({})
+BottomRight.args = {
+  marginBottom: 170,
+  triggerId: 'dropdown-bottom-right',
+  position: 'bottom-right',
   align: 'right',
 }
 
-/** Example of dropdown that opens to the top.  */
-export const OpenTop = Template.bind({})
-OpenTop.args = {
+/** Dropdown opens above the trigger, aligned to the left edge. */
+export const TopLeft = Template.bind({})
+TopLeft.args = {
   marginTop: 170,
-  triggerId: 'dropdown-5',
-  openTop: true,
+  triggerId: 'dropdown-top-left',
+  position: 'top-left',
+}
+
+/** Dropdown opens above the trigger, aligned to the right edge. */
+export const TopRight = Template.bind({})
+TopRight.args = {
+  marginTop: 170,
+  triggerId: 'dropdown-top-right',
+  position: 'top-right',
+  align: 'right',
 }
 
 /** Example of full width dropdown.  */
@@ -295,3 +294,45 @@ CustomClass.args = {
   triggerId: 'dropdown-8',
   customClass: 'border-purple-51',
 }
+
+/**
+ * Scroll horizontally or vertically to move the button across the viewport midpoint —
+ * the dropdown flips left/right and up/down automatically.
+ */
+export const AutoPositionScroll = () => html`
+  <div style="overflow: auto; width: 100%; height: 300px;">
+    <div style="width: 250vw; height: 150vh; position: relative;">
+      <!-- button is centered in the scrollable area so you can scroll it to any edge -->
+      <div
+        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+      >
+        <div class="relative">
+          <lukso-button id="dropdown-auto-scroll">Click me!</lukso-button>
+          <lukso-dropdown
+            trigger-id="dropdown-auto-scroll"
+            position="auto"
+            size="large"
+          >
+            <lukso-dropdown-option
+              ><lukso-icon name="edit" class="mr-2"></lukso-icon
+              >Edit</lukso-dropdown-option
+            >
+            <lukso-dropdown-option
+              ><lukso-icon name="plus" class="mr-2"></lukso-icon
+              >Add</lukso-dropdown-option
+            >
+            <div class="border-b border-b-neutral-90 my-1"></div>
+            <lukso-dropdown-option
+              ><lukso-icon name="settings" class="mr-2"></lukso-icon
+              >Settings</lukso-dropdown-option
+            >
+          </lukso-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="color: #888; font-size: 13px; margin-top: 8px;">
+    Scroll to position the button near an edge, then click to open — the
+    dropdown flips left/right and up/down automatically.
+  </p>
+`

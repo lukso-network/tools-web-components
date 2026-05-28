@@ -66,18 +66,7 @@ export default [
       '@typescript-eslint/no-unused-vars': 'error',
       'no-debugger': 'error',
       'no-unused-vars': 'off',
-      'import/order': [
-        'error',
-        {
-          groups: [
-            ['builtin', 'external', 'index'],
-            ['sibling', 'parent', 'internal'],
-            'object',
-            'type',
-          ],
-          'newlines-between': 'always',
-        },
-      ],
+      'import/order': 'off',
       'lit/attribute-value-entities': 'off',
     },
   },

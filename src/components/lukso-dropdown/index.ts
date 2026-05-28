@@ -160,9 +160,10 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   ): HTMLElement | null {
     let current = element.parentElement
     while (current && current !== this.ownerDocument.body) {
-      const { overflow, overflowY } = getComputedStyle(current)
+      const { overflow, overflowX, overflowY } = getComputedStyle(current)
       if (
         /auto|scroll|hidden/.test(overflow) ||
+        /auto|scroll|hidden/.test(overflowX) ||
         /auto|scroll|hidden/.test(overflowY)
       ) {
         const containerRect = current.getBoundingClientRect()
@@ -375,11 +376,10 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     }
 
     const gapPx = this.size === 'small' ? 4 : 8
-    const triggerHeight = this.triggerId
-      ? (this.ownerDocument
-          .getElementById(this.triggerId)
-          ?.getBoundingClientRect().height ?? 0)
-      : 0
+    const triggerElement = this.triggerId
+      ? this.ownerDocument.getElementById(this.triggerId)
+      : (this.previousElementSibling as HTMLElement | null)
+    const triggerHeight = triggerElement?.getBoundingClientRect().height ?? 0
     const wrapperStyle = openTop
       ? `transform: translateY(calc(-100% - ${triggerHeight + gapPx}px));`
       : `margin-top: ${gapPx}px;`

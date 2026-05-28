@@ -90,23 +90,15 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         flex flex-col gap-1 overflow-y-auto animate-fade-in animation-duration-200`,
     },
     variants: {
-      openTop: {
-        true: {
-          wrapper: 'mt-0',
-        },
-      },
       size: {
         small: {
-          dropdown:
-            'rounded-8 p-2 mt-1 min-w-[120px] paragraph-inter-12-regular',
+          dropdown: 'rounded-8 p-2 min-w-[120px] paragraph-inter-12-regular',
         },
         medium: {
-          dropdown:
-            'rounded-10 p-3 mt-2 min-w-[200px] paragraph-inter-14-regular',
+          dropdown: 'rounded-10 p-3 min-w-[200px] paragraph-inter-14-regular',
         },
         large: {
-          dropdown:
-            'rounded-12 p-3 mt-2 min-w-[200px] paragraph-inter-14-regular',
+          dropdown: 'rounded-12 p-3 min-w-[200px] paragraph-inter-14-regular',
         },
         'x-large': {},
       },
@@ -135,16 +127,6 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         class: { dropdown: 'max-w-[350px]' },
       },
       {
-        openTop: true,
-        size: 'small',
-        class: { wrapper: 'bottom-7 mb-1' },
-      },
-      {
-        openTop: true,
-        size: ['large'],
-        class: { wrapper: 'bottom-12 mb-2' },
-      },
-      {
         hasMaxHeight: false,
         size: 'small',
         class: { dropdown: 'max-h-52' },
@@ -171,6 +153,31 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     this.isOpen = false
   }
 
+  private _findScrollContainer(
+    element: HTMLElement,
+    viewportHeight: number,
+    viewportWidth: number
+  ): HTMLElement | null {
+    let current = element.parentElement
+    while (current && current !== this.ownerDocument.body) {
+      const { overflow, overflowY } = getComputedStyle(current)
+      if (
+        /auto|scroll|hidden/.test(overflow) ||
+        /auto|scroll|hidden/.test(overflowY)
+      ) {
+        const containerRect = current.getBoundingClientRect()
+        const isFullPageScroller =
+          containerRect.height >= viewportHeight * 0.9 &&
+          containerRect.width >= viewportWidth * 0.9
+        if (!isFullPageScroller) {
+          return current
+        }
+      }
+      current = current.parentElement
+    }
+    return null
+  }
+
   private resolveDirection(): { isRight: boolean; openTop: boolean } {
     if (this.position === 'auto') {
       const win = this._win
@@ -180,9 +187,18 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
       if (triggerElement && win) {
         const rect = triggerElement.getBoundingClientRect()
+        const scrollContainer = this._findScrollContainer(
+          triggerElement,
+          win.innerHeight,
+          win.innerWidth
+        )
+        const boundary = scrollContainer
+          ? scrollContainer.getBoundingClientRect()
+          : { top: 0, bottom: win.innerHeight, left: 0, right: win.innerWidth }
         return {
-          isRight: rect.left + rect.width / 2 > win.innerWidth / 2,
-          openTop: rect.top + rect.height / 2 > win.innerHeight / 2,
+          isRight:
+            rect.left + rect.width / 2 > (boundary.left + boundary.right) / 2,
+          openTop: boundary.bottom - rect.bottom < rect.top - boundary.top,
         }
       }
 
@@ -348,7 +364,6 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     const { isRight, openTop } = this.resolveDirection()
 
     const { wrapper, dropdown } = this.styles({
-      openTop,
       size: this.size,
       isRight,
       isFullWidth: this.isFullWidth,
@@ -359,7 +374,17 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       return nothing
     }
 
-    return html`<div id=${this.id} class=${wrapper()}>
+    const gapPx = this.size === 'small' ? 4 : 8
+    const triggerHeight = this.triggerId
+      ? (this.ownerDocument
+          .getElementById(this.triggerId)
+          ?.getBoundingClientRect().height ?? 0)
+      : 0
+    const wrapperStyle = openTop
+      ? `transform: translateY(calc(-100% - ${triggerHeight + gapPx}px));`
+      : `margin-top: ${gapPx}px;`
+
+    return html`<div id=${this.id} class=${wrapper()} style=${wrapperStyle}>
       <div
         class=${cn(dropdown(), this.customClass)}
         style=${this.maxHeight ? `max-height: ${this.maxHeight}px;` : nothing}

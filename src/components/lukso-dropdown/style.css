@@ -1,3 +1,6 @@
 :host {
-  @apply relative flex w-full;
+  @apply flex w-full;
+
+  position: relative;
+  height: 0;
 }

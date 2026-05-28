@@ -9,6 +9,7 @@ import '@/components/lukso-icon'
 import '@/components/lukso-profile'
 import '@/components/lukso-username'
 import '@/components/lukso-dropdown'
+import type { LuksoDropdownPosition } from '@/components/lukso-dropdown'
 import '@/components/lukso-dropdown-option'
 import '@/components/lukso-input'
 import '@/components/lukso-sanitize'
@@ -80,14 +81,11 @@ export class LuksoSelect extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-open' })
   isOpen = false
 
-  @property({ type: Boolean, attribute: 'open-top' })
-  openTop = false
+  @property({ type: String })
+  position: LuksoDropdownPosition = 'auto'
 
   @property({ type: Boolean, attribute: 'is-large-icon' })
   isLargeIcon = false
-
-  @property({ type: Boolean, attribute: 'is-right' })
-  isRight = false
 
   @property({ type: String })
   size: InputSize = 'large'
@@ -398,8 +396,7 @@ export class LuksoSelect extends TailwindStyledElement(style) {
       is-open-on-outside-click
       max-height=${this.maxHeight}
       ?is-full-width=${this.isFullWidth}
-      ?is-right=${this.isRight}
-      ?open-top=${this.openTop}
+      position=${this.position}
       >${searchInputTemplate}${noResultsTemplate}${optionTemplates}</lukso-dropdown
     >`
   }

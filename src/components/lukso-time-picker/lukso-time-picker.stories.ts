@@ -82,17 +82,19 @@ const meta: Meta = {
     controls: { exclude: ['styles'] },
   },
   render: args => html`
-    <lukso-time-picker
-      value=${args['value'] || nothing}
-      locale=${args['locale'] || nothing}
-      time-format=${args['time-format'] || nothing}
-      size=${args['size'] || nothing}
-      label=${args['label'] || nothing}
-      description=${args['description'] || nothing}
-      error=${args['error'] || nothing}
-      ?is-standalone=${args['is-standalone']}
-      ?is-disabled=${args['is-disabled']}
-    ></lukso-time-picker>
+    <div style="padding-top: 30px">
+      <lukso-time-picker
+        value=${args['value'] || nothing}
+        locale=${args['locale'] || nothing}
+        time-format=${args['time-format'] || nothing}
+        size=${args['size'] || nothing}
+        label=${args['label'] || nothing}
+        description=${args['description'] || nothing}
+        error=${args['error'] || nothing}
+        ?is-standalone=${args['is-standalone']}
+        ?is-disabled=${args['is-disabled']}
+      ></lukso-time-picker>
+    </div>
   `,
 }
 

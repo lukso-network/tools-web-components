@@ -124,14 +124,11 @@ const meta: Meta = {
         'CSS color for the selected day text. Forwarded to date picker.',
       table: { category: 'Attributes' },
     },
-    'open-top': {
-      control: { type: 'boolean' },
-      description: 'Opens the calendar above the input instead of below.',
-      table: { category: 'Attributes' },
-    },
-    'open-right': {
-      control: { type: 'boolean' },
-      description: 'Aligns the calendar to the right edge of the input.',
+    position: {
+      control: { type: 'select' },
+      options: ['auto', 'bottom-left', 'bottom-right', 'top-left', 'top-right'],
+      description:
+        'Controls calendar placement. "auto" (default) detects the trigger\'s viewport position and opens toward the nearest edge.',
       table: { category: 'Attributes' },
     },
     variant: {
@@ -170,8 +167,7 @@ const meta: Meta = {
     borderless: false,
     'selected-bg-color': undefined,
     'selected-text-color': undefined,
-    'open-top': false,
-    'open-right': false,
+    position: 'bottom-left',
     variant: 'default',
   },
   decorators: [
@@ -203,8 +199,7 @@ const meta: Meta = {
       ?is-readonly=${args['is-readonly']}
       ?is-full-width=${args['is-full-width']}
       ?borderless=${args['borderless']}
-      ?open-top=${args['open-top']}
-      ?open-right=${args['open-right']}
+      position=${args['position'] || nothing}
       variant=${args['variant']}
       @on-change=${(event: CustomEvent) => args['onChange'](event.detail)}
     ></lukso-input-date-picker>
@@ -333,17 +328,17 @@ export const Readonly: StoryObj = {
  * Useful when the input is near the left edge of the screen.
  */
 export const OpenRight: StoryObj = {
-  name: 'Position — Open Right',
-  args: { 'open-right': true },
+  name: 'Position — Bottom Right',
+  args: { position: 'bottom-right' },
 }
 
 /**
- * Calendar opens above the input (aligned left).
+ * Calendar opens above the input, aligned to the left edge.
  * The story adds padding-top so the calendar has room to render upward.
  */
 export const OpenTop: StoryObj = {
-  name: 'Position — Open Top',
-  args: { 'open-top': true },
+  name: 'Position — Top Left',
+  args: { position: 'top-left' },
   decorators: [
     (story: () => unknown) =>
       html`<div style="padding: 20px; padding-top: 420px;">${story()}</div>`,
@@ -355,8 +350,8 @@ export const OpenTop: StoryObj = {
  * Ideal when the input is in the bottom-right area of the screen.
  */
 export const OpenTopRight: StoryObj = {
-  name: 'Position — Open Top Right',
-  args: { 'open-top': true, 'open-right': true },
+  name: 'Position — Top Right',
+  args: { position: 'top-right' },
   decorators: [
     (story: () => unknown) =>
       html`<div

@@ -2,6 +2,7 @@ import { html, nothing } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { tv } from 'tailwind-variants'
 
+import type { LuksoDropdownPosition } from '@/components/lukso-dropdown'
 import { safeCustomElement } from '@/shared/safe-custom-element'
 import '@/components/lukso-icon'
 import '@/components/lukso-dropdown'
@@ -129,13 +130,8 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   @property({ type: String, attribute: 'selected-text-color' })
   selectedTextColor?: string
 
-  /** Opens the calendar above the input instead of below. */
-  @property({ type: Boolean, attribute: 'open-top' })
-  openTop = false
-
-  /** Aligns the calendar to the right edge of the input. */
-  @property({ type: Boolean, attribute: 'open-right' })
-  openRight = false
+  @property({ type: String })
+  position: LuksoDropdownPosition = 'auto'
 
   /**
    * JSON-stringified array of DatePickerPreset objects.
@@ -574,8 +570,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
         ?is-open=${this._isOpen}
         @on-change=${this._stopDropdownChange}
         is-open-on-outside-click
-        ?open-top=${this.openTop}
-        ?is-right=${this.openRight}
+        position=${this.position}
         ?is-full-width=${this.isFullWidth}
         size="large"
         custom-class="min-w-[300px] min-h-[390px]"
@@ -635,8 +630,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
         ?is-open=${this._isPresetOpen}
         @on-change=${this._stopDropdownChange}
         is-open-on-outside-click
-        ?open-top=${this.openTop}
-        ?is-right=${this.openRight}
+        position=${this.position}
         ?is-full-width=${this.isFullWidth}
         size=${this.size}
       >
@@ -664,8 +658,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
               ?is-open=${this._isOpen}
               @on-change=${this._stopDropdownChange}
               is-open-on-outside-click
-              ?open-top=${this.openTop}
-              ?is-right=${this.openRight}
+              position=${this.position}
               ?is-full-width=${this.isFullWidth}
               size="large"
               custom-class="min-w-[300px] min-h-[390px]"

@@ -19,6 +19,12 @@ export type LuksoDropdownOnChangeEventDetail = {
 }
 
 export type LuksoDropdownTrigger = 'click' | 'hover'
+export type LuksoDropdownPosition =
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'top-left'
+  | 'top-right'
+  | 'auto'
 
 /**
  * A floating dropdown panel that positions absolutely relative to its trigger element.
@@ -39,11 +45,8 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-open-on-outside-click' })
   isOpenOnOutsideClick = false
 
-  @property({ type: Boolean, attribute: 'open-top' })
-  openTop = false
-
-  @property({ type: Boolean, attribute: 'is-right' })
-  isRight = false
+  @property({ type: String })
+  position: LuksoDropdownPosition = 'auto'
 
   @property({ type: Boolean, attribute: 'is-full-width' })
   isFullWidth = false
@@ -61,6 +64,8 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   customClass = ''
 
   private boundHandleClick?: (event: Event) => void
+  private boundHandleResize?: () => void
+  private boundHandleScroll?: () => void
 
   constructor() {
     super()
@@ -151,7 +156,6 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   private handleMouseLeave = (event: MouseEvent) => {
     const relatedTarget = event.relatedTarget as HTMLElement
 
-    // if we are leaving the trigger and entering the dropdown we don't want to close it
     if (relatedTarget?.id === this.id || relatedTarget?.id === this.triggerId) {
       return
     }
@@ -159,10 +163,34 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     this.isOpen = false
   }
 
+  private resolveDirection(): { isRight: boolean; openTop: boolean } {
+    if (this.position === 'auto') {
+      const win = this.ownerDocument.defaultView ?? window
+      const triggerElement = this.triggerId
+        ? this.ownerDocument.getElementById(this.triggerId)
+        : null
+
+      if (triggerElement) {
+        const rect = triggerElement.getBoundingClientRect()
+        return {
+          isRight: rect.left + rect.width / 2 > win.innerWidth / 2,
+          openTop: rect.top + rect.height / 2 > win.innerHeight / 2,
+        }
+      }
+
+      return { isRight: false, openTop: false }
+    }
+
+    return {
+      isRight:
+        this.position === 'bottom-right' || this.position === 'top-right',
+      openTop: this.position === 'top-left' || this.position === 'top-right',
+    }
+  }
+
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties)
 
-    // when dropdown is open we need to add event listeners
     if (changedProperties.has('isOpen') && this.trigger === 'hover') {
       const dropdownElement = this.shadowRoot?.getElementById(this.id)
 
@@ -179,11 +207,28 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   connectedCallback() {
     super.connectedCallback()
 
+    const win = this.ownerDocument.defaultView ?? window
+
     this.boundHandleClick = this.handleClick.bind(this)
-    window.addEventListener('click', this.boundHandleClick)
+    win.addEventListener('click', this.boundHandleClick)
+
+    if (this.position === 'auto') {
+      this.boundHandleResize = debounceFunction(() => {
+        if (this.isOpen) this.requestUpdate()
+      })
+      win.addEventListener('resize', this.boundHandleResize, { passive: true })
+
+      this.boundHandleScroll = () => {
+        if (this.isOpen) this.requestUpdate()
+      }
+      win.addEventListener('scroll', this.boundHandleScroll, {
+        capture: true,
+        passive: true,
+      })
+    }
 
     if (this.trigger === 'hover') {
-      const triggerElement = document.getElementById(this.triggerId)
+      const triggerElement = this.ownerDocument.getElementById(this.triggerId)
 
       if (triggerElement) {
         triggerElement.addEventListener('mouseenter', this.handleMouseEnter)
@@ -194,12 +239,23 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   disconnectedCallback() {
     super.disconnectedCallback()
+
+    const win = this.ownerDocument.defaultView ?? window
+
     if (this.boundHandleClick) {
-      window.removeEventListener('click', this.boundHandleClick)
+      win.removeEventListener('click', this.boundHandleClick)
+    }
+    if (this.boundHandleResize) {
+      win.removeEventListener('resize', this.boundHandleResize)
+    }
+    if (this.boundHandleScroll) {
+      win.removeEventListener('scroll', this.boundHandleScroll, {
+        capture: true,
+      })
     }
 
     if (this.trigger === 'hover') {
-      const triggerElement = document.getElementById(this.triggerId)
+      const triggerElement = this.ownerDocument.getElementById(this.triggerId)
 
       if (triggerElement) {
         triggerElement.removeEventListener('mouseenter', this.handleMouseEnter)
@@ -233,10 +289,8 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   private handleClick = debounceFunction((event: Event) => {
     const element = event.target as HTMLElement
 
-    // Skip trigger logic if triggerId is empty (manual control mode)
     const hasValidTriggerId = this.triggerId && this.triggerId.trim() !== ''
 
-    // if we click on trigger or dropdown itself we toggle the dropdown
     if (
       (hasValidTriggerId && element.id === this.triggerId) ||
       this.id === element.id
@@ -245,17 +299,18 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       return
     }
 
-    // if we click outside the dropdown we close it
     if (!this.isOpenOnOutsideClick) {
       this.isOpen = false
     }
   })
 
   render() {
+    const { isRight, openTop } = this.resolveDirection()
+
     const { wrapper, dropdown } = this.styles({
-      openTop: this.openTop,
+      openTop,
       size: this.size,
-      isRight: this.isRight,
+      isRight,
       isFullWidth: this.isFullWidth,
       hasMaxHeight: this.maxHeight !== undefined,
     })

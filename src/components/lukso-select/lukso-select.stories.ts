@@ -100,9 +100,11 @@ const meta: Meta = {
       },
       type: { name: 'number' },
     },
-    openTop: {
-      name: 'open-top',
-      control: { type: 'boolean' },
+    position: {
+      control: { type: 'select' },
+      options: ['auto', 'bottom-left', 'bottom-right', 'top-left', 'top-right'],
+      description:
+        'Controls dropdown placement. "auto" (default) detects the trigger\'s viewport position and opens toward the nearest edge.',
       table: {
         category: 'Attributes',
       },
@@ -110,14 +112,6 @@ const meta: Meta = {
     isLargeIcon: {
       name: 'is-large-icon',
       description: 'Size of dropdown trigger arrow.',
-      control: { type: 'boolean' },
-      table: {
-        category: 'Attributes',
-      },
-    },
-    isRight: {
-      name: 'is-right',
-      description: 'Align dropdown to right side.',
       control: { type: 'boolean' },
       table: {
         category: 'Attributes',
@@ -175,17 +169,11 @@ const meta: Meta = {
     'is-open': {
       name: 'isOpen',
     },
-    'open-top': {
-      name: 'openTop',
-    },
     'is-large-icon': {
       name: 'isLargeIcon',
     },
     'show-selection-counter': {
       name: 'showSelectionCounter',
-    },
-    'is-right': {
-      name: 'isRight',
     },
     'max-height': {
       name: 'maxHeight',
@@ -210,9 +198,8 @@ const meta: Meta = {
     isDisabled: false,
     borderless: false,
     isOpen: true,
-    openTop: false,
+    position: 'bottom-left',
     isLargeIcon: false,
-    isRight: false,
     showSelectionCounter: false,
     hasSearch: false,
     options: [
@@ -247,13 +234,11 @@ const meta: Meta = {
         'valueParsed',
         'styles',
         'isOpen',
-        'openTop',
         'isLargeIcon',
         'inputStyles',
         'dropdownWrapperStyles',
         'optionsStyles',
         'iconStyles',
-        'isRight',
         'showSelectionCounter',
         'counterStyles',
         'float',
@@ -280,12 +265,11 @@ const Template = ({
   selected,
   marginBottom,
   id,
-  openTop,
+  position,
   marginTop,
   isLargeIcon,
   size,
   float,
-  isRight,
   showSelectionCounter,
   maxHeight,
   hasSearch,
@@ -308,9 +292,8 @@ const Template = ({
     ?is-disabled=${isDisabled}
     ?is-open=${isOpen}
     ?borderless=${borderless}
-    ?open-top=${openTop}
+    position=${position ? position : nothing}
     ?is-large-icon=${isLargeIcon}
-    ?is-right=${isRight}
     ?show-selection-counter=${showSelectionCounter}
     ?has-search=${hasSearch}
     selected=${selected ? selected : nothing}
@@ -353,11 +336,11 @@ Placeholder.args = {
   placeholder: 'Select value...',
 }
 
-/** Example of select that open top.  */
+/** Example of select that opens above the trigger.  */
 export const OpenTop = Template.bind({})
 OpenTop.args = {
   marginTop: 160,
-  openTop: true,
+  position: 'top-left',
 }
 
 /** Example of select with `profile` values.  */
@@ -432,11 +415,11 @@ MultiSelect.args = {
   ]),
 }
 
-/** Example of right side dropdown.  */
+/** Example of dropdown aligned to the right edge.  */
 export const RightSideDropdown = Template.bind({})
 RightSideDropdown.args = {
   marginBottom: 160,
-  isRight: true,
+  position: 'bottom-right',
   float: 'right',
 }
 

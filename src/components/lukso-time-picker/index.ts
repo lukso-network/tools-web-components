@@ -268,8 +268,7 @@ export class LuksoTimePicker extends TailwindStyledElement(style) {
                 </button>
                 <lukso-dropdown
                   ?is-open=${this._showAmPmPicker}
-                  open-top
-                  is-right
+                  position="top-right"
                   size="small"
                 >
                   <lukso-dropdown-option

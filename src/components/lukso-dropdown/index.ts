@@ -266,7 +266,14 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties)
 
-    if (this.isOpen) {
+    const shouldMeasure =
+      this.isOpen &&
+      (changedProperties.has('isOpen') ||
+        changedProperties.has('size') ||
+        changedProperties.has('maxHeight') ||
+        changedProperties.has('customClass'))
+
+    if (shouldMeasure) {
       const dropdownPanel = this.shadowRoot
         ?.getElementById(this.id)
         ?.querySelector('div')
@@ -277,7 +284,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
           this.requestUpdate()
         }
       }
-    } else {
+    } else if (!this.isOpen && changedProperties.has('isOpen')) {
       this._dropdownHeight = undefined
     }
 

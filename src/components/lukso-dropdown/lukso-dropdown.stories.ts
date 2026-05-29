@@ -345,7 +345,7 @@ export const StackingContext = () => html`
  * the dropdown flips left/right and up/down automatically.
  */
 export const AutoPositionScroll = () => html`
-  <div style="overflow: auto; width: 100%; height: 300px;">
+  <div style="overflow: auto; width: 100%; height: 650px;">
     <div style="width: 250vw; height: 150vh; position: relative;">
       <!-- button is centered in the scrollable area so you can scroll it to any edge -->
       <div

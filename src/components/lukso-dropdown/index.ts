@@ -67,6 +67,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   private boundHandleResize?: () => void
   private boundHandleScroll?: () => void
   private _scrollRafId?: number
+  private _dropdownHeight?: number
 
   private get _win(): Window | undefined {
     return (
@@ -203,10 +204,14 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         const boundary = scrollContainer
           ? scrollContainer.getBoundingClientRect()
           : { top: 0, bottom: win.innerHeight, left: 0, right: win.innerWidth }
+        const spaceBelow = boundary.bottom - rect.bottom
+        const spaceAbove = rect.top - boundary.top
+        const dropdownHeight =
+          this._dropdownHeight ?? (this.size === 'small' ? 208 : 256)
         return {
           isRight:
             rect.left + rect.width / 2 > (boundary.left + boundary.right) / 2,
-          openTop: boundary.bottom - rect.bottom < rect.top - boundary.top,
+          openTop: spaceBelow < dropdownHeight && spaceAbove > spaceBelow,
         }
       }
 
@@ -260,6 +265,21 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties)
+
+    if (this.isOpen) {
+      const dropdownPanel = this.shadowRoot
+        ?.getElementById(this.id)
+        ?.querySelector('div')
+      if (dropdownPanel) {
+        const measuredHeight = dropdownPanel.getBoundingClientRect().height
+        if (measuredHeight !== this._dropdownHeight) {
+          this._dropdownHeight = measuredHeight
+          this.requestUpdate()
+        }
+      }
+    } else {
+      this._dropdownHeight = undefined
+    }
 
     if (changedProperties.has('isOpen') && this.trigger === 'hover') {
       const dropdownElement = this.shadowRoot?.getElementById(this.id)

@@ -279,7 +279,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         ?.querySelector('div')
       if (dropdownPanel) {
         const measuredHeight = dropdownPanel.getBoundingClientRect().height
-        if (measuredHeight !== this._dropdownHeight) {
+        if (measuredHeight > 0 && measuredHeight !== this._dropdownHeight) {
           this._dropdownHeight = measuredHeight
           this.requestUpdate()
         }

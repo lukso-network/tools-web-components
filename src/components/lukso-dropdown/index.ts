@@ -179,12 +179,19 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     return null
   }
 
+  private _resolveTriggerElement(): HTMLElement | null {
+    if (this.triggerId) {
+      return this.ownerDocument.getElementById(this.triggerId)
+    }
+    return (
+      (this.previousElementSibling as HTMLElement | null) ?? this.parentElement
+    )
+  }
+
   private resolveDirection(): { isRight: boolean; openTop: boolean } {
     if (this.position === 'auto') {
       const win = this._win
-      const triggerElement = this.triggerId
-        ? this.ownerDocument.getElementById(this.triggerId)
-        : null
+      const triggerElement = this._resolveTriggerElement()
 
       if (triggerElement && win) {
         const rect = triggerElement.getBoundingClientRect()
@@ -376,10 +383,8 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
     }
 
     const gapPx = this.size === 'small' ? 4 : 8
-    const triggerElement = this.triggerId
-      ? this.ownerDocument.getElementById(this.triggerId)
-      : (this.previousElementSibling as HTMLElement | null)
-    const triggerHeight = triggerElement?.getBoundingClientRect().height ?? 0
+    const triggerHeight =
+      this._resolveTriggerElement()?.getBoundingClientRect().height ?? 0
     const wrapperStyle = openTop
       ? `transform: translateY(calc(-100% - ${triggerHeight + gapPx}px));`
       : `margin-top: ${gapPx}px;`

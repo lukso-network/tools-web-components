@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.203.2](https://github.com/lukso-network/tools-web-components/compare/v1.203.1...v1.203.2) (2026-05-29)
+
+
+### Bug Fixes
+
+* Fix dropdown auto-position for components without trigger-id ([#903](https://github.com/lukso-network/tools-web-components/issues/903)) ([d0d0b52](https://github.com/lukso-network/tools-web-components/commit/d0d0b52f501ca0541633224b4b551531a50abf8b))
+
 ## [1.203.1](https://github.com/lukso-network/tools-web-components/compare/v1.203.0...v1.203.1) (2026-05-28)
 
 

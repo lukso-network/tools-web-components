@@ -68,6 +68,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   private boundHandleScroll?: () => void
   private _scrollRafId?: number
   private _dropdownHeight?: number
+  private _heightMeasured = false
 
   private get _win(): Window | undefined {
     return (
@@ -266,26 +267,25 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties)
 
-    const shouldMeasure =
-      this.isOpen &&
-      (changedProperties.has('isOpen') ||
-        changedProperties.has('size') ||
-        changedProperties.has('maxHeight') ||
-        changedProperties.has('customClass'))
+    if (!this.isOpen && changedProperties.has('isOpen')) {
+      this._dropdownHeight = undefined
+      this._heightMeasured = false
+    }
 
-    if (shouldMeasure) {
+    if (this.isOpen && !this._heightMeasured) {
       const dropdownPanel = this.shadowRoot
         ?.getElementById(this.id)
         ?.querySelector('div')
       if (dropdownPanel) {
         const measuredHeight = dropdownPanel.getBoundingClientRect().height
-        if (measuredHeight > 0 && measuredHeight !== this._dropdownHeight) {
-          this._dropdownHeight = measuredHeight
-          this.requestUpdate()
+        if (measuredHeight > 0) {
+          this._heightMeasured = true
+          if (measuredHeight !== this._dropdownHeight) {
+            this._dropdownHeight = measuredHeight
+            this.requestUpdate()
+          }
         }
       }
-    } else if (!this.isOpen && changedProperties.has('isOpen')) {
-      this._dropdownHeight = undefined
     }
 
     if (changedProperties.has('isOpen') && this.trigger === 'hover') {

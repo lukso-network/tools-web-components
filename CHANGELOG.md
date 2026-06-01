@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.203.4](https://github.com/lukso-network/tools-web-components/compare/v1.203.3...v1.203.4) (2026-06-01)
+
+
+### Bug Fixes
+
+* Fix dropdown auto-position in scroll containers and shadow DOM ([#907](https://github.com/lukso-network/tools-web-components/issues/907)) ([dc275bf](https://github.com/lukso-network/tools-web-components/commit/dc275bf3c8ae0c4fac11cd040e80b4938fd48d5c))
+
 ## [1.203.3](https://github.com/lukso-network/tools-web-components/compare/v1.203.2...v1.203.3) (2026-06-01)
 
 

@@ -166,14 +166,21 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         current === this.ownerDocument.documentElement
       if (!isDocumentScroller) {
         const { overflow, overflowX, overflowY } = getComputedStyle(current)
-        const hasOverflowStyle =
+        const isScrollable =
           /auto|scroll/.test(overflow) ||
           /auto|scroll/.test(overflowX) ||
           /auto|scroll/.test(overflowY)
-        if (hasOverflowStyle && current.scrollHeight > current.clientHeight) {
+        const isHiddenClip =
+          /hidden/.test(overflow) ||
+          /hidden/.test(overflowX) ||
+          /hidden/.test(overflowY)
+        const clipsContent =
+          (isScrollable && current.scrollHeight > current.clientHeight) ||
+          isHiddenClip
+        if (clipsContent) {
           const containerRect = current.getBoundingClientRect()
-          // Only use this container if it actually clips near the trigger —
-          // i.e. the trigger's bottom is within one viewport height of the container's bottom
+          // Only use this container if the trigger is near its bottom edge —
+          // prevents distant page-level scroll containers from being used
           const win = this._win
           const threshold = win ? win.innerHeight : 800
           if (triggerRect.bottom > containerRect.bottom - threshold) {
@@ -184,7 +191,10 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
       // Cross shadow DOM boundary when parentElement is exhausted
       if (!current.parentElement) {
         const root = current.getRootNode()
-        current = root instanceof ShadowRoot ? (root.host as HTMLElement) : null
+        current =
+          root instanceof ShadowRoot && root.host instanceof HTMLElement
+            ? root.host
+            : null
       } else {
         current = current.parentElement
       }
@@ -219,6 +229,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         return {
           isRight:
             rect.left + rect.width / 2 > (boundary.left + boundary.right) / 2,
+          // Flip 40px earlier than the exact edge to avoid the panel clipping before the user notices
           openTop: spaceBelow < dropdownHeight + 40 && spaceAbove > spaceBelow,
         }
       }

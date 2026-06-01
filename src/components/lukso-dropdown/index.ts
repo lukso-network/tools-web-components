@@ -157,26 +157,37 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
   private _findScrollContainer(
     element: HTMLElement,
-    viewportHeight: number,
-    viewportWidth: number
+    triggerRect: DOMRect
   ): HTMLElement | null {
-    let current = element.parentElement
-    while (current && current !== this.ownerDocument.body) {
-      const { overflow, overflowX, overflowY } = getComputedStyle(current)
-      if (
-        /auto|scroll|hidden/.test(overflow) ||
-        /auto|scroll|hidden/.test(overflowX) ||
-        /auto|scroll|hidden/.test(overflowY)
-      ) {
-        const containerRect = current.getBoundingClientRect()
-        const isFullPageScroller =
-          containerRect.height >= viewportHeight * 0.9 &&
-          containerRect.width >= viewportWidth * 0.9
-        if (!isFullPageScroller) {
-          return current
+    let current: HTMLElement | null = element.parentElement
+    while (current) {
+      const isDocumentScroller =
+        current === this.ownerDocument.body ||
+        current === this.ownerDocument.documentElement
+      if (!isDocumentScroller) {
+        const { overflow, overflowX, overflowY } = getComputedStyle(current)
+        const hasOverflowStyle =
+          /auto|scroll/.test(overflow) ||
+          /auto|scroll/.test(overflowX) ||
+          /auto|scroll/.test(overflowY)
+        if (hasOverflowStyle && current.scrollHeight > current.clientHeight) {
+          const containerRect = current.getBoundingClientRect()
+          // Only use this container if it actually clips near the trigger —
+          // i.e. the trigger's bottom is within one viewport height of the container's bottom
+          const win = this._win
+          const threshold = win ? win.innerHeight : 800
+          if (triggerRect.bottom > containerRect.bottom - threshold) {
+            return current
+          }
         }
       }
-      current = current.parentElement
+      // Cross shadow DOM boundary when parentElement is exhausted
+      if (!current.parentElement) {
+        const root = current.getRootNode()
+        current = root instanceof ShadowRoot ? (root.host as HTMLElement) : null
+      } else {
+        current = current.parentElement
+      }
     }
     return null
   }
@@ -197,11 +208,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
 
       if (triggerElement && win) {
         const rect = triggerElement.getBoundingClientRect()
-        const scrollContainer = this._findScrollContainer(
-          triggerElement,
-          win.innerHeight,
-          win.innerWidth
-        )
+        const scrollContainer = this._findScrollContainer(triggerElement, rect)
         const boundary = scrollContainer
           ? scrollContainer.getBoundingClientRect()
           : { top: 0, bottom: win.innerHeight, left: 0, right: win.innerWidth }
@@ -212,7 +219,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         return {
           isRight:
             rect.left + rect.width / 2 > (boundary.left + boundary.right) / 2,
-          openTop: spaceBelow < dropdownHeight && spaceAbove > spaceBelow,
+          openTop: spaceBelow < dropdownHeight + 40 && spaceAbove > spaceBelow,
         }
       }
 

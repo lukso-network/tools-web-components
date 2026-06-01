@@ -170,14 +170,7 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
           /auto|scroll/.test(overflow) ||
           /auto|scroll/.test(overflowX) ||
           /auto|scroll/.test(overflowY)
-        const isHiddenClip =
-          /hidden/.test(overflow) ||
-          /hidden/.test(overflowX) ||
-          /hidden/.test(overflowY)
-        const clipsContent =
-          (isScrollable && current.scrollHeight > current.clientHeight) ||
-          isHiddenClip
-        if (clipsContent) {
+        if (isScrollable && current.scrollHeight > current.clientHeight) {
           const containerRect = current.getBoundingClientRect()
           // Only use this container if the trigger is near its bottom edge —
           // prevents distant page-level scroll containers from being used

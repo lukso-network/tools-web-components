@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.203.3](https://github.com/lukso-network/tools-web-components/compare/v1.203.2...v1.203.3) (2026-06-01)
+
+
+### Bug Fixes
+
+* Flip dropdown to top only when panel doesn't fit below ([#905](https://github.com/lukso-network/tools-web-components/issues/905)) ([8588889](https://github.com/lukso-network/tools-web-components/commit/8588889562231d44b91b809cebfca2d17671c7b2))
+
 ## [1.203.2](https://github.com/lukso-network/tools-web-components/compare/v1.203.1...v1.203.2) (2026-05-29)
 
 

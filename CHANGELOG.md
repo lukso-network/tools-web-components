@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.203.5](https://github.com/lukso-network/tools-web-components/compare/v1.203.4...v1.203.5) (2026-06-02)
+
+
+### Bug Fixes
+
+* Clamp scroll container boundary to viewport for correct auto flip ([#909](https://github.com/lukso-network/tools-web-components/issues/909)) ([3844797](https://github.com/lukso-network/tools-web-components/commit/3844797340200e094ae8c4b3396926a20e4b5c7c))
+
 ## [1.203.4](https://github.com/lukso-network/tools-web-components/compare/v1.203.3...v1.203.4) (2026-06-01)
 
 

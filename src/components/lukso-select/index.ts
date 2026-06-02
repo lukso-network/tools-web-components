@@ -681,11 +681,10 @@ export class LuksoSelect extends TailwindStyledElement(style) {
               ></lukso-icon>
             </div>
           </div>
-          <!-- options dropdown -->
-          ${this.isOpen && this.optionsParsed.length > 0
-            ? this.optionsTemplate()
-            : nothing}
         </div>
+        ${this.isOpen && this.optionsParsed.length > 0
+          ? this.optionsTemplate()
+          : nothing}
         <lukso-form-error error=${this.error}></lukso-form-error>
       </div>
     `

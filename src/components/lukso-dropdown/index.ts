@@ -213,7 +213,15 @@ export class LuksoDropdown extends TailwindStyledElement(style) {
         const rect = triggerElement.getBoundingClientRect()
         const scrollContainer = this._findScrollContainer(triggerElement, rect)
         const boundary = scrollContainer
-          ? scrollContainer.getBoundingClientRect()
+          ? (() => {
+              const r = scrollContainer.getBoundingClientRect()
+              return {
+                top: Math.max(r.top, 0),
+                bottom: Math.min(r.bottom, win.innerHeight),
+                left: Math.max(r.left, 0),
+                right: Math.min(r.right, win.innerWidth),
+              }
+            })()
           : { top: 0, bottom: win.innerHeight, left: 0, right: win.innerWidth }
         const spaceBelow = boundary.bottom - rect.bottom
         const spaceAbove = rect.top - boundary.top

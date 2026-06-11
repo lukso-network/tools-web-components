@@ -177,7 +177,6 @@ import { people } from './icons/people'
 import { documentCode } from './icons/document-code'
 import { logoWarpcastMono } from './icons/logo-warpcast-mono'
 import { parachute } from './icons/parachute'
-import { bitcoinConvert } from './icons/bitcoin-convert'
 import { nft } from './icons/nft'
 import { fingerprint } from './icons/fingerprint'
 import { hammer } from './icons/hammer'
@@ -220,6 +219,7 @@ import { ticket } from './icons/ticket'
 import { tokenCreate } from './icons/token-create'
 import { tokenCreate2 } from './icons/token-create-2'
 import { tokenSwap } from './icons/token-swap'
+import { tokenSwap2 } from './icons/token-swap-2'
 
 import { addcontrollerActivated } from './icons/addcontroller-activated'
 import { addcontrollerInactive } from './icons/addcontroller-inactive'
@@ -459,7 +459,7 @@ const iconMap = {
   'document-code': documentCode,
   'logo-warpcast-mono': logoWarpcastMono,
   parachute,
-  'token-swap': bitcoinConvert,
+  'token-swap': tokenSwap,
   nft,
   fingerprint,
   hammer,
@@ -500,7 +500,7 @@ const iconMap = {
   ticket,
   'token-create': tokenCreate,
   'token-create-2': tokenCreate2,
-  'token-swap-2': tokenSwap,
+  'token-swap-2': tokenSwap2,
   'addcontroller-activated': addcontrollerActivated,
   'addcontroller-inactive': addcontrollerInactive,
   'addextensions-activated': addextensionsActivated,

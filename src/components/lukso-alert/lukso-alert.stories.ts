@@ -77,6 +77,19 @@ const meta: Meta = {
     'is-full-width': {
       name: 'isFullWidth',
     },
+    isLoading: {
+      name: 'is-loading',
+      control: {
+        type: 'boolean',
+      },
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: 'false' },
+      },
+    },
+    'is-loading': {
+      name: 'isLoading',
+    },
   },
   args: {
     variant: 'info',
@@ -86,6 +99,7 @@ const meta: Meta = {
       'Lorem ipsum dolor sit amet, <i>consectetur adipiscing</i> elit. Urna, tortor tempus.',
     hasIcon: true,
     isFullWidth: false,
+    isLoading: false,
   },
   parameters: {
     controls: {
@@ -103,6 +117,7 @@ const Template = ({
   description,
   hasIcon,
   isFullWidth,
+  isLoading,
 }) =>
   html`<lukso-alert
     variant=${variant ? variant : nothing}
@@ -111,6 +126,7 @@ const Template = ({
     description=${description ? description : nothing}
     ?has-icon=${hasIcon}
     ?is-full-width=${isFullWidth}
+    ?is-loading=${isLoading}
   ></lukso-alert>`
 
 /** Example of `info` alert.  */
@@ -165,4 +181,11 @@ export const DescriptionOnly = Template.bind({})
 DescriptionOnly.args = {
   hasIcon: true,
   title: '',
+}
+
+/** Example of an alert in loading state — spinner replaces the icon. */
+export const LoadingAlert = Template.bind({})
+LoadingAlert.args = {
+  hasIcon: true,
+  isLoading: true,
 }

@@ -34,6 +34,9 @@ export class LuksoAlert extends TailwindStyledElement(style) {
   @property({ type: Boolean, attribute: 'is-full-width', reflect: true })
   isFullWidth = false
 
+  @property({ type: Boolean, attribute: 'is-loading', reflect: true })
+  isLoading = false
+
   private styles = tv({
     slots: {
       container: 'flex items-center',
@@ -88,11 +91,17 @@ export class LuksoAlert extends TailwindStyledElement(style) {
     return html`
       <div class=${container()}>
         ${this.hasIcon
-          ? html`<lukso-icon
-              pack="vuesax"
-              name="${this.icon.name}"
-              color="${this.icon.color}"
-            ></lukso-icon>`
+          ? this.isLoading
+            ? html`<lukso-icon
+                name="spinner"
+                color="${this.icon.color}"
+                class="animate-spin"
+              ></lukso-icon>`
+            : html`<lukso-icon
+                pack="vuesax"
+                name="${this.icon.name}"
+                color="${this.icon.color}"
+              ></lukso-icon>`
           : nothing}
         <div class="flex flex-col gap-1">
           ${this.title

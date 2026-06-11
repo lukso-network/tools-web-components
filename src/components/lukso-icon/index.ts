@@ -87,6 +87,7 @@ import { qrCodeScan } from './icons/qr-code-scan'
 import { qrCode } from './icons/qr-code'
 import { relayer } from './icons/relayer'
 import { reload } from './icons/reload'
+import { routing } from './icons/routing'
 import { returnDown } from './icons/return-down'
 import { returnLeft } from './icons/return-left'
 import { returnRight } from './icons/return-right'
@@ -176,7 +177,6 @@ import { people } from './icons/people'
 import { documentCode } from './icons/document-code'
 import { logoWarpcastMono } from './icons/logo-warpcast-mono'
 import { parachute } from './icons/parachute'
-import { bitcoinConvert } from './icons/bitcoin-convert'
 import { nft } from './icons/nft'
 import { fingerprint } from './icons/fingerprint'
 import { hammer } from './icons/hammer'
@@ -215,7 +215,12 @@ import { profileFollowing } from './icons/profile-following'
 import { logoCommonGroundMono } from './icons/logo-common-ground-mono'
 import { logoHyperlaneMono } from './icons/logo-hyperlane-mono'
 import { logoHyperlane } from './icons/logo-hyperlane'
+import { ticket } from './icons/ticket'
 import { tokenCreate } from './icons/token-create'
+import { tokenCreate2 } from './icons/token-create-2'
+import { tokenSwap } from './icons/token-swap'
+import { tokenSwap2 } from './icons/token-swap-2'
+
 import { addcontrollerActivated } from './icons/addcontroller-activated'
 import { addcontrollerInactive } from './icons/addcontroller-inactive'
 import { addextensionsActivated } from './icons/addextensions-activated'
@@ -371,6 +376,7 @@ const iconMap = {
   'return-left': returnLeft,
   'return-right': returnRight,
   'return-up': returnUp,
+  routing,
   search,
   settings,
   'smart-contract-doc': smartContractDoc,
@@ -453,7 +459,7 @@ const iconMap = {
   'document-code': documentCode,
   'logo-warpcast-mono': logoWarpcastMono,
   parachute,
-  'bitcoin-convert': bitcoinConvert,
+  'token-swap': tokenSwap,
   nft,
   fingerprint,
   hammer,
@@ -491,7 +497,10 @@ const iconMap = {
   'logo-common-ground-mono': logoCommonGroundMono,
   'logo-hyperlane-mono': logoHyperlaneMono,
   'logo-hyperlane': logoHyperlane,
+  ticket,
   'token-create': tokenCreate,
+  'token-create-2': tokenCreate2,
+  'token-swap-2': tokenSwap2,
   'addcontroller-activated': addcontrollerActivated,
   'addcontroller-inactive': addcontrollerInactive,
   'addextensions-activated': addextensionsActivated,

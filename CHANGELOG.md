@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.204.0](https://github.com/lukso-network/tools-web-components/compare/v1.203.5...v1.204.0) (2026-06-11)
+
+
+### Features
+
+* Add is-loading flag to lukso-alert ([#912](https://github.com/lukso-network/tools-web-components/issues/912)) ([1b5d04f](https://github.com/lukso-network/tools-web-components/commit/1b5d04f1b0ceb11a703fd623b4cd53916e512eda))
+* Add new token and utility icons ([#911](https://github.com/lukso-network/tools-web-components/issues/911)) ([efbeba7](https://github.com/lukso-network/tools-web-components/commit/efbeba750b6a62ed2e21010792e0d5be632b9ea3))
+
 ## [1.203.5](https://github.com/lukso-network/tools-web-components/compare/v1.203.4...v1.203.5) (2026-06-02)
 
 

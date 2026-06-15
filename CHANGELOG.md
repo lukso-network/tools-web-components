@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.205.0](https://github.com/lukso-network/tools-web-components/compare/v1.204.0...v1.205.0) (2026-06-15)
+
+
+### Features
+
+* Add logo-hub-social icon and fix mono icons color support ([#914](https://github.com/lukso-network/tools-web-components/issues/914)) ([10434ba](https://github.com/lukso-network/tools-web-components/commit/10434ba3c3667f229f64a5ece14b6d02e2903b3e))
+
 ## [1.204.0](https://github.com/lukso-network/tools-web-components/compare/v1.203.5...v1.204.0) (2026-06-11)
 
 

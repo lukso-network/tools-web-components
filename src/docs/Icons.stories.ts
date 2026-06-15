@@ -439,6 +439,7 @@ export const MonochromaticIcons: Story = {
           'logo-tiktok-mono',
           'logo-common-ground-mono',
           'logo-hyperlane-mono',
+          'logo-hub-social',
           'logo-hyperlane-outline',
         ],
         'Monochromatic Icons',

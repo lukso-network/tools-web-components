@@ -3,7 +3,7 @@ import { styleMap } from 'lit/directives/style-map.js'
 
 import type { IconOptions } from '@/shared/types.js'
 
-export const logoHubSocial = (options: IconOptions) => {
+export const logoHupSocial = (options: IconOptions) => {
   return html`<svg
     width="51"
     height="51"
@@ -15,7 +15,7 @@ export const logoHubSocial = (options: IconOptions) => {
       height: `${options.height}px`,
     })}
   >
-    <g clip-path="url(#clip0_hub_social)">
+    <g clip-path="url(#clip0_hup_social)">
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
@@ -24,7 +24,7 @@ export const logoHubSocial = (options: IconOptions) => {
       />
     </g>
     <defs>
-      <clipPath id="clip0_hub_social">
+      <clipPath id="clip0_hup_social">
         <rect width="51" height="51" fill="white" />
       </clipPath>
     </defs>

@@ -179,7 +179,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
   })
 
   private inputStyles = tv({
-    base: `border border-solid select-none
+    base: `bg-neutral-100 border border-solid select-none
       outline-none transition-all duration-150 text-neutral-20 cursor-pointer
       border-neutral-90 group-hover:border-neutral-35 flex items-center w-full`,
     variants: {
@@ -200,7 +200,7 @@ export class LuksoInputDatePicker extends TailwindStyledElement(style) {
           'h-17 px-5 py-5 pr-14 paragraph-inter-16-regular rounded-[14px]',
       },
       variant: {
-        default: 'bg-neutral-100',
+        default: '',
         subtle: 'bg-neutral-97',
       },
     },

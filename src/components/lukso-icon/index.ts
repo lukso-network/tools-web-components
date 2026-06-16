@@ -209,7 +209,7 @@ import { medalStar } from './icons/medal-star'
 import { editLinear } from './icons/edit-linear'
 import { imageLinear } from './icons/image-linear'
 import { hexagon } from './icons/hexagon'
-import { logoHubSocial } from './icons/logo-hub-social'
+import { logoHupSocial } from './icons/logo-hup-social'
 import { rowVertical } from './icons/row-vertical'
 import { logoTiktokMono } from './icons/logo-tiktok-mono'
 import { profileFollowing } from './icons/profile-following'
@@ -492,7 +492,7 @@ const iconMap = {
   'edit-linear': editLinear,
   'image-linear': imageLinear,
   hexagon,
-  'logo-hub-social': logoHubSocial,
+  'logo-hup-social': logoHupSocial,
   'row-vertical': rowVertical,
   'logo-tiktok-mono': logoTiktokMono,
   'profile-following': profileFollowing,

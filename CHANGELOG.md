@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.206.0](https://github.com/lukso-network/tools-web-components/compare/v1.205.0...v1.206.0) (2026-06-16)
+
+
+### Features
+
+* Add vuesax setting and category icons ([#919](https://github.com/lukso-network/tools-web-components/issues/919)) ([31d3c4f](https://github.com/lukso-network/tools-web-components/commit/31d3c4ffce13268cb6630e794b66c30a37a9e8c7))
+
+
+### Bug Fixes
+
+* Missing background in lukso-input ([#916](https://github.com/lukso-network/tools-web-components/issues/916)) ([e11f135](https://github.com/lukso-network/tools-web-components/commit/e11f1352468c9583b1d7e14e9dc989e8551b175c))
+* Rename logo-hub-social icon to logo-hup-social ([#917](https://github.com/lukso-network/tools-web-components/issues/917)) ([098ab2b](https://github.com/lukso-network/tools-web-components/commit/098ab2bea3799d7933b9199fe1114d73d8e185d1))
+
 ## [1.205.0](https://github.com/lukso-network/tools-web-components/compare/v1.204.0...v1.205.0) (2026-06-15)
 
 

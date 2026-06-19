@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.207.0](https://github.com/lukso-network/tools-web-components/compare/v1.206.0...v1.207.0) (2026-06-19)
+
+
+### Features
+
+* Add vuesax import and receive-square icons ([#920](https://github.com/lukso-network/tools-web-components/issues/920)) ([4f124b9](https://github.com/lukso-network/tools-web-components/commit/4f124b90e7fbb86f0968a05532f925dbf04f6783))
+
 ## [1.206.0](https://github.com/lukso-network/tools-web-components/compare/v1.205.0...v1.206.0) (2026-06-16)
 
 

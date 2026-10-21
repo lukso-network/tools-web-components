@@ -2,27 +2,27 @@ on:
   workflow_call:
     inputs:
       sha:
-        description: 'Github sha'
+        description: "Github sha"
         required: true
         type: string
       ref:
-        description: 'Github ref'
+        description: "Github ref"
         required: true
         type: string
       tag_name:
-        description: 'Github tag_name'
+        description: "Github tag_name"
         type: string
       release_created:
-        description: 'Github release_created'
+        description: "Github release_created"
         type: string
       pr_number:
-        description: 'PR Number'
+        description: "PR Number"
         type: string
 
 name: build artifacts
 
 env:
-  LUKSO_NPM_TOKEN: '${{ secrets.LUKSO_NPM_TOKEN }}'
+  LUKSO_NPM_TOKEN: "${{ secrets.LUKSO_NPM_TOKEN }}"
 
 jobs:
   # Single setup job that handles Node.js version detection
@@ -252,7 +252,7 @@ jobs:
         if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
         uses: kentaro-m/auto-assign-action@v2.0.0
         with:
-          configuration-path: '.github/auto_assign.yaml'
+          configuration-path: ".github/auto_assign.yaml"
 
       - name: 🔍 Get Discord Mentions
         if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}
@@ -263,7 +263,6 @@ jobs:
           script: |
             const creator = context.actor;
             const mentions = [
-              { githubUser: 'dzbo', discordId: '752572450834743316' },
               { githubUser: 'richtera', discordId: '457668914198085643' },
               { githubUser: 'JeneaVranceanu', discordId: '785496710150357023' },
             ];
@@ -282,9 +281,9 @@ jobs:
         uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          username: 'Tools Web Components'
-          avatar-url: 'https://avatars.githubusercontent.com/u/1905708'
-          content: '${{ steps.discord-mentions.outputs.result }} https://github.com/lukso-network/tools-web-components/pull/${{ github.event.number }} - ${{ github.event.pull_request.title }} by **${{ github.event.pull_request.user.login }}**'
+          username: "Tools Web Components"
+          avatar-url: "https://avatars.githubusercontent.com/u/1905708"
+          content: "${{ steps.discord-mentions.outputs.result }} https://github.com/lukso-network/tools-web-components/pull/${{ github.event.number }} - ${{ github.event.pull_request.title }} by **${{ github.event.pull_request.user.login }}**"
 
       - name: ✨ Add 'review-requested' Label
         if: ${{ github.event.number != null && steps.pr-info.outputs.result == 'true' }}

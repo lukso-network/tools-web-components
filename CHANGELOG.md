@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.207.1](https://github.com/lukso-network/tools-web-components/compare/v1.207.0...v1.207.1) (2026-10-21)
+
+
+### Bug Fixes
+
+* Remove Dominik from discord notifications ([79fd12d](https://github.com/lukso-network/tools-web-components/commit/79fd12d4b66524c6cf87134f371613febe5e0104))
+
 ## [1.207.0](https://github.com/lukso-network/tools-web-components/compare/v1.206.0...v1.207.0) (2026-06-19)
 
 

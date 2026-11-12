@@ -1,6 +1,6 @@
 import { expect, it, describe } from 'vitest'
 
-import { nftResultSubtitle } from '../search-result'
+import { nftResultSubtitle, selectableResultPosition } from '../search-result'
 
 describe('nftResultSubtitle', () => {
   it('should return the collection name of a single NFT', () => {
@@ -56,5 +56,46 @@ describe('nftResultSubtitle', () => {
       })
     ).toEqual('LUK')
     expect(nftResultSubtitle({ name: 'Luksouls' })).toEqual('')
+  })
+})
+
+describe('selectableResultPosition', () => {
+  const results = [
+    { type: 'search-hint' },
+    { type: 'recent-search' },
+    { type: 'profile' },
+    { type: 'search-hint' },
+    { type: 'asset' },
+  ]
+
+  it('should return the start position of a result that is not a hint', () => {
+    expect(selectableResultPosition(results, 2, 1)).toEqual(2)
+    expect(selectableResultPosition(results, 3, -1)).toEqual(3)
+  })
+
+  it('should skip search hint rows in both directions', () => {
+    expect(selectableResultPosition(results, 1, 1)).toEqual(2)
+    expect(selectableResultPosition(results, 4, 1)).toEqual(5)
+    expect(selectableResultPosition(results, 4, -1)).toEqual(3)
+  })
+
+  it('should return undefined when only hints or nothing follow', () => {
+    expect(selectableResultPosition(results, 1, -1)).toBeUndefined()
+    expect(selectableResultPosition(results, 6, 1)).toBeUndefined()
+    expect(selectableResultPosition(results, 0, -1)).toBeUndefined()
+    expect(selectableResultPosition([{ type: 'search-hint' }], 1, 1)).toBe(
+      undefined
+    )
+    expect(selectableResultPosition([], 1, 1)).toBeUndefined()
+  })
+
+  it('should go back from a selection beyond shorter results', () => {
+    expect(selectableResultPosition(results, 9, -1)).toEqual(5)
+    expect(selectableResultPosition(results.slice(0, 4), 9, -1)).toEqual(3)
+    expect(selectableResultPosition(results, 9, 1)).toBeUndefined()
+  })
+
+  it('should treat results without type as selectable', () => {
+    expect(selectableResultPosition([{}, { type: 'string' }], 1, 1)).toEqual(1)
   })
 })

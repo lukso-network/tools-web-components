@@ -15,7 +15,10 @@ import '@/components/lukso-username'
 import '@/components/lukso-tooltip'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { sliceAddress } from '@/shared/tools'
-import { nftResultSubtitle } from '@/shared/tools/search-result'
+import {
+  nftResultSubtitle,
+  selectableResultPosition,
+} from '@/shared/tools/search-result'
 import style from './style.css?inline'
 import { SEARCH_RESULT_TYPES, STANDARDS } from '@/shared/enums'
 import { uniqId } from '@/shared/tools/uniq-id'
@@ -46,10 +49,12 @@ export type SearchResult = {
   tokenId?: `0x${string}`
   collectionName?: string
   ownerName?: string
+  // examples of a `search-hint` result: a short explanation after the example
+  description?: string
 }
 
 /**
- * A search input with debounced search events and a rich results dropdown supporting multiple result types (profile, asset, nft, app, universal-name, recent-search, string).
+ * A search input with debounced search events and a rich results dropdown supporting multiple result types (profile, asset, nft, app, universal-name, recent-search, search-hint, string).
  *
  * @prop {InputVariant} variant - Visual variant forwarded to the inner `lukso-input`. `'default'` uses `bg-neutral-100`; `'subtle'` uses `bg-neutral-97` for use on slightly darker surfaces.
  */
@@ -76,6 +81,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     [SEARCH_RESULT_TYPES.APP]: 'Apps',
     [SEARCH_RESULT_TYPES.STRING]: 'Other',
     [SEARCH_RESULT_TYPES.RECENT_SEARCH]: 'Recent searches',
+    [SEARCH_RESULT_TYPES.SEARCH_HINT]: 'Try searching for',
   })
 
   @property({ type: String, attribute: 'available-text' })
@@ -296,6 +302,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
             case SEARCH_RESULT_TYPES.RECENT_SEARCH:
               headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.RECENT_SEARCH]
               break
+            case SEARCH_RESULT_TYPES.SEARCH_HINT:
+              headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.SEARCH_HINT]
+              break
             default:
               headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.STRING]
               break
@@ -339,6 +348,10 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         // Recent searches result
         case SEARCH_RESULT_TYPES.RECENT_SEARCH:
           resultTemplates.push(this.resultRecentSearchTemplate(result[1]))
+          break
+        // Example searches result
+        case SEARCH_RESULT_TYPES.SEARCH_HINT:
+          resultTemplates.push(this.resultSearchHintTemplate(result[1]))
           break
         // Default string result
         default:
@@ -739,6 +752,42 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </div>`
   }
 
+  // example searches, one per line, each followed by its short explanation
+  // (`description`) if it has one; a click on the line searches the example
+  // like typed input
+  resultSearchHintTemplate(result: SearchResult) {
+    const hints = (result.value as SearchResult[]).filter(
+      hint => typeof hint.value === 'string' && hint.value
+    )
+
+    return html`<div
+      data-id="${result.id}"
+      class="px-1 pt-0.5 pb-3 text-left paragraph-inter-14-regular ${this
+        .textSize[this.size]}"
+    >
+      ${hints.map(
+        hint =>
+          html`<button
+            type="button"
+            tabindex="-1"
+            class="group flex w-full cursor-pointer items-baseline gap-2.5 py-[3px] text-left"
+            @mousedown=${(event: MouseEvent) => event.preventDefault()}
+            @click=${() => this.handleSearchHint(hint)}
+          >
+            <span
+              class="shrink-0 whitespace-nowrap text-neutral-20 group-hover:text-neutral-10 group-hover:underline"
+              >${hint.value}</span
+            >${hint.description
+              ? html`<span
+                  class="truncate text-neutral-65 paragraph-inter-13-regular"
+                  >${hint.description}</span
+                >`
+              : nothing}
+          </button>`
+      )}
+    </div>`
+  }
+
   private async handleOutsideDropdownClick(event: Event) {
     const element = event.target as HTMLElement
     // Check if the clicked element or any of its parents belongs to this lukso-search component
@@ -774,23 +823,43 @@ export class LuksoSearch extends TailwindStyledElement(style) {
       this.selected > 1 &&
       this.resultsParsed?.length
     ) {
-      event.preventDefault()
-      this.selected = this.selected - 1
+      const previous = selectableResultPosition(
+        this.resultsParsed,
+        this.selected - 1,
+        -1
+      )
+
+      if (previous) {
+        event.preventDefault()
+        this.selected = previous
+      }
     }
 
     if (event.key === 'ArrowDown' && this.resultsParsed?.length) {
       event.preventDefault()
 
-      if (!this.selected) {
-        this.selected = 1
-      } else if (this.selected < this.resultsParsed.length) {
-        this.selected = this.selected + 1
+      const next = selectableResultPosition(
+        this.resultsParsed,
+        (this.selected || 0) + 1,
+        1
+      )
+
+      if (next) {
+        this.selected = next
       }
     }
 
     if (event.key === 'Enter' && this.resultsParsed?.length) {
-      if (this.selected) {
-        const selectedResult = this.resultsParsed[this.selected - 1]
+      const selectedResult = this.selected
+        ? this.resultsParsed[this.selected - 1]
+        : undefined
+
+      // a selection left from other results can point at a search hint row
+      // (examples, not an option) or past the end
+      if (
+        selectedResult &&
+        selectedResult.type !== SEARCH_RESULT_TYPES.SEARCH_HINT
+      ) {
         await this.handleSelect(selectedResult)
       }
     }
@@ -902,13 +971,23 @@ export class LuksoSearch extends TailwindStyledElement(style) {
   }
 
   private handleSearch(event: Event) {
+    const target = event.target as HTMLInputElement
+    this.runSearch(target.value)
+  }
+
+  // the input shows the example and the same debounced `on-search` event as
+  // for typed input fires, so hosts need no extra handling
+  private handleSearchHint(hint: SearchResult) {
+    this.runSearch(hint.value as string)
+  }
+
+  private runSearch(searchTerm: string) {
     if (this.isDebouncing) {
       clearTimeout(this.debounceTimer)
     }
 
     this.isDebouncing = true
-    const target = event.target as HTMLInputElement
-    this.searchDebounce(target.value)
+    this.searchDebounce(searchTerm)
   }
 
   render() {

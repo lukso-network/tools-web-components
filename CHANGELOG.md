@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.208.0](https://github.com/lukso-network/tools-web-components/compare/v1.207.0...v1.208.0) (2026-11-12)
+
+
+### Features
+
+* **lukso-search:** add nft result type for NFTs and NFT collections ([#923](https://github.com/lukso-network/tools-web-components/issues/923)) ([4032ae5](https://github.com/lukso-network/tools-web-components/commit/4032ae572a4252ca07c77ee4bce5be782e73c6cd))
+* **lukso-search:** add search-hint result type ([#924](https://github.com/lukso-network/tools-web-components/issues/924)) ([2dc47cf](https://github.com/lukso-network/tools-web-components/commit/2dc47cf9e1966c0b91196ff08553f5f5383142a2))
+
+
+### Bug Fixes
+
+* Remove Dominik from discord notifications ([79fd12d](https://github.com/lukso-network/tools-web-components/commit/79fd12d4b66524c6cf87134f371613febe5e0104))
+
 ## [1.207.0](https://github.com/lukso-network/tools-web-components/compare/v1.206.0...v1.207.0) (2026-06-19)
 
 

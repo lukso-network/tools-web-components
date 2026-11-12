@@ -122,7 +122,7 @@ jobs:
 
   # Storybook tests - runs in parallel with build and unit tests after setup
   test-storybook:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # Playwright has no Chromium build for ubuntu-latest (26.04) yet
     needs: setup
     name: Storybook Tests
     steps:
@@ -356,7 +356,7 @@ jobs:
   deploy-storybook:
     needs: [setup, test-storybook]
     name: Deploy Storybook
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # Playwright has no Chromium build for ubuntu-latest (26.04) yet
     permissions:
       contents: read
       deployments: write

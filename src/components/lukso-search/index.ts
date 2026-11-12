@@ -49,6 +49,8 @@ export type SearchResult = {
   tokenId?: `0x${string}`
   collectionName?: string
   ownerName?: string
+  // examples of a `search-hint` result: a short explanation after the example
+  description?: string
 }
 
 /**
@@ -750,8 +752,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </div>`
   }
 
-  // example searches as one line of plain text, separated by `|`; a click
-  // searches the example like typed input
+  // example searches, one per line, each followed by its short explanation
+  // (`description`) if it has one; a click on the line searches the example
+  // like typed input
   resultSearchHintTemplate(result: SearchResult) {
     const hints = (result.value as SearchResult[]).filter(
       hint => typeof hint.value === 'string' && hint.value
@@ -759,24 +762,28 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
     return html`<div
       data-id="${result.id}"
-      class="px-1 pt-0.5 pb-3.5 text-left text-neutral-35 paragraph-inter-14-regular ${this
+      class="px-1 pt-0.5 pb-3 text-left paragraph-inter-14-regular ${this
         .textSize[this.size]}"
     >
       ${hints.map(
-        (hint, index) =>
-          html`${index > 0
-              ? html`<span class="text-neutral-80" aria-hidden="true">
-                  |
-                </span>`
-              : nothing}<button
-              type="button"
-              tabindex="-1"
-              class="cursor-pointer whitespace-nowrap hover:text-neutral-20 hover:underline"
-              @mousedown=${(event: MouseEvent) => event.preventDefault()}
-              @click=${() => this.handleSearchHint(hint)}
-            >
-              ${hint.value}
-            </button>`
+        hint =>
+          html`<button
+            type="button"
+            tabindex="-1"
+            class="group flex w-full cursor-pointer items-baseline gap-2.5 py-[3px] text-left"
+            @mousedown=${(event: MouseEvent) => event.preventDefault()}
+            @click=${() => this.handleSearchHint(hint)}
+          >
+            <span
+              class="shrink-0 whitespace-nowrap text-neutral-20 group-hover:text-neutral-10 group-hover:underline"
+              >${hint.value}</span
+            >${hint.description
+              ? html`<span
+                  class="truncate text-neutral-65 paragraph-inter-13-regular"
+                  >${hint.description}</span
+                >`
+              : nothing}
+          </button>`
       )}
     </div>`
   }

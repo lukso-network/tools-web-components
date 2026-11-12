@@ -93,20 +93,21 @@ const NFT_RESULTS: SearchResult[] = [
 
 // example searches of the universaleverything.io global search
 const SEARCH_HINTS = [
-  'feindura',
-  'feindura#cdec',
-  '0xcdec11',
-  'luksouls 2845',
-  'owned by feindura',
+  { query: 'feindura', description: 'profile name' },
+  { query: 'feindura#cdec', description: 'name + start of address' },
+  { query: '0xcdec11', description: 'address' },
+  { query: 'luksouls 2845', description: 'NFT by number' },
+  { query: 'owned by feindura', description: 'NFTs a profile owns' },
 ]
 
 const SEARCH_HINT_RESULT: SearchResult = {
   id: 'search-hints',
   type: SEARCH_RESULT_TYPES.SEARCH_HINT,
-  value: SEARCH_HINTS.map(hint => ({
-    id: hint,
+  value: SEARCH_HINTS.map(({ query, description }) => ({
+    id: query,
     type: SEARCH_RESULT_TYPES.STRING,
-    value: hint,
+    value: query,
+    description,
   })),
 }
 
@@ -953,7 +954,7 @@ ResultMixed.args = {
   withGroupLabels: true,
 }
 
-/** Example of search with a `search-hint` result: example searches shown as one line of plain text, e.g. above recent searches and trending results for empty input. Its `value` holds the examples as `string` results. A click puts the example into the input and fires the same debounced `on-search` event as typed input, so the host needs no extra handling; no `on-select` event is emitted. Like the entries of `recent-search`, the examples are for pointer input only, and the arrow keys skip the row. */
+/** Example of search with a `search-hint` result: example searches shown as a list, one per line, e.g. above recent searches and trending results for empty input. Its `value` holds the examples as `string` results; the optional `description` of an example is a short explanation shown after it in grey. A click on a line puts its example into the input and fires the same debounced `on-search` event as typed input, so the host needs no extra handling; no `on-select` event is emitted. Like the entries of `recent-search`, the examples are for pointer input only, and the arrow keys skip them. */
 export const ResultSearchHint = Template.bind({})
 ResultSearchHint.args = {
   placeholder: 'Search profiles, tokens, or NFTs',
@@ -1136,12 +1137,21 @@ export const TestNftKeyboardSelect: StoryObj = {
   },
 }
 
-/** Test story for the `search-hint` result: one line of examples, a click searches it. */
+/** Test story for the `search-hint` result: a list of examples with explanations, a click on a line searches its example. */
 export const TestSearchHint: StoryObj = {
   name: 'Test: search hints',
   render: Template,
   args: {
-    results: [SEARCH_HINT_RESULT, ...NFT_RESULTS.slice(0, 2)],
+    results: [
+      {
+        ...SEARCH_HINT_RESULT,
+        value: [
+          ...(SEARCH_HINT_RESULT.value as SearchResult[]),
+          { id: 'lukso', type: SEARCH_RESULT_TYPES.STRING, value: 'lukso' },
+        ],
+      },
+      ...NFT_RESULTS.slice(0, 2),
+    ],
     withGroupLabels: true,
     debounce: 10,
   },
@@ -1154,18 +1164,36 @@ export const TestSearchHint: StoryObj = {
     const header = search.shadowRoot?.querySelector('lukso-dropdown > div')
     const hintRow = search.shadowRoot?.querySelector(
       `[data-id="${SEARCH_HINT_RESULT.id}"]`
-    )
-    const hints = [...(hintRow?.querySelectorAll('button') || [])]
+    ) as HTMLElement
+    const hints = [...hintRow.querySelectorAll('button')]
+    const texts = (hint: Element) =>
+      [...hint.querySelectorAll('span')].map(span => span.textContent?.trim())
 
     expect(header?.textContent?.trim()).toBe('Try searching for')
-    expect(hints.map(hint => hint.textContent?.trim())).toEqual(SEARCH_HINTS)
-    // plain text separated by `|`, the separators are hidden from screen readers
-    expect(hintRow?.textContent?.replace(/\s+/g, ' ').trim()).toBe(
-      SEARCH_HINTS.join(' | ')
+    // one line per example: the example, then its explanation; an example
+    // without explanation shows just the example
+    expect(hints.map(texts)).toEqual([
+      ...SEARCH_HINTS.map(({ query, description }) => [query, description]),
+      ['lukso'],
+    ])
+
+    const tops = hints.map(hint => hint.getBoundingClientRect().top)
+
+    expect(tops.every((top, index) => !index || top > tops[index - 1])).toBe(
+      true
     )
-    expect(hintRow?.querySelectorAll('span[aria-hidden="true"]').length).toBe(
-      SEARCH_HINTS.length - 1
-    )
+
+    // narrow (mobile): the example text never breaks, a long explanation is cut
+    hintRow.style.width = '200px'
+    const [example, description] = [...hints[4].querySelectorAll('span')]
+    const exampleText = document.createRange()
+    exampleText.selectNodeContents(example)
+
+    expect(exampleText.getClientRects().length).toBe(1)
+    expect(description.scrollWidth).toBeGreaterThan(description.clientWidth)
+
+    hintRow.style.width = ''
+
     // the hint row is no option, the arrow keys start at the result after it
     expect(getOptions(search).length).toBe(2)
 

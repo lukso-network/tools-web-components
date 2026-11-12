@@ -15,6 +15,7 @@ import '@/components/lukso-username'
 import '@/components/lukso-tooltip'
 import { TailwindStyledElement } from '@/shared/tailwind-element'
 import { sliceAddress } from '@/shared/tools'
+import { nftResultSubtitle } from '@/shared/tools/search-result'
 import style from './style.css?inline'
 import { SEARCH_RESULT_TYPES, STANDARDS } from '@/shared/enums'
 import { uniqId } from '@/shared/tools/uniq-id'
@@ -41,10 +42,14 @@ export type SearchResult = {
   supply?: string
   decimals?: number
   tokenType?: TokenType
+  // `nft` results: a single NFT has its (bytes32) `tokenId`, a collection doesn't
+  tokenId?: `0x${string}`
+  collectionName?: string
+  ownerName?: string
 }
 
 /**
- * A search input with debounced search events and a rich results dropdown supporting multiple result types (profile, asset, app, universal-name, recent-search, string).
+ * A search input with debounced search events and a rich results dropdown supporting multiple result types (profile, asset, nft, app, universal-name, recent-search, string).
  *
  * @prop {InputVariant} variant - Visual variant forwarded to the inner `lukso-input`. `'default'` uses `bg-neutral-100`; `'subtle'` uses `bg-neutral-97` for use on slightly darker surfaces.
  */
@@ -67,6 +72,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     [SEARCH_RESULT_TYPES.UNIVERSAL_NAME]: 'Universal Names',
     [SEARCH_RESULT_TYPES.PROFILE]: 'Profiles',
     [SEARCH_RESULT_TYPES.ASSET]: 'Assets',
+    [SEARCH_RESULT_TYPES.NFT]: 'NFTs',
     [SEARCH_RESULT_TYPES.APP]: 'Apps',
     [SEARCH_RESULT_TYPES.STRING]: 'Other',
     [SEARCH_RESULT_TYPES.RECENT_SEARCH]: 'Recent searches',
@@ -77,6 +83,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
 
   @property({ type: String, attribute: 'unavailable-text' })
   unavailableText = 'Registered'
+
+  @property({ type: String, attribute: 'owned-by-text' })
+  ownedByText = 'owned by'
 
   @property({ type: String })
   autocomplete = 'off'
@@ -233,7 +242,7 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     // for long lists when selected option changes we scroll to it
     if (changedProperties.has('selected')) {
       const selectedOption = this.shadowRoot?.querySelector(
-        `[data-index="${changedProperties.get('selected')}"`
+        `[data-index="${this.selected}"]`
       )
 
       if (selectedOption) {
@@ -278,6 +287,9 @@ export class LuksoSearch extends TailwindStyledElement(style) {
             case SEARCH_RESULT_TYPES.ASSET:
               headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.ASSET]
               break
+            case SEARCH_RESULT_TYPES.NFT:
+              headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.NFT]
+              break
             case SEARCH_RESULT_TYPES.APP:
               headerText = groupLabelsParsed[SEARCH_RESULT_TYPES.APP]
               break
@@ -315,6 +327,10 @@ export class LuksoSearch extends TailwindStyledElement(style) {
         // Asset result
         case SEARCH_RESULT_TYPES.ASSET:
           resultTemplates.push(this.resultAssetTemplate(result[1], index))
+          break
+        // NFT result, a single NFT or a collection
+        case SEARCH_RESULT_TYPES.NFT:
+          resultTemplates.push(this.resultNftTemplate(result[1], index))
           break
         // App result
         case SEARCH_RESULT_TYPES.APP:
@@ -528,6 +544,44 @@ export class LuksoSearch extends TailwindStyledElement(style) {
     </lukso-dropdown-option>`
   }
 
+  resultNftTemplate(result: SearchResult, index: number) {
+    const subtitle = nftResultSubtitle(result)
+
+    return html`<lukso-dropdown-option
+      data-id="${result.id}"
+      data-index="${index + 1}"
+      ?is-selected=${this.selected === index + 1}
+      size=${this.dropdownSize[this.size]}
+      @click=${() => this.handleSelect(result)}
+    >
+      <lukso-profile
+        profile-address="${result.address}"
+        profile-url="${result.image}"
+        placeholder="/assets/images/token-default.svg"
+        size=${this.profileSize[this.size]}
+        is-square
+        ?has-identicon=${!result.tokenId}
+      ></lukso-profile>
+      <span class="paragraph-inter-14-semi-bold ${this.textSize[this.size]}"
+        >${result.name}
+        ${subtitle
+          ? html`<span
+              class="text-neutral-60 paragraph-inter-14-regular ${this.textSize[
+                this.size
+              ]}"
+              >${subtitle}</span
+            >`
+          : nothing}
+        ${result.ownerName
+          ? html`<span
+              class="hidden sm:inline text-neutral-60 paragraph-inter-12-regular"
+              >· ${this.ownedByText} @${result.ownerName}</span
+            >`
+          : nothing}</span
+      >
+    </lukso-dropdown-option>`
+  }
+
   resultAppTemplate(result: SearchResult, index: number) {
     return html`<lukso-dropdown-option
       data-id="${result.address}"
@@ -633,6 +687,31 @@ export class LuksoSearch extends TailwindStyledElement(style) {
             ></lukso-profile
           ></lukso-tooltip>`
           recentSearchTemplates.push(asset)
+          break
+        }
+        case SEARCH_RESULT_TYPES.NFT: {
+          const subtitle = nftResultSubtitle(recentSearch)
+          const nft = html`<lukso-tooltip show-delay="2000" class="flex">
+            <div slot="text">
+              <span class="font-600"
+                >${recentSearch.name}
+                ${subtitle
+                  ? html`<span class="text-neutral-60">${subtitle}</span>`
+                  : nothing}</span
+              >
+            </div>
+            <lukso-profile
+              profile-address="${recentSearch.address}"
+              profile-url="${recentSearch.image}"
+              placeholder="/assets/images/token-default.svg"
+              size=${this.profileSize[this.size]}
+              class="cursor-pointer transition hover:scale-[1.02]"
+              is-square
+              ?has-identicon=${!recentSearch.tokenId}
+              @click=${() => this.handleSelect(recentSearch)}
+            ></lukso-profile
+          ></lukso-tooltip>`
+          recentSearchTemplates.push(nft)
           break
         }
         case SEARCH_RESULT_TYPES.APP: {

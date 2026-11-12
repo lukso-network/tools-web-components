@@ -10,6 +10,7 @@ export enum SEARCH_RESULT_TYPES {
   STRING = 'string',
   PROFILE = 'profile',
   ASSET = 'asset',
+  NFT = 'nft',
   APP = 'app',
   UNIVERSAL_NAME = 'universal-name',
   RECENT_SEARCH = 'recent-search',

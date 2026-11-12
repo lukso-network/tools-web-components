@@ -1,12 +1,107 @@
 import { useArgs } from 'storybook/preview-api'
 import { html, nothing } from 'lit-html'
 import { LSP4_TOKEN_TYPES } from '@lukso/lsp-smart-contracts'
+import { expect } from '@storybook/test'
 
 import { SEARCH_RESULT_TYPES, STANDARDS } from '@/shared/enums'
 
-import type { Meta } from '@storybook/web-components-vite'
+import type { Meta, StoryObj } from '@storybook/web-components-vite'
+import type { LuksoSearch, SearchResult } from './index'
 
 import './index'
+
+// mainnet NFTs and collections as the universaleverything.io search shows them
+const NFT_RESULTS: SearchResult[] = [
+  {
+    id: '0x719b36427c9868162df1b4c9e6ddc28f5c36d72d-0x0000000000000000000000000000000000000000000000000000000000000b1d',
+    address: '0x719b36427c9868162df1b4c9e6ddc28f5c36d72d',
+    tokenId:
+      '0x0000000000000000000000000000000000000000000000000000000000000b1d',
+    name: 'Luksouls #2845',
+    collectionName: 'Luksouls',
+    ownerName: 'cryptodaddi',
+    image:
+      'https://api.universalprofile.cloud/image/bafybeifixhubols6an3xhj4htqmyjpaa5gqiae7vl3r7oeak4wij7z3wd4/2845.png?method=keccak256(bytes)&data=0xeda9f7e480dc0d3d142869e4c7db7ca4251da209eb662eba5fa8cbf0bf9c4d49',
+    type: SEARCH_RESULT_TYPES.NFT,
+    standard: STANDARDS.LSP8,
+    tokenType: LSP4_TOKEN_TYPES.NFT,
+  },
+  {
+    id: '0xef54710b5a78b4926104a65594539521eb440d37-0x000000000000000000000000a862e8dd5a4075a654a08bf61e78084ce0790cb1',
+    address: '0xef54710b5a78b4926104a65594539521eb440d37',
+    tokenId:
+      '0x000000000000000000000000a862e8dd5a4075a654a08bf61e78084ce0790cb1',
+    name: 'Message from Fabian',
+    collectionName: 'Forever Moments',
+    ownerName: 'wolfoflukso',
+    image:
+      'https://api.universalprofile.cloud/image/bafybeicvcru3a7pb2pz3ah6vt7kz5kdem5prrldme5q7d3tiixm4z5usqq?method=keccak256(bytes)&data=0xded52736fbb0c10c66ef925e5702e85651d38982e6350f13ecb172fa6b37c23f',
+    type: SEARCH_RESULT_TYPES.NFT,
+    standard: STANDARDS.LSP8,
+    tokenType: LSP4_TOKEN_TYPES.COLLECTION,
+  },
+  {
+    id: '0xef54710b5a78b4926104a65594539521eb440d37-0x000000000000000000000000618cb78c144d76c7feac26e19ea83c57dac3335f',
+    address: '0xef54710b5a78b4926104a65594539521eb440d37',
+    tokenId:
+      '0x000000000000000000000000618cb78c144d76c7feac26e19ea83c57dac3335f',
+    name: 'Tom & Fabian',
+    collectionName: 'Forever Moments',
+    ownerName: 'tlee',
+    image:
+      'https://api.universalprofile.cloud/image/Qmc88ssvHRAWZCWJ3j8q6239o1eieqsRT1yfzepHg9qwQ1?method=keccak256(bytes)&data=0x152b6391507e5652294fa3c7fb7152f1fec5781315180f9f9cb727ba107b8ee1',
+    type: SEARCH_RESULT_TYPES.NFT,
+    standard: STANDARDS.LSP8,
+    tokenType: LSP4_TOKEN_TYPES.COLLECTION,
+  },
+  // NFT without image and owner name
+  {
+    id: '0x970dd88542c20941be83f67784cfbde090f5ce53-0x00000000000000000000000016d30e1bfb1a6ebf342067f55e97616fd0f29a5c',
+    address: '0x970dd88542c20941be83f67784cfbde090f5ce53',
+    tokenId:
+      '0x00000000000000000000000016d30e1bfb1a6ebf342067f55e97616fd0f29a5c',
+    name: 'Vitalik & Fabian & Charles',
+    collectionName: 'Forever Moments',
+    type: SEARCH_RESULT_TYPES.NFT,
+    standard: STANDARDS.LSP8,
+    tokenType: LSP4_TOKEN_TYPES.COLLECTION,
+  },
+  // collections
+  {
+    id: '0x719b36427c9868162df1b4c9e6ddc28f5c36d72d',
+    address: '0x719b36427c9868162df1b4c9e6ddc28f5c36d72d',
+    name: 'Luksouls',
+    symbol: 'LUK',
+    image:
+      'https://api.universalprofile.cloud/image/bafkreib3m3wmvpvddbkombc24vq2ixrhkpxd4ub2v7ewvrqmcch7dnisrq?method=keccak256(bytes)&data=0x3e55fb370e05e9622aa9bf64497d10b06bfe6bfd2de64ce290da76ff7b082eed',
+    type: SEARCH_RESULT_TYPES.NFT,
+    standard: STANDARDS.LSP8,
+    tokenType: LSP4_TOKEN_TYPES.NFT,
+  },
+  {
+    id: '0xef54710b5a78b4926104a65594539521eb440d37',
+    address: '0xef54710b5a78b4926104a65594539521eb440d37',
+    name: 'Forever Moments',
+    symbol: 'MOMENTS',
+    image:
+      'https://api.universalprofile.cloud/image/QmQyJw3KsShSHyh3eADvqicnMRyKRyqHnfBXARh88wtqXf/images-0-180x100?method=keccak256(bytes)&data=0x511dd6f23e6ff6d8b02dde620aa2d15a9d2060d9801112b8711ca39fab8486a6',
+    type: SEARCH_RESULT_TYPES.NFT,
+    standard: STANDARDS.LSP8,
+    tokenType: LSP4_TOKEN_TYPES.COLLECTION,
+  },
+]
+
+const getSearch = (canvasElement: HTMLElement) =>
+  canvasElement.querySelector('lukso-search') as LuksoSearch
+
+const getOptions = (search: LuksoSearch) => [
+  ...(search.shadowRoot?.querySelectorAll('lukso-dropdown-option') || []),
+]
+
+const mutedTexts = (option: Element) =>
+  [...option.querySelectorAll('span.text-neutral-60')].map(span =>
+    span.textContent?.trim()
+  )
 
 /**  Documentation and examples of `lukso-search` component. Components share most of `lukso-input` attributes.  */
 const meta: Meta = {
@@ -162,6 +257,14 @@ const meta: Meta = {
         category: 'Attributes',
       },
     },
+    ownedByText: {
+      name: 'owned-by-text',
+      description: 'Text displayed before the owner name of a single NFT.',
+      control: { type: 'text' },
+      table: {
+        category: 'Attributes',
+      },
+    },
     noResultsText: {
       name: 'no-results-text',
       description: 'Text displayed on no results state.',
@@ -282,6 +385,9 @@ const meta: Meta = {
     'unavailable-text': {
       name: 'unavailableText',
     },
+    'owned-by-text': {
+      name: 'ownedByText',
+    },
     'is-full-width': {
       name: 'isFullWidth',
     },
@@ -340,6 +446,7 @@ const meta: Meta = {
     placeholder: '',
     availableText: undefined,
     unavailableText: undefined,
+    ownedByText: undefined,
     isReadonly: false,
     isFullWidth: false,
     isDisabled: false,
@@ -385,6 +492,7 @@ const meta: Meta = {
         'isSearching',
         'availableText',
         'unavailableText',
+        'ownedByText',
         'isDebouncing',
         'debounceTimer',
         'styles',
@@ -442,6 +550,7 @@ const Template = ({
   groupLabels,
   withGroupLabels,
   variant,
+  ownedByText,
 }) => {
   const [{ results }, updateArgs] = useArgs()
 
@@ -499,6 +608,7 @@ const Template = ({
     variant=${variant}
     max-height=${maxHeight ? maxHeight : nothing}
     group-labels=${groupLabels ? groupLabels : nothing}
+    owned-by-text=${ownedByText ? ownedByText : nothing}
     results=${results ? JSON.stringify(results) : nothing}
     @on-search=${onSearch}
     @on-select=${onSelect}
@@ -631,6 +741,45 @@ ResultAsset.args = {
   margin: 200,
 }
 
+/** Example of search with `nft` type results. A single NFT (with `tokenId`) shows its own image as a rounded square, its name, its collection name (left out when the name starts with it) and, from the `sm` breakpoint up, its owner (`ownerName`, prefixed with `owned-by-text`). A collection shows its image, name and symbol. Below fungible tokens (`asset` type) as a separate group.  */
+export const ResultNft = Template.bind({})
+ResultNft.args = {
+  placeholder: 'Search...',
+  value: 'fabian',
+  isFullWidth: true,
+  results: [
+    {
+      name: 'Fabian',
+      symbol: 'FAB',
+      image: '',
+      id: '0x60b687a728574f550921d4d320b193159d30c944',
+      address: '0x60b687a728574f550921d4d320b193159d30c944',
+      type: SEARCH_RESULT_TYPES.ASSET,
+      standard: STANDARDS.LSP7,
+      tokenType: LSP4_TOKEN_TYPES.TOKEN,
+    },
+    {
+      name: 'Fabian when new listing?',
+      symbol: 'FWHNELI',
+      image:
+        'https://api.universalprofile.cloud/image/QmdfH8QMVUNnv3hjjYSsikNBf6UXvgiqxkoXk6ck4MXz5X?method=keccak256(bytes)&data=0xe2a74bf83555ad9531e34fedcf5840d69a6b188c40b8a572c13fd4ec4713caab',
+      id: '0xa1ef810b84aa1ec9e1dfc4a40be54d0d8ab5ee1f',
+      address: '0xa1ef810b84aa1ec9e1dfc4a40be54d0d8ab5ee1f',
+      type: SEARCH_RESULT_TYPES.ASSET,
+      standard: STANDARDS.LSP7,
+      tokenType: LSP4_TOKEN_TYPES.TOKEN,
+    },
+    ...NFT_RESULTS,
+  ],
+  margin: 450,
+  maxHeight: 600,
+  groupLabels: JSON.stringify({
+    [SEARCH_RESULT_TYPES.ASSET]: 'Tokens',
+    [SEARCH_RESULT_TYPES.NFT]: 'NFTs',
+  }),
+  withGroupLabels: true,
+}
+
 /** Example of search with `app` type results.  */
 export const ResultApp = Template.bind({})
 ResultApp.args = {
@@ -696,6 +845,18 @@ ResultMixed.args = {
           type: SEARCH_RESULT_TYPES.APP,
           standard: STANDARDS.LSP3,
         },
+        {
+          id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49-0x01',
+          address: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+          tokenId:
+            '0x0000000000000000000000000000000000000000000000000000000000000001',
+          name: 'My Sample NFT #1',
+          collectionName: 'My Sample NFT',
+          image: 'images/sample-asset.jpg',
+          type: SEARCH_RESULT_TYPES.NFT,
+          standard: STANDARDS.LSP8,
+          tokenType: LSP4_TOKEN_TYPES.COLLECTION,
+        },
       ],
     },
     {
@@ -733,6 +894,19 @@ ResultMixed.args = {
       tokenType: LSP4_TOKEN_TYPES.NFT,
     },
     {
+      id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49-0x01',
+      address: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+      tokenId:
+        '0x0000000000000000000000000000000000000000000000000000000000000001',
+      name: 'My Sample NFT #1',
+      collectionName: 'My Sample NFT',
+      ownerName: 'profile1',
+      image: 'images/sample-asset.jpg',
+      type: SEARCH_RESULT_TYPES.NFT,
+      standard: STANDARDS.LSP8,
+      tokenType: LSP4_TOKEN_TYPES.COLLECTION,
+    },
+    {
       id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
       address: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
       name: 'My Sample App',
@@ -753,6 +927,7 @@ ResultMixed.args = {
   groupLabels: JSON.stringify({
     [SEARCH_RESULT_TYPES.PROFILE]: 'Trending profiles',
     [SEARCH_RESULT_TYPES.ASSET]: 'Trending assets',
+    [SEARCH_RESULT_TYPES.NFT]: 'Trending NFTs',
     [SEARCH_RESULT_TYPES.APP]: 'Trending apps',
     [SEARCH_RESULT_TYPES.RECENT_SEARCH]: 'Recent searches',
   }),
@@ -796,4 +971,112 @@ export const Small = Template.bind({})
 Small.args = {
   margin: 100,
   size: 'small',
+}
+
+/** Test story for `nft` results: collection name, owner, image and group label. */
+export const TestNftResults: StoryObj = {
+  name: 'Test: NFT results',
+  render: Template,
+  args: {
+    results: NFT_RESULTS,
+    withGroupLabels: true,
+    ownedByText: 'held by',
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const search = getSearch(canvasElement)
+    await search.updateComplete
+    const options = getOptions(search)
+    const header = search.shadowRoot?.querySelector('lukso-dropdown > div')
+
+    expect(header?.textContent?.trim()).toBe('NFTs')
+    expect(options.length).toBe(NFT_RESULTS.length)
+    expect(options.map(option => option.getAttribute('data-id'))).toEqual(
+      NFT_RESULTS.map(result => result.id)
+    )
+
+    // the name starts with the collection name, so only the owner is added
+    expect(options[0].textContent).toContain('Luksouls #2845')
+    expect(mutedTexts(options[0])).toEqual(['· held by @cryptodaddi'])
+    expect(mutedTexts(options[1])).toEqual([
+      'Forever Moments',
+      '· held by @wolfoflukso',
+    ])
+    // the owner is hidden below the `sm` breakpoint
+    expect(
+      options[1].querySelector('span.paragraph-inter-12-regular')?.className
+    ).toContain('hidden sm:inline')
+    // no owner name, no owner text
+    expect(mutedTexts(options[3])).toEqual(['Forever Moments'])
+    // collections show their symbol
+    expect(mutedTexts(options[4])).toEqual(['LUK'])
+
+    const nftImage = options[1].querySelector('lukso-profile')
+    const collectionImage = options[4].querySelector('lukso-profile')
+
+    expect(nftImage?.hasAttribute('is-square')).toBe(true)
+    expect(nftImage?.hasAttribute('has-identicon')).toBe(false)
+    expect(nftImage?.getAttribute('profile-url')).toBe(NFT_RESULTS[1].image)
+    expect(collectionImage?.hasAttribute('is-square')).toBe(true)
+    expect(collectionImage?.hasAttribute('has-identicon')).toBe(true)
+    expect(
+      options[3].querySelector('lukso-profile')?.getAttribute('placeholder')
+    ).toBe('/assets/images/token-default.svg')
+  },
+}
+
+/** Test story for selecting an `nft` result with the keyboard. */
+export const TestNftKeyboardSelect: StoryObj = {
+  name: 'Test: NFT keyboard selection',
+  render: Template,
+  args: {
+    results: NFT_RESULTS,
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const search = getSearch(canvasElement)
+    await search.updateComplete
+    const selected = new Promise<SearchResult>(resolve => {
+      search.addEventListener(
+        'on-select',
+        event => resolve((event as CustomEvent).detail.value),
+        { once: true }
+      )
+    })
+    // record which of its options a long list scrolls to
+    const prototype = Element.prototype as Element & {
+      scrollIntoViewIfNeeded?: () => void
+    }
+    const scrollIntoViewIfNeeded = prototype.scrollIntoViewIfNeeded
+    const scrolledTo: (string | null)[] = []
+
+    prototype.scrollIntoViewIfNeeded = function () {
+      if (this.getRootNode() === search.shadowRoot) {
+        scrolledTo.push(this.getAttribute('data-index'))
+      }
+    }
+
+    try {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }))
+      await search.updateComplete
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }))
+      await search.updateComplete
+    } finally {
+      prototype.scrollIntoViewIfNeeded = scrollIntoViewIfNeeded
+    }
+
+    expect(
+      getOptions(search)[1].hasAttribute('is-selected') &&
+        !getOptions(search)[0].hasAttribute('is-selected')
+    ).toBe(true)
+    expect(scrolledTo).toEqual(['1', '2'])
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }))
+
+    expect(await selected).toEqual(NFT_RESULTS[1])
+  },
 }

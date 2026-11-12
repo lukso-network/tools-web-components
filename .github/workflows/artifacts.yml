@@ -332,7 +332,7 @@ jobs:
 
       - name: Upgrade npm for trusted publishing
         run: |
-          npm install -g npm@latest
+          npm install -g npm@11
           echo "Upgraded to npm version:"
           npm --version
 

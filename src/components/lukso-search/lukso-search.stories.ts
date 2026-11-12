@@ -91,6 +91,25 @@ const NFT_RESULTS: SearchResult[] = [
   },
 ]
 
+// example searches of the universaleverything.io global search
+const SEARCH_HINTS = [
+  'feindura',
+  'feindura#cdec',
+  '0xcdec11',
+  'luksouls 2845',
+  'owned by feindura',
+]
+
+const SEARCH_HINT_RESULT: SearchResult = {
+  id: 'search-hints',
+  type: SEARCH_RESULT_TYPES.SEARCH_HINT,
+  value: SEARCH_HINTS.map(hint => ({
+    id: hint,
+    type: SEARCH_RESULT_TYPES.STRING,
+    value: hint,
+  })),
+}
+
 const getSearch = (canvasElement: HTMLElement) =>
   canvasElement.querySelector('lukso-search') as LuksoSearch
 
@@ -934,6 +953,42 @@ ResultMixed.args = {
   withGroupLabels: true,
 }
 
+/** Example of search with a `search-hint` result: example searches shown as one line of plain text, e.g. above recent searches and trending results for empty input. Its `value` holds the examples as `string` results. A click puts the example into the input and fires the same debounced `on-search` event as typed input, so the host needs no extra handling; no `on-select` event is emitted. Like the entries of `recent-search`, the examples are for pointer input only, and the arrow keys skip the row. */
+export const ResultSearchHint = Template.bind({})
+ResultSearchHint.args = {
+  placeholder: 'Search profiles, tokens, or NFTs',
+  isFullWidth: true,
+  results: [
+    SEARCH_HINT_RESULT,
+    {
+      id: '0xcdec110f9c255357e37f46cd2687be1f7e9b02f7',
+      address: '0xcdec110f9c255357e37f46cd2687be1f7e9b02f7',
+      name: 'feindura',
+      image: 'images/sample-avatar.jpg',
+      type: SEARCH_RESULT_TYPES.PROFILE,
+      standard: STANDARDS.LSP3,
+    },
+    {
+      id: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+      address: '0x3de6b0ad6900E1Efc9C4485a45E7e76019200c49',
+      name: 'My Sample Token',
+      symbol: 'MST',
+      image: 'images/sample-asset.jpg',
+      type: SEARCH_RESULT_TYPES.ASSET,
+      standard: STANDARDS.LSP7,
+      tokenType: LSP4_TOKEN_TYPES.TOKEN,
+    },
+  ],
+  margin: 250,
+  groupLabels: JSON.stringify({
+    [SEARCH_RESULT_TYPES.SEARCH_HINT]: 'Try searching for',
+    [SEARCH_RESULT_TYPES.PROFILE]: 'Trending profiles',
+    [SEARCH_RESULT_TYPES.ASSET]: 'Trending tokens',
+    [SEARCH_RESULT_TYPES.STRING]: 'Results',
+  }),
+  withGroupLabels: true,
+}
+
 /** To indicate when search is processing results you can add `is-searching` attribute. */
 export const SearchingState = Template.bind({})
 SearchingState.args = {
@@ -1078,5 +1133,88 @@ export const TestNftKeyboardSelect: StoryObj = {
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }))
 
     expect(await selected).toEqual(NFT_RESULTS[1])
+  },
+}
+
+/** Test story for the `search-hint` result: one line of examples, a click searches it. */
+export const TestSearchHint: StoryObj = {
+  name: 'Test: search hints',
+  render: Template,
+  args: {
+    results: [SEARCH_HINT_RESULT, ...NFT_RESULTS.slice(0, 2)],
+    withGroupLabels: true,
+    debounce: 10,
+  },
+  parameters: {
+    docs: { disable: true },
+  },
+  play: async ({ canvasElement }) => {
+    const search = getSearch(canvasElement)
+    await search.updateComplete
+    const header = search.shadowRoot?.querySelector('lukso-dropdown > div')
+    const hintRow = search.shadowRoot?.querySelector(
+      `[data-id="${SEARCH_HINT_RESULT.id}"]`
+    )
+    const hints = [...(hintRow?.querySelectorAll('button') || [])]
+
+    expect(header?.textContent?.trim()).toBe('Try searching for')
+    expect(hints.map(hint => hint.textContent?.trim())).toEqual(SEARCH_HINTS)
+    // plain text separated by `|`, the separators are hidden from screen readers
+    expect(hintRow?.textContent?.replace(/\s+/g, ' ').trim()).toBe(
+      SEARCH_HINTS.join(' | ')
+    )
+    expect(hintRow?.querySelectorAll('span[aria-hidden="true"]').length).toBe(
+      SEARCH_HINTS.length - 1
+    )
+    // the hint row is no option, the arrow keys start at the result after it
+    expect(getOptions(search).length).toBe(2)
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }))
+    await search.updateComplete
+
+    expect(search.selected).toBe(2)
+    expect(getOptions(search)[0].hasAttribute('is-selected')).toBe(true)
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }))
+    await search.updateComplete
+
+    expect(search.selected).toBe(2)
+
+    // a selection left from earlier, longer results: Enter emits nothing for
+    // the hint row or a missing result, ArrowUp goes back to the last result
+    const selections: unknown[] = []
+
+    search.addEventListener('on-select', event => selections.push(event))
+    search.selected = 1
+    await search.updateComplete
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }))
+    search.selected = 9
+    await search.updateComplete
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }))
+    await search.updateComplete
+
+    expect(selections).toEqual([])
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }))
+    await search.updateComplete
+
+    expect(search.selected).toBe(3)
+
+    // a click searches the example like typed input and selects nothing
+    const searched = new Promise<string>(resolve => {
+      search.addEventListener(
+        'on-search',
+        event => resolve((event as CustomEvent).detail.value),
+        { once: true }
+      )
+    })
+
+    // not bubbling: search elements of earlier stories keep their window click
+    // listener and would report an outside click
+    hints[1].dispatchEvent(new MouseEvent('click'))
+
+    expect(await searched).toBe('feindura#cdec')
+    expect(search.value).toBe('feindura#cdec')
+    expect(selections).toEqual([])
   },
 }

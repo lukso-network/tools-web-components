@@ -14,4 +14,5 @@ export enum SEARCH_RESULT_TYPES {
   APP = 'app',
   UNIVERSAL_NAME = 'universal-name',
   RECENT_SEARCH = 'recent-search',
+  SEARCH_HINT = 'search-hint',
 }

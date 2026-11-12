@@ -1,8 +1,14 @@
+import { SEARCH_RESULT_TYPES } from '../enums'
+
 type NftResultFields = {
   name?: string
   symbol?: string
   collectionName?: string
   tokenId?: string
+}
+
+type SearchResultRow = {
+  type?: string
 }
 
 const compareText = (value?: string) =>
@@ -31,4 +37,31 @@ export const nftResultSubtitle = (result: NftResultFields): string => {
   }
 
   return collectionName
+}
+
+/**
+ * Position (1-based, like `selected` and `data-index`) of the next result the
+ * arrow keys can select, checked from `start` in `step` direction. A search
+ * hint row holds examples to click, not an option, so it is skipped. Going
+ * back from a selection left beyond shorter results starts at the last one.
+ *
+ * @param results - the parsed results
+ * @param start - first position to check
+ * @param step - `1` for ArrowDown, `-1` for ArrowUp
+ * @returns the position, `undefined` when there is none in that direction
+ */
+export const selectableResultPosition = (
+  results: SearchResultRow[],
+  start: number,
+  step: 1 | -1
+): number | undefined => {
+  for (
+    let position = step < 0 ? Math.min(start, results.length) : start;
+    position >= 1 && position <= results.length;
+    position += step
+  ) {
+    if (results[position - 1]?.type !== SEARCH_RESULT_TYPES.SEARCH_HINT) {
+      return position
+    }
+  }
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.208.1](https://github.com/lukso-network/tools-web-components/compare/v1.208.0...v1.208.1) (2026-11-12)
+
+
+### Bug Fixes
+
+* **ci:** pin npm 11 for trusted publishing on Node 22 ([#925](https://github.com/lukso-network/tools-web-components/issues/925)) ([e93ee6c](https://github.com/lukso-network/tools-web-components/commit/e93ee6c84578f728e4fee21b8cfc93127080b57a))
+
 ## [1.208.0](https://github.com/lukso-network/tools-web-components/compare/v1.207.0...v1.208.0) (2026-11-12)
 
 

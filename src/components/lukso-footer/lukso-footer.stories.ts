@@ -3,6 +3,7 @@ import { html, nothing } from 'lit-html'
 import type { Meta } from '@storybook/web-components-vite'
 
 import './index'
+import '../lukso-share'
 
 /**  Documentation and examples of `lukso-footer` component. There are two slots for the links called `top` and `bottom`.   */
 const meta: Meta = {

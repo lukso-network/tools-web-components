@@ -43,8 +43,16 @@ export class LuksoFooter extends TailwindElement {
           class="p-10 grid gap-8 items-center lg:grid-cols-[auto_max-content]"
         >
           <slot name="links"></slot>
-          <div class="flex gap-5 flex-col sm:flex-row sm:justify-between">
-            <lukso-share providers=${JSON.stringify(providers)}></lukso-share>
+          <!-- Socials left and "Powered by" right on one row at every width.
+          When they cannot fit (8 providers on a narrow phone) the row and
+          the icons wrap instead of overflowing -->
+          <div
+            class="flex flex-wrap items-center justify-between gap-5 sm:flex-nowrap sm:items-stretch"
+          >
+            <lukso-share
+              providers=${JSON.stringify(providers)}
+              custom-style="display: flex; flex-wrap: wrap"
+            ></lukso-share>
             <div class="flex sm:ml-8 sm:justify-end">
               <a
                 href="https://lukso.network/"

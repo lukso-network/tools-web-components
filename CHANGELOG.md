@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.208.2](https://github.com/lukso-network/tools-web-components/compare/v1.208.1...v1.208.2) (2026-11-27)
+
+
+### Bug Fixes
+
+* **lukso-footer:** keep socials and "Powered by" in one row on phones ([#927](https://github.com/lukso-network/tools-web-components/issues/927)) ([1029a72](https://github.com/lukso-network/tools-web-components/commit/1029a72035036c7085417baa4c6a60cb1a6e8b5d))
+
 ## [1.208.1](https://github.com/lukso-network/tools-web-components/compare/v1.208.0...v1.208.1) (2026-11-12)
 
 
